@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphview/GraphView.dart';
+import 'package:hero/components/skilltree/skill_node.dart';
 import 'package:hero/models/skilltree/dummy_tree.dart';
 
 import '../../models/skilltree/skill_tree.dart';
@@ -20,29 +21,21 @@ class _SkillTreeViewState extends State<SkillTreeView> {
 
   @override
   void initState() {
-    var edges = DummyTree.tree2.edges;
+    final tree = DummyTree.tree2;
+    var edges = [];
+    for (final element in tree.skills.where((element) => element.parents.isEmpty)) {
+      edges.addAll(tree.generateEdges(element));
+    }
+
+    // var edges = DummyTree.tree2.generateEdges();
     edges.forEach((element) => graph.addEdge(Node.Id(element.from), Node.Id(element.to)));
 
     builder
       ..nodeSeparation = (25)
       ..levelSeparation = (25)
-      ..orientation = (SugiyamaConfiguration.ORIENTATION_TOP_BOTTOM);
+      ..orientation = (SugiyamaConfiguration.ORIENTATION_LEFT_RIGHT);
 
     super.initState();
-  }
-
-  Widget _buildRectangleNode(Skill skill) {
-    return InkWell(
-      onTap: () => print("clicked"),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: skill.color,
-        ),
-        child: Text(skill.label),
-      ),
-    );
   }
 
   @override
@@ -56,8 +49,7 @@ class _SkillTreeViewState extends State<SkillTreeView> {
           height: double.infinity,
           width: double.infinity,
         ),
-        Expanded(
-            child: InteractiveViewer(
+        InteractiveViewer(
           constrained: false,
           boundaryMargin: const EdgeInsets.all(10),
           minScale: 0.01,
@@ -73,13 +65,14 @@ class _SkillTreeViewState extends State<SkillTreeView> {
                 ..style = PaintingStyle.stroke,
               builder: (Node node) {
                 final id = node.key!.value as int?;
-                final nodes = DummyTree.tree2.nodes;
+                final nodes = DummyTree.tree2.skills;
                 final skill = nodes.firstWhere((element) => element.id == id);
-                return _buildRectangleNode(skill);
+                final parents = nodes.where((s) => skill.parents.contains(s.id)).toList();
+                return SkillNode(skill, parents);
               },
             ),
           ),
-        ))
+        )
       ],
     );
   }

@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 
 class SkillTree {
-  final List<Skill> nodes;
-  final List<Edge> edges;
-  
+  final List<Skill> skills;
 
-  SkillTree({
-    this.nodes = const [],
-    this.edges = const [],
-  });
+  SkillTree({required this.skills});
+
+  List<Edge> generateEdges(Skill skill) {
+    List<Edge> edges = [];
+
+    for (final id in skill.childs) {
+      final child = skills.firstWhere((element) => id == element.id);
+      edges.add(Edge(from: skill.id, to: id));
+      
+      if (edges.any((element) => element.from == id)) continue;
+      edges.addAll(generateEdges(child));
+    }
+
+    return edges;
+  }
 }
 
 class Edge {
@@ -23,15 +32,20 @@ class Skill {
   final String label;
   final String description;
   final int cost;
-  final bool isBought;
+  final bool isUnlocked;
   final Color color;
+
+  final List<int> parents;
+  final List<int> childs;
 
   Skill(
     this.id, {
     required this.label,
     this.description = "",
     this.cost = 1,
-    this.isBought = false,
+    this.isUnlocked = false,
     this.color = Colors.blue,
+    this.parents = const [],
+    this.childs = const [],
   });
 }
