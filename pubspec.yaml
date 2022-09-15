@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   graphview: ^1.1.1
   flutter_layout_grid: ^2.0.1
+  flutter_draggable_gridview: ^0.0.7
 
 dev_dependencies:
   flutter_test:

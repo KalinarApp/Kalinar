@@ -14,9 +14,10 @@ class Hero extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SkillTreeBuilderScreen(101),
+      home: const HomeScreen(),
       routes: {
         SkillTreeScreen.routeName: (_) => const SkillTreeScreen(),
+        SkillTreeBuilderScreen.routeName: (_) => const SkillTreeBuilderScreen(),
       },
     );
   }
