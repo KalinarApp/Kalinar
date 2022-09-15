@@ -25,7 +25,7 @@ class _HeroSelectorState extends State<HeroSelector> {
           child: Text("Vind"),
         ),
       ],
-      onChanged: (newValue) {
+      onChanged: (String? newValue) {
         setState(() => value = newValue);
       },
     );

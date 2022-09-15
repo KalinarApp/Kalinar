@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hero/components/screens/home_screen.dart';
+import 'package:hero/components/screens/skill_tree_builder_screen.dart';
 import 'package:hero/components/screens/skill_tree_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class Hero extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SkillTreeScreen(),
+      home: const SkillTreeBuilderScreen(101),
       routes: {
         SkillTreeScreen.routeName: (_) => const SkillTreeScreen(),
       },
