@@ -1,60 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:hero/components/builder/building_add_button.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/skilltree/node.dart';
+import '../../models/skilltree/nodes.dart';
 
 class BuildingNode extends StatefulWidget {
-  final Function(BuildingNode, int) addNode;
-  final Function(BuildingNode, int) addEdge;
-  final Offset position;
+  final Node node;
+  final Function(Node)? onTab;
 
-  const BuildingNode(this.position, this.addNode, this.addEdge, {super.key});
+  const BuildingNode(this.node, {this.onTab, super.key});
 
   @override
   State<BuildingNode> createState() => _BuildingNodeState();
 }
 
 class _BuildingNodeState extends State<BuildingNode> {
-  bool showAddButtons = true;
-
-  addNode(int direction) {
-    widget.addNode(widget, direction);
-    setState(() {
-      showAddButtons = false;
-    });
+  int _getNearestSnap(int value, int gridSize) {
+    int diff = gridSize - (value % gridSize);
+    if (diff > gridSize / 2) return value + diff;
+    return value - (value % gridSize);
   }
 
-  addEdge(int direction) {
-    widget.addEdge(widget, direction);
-    setState(() {
-      showAddButtons = false;
-    });
+  Offset _getSnappedPosition(Offset newPosition, int gridSize) {
+    Offset snappedValue = 
+        Offset(_getNearestSnap(newPosition.dx.round(), gridSize).toDouble(), _getNearestSnap(newPosition.dy.round(), gridSize).toDouble());
+
+    return snappedValue;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: widget.position.dx,
-      top: widget.position.dy,
-      child: SizedBox(
-        width: 42,
-        height: 42,
-        child: Stack(children: [
-          Align(
-            child: InkWell(
-              onTap: () => setState(() => showAddButtons = !showAddButtons),
-              child: Container(
-                width: 32,
-                height: 32,
-                color: Colors.blue,
+    final provider = Provider.of<Nodes>(context);
+    return Consumer<Node>(
+        builder: (context, value, child) => Positioned(
+              left: widget.node.position.dx - 16,
+              top: widget.node.position.dy,
+              child: Draggable(
+                maxSimultaneousDrags: widget.node.childs.isEmpty && widget.node.parents.isEmpty ? 1 : 0,
+                feedback: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(color: Colors.blue),
+                ),
+                childWhenDragging: Container(width: 32, height: 32, color: Colors.grey),
+                onDragEnd: (details) => widget.node.updatePosition(_getSnappedPosition(details.offset, provider.gridSize)),
+                child: SizedBox(
+                  width: 32,
+                  height: 32,
+                  child: Stack(children: [
+                    Align(
+                      child: InkWell(
+                        onTap: () {
+                          if (null != widget.onTab) {
+                            widget.onTab!(widget.node);
+                          }
+                        },
+                        child: Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(color: Colors.blue),
+                        ),
+                      ),
+                    ),
+                  ]),
+                ),
               ),
-            ),
-          ),
-          if (showAddButtons) Align(alignment: Alignment.centerLeft, child: BuildingAddButton(addNode: () => addNode(1), addEdge: () => addEdge(1))),
-          if (showAddButtons) Align(alignment: Alignment.topCenter, child: BuildingAddButton(addNode: () => addNode(2), addEdge: () => addEdge(2))),
-          if (showAddButtons) Align(alignment: Alignment.centerRight, child: BuildingAddButton(addNode: () => addNode(3), addEdge: () => addEdge(3))),
-          if (showAddButtons)
-            Align(alignment: Alignment.bottomCenter, child: BuildingAddButton(addNode: () => addNode(4), addEdge: () => addEdge(4))),
-        ]),
-      ),
-    );
+            ));
   }
 }

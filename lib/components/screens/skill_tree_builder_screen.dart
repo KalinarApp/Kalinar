@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hero/components/builder/building_edge.dart';
 import 'package:hero/components/builder/building_node.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/skilltree/node.dart';
+import '../../models/skilltree/nodes.dart';
 
 class SkillTreeBuilderScreen extends StatefulWidget {
   static const routeName = "skilltree-builder";
@@ -12,39 +17,56 @@ class SkillTreeBuilderScreen extends StatefulWidget {
 }
 
 class _SkillTreeBuilderScreenState extends State<SkillTreeBuilderScreen> {
-  final int distanceBetween = 64;
-  final Offset initialPosition = const Offset(100, 100);
-  List<Widget> nodes = [];
+  Node? firstSelectedNode;
 
-  addNode(BuildingNode parent, int direction) {
-    Offset offset;
-    if (1 == direction) {
-      offset = Offset(parent.position.dx - distanceBetween, parent.position.dy);
-    } else if (2 == direction) {
-      offset = Offset(parent.position.dx, parent.position.dy - distanceBetween);
-    } else if (3 == direction) {
-      offset = Offset(parent.position.dx + distanceBetween, parent.position.dy);
-    } else {
-      offset = Offset(parent.position.dx, parent.position.dy + distanceBetween);
+  void _connectNodes(Node selectedNode) {
+    if (null == firstSelectedNode) {
+      setState(() {
+        firstSelectedNode = selectedNode;
+      });
+    } else if (firstSelectedNode == selectedNode) {
+      setState(() {
+        firstSelectedNode = null;
+      });
+    } else if (!firstSelectedNode!.childs.contains(selectedNode.id)) {
+      firstSelectedNode!.addTargetId(selectedNode.id);
+      selectedNode.addParentId(firstSelectedNode!.id);
+
+      setState(() {
+        Provider.of<Nodes>(context, listen: false).createEdge(firstSelectedNode!, selectedNode);
+        firstSelectedNode = null;
+      });
     }
-
-    setState(() {
-      nodes.add(BuildingNode(offset, addNode, addEdge));
-    });
   }
 
-  addEdge(BuildingNode parent, int direction) {}
+  // List<Widget> _drawEdges(List<Node> nodes) {
+  //   List<Widget> edges = [];
+
+  //   for (final node in nodes) {
+  //     final targetNodes = node.targetIds.map((id) => nodes.firstWhere((element) => id == element.id)).toList();
+  //     for (final targetNode in targetNodes) {
+  //       edges.add(BuildingEdge(start: node.position, end: targetNode.position));
+  //     }
+  //   }
+
+  //   return edges;
+  // }
 
   @override
   void initState() {
-    nodes.add(BuildingNode(initialPosition, addNode, addEdge));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<Nodes>(context, listen: true);
+    final nodes = provider.items.map((e) => ChangeNotifierProvider.value(value: e, child: BuildingNode(e, onTab: _connectNodes))).toList();
+    final edges = provider.edges.map((e) => ChangeNotifierProvider.value(value: e, child: BuildingEdge(e))).toList();
+
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [IconButton(onPressed: provider.addNode, icon: const Icon(Icons.add))],
+      ),
       body: InteractiveViewer(
         constrained: false,
         boundaryMargin: const EdgeInsets.all(10),
@@ -56,7 +78,10 @@ class _SkillTreeBuilderScreenState extends State<SkillTreeBuilderScreen> {
             width: 2000,
             height: 2000,
             child: Stack(
-              children: nodes,
+              children: [
+                ...edges,
+                ...nodes,
+              ],
             ),
           ),
         ),
