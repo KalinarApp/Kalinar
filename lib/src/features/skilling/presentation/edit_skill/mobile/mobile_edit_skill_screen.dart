@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:hero/src/common_widgets/save_button.dart';
-import 'package:hero/src/features/skilling/presentation/edit_skill/edit_skill_form.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'mobile_edit_skill_form.dart';
+import '../../../../../common_widgets/save_button.dart';
 
-class EditSkillScreen extends StatefulWidget {
-  const EditSkillScreen({super.key});
+class MobileEditSkillScreen extends StatefulWidget {
+  const MobileEditSkillScreen({super.key});
 
   @override
-  State<EditSkillScreen> createState() => _EditSkillScreenState();
+  State<MobileEditSkillScreen> createState() => _MobileEditSkillScreenState();
 }
 
-class _EditSkillScreenState extends State<EditSkillScreen> {
+class _MobileEditSkillScreenState extends State<MobileEditSkillScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
   final RoundedLoadingButtonController _btnController = RoundedLoadingButtonController();
 
@@ -61,7 +61,7 @@ class _EditSkillScreenState extends State<EditSkillScreen> {
             ),
           ),
         ),
-        body: EditSkillForm(_formKey),
+        body: MobileEditSkillForm(_formKey),
       ),
     );
   }

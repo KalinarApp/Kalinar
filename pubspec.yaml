@@ -15,6 +15,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   json_serializable: ^6.3.2
 
+  window_size:
+    git:
+      url: https://github.com/google/flutter-desktop-embedding
+      path: plugins/window_size
+
   flutter_form_builder: ^7.2.0
   form_builder_image_picker: ^3.1.0
   form_builder_validators: ^8.1.1
@@ -23,6 +28,8 @@ dependencies:
   rounded_loading_button: ^2.1.0
 
   modal_bottom_sheet: ^2.1.0
+
+  dotted_border: ^2.0.0+2
 
 dev_dependencies:
   flutter_test:

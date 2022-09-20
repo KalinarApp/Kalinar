@@ -4,21 +4,20 @@ import 'package:hero/src/common_widgets/save_button.dart';
 import 'package:hero/src/features/skilling/presentation/edit_ability/ability_form.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-class EditAbilityScreen extends StatefulWidget {
-  const EditAbilityScreen({super.key});
+class DesktopEditAbilityScreen extends StatefulWidget {
+  const DesktopEditAbilityScreen({super.key});
 
   @override
-  State<EditAbilityScreen> createState() => _EditAbilityScreenState();
+  State<DesktopEditAbilityScreen> createState() => _DesktopEditAbilityScreenState();
 }
 
-class _EditAbilityScreenState extends State<EditAbilityScreen> {
+class _DesktopEditAbilityScreenState extends State<DesktopEditAbilityScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
   final RoundedLoadingButtonController _btnController = RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * .95,
+    return Drawer(
       width: MediaQuery.of(context).size.width * .4,
       child: Scaffold(
         appBar: AppBar(
