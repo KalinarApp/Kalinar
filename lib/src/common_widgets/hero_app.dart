@@ -5,9 +5,12 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hero/src/features/skilling/presentation/edit_skill/desktop/desktop_edit_skill_screen.dart';
+import 'package:hero/src/common_widgets/welcome_screen.dart';
+import 'package:hero/src/features/skilling/presentation/abilities/edit_ability/edit_ability_screen.dart';
+import 'package:hero/src/features/skilling/presentation/skills/edit_skill/mobile/mobile_edit_skill_screen.dart';
+import 'package:hero/src/features/skilling/presentation/skills/list_skills/skill_list.dart';
 
-import '../features/skilling/presentation/edit_skill/mobile/mobile_edit_skill_screen.dart';
+import '../features/skilling/presentation/abilities/ability_list.dart';
 
 class HeroApp extends StatelessWidget {
   const HeroApp({super.key});
@@ -25,7 +28,14 @@ class HeroApp extends StatelessWidget {
         FormBuilderLocalizations.delegate,
         ...GlobalMaterialLocalizations.delegates,
       ],
-      home: Platform.isAndroid || Platform.isIOS ? const MobileEditSkillScreen() : const DesktopEditSkillScreen(),
+      // home: Platform.isAndroid || Platform.isIOS ? const MobileEditSkillScreen() : const DesktopEditSkillScreen(),
+      home: const WelcomeScreen(),
+      routes: {
+        SkillList.routeName: (_) => const SkillList(),
+        AbilityList.routeName: (_) => const AbilityList(),
+        MobileEditSkillScreen.routeName: (_) => const MobileEditSkillScreen(),
+        EditAbilityScreen.routeName: (_) => const EditAbilityScreen(),
+      },
     );
   }
 }

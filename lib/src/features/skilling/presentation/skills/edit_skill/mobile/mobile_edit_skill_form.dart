@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
-import 'package:hero/src/features/skilling/presentation/edit_ability/edit_ability_screen.dart';
+import 'package:form_builder_image_picker/form_builder_image_picker.dart';
+import 'package:hero/src/features/skilling/presentation/abilities/edit_ability/edit_ability_screen.dart';
 
 class MobileEditSkillForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> _formKey;
 
   const MobileEditSkillForm(this._formKey, {super.key});
 
-  Future<void> _showAbilityEditModal(BuildContext context) async {
-    String? result = await showModalBottomSheet<String>(context: context, isScrollControlled: true, builder: (_) => const EditAbilityScreen());
-
-    if (null != result) {
-      _formKey.currentState?.fields["ability"]?.didChange(result);
-    }
+  Future<void> _showAbilityScreen(BuildContext context) async {
+    await Navigator.pushNamed(context, EditAbilityScreen.routeName).then((value) {
+      if (null != value && value is String) {
+        _formKey.currentState?.fields["ability"]?.didChange(value);
+      }
+    });
   }
 
   @override
@@ -22,7 +23,30 @@ class MobileEditSkillForm extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            FormBuilderImagePicker(
+              name: "icon",
+              maxImages: 1,
+              placeholderWidget: SizedBox(
+                width: 130,
+                child: Container(
+                  color: (Theme.of(context).primaryColor).withAlpha(50),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.camera_enhance,
+                        color: Theme.of(context).primaryColor,
+                        size: 48,
+                      ),
+                      const SizedBox(height: 3),
+                      Text("Select an Icon for this skill.", style: Theme.of(context).textTheme.bodyMedium),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             FormBuilderTextField(
               name: "description",
               initialValue: "",
@@ -52,7 +76,7 @@ class MobileEditSkillForm extends StatelessWidget {
                       hintText: "Select ability",
                     ),
                     popupProps: PopupProps.modalBottomSheet(
-                      modalBottomSheetProps: ModalBottomSheetProps(elevation: 16, backgroundColor: Theme.of(context).backgroundColor),
+                      modalBottomSheetProps: ModalBottomSheetProps(elevation: 16, backgroundColor: Theme.of(context).dialogBackgroundColor),
                       showSearchBox: true,
                       searchFieldProps:
                           const TextFieldProps(decoration: InputDecoration(border: UnderlineInputBorder(), labelText: "Search for ability")),
@@ -61,14 +85,14 @@ class MobileEditSkillForm extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () async => _showAbilityEditModal(context),
+                  onPressed: () async => _showAbilityScreen(context),
                   hoverColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   icon: const Icon(Icons.add, size: 32),
                 )
               ],
-            )
+            ),
           ],
         ),
       ),

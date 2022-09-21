@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:hero/src/common_widgets/save_button.dart';
-import 'package:hero/src/features/skilling/presentation/edit_ability/desktop_edit_ability_screen.dart';
-import 'package:hero/src/features/skilling/presentation/edit_skill/desktop/form/skill_ability_selection_component.dart';
-import 'package:hero/src/features/skilling/presentation/edit_skill/desktop/form/skill_description_component.dart';
+import 'package:hero/src/features/skilling/presentation/skills/edit_skill/desktop/form/skill_ability_selection_component.dart';
+import 'package:hero/src/features/skilling/presentation/skills/edit_skill/desktop/form/skill_description_component.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../edit_ability/edit_ability_screen.dart';
+import '../../../abilities/edit_ability/edit_ability_screen.dart';
 import 'desktop_edit_skill_form.dart';
 
 class DesktopEditSkillScreen extends StatefulWidget {
@@ -42,8 +41,7 @@ class _DesktopEditSkillScreenState extends State<DesktopEditSkillScreen> {
     return FormBuilder(
       key: _formKey,
       child: Scaffold(
-        onDrawerChanged: ,
-        drawer: const DesktopEditAbilityScreen(),
+        drawer: const EditAbilityScreen(),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           actions: [SaveButton(controller: _btnController, onSave: () => Navigator.pop(context))],
