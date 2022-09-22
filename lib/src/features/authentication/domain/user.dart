@@ -1,7 +1,3 @@
-import 'package:flutter/animation.dart';
-import 'package:json_serializable/builder.dart';
-
-@JsonSerializable
 class User {
   final String id;
   final String firstName;

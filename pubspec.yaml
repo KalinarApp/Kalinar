@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
-  riverpod: ^1.0.3+1
+  flutter_riverpod: ^2.0.0-dev.9
   json_serializable: ^6.3.2
 
   window_size:
@@ -35,8 +35,9 @@ dependencies:
 
   flutter_secure_storage: ^5.0.2
   flutter_auth:
-    git:
-      url: https://curth.dev/opensource/flutter_auth
+    path: ../../../gitlab/flutter_auth
+    # git:
+    #   url: https://curth.dev/opensource/flutter_auth
 
 dev_dependencies:
   flutter_test:

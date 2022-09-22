@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/common_widgets/hero_app.dart';
 import 'package:window_size/window_size.dart';
 
@@ -13,5 +14,5 @@ void main() {
     setWindowMinSize(const Size(800, 600));
   }
 
-  runApp(const HeroApp());
+  runApp(const ProviderScope(child: HeroApp()));
 }

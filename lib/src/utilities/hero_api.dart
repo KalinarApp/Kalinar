@@ -20,14 +20,16 @@ class HeroApi {
   }
 }
 
-final heroApiProvider = Provider<HeroApi>((ref) {
-  final authClient = FlutterAuth.initialize(
+final flutterAuthProvider = Provider<FlutterAuth>((ref) {
+  return FlutterAuth.initialize(
     "https://auth.curth.dev/realms/kotd",
-    "hero-app",
+    "hero",
     "hero://login-callback",
     "https://auth.curth.dev/realms/kotd",
     const FlutterSecureStorage(),
   );
+});
 
-  return HeroApi(authClient: authClient);
+final heroApiProvider = Provider<HeroApi>((ref) {
+  return HeroApi(authClient: ref.watch(flutterAuthProvider));
 });

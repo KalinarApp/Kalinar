@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hero/src/common_widgets/navigation/navigation_item.dart';
+import 'package:hero/src/features/authentication/presentation/auth_button.dart';
 import 'package:hero/src/features/skilling/presentation/abilities/ability_list.dart';
 
 import '../../features/skilling/presentation/skills/list_skills/skill_list.dart';
@@ -54,13 +55,7 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {},
-            child: ListTile(
-              title: const Text("Login", textAlign: TextAlign.center),
-              tileColor: Theme.of(context).colorScheme.primary,
-            ),
-          )
+          const AuthButton(),
         ],
       ),
     );
