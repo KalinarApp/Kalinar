@@ -1,28 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/authentication/data/authentication_repository.dart';
+import 'package:hero/src/features/authentication/presentation/auth_state.dart';
 
-import '../../../utilities/hero_api.dart';
-
-class AuthController extends StateNotifier<AsyncValue<void>> {
+class AuthController extends StateNotifier<AuthState> {
   final AuthenticationRepository authRepository;
 
-  AuthController({required this.authRepository}) : super(const AsyncData<void>(null));
+  AuthController({required this.authRepository}) : super(AuthState(isAuthenticated: authRepository.authClient.isLoggedIn));
 
   Future<void> signIn() async {
-    state = const AsyncLoading<void>();
-    state = await AsyncValue.guard(authRepository.login);
+    final user = await authRepository.login();
+    state.copyWith(user: user, isAuthenticated: null != user);
   }
 
   Future<void> signOut() async {
-    state = const AsyncLoading<void>();
-    state = await AsyncValue.guard(authRepository.logout);
+    authRepository.logout();
+    state.copyWith(user: null, isAuthenticated: false);
   }
 }
 
-final authControllerProvider = StateNotifierProvider.autoDispose<AuthController, AsyncValue<void>>(
+final authControllerProvider = StateNotifierProvider.autoDispose<AuthController, AuthState>(
   (ref) => AuthController(authRepository: ref.watch(authenticationRepositoryProvider)),
 );
-
-final loginStateChangedProvider = StateNotifierProvider.autoDispose<bool>((ref) {
-  return ref.watch(flutterAuthProvider).isLoggedIn;
-});

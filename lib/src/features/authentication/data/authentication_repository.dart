@@ -1,7 +1,7 @@
 import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_auth/models/user_info.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/utilities/hero_api.dart';
-import 'package:riverpod/riverpod.dart';
 
 import '../domain/user.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter_auth/flutter_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:riverpod/riverpod.dart';
 
 class HeroApi {
   static const String _apiBaseUrl = "hero.jonascurth.de";
@@ -20,7 +20,7 @@ class HeroApi {
   }
 }
 
-final flutterAuthProvider = Provider<FlutterAuth>((ref) {
+final flutterAuthProvider = ChangeNotifierProvider<FlutterAuth>((ref) {
   return FlutterAuth.initialize(
     "https://auth.curth.dev/realms/kotd",
     "hero",

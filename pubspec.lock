@@ -233,7 +233,7 @@ packages:
   flutter_auth:
     dependency: "direct main"
     description:
-      path: "../../../gitlab/flutter_auth"
+      path: "../flutter_auth"
       relative: true
     source: path
     version: "0.0.1"
@@ -413,6 +413,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.3.0"
+  freezed:
+    dependency: "direct dev"
+    description:
+      name: freezed
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
+  freezed_annotation:
+    dependency: "direct main"
+    description:
+      name: freezed_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   frontend_server_client:
     dependency: transitive
     description:
