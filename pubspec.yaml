@@ -14,6 +14,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
+  flutter_appauth: ^4.0.1
+  flutter_secure_storage: ^5.0.2
+
   flutter_riverpod: ^2.0.0-dev.9
   freezed_annotation: ^2.1.0
   json_serializable: ^6.3.2
@@ -34,9 +37,8 @@ dependencies:
 
   dotted_border: ^2.0.0+2
 
-  flutter_secure_storage: ^5.0.2
   flutter_auth:
-    path: ../flutter_auth
+    path: ../../../gitlab/flutter_auth
     # git:
     #   url: https://curth.dev/opensource/flutter_auth
 

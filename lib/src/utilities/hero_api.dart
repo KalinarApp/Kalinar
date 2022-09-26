@@ -1,4 +1,5 @@
 import 'package:flutter_auth/flutter_auth.dart';
+import 'package:flutter_auth/models/user_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -20,16 +21,24 @@ class HeroApi {
   }
 }
 
-final flutterAuthProvider = ChangeNotifierProvider<FlutterAuth>((ref) {
-  return FlutterAuth.initialize(
+final authProvider = Provider<FlutterAuth>((ref) {
+  FlutterAuth auth = FlutterAuth.initialize(
     "https://auth.curth.dev/realms/kotd",
     "hero",
     "hero://login-callback",
     "https://auth.curth.dev/realms/kotd",
     const FlutterSecureStorage(),
   );
+
+  ref.onDispose(() => auth.dispose());
+
+  return auth;
 });
 
-final heroApiProvider = Provider<HeroApi>((ref) {
-  return HeroApi(authClient: ref.watch(flutterAuthProvider));
+final authChangedProvider = StreamProvider.autoDispose<bool>((ref) {
+  return ref.watch(authProvider).authStateChanged;
+});
+
+final userChangedProvider = StreamProvider.autoDispose<UserInfo?>((ref) {
+  return ref.watch(authProvider).userChanged;
 });

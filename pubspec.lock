@@ -183,13 +183,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.3"
-  event:
-    dependency: transitive
-    description:
-      name: event
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.2"
   fake_async:
     dependency: transitive
     description:
@@ -217,7 +210,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_appauth:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_appauth
       url: "https://pub.dartlang.org"
@@ -233,7 +226,7 @@ packages:
   flutter_auth:
     dependency: "direct main"
     description:
-      path: "../flutter_auth"
+      path: "../../../gitlab/flutter_auth"
       relative: true
     source: path
     version: "0.0.1"
@@ -595,13 +588,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   package_config:
     dependency: transitive
     description:
@@ -651,13 +637,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.1"
-  provider:
-    dependency: transitive
-    description:
-      name: provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.0.3"
   pub_semver:
     dependency: transitive
     description:
@@ -714,13 +693,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.1"
-  simple_gravatar:
-    dependency: transitive
-    description:
-      name: simple_gravatar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   sky_engine:
     dependency: transitive
     description: flutter

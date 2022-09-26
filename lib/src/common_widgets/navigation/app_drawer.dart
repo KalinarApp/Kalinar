@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/common_widgets/navigation/navigation_item.dart';
 import 'package:hero/src/features/authentication/presentation/auth_button.dart';
 import 'package:hero/src/features/skilling/presentation/abilities/ability_list.dart';
 
 import '../../features/skilling/presentation/skills/list_skills/skill_list.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends ConsumerWidget {
   const AppDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
