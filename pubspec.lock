@@ -226,7 +226,7 @@ packages:
   flutter_auth:
     dependency: "direct main"
     description:
-      path: "../../../gitlab/flutter_auth"
+      path: "../flutter_auth"
       relative: true
     source: path
     version: "0.0.1"

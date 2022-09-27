@@ -13,7 +13,7 @@ class SkillList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(isAuthenticated: true),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, MobileEditSkillScreen.routeName),
         child: const Icon(Icons.add),

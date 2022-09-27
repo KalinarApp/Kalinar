@@ -13,7 +13,7 @@ class AbilityList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(isAuthenticated: true),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, EditAbilityScreen.routeName),
         child: const Icon(Icons.add),

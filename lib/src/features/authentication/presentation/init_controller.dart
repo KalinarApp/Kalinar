@@ -2,16 +2,14 @@ import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/utilities/hero_api.dart';
 
-class InitController extends StateNotifier<AsyncValue<void>> {
+class InitController {
   final FlutterAuth authRepository;
 
-  InitController({required this.authRepository}) : super(const AsyncData(null));
+  InitController(this.authRepository);
 
   Future<void> initialize() async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(authRepository.init);
+    await authRepository.init();
   }
 }
 
-final initControllerProvider =
-    StateNotifierProvider.autoDispose<InitController, AsyncValue<void>>((ref) => InitController(authRepository: ref.watch(authProvider)));
+final initControllerProvider = Provider<InitController>((ref) => InitController(ref.read(authProvider)));

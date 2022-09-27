@@ -9,7 +9,8 @@ import 'package:hero/src/features/skilling/presentation/abilities/ability_list.d
 import '../../features/skilling/presentation/skills/list_skills/skill_list.dart';
 
 class AppDrawer extends ConsumerWidget {
-  const AppDrawer({super.key});
+  final bool isAuthenticated;
+  const AppDrawer({required this.isAuthenticated, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,11 +48,11 @@ class AppDrawer extends ConsumerWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: const [
-                  NavigationItem(title: "Character", icon: Icons.casino, route: SkillList.routeName, isVisible: true),
-                  NavigationItem(title: "Abilities", icon: Icons.handyman, route: AbilityList.routeName, isVisible: true),
-                  NavigationItem(title: "Skills", icon: Icons.skateboarding, route: SkillList.routeName, isVisible: true),
-                  NavigationItem(title: "Skill tree", icon: Icons.safety_divider, route: SkillList.routeName, isVisible: true),
+                children: [
+                  NavigationItem(title: "Character", icon: Icons.casino, route: SkillList.routeName, isVisible: isAuthenticated),
+                  NavigationItem(title: "Abilities", icon: Icons.handyman, route: AbilityList.routeName, isVisible: isAuthenticated),
+                  NavigationItem(title: "Skills", icon: Icons.skateboarding, route: SkillList.routeName, isVisible: isAuthenticated),
+                  NavigationItem(title: "Skill tree", icon: Icons.safety_divider, route: SkillList.routeName, isVisible: isAuthenticated),
                 ],
               ),
             ),

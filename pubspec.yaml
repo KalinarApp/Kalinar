@@ -38,7 +38,7 @@ dependencies:
   dotted_border: ^2.0.0+2
 
   flutter_auth:
-    path: ../../../gitlab/flutter_auth
+    path: ../flutter_auth
     # git:
     #   url: https://curth.dev/opensource/flutter_auth
 

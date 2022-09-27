@@ -1,4 +1,5 @@
 import 'package:flutter_auth/flutter_auth.dart';
+import 'package:flutter_auth/models/auth_state.dart';
 import 'package:flutter_auth/models/user_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -35,10 +36,6 @@ final authProvider = Provider<FlutterAuth>((ref) {
   return auth;
 });
 
-final authChangedProvider = StreamProvider.autoDispose<bool>((ref) {
+final authChangedProvider = StreamProvider.autoDispose<AuthState>((ref) {
   return ref.watch(authProvider).authStateChanged;
-});
-
-final userChangedProvider = StreamProvider.autoDispose<UserInfo?>((ref) {
-  return ref.watch(authProvider).userChanged;
 });

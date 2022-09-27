@@ -10,10 +10,10 @@ class AuthButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authChangedProvider);
 
-    return authState.maybeWhen(
-        data: (isAuthenticated) {
-          final title = isAuthenticated ? "sign out" : "sign in";
-          final onTab = isAuthenticated ? ref.read(authControllerProvider.notifier).signOut : ref.read(authControllerProvider.notifier).signIn;
+    return authState.when(
+        data: (state) {
+          final title = state.isAuthenticated ? "sign out" : "sign in";
+          final onTab = state.isAuthenticated ? ref.read(authControllerProvider).signOut : ref.read(authControllerProvider).signIn;
 
           return InkWell(
             onTap: onTab,
@@ -23,6 +23,8 @@ class AuthButton extends ConsumerWidget {
             ),
           );
         },
-        orElse: () => const ListTile(title: CircularProgressIndicator()));
+        error: (error, stackTrace) => ListTile(title: const Icon(Icons.error), tileColor: Theme.of(context).colorScheme.error),
+        loading: () =>
+            ListTile(title: const Center(child: CircularProgressIndicator(color: Colors.white)), tileColor: Theme.of(context).colorScheme.primary));
   }
 }
