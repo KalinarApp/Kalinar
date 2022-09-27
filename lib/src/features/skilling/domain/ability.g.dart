@@ -6,14 +6,15 @@ part of 'ability.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Ability _$AbilityFromJson(Map<String, dynamic> json) => Ability(
+_$_Ability _$$_AbilityFromJson(Map<String, dynamic> json) => _$_Ability(
       name: json['name'] as String,
       description: json['description'] as String,
       isPassive: json['isPassive'] as bool,
     );
 
-Map<String, dynamic> _$AbilityToJson(Ability instance) => <String, dynamic>{
+Map<String, dynamic> _$$_AbilityToJson(_$_Ability instance) =>
+    <String, dynamic>{
       'name': instance.name,
-      'isPassive': instance.isPassive,
       'description': instance.description,
+      'isPassive': instance.isPassive,
     };

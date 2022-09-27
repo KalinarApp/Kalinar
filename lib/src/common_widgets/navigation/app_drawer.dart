@@ -1,47 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/models/user_info.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/common_widgets/navigation/navigation_item.dart';
-import 'package:hero/src/features/authentication/presentation/auth_button.dart';
-import 'package:hero/src/features/skilling/presentation/abilities/ability_list.dart';
+import 'package:hero/src/features/authentication/data/auth_repository.dart';
+import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
+import 'navigation_item.dart';
+import '../../features/authentication/presentation/sign_out_button.dart';
+import '../../features/skilling/presentation/abilities/ability_list.dart';
 
 import '../../features/skilling/presentation/skills/list_skills/skill_list.dart';
 
 class AppDrawer extends ConsumerWidget {
-  final bool isAuthenticated;
-  const AppDrawer({required this.isAuthenticated, super.key});
+  const AppDrawer({super.key});
+
+  bool _isUser(UserInfo? user) {
+    return null != user && user.isUser();
+  }
+
+  bool _isAdmin(UserInfo? user) {
+    return null != user && user.isAdmin();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(authChangedProvider);
+
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DrawerHeader(
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Text(
-                    AppLocalizations.of(context)!.applicationTitle,
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
                 const Spacer(),
-                DropdownButton(
-                  onChanged: (value) {},
-                  value: "Gwynbleidd",
-                  alignment: Alignment.centerRight,
-                  items: const [
-                    DropdownMenuItem(value: "Vind", child: Text("Vind")),
-                    DropdownMenuItem(value: "Gwynbleidd", child: Text("Gwynbleidd")),
-                  ],
-                )
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text("Hallo ${state.value?.user?.firstName}", style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.left),
+                ),
+                if (state.value?.user?.groups.isNotEmpty ?? false)
+                  DropdownButton(
+                    onChanged: (value) {},
+                    hint: Text("Wähle deinen Charakter", style: Theme.of(context).textTheme.button, textAlign: TextAlign.left),
+                    alignment: Alignment.centerRight,
+                    items: const [
+                      DropdownMenuItem(value: "Vind", child: Text("Vind")),
+                      DropdownMenuItem(value: "Gwynbleidd", child: Text("Gwynbleidd")),
+                    ],
+                  ),
               ],
             ),
           ),
@@ -49,15 +57,15 @@ class AppDrawer extends ConsumerWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  NavigationItem(title: "Character", icon: Icons.casino, route: SkillList.routeName, isVisible: isAuthenticated),
-                  NavigationItem(title: "Abilities", icon: Icons.handyman, route: AbilityList.routeName, isVisible: isAuthenticated),
-                  NavigationItem(title: "Skills", icon: Icons.skateboarding, route: SkillList.routeName, isVisible: isAuthenticated),
-                  NavigationItem(title: "Skill tree", icon: Icons.safety_divider, route: SkillList.routeName, isVisible: isAuthenticated),
+                  NavigationItem(title: "Character", icon: Icons.casino, route: SkillList.routeName, isVisible: _isUser(state.value?.user)),
+                  NavigationItem(title: "Abilities", icon: Icons.handyman, route: AbilityList.routeName, isVisible: _isAdmin(state.value?.user)),
+                  NavigationItem(title: "Skills", icon: Icons.skateboarding, route: SkillList.routeName, isVisible: _isAdmin(state.value?.user)),
+                  NavigationItem(title: "Skill tree", icon: Icons.safety_divider, route: SkillList.routeName, isVisible: _isAdmin(state.value?.user)),
                 ],
               ),
             ),
           ),
-          const AuthButton(),
+          const SignOutButton(),
         ],
       ),
     );

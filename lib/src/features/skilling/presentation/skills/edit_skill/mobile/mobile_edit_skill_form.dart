@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
-import 'package:hero/src/features/skilling/presentation/abilities/edit_ability/edit_ability_screen.dart';
+import '../../../abilities/edit_ability/edit_ability_screen.dart';
 
 class MobileEditSkillForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> _formKey;

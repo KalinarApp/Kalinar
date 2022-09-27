@@ -1,19 +1,21 @@
-import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/utilities/hero_api.dart';
 
-class AuthController {
-  final FlutterAuth authRepository;
+import '../data/auth_repository.dart';
 
-  AuthController({required this.authRepository});
+class AuthController extends StateNotifier<AsyncValue<void>> {
+  final AuthRepository authRepository;
+
+  AuthController({required this.authRepository}) : super(const AsyncData(null));
 
   Future<void> signIn() async {
     await authRepository.login();
   }
 
   Future<void> signOut() async {
-    await authRepository.logout();
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => authRepository.logout());
   }
 }
 
-final authControllerProvider = Provider<AuthController>((ref) => AuthController(authRepository: ref.read(authProvider)));
+final authControllerProvider =
+    StateNotifierProvider.autoDispose<AuthController, AsyncValue<void>>((ref) => AuthController(authRepository: ref.read(authRepositoryProvider)));

@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/common_widgets/hero_app.dart';
 import 'package:window_size/window_size.dart';
+
+import 'src/common_widgets/hero_app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:hero/src/common_widgets/save_button.dart';
-import 'package:hero/src/features/skilling/presentation/abilities/edit_ability/ability_form.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import '../../../../../common_widgets/save_button.dart';
+import 'ability_form.dart';
 
 class EditAbilityScreen extends StatefulWidget {
   static const routeName = "ability/edit";

@@ -1,9 +1,9 @@
-import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/utilities/hero_api.dart';
+
+import '../data/auth_repository.dart';
 
 class InitController {
-  final FlutterAuth authRepository;
+  final AuthRepository authRepository;
 
   InitController(this.authRepository);
 
@@ -12,4 +12,4 @@ class InitController {
   }
 }
 
-final initControllerProvider = Provider<InitController>((ref) => InitController(ref.read(authProvider)));
+final initControllerProvider = Provider<InitController>((ref) => InitController(ref.read(authRepositoryProvider)));

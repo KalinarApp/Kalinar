@@ -6,7 +6,7 @@ part of 'skill.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Skill _$SkillFromJson(Map<String, dynamic> json) => Skill(
+_$_Skill _$$_SkillFromJson(Map<String, dynamic> json) => _$_Skill(
       json['id'] as String,
       ability: json['ability'] == null
           ? null
@@ -27,7 +27,7 @@ Skill _$SkillFromJson(Map<String, dynamic> json) => Skill(
       dodgeBoost: (json['dodgeBoost'] as num?)?.toDouble() ?? 0,
     );
 
-Map<String, dynamic> _$SkillToJson(Skill instance) => <String, dynamic>{
+Map<String, dynamic> _$$_SkillToJson(_$_Skill instance) => <String, dynamic>{
       'id': instance.id,
       'ability': instance.ability,
       'iconUrl': instance.iconUrl,

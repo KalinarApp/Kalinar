@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hero/src/common_widgets/navigation/app_drawer.dart';
-import 'package:hero/src/features/skilling/presentation/skills/list_skills/skill_list_item.dart';
 
+import '../../../../../common_widgets/navigation/app_drawer.dart';
 import '../edit_skill/mobile/mobile_edit_skill_screen.dart';
+import 'skill_list_item.dart';
 
 class SkillList extends StatelessWidget {
   static const routeName = "skill/list";
@@ -13,7 +13,7 @@ class SkillList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const AppDrawer(isAuthenticated: true),
+      drawer: const AppDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, MobileEditSkillScreen.routeName),
         child: const Icon(Icons.add),

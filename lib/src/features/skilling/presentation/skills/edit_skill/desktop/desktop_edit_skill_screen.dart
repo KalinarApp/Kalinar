@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:hero/src/common_widgets/save_button.dart';
-import 'package:hero/src/features/skilling/presentation/skills/edit_skill/desktop/form/skill_ability_selection_component.dart';
-import 'package:hero/src/features/skilling/presentation/skills/edit_skill/desktop/form/skill_description_component.dart';
+import '../../../../../../common_widgets/save_button.dart';
+import 'form/skill_ability_selection_component.dart';
+import 'form/skill_description_component.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../abilities/edit_ability/edit_ability_screen.dart';

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/ability.dart';
+
 class AbilityListItem extends StatelessWidget {
-  const AbilityListItem({super.key});
+  final Ability ability;
+
+  const AbilityListItem(this.ability, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
+      children: [
         ListTile(
-          leading: CircleAvatar(),
-          title: Text("Ability I"),
-          subtitle: Text("This is the super awesome description for Ability I"),
+          leading: const CircleAvatar(),
+          title: Text(ability.name),
+          subtitle: Text(ability.description),
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }

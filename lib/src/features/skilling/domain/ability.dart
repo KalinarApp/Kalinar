@@ -1,20 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'ability.freezed.dart';
 part 'ability.g.dart';
 
-@JsonSerializable()
-class Ability {
-  String name;
-  bool isPassive;
-  String description;
-
-  Ability({
-    required this.name,
-    required this.description,
-    required this.isPassive,
-  });
+@freezed
+class Ability with _$Ability {
+  const factory Ability({
+    required String name,
+    required String description,
+    required bool isPassive,
+  }) = _Ability;
 
   factory Ability.fromJson(Map<String, dynamic> json) => _$AbilityFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AbilityToJson(this);
 }

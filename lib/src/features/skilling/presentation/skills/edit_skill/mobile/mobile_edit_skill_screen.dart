@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'mobile_edit_skill_form.dart';
 
 import '../../../../../../common_widgets/save_button.dart';
+import 'mobile_edit_skill_form.dart';
 
 class MobileEditSkillScreen extends StatefulWidget {
   static const routeName = "skill/edit";

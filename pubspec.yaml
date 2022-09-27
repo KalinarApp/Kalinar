@@ -19,7 +19,7 @@ dependencies:
 
   flutter_riverpod: ^2.0.0-dev.9
   freezed_annotation: ^2.1.0
-  json_serializable: ^6.3.2
+  json_annotation: ^4.7.0
 
   window_size:
     git:
@@ -38,9 +38,8 @@ dependencies:
   dotted_border: ^2.0.0+2
 
   flutter_auth:
-    path: ../flutter_auth
-    # git:
-    #   url: https://curth.dev/opensource/flutter_auth
+    git:
+      url: https://curth.dev/opensource/flutter_auth
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +47,10 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.2.1
   freezed: ^2.1.1
+  json_serializable: ^6.4.0
 
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/icon.png

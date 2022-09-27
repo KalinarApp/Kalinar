@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "48.0.0"
+    version: "49.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.0"
   archive:
     dependency: transitive
     description:
@@ -226,9 +226,11 @@ packages:
   flutter_auth:
     dependency: "direct main"
     description:
-      path: "../flutter_auth"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "32460de867597eb68aa8b78cc4d10697b9102889"
+      url: "https://curth.dev/opensource/flutter_auth"
+    source: git
     version: "0.0.1"
   flutter_chips_input:
     dependency: transitive
@@ -526,14 +528,14 @@ packages:
     source: hosted
     version: "0.6.4"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.7.0"
   json_serializable:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: json_serializable
       url: "https://pub.dartlang.org"

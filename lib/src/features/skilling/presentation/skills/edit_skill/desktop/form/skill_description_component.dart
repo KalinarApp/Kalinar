@@ -2,7 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:hero/src/features/skilling/presentation/skills/edit_skill/desktop/form/ability_selector.dart';
+import 'ability_selector.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class SkillDescriptionComponent extends StatelessWidget {
