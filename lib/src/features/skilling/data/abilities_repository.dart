@@ -22,7 +22,7 @@ class AbilitiesRepository {
           final data = json.decode(response.body);
           return builder(data);
         case 401:
-          throw const APIError.unauthorizedKey();
+          throw const APIError.unauthorized();
         case 404:
           throw const APIError.notFound();
         default:

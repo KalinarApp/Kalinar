@@ -9,16 +9,14 @@ class SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12, right: 12, bottom: 12),
-      child: RoundedLoadingButton(
-        width: 100,
-        controller: controller,
-        onPressed: onSave,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Text("Save"),
-        ),
+    return RoundedLoadingButton(
+      width: 100,
+      height: 30,
+      controller: controller,
+      onPressed: onSave,
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Text("Save"),
       ),
     );
   }

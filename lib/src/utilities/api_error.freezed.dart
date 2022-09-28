@@ -18,50 +18,56 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$APIError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() unauthorizedKey,
+    required TResult Function() unauthorized,
     required TResult Function() noInternetConnection,
     required TResult Function() notFound,
+    required TResult Function() groupAlreadyExist,
     required TResult Function() unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_InvalidApiKey value) unauthorizedKey,
+    required TResult Function(_unauthorized value) unauthorized,
     required TResult Function(_NoInternetConnection value) noInternetConnection,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_GroupAlreadyExist value) groupAlreadyExist,
     required TResult Function(_Unknown value) unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
     required TResult orElse(),
   }) =>
@@ -84,37 +90,37 @@ class _$APIErrorCopyWithImpl<$Res> implements $APIErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_InvalidApiKeyCopyWith<$Res> {
-  factory _$$_InvalidApiKeyCopyWith(
-          _$_InvalidApiKey value, $Res Function(_$_InvalidApiKey) then) =
-      __$$_InvalidApiKeyCopyWithImpl<$Res>;
+abstract class _$$_unauthorizedCopyWith<$Res> {
+  factory _$$_unauthorizedCopyWith(
+          _$_unauthorized value, $Res Function(_$_unauthorized) then) =
+      __$$_unauthorizedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InvalidApiKeyCopyWithImpl<$Res> extends _$APIErrorCopyWithImpl<$Res>
-    implements _$$_InvalidApiKeyCopyWith<$Res> {
-  __$$_InvalidApiKeyCopyWithImpl(
-      _$_InvalidApiKey _value, $Res Function(_$_InvalidApiKey) _then)
-      : super(_value, (v) => _then(v as _$_InvalidApiKey));
+class __$$_unauthorizedCopyWithImpl<$Res> extends _$APIErrorCopyWithImpl<$Res>
+    implements _$$_unauthorizedCopyWith<$Res> {
+  __$$_unauthorizedCopyWithImpl(
+      _$_unauthorized _value, $Res Function(_$_unauthorized) _then)
+      : super(_value, (v) => _then(v as _$_unauthorized));
 
   @override
-  _$_InvalidApiKey get _value => super._value as _$_InvalidApiKey;
+  _$_unauthorized get _value => super._value as _$_unauthorized;
 }
 
 /// @nodoc
 
-class _$_InvalidApiKey implements _InvalidApiKey {
-  const _$_InvalidApiKey();
+class _$_unauthorized implements _unauthorized {
+  const _$_unauthorized();
 
   @override
   String toString() {
-    return 'APIError.unauthorizedKey()';
+    return 'APIError.unauthorized()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_InvalidApiKey);
+        (other.runtimeType == runtimeType && other is _$_unauthorized);
   }
 
   @override
@@ -123,36 +129,39 @@ class _$_InvalidApiKey implements _InvalidApiKey {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() unauthorizedKey,
+    required TResult Function() unauthorized,
     required TResult Function() noInternetConnection,
     required TResult Function() notFound,
+    required TResult Function() groupAlreadyExist,
     required TResult Function() unknown,
   }) {
-    return unauthorizedKey();
+    return unauthorized();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
   }) {
-    return unauthorizedKey?.call();
+    return unauthorized?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
     required TResult orElse(),
   }) {
-    if (unauthorizedKey != null) {
-      return unauthorizedKey();
+    if (unauthorized != null) {
+      return unauthorized();
     }
     return orElse();
   }
@@ -160,43 +169,46 @@ class _$_InvalidApiKey implements _InvalidApiKey {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_InvalidApiKey value) unauthorizedKey,
+    required TResult Function(_unauthorized value) unauthorized,
     required TResult Function(_NoInternetConnection value) noInternetConnection,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_GroupAlreadyExist value) groupAlreadyExist,
     required TResult Function(_Unknown value) unknown,
   }) {
-    return unauthorizedKey(this);
+    return unauthorized(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
   }) {
-    return unauthorizedKey?.call(this);
+    return unauthorized?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
     required TResult orElse(),
   }) {
-    if (unauthorizedKey != null) {
-      return unauthorizedKey(this);
+    if (unauthorized != null) {
+      return unauthorized(this);
     }
     return orElse();
   }
 }
 
-abstract class _InvalidApiKey implements APIError {
-  const factory _InvalidApiKey() = _$_InvalidApiKey;
+abstract class _unauthorized implements APIError {
+  const factory _unauthorized() = _$_unauthorized;
 }
 
 /// @nodoc
@@ -240,9 +252,10 @@ class _$_NoInternetConnection implements _NoInternetConnection {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() unauthorizedKey,
+    required TResult Function() unauthorized,
     required TResult Function() noInternetConnection,
     required TResult Function() notFound,
+    required TResult Function() groupAlreadyExist,
     required TResult Function() unknown,
   }) {
     return noInternetConnection();
@@ -251,9 +264,10 @@ class _$_NoInternetConnection implements _NoInternetConnection {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
   }) {
     return noInternetConnection?.call();
@@ -262,9 +276,10 @@ class _$_NoInternetConnection implements _NoInternetConnection {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
     required TResult orElse(),
   }) {
@@ -277,9 +292,10 @@ class _$_NoInternetConnection implements _NoInternetConnection {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_InvalidApiKey value) unauthorizedKey,
+    required TResult Function(_unauthorized value) unauthorized,
     required TResult Function(_NoInternetConnection value) noInternetConnection,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_GroupAlreadyExist value) groupAlreadyExist,
     required TResult Function(_Unknown value) unknown,
   }) {
     return noInternetConnection(this);
@@ -288,9 +304,10 @@ class _$_NoInternetConnection implements _NoInternetConnection {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
   }) {
     return noInternetConnection?.call(this);
@@ -299,9 +316,10 @@ class _$_NoInternetConnection implements _NoInternetConnection {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
     required TResult orElse(),
   }) {
@@ -356,9 +374,10 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() unauthorizedKey,
+    required TResult Function() unauthorized,
     required TResult Function() noInternetConnection,
     required TResult Function() notFound,
+    required TResult Function() groupAlreadyExist,
     required TResult Function() unknown,
   }) {
     return notFound();
@@ -367,9 +386,10 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
   }) {
     return notFound?.call();
@@ -378,9 +398,10 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
     required TResult orElse(),
   }) {
@@ -393,9 +414,10 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_InvalidApiKey value) unauthorizedKey,
+    required TResult Function(_unauthorized value) unauthorized,
     required TResult Function(_NoInternetConnection value) noInternetConnection,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_GroupAlreadyExist value) groupAlreadyExist,
     required TResult Function(_Unknown value) unknown,
   }) {
     return notFound(this);
@@ -404,9 +426,10 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
   }) {
     return notFound?.call(this);
@@ -415,9 +438,10 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
     required TResult orElse(),
   }) {
@@ -430,6 +454,129 @@ class _$_NotFound implements _NotFound {
 
 abstract class _NotFound implements APIError {
   const factory _NotFound() = _$_NotFound;
+}
+
+/// @nodoc
+abstract class _$$_GroupAlreadyExistCopyWith<$Res> {
+  factory _$$_GroupAlreadyExistCopyWith(_$_GroupAlreadyExist value,
+          $Res Function(_$_GroupAlreadyExist) then) =
+      __$$_GroupAlreadyExistCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GroupAlreadyExistCopyWithImpl<$Res>
+    extends _$APIErrorCopyWithImpl<$Res>
+    implements _$$_GroupAlreadyExistCopyWith<$Res> {
+  __$$_GroupAlreadyExistCopyWithImpl(
+      _$_GroupAlreadyExist _value, $Res Function(_$_GroupAlreadyExist) _then)
+      : super(_value, (v) => _then(v as _$_GroupAlreadyExist));
+
+  @override
+  _$_GroupAlreadyExist get _value => super._value as _$_GroupAlreadyExist;
+}
+
+/// @nodoc
+
+class _$_GroupAlreadyExist implements _GroupAlreadyExist {
+  const _$_GroupAlreadyExist();
+
+  @override
+  String toString() {
+    return 'APIError.groupAlreadyExist()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GroupAlreadyExist);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unauthorized,
+    required TResult Function() noInternetConnection,
+    required TResult Function() notFound,
+    required TResult Function() groupAlreadyExist,
+    required TResult Function() unknown,
+  }) {
+    return groupAlreadyExist();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unauthorized,
+    TResult Function()? noInternetConnection,
+    TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
+    TResult Function()? unknown,
+  }) {
+    return groupAlreadyExist?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unauthorized,
+    TResult Function()? noInternetConnection,
+    TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
+    TResult Function()? unknown,
+    required TResult orElse(),
+  }) {
+    if (groupAlreadyExist != null) {
+      return groupAlreadyExist();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_unauthorized value) unauthorized,
+    required TResult Function(_NoInternetConnection value) noInternetConnection,
+    required TResult Function(_NotFound value) notFound,
+    required TResult Function(_GroupAlreadyExist value) groupAlreadyExist,
+    required TResult Function(_Unknown value) unknown,
+  }) {
+    return groupAlreadyExist(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_unauthorized value)? unauthorized,
+    TResult Function(_NoInternetConnection value)? noInternetConnection,
+    TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
+    TResult Function(_Unknown value)? unknown,
+  }) {
+    return groupAlreadyExist?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_unauthorized value)? unauthorized,
+    TResult Function(_NoInternetConnection value)? noInternetConnection,
+    TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
+    TResult Function(_Unknown value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (groupAlreadyExist != null) {
+      return groupAlreadyExist(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GroupAlreadyExist implements APIError {
+  const factory _GroupAlreadyExist() = _$_GroupAlreadyExist;
 }
 
 /// @nodoc
@@ -471,9 +618,10 @@ class _$_Unknown implements _Unknown {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() unauthorizedKey,
+    required TResult Function() unauthorized,
     required TResult Function() noInternetConnection,
     required TResult Function() notFound,
+    required TResult Function() groupAlreadyExist,
     required TResult Function() unknown,
   }) {
     return unknown();
@@ -482,9 +630,10 @@ class _$_Unknown implements _Unknown {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
   }) {
     return unknown?.call();
@@ -493,9 +642,10 @@ class _$_Unknown implements _Unknown {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? unauthorizedKey,
+    TResult Function()? unauthorized,
     TResult Function()? noInternetConnection,
     TResult Function()? notFound,
+    TResult Function()? groupAlreadyExist,
     TResult Function()? unknown,
     required TResult orElse(),
   }) {
@@ -508,9 +658,10 @@ class _$_Unknown implements _Unknown {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_InvalidApiKey value) unauthorizedKey,
+    required TResult Function(_unauthorized value) unauthorized,
     required TResult Function(_NoInternetConnection value) noInternetConnection,
     required TResult Function(_NotFound value) notFound,
+    required TResult Function(_GroupAlreadyExist value) groupAlreadyExist,
     required TResult Function(_Unknown value) unknown,
   }) {
     return unknown(this);
@@ -519,9 +670,10 @@ class _$_Unknown implements _Unknown {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
   }) {
     return unknown?.call(this);
@@ -530,9 +682,10 @@ class _$_Unknown implements _Unknown {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InvalidApiKey value)? unauthorizedKey,
+    TResult Function(_unauthorized value)? unauthorized,
     TResult Function(_NoInternetConnection value)? noInternetConnection,
     TResult Function(_NotFound value)? notFound,
+    TResult Function(_GroupAlreadyExist value)? groupAlreadyExist,
     TResult Function(_Unknown value)? unknown,
     required TResult orElse(),
   }) {

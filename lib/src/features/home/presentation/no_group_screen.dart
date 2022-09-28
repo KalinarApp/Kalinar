@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/models/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/common_widgets/navigation/app_drawer.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
+import 'package:hero/src/features/authentication/presentation/groups/create_group_screen.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class NoGroupScreen extends ConsumerWidget {
   const NoGroupScreen({Key? key}) : super(key: key);
+
+  Future<void> _showCreateGroupModal(BuildContext context) async {
+    await showBarModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      builder: (context) => SingleChildScrollView(
+        controller: ModalScrollController.of(context),
+        child: CreateGroupScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -12,6 +25,7 @@ class NoGroupScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text("Noch kein Mitglied einer Gruppe?")),
+      drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -41,7 +55,8 @@ class NoGroupScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             SizedBox(
-                width: MediaQuery.of(context).size.width * .95, child: ElevatedButton(onPressed: () {}, child: const Text("Gruppenleiter werden")))
+                width: MediaQuery.of(context).size.width * .95,
+                child: ElevatedButton(onPressed: () async => await _showCreateGroupModal(context), child: const Text("Gruppenleiter werden")))
           ],
         ),
       ),

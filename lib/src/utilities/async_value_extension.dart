@@ -5,7 +5,7 @@ extension AsyncValueUI on AsyncValue {
   void showSnackbarOnError(BuildContext context) {
     if (!isRefreshing && hasError) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(error.toString())),
+        SnackBar(behavior: SnackBarBehavior.floating, content: Text(error.toString())),
       );
     }
   }

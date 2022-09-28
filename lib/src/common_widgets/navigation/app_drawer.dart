@@ -4,8 +4,8 @@ import 'package:flutter_auth/models/user_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
+import '../../features/authentication/presentation/auth/sign_out_button.dart';
 import 'navigation_item.dart';
-import '../../features/authentication/presentation/sign_out_button.dart';
 import '../../features/skilling/presentation/abilities/ability_list.dart';
 
 import '../../features/skilling/presentation/skills/list_skills/skill_list.dart';
