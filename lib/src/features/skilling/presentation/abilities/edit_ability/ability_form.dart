@@ -2,28 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
+import '../../../domain/ability.dart';
+
 class AbilityForm extends StatelessWidget {
-  const AbilityForm({super.key});
+  final Ability? initalValue;
+
+  const AbilityForm({this.initalValue, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       FormBuilderTextField(
         name: "name",
-        initialValue: "",
+        initialValue: initalValue?.name ?? "",
         textInputAction: TextInputAction.next,
         validator: FormBuilderValidators.required(),
         decoration: const InputDecoration(labelText: "Ability name", prefixIcon: SizedBox(width: 20)),
       ),
       FormBuilderSwitch(
         name: "isPassive",
-        initialValue: false,
-        title: const Text("Is passive ability?"),
+        initialValue: initalValue?.isPassive ?? false,
+        title: Text(
+          "Is passive ability?",
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         decoration: const InputDecoration(prefixIcon: Icon(Icons.gps_not_fixed_outlined)),
       ),
       FormBuilderTextField(
         name: "description",
-        initialValue: "",
+        initialValue: initalValue?.description ?? "",
         maxLines: 4,
         decoration: const InputDecoration(
           label: Text("Ability description"),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth/models/user_info.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/authentication/data/auth_repository.dart';
-import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
+import '../../features/authentication/data/auth_repository.dart';
+import '../../features/authentication/domain/user_info_extensions.dart';
 import '../../features/authentication/presentation/auth/sign_out_button.dart';
 import 'navigation_item.dart';
 import '../../features/skilling/presentation/abilities/ability_list.dart';
@@ -57,10 +57,11 @@ class AppDrawer extends ConsumerWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  NavigationItem(title: "Character", icon: Icons.casino, route: SkillList.routeName, isVisible: _isUser(state.value?.user)),
+                  const NavigationItem(title: "Home", icon: Icons.home, route: "/", isVisible: true),
+                  NavigationItem(title: "Character", icon: Icons.casino, route: SkillList.routeName, isVisible: _isUser(state.value?.user) && false),
                   NavigationItem(title: "Abilities", icon: Icons.handyman, route: AbilityList.routeName, isVisible: _isAdmin(state.value?.user)),
                   NavigationItem(title: "Skills", icon: Icons.skateboarding, route: SkillList.routeName, isVisible: _isAdmin(state.value?.user)),
-                  NavigationItem(title: "Skill tree", icon: Icons.safety_divider, route: SkillList.routeName, isVisible: _isAdmin(state.value?.user)),
+                  NavigationItem(title: "Skill tree", icon: Icons.safety_divider, route: "Y", isVisible: _isAdmin(state.value?.user)),
                 ],
               ),
             ),

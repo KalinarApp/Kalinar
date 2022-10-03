@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/common_widgets/navigation/app_drawer.dart';
-import 'package:hero/src/features/authentication/data/auth_repository.dart';
-import 'package:hero/src/features/authentication/presentation/groups/create_group_screen.dart';
+import '../../../common_widgets/navigation/app_drawer.dart';
+import '../../authentication/data/auth_repository.dart';
+import 'group_info_controller.dart';
+import '../../../utilities/async_value_extension.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import 'create_group_screen.dart';
 
 class NoGroupScreen extends ConsumerWidget {
   const NoGroupScreen({Key? key}) : super(key: key);
@@ -21,6 +24,7 @@ class NoGroupScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(groupInfoControllerProvider, (_, state) => state.showSnackbarOnError(context));
     final authState = ref.watch(authChangedProvider);
 
     return Scaffold(

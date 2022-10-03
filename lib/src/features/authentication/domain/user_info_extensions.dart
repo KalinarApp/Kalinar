@@ -1,5 +1,5 @@
 import 'package:flutter_auth/models/user_info.dart';
-import 'package:hero/src/utilities/constants.dart';
+import '../../../utilities/constants.dart';
 
 extension UserInfoExtensions on UserInfo {
   bool isUser() {

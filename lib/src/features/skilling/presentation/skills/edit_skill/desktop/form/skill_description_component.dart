@@ -2,8 +2,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'ability_selector.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import 'ability_selector.dart';
 
 class SkillDescriptionComponent extends StatelessWidget {
   final GlobalKey<FormBuilderState> _formKey;

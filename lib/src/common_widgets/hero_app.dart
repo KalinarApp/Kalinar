@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:form_builder_validators/localization/l10n.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../features/authentication/presentation/auth/init_controller.dart';
-import '../features/home/presentation/home_screen_selector.dart';
-import '../features/skilling/presentation/abilities/edit_ability/edit_ability_screen.dart';
-import '../features/skilling/presentation/skills/edit_skill/mobile/mobile_edit_skill_screen.dart';
-import '../features/skilling/presentation/skills/list_skills/skill_list.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
+import 'package:hero/src/features/skilling/presentation/abilities/edit_ability/edit_ability_screen.dart';
 
 import '../features/authentication/data/auth_repository.dart';
+import '../features/authentication/presentation/auth/init_controller.dart';
+import '../features/home/presentation/home_screen_selector.dart';
 import '../features/skilling/presentation/abilities/ability_list.dart';
+import '../features/skilling/presentation/abilities/edit_ability/create_ability_screen.dart';
+import '../features/skilling/presentation/skills/edit_skill/mobile/mobile_edit_skill_screen.dart';
+import '../features/skilling/presentation/skills/list_skills/skill_list.dart';
 
 class HeroApp extends ConsumerStatefulWidget {
   const HeroApp({super.key});
@@ -47,6 +48,7 @@ class _HeroAppState extends ConsumerState<HeroApp> {
         SkillList.routeName: (_) => const SkillList(),
         AbilityList.routeName: (_) => const AbilityList(),
         MobileEditSkillScreen.routeName: (_) => const MobileEditSkillScreen(),
+        CreateAbilityScreen.routeName: (_) => const CreateAbilityScreen(),
         EditAbilityScreen.routeName: (_) => const EditAbilityScreen(),
       },
     );

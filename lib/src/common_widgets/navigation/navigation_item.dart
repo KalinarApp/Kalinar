@@ -10,11 +10,13 @@ class NavigationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isCurrentRoute = ModalRoute.of(context)!.settings.name == route;
     return Visibility(
       visible: isVisible,
       child: InkWell(
-        onTap: () => Navigator.popAndPushNamed(context, route),
+        onTap: isCurrentRoute ? null : () => Navigator.popAndPushNamed(context, route),
         child: ListTile(
+          tileColor: isCurrentRoute ? Theme.of(context).primaryColorLight.withOpacity(.7) : Colors.transparent,
           title: Text(title),
           leading: Icon(icon),
         ),

@@ -21,6 +21,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Group {
   String get name => throw _privateConstructorUsedError;
+  String get code => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -32,7 +33,7 @@ mixin _$Group {
 abstract class $GroupCopyWith<$Res> {
   factory $GroupCopyWith(Group value, $Res Function(Group) then) =
       _$GroupCopyWithImpl<$Res>;
-  $Res call({String name, String? description});
+  $Res call({String name, String code, String? description});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$GroupCopyWithImpl<$Res> implements $GroupCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
+    Object? code = freezed,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String,
       description: description == freezed
           ? _value.description
@@ -66,7 +72,7 @@ abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
   factory _$$_GroupCopyWith(_$_Group value, $Res Function(_$_Group) then) =
       __$$_GroupCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String? description});
+  $Res call({String name, String code, String? description});
 }
 
 /// @nodoc
@@ -81,12 +87,17 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? code = freezed,
     Object? description = freezed,
   }) {
     return _then(_$_Group(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String,
       description: description == freezed
           ? _value.description
@@ -99,7 +110,7 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Group implements _Group {
-  const _$_Group({required this.name, this.description});
+  const _$_Group({required this.name, required this.code, this.description});
 
   factory _$_Group.fromJson(Map<String, dynamic> json) =>
       _$$_GroupFromJson(json);
@@ -107,11 +118,13 @@ class _$_Group implements _Group {
   @override
   final String name;
   @override
+  final String code;
+  @override
   final String? description;
 
   @override
   String toString() {
-    return 'Group(name: $name, description: $description)';
+    return 'Group(name: $name, code: $code, description: $description)';
   }
 
   @override
@@ -120,6 +133,7 @@ class _$_Group implements _Group {
         (other.runtimeType == runtimeType &&
             other is _$_Group &&
             const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.code, code) &&
             const DeepCollectionEquality()
                 .equals(other.description, description));
   }
@@ -129,6 +143,7 @@ class _$_Group implements _Group {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(code),
       const DeepCollectionEquality().hash(description));
 
   @JsonKey(ignore: true)
@@ -146,12 +161,16 @@ class _$_Group implements _Group {
 
 abstract class _Group implements Group {
   const factory _Group(
-      {required final String name, final String? description}) = _$_Group;
+      {required final String name,
+      required final String code,
+      final String? description}) = _$_Group;
 
   factory _Group.fromJson(Map<String, dynamic> json) = _$_Group.fromJson;
 
   @override
   String get name;
+  @override
+  String get code;
   @override
   String? get description;
   @override

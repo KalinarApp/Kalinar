@@ -12,6 +12,14 @@ class AbilityListController extends StateNotifier<AsyncValue<List<Ability>>> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(repo.getAll);
   }
+
+  Future<void> deleteAbility(String name) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await repo.deleteAbility(name);
+      return await repo.getAll();
+    });
+  }
 }
 
 final abilityListControllerProvider = StateNotifierProvider.autoDispose<AbilityListController, AsyncValue<List<Ability>>>(

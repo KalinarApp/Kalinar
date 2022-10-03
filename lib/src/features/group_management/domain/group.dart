@@ -7,6 +7,7 @@ part 'group.g.dart';
 class Group with _$Group {
   const factory Group({
     required String name,
+    required String code,
     String? description,
   }) = _Group;
 

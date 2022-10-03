@@ -8,7 +8,7 @@ import 'form/skill_ability_selection_component.dart';
 import 'form/skill_description_component.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../../abilities/edit_ability/edit_ability_screen.dart';
+import '../../../abilities/edit_ability/create_ability_screen.dart';
 import 'desktop_edit_skill_form.dart';
 
 class DesktopEditSkillScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class _DesktopEditSkillScreenState extends State<DesktopEditSkillScreen> {
     return FormBuilder(
       key: _formKey,
       child: Scaffold(
-        drawer: const EditAbilityScreen(),
+        drawer: const CreateAbilityScreen(),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           actions: [SaveButton(controller: _btnController, onSave: () => Navigator.pop(context))],

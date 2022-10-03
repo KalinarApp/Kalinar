@@ -5,9 +5,9 @@ import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_auth/models/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hero/src/utilities/constants.dart';
 
 import '../../../utilities/api_error.dart';
+import '../../../utilities/constants.dart';
 
 class AuthRepository {
   final FlutterAuth _client;

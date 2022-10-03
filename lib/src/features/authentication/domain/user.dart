@@ -7,11 +7,10 @@ part 'user.g.dart';
 class User with _$User {
   const factory User({
     required String id,
-    required String firstName,
-    required String lastName,
+    required String firstname,
+    required String lastname,
     required String email,
-    required List<String> roles,
-    required List<String> groups,
+    required String username,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

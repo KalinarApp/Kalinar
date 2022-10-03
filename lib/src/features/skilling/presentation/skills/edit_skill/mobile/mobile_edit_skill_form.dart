@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
-import '../../../abilities/edit_ability/edit_ability_screen.dart';
+import '../../../abilities/edit_ability/create_ability_screen.dart';
 
 class MobileEditSkillForm extends StatelessWidget {
   final GlobalKey<FormBuilderState> _formKey;
@@ -10,7 +10,7 @@ class MobileEditSkillForm extends StatelessWidget {
   const MobileEditSkillForm(this._formKey, {super.key});
 
   Future<void> _showAbilityScreen(BuildContext context) async {
-    await Navigator.pushNamed(context, EditAbilityScreen.routeName).then((value) {
+    await Navigator.pushNamed(context, CreateAbilityScreen.routeName).then((value) {
       if (null != value && value is String) {
         _formKey.currentState?.fields["ability"]?.didChange(value);
       }

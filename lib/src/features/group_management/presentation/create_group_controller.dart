@@ -1,10 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/authentication/data/group_repository.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../domain/group.dart';
+import '../data/group_repository.dart';
 
-class CreateGroupController extends StateNotifier<AsyncValue<Group?>> {
+class CreateGroupController extends StateNotifier<AsyncValue<void>> {
   final GroupRepository repo;
   final buttonController = RoundedLoadingButtonController();
 
@@ -20,6 +19,6 @@ class CreateGroupController extends StateNotifier<AsyncValue<Group?>> {
   }
 }
 
-final createGroupControllerProvider = StateNotifierProvider.autoDispose<CreateGroupController, AsyncValue<Group?>>((ref) {
+final createGroupControllerProvider = StateNotifierProvider.autoDispose<CreateGroupController, AsyncValue<void>>((ref) {
   return CreateGroupController(ref.read(groupRepositoryProvider));
 });
