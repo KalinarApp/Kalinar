@@ -44,13 +44,6 @@ class _HeroAppState extends ConsumerState<HeroApp> {
         ...GlobalMaterialLocalizations.delegates,
       ],
       home: HomeScreenSelector.getHomeScreen(authState.value),
-      routes: {
-        SkillList.routeName: (_) => const SkillList(),
-        AbilityList.routeName: (_) => const AbilityList(),
-        MobileEditSkillScreen.routeName: (_) => const MobileEditSkillScreen(),
-        CreateAbilityScreen.routeName: (_) => const CreateAbilityScreen(),
-        EditAbilityScreen.routeName: (_) => const EditAbilityScreen(),
-      },
     );
   }
 }

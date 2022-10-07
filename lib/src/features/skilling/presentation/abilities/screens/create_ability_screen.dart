@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/skilling/presentation/abilities/create_ability_controller.dart';
+import 'package:hero/src/features/skilling/presentation/abilities/controllers/create_ability_controller.dart';
 
 import '../../../../../common_widgets/save_button.dart';
-import 'ability_form.dart';
+import '../components/ability_form.dart';
 
 class CreateAbilityScreen extends ConsumerStatefulWidget {
   static const routeName = "ability/create";
@@ -37,9 +37,7 @@ class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(createAbilityControllerProvider);
-
-    state.whenData((value) => Navigator.pop(context, value));
+    ref.watch(createAbilityControllerProvider);
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * .95,

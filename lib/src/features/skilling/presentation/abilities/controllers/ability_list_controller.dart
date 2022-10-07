@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/abilities_repository.dart';
-import '../../domain/ability.dart';
+import '../../../data/abilities_repository.dart';
+import '../../../domain/ability.dart';
 
 class AbilityListController extends StateNotifier<AsyncValue<List<Ability>>> {
   final AbilitiesRepository repo;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/skilling/presentation/abilities/edit_ability/edit_ability_screen.dart';
+import 'package:hero/src/utilities/async_value_extension.dart';
 
-import '../../../../common_widgets/navigation/app_drawer.dart';
-import '../../../../utilities/async_value_extension.dart';
-import '../../domain/ability.dart';
-import 'ability_list_controller.dart';
+import '../../../../../common_widgets/navigation/app_drawer.dart';
+import '../../../domain/ability.dart';
+import '../controllers/ability_list_controller.dart';
+import '../screens/create_ability_screen.dart';
+import '../screens/edit_ability_screen.dart';
 import 'ability_list_item.dart';
-import 'edit_ability/create_ability_screen.dart';
 
 class AbilityList extends ConsumerStatefulWidget {
   static const String routeName = "abilities/list";
