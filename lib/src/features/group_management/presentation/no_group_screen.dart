@@ -29,7 +29,7 @@ class NoGroupScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text("Noch kein Mitglied einer Gruppe?")),
-      drawer: const AppDrawer(),
+      // drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(

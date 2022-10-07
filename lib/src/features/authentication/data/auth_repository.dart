@@ -38,8 +38,9 @@ class AuthRepository {
   }
 
   Future<void> login() async {
-    await _client.login();
-    await _createUser();
+    if (await _client.login()) {
+      await _createUser();
+    }
   }
 
   Future<void> logout() async {
@@ -70,7 +71,7 @@ class DevHttpOverrides extends HttpOverrides {
   }
 }
 
-final authChangedProvider = StreamProvider.autoDispose<AuthState>((ref) {
+final authChangedProvider = StreamProvider<AuthState>((ref) {
   if (kDebugMode) HttpOverrides.global = DevHttpOverrides();
   return ref.watch(authProvider).authStateChanged;
 });

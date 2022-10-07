@@ -47,7 +47,7 @@ class _AbilityListState extends ConsumerState<AbilityList> {
 
     return Scaffold(
       appBar: AppBar(),
-      drawer: const AppDrawer(),
+      // drawer: const AppDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: state.hasError
             ? null

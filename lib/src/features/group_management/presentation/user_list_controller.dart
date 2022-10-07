@@ -14,6 +14,6 @@ class UserListController extends StateNotifier<AsyncValue<List<User>>> {
   }
 }
 
-final userListControllerProvider = StateNotifierProvider.autoDispose<UserListController, AsyncValue<List<User>>>((ref) {
+final userListControllerProvider = StateNotifierProvider<UserListController, AsyncValue<List<User>>>((ref) {
   return UserListController(ref.read(groupRepositoryProvider));
 });

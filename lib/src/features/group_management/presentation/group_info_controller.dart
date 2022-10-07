@@ -19,6 +19,6 @@ class GroupInfoController extends StateNotifier<AsyncValue<Group?>> {
   }
 }
 
-final groupInfoControllerProvider = StateNotifierProvider.autoDispose<GroupInfoController, AsyncValue<Group?>>((ref) {
+final groupInfoControllerProvider = StateNotifierProvider<GroupInfoController, AsyncValue<Group?>>((ref) {
   return GroupInfoController(ref.read(groupRepositoryProvider));
 });

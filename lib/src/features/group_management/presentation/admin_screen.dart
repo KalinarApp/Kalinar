@@ -38,7 +38,7 @@ class _AdminScreenState extends ConsumerState<AdminScreen> {
       appBar: AppBar(
         title: const Text("Mitglieder einladen"),
       ),
-      drawer: const AppDrawer(),
+      // drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../common_widgets/navigation/app_drawer.dart';
-
 class WelcomeScreen extends ConsumerWidget {
   const WelcomeScreen({super.key});
 
@@ -10,8 +8,14 @@ class WelcomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const AppDrawer(),
-      body: Container(),
+      body: Center(
+        child: Column(
+          children: const [
+            Text("Du wirst angemeldet, bitte warte noch etwas..."),
+            CircularProgressIndicator(),
+          ],
+        ),
+      ),
     );
   }
 }
