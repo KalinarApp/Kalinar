@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'auth_controller.dart';
 
 class SignInScreen extends ConsumerWidget {
+  static const String route = "/login";
+
   const SignInScreen({Key? key}) : super(key: key);
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../authentication/domain/user.dart';
-import '../data/group_repository.dart';
+import '../../../authentication/domain/user.dart';
+import '../../../group_management/data/group_repository.dart';
 
 class UserListController extends StateNotifier<AsyncValue<List<User>>> {
   final GroupRepository repo;

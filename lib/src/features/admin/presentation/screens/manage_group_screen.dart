@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/common_widgets/user_menu.dart';
-import 'package:hero/src/features/admin/presentation/components/user_list/user_list.dart';
-import 'package:hero/src/utilities/async_value_extension.dart';
-import '../../admin/presentation/controllers/group_info_controller.dart';
 
-class AdminScreen extends ConsumerStatefulWidget {
-  const AdminScreen({Key? key}) : super(key: key);
+import '../components/user_list/user_list.dart';
+import '../../../../common_widgets/user_menu.dart';
+import '../../../../utilities/async_value_extension.dart';
+import '../controllers/group_info_controller.dart';
+
+class ManageGroupScreen extends ConsumerStatefulWidget {
+  static const String name = "AdminGroupManagement";
+  static const String route = "group-management";
+
+  const ManageGroupScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AdminScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ManageGroupScreenState();
 }
 
-class _AdminScreenState extends ConsumerState<AdminScreen> {
+class _ManageGroupScreenState extends ConsumerState<ManageGroupScreen> {
   late GroupInfoController groupInfoController;
 
   void _copyToClipboard(String code) {

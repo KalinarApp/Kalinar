@@ -12,12 +12,12 @@ class APIError with _$APIError {
   const factory APIError.unknown() = _Unknown;
 }
 
-extension ErrorAsync on APIError {
-  AsyncValue<T> asAsyncValue<T>() => when(
-        unauthorized: () => const AsyncValue.error('You are not authorized'),
-        noInternetConnection: () => const AsyncValue.error('No Internet connection'),
-        badRequest: () => const AsyncValue.error("an error occured while processing your request."),
-        notFound: () => const AsyncValue.error('City not found'),
-        unknown: () => const AsyncValue.error('Some error occurred'),
-      );
-}
+// extension ErrorAsync on APIError {
+//   AsyncValue<T> asAsyncValue<T>() => when(
+//         unauthorized: () => const AsyncValue.error('You are not authorized'),
+//         noInternetConnection: () => const AsyncValue.error('No Internet connection'),
+//         badRequest: () => const AsyncValue.error("an error occured while processing your request."),
+//         notFound: () => const AsyncValue.error('City not found'),
+//         unknown: () => const AsyncValue.error('Some error occurred'),
+//       );
+// }

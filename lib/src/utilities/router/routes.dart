@@ -1,22 +1,25 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/models/user_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dart';
+import 'package:hero/src/features/admin/presentation/screens/abilities/create_ability_screen.dart';
+import 'package:hero/src/features/admin/presentation/screens/admin_menu_screen.dart';
+import 'package:hero/src/features/admin/presentation/screens/manage_group_screen.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
 import 'package:hero/src/features/authentication/presentation/auth/sign_in_screen.dart';
-import 'package:hero/src/features/group_management/presentation/admin_screen.dart';
+import 'package:hero/src/features/home/presentation/home_screen_selector.dart';
 import 'package:hero/src/features/home/presentation/welcome_screen.dart';
+import 'package:hero/src/utilities/router/admin_routes.dart';
+
+import '../../features/admin/presentation/screens/abilities/list_abilities_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final rootNavigatorKey = GlobalKey<NavigatorState>();
   final shellNavigatorKey = GlobalKey<NavigatorState>();
-  final currentUser = ref.watch(_userChangedProvider);
-  // final authChanged = ref.read(authChangedProvider.stream);
+  final currentUser = ref.watch(userChangedProvider);
 
   return GoRouter(
     initialLocation: "/",
@@ -24,19 +27,19 @@ final routerProvider = Provider<GoRouter>((ref) {
     navigatorKey: rootNavigatorKey,
     refreshListenable: RouterStreamNotifier(ref),
     redirect: (context, state) {
-      final isAuthenticated = ref.read(_authStateChangedProvider);
+      final isAuthenticated = ref.read(authStateChangedProvider);
 
       if (null == isAuthenticated) return null;
 
       if (state.location == "/") {
-        return isAuthenticated ? "/home" : "/login";
+        return isAuthenticated ? "/home" : SignInScreen.route;
       }
 
-      if (state.location == "/login") {
+      if (state.location == SignInScreen.route) {
         return isAuthenticated ? "/home" : null;
       }
 
-      return isAuthenticated ? null : "/login";
+      return isAuthenticated ? null : SignInScreen.route;
     },
     routes: [
       GoRoute(
@@ -44,26 +47,39 @@ final routerProvider = Provider<GoRouter>((ref) {
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const WelcomeScreen()),
       ),
       GoRoute(
-        path: "/login",
+        path: SignInScreen.route,
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const SignInScreen()),
       ),
       ShellRoute(
         navigatorKey: shellNavigatorKey,
         builder: (context, state, child) => ScaffoldWithBottomNavbar(
           tabs: [
-            const ScaffoldWithNavbarItem(initialLocation: "/characters", icon: Icon(Icons.man), label: "Charakter"),
-            const ScaffoldWithNavbarItem(initialLocation: "/home", icon: Icon(Icons.home), label: "Home"),
+            ScaffoldWithNavbarItem(
+                initialLocation: "/home", icon: const Icon(Icons.home), label: const Text("Home"), color: Theme.of(context).colorScheme.primary),
+            ScaffoldWithNavbarItem(
+                initialLocation: "/characters",
+                icon: const Icon(Icons.man),
+                label: const Text("Charakter"),
+                color: Theme.of(context).colorScheme.primary),
             if (null != currentUser && currentUser.isAdmin())
-              const ScaffoldWithNavbarItem(initialLocation: "/admin", icon: Icon(Icons.coffee), label: "Adminbereich"),
+              ScaffoldWithNavbarItem(
+                  initialLocation: AdminMenuScreen.route,
+                  icon: const Icon(Icons.coffee),
+                  label: const Text("Admin"),
+                  color: Theme.of(context).colorScheme.primary),
             if (null != currentUser && !currentUser.isAdmin())
-              const ScaffoldWithNavbarItem(initialLocation: "/skilltrees", icon: Icon(Icons.trending_up), label: "Fähigkeiten"),
+              ScaffoldWithNavbarItem(
+                  initialLocation: "/skilltrees",
+                  icon: const Icon(Icons.trending_up),
+                  label: const Text("Fähigkeiten"),
+                  color: Theme.of(context).colorScheme.primary),
           ],
           child: child,
         ),
         routes: [
           GoRoute(
             path: "/home",
-            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const AdminScreen()),
+            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: HomeScreenSelector.getHomeScreen(currentUser!)),
           ),
           GoRoute(
             path: "/skilltrees",
@@ -73,19 +89,20 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: "/characters",
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Scaffold()),
           ),
+          adminRoutes,
         ],
       ),
     ],
   );
 });
 
-final _authStateChangedProvider = Provider<bool?>((ref) {
+final authStateChangedProvider = Provider<bool?>((ref) {
   return ref.watch(authChangedProvider.select((data) {
     return data.value?.isAuthenticated;
   }));
 });
 
-final _userChangedProvider = Provider<UserInfo?>((ref) {
+final userChangedProvider = Provider<UserInfo?>((ref) {
   return ref.watch(authChangedProvider.select((value) {
     return value.value?.user;
   }));
@@ -95,7 +112,7 @@ class RouterStreamNotifier with ChangeNotifier {
   final Ref _ref;
 
   RouterStreamNotifier(this._ref) {
-    _ref.listen(_authStateChangedProvider, (previous, next) {
+    _ref.listen(authStateChangedProvider, (previous, next) {
       notifyListeners();
     });
   }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../common_widgets/navigation/app_drawer.dart';
 import '../../authentication/data/auth_repository.dart';
-import 'group_info_controller.dart';
+import '../../admin/presentation/controllers/group_info_controller.dart';
 import '../../../utilities/async_value_extension.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

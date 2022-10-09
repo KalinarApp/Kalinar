@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class ScaffoldWithBottomNavbar extends StatefulWidget {
   final Widget child;
@@ -17,25 +19,34 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
 
   int _locationToTabIndex(String location) {
     final index = widget.tabs.indexWhere((t) => location.startsWith(t.initialLocation));
-    // if index not found (-1), return 0
     return index < 0 ? 0 : index;
   }
 
   void _onItemTapped(BuildContext context, int tabIndex) {
-    // Only navigate if the tab index has changed
     if (tabIndex != _currentIndex) {
       context.go(widget.tabs[tabIndex].initialLocation);
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.child,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        items: widget.tabs,
-        onTap: (value) => _onItemTapped(context, value),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        systemNavigationBarColor: Theme.of(context).canvasColor,
+        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+      ),
+      child: Scaffold(
+        body: widget.child,
+        bottomNavigationBar: SalomonBottomBar(
+          items: widget.tabs,
+          currentIndex: _currentIndex,
+          onTap: (value) => _onItemTapped(context, value),
+        ),
       ),
     );
   }

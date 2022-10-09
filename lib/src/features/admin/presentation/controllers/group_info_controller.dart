@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/group_repository.dart';
-import '../domain/group.dart';
+import '../../../group_management/data/group_repository.dart';
+import '../../../group_management/domain/group.dart';
 
 class GroupInfoController extends StateNotifier<AsyncValue<Group?>> {
   final GroupRepository repo;

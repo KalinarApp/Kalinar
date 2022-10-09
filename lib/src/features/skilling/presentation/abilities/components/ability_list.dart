@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
 
-import '../../../../../common_widgets/navigation/app_drawer.dart';
 import '../../../domain/ability.dart';
 import '../controllers/ability_list_controller.dart';
 import '../screens/create_ability_screen.dart';
 import '../screens/edit_ability_screen.dart';
-import 'ability_list_item.dart';
+import '../../../../admin/presentation/components/ability_list_item.dart';
 
 class AbilityList extends ConsumerStatefulWidget {
   static const String routeName = "abilities/list";
@@ -47,7 +46,6 @@ class _AbilityListState extends ConsumerState<AbilityList> {
 
     return Scaffold(
       appBar: AppBar(),
-      // drawer: const AppDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: state.hasError
             ? null

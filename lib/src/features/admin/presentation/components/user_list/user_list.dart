@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/group_management/presentation/user_list/user_list_item.dart';
-import 'package:hero/src/features/group_management/presentation/user_list_controller.dart';
+
+import '../../controllers/user_list_controller.dart';
+import 'user_list_item.dart';
 
 class UserList extends ConsumerStatefulWidget {
   const UserList({Key? key}) : super(key: key);

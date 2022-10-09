@@ -1,10 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../data/abilities_repository.dart';
 import '../../../domain/ability.dart';
 
 class AbilityListController extends StateNotifier<AsyncValue<List<Ability>>> {
   final AbilitiesRepository repo;
+  final savebuttonController = RoundedLoadingButtonController();
 
   AbilityListController(this.repo) : super(const AsyncData([]));
 

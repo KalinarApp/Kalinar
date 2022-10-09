@@ -87,13 +87,15 @@ class AbilitiesRepository {
     }
   }
 
-  Future<void> deleteAbility(String name) async {
+  Future<bool> deleteAbility(String name) async {
     final url = Uri.https(Constants.baseUrl, "/api/abilities/$name");
+    bool success = false;
 
     try {
       final response = await _client.delete(url);
       switch (response.statusCode) {
         case 200:
+          success = false;
           break;
         case 400:
           throw const APIError.badRequest();
@@ -107,6 +109,8 @@ class AbilitiesRepository {
     } on SocketException catch (_) {
       throw const APIError.noInternetConnection();
     }
+
+    return success;
   }
 }
 
