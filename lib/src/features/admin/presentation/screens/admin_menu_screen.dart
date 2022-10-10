@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/presentation/components/admin_menu_item.dart';
 import 'package:hero/src/features/admin/presentation/components/selection_card.dart';
 import 'package:hero/src/features/admin/presentation/screens/manage_group_screen.dart';
+import 'package:hero/src/features/admin/presentation/screens/skills/list_skills_screen.dart';
 
 import '../../../../common_widgets/user_menu.dart';
 import 'abilities/list_abilities_screen.dart';
@@ -57,6 +58,11 @@ class AdminMenuScreen extends StatelessWidget {
                     icon: FontAwesomeIcons.bookSkull,
                     title: "Fähigkeiten verwalten",
                     onTab: () => GoRouter.of(context).pushNamed(ListAbilitiesScreen.name),
+                  ),
+                  AdminMenuItem(
+                    icon: FontAwesomeIcons.bookSkull,
+                    title: "Fertigkeiten verwalten",
+                    onTab: () => GoRouter.of(context).pushNamed(ListSkillsScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.circleNodes,

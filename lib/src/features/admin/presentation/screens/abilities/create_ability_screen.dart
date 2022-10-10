@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/presentation/controllers/abilities_controller.dart';
-import 'package:hero/src/features/skilling/presentation/abilities/controllers/create_ability_controller.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../../common_widgets/save_button.dart';
@@ -20,8 +20,8 @@ class CreateAbilityScreen extends ConsumerStatefulWidget {
 
 class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
+  
   final saveController = RoundedLoadingButtonController();
-
   late AbilitiesController controller;
 
   @override
@@ -35,17 +35,26 @@ class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        controller.createAbility(data);
+        controller.createAbility(data).then((value) {
+          if (null == value) {
+            saveController.error();
+          } else {
+            saveController.success();
+            GoRouter.of(context).pop();
+          }
+        });
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(createAbilityControllerProvider);
+    final state = ref.watch(abilitiesControllerProvider);
 
     state.maybeWhen(
-      data: (data) => saveController.success(),
+      data: (data) {
+        saveController.success();
+      },
       error: (error, stackTrace) => saveController.error(),
       orElse: () {},
     );
@@ -73,18 +82,21 @@ class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
                   initialValue: "",
                   textInputAction: TextInputAction.next,
                   validator: FormBuilderValidators.required(),
+                  onChanged: (value) => saveController.reset(),
                   decoration: const InputDecoration(labelText: "Ability name", prefixIcon: SizedBox(width: 20)),
                 ),
                 FormBuilderSwitch(
                   name: "isPassive",
                   initialValue: false,
                   title: Text("Is passive ability?", style: Theme.of(context).textTheme.titleMedium),
+                  onChanged: (value) => saveController.reset(),
                   decoration: const InputDecoration(prefixIcon: Icon(Icons.gps_not_fixed_outlined)),
                 ),
                 FormBuilderTextField(
                   name: "description",
                   initialValue: "",
                   maxLines: 4,
+                  onChanged: (value) => saveController.reset(),
                   decoration: const InputDecoration(
                     label: Text("Ability description"),
                     alignLabelWithHint: true,

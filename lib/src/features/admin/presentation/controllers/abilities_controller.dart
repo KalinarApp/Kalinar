@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../skilling/data/abilities_repository.dart';
-import '../../../skilling/domain/ability.dart';
+import '../../data/abilities_repository.dart';
+import '../../domain/ability.dart';
 
 class AbilitiesController extends StateNotifier<AsyncValue<List<Ability>>> {
   final AbilitiesRepository repo;
@@ -18,20 +18,21 @@ class AbilitiesController extends StateNotifier<AsyncValue<List<Ability>>> {
     });
   }
 
-  Future<void> createAbility(Map<String, dynamic> data) async {
+  Future<Ability?> createAbility(Map<String, dynamic> data) async {
+    Ability? ability;
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      final ability = await repo.createAbility(data);
-      return [...abilities, ability];
+      ability = await repo.createAbility(data);
+      return [...abilities, ability!];
     });
+    return ability;
   }
 
   Future<void> deleteAbility(String name) async {
     state = await AsyncValue.guard(() async {
       if (await repo.deleteAbility(name)) {
-        abilities.removeWhere((element) => element.name == name);
+        abilities = [...abilities.where((element) => element.name != name)];
       }
-
       return abilities;
     });
   }

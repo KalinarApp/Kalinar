@@ -5,7 +5,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:hero/src/features/skilling/presentation/abilities/controllers/create_ability_controller.dart';
 
 import '../../../../../common_widgets/save_button.dart';
-import '../../../domain/ability.dart';
+import '../../../../admin/domain/ability.dart';
 
 class EditAbilityScreen extends ConsumerStatefulWidget {
   static const routeName = "ability/edit";

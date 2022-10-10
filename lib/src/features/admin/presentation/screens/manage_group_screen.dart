@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../components/user_list/user_list.dart';
+import '../components/users/user_list.dart';
 import '../../../../common_widgets/user_menu.dart';
 import '../../../../utilities/async_value_extension.dart';
 import '../controllers/group_info_controller.dart';

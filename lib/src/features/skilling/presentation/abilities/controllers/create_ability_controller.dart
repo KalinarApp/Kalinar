@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/skilling/domain/ability.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../../data/abilities_repository.dart';
+import '../../../../admin/data/abilities_repository.dart';
+import '../../../../admin/domain/ability.dart';
 
 class CreateAbilityController extends StateNotifier<AsyncValue<Ability>> {
   final AbilitiesRepository repo;

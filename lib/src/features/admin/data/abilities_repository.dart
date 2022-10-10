@@ -95,7 +95,7 @@ class AbilitiesRepository {
       final response = await _client.delete(url);
       switch (response.statusCode) {
         case 200:
-          success = false;
+          success = true;
           break;
         case 400:
           throw const APIError.badRequest();

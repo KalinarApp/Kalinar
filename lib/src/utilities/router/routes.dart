@@ -10,6 +10,7 @@ import 'package:hero/src/features/admin/presentation/screens/manage_group_screen
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
 import 'package:hero/src/features/authentication/presentation/auth/sign_in_screen.dart';
+import 'package:hero/src/features/group_management/presentation/user_screen.dart';
 import 'package:hero/src/features/home/presentation/home_screen_selector.dart';
 import 'package:hero/src/features/home/presentation/welcome_screen.dart';
 import 'package:hero/src/utilities/router/admin_routes.dart';
@@ -79,7 +80,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: "/home",
-            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: HomeScreenSelector.getHomeScreen(currentUser!)),
+            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const UserScreen()),
           ),
           GoRoute(
             path: "/skilltrees",

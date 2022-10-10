@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
 
-import '../../../../skilling/domain/ability.dart';
-import '../../components/ability_list_item.dart';
+import '../../../domain/ability.dart';
+import '../../components/abilities/ability_list_item.dart';
 import '../../controllers/abilities_controller.dart';
 import 'create_ability_screen.dart';
 
