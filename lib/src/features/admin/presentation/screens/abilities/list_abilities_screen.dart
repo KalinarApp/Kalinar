@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hero/src/common_widgets/async_value_list.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
 
 import '../../../domain/ability.dart';
@@ -55,25 +56,10 @@ class _ListAbilitiesScreenState extends ConsumerState<ListAbilitiesScreen> {
         onPressed: state.hasError ? null : () => _createAbility(context),
         child: const Icon(Icons.add),
       ),
-      body: state.when(
-        data: (data) => RefreshIndicator(
-          onRefresh: _refreshAbilities,
-          child: ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (_, index) => AbilityListItem(
-              data[index],
-              onDelete: _deleteAbility,
-              onTab: _editAbility,
-            ),
-          ),
-        ),
-        error: (error, stackTrace) => const Center(child: Text("An error occured while fetching the data")),
-        loading: () => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [CircularProgressIndicator(), Text("Fähigkeiten werden geladen...")],
-          ),
-        ),
+      body: AsyncValueList(
+        state,
+        builder: (item) => AbilityListItem(item, onDelete: _deleteAbility, onTab: _editAbility),
+        refreshList: _refreshAbilities,
       ),
     );
   }

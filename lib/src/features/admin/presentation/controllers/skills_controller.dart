@@ -28,10 +28,10 @@ class SkillsController extends StateNotifier<AsyncValue<List<Skill>>> {
     return skill;
   }
 
-  Future<void> deleteSkill(String name) async {
+  Future<void> deleteSkill(String id) async {
     state = await AsyncValue.guard(() async {
-      if (await repo.deleteSkill(name)) {
-        skills = [...skills.where((element) => element.name != name)];
+      if (await repo.deleteSkill(id)) {
+        skills = [...skills.where((element) => element.id != id)];
       }
       return skills;
     });

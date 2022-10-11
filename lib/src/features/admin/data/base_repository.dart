@@ -10,7 +10,7 @@ class BaseRepository {
 
   BaseRepository(this._client);
 
-  Future<T> get<T>(Uri url, T Function(dynamic) builder) async {
+  Future<T> get<T>(Uri url, T Function(dynamic response) builder) async {
     try {
       final response = await _client.get(url);
       switch (response.statusCode) {

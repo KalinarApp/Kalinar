@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:hero/src/features/admin/presentation/screens/skills/create_skill_screen.dart';
 import 'package:hero/src/features/admin/presentation/screens/skills/list_skills_screen.dart';
 
 import '../../features/admin/presentation/screens/abilities/create_ability_screen.dart';
@@ -37,5 +38,11 @@ final adminSkillRoutes = GoRoute(
   name: ListSkillsScreen.name,
   path: ListSkillsScreen.route,
   pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const ListSkillsScreen()),
-  routes: [],
+  routes: [
+    GoRoute(
+      name: CreateSkillScreen.name,
+      path: CreateSkillScreen.route,
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const CreateSkillScreen()),
+    ),
+  ],
 );

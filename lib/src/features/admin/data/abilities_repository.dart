@@ -3,16 +3,17 @@ import 'dart:io';
 
 import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/features/admin/data/base_repository.dart';
 
 import '../../../utilities/api_error.dart';
 import '../../../utilities/constants.dart';
 import '../../authentication/data/auth_repository.dart';
 import '../domain/ability.dart';
 
-class AbilitiesRepository {
+class AbilitiesRepository extends BaseRepository {
   final FlutterAuth _client;
 
-  AbilitiesRepository(this._client);
+  AbilitiesRepository(this._client) : super(_client);
 
   Future<List<Ability>> getAll() async {
     try {
@@ -31,6 +32,11 @@ class AbilitiesRepository {
     } on SocketException catch (_) {
       throw const APIError.noInternetConnection();
     }
+  }
+
+  Future<List<Ability>> filter(String query) async {
+    final url = Uri.https(Constants.baseUrl, "/api/abilities", {"search": query});
+    return get(url, (response) => List<Ability>.from(response.map((model) => Ability.fromJson(model))));
   }
 
   Future<Ability> createAbility(Map<String, dynamic> data) async {
