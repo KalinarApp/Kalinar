@@ -11,6 +11,10 @@ import '../../authentication/data/auth_repository.dart';
 class SkillsRepository extends BaseRepository {
   SkillsRepository(FlutterAuth client) : super(client);
 
+  Future<String> _uploadImageToImgur(dynamic file) {
+    
+  }
+
   Future<List<Skill>> getAll() async {
     Uri url = Uri.https(Constants.baseUrl, "/api/skills");
     return get(url, (response) => List<Skill>.from(response.map((model) => Skill.fromJson(model))));

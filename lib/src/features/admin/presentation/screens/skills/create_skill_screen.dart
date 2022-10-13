@@ -1,24 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/presentation/screens/skills/skill_form.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../../common_widgets/save_button.dart';
+import '../../controllers/create_skill_controller.dart';
 
-class CreateSkillScreen extends StatefulWidget {
+class CreateSkillScreen extends ConsumerStatefulWidget {
   static const name = "CreateSkill";
   static const route = "create";
 
   const CreateSkillScreen({super.key});
 
   @override
-  State<CreateSkillScreen> createState() => _CreateSkillScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CreateSkillScreenState();
 }
 
-class _CreateSkillScreenState extends State<CreateSkillScreen> {
+class _CreateSkillScreenState extends ConsumerState<CreateSkillScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
+
+  late CreateSkillController controller;
   final RoundedLoadingButtonController _btnController = RoundedLoadingButtonController();
+
+  @override
+  void initState() {
+    controller = ref.read(createSkillControllerProvider);
+    super.initState();
+  }
+
+  Future<void> _save() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      final data = _formKey.currentState?.value;
+      if (null != data) {
+        controller.createSkill(data).then((value) {
+          if (null == value) {
+            _btnController.error();
+          } else {
+            _btnController.success();
+            GoRouter.of(context).pop();
+          }
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +55,7 @@ class _CreateSkillScreenState extends State<CreateSkillScreen> {
       child: Scaffold(
         appBar: AppBar(
           actions: [
-            SaveButton(controller: _btnController, onSave: () => Navigator.pop(context)),
+            SaveButton(controller: _btnController, onSave: _save),
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(110),

@@ -1,21 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/admin/data/abilities_repository.dart';
 import 'package:hero/src/features/admin/data/skills_repository.dart';
-import 'package:hero/src/features/admin/domain/create_skill_state.dart';
 
 import '../../domain/ability.dart';
+import '../../domain/skill.dart';
 
-class CreateSkillController extends StateNotifier<CreateSkillState> {
+class CreateSkillController {
   final SkillsRepository skillsRepository;
   final AbilitiesRepository abilitiesRepository;
 
-  CreateSkillController(this.skillsRepository, this.abilitiesRepository) : super(const CreateSkillState());
+  CreateSkillController(this.skillsRepository, this.abilitiesRepository);
 
   Future<List<Ability>> filterAbilities(String query) async {
     return await abilitiesRepository.filter(query);
   }
+
+  Future<Skill?> createSkill(Map<String, dynamic> data) async {
+      return await skillsRepository.createSkill(data);
+  }
 }
 
-final createSkillControllerProvider = StateNotifierProvider<CreateSkillController, CreateSkillState>((ref) {
+final createSkillControllerProvider = Provider<CreateSkillController>((ref) {
   return CreateSkillController(ref.read(skillsRepositoryProvider), ref.read(abilitiesRepositoryProvider));
 });

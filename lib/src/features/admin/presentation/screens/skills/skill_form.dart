@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,6 +36,17 @@ class SkillForm extends ConsumerWidget {
           children: [
             FormBuilderImagePicker(
               name: "icon",
+              valueTransformer: (value) {
+                List<String> imagesBase64 = [];
+                if (null != value) {
+                  for (dynamic file in value) {
+                    final bytes = File(file!.path).readAsBytesSync();
+                    imagesBase64.add(base64Encode(bytes));
+                  }
+                }
+
+                return imagesBase64;
+              },
               maxImages: 1,
               placeholderWidget: SizedBox(
                 width: 130,
@@ -76,7 +90,7 @@ class SkillForm extends ConsumerWidget {
                   child: FormBuilderSearchableDropdown<Ability>(
                     name: "ability",
                     decoration: const InputDecoration(labelText: "Select Ability", prefixIcon: Icon(Icons.handyman)),
-                    asyncItems: ref.read(createSkillControllerProvider.notifier).filterAbilities,
+                    asyncItems: ref.read(createSkillControllerProvider).filterAbilities,
                     compareFn: (item1, item2) => item1.name == item2.name,
                     itemAsString: (item) => item.name,
                     clearButtonProps: const ClearButtonProps(isVisible: true),
