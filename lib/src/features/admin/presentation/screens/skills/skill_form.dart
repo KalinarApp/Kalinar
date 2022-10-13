@@ -36,16 +36,19 @@ class SkillForm extends ConsumerWidget {
           children: [
             FormBuilderImagePicker(
               name: "icon",
-              valueTransformer: (value) {
-                List<String> imagesBase64 = [];
+              valueTransformer: (value) async {
+                List<String> imageUrls = [];
+                final provider = ref.read(createSkillControllerProvider);
                 if (null != value) {
                   for (dynamic file in value) {
                     final bytes = File(file!.path).readAsBytesSync();
-                    imagesBase64.add(base64Encode(bytes));
+                    final imageUrl = await provider.uploadImage(base64Encode(bytes));
+                    if (null != imageUrl) {
+                      imageUrls.add(imageUrl);
+                    }
                   }
                 }
-
-                return imagesBase64;
+                return imageUrls;
               },
               maxImages: 1,
               placeholderWidget: SizedBox(

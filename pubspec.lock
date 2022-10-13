@@ -233,9 +233,11 @@ packages:
   flutter_auth:
     dependency: "direct main"
     description:
-      path: "C:\\Users\\curth\\Documents\\gitlab\\flutter_auth"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "00bc8e6bc062d334ac4ee141ad4255923651020a"
+      url: "https://curth.dev/opensource/flutter_auth"
+    source: git
     version: "0.0.1"
   flutter_chips_input:
     dependency: transitive
@@ -477,7 +479,7 @@ packages:
     source: hosted
     version: "2.1.0"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
