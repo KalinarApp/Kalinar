@@ -13,15 +13,25 @@ class CreateSkillController {
 
   CreateSkillController(this.skillsRepository, this.abilitiesRepository, this.imgurRepository);
 
+  Future<String?> _uploadImage(String base64) async {
+    return await imgurRepository.uploadImageToImgur(base64);
+  }
+
   Future<List<Ability>> filterAbilities(String query) async {
     return await abilitiesRepository.filter(query);
   }
 
-  Future<String?> uploadImage(String base64) async {
-    return await imgurRepository.uploadImageToImgur(base64);
-  }
-
   Future<Skill?> createSkill(Map<String, dynamic> data) async {
+    Map<String, dynamic> map = {};
+    map.addAll(data);
+    final List<dynamic> icon = map.remove("icon");
+    if (icon.isNotEmpty) {
+      final url = await _uploadImage(icon[0]);
+      if (null != url) {
+        map.putIfAbsent("iconUrl", () => url);
+      }
+    }
+
     return await skillsRepository.createSkill(data);
   }
 }

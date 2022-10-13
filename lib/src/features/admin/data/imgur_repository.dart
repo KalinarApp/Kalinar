@@ -7,7 +7,7 @@ import '../../../utilities/constants.dart';
 class ImgurRepository {
   Future<String?> uploadImageToImgur(String base64) async {
     String? imageUrl;
-    Uri url = Uri.http(Constants.imgurApiUrl, "/3/upload");
+    Uri url = Uri.https(Constants.imgurApiUrl, "/3/upload");
 
     Map<String, String> headers = {
       "Accept": "*/*",
