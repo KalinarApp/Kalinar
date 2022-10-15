@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import '../../../domain/skill.dart';
+import '../../domain/ability.dart';
 
-class SkillListItem extends StatelessWidget {
-  final Skill item;
-  final Function(Skill skill)? onDelete;
-  final Function(Skill skill, BuildContext)? onTab;
+class AbilityListItem extends StatelessWidget {
+  final Ability item;
+  final Function(Ability)? onDelete;
+  final Function(Ability, BuildContext)? onTab;
 
-  const SkillListItem(this.item, {this.onDelete, this.onTab, super.key});
+  const AbilityListItem(this.item, {this.onDelete, this.onTab, super.key});
 
   Future<bool> _confirmDelete(BuildContext context) async {
     return await showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Fertigkeit löschen?"),
+        title: const Text("Fähigkeit löschen?"),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text("Abbrechen")),
           TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text("Weiter")),
@@ -53,7 +53,6 @@ class SkillListItem extends StatelessWidget {
             ],
           ),
           child: ListTile(
-            leading: null != item.iconUrl ? CircleAvatar(backgroundImage: NetworkImage(item.iconUrl!)) : null,
             title: Text(item.name),
             subtitle: item.description.isNotEmpty ? Text(item.description) : null,
             onTap: null != onTab ? () => onTab!(item, context) : null,

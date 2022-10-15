@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/common_widgets/async_value_list.dart';
-import 'package:hero/src/features/admin/presentation/controllers/ability_list_controller.dart';
-import 'package:hero/src/features/admin/presentation/screens/abilities/edit_ability_screen.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
-
-import '../../../domain/ability.dart';
-import '../../components/abilities/ability_list_item.dart';
-import '../../controllers/ability_controller.dart';
+import '../../domain/ability.dart';
+import 'ability_controller.dart';
+import 'ability_list_controller.dart';
+import 'ability_list_item.dart';
 import 'create_ability_screen.dart';
+import 'edit_ability_screen.dart';
 
 class ListAbilitiesScreen extends ConsumerStatefulWidget {
   static const String name = "ListAbilities";

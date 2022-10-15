@@ -1,13 +1,12 @@
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/screens/abilities/edit_ability_screen.dart';
-import 'package:hero/src/features/admin/presentation/screens/skills/create_skill_screen.dart';
-import 'package:hero/src/features/admin/presentation/screens/skills/list_skills_screen.dart';
+import 'package:hero/src/features/admin/presentation/skills/create_skill_screen.dart';
+import 'package:hero/src/features/admin/presentation/skills/list_skills_screen.dart';
 
-import '../../features/admin/domain/ability.dart';
-import '../../features/admin/presentation/screens/abilities/create_ability_screen.dart';
-import '../../features/admin/presentation/screens/abilities/list_abilities_screen.dart';
-import '../../features/admin/presentation/screens/admin_menu_screen.dart';
-import '../../features/admin/presentation/screens/manage_group_screen.dart';
+import '../../features/admin/presentation/abilities/create_ability_screen.dart';
+import '../../features/admin/presentation/abilities/edit_ability_screen.dart';
+import '../../features/admin/presentation/abilities/list_abilities_screen.dart';
+import '../../features/admin/presentation/admin_menu_screen.dart';
+import '../../features/admin/presentation/manage_group_screen.dart';
 
 final adminRoutes = GoRoute(
   path: AdminMenuScreen.route,

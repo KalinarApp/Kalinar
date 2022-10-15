@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/components/admin_menu_item.dart';
-import 'package:hero/src/features/admin/presentation/components/selection_card.dart';
-import 'package:hero/src/features/admin/presentation/screens/manage_group_screen.dart';
-import 'package:hero/src/features/admin/presentation/screens/skills/list_skills_screen.dart';
 
-import '../../../../common_widgets/user_menu.dart';
+import '../../../common_widgets/user_menu.dart';
 import 'abilities/list_abilities_screen.dart';
+import 'admin_menu_item.dart';
+import 'manage_group_screen.dart';
+import 'skills/list_skills_screen.dart';
 
 class AdminMenuScreen extends StatelessWidget {
   static const String route = "/admin";

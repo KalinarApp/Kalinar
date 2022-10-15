@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/common_widgets/async_value_list.dart';
-import 'package:hero/src/features/admin/presentation/components/skills/skill_list_item.dart';
-import 'package:hero/src/features/admin/presentation/screens/skills/create_skill_screen.dart';
+import 'package:hero/src/features/admin/presentation/skills/skill_list_item.dart';
+import 'package:hero/src/features/admin/presentation/skills/create_skill_screen.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
 
-import '../../../domain/skill.dart';
-import '../../controllers/skills_controller.dart';
+import '../../domain/skill.dart';
+import 'skills_controller.dart';
 
 class ListSkillsScreen extends ConsumerStatefulWidget {
   static const String name = "ListSkills";

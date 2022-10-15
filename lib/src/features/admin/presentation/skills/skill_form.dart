@@ -8,11 +8,11 @@ import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/controllers/ability_list_controller.dart';
-import 'package:hero/src/features/admin/presentation/screens/abilities/create_ability_screen.dart';
-import 'package:hero/src/features/admin/presentation/screens/skills/value_range.dart';
+import 'package:hero/src/features/admin/presentation/skills/value_range.dart';
 
-import '../../../domain/ability.dart';
+import '../../domain/ability.dart';
+import '../abilities/ability_list_controller.dart';
+import '../abilities/create_ability_screen.dart';
 
 class SkillForm extends ConsumerWidget {
   final GlobalKey<FormBuilderState> _formKey;

@@ -3,11 +3,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/controllers/skills_controller.dart';
-import 'package:hero/src/features/admin/presentation/screens/skills/skill_form.dart';
+import 'package:hero/src/features/admin/presentation/skills/skills_controller.dart';
+import 'package:hero/src/features/admin/presentation/skills/skill_form.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../../../../common_widgets/save_button.dart';
+import '../../../../common_widgets/save_button.dart';
 
 class CreateSkillScreen extends ConsumerStatefulWidget {
   static const name = "CreateSkill";

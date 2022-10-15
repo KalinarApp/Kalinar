@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../components/users/user_list.dart';
-import '../../../../common_widgets/user_menu.dart';
-import '../../../../utilities/async_value_extension.dart';
-import '../controllers/group_info_controller.dart';
+import '../../../common_widgets/user_menu.dart';
+import '../../../utilities/async_value_extension.dart';
+import 'group_info_controller.dart';
+import 'users/user_list.dart';
 
 class ManageGroupScreen extends ConsumerStatefulWidget {
   static const String name = "AdminGroupManagement";
