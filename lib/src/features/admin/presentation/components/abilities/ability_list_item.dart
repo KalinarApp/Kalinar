@@ -53,9 +53,8 @@ class AbilityListItem extends StatelessWidget {
             ],
           ),
           child: ListTile(
-            // leading: const CircleAvatar(),
             title: Text(item.name),
-            subtitle: Text(item.description),
+            subtitle: item.description.isNotEmpty ? Text(item.description) : null,
             onTap: null != onTab ? () => onTab!(item, context) : null,
           ),
         ),

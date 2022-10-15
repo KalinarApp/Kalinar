@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
+import 'package:hero/src/features/admin/presentation/screens/abilities/edit_ability_screen.dart';
 import 'package:hero/src/features/admin/presentation/screens/skills/create_skill_screen.dart';
 import 'package:hero/src/features/admin/presentation/screens/skills/list_skills_screen.dart';
 
+import '../../features/admin/domain/ability.dart';
 import '../../features/admin/presentation/screens/abilities/create_ability_screen.dart';
 import '../../features/admin/presentation/screens/abilities/list_abilities_screen.dart';
 import '../../features/admin/presentation/screens/admin_menu_screen.dart';
@@ -30,6 +32,14 @@ final adminAbilityRoutes = GoRoute(
       name: CreateAbilityScreen.name,
       path: CreateAbilityScreen.route,
       pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const CreateAbilityScreen()),
+    ),
+    GoRoute(
+      name: EditAbilityScreen.name,
+      path: EditAbilityScreen.route,
+      pageBuilder: (context, state) {
+        final itemName = state.queryParams["name"]!;
+        return NoTransitionPage(key: state.pageKey, child: EditAbilityScreen(itemName));
+      },
     )
   ],
 );

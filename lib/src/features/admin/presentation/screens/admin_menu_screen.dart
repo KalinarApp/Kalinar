@@ -30,21 +30,21 @@ class AdminMenuScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 2,
-              child: GridView(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, crossAxisSpacing: 6, mainAxisSpacing: 6),
-                children: const [
-                  SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
-                  SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
-                  SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
-                  SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
-                  SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
-                  SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
-                  SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
-                ],
-              ),
-            ),
+            // Expanded(
+            //   flex: 2,
+            //   child: GridView(
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, crossAxisSpacing: 6, mainAxisSpacing: 6),
+            //     children: const [
+            //       // SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
+            //       // SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
+            //       // SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
+            //       // SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
+            //       // SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
+            //       // SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
+            //       // SelectionCard(icon: Icons.coffee, title: "home", route: "/home"),
+            //     ],
+            //   ),
+            // ),
             Expanded(
               flex: 3,
               child: Column(
@@ -52,17 +52,17 @@ class AdminMenuScreen extends StatelessWidget {
                   AdminMenuItem(
                     icon: Icons.mail,
                     title: "Gruppe verwalten",
-                    onTab: () => GoRouter.of(context).pushNamed(ManageGroupScreen.name),
+                    onTab: () => GoRouter.of(context).goNamed(ManageGroupScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.bookSkull,
                     title: "Fähigkeiten verwalten",
-                    onTab: () => GoRouter.of(context).pushNamed(ListAbilitiesScreen.name),
+                    onTab: () => GoRouter.of(context).goNamed(ListAbilitiesScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.bookSkull,
                     title: "Fertigkeiten verwalten",
-                    onTab: () => GoRouter.of(context).pushNamed(ListSkillsScreen.name),
+                    onTab: () => GoRouter.of(context).goNamed(ListSkillsScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.circleNodes,

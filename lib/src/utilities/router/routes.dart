@@ -4,18 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dart';
-import 'package:hero/src/features/admin/presentation/screens/abilities/create_ability_screen.dart';
 import 'package:hero/src/features/admin/presentation/screens/admin_menu_screen.dart';
-import 'package:hero/src/features/admin/presentation/screens/manage_group_screen.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
 import 'package:hero/src/features/authentication/presentation/auth/sign_in_screen.dart';
 import 'package:hero/src/features/group_management/presentation/user_screen.dart';
-import 'package:hero/src/features/home/presentation/home_screen_selector.dart';
 import 'package:hero/src/features/home/presentation/welcome_screen.dart';
 import 'package:hero/src/utilities/router/admin_routes.dart';
-
-import '../../features/admin/presentation/screens/abilities/list_abilities_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final rootNavigatorKey = GlobalKey<NavigatorState>();

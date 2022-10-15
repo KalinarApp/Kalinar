@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/common_widgets/async_value_list.dart';
+import 'package:hero/src/features/admin/presentation/controllers/ability_list_controller.dart';
+import 'package:hero/src/features/admin/presentation/screens/abilities/edit_ability_screen.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
 
 import '../../../domain/ability.dart';
 import '../../components/abilities/ability_list_item.dart';
-import '../../controllers/abilities_controller.dart';
+import '../../controllers/ability_controller.dart';
 import 'create_ability_screen.dart';
 
 class ListAbilitiesScreen extends ConsumerStatefulWidget {
@@ -20,40 +22,44 @@ class ListAbilitiesScreen extends ConsumerStatefulWidget {
 }
 
 class _ListAbilitiesScreenState extends ConsumerState<ListAbilitiesScreen> {
-  late AbilitiesController controller;
+  late final AbilityListController listController;
+  late final AbilityController abilityController;
 
   Future<void> _refreshAbilities() async {
-    await controller.getAllAbilities();
+    await listController.getAllAbilities();
   }
 
   Future<void> _deleteAbility(Ability ability) async {
-    await controller.deleteAbility(ability.name);
+    final value = await abilityController.deleteAbility(ability.name);
+    if (!mounted) return;
+    value.showSnackbarOnError(context);
   }
 
   void _editAbility(Ability ability, BuildContext ctx) {
-    // Navigator.pushNamed(ctx, EditAbilityScreen.routeName, arguments: ability).then((value) => _refreshAbilities());
+    GoRouter.of(ctx).goNamed(EditAbilityScreen.name, queryParams: {"name": ability.name});
   }
 
-  void _createAbility(BuildContext ctx) {
-    GoRouter.of(context).pushNamed(CreateAbilityScreen.name); //.then((value) => setState(() => _refreshAbilities()));
+  void _createAbility() {
+    GoRouter.of(context).goNamed(CreateAbilityScreen.name);
   }
 
   @override
   void initState() {
-    controller = ref.read(abilitiesControllerProvider.notifier);
+    listController = ref.read(abilityListControllerProvider.notifier);
+    abilityController = ref.read(abilityControllerProvider);
     Future.delayed(const Duration(microseconds: 100), _refreshAbilities);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(abilitiesControllerProvider, (_, state) => state.showSnackbarOnError(context));
-    final state = ref.watch(abilitiesControllerProvider);
+    ref.listen(abilityListControllerProvider, (_, state) => state.showSnackbarOnError(context));
+    final state = ref.watch(abilityListControllerProvider);
 
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: state.hasError ? null : () => _createAbility(context),
+        onPressed: state.hasError ? null : _createAbility,
         child: const Icon(Icons.add),
       ),
       body: AsyncValueList(

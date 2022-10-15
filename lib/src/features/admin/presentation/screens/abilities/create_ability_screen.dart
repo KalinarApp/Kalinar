@@ -3,7 +3,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/controllers/abilities_controller.dart';
+import 'package:hero/src/features/admin/presentation/controllers/ability_controller.dart';
+import 'package:hero/src/utilities/async_value_extension.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../../common_widgets/save_button.dart';
@@ -20,13 +21,13 @@ class CreateAbilityScreen extends ConsumerStatefulWidget {
 
 class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
-  
+
   final saveController = RoundedLoadingButtonController();
-  late AbilitiesController controller;
+  late AbilityController controller;
 
   @override
   void initState() {
-    controller = ref.read(abilitiesControllerProvider.notifier);
+    controller = ref.read(abilityControllerProvider);
     super.initState();
   }
 
@@ -35,30 +36,25 @@ class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        controller.createAbility(data).then((value) {
-          if (null == value) {
+        await controller.create(data).then((value) {
+          value.showSnackbarOnError(context);
+          if (value.hasError) {
             saveController.error();
           } else {
             saveController.success();
             GoRouter.of(context).pop();
           }
         });
+      } else {
+        saveController.error();
       }
+    } else {
+      saveController.error();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(abilitiesControllerProvider);
-
-    state.maybeWhen(
-      data: (data) {
-        saveController.success();
-      },
-      error: (error, stackTrace) => saveController.error(),
-      orElse: () {},
-    );
-
     return SizedBox(
       height: MediaQuery.of(context).size.height * .95,
       width: MediaQuery.of(context).size.width * .4,

@@ -1,10 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 import 'ability.dart';
-
-//   Map<String, dynamic> toJson() => _$SkillToJson(this);
-// }
 
 part 'skill.freezed.dart';
 part 'skill.g.dart';

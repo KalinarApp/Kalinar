@@ -25,7 +25,7 @@ class _AbilityListState extends ConsumerState<AbilityList> {
   }
 
   Future<void> _deleteAbility(Ability ability) async {
-    await controller.deleteAbility(ability.name);
+    // await controller.deleteAbility(ability.name);
   }
 
   void _editAbility(Ability ability, BuildContext ctx) {

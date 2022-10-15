@@ -35,7 +35,7 @@ class _ListSkillsScreenState extends ConsumerState<ListSkillsScreen> {
   }
 
   void _createSkill(BuildContext ctx) {
-    GoRouter.of(context).pushNamed(CreateSkillScreen.name);
+    GoRouter.of(context).goNamed(CreateSkillScreen.name);
   }
 
   @override

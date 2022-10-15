@@ -8,7 +8,7 @@ import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/controllers/create_skill_controller.dart';
+import 'package:hero/src/features/admin/presentation/controllers/ability_list_controller.dart';
 import 'package:hero/src/features/admin/presentation/screens/abilities/create_ability_screen.dart';
 import 'package:hero/src/features/admin/presentation/screens/skills/value_range.dart';
 
@@ -20,11 +20,6 @@ class SkillForm extends ConsumerWidget {
   const SkillForm(this._formKey, {super.key});
 
   Future<void> _showAbilityScreen(BuildContext context) async {
-    // await Navigator.pushNamed(context, CreateAbilityScreen.routeName).then((value) {
-    //   if (null != value && value is String) {
-    //     _formKey.currentState?.fields["ability"]?.didChange(value);
-    //   }
-    // });
     GoRouter.of(context).pushNamed(CreateAbilityScreen.name);
   }
 
@@ -94,7 +89,7 @@ class SkillForm extends ConsumerWidget {
                     valueTransformer: (value) => value?.name,
                     decoration: const InputDecoration(labelText: "Select Ability", prefixIcon: Icon(Icons.handyman)),
                     validator: FormBuilderValidators.required(),
-                    asyncItems: ref.read(createSkillControllerProvider).filterAbilities,
+                    asyncItems: ref.read(abilityListControllerProvider.notifier).filter,
                     compareFn: (item1, item2) => item1.name == item2.name,
                     itemAsString: (item) => item.name,
                     clearButtonProps: const ClearButtonProps(isVisible: true),
