@@ -21,7 +21,7 @@ class Skill with _$Skill {
     @Default(0) int lightPointsBoost,
     @Default(0) double movementSpeedBoost,
     @Default(0) double resistenceBoost,
-    @Default(0) double opticalRageBoost,
+    @Default(0) double opticalRangeBoost,
     @Default(0) double meleeDamageBoost,
     @Default(0) double rangeDamageBoost,
     @Default(0) double lightDamageBoost,

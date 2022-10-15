@@ -6,9 +6,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/presentation/controllers/create_skill_controller.dart';
 import 'package:hero/src/features/admin/presentation/screens/abilities/create_ability_screen.dart';
+import 'package:hero/src/features/admin/presentation/screens/skills/value_range.dart';
 
 import '../../../domain/ability.dart';
 
@@ -47,6 +49,7 @@ class SkillForm extends ConsumerWidget {
                 return base64s;
               },
               maxImages: 1,
+              validator: FormBuilderValidators.required(),
               placeholderWidget: SizedBox(
                 width: 130,
                 child: Container(
@@ -87,8 +90,10 @@ class SkillForm extends ConsumerWidget {
               children: [
                 Flexible(
                   child: FormBuilderSearchableDropdown<Ability>(
-                    name: "ability",
+                    name: "abilityName",
+                    valueTransformer: (value) => value?.name,
                     decoration: const InputDecoration(labelText: "Select Ability", prefixIcon: Icon(Icons.handyman)),
+                    validator: FormBuilderValidators.required(),
                     asyncItems: ref.read(createSkillControllerProvider).filterAbilities,
                     compareFn: (item1, item2) => item1.name == item2.name,
                     itemAsString: (item) => item.name,
@@ -114,6 +119,18 @@ class SkillForm extends ConsumerWidget {
                 )
               ],
             ),
+            const SizedBox(height: 10),
+            const ValueRange(name: "healthPointsBoost", label: "HP Boost", initialValue: 0, min: -100, max: 100, step: 1),
+            const ValueRange(name: "lightPointsBoost", label: "LP Boost", initialValue: 0, min: -100, max: 100, step: 1),
+            const ValueRange(name: "movementSpeedBoost", label: "Movement Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
+            const ValueRange(name: "resistenceBoost", label: "Resistance Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
+            const ValueRange(name: "opticalRageBoost", label: "Optical Range Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
+            const ValueRange(name: "meleeDamageBoost", label: "Melee Damage Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
+            const ValueRange(name: "rangeDamageBoost", label: "Range Damage Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
+            const ValueRange(name: "lightDamageBoost", label: "Light Damage Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
+            const ValueRange(name: "damageBoost", label: "Damage Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
+            const ValueRange(name: "parryBoost", label: "Parry Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
+            const ValueRange(name: "dodgeBoost", label: "Dodge Boost", initialValue: 0.0, min: -10.0, max: 10.0, step: 1.0),
           ],
         ),
       ),

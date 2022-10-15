@@ -29,7 +29,7 @@ mixin _$Skill {
   int get lightPointsBoost => throw _privateConstructorUsedError;
   double get movementSpeedBoost => throw _privateConstructorUsedError;
   double get resistenceBoost => throw _privateConstructorUsedError;
-  double get opticalRageBoost => throw _privateConstructorUsedError;
+  double get opticalRangeBoost => throw _privateConstructorUsedError;
   double get meleeDamageBoost => throw _privateConstructorUsedError;
   double get rangeDamageBoost => throw _privateConstructorUsedError;
   double get lightDamageBoost => throw _privateConstructorUsedError;
@@ -56,7 +56,7 @@ abstract class $SkillCopyWith<$Res> {
       int lightPointsBoost,
       double movementSpeedBoost,
       double resistenceBoost,
-      double opticalRageBoost,
+      double opticalRangeBoost,
       double meleeDamageBoost,
       double rangeDamageBoost,
       double lightDamageBoost,
@@ -86,7 +86,7 @@ class _$SkillCopyWithImpl<$Res> implements $SkillCopyWith<$Res> {
     Object? lightPointsBoost = freezed,
     Object? movementSpeedBoost = freezed,
     Object? resistenceBoost = freezed,
-    Object? opticalRageBoost = freezed,
+    Object? opticalRangeBoost = freezed,
     Object? meleeDamageBoost = freezed,
     Object? rangeDamageBoost = freezed,
     Object? lightDamageBoost = freezed,
@@ -131,9 +131,9 @@ class _$SkillCopyWithImpl<$Res> implements $SkillCopyWith<$Res> {
           ? _value.resistenceBoost
           : resistenceBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      opticalRageBoost: opticalRageBoost == freezed
-          ? _value.opticalRageBoost
-          : opticalRageBoost // ignore: cast_nullable_to_non_nullable
+      opticalRangeBoost: opticalRangeBoost == freezed
+          ? _value.opticalRangeBoost
+          : opticalRangeBoost // ignore: cast_nullable_to_non_nullable
               as double,
       meleeDamageBoost: meleeDamageBoost == freezed
           ? _value.meleeDamageBoost
@@ -189,7 +189,7 @@ abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
       int lightPointsBoost,
       double movementSpeedBoost,
       double resistenceBoost,
-      double opticalRageBoost,
+      double opticalRangeBoost,
       double meleeDamageBoost,
       double rangeDamageBoost,
       double lightDamageBoost,
@@ -221,7 +221,7 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res>
     Object? lightPointsBoost = freezed,
     Object? movementSpeedBoost = freezed,
     Object? resistenceBoost = freezed,
-    Object? opticalRageBoost = freezed,
+    Object? opticalRangeBoost = freezed,
     Object? meleeDamageBoost = freezed,
     Object? rangeDamageBoost = freezed,
     Object? lightDamageBoost = freezed,
@@ -266,9 +266,9 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res>
           ? _value.resistenceBoost
           : resistenceBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      opticalRageBoost: opticalRageBoost == freezed
-          ? _value.opticalRageBoost
-          : opticalRageBoost // ignore: cast_nullable_to_non_nullable
+      opticalRangeBoost: opticalRangeBoost == freezed
+          ? _value.opticalRangeBoost
+          : opticalRangeBoost // ignore: cast_nullable_to_non_nullable
               as double,
       meleeDamageBoost: meleeDamageBoost == freezed
           ? _value.meleeDamageBoost
@@ -310,7 +310,7 @@ class _$_Skill implements _Skill {
       this.lightPointsBoost = 0,
       this.movementSpeedBoost = 0,
       this.resistenceBoost = 0,
-      this.opticalRageBoost = 0,
+      this.opticalRangeBoost = 0,
       this.meleeDamageBoost = 0,
       this.rangeDamageBoost = 0,
       this.lightDamageBoost = 0,
@@ -345,7 +345,7 @@ class _$_Skill implements _Skill {
   final double resistenceBoost;
   @override
   @JsonKey()
-  final double opticalRageBoost;
+  final double opticalRangeBoost;
   @override
   @JsonKey()
   final double meleeDamageBoost;
@@ -367,7 +367,7 @@ class _$_Skill implements _Skill {
 
   @override
   String toString() {
-    return 'Skill(id: $id, ability: $ability, iconUrl: $iconUrl, name: $name, description: $description, healthPointsBoost: $healthPointsBoost, lightPointsBoost: $lightPointsBoost, movementSpeedBoost: $movementSpeedBoost, resistenceBoost: $resistenceBoost, opticalRageBoost: $opticalRageBoost, meleeDamageBoost: $meleeDamageBoost, rangeDamageBoost: $rangeDamageBoost, lightDamageBoost: $lightDamageBoost, damageBoost: $damageBoost, parryBoost: $parryBoost, dodgeBoost: $dodgeBoost)';
+    return 'Skill(id: $id, ability: $ability, iconUrl: $iconUrl, name: $name, description: $description, healthPointsBoost: $healthPointsBoost, lightPointsBoost: $lightPointsBoost, movementSpeedBoost: $movementSpeedBoost, resistenceBoost: $resistenceBoost, opticalRangeBoost: $opticalRangeBoost, meleeDamageBoost: $meleeDamageBoost, rangeDamageBoost: $rangeDamageBoost, lightDamageBoost: $lightDamageBoost, damageBoost: $damageBoost, parryBoost: $parryBoost, dodgeBoost: $dodgeBoost)';
   }
 
   @override
@@ -390,7 +390,7 @@ class _$_Skill implements _Skill {
             const DeepCollectionEquality()
                 .equals(other.resistenceBoost, resistenceBoost) &&
             const DeepCollectionEquality()
-                .equals(other.opticalRageBoost, opticalRageBoost) &&
+                .equals(other.opticalRangeBoost, opticalRangeBoost) &&
             const DeepCollectionEquality()
                 .equals(other.meleeDamageBoost, meleeDamageBoost) &&
             const DeepCollectionEquality()
@@ -418,7 +418,7 @@ class _$_Skill implements _Skill {
       const DeepCollectionEquality().hash(lightPointsBoost),
       const DeepCollectionEquality().hash(movementSpeedBoost),
       const DeepCollectionEquality().hash(resistenceBoost),
-      const DeepCollectionEquality().hash(opticalRageBoost),
+      const DeepCollectionEquality().hash(opticalRangeBoost),
       const DeepCollectionEquality().hash(meleeDamageBoost),
       const DeepCollectionEquality().hash(rangeDamageBoost),
       const DeepCollectionEquality().hash(lightDamageBoost),
@@ -449,7 +449,7 @@ abstract class _Skill implements Skill {
       final int lightPointsBoost,
       final double movementSpeedBoost,
       final double resistenceBoost,
-      final double opticalRageBoost,
+      final double opticalRangeBoost,
       final double meleeDamageBoost,
       final double rangeDamageBoost,
       final double lightDamageBoost,
@@ -478,7 +478,7 @@ abstract class _Skill implements Skill {
   @override
   double get resistenceBoost;
   @override
-  double get opticalRageBoost;
+  double get opticalRangeBoost;
   @override
   double get meleeDamageBoost;
   @override

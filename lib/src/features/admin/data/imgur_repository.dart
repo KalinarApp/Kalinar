@@ -7,22 +7,18 @@ import '../../../utilities/constants.dart';
 class ImgurRepository {
   Future<String?> uploadImageToImgur(String base64) async {
     String? imageUrl;
-    Uri url = Uri.https(Constants.imgurApiUrl, "/3/upload");
+    Uri url = Uri.https(Constants.imgurApiUrl, "/3/image");
 
-    Map<String, String> headers = {
-      "Accept": "*/*",
-      "Authorization": "Client-ID ${Constants.imgurClientId}",
-    };
+    var headers = {'Authorization': 'Client-ID ${Constants.imgurClientId}'};
+    var request = http.MultipartRequest('POST', url);
+    request.fields.addAll({'image': base64});
 
-    Map<String, String> body = {
-      "type": "base64",
-      "image": base64,
-    };
+    request.headers.addAll(headers);
 
-    final response = await http.post(url, headers: headers, body: body);
-    if (response.statusCode < 400) {
-      final body = json.decode(response.body);
-      imageUrl = body["url"];
+    final response = await request.send();
+    if (response.statusCode == 200) {
+      final body = json.decode(await response.stream.bytesToString());
+      imageUrl = body["data"]["link"];
     }
 
     return imageUrl;

@@ -18,14 +18,8 @@ class SkillsController extends StateNotifier<AsyncValue<List<Skill>>> {
     });
   }
 
-  Future<Skill?> createSkill(Map<String, dynamic> data) async {
-    Skill? skill;
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      skill = await repo.createSkill(data);
-      return [...skills, skill!];
-    });
-    return skill;
+  Future<void> createSkill(Skill skill) async {
+    state = AsyncData([...skills, skill]);
   }
 
   Future<void> deleteSkill(String id) async {
@@ -38,5 +32,5 @@ class SkillsController extends StateNotifier<AsyncValue<List<Skill>>> {
   }
 }
 
-final skillControllerProvider =
+final skillsControllerProvider =
     StateNotifierProvider<SkillsController, AsyncValue<List<Skill>>>((ref) => SkillsController(ref.read(skillsRepositoryProvider)));

@@ -14,7 +14,7 @@ class SkillListItem extends StatelessWidget {
     return await showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Fähigkeit löschen?"),
+        title: const Text("Fertigkeit löschen?"),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text("Abbrechen")),
           TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text("Weiter")),
@@ -55,7 +55,7 @@ class SkillListItem extends StatelessWidget {
           child: ListTile(
             leading: null != item.iconUrl ? CircleAvatar(backgroundImage: NetworkImage(item.iconUrl!)) : null,
             title: Text(item.name),
-            subtitle: Text(item.description),
+            subtitle: item.description.isNotEmpty ? Text(item.description) : null,
             onTap: null != onTab ? () => onTab!(item, context) : null,
           ),
         ),

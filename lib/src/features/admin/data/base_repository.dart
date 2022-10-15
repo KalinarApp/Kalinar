@@ -29,7 +29,7 @@ class BaseRepository {
     }
   }
 
-  Future<T> post<T>(Uri url, T data, T Function(dynamic) builder) async {
+  Future<T> post<T>(Uri url, dynamic data, T Function(dynamic) builder) async {
     Map<String, String> headers = {
       "content-type": "application/json",
     };

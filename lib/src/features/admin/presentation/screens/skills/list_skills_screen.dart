@@ -40,15 +40,15 @@ class _ListSkillsScreenState extends ConsumerState<ListSkillsScreen> {
 
   @override
   void initState() {
-    controller = ref.read(skillControllerProvider.notifier);
+    controller = ref.read(skillsControllerProvider.notifier);
     Future.delayed(const Duration(microseconds: 100), _refreshSkill);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(skillControllerProvider, (_, state) => state.showSnackbarOnError(context));
-    final state = ref.watch(skillControllerProvider);
+    ref.listen(skillsControllerProvider, (_, state) => state.showSnackbarOnError(context));
+    final state = ref.watch(skillsControllerProvider);
 
     return Scaffold(
       appBar: AppBar(),
