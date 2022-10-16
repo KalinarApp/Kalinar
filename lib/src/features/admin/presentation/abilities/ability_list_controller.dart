@@ -10,7 +10,7 @@ class AbilityListController extends StateNotifier<AsyncValue<List<Ability>>> {
 
   Future<void> getAllAbilities() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(repo.getAll);
+    state = await AsyncValue.guard(() async => repo.getAll());
   }
 
   Future<List<Ability>> filter(String query) async {

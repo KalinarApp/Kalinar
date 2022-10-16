@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/common_widgets/async_value_list.dart';
-import 'package:hero/src/features/admin/presentation/skills/skill_list_item.dart';
+import 'package:hero/src/features/admin/presentation/skills/edit_skill_screen.dart';
+import 'package:hero/src/features/admin/presentation/skills/skill_list_controller.dart';
+import 'package:hero/src/features/admin/presentation/skills/components/skill_list_item.dart';
 import 'package:hero/src/features/admin/presentation/skills/create_skill_screen.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
 
 import '../../domain/skill.dart';
-import 'skills_controller.dart';
+import 'skill_controller.dart';
 
 class ListSkillsScreen extends ConsumerStatefulWidget {
   static const String name = "ListSkills";
@@ -20,17 +22,19 @@ class ListSkillsScreen extends ConsumerStatefulWidget {
 }
 
 class _ListSkillsScreenState extends ConsumerState<ListSkillsScreen> {
-  late SkillsController controller;
+  late final SkillListController listController;
+  late final SkillController skillController;
 
   Future<void> _refreshSkill() async {
-    await controller.getAllSkills();
+    await listController.getAllSkills();
   }
 
   Future<void> _deleteSkill(Skill skill) async {
-    await controller.deleteSkill(skill.id);
+    await skillController.deleteSkill(skill.id);
   }
 
   void _editAbility(Skill skill, BuildContext ctx) {
+    GoRouter.of(context).goNamed(EditSkillScreen.name, queryParams: {"id": skill.id});
     // Navigator.pushNamed(ctx, EditAbilityScreen.routeName, arguments: ability).then((value) => _refreshAbilities());
   }
 
@@ -40,15 +44,16 @@ class _ListSkillsScreenState extends ConsumerState<ListSkillsScreen> {
 
   @override
   void initState() {
-    controller = ref.read(skillsControllerProvider.notifier);
+    listController = ref.read(skillListControllerProvider.notifier);
+    skillController = ref.read(skillControllerProvider);
     Future.delayed(const Duration(microseconds: 100), _refreshSkill);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(skillsControllerProvider, (_, state) => state.showSnackbarOnError(context));
-    final state = ref.watch(skillsControllerProvider);
+    ref.listen(skillListControllerProvider, (_, state) => state.showSnackbarOnError(context));
+    final state = ref.watch(skillListControllerProvider);
 
     return Scaffold(
       appBar: AppBar(),

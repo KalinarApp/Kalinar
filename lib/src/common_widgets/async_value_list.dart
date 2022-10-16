@@ -13,13 +13,15 @@ class AsyncValueList<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return list.when(
-      data: (data) => RefreshIndicator(
-        onRefresh: refreshList,
-        child: ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (_, index) => builder(data[index]),
-        ),
-      ),
+      data: (data) => data.isNotEmpty
+          ? RefreshIndicator(
+              onRefresh: refreshList,
+              child: ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (_, index) => builder(data[index]),
+              ),
+            )
+          : const Center(child: Text("Ganz schön leer hier...")),
       error: (_, __) => error ?? const Center(child: Text("Fehler beim Laden der Daten.")),
       loading: () =>
           loading ??

@@ -21,9 +21,9 @@ class SkillsRepository extends BaseRepository {
     return post(url, data, (response) => Skill.fromJson(json.decode(response)));
   }
 
-  Future<Skill> updateSkill(String name, Map<String, dynamic> data) async {
-    final url = Uri.https(Constants.baseUrl, "/api/skills/$name");
-    return update(url, Skill.fromJson(data), (response) => Skill.fromJson(json.decode(response)));
+  Future<Skill> updateSkill(String id, Map<String, dynamic> data) async {
+    final url = Uri.https(Constants.baseUrl, "/api/skills/$id");
+    return update(url, data, (response) => Skill.fromJson(json.decode(response)));
   }
 
   Future<bool> deleteSkill(String id) async {

@@ -32,7 +32,7 @@ class _ListAbilitiesScreenState extends ConsumerState<ListAbilitiesScreen> {
     final value = await abilityController.deleteAbility(ability.name);
     if (!mounted) return;
     value.showSnackbarOnError(context);
-  }
+  } 
 
   void _editAbility(Ability ability, BuildContext ctx) {
     GoRouter.of(ctx).goNamed(EditAbilityScreen.name, queryParams: {"name": ability.name});

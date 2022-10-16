@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import '../../domain/skill.dart';
+import '../../../domain/skill.dart';
 
 class SkillListItem extends StatelessWidget {
   final Skill item;

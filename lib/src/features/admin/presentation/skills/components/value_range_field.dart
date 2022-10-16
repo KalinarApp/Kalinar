@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:intl/intl.dart';
 
-class ValueRange<T extends num> extends StatelessWidget {
+class ValueRangeField<T extends num> extends StatelessWidget {
   final T initialValue;
   final String label;
   final T min;
@@ -10,14 +10,16 @@ class ValueRange<T extends num> extends StatelessWidget {
   final T step;
   final String name;
   final NumberFormat? format;
+  final Function() reset;
 
-  const ValueRange(
+  const ValueRangeField(
       {required this.name,
       required this.label,
       required this.initialValue,
       required this.min,
       required this.max,
       required this.step,
+      required this.reset,
       this.format,
       super.key});
 
@@ -31,6 +33,7 @@ class ValueRange<T extends num> extends StatelessWidget {
       step: step,
       initialValue: initialValue,
       displayFormat: format,
+      onChanged: (_) => reset(),
       addIcon: const Icon(Icons.add_circle_outline),
       subtractIcon: const Icon(Icons.remove_circle_outline),
       iconDisabledColor: Theme.of(context).disabledColor,
