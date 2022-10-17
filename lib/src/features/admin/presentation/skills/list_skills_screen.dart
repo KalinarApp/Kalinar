@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/async_value_list.dart';
-import 'package:hero/src/features/admin/presentation/skills/edit_skill_screen.dart';
-import 'package:hero/src/features/admin/presentation/skills/skill_list_controller.dart';
-import 'package:hero/src/features/admin/presentation/skills/components/skill_list_item.dart';
-import 'package:hero/src/features/admin/presentation/skills/create_skill_screen.dart';
-import 'package:hero/src/utilities/async_value_extension.dart';
 
+import 'components/skill_list_item.dart';
+import 'create_skill_screen.dart';
+import 'edit_skill_screen.dart';
+import '../../application/skill_controller.dart';
+import '../../application/skill_list_controller.dart';
 import '../../domain/skill.dart';
-import 'skill_controller.dart';
+import '../../../../utilities/async_value_extension.dart';
+import '../../../../common_widgets/async_value_list.dart';
 
 class ListSkillsScreen extends ConsumerStatefulWidget {
   static const String name = "ListSkills";
@@ -35,7 +35,6 @@ class _ListSkillsScreenState extends ConsumerState<ListSkillsScreen> {
 
   void _editAbility(Skill skill, BuildContext ctx) {
     GoRouter.of(context).goNamed(EditSkillScreen.name, queryParams: {"id": skill.id});
-    // Navigator.pushNamed(ctx, EditAbilityScreen.routeName, arguments: ability).then((value) => _refreshAbilities());
   }
 
   void _createSkill(BuildContext ctx) {

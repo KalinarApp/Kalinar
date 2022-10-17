@@ -8,7 +8,7 @@ part of 'group.dart';
 
 _$_Group _$$_GroupFromJson(Map<String, dynamic> json) => _$_Group(
       name: json['name'] as String,
-      code: json['code'] as String,
+      code: json['code'] as String?,
       description: json['description'] as String?,
     );
 

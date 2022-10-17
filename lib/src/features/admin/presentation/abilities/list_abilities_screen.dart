@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/async_value_list.dart';
-import 'package:hero/src/utilities/async_value_extension.dart';
+
+import '../../../../common_widgets/async_value_list.dart';
+import '../../../../utilities/async_value_extension.dart';
+import '../../application/ability_controller.dart';
+import '../../application/ability_list_controller.dart';
 import '../../domain/ability.dart';
-import 'ability_controller.dart';
-import 'ability_list_controller.dart';
 import 'ability_list_item.dart';
 import 'create_ability_screen.dart';
 import 'edit_ability_screen.dart';
@@ -32,7 +33,7 @@ class _ListAbilitiesScreenState extends ConsumerState<ListAbilitiesScreen> {
     final value = await abilityController.deleteAbility(ability.name);
     if (!mounted) return;
     value.showSnackbarOnError(context);
-  } 
+  }
 
   void _editAbility(Ability ability, BuildContext ctx) {
     GoRouter.of(ctx).goNamed(EditAbilityScreen.name, queryParams: {"name": ability.name});

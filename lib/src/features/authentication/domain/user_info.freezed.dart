@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'user.dart';
+part of 'user_info.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
+  return _UserInfo.fromJson(json);
 }
 
 /// @nodoc
-mixin _$User {
+mixin _$UserInfo {
   String get id => throw _privateConstructorUsedError;
   String get firstname => throw _privateConstructorUsedError;
   String get lastname => throw _privateConstructorUsedError;
@@ -28,13 +28,14 @@ mixin _$User {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
+  $UserInfoCopyWith<UserInfo> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res>;
+abstract class $UserInfoCopyWith<$Res> {
+  factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
+      _$UserInfoCopyWithImpl<$Res>;
   $Res call(
       {String id,
       String firstname,
@@ -44,12 +45,12 @@ abstract class $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
+  _$UserInfoCopyWithImpl(this._value, this._then);
 
-  final User _value;
+  final UserInfo _value;
   // ignore: unused_field
-  final $Res Function(User) _then;
+  final $Res Function(UserInfo) _then;
 
   @override
   $Res call({
@@ -85,9 +86,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$_UserCopyWith(_$_User value, $Res Function(_$_User) then) =
-      __$$_UserCopyWithImpl<$Res>;
+abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
+  factory _$$_UserInfoCopyWith(
+          _$_UserInfo value, $Res Function(_$_UserInfo) then) =
+      __$$_UserInfoCopyWithImpl<$Res>;
   @override
   $Res call(
       {String id,
@@ -98,13 +100,14 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
-    implements _$$_UserCopyWith<$Res> {
-  __$$_UserCopyWithImpl(_$_User _value, $Res Function(_$_User) _then)
-      : super(_value, (v) => _then(v as _$_User));
+class __$$_UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
+    implements _$$_UserInfoCopyWith<$Res> {
+  __$$_UserInfoCopyWithImpl(
+      _$_UserInfo _value, $Res Function(_$_UserInfo) _then)
+      : super(_value, (v) => _then(v as _$_UserInfo));
 
   @override
-  _$_User get _value => super._value as _$_User;
+  _$_UserInfo get _value => super._value as _$_UserInfo;
 
   @override
   $Res call({
@@ -114,7 +117,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? email = freezed,
     Object? username = freezed,
   }) {
-    return _then(_$_User(
+    return _then(_$_UserInfo(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -141,15 +144,16 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_User implements _User {
-  const _$_User(
+class _$_UserInfo implements _UserInfo {
+  const _$_UserInfo(
       {required this.id,
       required this.firstname,
       required this.lastname,
       required this.email,
       required this.username});
 
-  factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
+  factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
+      _$$_UserInfoFromJson(json);
 
   @override
   final String id;
@@ -164,14 +168,14 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, firstname: $firstname, lastname: $lastname, email: $email, username: $username)';
+    return 'UserInfo(id: $id, firstname: $firstname, lastname: $lastname, email: $email, username: $username)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_User &&
+            other is _$_UserInfo &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.firstname, firstname) &&
             const DeepCollectionEquality().equals(other.lastname, lastname) &&
@@ -191,26 +195,26 @@ class _$_User implements _User {
 
   @JsonKey(ignore: true)
   @override
-  _$$_UserCopyWith<_$_User> get copyWith =>
-      __$$_UserCopyWithImpl<_$_User>(this, _$identity);
+  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
+      __$$_UserInfoCopyWithImpl<_$_UserInfo>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserToJson(
+    return _$$_UserInfoToJson(
       this,
     );
   }
 }
 
-abstract class _User implements User {
-  const factory _User(
+abstract class _UserInfo implements UserInfo {
+  const factory _UserInfo(
       {required final String id,
       required final String firstname,
       required final String lastname,
       required final String email,
-      required final String username}) = _$_User;
+      required final String username}) = _$_UserInfo;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
+  factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
 
   @override
   String get id;
@@ -224,5 +228,6 @@ abstract class _User implements User {
   String get username;
   @override
   @JsonKey(ignore: true)
-  _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
+  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
+      throw _privateConstructorUsedError;
 }

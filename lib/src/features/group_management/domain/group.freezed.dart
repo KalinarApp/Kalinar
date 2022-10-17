@@ -21,7 +21,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Group {
   String get name => throw _privateConstructorUsedError;
-  String get code => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -33,7 +33,7 @@ mixin _$Group {
 abstract class $GroupCopyWith<$Res> {
   factory $GroupCopyWith(Group value, $Res Function(Group) then) =
       _$GroupCopyWithImpl<$Res>;
-  $Res call({String name, String code, String? description});
+  $Res call({String name, String? code, String? description});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$GroupCopyWithImpl<$Res> implements $GroupCopyWith<$Res> {
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -72,7 +72,7 @@ abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
   factory _$$_GroupCopyWith(_$_Group value, $Res Function(_$_Group) then) =
       __$$_GroupCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String code, String? description});
+  $Res call({String name, String? code, String? description});
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res>
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -110,7 +110,7 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Group implements _Group {
-  const _$_Group({required this.name, required this.code, this.description});
+  const _$_Group({required this.name, this.code, this.description});
 
   factory _$_Group.fromJson(Map<String, dynamic> json) =>
       _$$_GroupFromJson(json);
@@ -118,7 +118,7 @@ class _$_Group implements _Group {
   @override
   final String name;
   @override
-  final String code;
+  final String? code;
   @override
   final String? description;
 
@@ -162,7 +162,7 @@ class _$_Group implements _Group {
 abstract class _Group implements Group {
   const factory _Group(
       {required final String name,
-      required final String code,
+      final String? code,
       final String? description}) = _$_Group;
 
   factory _Group.fromJson(Map<String, dynamic> json) = _$_Group.fromJson;
@@ -170,7 +170,7 @@ abstract class _Group implements Group {
   @override
   String get name;
   @override
-  String get code;
+  String? get code;
   @override
   String? get description;
   @override

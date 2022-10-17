@@ -7,7 +7,7 @@ import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dar
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
 import 'package:hero/src/features/authentication/presentation/auth/sign_in_screen.dart';
-import 'package:hero/src/features/group_management/presentation/user_screen.dart';
+import 'package:hero/src/features/home/presentation/home_screen.dart';
 import 'package:hero/src/features/home/presentation/welcome_screen.dart';
 import 'package:hero/src/utilities/router/admin_routes.dart';
 
@@ -76,7 +76,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: "/home",
-            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const UserScreen()),
+            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
           ),
           GoRoute(
             path: "/skilltrees",

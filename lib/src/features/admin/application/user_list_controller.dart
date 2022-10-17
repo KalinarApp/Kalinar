@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../authentication/domain/user.dart';
-import '../../../group_management/data/group_repository.dart';
+import '../../authentication/domain/user_info.dart';
+import '../../group_management/data/group_repository.dart';
 
-class UserListController extends StateNotifier<AsyncValue<List<User>>> {
+class UserListController extends StateNotifier<AsyncValue<List<UserInfo>>> {
   final GroupRepository repo;
 
   UserListController(this.repo) : super(const AsyncData([]));
@@ -14,6 +14,6 @@ class UserListController extends StateNotifier<AsyncValue<List<User>>> {
   }
 }
 
-final userListControllerProvider = StateNotifierProvider<UserListController, AsyncValue<List<User>>>((ref) {
+final userListControllerProvider = StateNotifierProvider<UserListController, AsyncValue<List<UserInfo>>>((ref) {
   return UserListController(ref.read(groupRepositoryProvider));
 });

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_auth/flutter_auth.dart';
 
-import '../../../utilities/api_error.dart';
+import 'api_error.dart';
 
 class BaseRepository {
   final FlutterAuth _client;

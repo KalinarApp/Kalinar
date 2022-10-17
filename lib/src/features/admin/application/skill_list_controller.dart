@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/admin/domain/skill.dart';
 
-import '../../data/skills_repository.dart';
+import '../data/skills_repository.dart';
 
 class SkillListController extends StateNotifier<AsyncValue<List<Skill>>> {
   final SkillsRepository repo;
@@ -19,5 +19,5 @@ class SkillListController extends StateNotifier<AsyncValue<List<Skill>>> {
   }
 }
 
-final skillListControllerProvider = StateNotifierProvider<SkillListController, AsyncValue<List<Skill>>>(
-    (ref) => SkillListController(ref.read(skillsRepositoryProvider)));
+final skillListControllerProvider =
+    StateNotifierProvider<SkillListController, AsyncValue<List<Skill>>>((ref) => SkillListController(ref.read(skillsRepositoryProvider)));

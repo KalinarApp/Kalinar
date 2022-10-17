@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/domain/skill.dart';
-import 'package:hero/src/features/admin/presentation/skills/skill_list_controller.dart';
 
-import '../../data/imgur_repository.dart';
-import '../../data/skills_repository.dart';
+import '../data/imgur_repository.dart';
+import '../data/skills_repository.dart';
+import '../domain/skill.dart';
+import 'skill_list_controller.dart';
 
 class SkillController {
   final SkillsRepository repo;
