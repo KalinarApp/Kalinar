@@ -19,12 +19,12 @@ class SignInScreen extends ConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Image.asset(height: 128, "assets/icon.png"),
+                child: Image.asset(height: 128, "assets/app_icon/icon.png"),
               ),
               Text("Hero App", style: Theme.of(context).textTheme.headline3),
               const SizedBox(height: 10),
               Text(
-                "Erstelle und Skille deinen Pen & Paper Charakter",
+                "Pen & Paper auf einem neuen Level",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
               const SizedBox(height: 20),

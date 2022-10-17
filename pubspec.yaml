@@ -58,4 +58,4 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    - assets/icon.png
+    - assets/app_icon/icon.png
