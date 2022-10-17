@@ -40,9 +40,9 @@ class SkillForm extends StatelessWidget {
               name: "lightPointsBoost",
               label: "LP Boost",
               initialValue: item?.lightPointsBoost ?? 0,
-              min: -100,
-              max: 100,
-              step: 1,
+              min: -10,
+              max: 10,
+              step: .5,
               reset: reset,
             ),
             ValueRangeField(
@@ -51,7 +51,7 @@ class SkillForm extends StatelessWidget {
                 initialValue: item?.movementSpeedBoost ?? 0.0,
                 min: -10.0,
                 max: 10.0,
-                step: 1.0,
+                step: .5,
                 reset: reset),
             ValueRangeField(
                 name: "resistenceBoost",
@@ -59,7 +59,7 @@ class SkillForm extends StatelessWidget {
                 initialValue: item?.resistenceBoost ?? 0.0,
                 min: -10.0,
                 max: 10.0,
-                step: 1.0,
+                step: .5,
                 reset: reset),
             ValueRangeField(
                 name: "opticalRangeBoost",
@@ -67,7 +67,7 @@ class SkillForm extends StatelessWidget {
                 initialValue: item?.opticalRangeBoost ?? 0.0,
                 min: -10.0,
                 max: 10.0,
-                step: 1.0,
+                step: .5,
                 reset: reset),
             ValueRangeField(
                 name: "meleeDamageBoost",
@@ -75,7 +75,7 @@ class SkillForm extends StatelessWidget {
                 initialValue: item?.meleeDamageBoost ?? 0.0,
                 min: -10.0,
                 max: 10.0,
-                step: 1.0,
+                step: .5,
                 reset: reset),
             ValueRangeField(
                 name: "rangeDamageBoost",
@@ -83,7 +83,7 @@ class SkillForm extends StatelessWidget {
                 initialValue: item?.rangeDamageBoost ?? 0.0,
                 min: -10.0,
                 max: 10.0,
-                step: 1.0,
+                step: .5,
                 reset: reset),
             ValueRangeField(
                 name: "lightDamageBoost",
@@ -91,7 +91,7 @@ class SkillForm extends StatelessWidget {
                 initialValue: item?.lightDamageBoost ?? 0.0,
                 min: -10.0,
                 max: 10.0,
-                step: 1.0,
+                step: .5,
                 reset: reset),
             ValueRangeField(
               name: "damageBoost",
@@ -99,7 +99,7 @@ class SkillForm extends StatelessWidget {
               initialValue: item?.damageBoost ?? 0.0,
               min: -10.0,
               max: 10.0,
-              step: 1.0,
+              step: .5,
               reset: reset,
             ),
             ValueRangeField(
@@ -108,7 +108,7 @@ class SkillForm extends StatelessWidget {
               initialValue: item?.parryBoost ?? 0.0,
               min: -10.0,
               max: 10.0,
-              step: 1.0,
+              step: .5,
               reset: reset,
             ),
             ValueRangeField(
@@ -117,7 +117,7 @@ class SkillForm extends StatelessWidget {
               initialValue: item?.dodgeBoost ?? 0.0,
               min: -10.0,
               max: 10.0,
-              step: 1.0,
+              step: .5,
               reset: reset,
             ),
           ],
