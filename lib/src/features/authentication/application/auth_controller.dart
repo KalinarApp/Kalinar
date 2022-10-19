@@ -18,4 +18,4 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
 }
 
 final authControllerProvider =
-    StateNotifierProvider.autoDispose<AuthController, AsyncValue<void>>((ref) => AuthController(authRepository: ref.read(authRepositoryProvider)));
+    StateNotifierProvider<AuthController, AsyncValue<void>>((ref) => AuthController(authRepository: ref.read(authRepositoryProvider)));

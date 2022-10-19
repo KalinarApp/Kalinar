@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
+import 'package:hero/src/features/authentication/application/auth_controller.dart';
 import 'package:hero/src/utilities/router/routes.dart';
 
 import '../features/authentication/application/auth_controller.dart';
