@@ -19,6 +19,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   void initState() {
+    Future.delayed(Duration.zero, () => ref.refresh(hasGroupProvider));
     super.initState();
   }
 
