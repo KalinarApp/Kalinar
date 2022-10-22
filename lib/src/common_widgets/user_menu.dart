@@ -6,8 +6,6 @@ import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/application/auth_controller.dart';
 import 'package:hero/src/utilities/router/routes.dart';
 
-import '../features/authentication/application/auth_controller.dart';
-
 class UserMenu extends ConsumerWidget {
   const UserMenu({Key? key}) : super(key: key);
 
@@ -37,8 +35,10 @@ class UserMenu extends ConsumerWidget {
       ),
       pressType: PressType.singleClick,
       arrowColor: Theme.of(context).dialogBackgroundColor,
-      child: CircleAvatar(
-        backgroundImage: NetworkImage(gravater.imageUrl()),
+      child: Center(
+        child: CircleAvatar(
+          backgroundImage: NetworkImage(gravater.imageUrl()),
+        ),
       ),
     );
   }

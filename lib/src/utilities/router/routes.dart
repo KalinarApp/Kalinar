@@ -7,6 +7,9 @@ import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dar
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
 import 'package:hero/src/features/authentication/presentation/auth/sign_in_screen.dart';
+import 'package:hero/src/features/group_management/application/group_controller.dart';
+import 'package:hero/src/features/group_management/presentation/group_screen.dart';
+import 'package:hero/src/features/group_management/presentation/user_invite_screen.dart';
 import 'package:hero/src/features/home/presentation/home_screen.dart';
 import 'package:hero/src/features/home/presentation/welcome_screen.dart';
 import 'package:hero/src/utilities/router/admin_routes.dart';
@@ -23,17 +26,22 @@ final routerProvider = Provider<GoRouter>((ref) {
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     refreshListenable: RouterStreamNotifier(ref),
-    redirect: (context, state) {
+    redirect: (context, state) async {
       final isAuthenticated = ref.read(authStateChangedProvider);
 
       if (null == isAuthenticated) return null;
 
+      if (isAuthenticated && state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
+        final hasGroup = await ref.read(groupControllerProvider).hasGroup();
+        if (!hasGroup) return GroupScreen.route;
+      }
+
       if (state.location == "/") {
-        return isAuthenticated ? "/home" : SignInScreen.route;
+        return isAuthenticated ? HomeScreen.route : SignInScreen.route;
       }
 
       if (state.location == SignInScreen.route) {
-        return isAuthenticated ? "/home" : null;
+        return isAuthenticated ? HomeScreen.route : null;
       }
 
       return isAuthenticated ? null : SignInScreen.route;
@@ -47,12 +55,25 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: SignInScreen.route,
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const SignInScreen()),
       ),
+      GoRoute(
+        name: GroupScreen.name,
+        path: GroupScreen.route,
+        pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const GroupScreen()),
+      ),
+      GoRoute(
+        name: UserInviteScreen.name,
+        path: UserInviteScreen.route,
+        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: UserInviteScreen(state.queryParams["code"])),
+      ),
       ShellRoute(
         navigatorKey: shellNavigatorKey,
         builder: (context, state, child) => ScaffoldWithBottomNavbar(
           tabs: [
             ScaffoldWithNavbarItem(
-                initialLocation: "/home", icon: const Icon(Icons.home), label: const Text("Home"), color: Theme.of(context).colorScheme.primary),
+                initialLocation: HomeScreen.route,
+                icon: const Icon(Icons.home),
+                label: const Text("Home"),
+                color: Theme.of(context).colorScheme.primary),
             ScaffoldWithNavbarItem(
                 initialLocation: "/characters",
                 icon: const Icon(Icons.man),
@@ -75,7 +96,8 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
         routes: [
           GoRoute(
-            path: "/home",
+            name: HomeScreen.name,
+            path: HomeScreen.route,
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
           ),
           GoRoute(

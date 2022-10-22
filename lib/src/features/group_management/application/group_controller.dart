@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/group_management/data/user_repository.dart';
 
 import '../data/group_repository.dart';
+import '../domain/user.dart';
 
 class GroupController {
   final GroupRepository repo;
@@ -14,7 +15,7 @@ class GroupController {
   }
 
   Future<bool> hasGroup() async {
-    final user = await userRepo.getUser();
+    User user = await userRepo.getUser();
     return null != user.group;
   }
 }
@@ -22,5 +23,3 @@ class GroupController {
 final groupControllerProvider = Provider((ref) {
   return GroupController(ref.read(groupRepositoryProvider), ref.read(userRepositoryProvider));
 });
-
-final hasGroupProvider = FutureProvider<bool>((ref) => ref.watch(groupControllerProvider).hasGroup());

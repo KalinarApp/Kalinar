@@ -6,14 +6,14 @@ import '../../../common_widgets/save_button.dart';
 
 import '../application/group_controller.dart';
 
-class CreateGroupScreen extends ConsumerStatefulWidget {
-  const CreateGroupScreen({super.key});
+class CreateGroup extends ConsumerStatefulWidget {
+  const CreateGroup({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CreateGroupScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CreateGroupState();
 }
 
-class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
+class _CreateGroupState extends ConsumerState<CreateGroup> {
   static final _formKey = GlobalKey<FormBuilderState>();
 
   final _btnController = RoundedLoadingButtonController();

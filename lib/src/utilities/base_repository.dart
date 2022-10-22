@@ -35,7 +35,7 @@ class BaseRepository {
     };
 
     try {
-      var encode = json.encode(data);
+      var encode = null != data ? json.encode(data) : null;
       final response = await _client.post(url, body: encode, headers: headers);
       switch (response.statusCode) {
         case 200:
