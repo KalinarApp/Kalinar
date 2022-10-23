@@ -6,7 +6,7 @@ import 'package:hero/src/common_widgets/navigation/scaffold_with_bottom_navbar.d
 import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
-import 'package:hero/src/features/authentication/presentation/auth/sign_in_screen.dart';
+import 'package:hero/src/features/authentication/presentation/sign_in_screen.dart';
 import 'package:hero/src/features/group_management/application/group_controller.dart';
 import 'package:hero/src/features/group_management/presentation/group_screen.dart';
 import 'package:hero/src/features/group_management/presentation/user_invite_screen.dart';
