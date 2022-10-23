@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/loading_indicator.dart';
 import 'package:hero/src/common_widgets/user_menu.dart';
 import 'package:hero/src/features/group_management/application/invite_controller.dart';
 import 'package:hero/src/features/home/presentation/home_screen.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class UserInviteScreen extends ConsumerStatefulWidget {
   static const String name = "Invite";
@@ -21,6 +21,7 @@ class UserInviteScreen extends ConsumerStatefulWidget {
 
 class _UserInviteScreenState extends ConsumerState<UserInviteScreen> {
   late final TextEditingController controller;
+  final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
 
   void _loadGroupInfo() {
     if (controller.text.isNotEmpty) ref.read(inviteControllerProvider.notifier).getInfo(controller.text);
@@ -30,7 +31,8 @@ class _UserInviteScreenState extends ConsumerState<UserInviteScreen> {
     ref.read(inviteControllerProvider.notifier).joinGroup(id, code).then((value) {
       value.showSnackbarOnError(context);
       if (value.hasError) {
-        // ToDo: show error on button and reset delayed.
+        btnController.error();
+        Future.delayed(const Duration(seconds: 3), () => btnController.reset());
       } else {
         GoRouter.of(context).goNamed(HomeScreen.name);
       }
@@ -83,7 +85,13 @@ class _UserInviteScreenState extends ConsumerState<UserInviteScreen> {
                       children: [
                         TextButton(onPressed: () => GoRouter.of(context).pop(), child: const Text("Abbrechen")),
                         const SizedBox(width: 12),
-                        ElevatedButton(onPressed: () => _joinGroup(data.id, controller.text), child: const Text("Beitreten")),
+                        RoundedLoadingButton(
+                          width: 100,
+                          height: 30,
+                          controller: btnController,
+                          onPressed: () => _joinGroup(data.id, controller.text),
+                          child: const Text("Beitreten"),
+                        ),
                       ],
                     ),
                   ],

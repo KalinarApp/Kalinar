@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hero/src/features/home/presentation/home_screen.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../../common_widgets/save_button.dart';
 
@@ -32,7 +34,7 @@ class _CreateGroupState extends ConsumerState<CreateGroup> {
       final data = _formKey.currentState?.value;
       if (null != data) {
         ref.read(groupControllerProvider).save(data);
-        Navigator.pop(context);
+        GoRouter.of(context).goNamed(HomeScreen.name);
       }
     }
   }
