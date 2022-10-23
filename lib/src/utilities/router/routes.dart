@@ -79,17 +79,16 @@ final routerProvider = Provider<GoRouter>((ref) {
                 icon: const Icon(Icons.man),
                 label: const Text("Charakter"),
                 color: Theme.of(context).colorScheme.primary),
+            ScaffoldWithNavbarItem(
+                initialLocation: "/skilltrees",
+                icon: const Icon(Icons.trending_up),
+                label: const Text("Fähigkeiten"),
+                color: Theme.of(context).colorScheme.primary),
             if (null != currentUser && currentUser.isAdmin())
               ScaffoldWithNavbarItem(
                   initialLocation: AdminMenuScreen.route,
                   icon: const Icon(Icons.coffee),
                   label: const Text("Admin"),
-                  color: Theme.of(context).colorScheme.primary),
-            if (null != currentUser && !currentUser.isAdmin())
-              ScaffoldWithNavbarItem(
-                  initialLocation: "/skilltrees",
-                  icon: const Icon(Icons.trending_up),
-                  label: const Text("Fähigkeiten"),
                   color: Theme.of(context).colorScheme.primary),
           ],
           child: child,
