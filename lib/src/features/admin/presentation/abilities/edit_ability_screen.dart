@@ -7,9 +7,9 @@ import 'package:hero/src/utilities/async_value_extension.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/save_button.dart';
+import '../../application/ability_controller.dart';
+import '../../application/ability_list_controller.dart';
 import '../../domain/ability.dart';
-import 'ability_controller.dart';
-import 'ability_list_controller.dart';
 
 class EditAbilityScreen extends ConsumerStatefulWidget {
   static const String name = "EditAbility";
@@ -28,7 +28,7 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
   late final Ability item;
 
   final saveController = RoundedLoadingButtonController();
-  late AbilityController controller;    
+  late AbilityController controller;
 
   @override
   void initState() {

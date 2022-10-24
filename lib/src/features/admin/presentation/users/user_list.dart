@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'user_list_controller.dart';
+import '../../application/user_list_controller.dart';
 import 'user_list_item.dart';
 
 class UserList extends ConsumerStatefulWidget {

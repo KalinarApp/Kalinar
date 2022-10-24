@@ -7,14 +7,14 @@ import 'package:hero/src/utilities/async_value_extension.dart';
 import '../../admin/presentation/group_info_controller.dart';
 import '../../admin/presentation/users/user_list.dart';
 
-class AdminScreen extends ConsumerStatefulWidget {
-  const AdminScreen({Key? key}) : super(key: key);
+class AdminInviteScreen extends ConsumerStatefulWidget {
+  const AdminInviteScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AdminScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AdminInviteScreenState();
 }
 
-class _AdminScreenState extends ConsumerState<AdminScreen> {
+class _AdminInviteScreenState extends ConsumerState<AdminInviteScreen> {
   late GroupInfoController groupInfoController;
 
   void _copyToClipboard(String code) {

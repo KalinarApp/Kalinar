@@ -7,7 +7,7 @@ import 'package:hero/src/utilities/async_value_extension.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/save_button.dart';
-import 'ability_controller.dart';
+import '../../application/ability_controller.dart';
 
 class CreateAbilityScreen extends ConsumerStatefulWidget {
   static const String name = "CreateAbility";

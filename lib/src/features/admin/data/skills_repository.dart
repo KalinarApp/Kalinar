@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/data/base_repository.dart';
+import 'package:hero/src/utilities/base_repository.dart';
 import 'package:hero/src/features/admin/domain/skill.dart';
 
 import '../../../utilities/constants.dart';
