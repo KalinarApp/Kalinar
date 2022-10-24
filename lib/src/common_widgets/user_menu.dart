@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
-import 'package:hero/src/features/authentication/presentation/auth/auth_controller.dart';
+import 'package:hero/src/features/authentication/application/auth_controller.dart';
 import 'package:hero/src/utilities/router/routes.dart';
 
 class UserMenu extends ConsumerWidget {
@@ -35,8 +35,10 @@ class UserMenu extends ConsumerWidget {
       ),
       pressType: PressType.singleClick,
       arrowColor: Theme.of(context).dialogBackgroundColor,
-      child: CircleAvatar(
-        backgroundImage: NetworkImage(gravater.imageUrl()),
+      child: Center(
+        child: CircleAvatar(
+          backgroundImage: NetworkImage(gravater.imageUrl()),
+        ),
       ),
     );
   }

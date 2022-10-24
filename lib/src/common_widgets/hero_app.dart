@@ -6,7 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:hero/src/utilities/router/routes.dart';
 
-import '../features/authentication/presentation/auth/init_controller.dart';
+import '../features/authentication/application/init_controller.dart';
 
 class HeroApp extends ConsumerStatefulWidget {
   const HeroApp({super.key});

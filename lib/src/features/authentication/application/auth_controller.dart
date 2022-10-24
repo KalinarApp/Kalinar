@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/auth_repository.dart';
+import '../data/auth_repository.dart';
 
 class AuthController extends StateNotifier<AsyncValue<void>> {
   final AuthRepository authRepository;
@@ -18,4 +18,4 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
 }
 
 final authControllerProvider =
-    StateNotifierProvider.autoDispose<AuthController, AsyncValue<void>>((ref) => AuthController(authRepository: ref.read(authRepositoryProvider)));
+    StateNotifierProvider<AuthController, AsyncValue<void>>((ref) => AuthController(authRepository: ref.read(authRepositoryProvider)));
