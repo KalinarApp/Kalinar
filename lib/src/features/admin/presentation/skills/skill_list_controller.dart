@@ -17,7 +17,11 @@ class SkillListController extends StateNotifier<AsyncValue<List<Skill>>> {
       return skills;
     });
   }
+
+  Future<List<Skill>> filter(String query) async {
+    return await repo.getAll();
+  }
 }
 
-final skillListControllerProvider = StateNotifierProvider<SkillListController, AsyncValue<List<Skill>>>(
-    (ref) => SkillListController(ref.read(skillsRepositoryProvider)));
+final skillListControllerProvider =
+    StateNotifierProvider<SkillListController, AsyncValue<List<Skill>>>((ref) => SkillListController(ref.read(skillsRepositoryProvider)));

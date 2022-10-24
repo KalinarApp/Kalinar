@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/presentation/skills/create_skill_screen.dart';
 import 'package:hero/src/features/admin/presentation/skills/edit_skill_screen.dart';
 import 'package:hero/src/features/admin/presentation/skills/list_skills_screen.dart';
+import 'package:hero/src/features/admin/presentation/skilltree/skilltree_builder_screen.dart';
 
 import '../../features/admin/presentation/abilities/create_ability_screen.dart';
 import '../../features/admin/presentation/abilities/edit_ability_screen.dart';
@@ -20,6 +21,7 @@ final adminRoutes = GoRoute(
     ),
     adminAbilityRoutes,
     adminSkillRoutes,
+    adminSkilltreeRoutes,
   ],
 );
 
@@ -60,4 +62,10 @@ final adminSkillRoutes = GoRoute(
       pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditSkillScreen(state.queryParams["id"]!)),
     ),
   ],
+);
+
+final adminSkilltreeRoutes = GoRoute(
+  name: SkilltreeBuilderScreen.name,
+  path: SkilltreeBuilderScreen.route,
+  pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const SkilltreeBuilderScreen()),
 );
