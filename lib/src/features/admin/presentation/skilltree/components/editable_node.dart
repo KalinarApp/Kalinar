@@ -6,9 +6,10 @@ import '../../../domain/node.dart';
 
 class EditableNode extends StatelessWidget {
   final Node item;
+  final Function(Node node) onTap;
   final Function({Node? node}) onLongPress;
 
-  const EditableNode(this.item, {required this.onLongPress, super.key});
+  const EditableNode(this.item, {required this.onTap, required this.onLongPress, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class EditableNode extends StatelessWidget {
         color: Color(int.parse(item.color)),
         child: InkWell(
           borderRadius: BorderRadius.circular(4),
+          onTap: () => onTap(item),
           onLongPress: () => onLongPress(node: item),
           child: Transform.rotate(
             angle: -pi / 4,

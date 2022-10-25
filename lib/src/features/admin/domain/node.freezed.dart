@@ -28,6 +28,8 @@ mixin _$Node {
   bool get isEasyReachable => throw _privateConstructorUsedError;
   double get xpos => throw _privateConstructorUsedError;
   double get ypos => throw _privateConstructorUsedError;
+  List<String> get precessors => throw _privateConstructorUsedError;
+  List<String> get successors => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +48,9 @@ abstract class $NodeCopyWith<$Res> {
       String color,
       bool isEasyReachable,
       double xpos,
-      double ypos});
+      double ypos,
+      List<String> precessors,
+      List<String> successors});
 
   $SkillCopyWith<$Res> get skill;
 }
@@ -69,6 +73,8 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
     Object? isEasyReachable = freezed,
     Object? xpos = freezed,
     Object? ypos = freezed,
+    Object? precessors = freezed,
+    Object? successors = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -103,6 +109,14 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
           ? _value.ypos
           : ypos // ignore: cast_nullable_to_non_nullable
               as double,
+      precessors: precessors == freezed
+          ? _value.precessors
+          : precessors // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      successors: successors == freezed
+          ? _value.successors
+          : successors // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 
@@ -127,7 +141,9 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
       String color,
       bool isEasyReachable,
       double xpos,
-      double ypos});
+      double ypos,
+      List<String> precessors,
+      List<String> successors});
 
   @override
   $SkillCopyWith<$Res> get skill;
@@ -152,6 +168,8 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
     Object? isEasyReachable = freezed,
     Object? xpos = freezed,
     Object? ypos = freezed,
+    Object? precessors = freezed,
+    Object? successors = freezed,
   }) {
     return _then(_$_Node(
       id: id == freezed
@@ -186,6 +204,14 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
           ? _value.ypos
           : ypos // ignore: cast_nullable_to_non_nullable
               as double,
+      precessors: precessors == freezed
+          ? _value._precessors
+          : precessors // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      successors: successors == freezed
+          ? _value._successors
+          : successors // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -201,7 +227,11 @@ class _$_Node implements _Node {
       required this.color,
       required this.isEasyReachable,
       this.xpos = 0,
-      this.ypos = 0});
+      this.ypos = 0,
+      final List<String> precessors = const [],
+      final List<String> successors = const []})
+      : _precessors = precessors,
+        _successors = successors;
 
   factory _$_Node.fromJson(Map<String, dynamic> json) => _$$_NodeFromJson(json);
 
@@ -223,10 +253,25 @@ class _$_Node implements _Node {
   @override
   @JsonKey()
   final double ypos;
+  final List<String> _precessors;
+  @override
+  @JsonKey()
+  List<String> get precessors {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_precessors);
+  }
+
+  final List<String> _successors;
+  @override
+  @JsonKey()
+  List<String> get successors {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_successors);
+  }
 
   @override
   String toString() {
-    return 'Node(id: $id, importance: $importance, skill: $skill, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xpos: $xpos, ypos: $ypos)';
+    return 'Node(id: $id, importance: $importance, skill: $skill, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xpos: $xpos, ypos: $ypos, precessors: $precessors, successors: $successors)';
   }
 
   @override
@@ -243,7 +288,11 @@ class _$_Node implements _Node {
             const DeepCollectionEquality()
                 .equals(other.isEasyReachable, isEasyReachable) &&
             const DeepCollectionEquality().equals(other.xpos, xpos) &&
-            const DeepCollectionEquality().equals(other.ypos, ypos));
+            const DeepCollectionEquality().equals(other.ypos, ypos) &&
+            const DeepCollectionEquality()
+                .equals(other._precessors, _precessors) &&
+            const DeepCollectionEquality()
+                .equals(other._successors, _successors));
   }
 
   @JsonKey(ignore: true)
@@ -257,7 +306,9 @@ class _$_Node implements _Node {
       const DeepCollectionEquality().hash(color),
       const DeepCollectionEquality().hash(isEasyReachable),
       const DeepCollectionEquality().hash(xpos),
-      const DeepCollectionEquality().hash(ypos));
+      const DeepCollectionEquality().hash(ypos),
+      const DeepCollectionEquality().hash(_precessors),
+      const DeepCollectionEquality().hash(_successors));
 
   @JsonKey(ignore: true)
   @override
@@ -281,7 +332,9 @@ abstract class _Node implements Node {
       required final String color,
       required final bool isEasyReachable,
       final double xpos,
-      final double ypos}) = _$_Node;
+      final double ypos,
+      final List<String> precessors,
+      final List<String> successors}) = _$_Node;
 
   factory _Node.fromJson(Map<String, dynamic> json) = _$_Node.fromJson;
 
@@ -301,6 +354,10 @@ abstract class _Node implements Node {
   double get xpos;
   @override
   double get ypos;
+  @override
+  List<String> get precessors;
+  @override
+  List<String> get successors;
   @override
   @JsonKey(ignore: true)
   _$$_NodeCopyWith<_$_Node> get copyWith => throw _privateConstructorUsedError;

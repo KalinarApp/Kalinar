@@ -22,6 +22,7 @@ SkilltreeState _$SkilltreeStateFromJson(Map<String, dynamic> json) {
 mixin _$SkilltreeState {
   List<Node> get nodes => throw _privateConstructorUsedError;
   List<Edge> get edges => throw _privateConstructorUsedError;
+  Node? get selectedNode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,9 @@ abstract class $SkilltreeStateCopyWith<$Res> {
   factory $SkilltreeStateCopyWith(
           SkilltreeState value, $Res Function(SkilltreeState) then) =
       _$SkilltreeStateCopyWithImpl<$Res>;
-  $Res call({List<Node> nodes, List<Edge> edges});
+  $Res call({List<Node> nodes, List<Edge> edges, Node? selectedNode});
+
+  $NodeCopyWith<$Res>? get selectedNode;
 }
 
 /// @nodoc
@@ -50,6 +53,7 @@ class _$SkilltreeStateCopyWithImpl<$Res>
   $Res call({
     Object? nodes = freezed,
     Object? edges = freezed,
+    Object? selectedNode = freezed,
   }) {
     return _then(_value.copyWith(
       nodes: nodes == freezed
@@ -60,7 +64,22 @@ class _$SkilltreeStateCopyWithImpl<$Res>
           ? _value.edges
           : edges // ignore: cast_nullable_to_non_nullable
               as List<Edge>,
+      selectedNode: selectedNode == freezed
+          ? _value.selectedNode
+          : selectedNode // ignore: cast_nullable_to_non_nullable
+              as Node?,
     ));
+  }
+
+  @override
+  $NodeCopyWith<$Res>? get selectedNode {
+    if (_value.selectedNode == null) {
+      return null;
+    }
+
+    return $NodeCopyWith<$Res>(_value.selectedNode!, (value) {
+      return _then(_value.copyWith(selectedNode: value));
+    });
   }
 }
 
@@ -71,7 +90,10 @@ abstract class _$$_SkilltreeStateCopyWith<$Res>
           _$_SkilltreeState value, $Res Function(_$_SkilltreeState) then) =
       __$$_SkilltreeStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Node> nodes, List<Edge> edges});
+  $Res call({List<Node> nodes, List<Edge> edges, Node? selectedNode});
+
+  @override
+  $NodeCopyWith<$Res>? get selectedNode;
 }
 
 /// @nodoc
@@ -89,6 +111,7 @@ class __$$_SkilltreeStateCopyWithImpl<$Res>
   $Res call({
     Object? nodes = freezed,
     Object? edges = freezed,
+    Object? selectedNode = freezed,
   }) {
     return _then(_$_SkilltreeState(
       nodes: nodes == freezed
@@ -99,6 +122,10 @@ class __$$_SkilltreeStateCopyWithImpl<$Res>
           ? _value._edges
           : edges // ignore: cast_nullable_to_non_nullable
               as List<Edge>,
+      selectedNode: selectedNode == freezed
+          ? _value.selectedNode
+          : selectedNode // ignore: cast_nullable_to_non_nullable
+              as Node?,
     ));
   }
 }
@@ -107,7 +134,9 @@ class __$$_SkilltreeStateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SkilltreeState implements _SkilltreeState {
   const _$_SkilltreeState(
-      {final List<Node> nodes = const [], final List<Edge> edges = const []})
+      {final List<Node> nodes = const [],
+      final List<Edge> edges = const [],
+      this.selectedNode})
       : _nodes = nodes,
         _edges = edges;
 
@@ -131,8 +160,11 @@ class _$_SkilltreeState implements _SkilltreeState {
   }
 
   @override
+  final Node? selectedNode;
+
+  @override
   String toString() {
-    return 'SkilltreeState(nodes: $nodes, edges: $edges)';
+    return 'SkilltreeState(nodes: $nodes, edges: $edges, selectedNode: $selectedNode)';
   }
 
   @override
@@ -141,7 +173,9 @@ class _$_SkilltreeState implements _SkilltreeState {
         (other.runtimeType == runtimeType &&
             other is _$_SkilltreeState &&
             const DeepCollectionEquality().equals(other._nodes, _nodes) &&
-            const DeepCollectionEquality().equals(other._edges, _edges));
+            const DeepCollectionEquality().equals(other._edges, _edges) &&
+            const DeepCollectionEquality()
+                .equals(other.selectedNode, selectedNode));
   }
 
   @JsonKey(ignore: true)
@@ -149,7 +183,8 @@ class _$_SkilltreeState implements _SkilltreeState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_nodes),
-      const DeepCollectionEquality().hash(_edges));
+      const DeepCollectionEquality().hash(_edges),
+      const DeepCollectionEquality().hash(selectedNode));
 
   @JsonKey(ignore: true)
   @override
@@ -166,7 +201,9 @@ class _$_SkilltreeState implements _SkilltreeState {
 
 abstract class _SkilltreeState implements SkilltreeState {
   const factory _SkilltreeState(
-      {final List<Node> nodes, final List<Edge> edges}) = _$_SkilltreeState;
+      {final List<Node> nodes,
+      final List<Edge> edges,
+      final Node? selectedNode}) = _$_SkilltreeState;
 
   factory _SkilltreeState.fromJson(Map<String, dynamic> json) =
       _$_SkilltreeState.fromJson;
@@ -175,6 +212,8 @@ abstract class _SkilltreeState implements SkilltreeState {
   List<Node> get nodes;
   @override
   List<Edge> get edges;
+  @override
+  Node? get selectedNode;
   @override
   @JsonKey(ignore: true)
   _$$_SkilltreeStateCopyWith<_$_SkilltreeState> get copyWith =>

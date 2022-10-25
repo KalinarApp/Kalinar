@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/common_widgets/user_menu.dart';
 import 'package:hero/src/features/admin/application/skilltree_controller.dart';
 import 'package:hero/src/features/admin/presentation/skilltree/components/draggable_node.dart';
+import 'package:hero/src/features/admin/presentation/skilltree/components/edge_widget.dart';
 import 'package:hero/src/features/admin/presentation/skilltree/components/node_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -21,6 +22,23 @@ class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
 class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen> {
   final globalKey = GlobalKey();
 
+  Node? firstSelectedNode;
+
+  void _connectNodes(Node selectedNode) {
+    if (null == firstSelectedNode) {
+      setState(() {
+        firstSelectedNode = selectedNode;
+      });
+    } else if (firstSelectedNode == selectedNode) {
+      setState(() {
+        firstSelectedNode = null;
+      });
+    } else if (!firstSelectedNode!.successors.contains(selectedNode.id)) {
+      ref.read(skilltreeControllerProvider.notifier).addEdge(firstSelectedNode!, selectedNode);
+      firstSelectedNode = null;
+    }
+  }
+
   Future<void> _showCreateNodeModal({Node? node}) async {
     await showBarModalBottomSheet(
       context: context,
@@ -33,7 +51,7 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
   }
 
   void onDragStarted(Node node) {
-    ref.read(skilltreeControllerProvider.notifier).deleteNode(node);
+    // ref.read(skilltreeControllerProvider.notifier).deleteNode(node);
   }
 
   void updatePosition(Node node, Offset offset) {
@@ -101,7 +119,14 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
               builder: (context, _, __) {
                 return Stack(children: [
                   // ToDo: draw edges
-                  for (final node in state.nodes) DraggableNode(node, onLongPress: _showCreateNodeModal, onDragStarted: onDragStarted),
+                  for (final edge in ref.read(skilltreeControllerProvider.notifier).getAllEdges()) EdgetWidget(edge),
+                  for (final node in state.nodes)
+                    DraggableNode(
+                      node,
+                      onTap: _connectNodes,
+                      onLongPress: _showCreateNodeModal,
+                      onDragStarted: onDragStarted,
+                    ),
                   _drawGridLines(color: Theme.of(context).backgroundColor.withOpacity(.1))
                 ]);
               },

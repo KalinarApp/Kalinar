@@ -15,6 +15,8 @@ class Node with _$Node {
     required bool isEasyReachable,
     @Default(0) double xpos,
     @Default(0) double ypos,
+    @Default([]) List<String> precessors,
+    @Default([]) List<String> successors,
   }) = _Node;
 
   factory Node.fromJson(Map<String, dynamic> json) => _$NodeFromJson(json);

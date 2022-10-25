@@ -27,9 +27,9 @@ class NodeModal extends ConsumerWidget {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        if (null != item) {
-          ref.read(skilltreeControllerProvider.notifier).deleteNode(item!);
-        }
+        // if (null != item) {
+        //   ref.read(skilltreeControllerProvider.notifier).deleteNode(item!);
+        // }
         ref.read(skilltreeControllerProvider.notifier).addNode(data);
         Navigator.pop(context);
       } else {
@@ -61,9 +61,7 @@ class NodeModal extends ConsumerWidget {
               InvisibleField(name: "id", initialValue: item?.id ?? const Uuid().v4()),
               InvisibleField(name: "xpos", initialValue: item?.xpos ?? 0),
               InvisibleField(name: "ypos", initialValue: item?.ypos ?? 0),
-
               SkillSelectionField(initialValue: item?.skill),
-              
               BoolField(name: "isEasyReachable", label: "Direkt Freischaltbar?", initialValue: item?.isEasyReachable ?? false),
               ValueRangeField(name: "cost", label: "Benötigte Skillpunkte", initialValue: item?.cost ?? 0, min: 0, max: 10, step: 1),
               ValueRangeField(name: "importance", label: "Benötigte Skillpunkte", initialValue: item?.importance ?? 0, min: 0, max: 10, step: 1),

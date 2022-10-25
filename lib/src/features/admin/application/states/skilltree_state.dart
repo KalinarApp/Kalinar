@@ -11,6 +11,7 @@ class SkilltreeState with _$SkilltreeState {
   const factory SkilltreeState({
     @Default([]) List<Node> nodes,
     @Default([]) List<Edge> edges,
+    Node? selectedNode,
   }) = _SkilltreeState;
 
   factory SkilltreeState.fromJson(Map<String, dynamic> json) => _$SkilltreeStateFromJson(json);
