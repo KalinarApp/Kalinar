@@ -7,6 +7,7 @@ part 'node.g.dart';
 @freezed
 class Node with _$Node {
   const factory Node({
+    required String id,
     required int importance,
     required Skill skill,
     required int cost,

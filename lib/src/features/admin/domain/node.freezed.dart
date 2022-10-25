@@ -20,6 +20,7 @@ Node _$NodeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Node {
+  String get id => throw _privateConstructorUsedError;
   int get importance => throw _privateConstructorUsedError;
   Skill get skill => throw _privateConstructorUsedError;
   int get cost => throw _privateConstructorUsedError;
@@ -38,7 +39,8 @@ abstract class $NodeCopyWith<$Res> {
   factory $NodeCopyWith(Node value, $Res Function(Node) then) =
       _$NodeCopyWithImpl<$Res>;
   $Res call(
-      {int importance,
+      {String id,
+      int importance,
       Skill skill,
       int cost,
       String color,
@@ -59,6 +61,7 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? importance = freezed,
     Object? skill = freezed,
     Object? cost = freezed,
@@ -68,6 +71,10 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
     Object? ypos = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       importance: importance == freezed
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
@@ -113,7 +120,8 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
       __$$_NodeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int importance,
+      {String id,
+      int importance,
       Skill skill,
       int cost,
       String color,
@@ -136,6 +144,7 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? importance = freezed,
     Object? skill = freezed,
     Object? cost = freezed,
@@ -145,6 +154,10 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
     Object? ypos = freezed,
   }) {
     return _then(_$_Node(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       importance: importance == freezed
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
@@ -181,7 +194,8 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Node implements _Node {
   const _$_Node(
-      {required this.importance,
+      {required this.id,
+      required this.importance,
       required this.skill,
       required this.cost,
       required this.color,
@@ -191,6 +205,8 @@ class _$_Node implements _Node {
 
   factory _$_Node.fromJson(Map<String, dynamic> json) => _$$_NodeFromJson(json);
 
+  @override
+  final String id;
   @override
   final int importance;
   @override
@@ -210,7 +226,7 @@ class _$_Node implements _Node {
 
   @override
   String toString() {
-    return 'Node(importance: $importance, skill: $skill, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xpos: $xpos, ypos: $ypos)';
+    return 'Node(id: $id, importance: $importance, skill: $skill, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xpos: $xpos, ypos: $ypos)';
   }
 
   @override
@@ -218,6 +234,7 @@ class _$_Node implements _Node {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Node &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality()
                 .equals(other.importance, importance) &&
             const DeepCollectionEquality().equals(other.skill, skill) &&
@@ -233,6 +250,7 @@ class _$_Node implements _Node {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(importance),
       const DeepCollectionEquality().hash(skill),
       const DeepCollectionEquality().hash(cost),
@@ -256,7 +274,8 @@ class _$_Node implements _Node {
 
 abstract class _Node implements Node {
   const factory _Node(
-      {required final int importance,
+      {required final String id,
+      required final int importance,
       required final Skill skill,
       required final int cost,
       required final String color,
@@ -266,6 +285,8 @@ abstract class _Node implements Node {
 
   factory _Node.fromJson(Map<String, dynamic> json) = _$_Node.fromJson;
 
+  @override
+  String get id;
   @override
   int get importance;
   @override

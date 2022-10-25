@@ -4,26 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:hero/src/common_widgets/form_fields/bool_field.dart';
+import 'package:hero/src/common_widgets/form_fields/invisible_field.dart';
 import 'package:hero/src/common_widgets/form_fields/value_range_field.dart';
 import 'package:hero/src/features/admin/presentation/skilltree/components/skill_selection_field.dart';
 import 'package:hero/src/features/admin/application/skilltree_controller.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../common_widgets/save_button.dart';
+import '../../../domain/node.dart';
 
 class NodeModal extends ConsumerWidget {
-  static const routeName = "groups/create";
+  final Node? item;
   static final _formKey = GlobalKey<FormBuilderState>();
 
   final RoundedLoadingButtonController controller = RoundedLoadingButtonController();
 
-  NodeModal({Key? key}) : super(key: key);
+  NodeModal({this.item, Key? key}) : super(key: key);
 
   Future<void> _save(WidgetRef ref, BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
+        if (null != item) {
+          ref.read(skilltreeControllerProvider.notifier).deleteNode(item!);
+        }
         ref.read(skilltreeControllerProvider.notifier).addNode(data);
         Navigator.pop(context);
       } else {
@@ -52,14 +58,19 @@ class NodeModal extends ConsumerWidget {
                   SaveButton(controller: controller, onSave: () => _save(ref, context)),
                 ],
               ),
-              const SkillSelectionField(),
-              const BoolField(name: "isEasyReachable", label: "Direkt Freischaltbar?", initialValue: false),
-              const ValueRangeField(name: "cost", label: "Benötigte Skillpunkte", initialValue: 0, min: 0, max: 10, step: 1),
-              const ValueRangeField(name: "importance", label: "Benötigte Skillpunkte", initialValue: 0, min: 0, max: 10, step: 1),
+              InvisibleField(name: "id", initialValue: item?.id ?? const Uuid().v4()),
+              InvisibleField(name: "xpos", initialValue: item?.xpos ?? 0),
+              InvisibleField(name: "ypos", initialValue: item?.ypos ?? 0),
+
+              SkillSelectionField(initialValue: item?.skill),
+              
+              BoolField(name: "isEasyReachable", label: "Direkt Freischaltbar?", initialValue: item?.isEasyReachable ?? false),
+              ValueRangeField(name: "cost", label: "Benötigte Skillpunkte", initialValue: item?.cost ?? 0, min: 0, max: 10, step: 1),
+              ValueRangeField(name: "importance", label: "Benötigte Skillpunkte", initialValue: item?.importance ?? 0, min: 0, max: 10, step: 1),
               FormBuilderColorPickerField(
                 name: "color",
                 valueTransformer: (value) => value?.value.toString(),
-                initialValue: Colors.purple,
+                initialValue: null != item?.color ? Color(int.parse(item!.color)) : Colors.purple,
                 validator: FormBuilderValidators.required(),
                 decoration: const InputDecoration(labelText: "wähle eine Hintergrundfarbe:"),
               )

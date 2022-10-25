@@ -7,6 +7,7 @@ part of 'node.dart';
 // **************************************************************************
 
 _$_Node _$$_NodeFromJson(Map<String, dynamic> json) => _$_Node(
+      id: json['id'] as String,
       importance: json['importance'] as int,
       skill: Skill.fromJson(json['skill'] as Map<String, dynamic>),
       cost: json['cost'] as int,
@@ -17,6 +18,7 @@ _$_Node _$$_NodeFromJson(Map<String, dynamic> json) => _$_Node(
     );
 
 Map<String, dynamic> _$$_NodeToJson(_$_Node instance) => <String, dynamic>{
+      'id': instance.id,
       'importance': instance.importance,
       'skill': instance.skill,
       'cost': instance.cost,

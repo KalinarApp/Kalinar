@@ -12,17 +12,22 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
     state = state.copyWith(nodes: [...state.nodes, node]);
   }
 
+  void addNodeWithPosition(Node node, Offset offset) {
+    node = node.copyWith(xpos: offset.dx, ypos: offset.dy);
+    state = state.copyWith(nodes: [...state.nodes, node]);
+  }
+
   void deleteNode(Node node) {
     state = state.copyWith(nodes: [...state.nodes.where((element) => element != node)]);
   }
 
-  void updateNodePosition(Node node, Offset offset) {
-    final index = state.nodes.indexOf(node);
-    final newNodes = [...state.nodes];
-    newNodes[index] = node.copyWith(xpos: offset.dx, ypos: offset.dy);
+  // void updateNodePosition(Node node, Offset offset) {
+  //   final index = state.nodes.indexOf(node);
+  //   final newNodes = [...state.nodes];
+  //   newNodes[index] = node.copyWith(xpos: offset.dx, ypos: offset.dy);
 
-    state = state.copyWith(nodes: newNodes);
-  }
+  //   state = state.copyWith(nodes: newNodes);
+  // }
 }
 
 final skilltreeControllerProvider = StateNotifierProvider<SkilltreeController, SkilltreeState>((ref) {

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/common_widgets/user_menu.dart';
 import 'package:hero/src/features/admin/application/skilltree_controller.dart';
-import 'package:hero/src/features/admin/presentation/skilltree/components/editable_node.dart';
+import 'package:hero/src/features/admin/presentation/skilltree/components/draggable_node.dart';
 import 'package:hero/src/features/admin/presentation/skilltree/components/node_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../domain/node.dart';
 
 class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
   static const String name = "SkilltreeBuilder";
@@ -17,15 +19,53 @@ class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
 }
 
 class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen> {
-  Future<void> _showCreateNodeModal() async {
+  final globalKey = GlobalKey();
+
+  Future<void> _showCreateNodeModal({Node? node}) async {
     await showBarModalBottomSheet(
       context: context,
       isDismissible: true,
       builder: (context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
-        child: NodeModal(),
+        child: NodeModal(item: node),
       ),
     );
+  }
+
+  void onDragStarted(Node node) {
+    ref.read(skilltreeControllerProvider.notifier).deleteNode(node);
+  }
+
+  void updatePosition(Node node, Offset offset) {
+    ref.read(skilltreeControllerProvider.notifier).addNodeWithPosition(node, offset);
+  }
+
+  int _getNearestSnap(int value, int gridSize) {
+    int diff = gridSize - (value % gridSize);
+    if (diff > gridSize / 2) return value + diff;
+    return value - (value % gridSize);
+  }
+
+  _drawGridLines({double space = 32, Color color = Colors.red}) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double width = constraints.maxWidth;
+        double height = constraints.maxHeight;
+        var h = Container(width: 2, height: height, color: color);
+        var v = Container(width: width, height: 2, color: color);
+        return Stack(children: <Widget>[
+          ...List.generate((width / space).round(), (index) => Positioned(left: index * space, child: h)),
+          ...List.generate((height / space).round(), (index) => Positioned(top: index * space, child: v)),
+        ]);
+      },
+    );
+  }
+
+  Offset _getSnappedPosition(Offset newPosition, int gridSize) {
+    Offset snappedValue =
+        Offset(_getNearestSnap(newPosition.dx.round(), gridSize).toDouble(), _getNearestSnap(newPosition.dy.round(), gridSize).toDouble());
+
+    return snappedValue;
   }
 
   @override
@@ -47,12 +87,25 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
-            width: 2000,
-            height: 2000,
-            child: Stack(children: [
-              // ToDo: draw edges
-              for (final node in state.nodes) EditableNode(node, onLongPress: _showCreateNodeModal),
-            ]),
+            width: 2142,
+            height: 2142,
+            child: DragTarget<Node>(
+              key: globalKey,
+              onAcceptWithDetails: (details) {
+                final renderBox = globalKey.currentContext?.findRenderObject() as RenderBox;
+                final localOffset = renderBox.globalToLocal(details.offset);
+                final topLeftOffset = Offset(localOffset.dx - 16, localOffset.dy - 16);
+                updatePosition(details.data, _getSnappedPosition(topLeftOffset, 16));
+              },
+              onWillAccept: (data) => true,
+              builder: (context, _, __) {
+                return Stack(children: [
+                  // ToDo: draw edges
+                  for (final node in state.nodes) DraggableNode(node, onLongPress: _showCreateNodeModal, onDragStarted: onDragStarted),
+                  _drawGridLines(color: Theme.of(context).backgroundColor.withOpacity(.1))
+                ]);
+              },
+            ),
           ),
         ),
       ),
