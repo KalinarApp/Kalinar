@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/skills/components/name_field.dart';
-import 'package:hero/src/features/admin/presentation/skills/components/skill_form.dart';
-import 'package:hero/src/utilities/async_value_extension.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import 'components/skill_form.dart';
+import '../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../common_widgets/save_button.dart';
+import '../../../../utilities/async_value_extension.dart';
 import '../../application/skill_controller.dart';
 import '../../application/skill_list_controller.dart';
 import '../../domain/skill.dart';
@@ -48,6 +48,7 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
           value.showSnackbarOnError(context);
           if (value.hasError) {
             _btnController.error();
+            Future.delayed(const Duration(seconds: 3), _btnController.reset);
           } else {
             _btnController.success();
             GoRouter.of(context).pop();
@@ -55,9 +56,11 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
         });
       } else {
         _btnController.error();
+        Future.delayed(const Duration(seconds: 3), _btnController.reset);
       }
     } else {
       _btnController.error();
+      Future.delayed(const Duration(seconds: 3), _btnController.reset);
     }
   }
 
@@ -72,10 +75,10 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(110),
-            child: NameField(initialValue: item.name, readOnly: false, reset: () => _btnController.reset()),
+            child: NameField(initialValue: item.name, readOnly: false),
           ),
         ),
-        body: SkillForm(_formKey, item: item, reset: () => _btnController.reset()),
+        body: SkillForm(_formKey, item: item),
       ),
     );
   }

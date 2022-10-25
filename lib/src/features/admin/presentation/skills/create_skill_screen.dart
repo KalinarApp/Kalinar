@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/skills/components/name_field.dart';
 import 'package:hero/src/features/admin/presentation/skills/components/skill_form.dart';
 import 'package:hero/src/utilities/async_value_extension.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../common_widgets/save_button.dart';
 import '../../application/skill_controller.dart';
 
@@ -43,6 +42,7 @@ class _CreateSkillScreenState extends ConsumerState<CreateSkillScreen> {
           value.showSnackbarOnError(context);
           if (value.hasError) {
             _btnController.error();
+            Future.delayed(const Duration(seconds: 3), _btnController.reset);
           } else {
             _btnController.success();
             GoRouter.of(context).pop();
@@ -50,9 +50,11 @@ class _CreateSkillScreenState extends ConsumerState<CreateSkillScreen> {
         });
       } else {
         _btnController.error();
+        Future.delayed(const Duration(seconds: 3), _btnController.reset);
       }
     } else {
       _btnController.error();
+      Future.delayed(const Duration(seconds: 3), _btnController.reset);
     }
   }
 
@@ -65,9 +67,9 @@ class _CreateSkillScreenState extends ConsumerState<CreateSkillScreen> {
           actions: [
             SaveButton(controller: _btnController, onSave: _save),
           ],
-          bottom: PreferredSize(preferredSize: const Size.fromHeight(110), child: NameField(reset: _btnController.reset)),
+          bottom: const PreferredSize(preferredSize: Size.fromHeight(110), child: NameField()),
         ),
-        body: SkillForm(_formKey, reset: () => _btnController.reset()),
+        body: SkillForm(_formKey),
       ),
     );
   }

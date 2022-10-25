@@ -12,6 +12,8 @@ class Node with _$Node {
     required int cost,
     required String color,
     required bool isEasyReachable,
+    @Default(0) double xpos,
+    @Default(0) double ypos,
   }) = _Node;
 
   factory Node.fromJson(Map<String, dynamic> json) => _$NodeFromJson(json);

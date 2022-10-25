@@ -25,6 +25,8 @@ mixin _$Node {
   int get cost => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   bool get isEasyReachable => throw _privateConstructorUsedError;
+  double get xpos => throw _privateConstructorUsedError;
+  double get ypos => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,7 +42,9 @@ abstract class $NodeCopyWith<$Res> {
       Skill skill,
       int cost,
       String color,
-      bool isEasyReachable});
+      bool isEasyReachable,
+      double xpos,
+      double ypos});
 
   $SkillCopyWith<$Res> get skill;
 }
@@ -60,6 +64,8 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
     Object? cost = freezed,
     Object? color = freezed,
     Object? isEasyReachable = freezed,
+    Object? xpos = freezed,
+    Object? ypos = freezed,
   }) {
     return _then(_value.copyWith(
       importance: importance == freezed
@@ -82,6 +88,14 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
           ? _value.isEasyReachable
           : isEasyReachable // ignore: cast_nullable_to_non_nullable
               as bool,
+      xpos: xpos == freezed
+          ? _value.xpos
+          : xpos // ignore: cast_nullable_to_non_nullable
+              as double,
+      ypos: ypos == freezed
+          ? _value.ypos
+          : ypos // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 
@@ -103,7 +117,9 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
       Skill skill,
       int cost,
       String color,
-      bool isEasyReachable});
+      bool isEasyReachable,
+      double xpos,
+      double ypos});
 
   @override
   $SkillCopyWith<$Res> get skill;
@@ -125,6 +141,8 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
     Object? cost = freezed,
     Object? color = freezed,
     Object? isEasyReachable = freezed,
+    Object? xpos = freezed,
+    Object? ypos = freezed,
   }) {
     return _then(_$_Node(
       importance: importance == freezed
@@ -147,6 +165,14 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
           ? _value.isEasyReachable
           : isEasyReachable // ignore: cast_nullable_to_non_nullable
               as bool,
+      xpos: xpos == freezed
+          ? _value.xpos
+          : xpos // ignore: cast_nullable_to_non_nullable
+              as double,
+      ypos: ypos == freezed
+          ? _value.ypos
+          : ypos // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -159,7 +185,9 @@ class _$_Node implements _Node {
       required this.skill,
       required this.cost,
       required this.color,
-      required this.isEasyReachable});
+      required this.isEasyReachable,
+      this.xpos = 0,
+      this.ypos = 0});
 
   factory _$_Node.fromJson(Map<String, dynamic> json) => _$$_NodeFromJson(json);
 
@@ -173,10 +201,16 @@ class _$_Node implements _Node {
   final String color;
   @override
   final bool isEasyReachable;
+  @override
+  @JsonKey()
+  final double xpos;
+  @override
+  @JsonKey()
+  final double ypos;
 
   @override
   String toString() {
-    return 'Node(importance: $importance, skill: $skill, cost: $cost, color: $color, isEasyReachable: $isEasyReachable)';
+    return 'Node(importance: $importance, skill: $skill, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xpos: $xpos, ypos: $ypos)';
   }
 
   @override
@@ -190,7 +224,9 @@ class _$_Node implements _Node {
             const DeepCollectionEquality().equals(other.cost, cost) &&
             const DeepCollectionEquality().equals(other.color, color) &&
             const DeepCollectionEquality()
-                .equals(other.isEasyReachable, isEasyReachable));
+                .equals(other.isEasyReachable, isEasyReachable) &&
+            const DeepCollectionEquality().equals(other.xpos, xpos) &&
+            const DeepCollectionEquality().equals(other.ypos, ypos));
   }
 
   @JsonKey(ignore: true)
@@ -201,7 +237,9 @@ class _$_Node implements _Node {
       const DeepCollectionEquality().hash(skill),
       const DeepCollectionEquality().hash(cost),
       const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(isEasyReachable));
+      const DeepCollectionEquality().hash(isEasyReachable),
+      const DeepCollectionEquality().hash(xpos),
+      const DeepCollectionEquality().hash(ypos));
 
   @JsonKey(ignore: true)
   @override
@@ -222,7 +260,9 @@ abstract class _Node implements Node {
       required final Skill skill,
       required final int cost,
       required final String color,
-      required final bool isEasyReachable}) = _$_Node;
+      required final bool isEasyReachable,
+      final double xpos,
+      final double ypos}) = _$_Node;
 
   factory _Node.fromJson(Map<String, dynamic> json) = _$_Node.fromJson;
 
@@ -236,6 +276,10 @@ abstract class _Node implements Node {
   String get color;
   @override
   bool get isEasyReachable;
+  @override
+  double get xpos;
+  @override
+  double get ypos;
   @override
   @JsonKey(ignore: true)
   _$$_NodeCopyWith<_$_Node> get copyWith => throw _privateConstructorUsedError;

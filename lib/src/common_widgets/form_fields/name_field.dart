@@ -5,9 +5,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 class NameField extends StatelessWidget {
   final bool readOnly;
   final String? initialValue;
-  final Function() reset;
 
-  const NameField({this.initialValue, required this.reset, this.readOnly = false, super.key});
+  const NameField({this.initialValue, this.readOnly = false, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,6 @@ class NameField extends StatelessWidget {
                       maxLength: 100,
                       initialValue: initialValue,
                       enabled: !readOnly,
-                      onChanged: (value) => reset(),
                       validator: FormBuilderValidators.required(),
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(labelText: "Name", contentPadding: EdgeInsets.only(right: 8)),

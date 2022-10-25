@@ -10,9 +10,7 @@ import '../../abilities/create_ability_screen.dart';
 class AbilitySelectionField extends ConsumerWidget {
   final Ability? initialValue;
 
-  final Function() reset;
-
-  const AbilitySelectionField({required this.reset, this.initialValue, super.key});
+  const AbilitySelectionField({this.initialValue, super.key});
 
   Future<void> _showAbilityScreen(BuildContext context) async {
     GoRouter.of(context).pushNamed(CreateAbilityScreen.name);
@@ -26,7 +24,6 @@ class AbilitySelectionField extends ConsumerWidget {
           child: FormBuilderSearchableDropdown<Ability>(
             name: "abilityName",
             valueTransformer: (value) => value?.name,
-            onChanged: (_) => reset(),
             initialValue: initialValue,
             decoration: const InputDecoration(labelText: "Select Ability", prefixIcon: Icon(Icons.handyman)),
             // validator: FormBuilderValidators.required(),

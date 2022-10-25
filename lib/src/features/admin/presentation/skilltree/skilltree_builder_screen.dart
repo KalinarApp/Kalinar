@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/common_widgets/user_menu.dart';
-import 'package:hero/src/features/admin/presentation/skilltree/node_modal.dart';
+import 'package:hero/src/features/admin/application/skilltree_controller.dart';
+import 'package:hero/src/features/admin/presentation/skilltree/components/editable_node.dart';
+import 'package:hero/src/features/admin/presentation/skilltree/components/node_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
@@ -15,7 +17,7 @@ class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
 }
 
 class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen> {
-  Future<void> _showCreateNodeModal(BuildContext context) async {
+  Future<void> _showCreateNodeModal() async {
     await showBarModalBottomSheet(
       context: context,
       isDismissible: true,
@@ -27,10 +29,16 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final state = ref.watch(skilltreeControllerProvider);
     return Scaffold(
       appBar: AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())]),
-      floatingActionButton: FloatingActionButton(onPressed: () => _showCreateNodeModal(context), child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(onPressed: _showCreateNodeModal, child: const Icon(Icons.add)),
       body: InteractiveViewer(
         constrained: false,
         boundaryMargin: const EdgeInsets.all(10.0),
@@ -41,7 +49,10 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
           child: SizedBox(
             width: 2000,
             height: 2000,
-            child: Stack(children: const []),
+            child: Stack(children: [
+              // ToDo: draw edges
+              for (final node in state.nodes) EditableNode(node, onLongPress: _showCreateNodeModal),
+            ]),
           ),
         ),
       ),

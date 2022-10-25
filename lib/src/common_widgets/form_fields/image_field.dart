@@ -8,9 +8,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 class ImageField extends StatelessWidget {
   final String? initialValue;
-  final Function() reset;
 
-  const ImageField({required this.reset, this.initialValue, super.key});
+  const ImageField({this.initialValue, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,6 @@ class ImageField extends StatelessWidget {
             },
             maxImages: 1,
             validator: FormBuilderValidators.required(),
-            onChanged: (_) => reset(),
             placeholderWidget: SizedBox(
               width: 130,
               child: Container(

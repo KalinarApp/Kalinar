@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:hero/src/common_widgets/form_fields/bool_field.dart';
+import 'package:hero/src/common_widgets/form_fields/value_range_field.dart';
 import 'package:hero/src/features/admin/presentation/skilltree/components/skill_selection_field.dart';
-import 'package:hero/src/features/admin/presentation/skilltree/skilltree_controller.dart';
+import 'package:hero/src/features/admin/application/skilltree_controller.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../../../common_widgets/save_button.dart';
+import '../../../../../common_widgets/save_button.dart';
 
 class NodeModal extends ConsumerWidget {
   static const routeName = "groups/create";
@@ -22,6 +26,9 @@ class NodeModal extends ConsumerWidget {
       if (null != data) {
         ref.read(skilltreeControllerProvider.notifier).addNode(data);
         Navigator.pop(context);
+      } else {
+        controller.error();
+        Future.delayed(const Duration(seconds: 3), controller.reset);
       }
     }
   }
@@ -45,19 +52,16 @@ class NodeModal extends ConsumerWidget {
                   SaveButton(controller: controller, onSave: () => _save(ref, context)),
                 ],
               ),
-              SkillSelectionField(reset: () {}, initialValue: null),
-              FormBuilderTextField(
-                name: "name",
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (_) => controller.reset(),
-                decoration: const InputDecoration(labelText: "Gruppenname"),
-              ),
-              FormBuilderTextField(
-                name: "description",
-                minLines: 2,
-                maxLines: 5,
-                onChanged: (_) => controller.reset(),
-                decoration: const InputDecoration(labelText: "Beschreibung"),
+              const SkillSelectionField(),
+              const BoolField(name: "isEasyReachable", label: "Direkt Freischaltbar?", initialValue: false),
+              const ValueRangeField(name: "cost", label: "Benötigte Skillpunkte", initialValue: 0, min: 0, max: 10, step: 1),
+              const ValueRangeField(name: "importance", label: "Benötigte Skillpunkte", initialValue: 0, min: 0, max: 10, step: 1),
+              FormBuilderColorPickerField(
+                name: "color",
+                valueTransformer: (value) => value?.value.toString(),
+                initialValue: Colors.purple,
+                validator: FormBuilderValidators.required(),
+                decoration: const InputDecoration(labelText: "wähle eine Hintergrundfarbe:"),
               )
             ],
           ),

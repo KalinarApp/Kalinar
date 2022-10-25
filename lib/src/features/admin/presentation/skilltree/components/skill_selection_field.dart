@@ -3,19 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/skills/create_skill_screen.dart';
-import 'package:hero/src/features/admin/presentation/skills/skill_list_controller.dart';
 
+import '../../../application/skill_list_controller.dart';
 import '../../../domain/skill.dart';
+import '../../skills/create_skill_screen.dart';
 
 class SkillSelectionField extends ConsumerWidget {
   final Skill? initialValue;
 
-  final Function() reset;
+  const SkillSelectionField({this.initialValue, super.key});
 
-  const SkillSelectionField({required this.reset, this.initialValue, super.key});
-
-  Future<void> _showAbilityScreen(BuildContext context) async {
+  Future<void> _showCreateSkillScreen(BuildContext context) async {
     GoRouter.of(context).pushNamed(CreateSkillScreen.name);
   }
 
@@ -25,9 +23,15 @@ class SkillSelectionField extends ConsumerWidget {
       children: [
         Flexible(
           child: FormBuilderSearchableDropdown<Skill>(
-            name: "skillName",
-            valueTransformer: (value) => value?.name,
-            onChanged: (_) => reset(),
+            name: "skill",
+            valueTransformer: (value) {
+              if (null != value) {
+                final skill = value.toJson();
+                skill.update("ability", (ability) => ability?.toJson());
+                return skill;
+              }
+              return null;
+            },
             initialValue: initialValue,
             decoration: const InputDecoration(labelText: "Select Skill", prefixIcon: Icon(Icons.handyman)),
             validator: FormBuilderValidators.required(),
@@ -47,7 +51,7 @@ class SkillSelectionField extends ConsumerWidget {
           ),
         ),
         IconButton(
-          onPressed: () async => _showAbilityScreen(context),
+          onPressed: () async => _showCreateSkillScreen(context),
           hoverColor: Colors.transparent,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,

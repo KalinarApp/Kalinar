@@ -14,7 +14,8 @@ class AbilityListController extends StateNotifier<AsyncValue<List<Ability>>> {
   }
 
   Future<List<Ability>> filter(String query) async {
-    return await repo.filter(query);
+    final list = await repo.filter(query);
+    return list;
   }
 }
 

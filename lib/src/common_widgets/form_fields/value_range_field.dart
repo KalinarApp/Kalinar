@@ -10,7 +10,6 @@ class ValueRangeField<T extends num> extends StatelessWidget {
   final T step;
   final String name;
   final NumberFormat? format;
-  final Function() reset;
 
   const ValueRangeField(
       {required this.name,
@@ -19,7 +18,6 @@ class ValueRangeField<T extends num> extends StatelessWidget {
       required this.min,
       required this.max,
       required this.step,
-      required this.reset,
       this.format,
       super.key});
 
@@ -33,7 +31,6 @@ class ValueRangeField<T extends num> extends StatelessWidget {
       step: step,
       initialValue: initialValue,
       displayFormat: format,
-      onChanged: (_) => reset(),
       addIcon: const Icon(Icons.add_circle_outline),
       subtractIcon: const Icon(Icons.remove_circle_outline),
       iconDisabledColor: Theme.of(context).disabledColor,
