@@ -33,7 +33,7 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
       setState(() {
         firstSelectedNode = null;
       });
-    } else if (!firstSelectedNode!.successors.contains(selectedNode.id)) {
+    } else if (!firstSelectedNode!.successors.contains(selectedNode.id) && !firstSelectedNode!.precessors.contains(selectedNode.id)) {
       ref.read(skilltreeControllerProvider.notifier).addEdge(firstSelectedNode!, selectedNode);
       firstSelectedNode = null;
     }
@@ -48,10 +48,6 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
         child: NodeModal(item: node),
       ),
     );
-  }
-
-  void onDragStarted(Node node) {
-    // ref.read(skilltreeControllerProvider.notifier).deleteNode(node);
   }
 
   void updatePosition(Node node, Offset offset) {
@@ -119,13 +115,17 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
               builder: (context, _, __) {
                 return Stack(children: [
                   // ToDo: draw edges
-                  for (final edge in ref.read(skilltreeControllerProvider.notifier).getAllEdges()) EdgetWidget(edge),
+                  for (final edge in ref.read(skilltreeControllerProvider.notifier).getAllEdges())
+                    EdgeWidget(
+                      edge,
+                      onDelete: ref.read(skilltreeControllerProvider.notifier).removeEdge,
+                      onSwapDirection: ref.read(skilltreeControllerProvider.notifier).swapEdges,
+                    ),
                   for (final node in state.nodes)
                     DraggableNode(
                       node,
                       onTap: _connectNodes,
                       onLongPress: _showCreateNodeModal,
-                      onDragStarted: onDragStarted,
                     ),
                   _drawGridLines(color: Theme.of(context).backgroundColor.withOpacity(.1))
                 ]);

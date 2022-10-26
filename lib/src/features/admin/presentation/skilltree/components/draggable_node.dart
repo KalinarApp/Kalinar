@@ -8,9 +8,8 @@ class DraggableNode extends StatelessWidget {
   final Node item;
   final Function(Node node) onTap;
   final Function({Node? node}) onLongPress;
-  final Function(Node node) onDragStarted;
 
-  const DraggableNode(this.item, {required this.onTap, required this.onLongPress, required this.onDragStarted, super.key});
+  const DraggableNode(this.item, {required this.onTap, required this.onLongPress, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,6 @@ class DraggableNode extends StatelessWidget {
         data: item,
         maxSimultaneousDrags: 1,
         feedback: NodeWidget(item),
-        onDragStarted: () => onDragStarted(item),
         child: EditableNode(item, onTap: onTap, onLongPress: onLongPress),
       ),
     );

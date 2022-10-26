@@ -14,3 +14,13 @@ class Edge with _$Edge {
 
   factory Edge.fromJson(Map<String, dynamic> json) => _$EdgeFromJson(json);
 }
+
+extension StringListExtension on List<String> {
+  List<String> without(String value) {
+    return [...where((element) => element != value)];
+  }
+
+  List<String> withoutMultiple(List<String> values) {
+    return [...where((element) => !values.contains(element))];
+  }
+}
