@@ -1,43 +1,27 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/presentation/skilltree/components/edge_menu.dart';
 
 import '../../../domain/edge.dart';
 
-class EdgeWidget extends ConsumerStatefulWidget {
+class EdgeWidget extends StatelessWidget {
   final Edge item;
-  final Function(Edge edge) onDelete;
-  final Function(Edge edge) onSwapDirection;
-  const EdgeWidget(this.item, {required this.onDelete, required this.onSwapDirection, super.key});
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EdgeWidgetState();
-}
-
-class _EdgeWidgetState extends ConsumerState<EdgeWidget> {
-  bool isMenuOpen = false;
+  final Function(Edge edge) onTap;
+  const EdgeWidget(this.item, {required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       GestureDetector(
-        onTap: () => setState(() => isMenuOpen = !isMenuOpen),
+        onTap: () => onTap(item),
         child: CustomPaint(
           painter: LinesPainter(
-            start: Offset(widget.item.start.xpos, widget.item.start.ypos),
-            end: Offset(widget.item.end.xpos, widget.item.end.ypos),
+            start: Offset(item.start.xpos, item.start.ypos),
+            end: Offset(item.end.xpos, item.end.ypos),
           ),
           child: Container(),
         ),
       ),
-      if (isMenuOpen)
-        EdgeMenu(
-          widget.item,
-          onDelete: () => widget.onDelete(widget.item),
-          onSwapDirection: () => widget.onSwapDirection(widget.item),
-        ),
     ]);
   }
 }
@@ -81,11 +65,6 @@ class LinesPainter extends CustomPainter {
 
   @override
   bool hitTest(Offset position) {
-    // final distanceAC = distance(start, position);
-    // final distanceBC = distance(position, end);
-    // final distanceAB = distance(start, end);
-    // final x = ((distanceAC + distanceBC) - distanceAB).abs();
-    // bool isOnLine = x < 0.0001;
     return (path?.contains(position) ?? false);
   }
 

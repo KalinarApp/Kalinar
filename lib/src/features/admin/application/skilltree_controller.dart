@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/animation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/admin/domain/edge.dart';
 import 'package:hero/src/features/admin/domain/node.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'states/skilltree_state.dart';
 
@@ -34,14 +37,27 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
     return edges;
   }
 
+  void addPointForEdge(Node node) {
+    if (null == state.selectedNode) {
+      state = state.copyWith(selectedNode: node);
+    } else if (state.selectedNode == node) {
+      state = state.copyWith(selectedNode: null);
+    } else if (!state.selectedNode!.successors.contains(node.id) && !state.selectedNode!.precessors.contains(node.id)) {
+      addEdge(state.selectedNode!, node);
+    }
+  }
+
   void addEdge(Node start, Node end) {
     start = start.copyWith(successors: [...start.successors, end.id]);
     end = end.copyWith(precessors: [...end.precessors, start.id]);
-    state = state.copyWith(nodes: [
-      ...state.nodes.withoutIds([start.id, end.id]),
-      start,
-      end
-    ]);
+    state = state.copyWith(
+      selectedNode: null,
+      nodes: [
+        ...state.nodes.withoutIds([start.id, end.id]),
+        start,
+        end
+      ],
+    );
   }
 
   void removeEdge(Edge edge) {
@@ -70,6 +86,21 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
       start,
       end
     ]);
+  }
+
+  Future<void> loadLocal() async {
+    final prefs = await SharedPreferences.getInstance();
+    final data = prefs.getStringList("currentSkilltree");
+    if (null != data && state.nodes.isEmpty) {
+      state = state.copyWith(nodes: List<Node>.from(data.map((model) => Node.fromJson(json.decode(model)))));
+    }
+  }
+
+  Future<void> saveLocal() async {
+    if (state.nodes.isNotEmpty) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList("currentSkilltree", state.nodes.map((e) => jsonEncode(e.toJson())).toList());
+    }
   }
 }
 
