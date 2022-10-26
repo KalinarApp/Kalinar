@@ -102,6 +102,13 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
       await prefs.setStringList("currentSkilltree", state.nodes.map((e) => jsonEncode(e.toJson())).toList());
     }
   }
+
+  Future<void> deleteLocal() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("currentSkilltree");
+
+    state = state.copyWith(nodes: [], selectedNode: null);
+  }
 }
 
 final skilltreeControllerProvider = StateNotifierProvider<SkilltreeController, SkilltreeState>((ref) {

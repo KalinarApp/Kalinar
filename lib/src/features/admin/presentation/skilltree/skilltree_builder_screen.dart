@@ -75,6 +75,7 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
     return Scaffold(
       appBar: AppBar(actions: [
         if (isLoading) const Center(child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator())),
+        IconButton(onPressed: controller.deleteLocal, icon: const Icon(Icons.delete)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: SaveButton(controller: btnController, onSave: () {}),
