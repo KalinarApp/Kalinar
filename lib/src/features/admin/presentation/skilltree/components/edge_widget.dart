@@ -41,8 +41,8 @@ class LinesPainter extends CustomPainter {
     const arrowSize = 15;
     const arrowAngle = 25 * pi / 180;
 
-    final p1 = Offset(start.dx + 16, start.dy + 16);
-    final p2 = Offset(end.dx + 16, end.dy + 16);
+    final p1 = Offset(start.dx + 21, start.dy + 21);
+    final p2 = Offset(end.dx + 21, end.dy + 21);
     final p3 = Offset((p1.dx + p2.dx) / 2, (p1.dy + p2.dy) / 2);
 
     final dX = p2.dx - p1.dx;

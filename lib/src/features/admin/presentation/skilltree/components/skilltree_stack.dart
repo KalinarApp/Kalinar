@@ -44,7 +44,7 @@ class _SkilltreeStackState extends State<SkilltreeStack> {
 
   Widget _drawNodeMenu(Node node) {
     return Menu(
-      position: Offset(node.xpos + 1, node.ypos - 18),
+      position: Offset(node.xpos + 4, node.ypos - 18),
       actions: [
         MenuButton(Icons.edit, onTap: () => _executeAndReset(() => widget.onEditNode(node))),
         MenuButton(
@@ -59,7 +59,7 @@ class _SkilltreeStackState extends State<SkilltreeStack> {
 
   Widget _drawEdgeMenu(Edge edge) {
     return Menu(
-      position: Offset((edge.start.xpos + edge.end.xpos) / 2 - 4, (edge.start.ypos + edge.end.ypos) / 2 - 12),
+      position: Offset((edge.start.xpos + edge.end.xpos) / 2, (edge.start.ypos + edge.end.ypos) / 2),
       actions: [
         MenuButton(Icons.delete, onTap: () => _executeAndReset(() => widget.onDeleteEdge(edge))),
         MenuButton(Icons.swap_horiz, onTap: () => _executeAndReset(() => widget.onSwagEdgeDirection(edge))),

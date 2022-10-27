@@ -37,6 +37,7 @@ class UserMenu extends ConsumerWidget {
       arrowColor: Theme.of(context).dialogBackgroundColor,
       child: Center(
         child: CircleAvatar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           backgroundImage: NetworkImage(gravater.imageUrl()),
         ),
       ),
