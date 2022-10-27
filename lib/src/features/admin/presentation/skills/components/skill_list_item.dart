@@ -53,7 +53,7 @@ class SkillListItem extends StatelessWidget {
             ],
           ),
           child: ListTile(
-            leading: null != item.iconUrl ? CircleAvatar(backgroundImage: NetworkImage(item.iconUrl!)) : null,
+            leading: null != item.iconUrl ? CircleAvatar(backgroundColor: Colors.purple, backgroundImage: NetworkImage(item.iconUrl!)) : null,
             title: Text(item.name),
             subtitle: item.description.isNotEmpty ? Text(item.description) : null,
             onTap: null != onTab ? () => onTab!(item, context) : null,

@@ -18,16 +18,18 @@ class NodeWidget extends StatelessWidget {
         child: Transform.rotate(
           angle: -pi / 4,
           child: null != item.skill.iconUrl
-              ? Ink.image(
-                  image: NetworkImage(item.skill.iconUrl!),
-                  fit: BoxFit.fill,
-                  width: 32,
-                  height: 32,
+              ? Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Ink.image(
+                    image: NetworkImage(item.skill.iconUrl!),
+                    fit: BoxFit.fill,
+                    width: 32,
+                    height: 32,
+                  ),
                 )
               : null,
         ),
       ),
     );
-    ;
   }
 }
