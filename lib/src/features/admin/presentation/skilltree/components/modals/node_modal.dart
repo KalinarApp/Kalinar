@@ -11,8 +11,8 @@ import 'package:hero/src/features/admin/application/skilltree_controller.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../../../common_widgets/save_button.dart';
-import '../../../domain/node.dart';
+import '../../../../../../common_widgets/save_button.dart';
+import '../../../../domain/node.dart';
 
 class NodeModal extends ConsumerWidget {
   final Node? item;
@@ -27,9 +27,6 @@ class NodeModal extends ConsumerWidget {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        // if (null != item) {
-        //   ref.read(skilltreeControllerProvider.notifier).deleteNode(item!);
-        // }
         ref.read(skilltreeControllerProvider.notifier).addNode(data);
         Navigator.pop(context);
       } else {

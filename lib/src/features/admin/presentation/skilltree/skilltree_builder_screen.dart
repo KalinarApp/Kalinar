@@ -2,14 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/common_widgets/modal.dart';
 import 'package:hero/src/common_widgets/save_button.dart';
 import 'package:hero/src/features/admin/application/skilltree_controller.dart';
-import 'package:hero/src/features/admin/presentation/skilltree/components/node_modal.dart';
+import 'package:hero/src/features/admin/presentation/skilltree/components/modals/node_modal.dart';
 import 'package:hero/src/features/admin/presentation/skilltree/components/skilltree_stack.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../domain/node.dart';
+import 'components/modals/skilltree_modal.dart';
 
 class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
   static const String name = "SkilltreeBuilder";
@@ -29,17 +30,6 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
 
   bool isLoading = false;
 
-  Future<void> _showCreateNodeModal(Node? node) async {
-    await showBarModalBottomSheet(
-      context: context,
-      isDismissible: true,
-      builder: (context) => SingleChildScrollView(
-        controller: ModalScrollController.of(context),
-        child: NodeModal(item: node),
-      ),
-    );
-  }
-
   void updatePosition(DragTargetDetails<Node> details) {
     final renderBox = globalKey.currentContext?.findRenderObject() as RenderBox;
     final localOffset = renderBox.globalToLocal(details.offset);
@@ -52,11 +42,7 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
     controller = ref.read(skilltreeControllerProvider.notifier);
     Future.delayed(Duration.zero, () {
       controller.loadLocal();
-      timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
-        setState(() => isLoading = true);
-        await controller.saveLocal();
-        Future.delayed(const Duration(seconds: 2), () => setState(() => isLoading = false));
-      });
+      controller.startSavingLocal();
     });
 
     super.initState();
@@ -64,7 +50,7 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
 
   @override
   void dispose() {
-    timer.cancel();
+    controller.endSavingLocal();
     super.dispose();
   }
 
@@ -76,12 +62,9 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
       appBar: AppBar(actions: [
         if (isLoading) const Center(child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator())),
         IconButton(onPressed: controller.deleteLocal, icon: const Icon(Icons.delete)),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: SaveButton(controller: btnController, onSave: () {}),
-        ),
+        IconButton(onPressed: () => showModal(context, SkilltreeModal()), icon: const Icon(Icons.save))
       ]),
-      floatingActionButton: FloatingActionButton(onPressed: () => _showCreateNodeModal(null), child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(onPressed: () => showModal(context, NodeModal()), child: const Icon(Icons.add)),
       body: InteractiveViewer(
         constrained: false,
         boundaryMargin: const EdgeInsets.all(10.0),
@@ -99,7 +82,7 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
               builder: (context, _, __) => SkilltreeStack(
                 state.nodes,
                 controller.getAllEdges(),
-                onEditNode: _showCreateNodeModal,
+                onEditNode: (node) => showModal(context, NodeModal(item: node)),
                 onDeleteNode: controller.deleteNode,
                 onAddNodeConnection: controller.addPointForEdge,
                 onDeleteEdge: controller.removeEdge,

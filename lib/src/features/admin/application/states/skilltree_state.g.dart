@@ -15,10 +15,12 @@ _$_SkilltreeState _$$_SkilltreeStateFromJson(Map<String, dynamic> json) =>
       selectedNode: json['selectedNode'] == null
           ? null
           : Node.fromJson(json['selectedNode'] as Map<String, dynamic>),
+      isSaving: json['isSaving'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_SkilltreeStateToJson(_$_SkilltreeState instance) =>
     <String, dynamic>{
       'nodes': instance.nodes,
       'selectedNode': instance.selectedNode,
+      'isSaving': instance.isSaving,
     };

@@ -10,6 +10,7 @@ class SkilltreeState with _$SkilltreeState {
   const factory SkilltreeState({
     @Default([]) List<Node> nodes,
     Node? selectedNode,
+    @Default(false) bool isSaving,
   }) = _SkilltreeState;
 
   factory SkilltreeState.fromJson(Map<String, dynamic> json) => _$SkilltreeStateFromJson(json);
