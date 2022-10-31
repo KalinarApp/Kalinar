@@ -7,12 +7,14 @@
         {
             "name": "PRODUCTION",
             "program": "${workspaceFolder}/lib/main.dart",
+            "args": ["--flavor=prod"],
             "request": "launch",
             "type": "dart"
         },
         {
             "name": "DEVELOPMENT",
             "program": "${workspaceFolder}/lib/main_dev.dart",
+            "args": ["--flavor=dev"],
             "request": "launch",
             "type": "dart",
         },

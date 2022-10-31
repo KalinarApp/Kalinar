@@ -58,6 +58,22 @@ android {
         ]
     }
 
+    flavorDimensions "hero"
+
+    productFlavors {
+        dev {
+            dimension "hero"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Hero App - DEV"
+            versionNameSuffix ".dev"
+        }
+        prod {
+            dimension "hero"
+            resValue "string", "app_name", "Hero App"
+            versionNameSuffix ""
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

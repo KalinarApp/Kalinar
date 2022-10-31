@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utilities/constants.dart';
 import '../domain/node.dart';
 
-class SkilltreesRepository extends BaseRepository {
+class SkilltreesRepository extends HeroBaseRepository {
   static const String nodesKey = "currentNodes";
 
   SkilltreesRepository(super.client);
@@ -34,8 +34,7 @@ class SkilltreesRepository extends BaseRepository {
   }
 
   Future<void> createOnServer(Map<String, dynamic> data) async {
-    final url = Uri.https(Constants.baseUrl, "/api/skilltrees");
-    await post(url, jsonEncode(data), (response) => true);
+    await heroPost("/api/skilltrees", jsonEncode(data), (response) => true);
   }
 }
 

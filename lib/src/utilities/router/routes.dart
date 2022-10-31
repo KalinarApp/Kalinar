@@ -12,7 +12,6 @@ import 'package:hero/src/features/group_management/presentation/group_screen.dar
 import 'package:hero/src/features/group_management/presentation/user_invite_screen.dart';
 import 'package:hero/src/features/home/presentation/home_screen.dart';
 import 'package:hero/src/features/home/presentation/welcome_screen.dart';
-import 'package:hero/src/utilities/router/admin_routes.dart';
 
 import '../../features/admin/presentation/admin_menu_screen.dart';
 
@@ -31,18 +30,18 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       if (null == isAuthenticated) return null;
 
-      // if (isAuthenticated && state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
-      //   final hasGroup = await ref.read(groupControllerProvider).hasGroup();
-      //   if (!hasGroup) return GroupScreen.route;
-      // }
+      if (isAuthenticated && state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
+        final hasGroup = await ref.read(groupControllerProvider).hasGroup();
+        if (!hasGroup) return GroupScreen.route;
+      }
 
-      // if (state.location == "/") {
-      //   return isAuthenticated ? HomeScreen.route : SignInScreen.route;
-      // }
+      if (state.location == "/") {
+        return isAuthenticated ? HomeScreen.route : SignInScreen.route;
+      }
 
-      // if (state.location == SignInScreen.route) {
-      //   return isAuthenticated ? HomeScreen.route : null;
-      // }
+      if (state.location == SignInScreen.route) {
+        return isAuthenticated ? HomeScreen.route : null;
+      }
 
       return isAuthenticated ? null : SignInScreen.route;
     },
@@ -99,15 +98,15 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: HomeScreen.route,
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
           ),
-          GoRoute(
-            path: "/skilltrees",
-            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Scaffold()),
-          ),
-          GoRoute(
-            path: "/characters",
-            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Scaffold()),
-          ),
-          adminRoutes,
+          // GoRoute(
+          //   path: "/skilltrees",
+          //   pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Scaffold()),
+          // ),
+          // GoRoute(
+          //   path: "/characters",
+          //   pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Scaffold()),
+          // ),
+          // adminRoutes,
         ],
       ),
     ],
