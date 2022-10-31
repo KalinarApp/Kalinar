@@ -24,3 +24,4 @@ void main() {
 
   runApp(const ProviderScope(child: HeroApp()));
 }
+

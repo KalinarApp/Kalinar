@@ -362,7 +362,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.1.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -764,7 +764,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.1.0"
   rounded_loading_button:
     dependency: "direct main"
     description:

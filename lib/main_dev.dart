@@ -13,7 +13,7 @@ void main() {
     color: Colors.red,
     location: BannerLocation.topEnd,
     variables: {
-      "baseUrl": "192.168.1.10:7272",
+      "baseUrl": "192.168.1.10:61671",
     },
   );
 

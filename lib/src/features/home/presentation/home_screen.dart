@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hero/src/common_widgets/user_menu.dart';
-import 'package:hero/src/features/group_management/presentation/user_invite_screen.dart';
+import 'package:hero/src/features/group_management/application/has_group_controller.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   static const String name = "Home";
@@ -19,6 +18,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   void initState() {
+    Future.delayed(Duration.zero, ref.read(hasGroupProvider.notifier).check);
     super.initState();
   }
 
