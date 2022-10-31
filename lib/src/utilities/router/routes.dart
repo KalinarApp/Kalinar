@@ -31,18 +31,18 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       if (null == isAuthenticated) return null;
 
-      if (isAuthenticated && state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
-        final hasGroup = await ref.read(groupControllerProvider).hasGroup();
-        if (!hasGroup) return GroupScreen.route;
-      }
+      // if (isAuthenticated && state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
+      //   final hasGroup = await ref.read(groupControllerProvider).hasGroup();
+      //   if (!hasGroup) return GroupScreen.route;
+      // }
 
-      if (state.location == "/") {
-        return isAuthenticated ? HomeScreen.route : SignInScreen.route;
-      }
+      // if (state.location == "/") {
+      //   return isAuthenticated ? HomeScreen.route : SignInScreen.route;
+      // }
 
-      if (state.location == SignInScreen.route) {
-        return isAuthenticated ? HomeScreen.route : null;
-      }
+      // if (state.location == SignInScreen.route) {
+      //   return isAuthenticated ? HomeScreen.route : null;
+      // }
 
       return isAuthenticated ? null : SignInScreen.route;
     },

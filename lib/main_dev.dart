@@ -9,8 +9,11 @@ import 'src/common_widgets/hero_app.dart';
 
 void main() {
   FlavorConfig(
+    name: "DEV",
+    color: Colors.red,
+    location: BannerLocation.topEnd,
     variables: {
-      "baseUrl": "api.hero-app.de",
+      "baseUrl": "192.168.1.10:7272",
     },
   );
 

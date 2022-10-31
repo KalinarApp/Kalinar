@@ -267,6 +267,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  flutter_flavor:
+    dependency: "direct main"
+    description:
+      name: flutter_flavor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.1"
   flutter_form_builder:
     dependency: "direct main"
     description:
