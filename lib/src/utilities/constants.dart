@@ -3,6 +3,8 @@ class Constants {
   static const String authClientId = "hero";
   static const String authRedirectUrl = "hero://login-callback";
 
+  static const String privacyUrl = "https://hero-app.de/privacy.html";
+
   static const String userRoleName = "Hero";
   static const String adminRoleName = "Hero Administrator";
 
