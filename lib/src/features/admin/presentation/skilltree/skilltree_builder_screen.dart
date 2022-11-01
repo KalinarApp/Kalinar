@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/common_widgets/modal.dart';
 import 'package:hero/src/common_widgets/save_button.dart';
 import 'package:hero/src/features/admin/application/skilltree_controller.dart';
+import 'package:hero/src/features/admin/presentation/skilltree/components/menu/save_menu.dart';
 import 'package:hero/src/features/admin/presentation/skilltree/components/modals/node_modal.dart';
 import 'package:hero/src/features/admin/presentation/skilltree/components/skilltree_stack.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -61,8 +62,7 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
     return Scaffold(
       appBar: AppBar(actions: [
         if (isLoading) const Center(child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator())),
-        IconButton(onPressed: controller.deleteLocal, icon: const Icon(Icons.delete)),
-        IconButton(onPressed: () => showModal(context, SkilltreeModal()), icon: const Icon(Icons.save))
+        SaveMenu(),
       ]),
       floatingActionButton: FloatingActionButton(onPressed: () => showModal(context, NodeModal()), child: const Icon(Icons.add)),
       body: InteractiveViewer(
