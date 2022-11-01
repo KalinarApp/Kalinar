@@ -242,7 +242,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "00bc8e6bc062d334ac4ee141ad4255923651020a"
+      resolved-ref: "5a15ca6934391effd93746a988054ac223326c77"
       url: "https://curth.dev/opensource/flutter_auth"
     source: git
     version: "0.0.1"
@@ -362,7 +362,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -764,7 +764,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   rounded_loading_button:
     dependency: "direct main"
     description:

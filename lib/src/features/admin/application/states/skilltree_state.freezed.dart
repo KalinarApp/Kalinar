@@ -34,51 +34,55 @@ mixin _$SkilltreeState {
 abstract class $SkilltreeStateCopyWith<$Res> {
   factory $SkilltreeStateCopyWith(
           SkilltreeState value, $Res Function(SkilltreeState) then) =
-      _$SkilltreeStateCopyWithImpl<$Res>;
+      _$SkilltreeStateCopyWithImpl<$Res, SkilltreeState>;
+  @useResult
   $Res call({List<Node> nodes, Node? selectedNode, bool isSaving});
 
   $NodeCopyWith<$Res>? get selectedNode;
 }
 
 /// @nodoc
-class _$SkilltreeStateCopyWithImpl<$Res>
+class _$SkilltreeStateCopyWithImpl<$Res, $Val extends SkilltreeState>
     implements $SkilltreeStateCopyWith<$Res> {
   _$SkilltreeStateCopyWithImpl(this._value, this._then);
 
-  final SkilltreeState _value;
   // ignore: unused_field
-  final $Res Function(SkilltreeState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nodes = freezed,
+    Object? nodes = null,
     Object? selectedNode = freezed,
-    Object? isSaving = freezed,
+    Object? isSaving = null,
   }) {
     return _then(_value.copyWith(
-      nodes: nodes == freezed
+      nodes: null == nodes
           ? _value.nodes
           : nodes // ignore: cast_nullable_to_non_nullable
               as List<Node>,
-      selectedNode: selectedNode == freezed
+      selectedNode: freezed == selectedNode
           ? _value.selectedNode
           : selectedNode // ignore: cast_nullable_to_non_nullable
               as Node?,
-      isSaving: isSaving == freezed
+      isSaving: null == isSaving
           ? _value.isSaving
           : isSaving // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $NodeCopyWith<$Res>? get selectedNode {
     if (_value.selectedNode == null) {
       return null;
     }
 
     return $NodeCopyWith<$Res>(_value.selectedNode!, (value) {
-      return _then(_value.copyWith(selectedNode: value));
+      return _then(_value.copyWith(selectedNode: value) as $Val);
     });
   }
 }
@@ -90,6 +94,7 @@ abstract class _$$_SkilltreeStateCopyWith<$Res>
           _$_SkilltreeState value, $Res Function(_$_SkilltreeState) then) =
       __$$_SkilltreeStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<Node> nodes, Node? selectedNode, bool isSaving});
 
   @override
@@ -98,31 +103,29 @@ abstract class _$$_SkilltreeStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_SkilltreeStateCopyWithImpl<$Res>
-    extends _$SkilltreeStateCopyWithImpl<$Res>
+    extends _$SkilltreeStateCopyWithImpl<$Res, _$_SkilltreeState>
     implements _$$_SkilltreeStateCopyWith<$Res> {
   __$$_SkilltreeStateCopyWithImpl(
       _$_SkilltreeState _value, $Res Function(_$_SkilltreeState) _then)
-      : super(_value, (v) => _then(v as _$_SkilltreeState));
+      : super(_value, _then);
 
-  @override
-  _$_SkilltreeState get _value => super._value as _$_SkilltreeState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nodes = freezed,
+    Object? nodes = null,
     Object? selectedNode = freezed,
-    Object? isSaving = freezed,
+    Object? isSaving = null,
   }) {
     return _then(_$_SkilltreeState(
-      nodes: nodes == freezed
+      nodes: null == nodes
           ? _value._nodes
           : nodes // ignore: cast_nullable_to_non_nullable
               as List<Node>,
-      selectedNode: selectedNode == freezed
+      selectedNode: freezed == selectedNode
           ? _value.selectedNode
           : selectedNode // ignore: cast_nullable_to_non_nullable
               as Node?,
-      isSaving: isSaving == freezed
+      isSaving: null == isSaving
           ? _value.isSaving
           : isSaving // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -167,21 +170,20 @@ class _$_SkilltreeState implements _SkilltreeState {
         (other.runtimeType == runtimeType &&
             other is _$_SkilltreeState &&
             const DeepCollectionEquality().equals(other._nodes, _nodes) &&
-            const DeepCollectionEquality()
-                .equals(other.selectedNode, selectedNode) &&
-            const DeepCollectionEquality().equals(other.isSaving, isSaving));
+            (identical(other.selectedNode, selectedNode) ||
+                other.selectedNode == selectedNode) &&
+            (identical(other.isSaving, isSaving) ||
+                other.isSaving == isSaving));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_nodes),
-      const DeepCollectionEquality().hash(selectedNode),
-      const DeepCollectionEquality().hash(isSaving));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_nodes), selectedNode, isSaving);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SkilltreeStateCopyWith<_$_SkilltreeState> get copyWith =>
       __$$_SkilltreeStateCopyWithImpl<_$_SkilltreeState>(this, _$identity);
 

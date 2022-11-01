@@ -16,7 +16,8 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
   SkilltreeController(this.repo) : super(const SkilltreeState());
 
   void addNode(Map<String, dynamic> data) {
-    final node = Node.fromJson(data);
+    final alteredData = {...data, "skillId": data["skill"]["id"]};
+    final node = Node.fromJson(alteredData);
     state = state.copyWith(nodes: [...state.nodes.withoutId(node.id), node]);
   }
 
@@ -121,8 +122,11 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
   }
 
   Future<AsyncValue<void>> createOnServer(Map<String, dynamic> data) async {
-    final alteredData = {...data, "node": jsonEncode(state.nodes)};
-    return AsyncValue.guard(() => repo.createOnServer(alteredData));
+    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.nodes))};
+    return AsyncValue.guard(() async {
+      await repo.createOnServer(alteredData);
+      deleteLocal();
+    });
   }
 }
 

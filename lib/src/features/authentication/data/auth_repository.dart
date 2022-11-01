@@ -16,14 +16,16 @@ class AuthRepository extends HeroBaseRepository {
     await heroPost("/api/users", null, (response) => true);
   }
 
-  Future<void> init() async {
-    await client.init();
+  Future<bool> init() async {
+    return await client.init();
   }
 
-  Future<void> login() async {
-    if (await client.login()) {
+  Future<bool> login() async {
+    bool success = await client.login();
+    if (success) {
       await _createUser();
     }
+    return success;
   }
 
   Future<void> logout() async {

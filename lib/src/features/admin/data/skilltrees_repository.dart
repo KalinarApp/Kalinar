@@ -5,7 +5,6 @@ import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/utilities/base_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../utilities/constants.dart';
 import '../domain/node.dart';
 
 class SkilltreesRepository extends HeroBaseRepository {
@@ -34,7 +33,7 @@ class SkilltreesRepository extends HeroBaseRepository {
   }
 
   Future<void> createOnServer(Map<String, dynamic> data) async {
-    await heroPost("/api/skilltrees", jsonEncode(data), (response) => true);
+    await heroPost("/api/skilltrees", data, (response) => true);
   }
 }
 

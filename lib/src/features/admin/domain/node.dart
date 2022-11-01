@@ -10,6 +10,7 @@ class Node with _$Node {
     required String id,
     required int importance,
     required Skill skill,
+    required String skillId,
     required int cost,
     required String color,
     required bool isEasyReachable,

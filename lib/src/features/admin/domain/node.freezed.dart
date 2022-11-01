@@ -23,6 +23,7 @@ mixin _$Node {
   String get id => throw _privateConstructorUsedError;
   int get importance => throw _privateConstructorUsedError;
   Skill get skill => throw _privateConstructorUsedError;
+  String get skillId => throw _privateConstructorUsedError;
   int get cost => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   bool get isEasyReachable => throw _privateConstructorUsedError;
@@ -39,11 +40,13 @@ mixin _$Node {
 /// @nodoc
 abstract class $NodeCopyWith<$Res> {
   factory $NodeCopyWith(Node value, $Res Function(Node) then) =
-      _$NodeCopyWithImpl<$Res>;
+      _$NodeCopyWithImpl<$Res, Node>;
+  @useResult
   $Res call(
       {String id,
       int importance,
       Skill skill,
+      String skillId,
       int cost,
       String color,
       bool isEasyReachable,
@@ -56,74 +59,83 @@ abstract class $NodeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
+class _$NodeCopyWithImpl<$Res, $Val extends Node>
+    implements $NodeCopyWith<$Res> {
   _$NodeCopyWithImpl(this._value, this._then);
 
-  final Node _value;
   // ignore: unused_field
-  final $Res Function(Node) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? importance = freezed,
-    Object? skill = freezed,
-    Object? cost = freezed,
-    Object? color = freezed,
-    Object? isEasyReachable = freezed,
-    Object? xpos = freezed,
-    Object? ypos = freezed,
-    Object? precessors = freezed,
-    Object? successors = freezed,
+    Object? id = null,
+    Object? importance = null,
+    Object? skill = null,
+    Object? skillId = null,
+    Object? cost = null,
+    Object? color = null,
+    Object? isEasyReachable = null,
+    Object? xpos = null,
+    Object? ypos = null,
+    Object? precessors = null,
+    Object? successors = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      importance: importance == freezed
+      importance: null == importance
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
               as int,
-      skill: skill == freezed
+      skill: null == skill
           ? _value.skill
           : skill // ignore: cast_nullable_to_non_nullable
               as Skill,
-      cost: cost == freezed
+      skillId: null == skillId
+          ? _value.skillId
+          : skillId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cost: null == cost
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as int,
-      color: color == freezed
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      isEasyReachable: isEasyReachable == freezed
+      isEasyReachable: null == isEasyReachable
           ? _value.isEasyReachable
           : isEasyReachable // ignore: cast_nullable_to_non_nullable
               as bool,
-      xpos: xpos == freezed
+      xpos: null == xpos
           ? _value.xpos
           : xpos // ignore: cast_nullable_to_non_nullable
               as double,
-      ypos: ypos == freezed
+      ypos: null == ypos
           ? _value.ypos
           : ypos // ignore: cast_nullable_to_non_nullable
               as double,
-      precessors: precessors == freezed
+      precessors: null == precessors
           ? _value.precessors
           : precessors // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      successors: successors == freezed
+      successors: null == successors
           ? _value.successors
           : successors // ignore: cast_nullable_to_non_nullable
               as List<String>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SkillCopyWith<$Res> get skill {
     return $SkillCopyWith<$Res>(_value.skill, (value) {
-      return _then(_value.copyWith(skill: value));
+      return _then(_value.copyWith(skill: value) as $Val);
     });
   }
 }
@@ -133,10 +145,12 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
   factory _$$_NodeCopyWith(_$_Node value, $Res Function(_$_Node) then) =
       __$$_NodeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       int importance,
       Skill skill,
+      String skillId,
       int cost,
       String color,
       bool isEasyReachable,
@@ -150,65 +164,68 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
+class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
     implements _$$_NodeCopyWith<$Res> {
   __$$_NodeCopyWithImpl(_$_Node _value, $Res Function(_$_Node) _then)
-      : super(_value, (v) => _then(v as _$_Node));
+      : super(_value, _then);
 
-  @override
-  _$_Node get _value => super._value as _$_Node;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? importance = freezed,
-    Object? skill = freezed,
-    Object? cost = freezed,
-    Object? color = freezed,
-    Object? isEasyReachable = freezed,
-    Object? xpos = freezed,
-    Object? ypos = freezed,
-    Object? precessors = freezed,
-    Object? successors = freezed,
+    Object? id = null,
+    Object? importance = null,
+    Object? skill = null,
+    Object? skillId = null,
+    Object? cost = null,
+    Object? color = null,
+    Object? isEasyReachable = null,
+    Object? xpos = null,
+    Object? ypos = null,
+    Object? precessors = null,
+    Object? successors = null,
   }) {
     return _then(_$_Node(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      importance: importance == freezed
+      importance: null == importance
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
               as int,
-      skill: skill == freezed
+      skill: null == skill
           ? _value.skill
           : skill // ignore: cast_nullable_to_non_nullable
               as Skill,
-      cost: cost == freezed
+      skillId: null == skillId
+          ? _value.skillId
+          : skillId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cost: null == cost
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as int,
-      color: color == freezed
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      isEasyReachable: isEasyReachable == freezed
+      isEasyReachable: null == isEasyReachable
           ? _value.isEasyReachable
           : isEasyReachable // ignore: cast_nullable_to_non_nullable
               as bool,
-      xpos: xpos == freezed
+      xpos: null == xpos
           ? _value.xpos
           : xpos // ignore: cast_nullable_to_non_nullable
               as double,
-      ypos: ypos == freezed
+      ypos: null == ypos
           ? _value.ypos
           : ypos // ignore: cast_nullable_to_non_nullable
               as double,
-      precessors: precessors == freezed
+      precessors: null == precessors
           ? _value._precessors
           : precessors // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      successors: successors == freezed
+      successors: null == successors
           ? _value._successors
           : successors // ignore: cast_nullable_to_non_nullable
               as List<String>,
@@ -223,6 +240,7 @@ class _$_Node implements _Node {
       {required this.id,
       required this.importance,
       required this.skill,
+      required this.skillId,
       required this.cost,
       required this.color,
       required this.isEasyReachable,
@@ -241,6 +259,8 @@ class _$_Node implements _Node {
   final int importance;
   @override
   final Skill skill;
+  @override
+  final String skillId;
   @override
   final int cost;
   @override
@@ -271,7 +291,7 @@ class _$_Node implements _Node {
 
   @override
   String toString() {
-    return 'Node(id: $id, importance: $importance, skill: $skill, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xpos: $xpos, ypos: $ypos, precessors: $precessors, successors: $successors)';
+    return 'Node(id: $id, importance: $importance, skill: $skill, skillId: $skillId, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xpos: $xpos, ypos: $ypos, precessors: $precessors, successors: $successors)';
   }
 
   @override
@@ -279,16 +299,17 @@ class _$_Node implements _Node {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Node &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.importance, importance) &&
-            const DeepCollectionEquality().equals(other.skill, skill) &&
-            const DeepCollectionEquality().equals(other.cost, cost) &&
-            const DeepCollectionEquality().equals(other.color, color) &&
-            const DeepCollectionEquality()
-                .equals(other.isEasyReachable, isEasyReachable) &&
-            const DeepCollectionEquality().equals(other.xpos, xpos) &&
-            const DeepCollectionEquality().equals(other.ypos, ypos) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.importance, importance) ||
+                other.importance == importance) &&
+            (identical(other.skill, skill) || other.skill == skill) &&
+            (identical(other.skillId, skillId) || other.skillId == skillId) &&
+            (identical(other.cost, cost) || other.cost == cost) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.isEasyReachable, isEasyReachable) ||
+                other.isEasyReachable == isEasyReachable) &&
+            (identical(other.xpos, xpos) || other.xpos == xpos) &&
+            (identical(other.ypos, ypos) || other.ypos == ypos) &&
             const DeepCollectionEquality()
                 .equals(other._precessors, _precessors) &&
             const DeepCollectionEquality()
@@ -299,19 +320,21 @@ class _$_Node implements _Node {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(importance),
-      const DeepCollectionEquality().hash(skill),
-      const DeepCollectionEquality().hash(cost),
-      const DeepCollectionEquality().hash(color),
-      const DeepCollectionEquality().hash(isEasyReachable),
-      const DeepCollectionEquality().hash(xpos),
-      const DeepCollectionEquality().hash(ypos),
+      id,
+      importance,
+      skill,
+      skillId,
+      cost,
+      color,
+      isEasyReachable,
+      xpos,
+      ypos,
       const DeepCollectionEquality().hash(_precessors),
       const DeepCollectionEquality().hash(_successors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_NodeCopyWith<_$_Node> get copyWith =>
       __$$_NodeCopyWithImpl<_$_Node>(this, _$identity);
 
@@ -328,6 +351,7 @@ abstract class _Node implements Node {
       {required final String id,
       required final int importance,
       required final Skill skill,
+      required final String skillId,
       required final int cost,
       required final String color,
       required final bool isEasyReachable,
@@ -344,6 +368,8 @@ abstract class _Node implements Node {
   int get importance;
   @override
   Skill get skill;
+  @override
+  String get skillId;
   @override
   int get cost;
   @override

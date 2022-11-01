@@ -35,7 +35,8 @@ mixin _$UserInfo {
 /// @nodoc
 abstract class $UserInfoCopyWith<$Res> {
   factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
-      _$UserInfoCopyWithImpl<$Res>;
+      _$UserInfoCopyWithImpl<$Res, UserInfo>;
+  @useResult
   $Res call(
       {String id,
       String firstname,
@@ -45,43 +46,46 @@ abstract class $UserInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserInfoCopyWithImpl<$Res> implements $UserInfoCopyWith<$Res> {
+class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
+    implements $UserInfoCopyWith<$Res> {
   _$UserInfoCopyWithImpl(this._value, this._then);
 
-  final UserInfo _value;
   // ignore: unused_field
-  final $Res Function(UserInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? firstname = freezed,
-    Object? lastname = freezed,
-    Object? email = freezed,
-    Object? username = freezed,
+    Object? id = null,
+    Object? firstname = null,
+    Object? lastname = null,
+    Object? email = null,
+    Object? username = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      firstname: firstname == freezed
+      firstname: null == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
               as String,
-      lastname: lastname == freezed
+      lastname: null == lastname
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      username: username == freezed
+      username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -91,6 +95,7 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
           _$_UserInfo value, $Res Function(_$_UserInfo) then) =
       __$$_UserInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String firstname,
@@ -100,41 +105,40 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res>
+class __$$_UserInfoCopyWithImpl<$Res>
+    extends _$UserInfoCopyWithImpl<$Res, _$_UserInfo>
     implements _$$_UserInfoCopyWith<$Res> {
   __$$_UserInfoCopyWithImpl(
       _$_UserInfo _value, $Res Function(_$_UserInfo) _then)
-      : super(_value, (v) => _then(v as _$_UserInfo));
+      : super(_value, _then);
 
-  @override
-  _$_UserInfo get _value => super._value as _$_UserInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? firstname = freezed,
-    Object? lastname = freezed,
-    Object? email = freezed,
-    Object? username = freezed,
+    Object? id = null,
+    Object? firstname = null,
+    Object? lastname = null,
+    Object? email = null,
+    Object? username = null,
   }) {
     return _then(_$_UserInfo(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      firstname: firstname == freezed
+      firstname: null == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
               as String,
-      lastname: lastname == freezed
+      lastname: null == lastname
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      username: username == freezed
+      username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
@@ -176,25 +180,24 @@ class _$_UserInfo implements _UserInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserInfo &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.firstname, firstname) &&
-            const DeepCollectionEquality().equals(other.lastname, lastname) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.username, username));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.firstname, firstname) ||
+                other.firstname == firstname) &&
+            (identical(other.lastname, lastname) ||
+                other.lastname == lastname) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(firstname),
-      const DeepCollectionEquality().hash(lastname),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(username));
+  int get hashCode =>
+      Object.hash(runtimeType, id, firstname, lastname, email, username);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
       __$$_UserInfoCopyWithImpl<_$_UserInfo>(this, _$identity);
 

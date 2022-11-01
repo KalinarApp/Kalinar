@@ -32,38 +32,42 @@ mixin _$Group {
 /// @nodoc
 abstract class $GroupCopyWith<$Res> {
   factory $GroupCopyWith(Group value, $Res Function(Group) then) =
-      _$GroupCopyWithImpl<$Res>;
+      _$GroupCopyWithImpl<$Res, Group>;
+  @useResult
   $Res call({String name, String? code, String? description});
 }
 
 /// @nodoc
-class _$GroupCopyWithImpl<$Res> implements $GroupCopyWith<$Res> {
+class _$GroupCopyWithImpl<$Res, $Val extends Group>
+    implements $GroupCopyWith<$Res> {
   _$GroupCopyWithImpl(this._value, this._then);
 
-  final Group _value;
   // ignore: unused_field
-  final $Res Function(Group) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? code = freezed,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -72,34 +76,33 @@ abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
   factory _$$_GroupCopyWith(_$_Group value, $Res Function(_$_Group) then) =
       __$$_GroupCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, String? code, String? description});
 }
 
 /// @nodoc
-class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res>
+class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
     implements _$$_GroupCopyWith<$Res> {
   __$$_GroupCopyWithImpl(_$_Group _value, $Res Function(_$_Group) _then)
-      : super(_value, (v) => _then(v as _$_Group));
+      : super(_value, _then);
 
-  @override
-  _$_Group get _value => super._value as _$_Group;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? code = freezed,
     Object? description = freezed,
   }) {
     return _then(_$_Group(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      code: code == freezed
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -132,22 +135,19 @@ class _$_Group implements _Group {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Group &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.code, code) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(description));
+  int get hashCode => Object.hash(runtimeType, name, code, description);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GroupCopyWith<_$_Group> get copyWith =>
       __$$_GroupCopyWithImpl<_$_Group>(this, _$identity);
 

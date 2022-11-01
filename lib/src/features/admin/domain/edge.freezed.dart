@@ -31,7 +31,8 @@ mixin _$Edge {
 /// @nodoc
 abstract class $EdgeCopyWith<$Res> {
   factory $EdgeCopyWith(Edge value, $Res Function(Edge) then) =
-      _$EdgeCopyWithImpl<$Res>;
+      _$EdgeCopyWithImpl<$Res, Edge>;
+  @useResult
   $Res call({Node start, Node end});
 
   $NodeCopyWith<$Res> get start;
@@ -39,41 +40,46 @@ abstract class $EdgeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EdgeCopyWithImpl<$Res> implements $EdgeCopyWith<$Res> {
+class _$EdgeCopyWithImpl<$Res, $Val extends Edge>
+    implements $EdgeCopyWith<$Res> {
   _$EdgeCopyWithImpl(this._value, this._then);
 
-  final Edge _value;
   // ignore: unused_field
-  final $Res Function(Edge) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? start = freezed,
-    Object? end = freezed,
+    Object? start = null,
+    Object? end = null,
   }) {
     return _then(_value.copyWith(
-      start: start == freezed
+      start: null == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
               as Node,
-      end: end == freezed
+      end: null == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
               as Node,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $NodeCopyWith<$Res> get start {
     return $NodeCopyWith<$Res>(_value.start, (value) {
-      return _then(_value.copyWith(start: value));
+      return _then(_value.copyWith(start: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $NodeCopyWith<$Res> get end {
     return $NodeCopyWith<$Res>(_value.end, (value) {
-      return _then(_value.copyWith(end: value));
+      return _then(_value.copyWith(end: value) as $Val);
     });
   }
 }
@@ -83,6 +89,7 @@ abstract class _$$_EdgeCopyWith<$Res> implements $EdgeCopyWith<$Res> {
   factory _$$_EdgeCopyWith(_$_Edge value, $Res Function(_$_Edge) then) =
       __$$_EdgeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Node start, Node end});
 
   @override
@@ -92,25 +99,23 @@ abstract class _$$_EdgeCopyWith<$Res> implements $EdgeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_EdgeCopyWithImpl<$Res> extends _$EdgeCopyWithImpl<$Res>
+class __$$_EdgeCopyWithImpl<$Res> extends _$EdgeCopyWithImpl<$Res, _$_Edge>
     implements _$$_EdgeCopyWith<$Res> {
   __$$_EdgeCopyWithImpl(_$_Edge _value, $Res Function(_$_Edge) _then)
-      : super(_value, (v) => _then(v as _$_Edge));
+      : super(_value, _then);
 
-  @override
-  _$_Edge get _value => super._value as _$_Edge;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? start = freezed,
-    Object? end = freezed,
+    Object? start = null,
+    Object? end = null,
   }) {
     return _then(_$_Edge(
-      start: start == freezed
+      start: null == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
               as Node,
-      end: end == freezed
+      end: null == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
               as Node,
@@ -140,19 +145,17 @@ class _$_Edge implements _Edge {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Edge &&
-            const DeepCollectionEquality().equals(other.start, start) &&
-            const DeepCollectionEquality().equals(other.end, end));
+            (identical(other.start, start) || other.start == start) &&
+            (identical(other.end, end) || other.end == end));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(start),
-      const DeepCollectionEquality().hash(end));
+  int get hashCode => Object.hash(runtimeType, start, end);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_EdgeCopyWith<_$_Edge> get copyWith =>
       __$$_EdgeCopyWithImpl<_$_Edge>(this, _$identity);
 

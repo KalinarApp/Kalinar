@@ -45,7 +45,8 @@ mixin _$Skill {
 /// @nodoc
 abstract class $SkillCopyWith<$Res> {
   factory $SkillCopyWith(Skill value, $Res Function(Skill) then) =
-      _$SkillCopyWithImpl<$Res>;
+      _$SkillCopyWithImpl<$Res, Skill>;
+  @useResult
   $Res call(
       {String id,
       Ability? ability,
@@ -68,108 +69,112 @@ abstract class $SkillCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SkillCopyWithImpl<$Res> implements $SkillCopyWith<$Res> {
+class _$SkillCopyWithImpl<$Res, $Val extends Skill>
+    implements $SkillCopyWith<$Res> {
   _$SkillCopyWithImpl(this._value, this._then);
 
-  final Skill _value;
   // ignore: unused_field
-  final $Res Function(Skill) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? ability = freezed,
     Object? iconUrl = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? healthPointsBoost = freezed,
-    Object? lightPointsBoost = freezed,
-    Object? movementSpeedBoost = freezed,
-    Object? resistenceBoost = freezed,
-    Object? opticalRangeBoost = freezed,
-    Object? meleeDamageBoost = freezed,
-    Object? rangeDamageBoost = freezed,
-    Object? lightDamageBoost = freezed,
-    Object? damageBoost = freezed,
-    Object? parryBoost = freezed,
-    Object? dodgeBoost = freezed,
+    Object? name = null,
+    Object? description = null,
+    Object? healthPointsBoost = null,
+    Object? lightPointsBoost = null,
+    Object? movementSpeedBoost = null,
+    Object? resistenceBoost = null,
+    Object? opticalRangeBoost = null,
+    Object? meleeDamageBoost = null,
+    Object? rangeDamageBoost = null,
+    Object? lightDamageBoost = null,
+    Object? damageBoost = null,
+    Object? parryBoost = null,
+    Object? dodgeBoost = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      ability: ability == freezed
+      ability: freezed == ability
           ? _value.ability
           : ability // ignore: cast_nullable_to_non_nullable
               as Ability?,
-      iconUrl: iconUrl == freezed
+      iconUrl: freezed == iconUrl
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      healthPointsBoost: healthPointsBoost == freezed
+      healthPointsBoost: null == healthPointsBoost
           ? _value.healthPointsBoost
           : healthPointsBoost // ignore: cast_nullable_to_non_nullable
               as int,
-      lightPointsBoost: lightPointsBoost == freezed
+      lightPointsBoost: null == lightPointsBoost
           ? _value.lightPointsBoost
           : lightPointsBoost // ignore: cast_nullable_to_non_nullable
               as int,
-      movementSpeedBoost: movementSpeedBoost == freezed
+      movementSpeedBoost: null == movementSpeedBoost
           ? _value.movementSpeedBoost
           : movementSpeedBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      resistenceBoost: resistenceBoost == freezed
+      resistenceBoost: null == resistenceBoost
           ? _value.resistenceBoost
           : resistenceBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      opticalRangeBoost: opticalRangeBoost == freezed
+      opticalRangeBoost: null == opticalRangeBoost
           ? _value.opticalRangeBoost
           : opticalRangeBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      meleeDamageBoost: meleeDamageBoost == freezed
+      meleeDamageBoost: null == meleeDamageBoost
           ? _value.meleeDamageBoost
           : meleeDamageBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      rangeDamageBoost: rangeDamageBoost == freezed
+      rangeDamageBoost: null == rangeDamageBoost
           ? _value.rangeDamageBoost
           : rangeDamageBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      lightDamageBoost: lightDamageBoost == freezed
+      lightDamageBoost: null == lightDamageBoost
           ? _value.lightDamageBoost
           : lightDamageBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      damageBoost: damageBoost == freezed
+      damageBoost: null == damageBoost
           ? _value.damageBoost
           : damageBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      parryBoost: parryBoost == freezed
+      parryBoost: null == parryBoost
           ? _value.parryBoost
           : parryBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      dodgeBoost: dodgeBoost == freezed
+      dodgeBoost: null == dodgeBoost
           ? _value.dodgeBoost
           : dodgeBoost // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AbilityCopyWith<$Res>? get ability {
     if (_value.ability == null) {
       return null;
     }
 
     return $AbilityCopyWith<$Res>(_value.ability!, (value) {
-      return _then(_value.copyWith(ability: value));
+      return _then(_value.copyWith(ability: value) as $Val);
     });
   }
 }
@@ -179,6 +184,7 @@ abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
   factory _$$_SkillCopyWith(_$_Skill value, $Res Function(_$_Skill) then) =
       __$$_SkillCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       Ability? ability,
@@ -202,95 +208,93 @@ abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res>
+class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
     implements _$$_SkillCopyWith<$Res> {
   __$$_SkillCopyWithImpl(_$_Skill _value, $Res Function(_$_Skill) _then)
-      : super(_value, (v) => _then(v as _$_Skill));
+      : super(_value, _then);
 
-  @override
-  _$_Skill get _value => super._value as _$_Skill;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? ability = freezed,
     Object? iconUrl = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? healthPointsBoost = freezed,
-    Object? lightPointsBoost = freezed,
-    Object? movementSpeedBoost = freezed,
-    Object? resistenceBoost = freezed,
-    Object? opticalRangeBoost = freezed,
-    Object? meleeDamageBoost = freezed,
-    Object? rangeDamageBoost = freezed,
-    Object? lightDamageBoost = freezed,
-    Object? damageBoost = freezed,
-    Object? parryBoost = freezed,
-    Object? dodgeBoost = freezed,
+    Object? name = null,
+    Object? description = null,
+    Object? healthPointsBoost = null,
+    Object? lightPointsBoost = null,
+    Object? movementSpeedBoost = null,
+    Object? resistenceBoost = null,
+    Object? opticalRangeBoost = null,
+    Object? meleeDamageBoost = null,
+    Object? rangeDamageBoost = null,
+    Object? lightDamageBoost = null,
+    Object? damageBoost = null,
+    Object? parryBoost = null,
+    Object? dodgeBoost = null,
   }) {
     return _then(_$_Skill(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      ability: ability == freezed
+      ability: freezed == ability
           ? _value.ability
           : ability // ignore: cast_nullable_to_non_nullable
               as Ability?,
-      iconUrl: iconUrl == freezed
+      iconUrl: freezed == iconUrl
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      healthPointsBoost: healthPointsBoost == freezed
+      healthPointsBoost: null == healthPointsBoost
           ? _value.healthPointsBoost
           : healthPointsBoost // ignore: cast_nullable_to_non_nullable
               as int,
-      lightPointsBoost: lightPointsBoost == freezed
+      lightPointsBoost: null == lightPointsBoost
           ? _value.lightPointsBoost
           : lightPointsBoost // ignore: cast_nullable_to_non_nullable
               as int,
-      movementSpeedBoost: movementSpeedBoost == freezed
+      movementSpeedBoost: null == movementSpeedBoost
           ? _value.movementSpeedBoost
           : movementSpeedBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      resistenceBoost: resistenceBoost == freezed
+      resistenceBoost: null == resistenceBoost
           ? _value.resistenceBoost
           : resistenceBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      opticalRangeBoost: opticalRangeBoost == freezed
+      opticalRangeBoost: null == opticalRangeBoost
           ? _value.opticalRangeBoost
           : opticalRangeBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      meleeDamageBoost: meleeDamageBoost == freezed
+      meleeDamageBoost: null == meleeDamageBoost
           ? _value.meleeDamageBoost
           : meleeDamageBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      rangeDamageBoost: rangeDamageBoost == freezed
+      rangeDamageBoost: null == rangeDamageBoost
           ? _value.rangeDamageBoost
           : rangeDamageBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      lightDamageBoost: lightDamageBoost == freezed
+      lightDamageBoost: null == lightDamageBoost
           ? _value.lightDamageBoost
           : lightDamageBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      damageBoost: damageBoost == freezed
+      damageBoost: null == damageBoost
           ? _value.damageBoost
           : damageBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      parryBoost: parryBoost == freezed
+      parryBoost: null == parryBoost
           ? _value.parryBoost
           : parryBoost // ignore: cast_nullable_to_non_nullable
               as double,
-      dodgeBoost: dodgeBoost == freezed
+      dodgeBoost: null == dodgeBoost
           ? _value.dodgeBoost
           : dodgeBoost // ignore: cast_nullable_to_non_nullable
               as double,
@@ -375,59 +379,60 @@ class _$_Skill implements _Skill {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Skill &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.ability, ability) &&
-            const DeepCollectionEquality().equals(other.iconUrl, iconUrl) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.healthPointsBoost, healthPointsBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.lightPointsBoost, lightPointsBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.movementSpeedBoost, movementSpeedBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.resistenceBoost, resistenceBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.opticalRangeBoost, opticalRangeBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.meleeDamageBoost, meleeDamageBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.rangeDamageBoost, rangeDamageBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.lightDamageBoost, lightDamageBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.damageBoost, damageBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.parryBoost, parryBoost) &&
-            const DeepCollectionEquality()
-                .equals(other.dodgeBoost, dodgeBoost));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.ability, ability) || other.ability == ability) &&
+            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.healthPointsBoost, healthPointsBoost) ||
+                other.healthPointsBoost == healthPointsBoost) &&
+            (identical(other.lightPointsBoost, lightPointsBoost) ||
+                other.lightPointsBoost == lightPointsBoost) &&
+            (identical(other.movementSpeedBoost, movementSpeedBoost) ||
+                other.movementSpeedBoost == movementSpeedBoost) &&
+            (identical(other.resistenceBoost, resistenceBoost) ||
+                other.resistenceBoost == resistenceBoost) &&
+            (identical(other.opticalRangeBoost, opticalRangeBoost) ||
+                other.opticalRangeBoost == opticalRangeBoost) &&
+            (identical(other.meleeDamageBoost, meleeDamageBoost) ||
+                other.meleeDamageBoost == meleeDamageBoost) &&
+            (identical(other.rangeDamageBoost, rangeDamageBoost) ||
+                other.rangeDamageBoost == rangeDamageBoost) &&
+            (identical(other.lightDamageBoost, lightDamageBoost) ||
+                other.lightDamageBoost == lightDamageBoost) &&
+            (identical(other.damageBoost, damageBoost) ||
+                other.damageBoost == damageBoost) &&
+            (identical(other.parryBoost, parryBoost) ||
+                other.parryBoost == parryBoost) &&
+            (identical(other.dodgeBoost, dodgeBoost) ||
+                other.dodgeBoost == dodgeBoost));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(ability),
-      const DeepCollectionEquality().hash(iconUrl),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(healthPointsBoost),
-      const DeepCollectionEquality().hash(lightPointsBoost),
-      const DeepCollectionEquality().hash(movementSpeedBoost),
-      const DeepCollectionEquality().hash(resistenceBoost),
-      const DeepCollectionEquality().hash(opticalRangeBoost),
-      const DeepCollectionEquality().hash(meleeDamageBoost),
-      const DeepCollectionEquality().hash(rangeDamageBoost),
-      const DeepCollectionEquality().hash(lightDamageBoost),
-      const DeepCollectionEquality().hash(damageBoost),
-      const DeepCollectionEquality().hash(parryBoost),
-      const DeepCollectionEquality().hash(dodgeBoost));
+      id,
+      ability,
+      iconUrl,
+      name,
+      description,
+      healthPointsBoost,
+      lightPointsBoost,
+      movementSpeedBoost,
+      resistenceBoost,
+      opticalRangeBoost,
+      meleeDamageBoost,
+      rangeDamageBoost,
+      lightDamageBoost,
+      damageBoost,
+      parryBoost,
+      dodgeBoost);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SkillCopyWith<_$_Skill> get copyWith =>
       __$$_SkillCopyWithImpl<_$_Skill>(this, _$identity);
 

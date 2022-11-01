@@ -32,38 +32,42 @@ mixin _$Ability {
 /// @nodoc
 abstract class $AbilityCopyWith<$Res> {
   factory $AbilityCopyWith(Ability value, $Res Function(Ability) then) =
-      _$AbilityCopyWithImpl<$Res>;
+      _$AbilityCopyWithImpl<$Res, Ability>;
+  @useResult
   $Res call({String name, String description, bool isPassive});
 }
 
 /// @nodoc
-class _$AbilityCopyWithImpl<$Res> implements $AbilityCopyWith<$Res> {
+class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
+    implements $AbilityCopyWith<$Res> {
   _$AbilityCopyWithImpl(this._value, this._then);
 
-  final Ability _value;
   // ignore: unused_field
-  final $Res Function(Ability) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? isPassive = freezed,
+    Object? name = null,
+    Object? description = null,
+    Object? isPassive = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      isPassive: isPassive == freezed
+      isPassive: null == isPassive
           ? _value.isPassive
           : isPassive // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -73,34 +77,34 @@ abstract class _$$_AbilityCopyWith<$Res> implements $AbilityCopyWith<$Res> {
           _$_Ability value, $Res Function(_$_Ability) then) =
       __$$_AbilityCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, String description, bool isPassive});
 }
 
 /// @nodoc
-class __$$_AbilityCopyWithImpl<$Res> extends _$AbilityCopyWithImpl<$Res>
+class __$$_AbilityCopyWithImpl<$Res>
+    extends _$AbilityCopyWithImpl<$Res, _$_Ability>
     implements _$$_AbilityCopyWith<$Res> {
   __$$_AbilityCopyWithImpl(_$_Ability _value, $Res Function(_$_Ability) _then)
-      : super(_value, (v) => _then(v as _$_Ability));
+      : super(_value, _then);
 
-  @override
-  _$_Ability get _value => super._value as _$_Ability;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? isPassive = freezed,
+    Object? name = null,
+    Object? description = null,
+    Object? isPassive = null,
   }) {
     return _then(_$_Ability(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      isPassive: isPassive == freezed
+      isPassive: null == isPassive
           ? _value.isPassive
           : isPassive // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -134,22 +138,20 @@ class _$_Ability implements _Ability {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Ability &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.isPassive, isPassive));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.isPassive, isPassive) ||
+                other.isPassive == isPassive));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(isPassive));
+  int get hashCode => Object.hash(runtimeType, name, description, isPassive);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AbilityCopyWith<_$_Ability> get copyWith =>
       __$$_AbilityCopyWithImpl<_$_Ability>(this, _$identity);
 
