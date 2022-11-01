@@ -5,9 +5,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/application/auth_controller.dart';
 import 'package:hero/src/utilities/router/routes.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../utilities/constants.dart';
 
 class UserMenu extends ConsumerWidget {
   const UserMenu({Key? key}) : super(key: key);
+
+  Future<void> _openPrivacy() async {
+    if (!await launchUrl(Uri.parse(Constants.privacyUrl), mode: LaunchMode.inAppWebView)) {
+      throw 'Could not open profile.';
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,6 +35,7 @@ class UserMenu extends ConsumerWidget {
                 // InkWell(onTap: () {}, child: const ListTile(title: Text("Einstellungen"))),
                 // const Divider(),
                 InkWell(onTap: () => ref.read(authProvider).openProfile(), child: const ListTile(title: Text("Profil ansehen"))),
+                InkWell(onTap: () async => await _openPrivacy(), child: const ListTile(title: Text("Datenschutzerklärung"))),
                 const Divider(),
                 InkWell(onTap: () => ref.read(authControllerProvider.notifier).signOut(), child: const ListTile(title: Text("Abmelden"))),
               ],
