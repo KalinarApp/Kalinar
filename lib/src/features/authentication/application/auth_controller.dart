@@ -11,7 +11,7 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
 
   Future<void> signIn() async {
     if (await authRepository.login()) {
-      hasGroupController.check();
+      await hasGroupController.check();
     }
   }
 

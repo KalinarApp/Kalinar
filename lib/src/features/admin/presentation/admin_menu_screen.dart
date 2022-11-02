@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/skilltree/skilltree_builder_screen.dart';
+import 'package:hero/src/features/admin/presentation/skilltree/skilltree_list_screen.dart';
 
 import '../../../common_widgets/user_menu.dart';
 import 'abilities/list_abilities_screen.dart';
@@ -67,7 +67,7 @@ class AdminMenuScreen extends StatelessWidget {
                   AdminMenuItem(
                     icon: FontAwesomeIcons.circleNodes,
                     title: "Fähigkeitenbaum verwalten",
-                    onTab: () => GoRouter.of(context).pushNamed(SkilltreeBuilderScreen.name),
+                    onTab: () => GoRouter.of(context).pushNamed(SkilltreeListScreen.name),
                   ),
                 ],
               ),

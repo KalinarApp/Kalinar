@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/features/group_management/application/has_group_controller.dart';
 import 'package:hero/src/utilities/base_repository.dart';
 import 'package:hero/src/features/admin/domain/skill.dart';
 
 import '../../authentication/data/auth_repository.dart';
 
 class SkillsRepository extends HeroBaseRepository {
-  SkillsRepository(super.client);
+  SkillsRepository(super.client, String? groupId) : super(groupId: groupId);
 
   Future<List<Skill>> getAll() async {
     return await heroGet("/api/skills", (response) => List<Skill>.from(response.map((model) => Skill.fromJson(model))));
@@ -26,4 +27,4 @@ class SkillsRepository extends HeroBaseRepository {
   }
 }
 
-final skillsRepositoryProvider = Provider<SkillsRepository>((ref) => SkillsRepository(ref.read(authProvider)));
+final skillsRepositoryProvider = Provider<SkillsRepository>((ref) => SkillsRepository(ref.read(authProvider), ref.read(hasGroupProvider).groupId));

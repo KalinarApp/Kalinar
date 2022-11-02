@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common_widgets/user_menu.dart';
 import '../../../utilities/async_value_extension.dart';
-import 'group_info_controller.dart';
+import '../application/group_info_controller.dart';
 import 'users/user_list.dart';
 
 class ManageGroupScreen extends ConsumerStatefulWidget {

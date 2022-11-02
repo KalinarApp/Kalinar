@@ -20,6 +20,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Group {
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -34,7 +35,7 @@ abstract class $GroupCopyWith<$Res> {
   factory $GroupCopyWith(Group value, $Res Function(Group) then) =
       _$GroupCopyWithImpl<$Res, Group>;
   @useResult
-  $Res call({String name, String? code, String? description});
+  $Res call({String id, String name, String? code, String? description});
 }
 
 /// @nodoc
@@ -50,11 +51,16 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? code = freezed,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -77,7 +83,7 @@ abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
       __$$_GroupCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String? code, String? description});
+  $Res call({String id, String name, String? code, String? description});
 }
 
 /// @nodoc
@@ -89,11 +95,16 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? code = freezed,
     Object? description = freezed,
   }) {
     return _then(_$_Group(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -113,11 +124,14 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
 /// @nodoc
 @JsonSerializable()
 class _$_Group implements _Group {
-  const _$_Group({required this.name, this.code, this.description});
+  const _$_Group(
+      {required this.id, required this.name, this.code, this.description});
 
   factory _$_Group.fromJson(Map<String, dynamic> json) =>
       _$$_GroupFromJson(json);
 
+  @override
+  final String id;
   @override
   final String name;
   @override
@@ -127,7 +141,7 @@ class _$_Group implements _Group {
 
   @override
   String toString() {
-    return 'Group(name: $name, code: $code, description: $description)';
+    return 'Group(id: $id, name: $name, code: $code, description: $description)';
   }
 
   @override
@@ -135,6 +149,7 @@ class _$_Group implements _Group {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Group &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.description, description) ||
@@ -143,7 +158,7 @@ class _$_Group implements _Group {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, code, description);
+  int get hashCode => Object.hash(runtimeType, id, name, code, description);
 
   @JsonKey(ignore: true)
   @override
@@ -161,12 +176,15 @@ class _$_Group implements _Group {
 
 abstract class _Group implements Group {
   const factory _Group(
-      {required final String name,
+      {required final String id,
+      required final String name,
       final String? code,
       final String? description}) = _$_Group;
 
   factory _Group.fromJson(Map<String, dynamic> json) = _$_Group.fromJson;
 
+  @override
+  String get id;
   @override
   String get name;
   @override

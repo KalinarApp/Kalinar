@@ -11,11 +11,10 @@ import 'package:hero/src/features/admin/presentation/skilltree/components/skillt
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../domain/node.dart';
-import 'components/modals/skilltree_modal.dart';
 
 class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
   static const String name = "SkilltreeBuilder";
-  static const String route = "tree";
+  static const String route = "builder";
 
   const SkilltreeBuilderScreen({super.key});
 

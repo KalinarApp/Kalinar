@@ -1,15 +1,14 @@
 import 'dart:convert';
 
-import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/features/group_management/application/has_group_controller.dart';
 import 'package:hero/src/utilities/base_repository.dart';
 
-import '../../../utilities/constants.dart';
 import '../../authentication/data/auth_repository.dart';
 import '../domain/ability.dart';
 
 class AbilitiesRepository extends HeroBaseRepository {
-  AbilitiesRepository(FlutterAuth client) : super(client);
+  AbilitiesRepository(super.client, String? groupId) : super(groupId: groupId);
 
   Future<Ability> getByName(String name) async {
     return await heroGet("/api/abilities/$name", (response) => Ability.fromJson(response));
@@ -20,11 +19,8 @@ class AbilitiesRepository extends HeroBaseRepository {
   }
 
   Future<List<Ability>> filter(String query) async {
-    return await heroGet(
-      "/api/abilities",
-      (response) => List<Ability>.from(response.map((model) => Ability.fromJson(model))),
-      query: {"search": query},
-    );
+    return await heroGet("/api/abilities", (response) => List<Ability>.from(response.map((model) => Ability.fromJson(model))),
+        query: {"search": query});
   }
 
   Future<Ability> createAbility(Map<String, dynamic> data) async {
@@ -40,4 +36,5 @@ class AbilitiesRepository extends HeroBaseRepository {
   }
 }
 
-final abilitiesRepositoryProvider = Provider<AbilitiesRepository>((ref) => AbilitiesRepository(ref.read(authProvider)));
+final abilitiesRepositoryProvider =
+    Provider<AbilitiesRepository>((ref) => AbilitiesRepository(ref.read(authProvider), ref.read(hasGroupProvider).groupId));

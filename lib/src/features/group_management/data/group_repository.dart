@@ -1,17 +1,15 @@
 import 'dart:convert';
 
-import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/features/group_management/domain/group_info.dart';
 import 'package:hero/src/utilities/base_repository.dart';
 import '../../authentication/data/auth_repository.dart';
 
-import '../../../utilities/constants.dart';
 import '../../authentication/domain/user_info.dart';
 import '../domain/group.dart';
 
 class GroupRepository extends HeroBaseRepository {
-  GroupRepository(FlutterAuth auth) : super(auth);
+  GroupRepository(super.client);
 
   Future<Group> getGroupInfo() async {
     return heroGet("/api/groups", (response) => Group.fromJson(json.decode(response.body)));

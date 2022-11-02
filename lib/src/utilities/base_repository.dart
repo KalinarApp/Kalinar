@@ -11,9 +11,9 @@ class BaseRepository {
 
   BaseRepository(this.client);
 
-  Future<T> get<T>(Uri url, T Function(dynamic response) builder) async {
+  Future<T> get<T>(Uri url, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
     try {
-      final response = await client.get(url);
+      final response = await client.get(url, headers: headers);
       switch (response.statusCode) {
         case 200:
           final data = json.decode(response.body);
@@ -30,14 +30,12 @@ class BaseRepository {
     }
   }
 
-  Future<T> post<T>(Uri url, dynamic data, T Function(dynamic response) builder) async {
-    Map<String, String> headers = {
-      "content-type": "application/json",
-    };
+  Future<T> post<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
+    Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
 
     try {
       var encode = null != data ? json.encode(data) : null;
-      final response = await client.post(url, body: encode, headers: headers);
+      final response = await client.post(url, body: encode, headers: fullHeaders);
       switch (response.statusCode) {
         case 200:
           return builder(response.body);
@@ -55,14 +53,12 @@ class BaseRepository {
     }
   }
 
-  Future<T> update<T>(Uri url, dynamic data, T Function(dynamic response) builder) async {
-    Map<String, String> headers = {
-      "content-type": "application/json",
-    };
+  Future<T> update<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
+    Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
 
     try {
       var encode = json.encode(data);
-      final response = await client.put(url, body: encode, headers: headers);
+      final response = await client.put(url, body: encode, headers: fullHeaders);
       switch (response.statusCode) {
         case 200:
           return builder(response.body);
@@ -80,10 +76,10 @@ class BaseRepository {
     }
   }
 
-  Future<bool> delete(Uri url) async {
+  Future<bool> delete(Uri url, {Map<String, String>? headers}) async {
     bool success = false;
     try {
-      final response = await client.delete(url);
+      final response = await client.delete(url, headers: headers);
       switch (response.statusCode) {
         case 200:
           success = true;
@@ -106,25 +102,28 @@ class BaseRepository {
 }
 
 class HeroBaseRepository extends BaseRepository {
+  late final Map<String, String>? headers;
   late final String baseUrl;
 
-  HeroBaseRepository(super.client) {
+  HeroBaseRepository(super.client, {String? groupId}) {
     baseUrl = FlavorConfig.instance.variables["baseUrl"];
+    headers = {};
+    if (null != groupId) headers = {"Group": groupId};
   }
 
   Future<T> heroGet<T>(String url, T Function(dynamic response) builder, {Map<String, String>? query}) async {
-    return await super.get(Uri.https(baseUrl, url, query), builder);
+    return await super.get(Uri.https(baseUrl, url, query), builder, headers: headers);
   }
 
   Future<T> heroPost<T>(String url, dynamic data, T Function(dynamic response) builder) async {
-    return await super.post(Uri.https(baseUrl, url), data, builder);
+    return await super.post(Uri.https(baseUrl, url), data, builder, headers: headers);
   }
 
   Future<T> heroUpdate<T>(String url, dynamic data, T Function(dynamic response) builder) async {
-    return await super.update(Uri.https(baseUrl, url), data, builder);
+    return await super.update(Uri.https(baseUrl, url), data, builder, headers: headers);
   }
 
   Future<bool> heroDelete(String url) async {
-    return await super.delete(Uri.https(baseUrl, url));
+    return await super.delete(Uri.https(baseUrl, url), headers: headers);
   }
 }

@@ -1,21 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'group.dart';
+part of 'character.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Group _$$_GroupFromJson(Map<String, dynamic> json) => _$_Group(
+_$_Character _$$_CharacterFromJson(Map<String, dynamic> json) => _$_Character(
       id: json['id'] as String,
       name: json['name'] as String,
-      code: json['code'] as String?,
-      description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$_GroupToJson(_$_Group instance) => <String, dynamic>{
+Map<String, dynamic> _$$_CharacterToJson(_$_Character instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'code': instance.code,
-      'description': instance.description,
     };

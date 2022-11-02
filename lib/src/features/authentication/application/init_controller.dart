@@ -11,7 +11,7 @@ class InitController {
 
   Future<void> initialize() async {
     if (await authRepository.init()) {
-      hasGroupController.check();
+      await hasGroupController.check();
     }
   }
 }

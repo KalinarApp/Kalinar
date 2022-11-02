@@ -8,7 +8,7 @@ class GroupController {
   GroupController(this.repo);
 
   Future<AsyncValue<void>> save(Map<String, dynamic> data) async {
-    return await AsyncValue.guard(() => repo.createGroup(data));
+    return await AsyncValue.guard(() async => await repo.createGroup(data));
   }
 }
 
