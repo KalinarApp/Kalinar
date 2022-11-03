@@ -242,7 +242,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "5a15ca6934391effd93746a988054ac223326c77"
+      resolved-ref: fa0bb6d74990a7edd572889d4fc8c2fad985b923
       url: "https://curth.dev/opensource/flutter_auth"
     source: git
     version: "0.0.1"
@@ -505,7 +505,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.1"
+    version: "5.1.2"
   graphs:
     dependency: transitive
     description:
@@ -862,7 +862,7 @@ packages:
       name: signature
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.1"
+    version: "5.3.0"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -102,13 +102,12 @@ class BaseRepository {
 }
 
 class HeroBaseRepository extends BaseRepository {
-  late final Map<String, String>? headers;
+  Map<String, String>? headers;
   late final String baseUrl;
 
   HeroBaseRepository(super.client, {String? groupId}) {
     baseUrl = FlavorConfig.instance.variables["baseUrl"];
-    headers = {};
-    if (null != groupId) headers = {"Group": groupId};
+    headers = null != groupId ? headers = {"Group": groupId} : headers = {};
   }
 
   Future<T> heroGet<T>(String url, T Function(dynamic response) builder, {Map<String, String>? query}) async {

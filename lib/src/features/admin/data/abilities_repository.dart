@@ -37,4 +37,4 @@ class AbilitiesRepository extends HeroBaseRepository {
 }
 
 final abilitiesRepositoryProvider =
-    Provider<AbilitiesRepository>((ref) => AbilitiesRepository(ref.read(authProvider), ref.read(hasGroupProvider).groupId));
+    Provider<AbilitiesRepository>((ref) => AbilitiesRepository(ref.read(authProvider), ref.watch(hasGroupProvider).groupId));

@@ -43,9 +43,6 @@ final authProvider = Provider<FlutterAuth>((ref) {
     Constants.authUrl,
     const FlutterSecureStorage(),
   );
-
-  ref.onDispose(() => auth.dispose());
-
   return auth;
 });
 

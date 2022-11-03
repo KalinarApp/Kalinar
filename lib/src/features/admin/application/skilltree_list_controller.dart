@@ -1,27 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/data/skilltrees_repository.dart';
-import 'package:hero/src/features/admin/domain/skill.dart';
-import 'package:hero/src/features/admin/domain/skilltree_overview.dart';
 
-import '../data/skills_repository.dart';
+import 'states/skilltree_overview_state.dart';
+import '../data/skilltrees_repository.dart';
+import '../domain/skilltree_overview.dart';
 
-class SkilltreeListController extends StateNotifier<AsyncValue<List<SkilltreeOverview>>> {
+class SkilltreeListController extends StateNotifier<AsyncValue<SkilltreeOverviewState>> {
   final SkilltreesRepository repo;
-
-  List<SkilltreeOverview> skills = [];
 
   SkilltreeListController(this.repo) : super(const AsyncLoading());
 
   Future<void> getAllSkilltrees() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      skills = await repo.getAll();
-      return skills;
+      final overviews = await repo.getAll();
+      var skilltreeOverviewState = SkilltreeOverviewState(unassigned: overviews.unassigned(), characters: overviews.groupByCharacters());
+      return skilltreeOverviewState;
     });
   }
-
-  
 }
 
-final skillListControllerProvider = StateNotifierProvider<SkilltreeListController, AsyncValue<List<SkilltreeOverview>>>(
+final skilltreeListControllerProvider = StateNotifierProvider<SkilltreeListController, AsyncValue<SkilltreeOverviewState>>(
     (ref) => SkilltreeListController(ref.read(skilltreesRepositoryProvider)));

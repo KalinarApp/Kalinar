@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hero/src/features/character_management/domain/character.dart';
 
-import 'node.dart';
+import 'package:hero/src/features/character_management/domain/character.dart';
 
 part 'skilltree_overview.freezed.dart';
 part 'skilltree_overview.g.dart';
@@ -18,4 +17,15 @@ class SkilltreeOverview with _$SkilltreeOverview {
   }) = _SkilltreeOverview;
 
   factory SkilltreeOverview.fromJson(Map<String, dynamic> json) => _$SkilltreeOverviewFromJson(json);
+}
+
+extension SkilltreeOverviewExtension on List<SkilltreeOverview> {
+  List<SkilltreeOverview> unassigned() {
+    return where((element) => null == element.character).toList();
+  }
+
+  Map<String, List<SkilltreeOverview>> groupByCharacters() {
+    final list = where((element) => null != element.character).toList();
+    return list.fold({}, (map, element) => map..putIfAbsent(element.character!.id, () => []).add(element));
+  }
 }

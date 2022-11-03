@@ -13,6 +13,7 @@ class SkilltreeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 4,
       child: ListTile(
         title: Text(item.name, maxLines: 2, overflow: TextOverflow.ellipsis),
         subtitle: Padding(
@@ -35,7 +36,11 @@ class SkilltreeItem extends StatelessWidget {
             ),
           ]),
         ),
-        trailing: item.isActiveTree ? const Icon(Icons.check_circle_outline_outlined, size: 32) : null,
+        trailing: null != item.character
+            ? item.isActiveTree
+                ? const Icon(Icons.check_circle_outline_outlined, size: 32)
+                : const Icon(Icons.check_circle_outline_outlined, size: 32)
+            : null,
       ),
     );
   }
