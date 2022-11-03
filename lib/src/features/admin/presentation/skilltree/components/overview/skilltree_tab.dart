@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/common_widgets/loading_indicator.dart';
+import 'package:hero/src/features/admin/domain/skilltree_overview.dart';
 
 import '../../../../application/skilltree_list_controller.dart';
 import 'skilltree_character_item.dart';
@@ -24,6 +25,24 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
     super.initState();
   }
 
+  SliverList _getUnassignedList(List<SkilltreeOverview> items) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((context, index) => SkilltreeItem(items[index]), childCount: items.length),
+    );
+  }
+
+  SliverGrid _getCharacterGrid(Map<String, List<SkilltreeOverview>> characters) {
+    return SliverGrid(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 1,
+      ),
+      delegate: SliverChildBuilderDelegate((context, index) => const SkilltreeCharacterItem(), childCount: 2),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(skilltreeListControllerProvider);
@@ -35,30 +54,11 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
         padding: const EdgeInsets.all(12.0),
         child: RefreshIndicator(
           onRefresh: _onRefresh,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ListView.builder(
-                  itemCount: data.unassigned.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => SkilltreeItem(data.unassigned[index]),
-                ),
-                const SizedBox(height: 10),
-                GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: data.characters.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 1,
-                  ),
-                  itemBuilder: (context, index) => const SkilltreeCharacterItem(),
-                ),
-              ],
-            ),
+          child: CustomScrollView(
+            slivers: [
+              _getUnassignedList(data.unassigned),
+              _getCharacterGrid(data.characters),
+            ],
           ),
         ),
       ),
