@@ -13,7 +13,7 @@ import 'package:hero/src/features/group_management/presentation/user_invite_scre
 import 'package:hero/src/features/home/presentation/home_screen.dart';
 import 'package:hero/src/features/home/presentation/welcome_screen.dart';
 
-import '../../features/admin/presentation/admin_menu_screen.dart';
+import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import 'admin_routes.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {

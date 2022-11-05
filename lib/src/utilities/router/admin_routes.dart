@@ -1,15 +1,15 @@
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/presentation/skills/create_skill_screen.dart';
-import 'package:hero/src/features/admin/presentation/skills/edit_skill_screen.dart';
-import 'package:hero/src/features/admin/presentation/skills/list_skills_screen.dart';
-import 'package:hero/src/features/admin/presentation/skilltree/skilltree_builder_screen.dart';
-import 'package:hero/src/features/admin/presentation/skilltree/skilltree_list_screen.dart';
 
-import '../../features/admin/presentation/abilities/create_ability_screen.dart';
-import '../../features/admin/presentation/abilities/edit_ability_screen.dart';
-import '../../features/admin/presentation/abilities/list_abilities_screen.dart';
-import '../../features/admin/presentation/admin_menu_screen.dart';
-import '../../features/admin/presentation/manage_group_screen.dart';
+import '../../features/admin/abilities/presentation/create_ability_screen.dart';
+import '../../features/admin/abilities/presentation/edit_ability_screen.dart';
+import '../../features/admin/abilities/presentation/list_abilities_screen.dart';
+import '../../features/admin/common/presentation/admin_menu_screen.dart';
+import '../../features/admin/common/presentation/manage_group_screen.dart';
+import '../../features/admin/skills/presentation/create_skill_screen.dart';
+import '../../features/admin/skills/presentation/edit_skill_screen.dart';
+import '../../features/admin/skills/presentation/list_skills_screen.dart';
+import '../../features/admin/skilltrees/presentation/skilltree_builder_screen.dart';
+import '../../features/admin/skilltrees/presentation/skilltree_list_screen.dart';
 
 final adminRoutes = GoRoute(
   path: AdminMenuScreen.route,

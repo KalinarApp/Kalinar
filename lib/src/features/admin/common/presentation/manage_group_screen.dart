@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/common_widgets/user_menu.dart';
 
-import '../../../utilities/async_value_extension.dart';
-import '../../admin/common/application/group_info_controller.dart';
-import '../../admin/common/presentation/users/user_list.dart';
+import '../../../../common_widgets/user_menu.dart';
+import '../../../../utilities/async_value_extension.dart';
+import '../application/group_info_controller.dart';
+import 'users/user_list.dart';
 
-class AdminInviteScreen extends ConsumerStatefulWidget {
-  const AdminInviteScreen({Key? key}) : super(key: key);
+class ManageGroupScreen extends ConsumerStatefulWidget {
+  static const String name = "AdminGroupManagement";
+  static const String route = "group-management";
+
+  const ManageGroupScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AdminInviteScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ManageGroupScreenState();
 }
 
-class _AdminInviteScreenState extends ConsumerState<AdminInviteScreen> {
+class _ManageGroupScreenState extends ConsumerState<ManageGroupScreen> {
   late GroupInfoController groupInfoController;
 
   void _copyToClipboard(String code) {
