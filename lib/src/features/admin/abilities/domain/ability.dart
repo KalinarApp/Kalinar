@@ -6,8 +6,9 @@ part 'ability.g.dart';
 @freezed
 class Ability with _$Ability {
   const factory Ability({
+    required String id,
     required String name,
-    required String description,
+    String? description,
     required bool isPassive,
   }) = _Ability;
 

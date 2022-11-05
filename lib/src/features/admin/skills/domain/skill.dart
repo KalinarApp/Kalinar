@@ -12,7 +12,7 @@ class Skill with _$Skill {
     Ability? ability,
     String? iconUrl,
     required String name,
-    required String description,
+    String? description,
     @Default(0) int healthPointsBoost,
     @Default(0) int lightPointsBoost,
     @Default(0) double movementSpeedBoost,
