@@ -5,46 +5,31 @@ import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_auth/models/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hero/src/utilities/base_repository.dart';
 
-import '../../../utilities/api_error.dart';
 import '../../../utilities/constants.dart';
 
-class AuthRepository {
-  final FlutterAuth _client;
-
-  AuthRepository(this._client);
+class AuthRepository extends HeroBaseRepository {
+  AuthRepository(super.client);
 
   Future<void> _createUser() async {
-    final url = Uri.https(Constants.baseUrl, "/api/users");
-    try {
-      final response = await _client.post(url);
-      switch (response.statusCode) {
-        case 200:
-          break;
-        case 401:
-          throw const APIError.unauthorized();
-        case 404:
-          throw const APIError.notFound();
-        default:
-          throw const APIError.unknown();
-      }
-    } on SocketException catch (_) {
-      throw const APIError.noInternetConnection();
-    }
+    await heroPost("/api/users", null, (response) => true);
   }
 
-  Future<void> init() async {
-    await _client.init();
+  Future<bool> init() async {
+    return await client.init();
   }
 
-  Future<void> login() async {
-    if (await _client.login()) {
+  Future<bool> login() async {
+    bool success = await client.login();
+    if (success) {
       await _createUser();
     }
+    return success;
   }
 
   Future<void> logout() async {
-    await _client.logout();
+    await client.logout();
   }
 }
 
@@ -58,9 +43,6 @@ final authProvider = Provider<FlutterAuth>((ref) {
     Constants.authUrl,
     const FlutterSecureStorage(),
   );
-
-  ref.onDispose(() => auth.dispose());
-
   return auth;
 });
 

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hero/src/features/group_management/application/has_group_controller.dart';
 import 'package:hero/src/features/home/presentation/home_screen.dart';
+import 'package:hero/src/utilities/async_value_extension.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../../common_widgets/save_button.dart';
 
@@ -33,9 +35,25 @@ class _CreateGroupState extends ConsumerState<CreateGroup> {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        ref.read(groupControllerProvider).save(data);
-        GoRouter.of(context).goNamed(HomeScreen.name);
+        ref.read(groupControllerProvider).save(data).then((value) {
+          if (!mounted) return;
+          value.showSnackbarOnError(context);
+          if (value.hasError) {
+            _btnController.error();
+            Future.delayed(const Duration(seconds: 3), _btnController.reset);
+          } else {
+            _btnController.success();
+
+            ref.read(hasGroupProvider.notifier).check().then((value) => GoRouter.of(context).goNamed(HomeScreen.name));
+          }
+        });
+      } else {
+        _btnController.error();
+        Future.delayed(const Duration(seconds: 3), _btnController.reset);
       }
+    } else {
+      _btnController.error();
+      Future.delayed(const Duration(seconds: 3), _btnController.reset);
     }
   }
 

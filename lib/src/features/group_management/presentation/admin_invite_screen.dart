@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hero/src/common_widgets/user_menu.dart';
-import 'package:hero/src/utilities/async_value_extension.dart';
 
-import '../../admin/presentation/group_info_controller.dart';
-import '../../admin/presentation/users/user_list.dart';
+import '../../../utilities/async_value_extension.dart';
+import '../../admin/common/application/group_info_controller.dart';
+import '../../admin/common/presentation/users/user_list.dart';
 
 class AdminInviteScreen extends ConsumerStatefulWidget {
   const AdminInviteScreen({Key? key}) : super(key: key);

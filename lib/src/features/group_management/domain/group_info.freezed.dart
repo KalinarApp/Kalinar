@@ -34,43 +34,47 @@ mixin _$GroupInfo {
 /// @nodoc
 abstract class $GroupInfoCopyWith<$Res> {
   factory $GroupInfoCopyWith(GroupInfo value, $Res Function(GroupInfo) then) =
-      _$GroupInfoCopyWithImpl<$Res>;
+      _$GroupInfoCopyWithImpl<$Res, GroupInfo>;
+  @useResult
   $Res call({String id, String name, String owner, String? description});
 }
 
 /// @nodoc
-class _$GroupInfoCopyWithImpl<$Res> implements $GroupInfoCopyWith<$Res> {
+class _$GroupInfoCopyWithImpl<$Res, $Val extends GroupInfo>
+    implements $GroupInfoCopyWith<$Res> {
   _$GroupInfoCopyWithImpl(this._value, this._then);
 
-  final GroupInfo _value;
   // ignore: unused_field
-  final $Res Function(GroupInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? owner = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? owner = null,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      owner: owner == freezed
+      owner: null == owner
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -80,40 +84,40 @@ abstract class _$$_GroupInfoCopyWith<$Res> implements $GroupInfoCopyWith<$Res> {
           _$_GroupInfo value, $Res Function(_$_GroupInfo) then) =
       __$$_GroupInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id, String name, String owner, String? description});
 }
 
 /// @nodoc
-class __$$_GroupInfoCopyWithImpl<$Res> extends _$GroupInfoCopyWithImpl<$Res>
+class __$$_GroupInfoCopyWithImpl<$Res>
+    extends _$GroupInfoCopyWithImpl<$Res, _$_GroupInfo>
     implements _$$_GroupInfoCopyWith<$Res> {
   __$$_GroupInfoCopyWithImpl(
       _$_GroupInfo _value, $Res Function(_$_GroupInfo) _then)
-      : super(_value, (v) => _then(v as _$_GroupInfo));
+      : super(_value, _then);
 
-  @override
-  _$_GroupInfo get _value => super._value as _$_GroupInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? owner = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? owner = null,
     Object? description = freezed,
   }) {
     return _then(_$_GroupInfo(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      owner: owner == freezed
+      owner: null == owner
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -152,24 +156,20 @@ class _$_GroupInfo implements _GroupInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GroupInfo &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.owner, owner) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.owner, owner) || other.owner == owner) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(owner),
-      const DeepCollectionEquality().hash(description));
+  int get hashCode => Object.hash(runtimeType, id, name, owner, description);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GroupInfoCopyWith<_$_GroupInfo> get copyWith =>
       __$$_GroupInfoCopyWithImpl<_$_GroupInfo>(this, _$identity);
 

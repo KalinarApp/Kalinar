@@ -7,34 +7,31 @@ import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dar
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
 import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
 import 'package:hero/src/features/authentication/presentation/sign_in_screen.dart';
-import 'package:hero/src/features/group_management/application/group_controller.dart';
+import 'package:hero/src/features/group_management/application/has_group_controller.dart';
 import 'package:hero/src/features/group_management/presentation/group_screen.dart';
 import 'package:hero/src/features/group_management/presentation/user_invite_screen.dart';
 import 'package:hero/src/features/home/presentation/home_screen.dart';
 import 'package:hero/src/features/home/presentation/welcome_screen.dart';
-import 'package:hero/src/utilities/router/admin_routes.dart';
 
-import '../../features/admin/presentation/admin_menu_screen.dart';
+import '../../features/admin/common/presentation/admin_menu_screen.dart';
+import 'admin_routes.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final rootNavigatorKey = GlobalKey<NavigatorState>();
   final shellNavigatorKey = GlobalKey<NavigatorState>();
+  final authState = RouterStreamNotifier(ref);
+  final groupState = ref.read(hasGroupProvider);
   final currentUser = ref.watch(userChangedProvider);
 
   return GoRouter(
     initialLocation: "/",
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
-    refreshListenable: RouterStreamNotifier(ref),
-    redirect: (context, state) async {
+    refreshListenable: Listenable.merge([authState, groupState]),
+    redirect: (context, state) {
       final isAuthenticated = ref.read(authStateChangedProvider);
 
       if (null == isAuthenticated) return null;
-
-      if (isAuthenticated && state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
-        final hasGroup = await ref.read(groupControllerProvider).hasGroup();
-        if (!hasGroup) return GroupScreen.route;
-      }
 
       if (state.location == "/") {
         return isAuthenticated ? HomeScreen.route : SignInScreen.route;
@@ -98,6 +95,13 @@ final routerProvider = Provider<GoRouter>((ref) {
             name: HomeScreen.name,
             path: HomeScreen.route,
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
+            redirect: (context, state) {
+              if (state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
+                if (null != groupState.hasGroup && !groupState.hasGroup!) return GroupScreen.route;
+              }
+
+              return null;
+            },
           ),
           GoRoute(
             path: "/skilltrees",
@@ -128,10 +132,13 @@ final userChangedProvider = Provider<UserInfo?>((ref) {
 
 class RouterStreamNotifier with ChangeNotifier {
   final Ref _ref;
+  bool skipNotifications = false;
 
   RouterStreamNotifier(this._ref) {
     _ref.listen(authStateChangedProvider, (previous, next) {
-      notifyListeners();
+      if (!skipNotifications) {
+        notifyListeners();
+      }
     });
   }
 }
