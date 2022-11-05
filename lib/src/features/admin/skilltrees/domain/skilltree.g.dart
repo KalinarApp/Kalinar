@@ -7,8 +7,8 @@ part of 'skilltree.dart';
 // **************************************************************************
 
 _$_Skilltree _$$_SkilltreeFromJson(Map<String, dynamic> json) => _$_Skilltree(
-      id: json['id'] as String,
-      name: json['name'] as String,
+      id: json['id'] as String? ?? "",
+      name: json['name'] as String? ?? "",
       character: json['character'] == null
           ? null
           : Character.fromJson(json['character'] as Map<String, dynamic>),

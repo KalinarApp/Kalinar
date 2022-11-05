@@ -14,8 +14,9 @@ import 'components/skilltree_stack.dart';
 class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
   static const String name = "SkilltreeBuilder";
   static const String route = "builder";
+  final String? skilltreeId;
 
-  const SkilltreeBuilderScreen({super.key});
+  const SkilltreeBuilderScreen(this.skilltreeId, {super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SkilltreeBuilderScreenState();
@@ -39,10 +40,14 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
   @override
   void initState() {
     controller = ref.read(skilltreeControllerProvider.notifier);
-    Future.delayed(Duration.zero, () {
-      controller.loadLocal();
-      controller.startSavingLocal();
-    });
+    if (null == widget.skilltreeId) {
+      Future.delayed(Duration.zero, () {
+        controller.loadLocal();
+        controller.startSavingLocal();
+      });
+    } else {
+      Future.delayed(Duration.zero, () => controller.getById(widget.skilltreeId!));
+    }
 
     super.initState();
   }
@@ -78,7 +83,7 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
               onAcceptWithDetails: updatePosition,
               onWillAccept: (data) => true,
               builder: (context, _, __) => SkilltreeStack(
-                state.nodes,
+                state.skilltree.nodes,
                 controller.getAllEdges(),
                 onEditNode: (node) => showModal(context, NodeModal(item: node)),
                 onDeleteNode: controller.deleteNode,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/skilltrees/application/skilltree_controller.dart';
+import 'package:hero/src/features/admin/skilltrees/presentation/skilltree_builder_screen.dart';
 
 import '../../../../../../common_widgets/loading_indicator.dart';
 import '../../../application/skilltree_list_controller.dart';
@@ -27,12 +29,17 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
     super.initState();
   }
 
+  void _openBuilder(SkilltreeOverview item) {
+    GoRouter.of(context).goNamed(SkilltreeBuilderScreen.name, queryParams: {"id": item.id});
+  }
+
   Future<void> _showActionDialog(SkilltreeOverview item) async {
     final action = await showActionsModal(context);
-    if (null == action) return;
+    if (null == action || !mounted) return;
 
     switch (action) {
       case DialogAction.edit:
+        _openBuilder(item);
         break;
       case DialogAction.delete:
         await ref.read(skilltreeControllerProvider.notifier).deleteOnServer(item.id);
@@ -47,6 +54,7 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
       delegate: SliverChildBuilderDelegate(
           (context, index) => SkilltreeItem(
                 items[index],
+                onPress: _openBuilder,
                 onLongPress: _showActionDialog,
               ),
           childCount: items.length),

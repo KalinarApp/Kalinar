@@ -27,8 +27,8 @@ mixin _$Node {
   int get cost => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   bool get isEasyReachable => throw _privateConstructorUsedError;
-  double get xpos => throw _privateConstructorUsedError;
-  double get ypos => throw _privateConstructorUsedError;
+  double get xPos => throw _privateConstructorUsedError;
+  double get yPos => throw _privateConstructorUsedError;
   List<String> get precessors => throw _privateConstructorUsedError;
   List<String> get successors => throw _privateConstructorUsedError;
 
@@ -50,8 +50,8 @@ abstract class $NodeCopyWith<$Res> {
       int cost,
       String color,
       bool isEasyReachable,
-      double xpos,
-      double ypos,
+      double xPos,
+      double yPos,
       List<String> precessors,
       List<String> successors});
 
@@ -78,8 +78,8 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
     Object? cost = null,
     Object? color = null,
     Object? isEasyReachable = null,
-    Object? xpos = null,
-    Object? ypos = null,
+    Object? xPos = null,
+    Object? yPos = null,
     Object? precessors = null,
     Object? successors = null,
   }) {
@@ -112,13 +112,13 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
           ? _value.isEasyReachable
           : isEasyReachable // ignore: cast_nullable_to_non_nullable
               as bool,
-      xpos: null == xpos
-          ? _value.xpos
-          : xpos // ignore: cast_nullable_to_non_nullable
+      xPos: null == xPos
+          ? _value.xPos
+          : xPos // ignore: cast_nullable_to_non_nullable
               as double,
-      ypos: null == ypos
-          ? _value.ypos
-          : ypos // ignore: cast_nullable_to_non_nullable
+      yPos: null == yPos
+          ? _value.yPos
+          : yPos // ignore: cast_nullable_to_non_nullable
               as double,
       precessors: null == precessors
           ? _value.precessors
@@ -154,8 +154,8 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
       int cost,
       String color,
       bool isEasyReachable,
-      double xpos,
-      double ypos,
+      double xPos,
+      double yPos,
       List<String> precessors,
       List<String> successors});
 
@@ -179,8 +179,8 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
     Object? cost = null,
     Object? color = null,
     Object? isEasyReachable = null,
-    Object? xpos = null,
-    Object? ypos = null,
+    Object? xPos = null,
+    Object? yPos = null,
     Object? precessors = null,
     Object? successors = null,
   }) {
@@ -213,13 +213,13 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
           ? _value.isEasyReachable
           : isEasyReachable // ignore: cast_nullable_to_non_nullable
               as bool,
-      xpos: null == xpos
-          ? _value.xpos
-          : xpos // ignore: cast_nullable_to_non_nullable
+      xPos: null == xPos
+          ? _value.xPos
+          : xPos // ignore: cast_nullable_to_non_nullable
               as double,
-      ypos: null == ypos
-          ? _value.ypos
-          : ypos // ignore: cast_nullable_to_non_nullable
+      yPos: null == yPos
+          ? _value.yPos
+          : yPos // ignore: cast_nullable_to_non_nullable
               as double,
       precessors: null == precessors
           ? _value._precessors
@@ -244,8 +244,8 @@ class _$_Node implements _Node {
       required this.cost,
       required this.color,
       required this.isEasyReachable,
-      this.xpos = 0,
-      this.ypos = 0,
+      this.xPos = 0,
+      this.yPos = 0,
       final List<String> precessors = const [],
       final List<String> successors = const []})
       : _precessors = precessors,
@@ -269,10 +269,10 @@ class _$_Node implements _Node {
   final bool isEasyReachable;
   @override
   @JsonKey()
-  final double xpos;
+  final double xPos;
   @override
   @JsonKey()
-  final double ypos;
+  final double yPos;
   final List<String> _precessors;
   @override
   @JsonKey()
@@ -291,7 +291,7 @@ class _$_Node implements _Node {
 
   @override
   String toString() {
-    return 'Node(id: $id, importance: $importance, skill: $skill, skillId: $skillId, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xpos: $xpos, ypos: $ypos, precessors: $precessors, successors: $successors)';
+    return 'Node(id: $id, importance: $importance, skill: $skill, skillId: $skillId, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xPos: $xPos, yPos: $yPos, precessors: $precessors, successors: $successors)';
   }
 
   @override
@@ -308,8 +308,8 @@ class _$_Node implements _Node {
             (identical(other.color, color) || other.color == color) &&
             (identical(other.isEasyReachable, isEasyReachable) ||
                 other.isEasyReachable == isEasyReachable) &&
-            (identical(other.xpos, xpos) || other.xpos == xpos) &&
-            (identical(other.ypos, ypos) || other.ypos == ypos) &&
+            (identical(other.xPos, xPos) || other.xPos == xPos) &&
+            (identical(other.yPos, yPos) || other.yPos == yPos) &&
             const DeepCollectionEquality()
                 .equals(other._precessors, _precessors) &&
             const DeepCollectionEquality()
@@ -327,8 +327,8 @@ class _$_Node implements _Node {
       cost,
       color,
       isEasyReachable,
-      xpos,
-      ypos,
+      xPos,
+      yPos,
       const DeepCollectionEquality().hash(_precessors),
       const DeepCollectionEquality().hash(_successors));
 
@@ -355,8 +355,8 @@ abstract class _Node implements Node {
       required final int cost,
       required final String color,
       required final bool isEasyReachable,
-      final double xpos,
-      final double ypos,
+      final double xPos,
+      final double yPos,
       final List<String> precessors,
       final List<String> successors}) = _$_Node;
 
@@ -377,9 +377,9 @@ abstract class _Node implements Node {
   @override
   bool get isEasyReachable;
   @override
-  double get xpos;
+  double get xPos;
   @override
-  double get ypos;
+  double get yPos;
   @override
   List<String> get precessors;
   @override

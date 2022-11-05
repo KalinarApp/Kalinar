@@ -180,8 +180,8 @@ class __$$_SkilltreeCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Skilltree implements _Skilltree {
   const _$_Skilltree(
-      {required this.id,
-      required this.name,
+      {this.id = "",
+      this.name = "",
       this.character,
       this.points = 0,
       this.isActiveTree = true,
@@ -192,8 +192,10 @@ class _$_Skilltree implements _Skilltree {
       _$$_SkilltreeFromJson(json);
 
   @override
+  @JsonKey()
   final String id;
   @override
+  @JsonKey()
   final String name;
   @override
   final Character? character;
@@ -252,8 +254,8 @@ class _$_Skilltree implements _Skilltree {
 
 abstract class _Skilltree implements Skilltree {
   const factory _Skilltree(
-      {required final String id,
-      required final String name,
+      {final String id,
+      final String name,
       final Character? character,
       final int points,
       final bool isActiveTree,

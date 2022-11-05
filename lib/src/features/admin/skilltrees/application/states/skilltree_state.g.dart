@@ -8,10 +8,9 @@ part of 'skilltree_state.dart';
 
 _$_SkilltreeState _$$_SkilltreeStateFromJson(Map<String, dynamic> json) =>
     _$_SkilltreeState(
-      nodes: (json['nodes'] as List<dynamic>?)
-              ?.map((e) => Node.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+      skilltree: json['skilltree'] == null
+          ? const Skilltree()
+          : Skilltree.fromJson(json['skilltree'] as Map<String, dynamic>),
       selectedNode: json['selectedNode'] == null
           ? null
           : Node.fromJson(json['selectedNode'] as Map<String, dynamic>),
@@ -20,7 +19,7 @@ _$_SkilltreeState _$$_SkilltreeStateFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_SkilltreeStateToJson(_$_SkilltreeState instance) =>
     <String, dynamic>{
-      'nodes': instance.nodes,
+      'skilltree': instance.skilltree,
       'selectedNode': instance.selectedNode,
       'isSaving': instance.isSaving,
     };

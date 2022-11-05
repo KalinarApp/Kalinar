@@ -15,8 +15,8 @@ class Node with _$Node {
     required int cost,
     required String color,
     required bool isEasyReachable,
-    @Default(0) double xpos,
-    @Default(0) double ypos,
+    @Default(0) double xPos,
+    @Default(0) double yPos,
     @Default([]) List<String> precessors,
     @Default([]) List<String> successors,
   }) = _Node;

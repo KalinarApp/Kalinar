@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hero/src/features/admin/skilltrees/domain/skilltree.dart';
 
 import '../../domain/node.dart';
 
@@ -8,7 +9,7 @@ part 'skilltree_state.g.dart';
 @freezed
 class SkilltreeState with _$SkilltreeState {
   const factory SkilltreeState({
-    @Default([]) List<Node> nodes,
+    @Default(Skilltree()) Skilltree skilltree,
     Node? selectedNode,
     @Default(false) bool isSaving,
   }) = _SkilltreeState;

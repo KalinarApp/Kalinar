@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/features/admin/skilltrees/domain/skilltree.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utilities/base_repository.dart';
@@ -36,6 +37,10 @@ class SkilltreesRepository extends HeroBaseRepository {
 
   Future<List<SkilltreeOverview>> getAll() async {
     return await heroGet("/api/skilltrees", (response) => List<SkilltreeOverview>.from(response.map((model) => SkilltreeOverview.fromJson(model))));
+  }
+
+  Future<Skilltree> getById(String id) async {
+    return await heroGet("/api/skilltrees/$id", (response) => Skilltree.fromJson(response));
   }
 
   Future<void> createOnServer(Map<String, dynamic> data) async {

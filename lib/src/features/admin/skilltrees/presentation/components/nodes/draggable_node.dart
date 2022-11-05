@@ -13,8 +13,8 @@ class DraggableNode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: item.xpos,
-      top: item.ypos,
+      left: item.xPos,
+      top: item.yPos,
       child: Draggable<Node>(
         data: item,
         maxSimultaneousDrags: 1,

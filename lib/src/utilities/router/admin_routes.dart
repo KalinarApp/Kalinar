@@ -73,6 +73,6 @@ final adminSkilltreeRoutes = GoRoute(
       GoRoute(
         name: SkilltreeBuilderScreen.name,
         path: SkilltreeBuilderScreen.route,
-        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const SkilltreeBuilderScreen()),
+        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: SkilltreeBuilderScreen(state.queryParams["id"])),
       ),
     ]);

@@ -8,14 +8,16 @@ import '../../../domain/skilltree_overview.dart';
 class SkilltreeItem extends StatelessWidget {
   final SkilltreeOverview item;
   final Function(SkilltreeOverview item)? onLongPress;
+  final Function(SkilltreeOverview item)? onPress;
 
-  const SkilltreeItem(this.item, {this.onLongPress, super.key});
+  const SkilltreeItem(this.item, {this.onLongPress, this.onPress, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
       child: ListTile(
+        onTap: null != onPress ? () => onPress!(item) : null,
         onLongPress: null != onLongPress ? () => onLongPress!(item) : null,
         title: Text(item.name, maxLines: 2, overflow: TextOverflow.ellipsis),
         subtitle: Padding(

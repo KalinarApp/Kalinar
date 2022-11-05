@@ -22,22 +22,23 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
   static final _formKey = GlobalKey<FormBuilderState>();
   final RoundedLoadingButtonController controller = RoundedLoadingButtonController();
 
-  Future<void> _save(WidgetRef ref, BuildContext context) async {
+  Future<void> _save(BuildContext context, String id) async {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        ref.read(skilltreeControllerProvider.notifier).createOnServer(data).then((value) {
-          if (!mounted) return;
-          value.showSnackbarOnError(context);
-          if (value.hasError) {
-            controller.error();
-            Future.delayed(const Duration(seconds: 3), controller.reset);
-          } else {
-            controller.success();
-            GoRouter.of(context).pop();
-          }
-        });
+        final value = id.isEmpty
+            ? await ref.read(skilltreeControllerProvider.notifier).createOnServer(data)
+            : await ref.read(skilltreeControllerProvider.notifier).update(id, data);
+        if (!mounted) return;
+        value.showSnackbarOnError(context);
+        if (value.hasError) {
+          controller.error();
+          Future.delayed(const Duration(seconds: 3), controller.reset);
+        } else {
+          controller.success();
+          GoRouter.of(context).pop();
+        }
       } else {
         controller.error();
         Future.delayed(const Duration(seconds: 3), controller.reset);
@@ -50,6 +51,8 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(skilltreeControllerProvider);
+
     return Container(
       constraints: const BoxConstraints(minHeight: 200),
       color: Theme.of(context).dialogBackgroundColor,
@@ -64,11 +67,23 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
                 elevation: 0,
                 automaticallyImplyLeading: false,
                 actions: [
-                  SaveButton(controller: controller, onSave: () => _save(ref, context)),
+                  SaveButton(controller: controller, onSave: () => _save(context, state.skilltree.id)),
                 ],
               ),
-              ContentField("name", label: "Name", validators: FormBuilderValidators.required()),
-              const ValueRangeField(name: "points", label: "Initiale Skillpunkte", initialValue: 0, min: 0, max: 10000, step: 1),
+              ContentField(
+                "name",
+                label: "Name",
+                validators: FormBuilderValidators.required(),
+                initialValue: state.skilltree.name,
+              ),
+              ValueRangeField(
+                name: "points",
+                label: "Initiale Skillpunkte",
+                initialValue: state.skilltree.points,
+                min: 0,
+                max: 10000,
+                step: 1,
+              ),
             ],
           ),
         ),

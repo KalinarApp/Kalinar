@@ -9,8 +9,8 @@ part 'skilltree.g.dart';
 @freezed
 class Skilltree with _$Skilltree {
   const factory Skilltree({
-    required String id,
-    required String name,
+    @Default("") String id,
+    @Default("") String name,
     Character? character,
     @Default(0) int points,
     @Default(true) bool isActiveTree,
@@ -18,4 +18,10 @@ class Skilltree with _$Skilltree {
   }) = _Skilltree;
 
   factory Skilltree.fromJson(Map<String, dynamic> json) => _$SkilltreeFromJson(json);
+}
+
+extension SkilltreeExtension on Skilltree {
+  Skilltree updateNodes(List<String> idsToDelete, List<Node> newNodes) {
+    return copyWith(nodes: [...nodes.where((element) => !idsToDelete.contains(element.id)), ...newNodes]);
+  }
 }

@@ -3,11 +3,12 @@ import 'dart:convert';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/skilltrees/application/skilltree_list_controller.dart';
 
 import '../data/skilltrees_repository.dart';
 import '../domain/edge.dart';
 import '../domain/node.dart';
+import '../domain/skilltree.dart';
+import 'skilltree_list_controller.dart';
 import 'states/skilltree_state.dart';
 
 class SkilltreeController extends StateNotifier<SkilltreeState> {
@@ -21,23 +22,23 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
   void addNode(Map<String, dynamic> data) {
     final alteredData = {...data, "skillId": data["skill"]["id"]};
     final node = Node.fromJson(alteredData);
-    state = state.copyWith(nodes: [...state.nodes.withoutId(node.id), node]);
+    state = state.copyWith(skilltree: state.skilltree.updateNodes([node.id], [node]));
   }
 
   void addNodeWithPosition(Node node, Offset offset) {
-    node = node.copyWith(xpos: offset.dx, ypos: offset.dy);
-    state = state.copyWith(nodes: [...state.nodes.withoutId(node.id), node]);
+    node = node.copyWith(xPos: offset.dx, yPos: offset.dy);
+    state = state.copyWith(skilltree: state.skilltree.updateNodes([node.id], [node]));
   }
 
   void deleteNode(Node node) {
-    state = state.copyWith(nodes: [...state.nodes.withoutId(node.id)]);
+    state = state.copyWith(skilltree: state.skilltree.updateNodes([node.id], []));
   }
 
   List<Edge> getAllEdges() {
     List<Edge> edges = [];
-    for (final node in state.nodes) {
+    for (final node in state.skilltree.nodes) {
       for (final id in node.successors) {
-        final edge = Edge(start: node, end: state.nodes.firstWhere((element) => element.id == id));
+        final edge = Edge(start: node, end: state.skilltree.nodes.firstWhere((element) => element.id == id));
         edges.add(edge);
       }
     }
@@ -58,25 +59,14 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
   void addEdge(Node start, Node end) {
     start = start.copyWith(successors: [...start.successors, end.id]);
     end = end.copyWith(precessors: [...end.precessors, start.id]);
-    state = state.copyWith(
-      selectedNode: null,
-      nodes: [
-        ...state.nodes.withoutIds([start.id, end.id]),
-        start,
-        end
-      ],
-    );
+    state = state.copyWith(selectedNode: null, skilltree: state.skilltree.updateNodes([start.id, end.id], [start, end]));
   }
 
   void removeEdge(Edge edge) {
     final start = edge.start.copyWith(successors: [...edge.start.successors.without(edge.end.id)]);
     final end = edge.end.copyWith(precessors: [...edge.end.precessors.without(edge.start.id)]);
 
-    state = state.copyWith(nodes: [
-      ...state.nodes.withoutIds([start.id, end.id]),
-      start,
-      end
-    ]);
+    state = state.copyWith(skilltree: state.skilltree.updateNodes([start.id, end.id], [start, end]));
   }
 
   void swapEdges(Edge edge) {
@@ -89,25 +79,19 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
       successors: [...edge.end.successors, edge.start.id],
     );
 
-    state = state.copyWith(nodes: [
-      ...state.nodes.withoutIds([start.id, end.id]),
-      start,
-      end
-    ]);
+    state = state.copyWith(skilltree: state.skilltree.updateNodes([start.id, end.id], [start, end]));
   }
 
   Future<void> loadLocal() async {
-    if (state.nodes.isEmpty) {
-      state = state.copyWith(nodes: await repo.loadLocal());
-    }
+    state = state.copyWith(skilltree: state.skilltree.updateNodes([], await repo.loadLocal()));
   }
 
   void startSavingLocal() {
     timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
       // ToDo: Maybe check if any changes happend since last save and only then save the state.
-      if (state.nodes.isNotEmpty) {
+      if (state.skilltree.nodes.isNotEmpty) {
         state = state.copyWith(isSaving: true);
-        await repo.saveLocal(state.nodes);
+        await repo.saveLocal(state.skilltree.nodes);
         state = state.copyWith(isSaving: false);
       }
     });
@@ -121,7 +105,7 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
 
   Future<void> deleteLocal() async {
     await repo.deleteLocal();
-    state = state.copyWith(nodes: [], selectedNode: null);
+    state = state.copyWith(skilltree: const Skilltree(), selectedNode: null);
   }
 
   Future<AsyncValue> deleteOnServer(String id) async {
@@ -132,12 +116,26 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
   }
 
   Future<AsyncValue<void>> createOnServer(Map<String, dynamic> data) async {
-    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.nodes))};
+    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
     return AsyncValue.guard(() async {
       await repo.createOnServer(alteredData);
       await listController.refresh();
       deleteLocal();
     });
+  }
+
+  Future<AsyncValue<void>> update(String id, Map<String, dynamic> data) async {
+    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
+    return AsyncValue.guard(() async {
+      await repo.updateOnServer(id, alteredData);
+      await listController.refresh();
+      deleteLocal();
+    });
+  }
+
+  Future<void> getById(String id) async {
+    var skilltree = await repo.getById(id);
+    state = state.copyWith(skilltree: skilltree);
   }
 }
 

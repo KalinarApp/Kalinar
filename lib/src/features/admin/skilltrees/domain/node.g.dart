@@ -14,8 +14,8 @@ _$_Node _$$_NodeFromJson(Map<String, dynamic> json) => _$_Node(
       cost: json['cost'] as int,
       color: json['color'] as String,
       isEasyReachable: json['isEasyReachable'] as bool,
-      xpos: (json['xpos'] as num?)?.toDouble() ?? 0,
-      ypos: (json['ypos'] as num?)?.toDouble() ?? 0,
+      xPos: (json['xPos'] as num?)?.toDouble() ?? 0,
+      yPos: (json['yPos'] as num?)?.toDouble() ?? 0,
       precessors: (json['precessors'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -34,8 +34,8 @@ Map<String, dynamic> _$$_NodeToJson(_$_Node instance) => <String, dynamic>{
       'cost': instance.cost,
       'color': instance.color,
       'isEasyReachable': instance.isEasyReachable,
-      'xpos': instance.xpos,
-      'ypos': instance.ypos,
+      'xPos': instance.xPos,
+      'yPos': instance.yPos,
       'precessors': instance.precessors,
       'successors': instance.successors,
     };

@@ -16,8 +16,8 @@ class EdgeWidget extends StatelessWidget {
         onTap: () => onTap(item),
         child: CustomPaint(
           painter: LinesPainter(
-            start: Offset(item.start.xpos, item.start.ypos),
-            end: Offset(item.end.xpos, item.end.ypos),
+            start: Offset(item.start.xPos, item.start.yPos),
+            end: Offset(item.end.xPos, item.end.yPos),
           ),
           child: Container(),
         ),
