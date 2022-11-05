@@ -10,8 +10,8 @@ import '../domain/ability.dart';
 class AbilitiesRepository extends HeroBaseRepository {
   AbilitiesRepository(super.client, String? groupId) : super(groupId: groupId);
 
-  Future<Ability> getByName(String name) async {
-    return await heroGet("/api/abilities/$name", (response) => Ability.fromJson(response));
+  Future<Ability> getByName(String id) async {
+    return await heroGet("/api/abilities/$id", (response) => Ability.fromJson(response));
   }
 
   Future<List<Ability>> getAll() async {
@@ -27,12 +27,12 @@ class AbilitiesRepository extends HeroBaseRepository {
     return await heroPost("/api/abilities", data, (response) => Ability.fromJson(json.decode(response)));
   }
 
-  Future<Ability> updateAbility(String name, Map<String, dynamic> data) async {
-    return await heroUpdate("/api/abilities/$name", data, (response) => Ability.fromJson(json.decode(response)));
+  Future<Ability> updateAbility(String id, Map<String, dynamic> data) async {
+    return await heroUpdate("/api/abilities/$id", data, (response) => Ability.fromJson(json.decode(response)));
   }
 
-  Future<bool> deleteAbility(String name) async {
-    return await heroDelete("/api/abilities/$name");
+  Future<bool> deleteAbility(String id) async {
+    return await heroDelete("/api/abilities/$id");
   }
 }
 

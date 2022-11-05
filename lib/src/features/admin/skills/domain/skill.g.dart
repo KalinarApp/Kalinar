@@ -13,7 +13,7 @@ _$_Skill _$$_SkillFromJson(Map<String, dynamic> json) => _$_Skill(
           : Ability.fromJson(json['ability'] as Map<String, dynamic>),
       iconUrl: json['iconUrl'] as String?,
       name: json['name'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
       healthPointsBoost: json['healthPointsBoost'] as int? ?? 0,
       lightPointsBoost: json['lightPointsBoost'] as int? ?? 0,
       movementSpeedBoost: (json['movementSpeedBoost'] as num?)?.toDouble() ?? 0,

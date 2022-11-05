@@ -54,7 +54,7 @@ class AbilityListItem extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(item.name),
-            subtitle: item.description.isNotEmpty ? Text(item.description) : null,
+            subtitle: null != item.description ? Text(item.description!) : null,
             onTap: null != onTab ? () => onTab!(item, context) : null,
           ),
         ),

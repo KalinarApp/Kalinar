@@ -22,8 +22,8 @@ class AbilitySelectionField extends ConsumerWidget {
       children: [
         Flexible(
           child: FormBuilderSearchableDropdown<Ability>(
-            name: "abilityName",
-            valueTransformer: (value) => value?.name,
+            name: "abilityId",
+            valueTransformer: (value) => value?.id,
             initialValue: initialValue,
             decoration: const InputDecoration(labelText: "Select Ability", prefixIcon: Icon(Icons.handyman)),
             // validator: FormBuilderValidators.required(),
