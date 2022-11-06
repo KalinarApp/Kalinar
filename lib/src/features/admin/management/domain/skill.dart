@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../abilities/domain/ability.dart';
+import 'ability.dart';
 
 part 'skill.freezed.dart';
 part 'skill.g.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../../../../../common_widgets/form_fields/description_field.dart';
-import '../../../../../common_widgets/form_fields/image_field.dart';
-import '../../../../../common_widgets/form_fields/value_range_field.dart';
-import '../../domain/skill.dart';
+import '../../../../../../common_widgets/form_fields/description_field.dart';
+import '../../../../../../common_widgets/form_fields/image_field.dart';
+import '../../../../../../common_widgets/form_fields/value_range_field.dart';
+import '../../../domain/skill.dart';
 import 'ability_selection_field.dart';
 
 class SkillForm extends StatelessWidget {

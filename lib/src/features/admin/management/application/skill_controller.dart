@@ -22,8 +22,10 @@ class SkillController {
       Map<String, dynamic> map = {};
       map.addAll(data);
 
-      final iconUrl = await _uploadImage(map["iconUrl"]);
-      map.update("iconUrl", (_) => iconUrl);
+      if (null != map["iconUrl"]) {
+        final iconUrl = await _uploadImage(map["iconUrl"]);
+        map.update("iconUrl", (_) => iconUrl);
+      }
       return await repo.createSkill(map);
     });
 

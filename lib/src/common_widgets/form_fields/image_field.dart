@@ -28,7 +28,6 @@ class ImageField extends StatelessWidget {
               return base64;
             },
             maxImages: 1,
-            validator: FormBuilderValidators.required(),
             placeholderWidget: SizedBox(
               width: 130,
               child: Container(

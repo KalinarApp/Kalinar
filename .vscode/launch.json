@@ -21,6 +21,7 @@
         {
             "name": "PRODUCTION RELEASE",
             "program": "${workspaceFolder}/lib/main.dart",
+            "args": ["--flavor=dev"],
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

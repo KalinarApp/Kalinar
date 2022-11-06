@@ -3,8 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common_widgets/user_menu.dart';
-import '../../abilities/presentation/list_abilities_screen.dart';
-import '../../skills/presentation/list_skills_screen.dart';
+import '../../management/presentation/management_tab_screen.dart';
 import '../../skilltrees/presentation/skilltree_list_screen.dart';
 import 'admin_menu_item.dart';
 import 'manage_group_screen.dart';
@@ -56,13 +55,8 @@ class AdminMenuScreen extends StatelessWidget {
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.bookSkull,
-                    title: "Fähigkeiten verwalten",
-                    onTab: () => GoRouter.of(context).goNamed(ListAbilitiesScreen.name),
-                  ),
-                  AdminMenuItem(
-                    icon: FontAwesomeIcons.bookSkull,
-                    title: "Fertigkeiten verwalten",
-                    onTab: () => GoRouter.of(context).goNamed(ListSkillsScreen.name),
+                    title: "Eigenschaften verwalten",
+                    onTab: () => GoRouter.of(context).goNamed(ManagementTabScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.circleNodes,
