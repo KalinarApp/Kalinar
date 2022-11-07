@@ -28,7 +28,7 @@ class _ManageGroupScreenState extends ConsumerState<ManageGroupScreen> {
   @override
   void initState() {
     groupInfoController = ref.read(groupInfoControllerProvider.notifier);
-    Future.delayed(const Duration(milliseconds: 100), () => groupInfoController.getInfo());
+    Future.delayed(Duration.zero, groupInfoController.getInfo);
     super.initState();
   }
 
