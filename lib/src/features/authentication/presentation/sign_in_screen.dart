@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/features/authentication/presentation/sign_in_desktop.dart';
+import 'package:hero/src/features/authentication/presentation/sign_in_mobile.dart';
 import '../application/auth_controller.dart';
 
 class SignInScreen extends ConsumerWidget {
@@ -36,10 +40,7 @@ class SignInScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width * .95,
-                child: ElevatedButton(
-                  onPressed: state.isLoading ? null : ref.read(authControllerProvider.notifier).signIn,
-                  child: state.isLoading ? const Center(child: CircularProgressIndicator()) : const Text("sign in"),
-                ),
+                child: Platform.isAndroid || Platform.isIOS ? const SignInMobile() : const SignInDesktop(),
               ),
             ],
           ),

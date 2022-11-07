@@ -12,7 +12,7 @@ class GroupRepository extends HeroBaseRepository {
   GroupRepository(super.client);
 
   Future<Group> getGroupInfo() async {
-    return heroGet("/api/groups", (response) => Group.fromJson(json.decode(response.body)));
+    return await heroGet("/api/groups", (response) => Group.fromJson(response));
   }
 
   Future<GroupInfo> getGroupInfoFromInviteCode(String code) async {
@@ -20,7 +20,7 @@ class GroupRepository extends HeroBaseRepository {
   }
 
   Future<List<UserInfo>> getAllUsersInMyGroup() async {
-    return heroGet("/api/groups/users", (response) => List<UserInfo>.from(response.map((model) => UserInfo.fromJson(model))));
+    return await heroGet("/api/groups/users", (response) => List<UserInfo>.from(response.map((model) => UserInfo.fromJson(model))));
   }
 
   Future<void> createGroup(Map<String, dynamic> data) async {
