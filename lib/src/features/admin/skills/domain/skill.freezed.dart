@@ -24,7 +24,7 @@ mixin _$Skill {
   Ability? get ability => throw _privateConstructorUsedError;
   String? get iconUrl => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   int get healthPointsBoost => throw _privateConstructorUsedError;
   int get lightPointsBoost => throw _privateConstructorUsedError;
   double get movementSpeedBoost => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ abstract class $SkillCopyWith<$Res> {
       Ability? ability,
       String? iconUrl,
       String name,
-      String description,
+      String? description,
       int healthPointsBoost,
       int lightPointsBoost,
       double movementSpeedBoost,
@@ -85,7 +85,7 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
     Object? ability = freezed,
     Object? iconUrl = freezed,
     Object? name = null,
-    Object? description = null,
+    Object? description = freezed,
     Object? healthPointsBoost = null,
     Object? lightPointsBoost = null,
     Object? movementSpeedBoost = null,
@@ -115,10 +115,10 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       healthPointsBoost: null == healthPointsBoost
           ? _value.healthPointsBoost
           : healthPointsBoost // ignore: cast_nullable_to_non_nullable
@@ -190,7 +190,7 @@ abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
       Ability? ability,
       String? iconUrl,
       String name,
-      String description,
+      String? description,
       int healthPointsBoost,
       int lightPointsBoost,
       double movementSpeedBoost,
@@ -220,7 +220,7 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
     Object? ability = freezed,
     Object? iconUrl = freezed,
     Object? name = null,
-    Object? description = null,
+    Object? description = freezed,
     Object? healthPointsBoost = null,
     Object? lightPointsBoost = null,
     Object? movementSpeedBoost = null,
@@ -250,10 +250,10 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       healthPointsBoost: null == healthPointsBoost
           ? _value.healthPointsBoost
           : healthPointsBoost // ignore: cast_nullable_to_non_nullable
@@ -309,7 +309,7 @@ class _$_Skill implements _Skill {
       {this.ability,
       this.iconUrl,
       required this.name,
-      required this.description,
+      this.description,
       this.healthPointsBoost = 0,
       this.lightPointsBoost = 0,
       this.movementSpeedBoost = 0,
@@ -334,7 +334,7 @@ class _$_Skill implements _Skill {
   @override
   final String name;
   @override
-  final String description;
+  final String? description;
   @override
   @JsonKey()
   final int healthPointsBoost;
@@ -449,7 +449,7 @@ abstract class _Skill implements Skill {
       {final Ability? ability,
       final String? iconUrl,
       required final String name,
-      required final String description,
+      final String? description,
       final int healthPointsBoost,
       final int lightPointsBoost,
       final double movementSpeedBoost,
@@ -473,7 +473,7 @@ abstract class _Skill implements Skill {
   @override
   String get name;
   @override
-  String get description;
+  String? get description;
   @override
   int get healthPointsBoost;
   @override

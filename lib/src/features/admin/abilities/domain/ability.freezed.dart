@@ -20,8 +20,9 @@ Ability _$AbilityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Ability {
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   bool get isPassive => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +35,7 @@ abstract class $AbilityCopyWith<$Res> {
   factory $AbilityCopyWith(Ability value, $Res Function(Ability) then) =
       _$AbilityCopyWithImpl<$Res, Ability>;
   @useResult
-  $Res call({String name, String description, bool isPassive});
+  $Res call({String id, String name, String? description, bool isPassive});
 }
 
 /// @nodoc
@@ -50,19 +51,24 @@ class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
-    Object? description = null,
+    Object? description = freezed,
     Object? isPassive = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isPassive: null == isPassive
           ? _value.isPassive
           : isPassive // ignore: cast_nullable_to_non_nullable
@@ -78,7 +84,7 @@ abstract class _$$_AbilityCopyWith<$Res> implements $AbilityCopyWith<$Res> {
       __$$_AbilityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String description, bool isPassive});
+  $Res call({String id, String name, String? description, bool isPassive});
 }
 
 /// @nodoc
@@ -91,19 +97,24 @@ class __$$_AbilityCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
-    Object? description = null,
+    Object? description = freezed,
     Object? isPassive = null,
   }) {
     return _then(_$_Ability(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isPassive: null == isPassive
           ? _value.isPassive
           : isPassive // ignore: cast_nullable_to_non_nullable
@@ -116,21 +127,26 @@ class __$$_AbilityCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Ability implements _Ability {
   const _$_Ability(
-      {required this.name, required this.description, required this.isPassive});
+      {required this.id,
+      required this.name,
+      this.description,
+      required this.isPassive});
 
   factory _$_Ability.fromJson(Map<String, dynamic> json) =>
       _$$_AbilityFromJson(json);
 
   @override
+  final String id;
+  @override
   final String name;
   @override
-  final String description;
+  final String? description;
   @override
   final bool isPassive;
 
   @override
   String toString() {
-    return 'Ability(name: $name, description: $description, isPassive: $isPassive)';
+    return 'Ability(id: $id, name: $name, description: $description, isPassive: $isPassive)';
   }
 
   @override
@@ -138,6 +154,7 @@ class _$_Ability implements _Ability {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Ability &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -147,7 +164,8 @@ class _$_Ability implements _Ability {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, description, isPassive);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, description, isPassive);
 
   @JsonKey(ignore: true)
   @override
@@ -165,16 +183,19 @@ class _$_Ability implements _Ability {
 
 abstract class _Ability implements Ability {
   const factory _Ability(
-      {required final String name,
-      required final String description,
+      {required final String id,
+      required final String name,
+      final String? description,
       required final bool isPassive}) = _$_Ability;
 
   factory _Ability.fromJson(Map<String, dynamic> json) = _$_Ability.fromJson;
 
   @override
+  String get id;
+  @override
   String get name;
   @override
-  String get description;
+  String? get description;
   @override
   bool get isPassive;
   @override
