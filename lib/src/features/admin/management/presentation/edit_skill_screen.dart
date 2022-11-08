@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import 'package:flutter_gen/gen_l10n/Strings.dart';
+
 import '../application/skill_controller.dart';
 import '../application/skill_list_controller.dart';
 import '../domain/skill.dart';
@@ -74,7 +76,7 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(110),
-            child: NameField(initialValue: item?.name, readOnly: false),
+            child: NameField(label: Strings.of(context)!.skillName, initialValue: item?.name, readOnly: false),
           ),
         ),
         body: SkillForm(_formKey, item: item),

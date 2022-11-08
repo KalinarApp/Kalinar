@@ -3,6 +3,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import 'package:flutter_gen/gen_l10n/Strings.dart';
+
 import '../application/auth_controller.dart';
 
 class SignInDesktop extends ConsumerStatefulWidget {
@@ -46,14 +48,14 @@ class _SignInDesktopState extends ConsumerState<SignInDesktop> {
       key: formKey,
       child: Column(
         children: [
-          FormBuilderTextField(name: "username", decoration: const InputDecoration(labelText: "Username")),
-          FormBuilderTextField(name: "password", obscureText: true, decoration: const InputDecoration(labelText: "Passwort")),
+          FormBuilderTextField(name: "username", decoration: InputDecoration(labelText: Strings.of(context)!.username)),
+          FormBuilderTextField(name: "password", obscureText: true, decoration: InputDecoration(labelText: Strings.of(context)!.password)),
           const SizedBox(height: 10),
           RoundedLoadingButton(
               controller: saveController,
               height: 35,
               onPressed: state.isLoading ? null : () => _save(ref),
-              child: state.isLoading ? const Center(child: CircularProgressIndicator()) : const Text("Anmelden"))
+              child: state.isLoading ? const Center(child: CircularProgressIndicator()) : Text(Strings.of(context)!.login))
         ],
       ),
     );

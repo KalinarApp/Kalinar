@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/Strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -25,13 +25,13 @@ class _HeroAppState extends ConsumerState<HeroApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      onGenerateTitle: (ctx) => AppLocalizations.of(ctx)!.applicationTitle,
+      onGenerateTitle: (ctx) => Strings.of(ctx)!.applicationTitle,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       supportedLocales: const [Locale("de"), Locale("en")],
       localizationsDelegates: const [
-        AppLocalizations.delegate,
+        Strings.delegate,
         FormBuilderLocalizations.delegate,
         ...GlobalMaterialLocalizations.delegates,
       ],

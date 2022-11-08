@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../application/auth_controller.dart';
 
-import '../application/auth_controller.dart';
+import 'package:flutter_gen/gen_l10n/Strings.dart';
 
 class SignOutButton extends ConsumerWidget {
   const SignOutButton({super.key});
@@ -14,7 +14,7 @@ class SignOutButton extends ConsumerWidget {
     return InkWell(
       onTap: state.isLoading ? null : ref.read(authControllerProvider.notifier).signOut,
       child: ListTile(
-        title: state.isLoading ? const Center(child: CircularProgressIndicator()) : const Text("sign out", textAlign: TextAlign.center),
+        title: state.isLoading ? const Center(child: CircularProgressIndicator()) : Text(Strings.of(context)!.logout, textAlign: TextAlign.center),
         tileColor: Theme.of(context).colorScheme.primary,
       ),
     );

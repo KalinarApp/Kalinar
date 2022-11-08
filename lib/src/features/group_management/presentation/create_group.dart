@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/group_management/application/has_group_controller.dart';
-import 'package:hero/src/features/home/presentation/home_screen.dart';
-import 'package:hero/src/utilities/async_value_extension.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import '../../../common_widgets/save_button.dart';
 
+import 'package:flutter_gen/gen_l10n/Strings.dart';
+
+import '../../../common_widgets/save_button.dart';
+import '../../../utilities/async_value_extension.dart';
+import '../../home/presentation/home_screen.dart';
 import '../application/group_controller.dart';
+import '../application/has_group_controller.dart';
 
 class CreateGroup extends ConsumerStatefulWidget {
   const CreateGroup({super.key});
@@ -80,14 +82,14 @@ class _CreateGroupState extends ConsumerState<CreateGroup> {
                 name: "name",
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: (_) => _btnController.reset(),
-                decoration: const InputDecoration(labelText: "Gruppenname"),
+                decoration: InputDecoration(labelText: Strings.of(context)!.groupName),
               ),
               FormBuilderTextField(
                 name: "description",
                 minLines: 2,
                 maxLines: 5,
                 onChanged: (_) => _btnController.reset(),
-                decoration: const InputDecoration(labelText: "Beschreibung"),
+                decoration: InputDecoration(labelText: Strings.of(context)!.groupDescription),
               )
             ],
           ),

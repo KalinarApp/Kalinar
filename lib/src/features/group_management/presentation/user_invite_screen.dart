@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/user_menu.dart';
-import 'package:hero/src/features/group_management/application/invite_controller.dart';
-import 'package:hero/src/features/home/presentation/home_screen.dart';
-import 'package:hero/src/utilities/async_value_extension.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import 'package:flutter_gen/gen_l10n/Strings.dart';
+
+import '../../../common_widgets/user_menu.dart';
+import '../application/invite_controller.dart';
+import '../../home/presentation/home_screen.dart';
+import '../../../utilities/async_value_extension.dart';
 
 class UserInviteScreen extends ConsumerStatefulWidget {
   static const String name = "Invite";
@@ -73,31 +76,31 @@ class _UserInviteScreenState extends ConsumerState<UserInviteScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${data.owner} möchte dich in seine Hero Gruppe '${data.name}' einladen, möchtest du beitreten?",
+                      Strings.of(context)!.groupJoinTitle(data.owner, data.name),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: 10),
-                    if (null != data.description) const Text("Über die Gruppe:"),
+                    if (null != data.description) Text("${Strings.of(context)!.groupAboutTitle}:"),
                     if (null != data.description) SingleChildScrollView(child: Text(data.description!)),
                     const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(onPressed: () => GoRouter.of(context).pop(), child: const Text("Abbrechen")),
+                        TextButton(onPressed: () => GoRouter.of(context).pop(), child: Text(Strings.of(context)!.cancel)),
                         const SizedBox(width: 12),
                         RoundedLoadingButton(
                           width: 100,
                           height: 30,
                           controller: btnController,
                           onPressed: () => _joinGroup(data.id, controller.text),
-                          child: const Text("Beitreten"),
+                          child: Text(Strings.of(context)!.join),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-              error: (error, stackTrace) => const Text("Beim abrufen der Gruppeninformationen ist ein Fehler aufgetreten."),
+              error: (error, stackTrace) => Text(Strings.of(context)!.groupJoinFailed),
               loading: () => Container(),
             ),
           ],

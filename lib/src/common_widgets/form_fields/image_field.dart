@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
+
+import 'package:flutter_gen/gen_l10n/Strings.dart';
 
 class ImageField extends StatelessWidget {
   final String? initialValue;
@@ -41,7 +42,7 @@ class ImageField extends StatelessWidget {
                       size: 48,
                     ),
                     const SizedBox(height: 3),
-                    Text("Select an Icon for this skill.", style: Theme.of(context).textTheme.bodyMedium),
+                    Text(Strings.of(context)!.imageSelectionDescription, style: Theme.of(context).textTheme.bodyMedium),
                   ],
                 ),
               ),

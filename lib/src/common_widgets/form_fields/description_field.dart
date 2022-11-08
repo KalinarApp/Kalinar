@@ -3,8 +3,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class DescriptionField extends StatelessWidget {
   final String? initialValue;
+  final String? label;
 
-  const DescriptionField({this.initialValue, super.key});
+  const DescriptionField({this.label, this.initialValue, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +13,11 @@ class DescriptionField extends StatelessWidget {
       name: "description",
       initialValue: initialValue,
       maxLines: 4,
-      decoration: const InputDecoration(
-        label: Text("Skill description"),
+      decoration: InputDecoration(
+        label: null != label ? Text(label!) : null,
         alignLabelWithHint: true,
-        prefixIconConstraints: BoxConstraints.expand(width: 48, height: 100),
-        prefixIcon: Align(
+        prefixIconConstraints: const BoxConstraints.expand(width: 48, height: 100),
+        prefixIcon: const Align(
           alignment: Alignment.topCenter,
           child: Padding(
             padding: EdgeInsets.only(top: 16),

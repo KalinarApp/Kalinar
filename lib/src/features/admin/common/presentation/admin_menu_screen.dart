@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:flutter_gen/gen_l10n/Strings.dart';
+
 import '../../../../common_widgets/user_menu.dart';
 import '../../management/presentation/management_tab_screen.dart';
 import '../../skilltrees/presentation/skilltree_list_screen.dart';
@@ -50,17 +52,17 @@ class AdminMenuScreen extends StatelessWidget {
                 children: [
                   AdminMenuItem(
                     icon: Icons.mail,
-                    title: "Gruppe verwalten",
+                    title: Strings.of(context)!.manageGroup,
                     onTab: () => GoRouter.of(context).goNamed(ManageGroupScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.bookSkull,
-                    title: "Eigenschaften verwalten",
+                    title: Strings.of(context)!.manageCharacteristics,
                     onTab: () => GoRouter.of(context).goNamed(ManagementTabScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.circleNodes,
-                    title: "Fähigkeitenbaum verwalten",
+                    title: Strings.of(context)!.manageSkilltrees,
                     onTab: () => GoRouter.of(context).pushNamed(SkilltreeListScreen.name),
                   ),
                 ],

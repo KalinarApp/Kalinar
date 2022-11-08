@@ -7,14 +7,16 @@ import 'package:hero/src/features/authentication/application/auth_controller.dar
 import 'package:hero/src/utilities/router/routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:flutter_gen/gen_l10n/Strings.dart';
+
 import '../utilities/constants.dart';
 
 class UserMenu extends ConsumerWidget {
   const UserMenu({Key? key}) : super(key: key);
 
-  Future<void> _openPrivacy() async {
+  Future<void> _openPrivacy(BuildContext ctx) async {
     if (!await launchUrl(Uri.parse(Constants.privacyUrl), mode: LaunchMode.inAppWebView)) {
-      throw 'Could not open profile.';
+      throw Strings.of(ctx)!.openProfileFailed;
     }
   }
 
@@ -32,12 +34,10 @@ class UserMenu extends ConsumerWidget {
           child: IntrinsicWidth(
             child: Column(
               children: [
-                // InkWell(onTap: () {}, child: const ListTile(title: Text("Einstellungen"))),
-                // const Divider(),
-                InkWell(onTap: () => ref.read(authProvider).openProfile(), child: const ListTile(title: Text("Profil ansehen"))),
-                InkWell(onTap: () async => await _openPrivacy(), child: const ListTile(title: Text("Datenschutzerklärung"))),
+                InkWell(onTap: () => ref.read(authProvider).openProfile(), child: ListTile(title: Text(Strings.of(context)!.openProfile))),
+                InkWell(onTap: () async => await _openPrivacy(context), child: ListTile(title: Text(Strings.of(context)!.privacyPolicy))),
                 const Divider(),
-                InkWell(onTap: () => ref.read(authControllerProvider.notifier).signOut(), child: const ListTile(title: Text("Abmelden"))),
+                InkWell(onTap: () => ref.read(authControllerProvider.notifier).signOut(), child: ListTile(title: Text(Strings.of(context)!.login))),
               ],
             ),
           ),

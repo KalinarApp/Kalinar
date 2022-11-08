@@ -3,7 +3,12 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hero/src/common_widgets/form_fields/description_field.dart';
+import 'package:hero/src/common_widgets/form_fields/invisible_field.dart';
+import 'package:hero/src/common_widgets/form_fields/name_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import 'package:flutter_gen/gen_l10n/Strings.dart';
 
 import '../../../../common_widgets/save_button.dart';
 import '../../../../utilities/async_value_extension.dart';
@@ -83,39 +88,16 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(
               children: [
-                FormBuilderTextField(
-                  name: "name",
-                  initialValue: item?.name,
-                  textInputAction: TextInputAction.next,
-                  validator: FormBuilderValidators.required(),
-                  onChanged: (value) => saveController.reset(),
-                  decoration: const InputDecoration(labelText: "Ability name", prefixIcon: SizedBox(width: 20)),
-                ),
+                const InvisibleField(name: "id"),
+                NameField(label: Strings.of(context)!.abilityName, initialValue: item?.name),
                 FormBuilderSwitch(
                   name: "isPassive",
                   initialValue: item?.isPassive ?? false,
-                  title: Text("Is passive ability?", style: Theme.of(context).textTheme.titleMedium),
+                  title: Text(Strings.of(context)!.abilityIsPasive, style: Theme.of(context).textTheme.titleMedium),
                   onChanged: (value) => saveController.reset(),
                   decoration: const InputDecoration(prefixIcon: Icon(Icons.gps_not_fixed_outlined)),
                 ),
-                FormBuilderTextField(
-                  name: "description",
-                  initialValue: item?.description,
-                  maxLines: 4,
-                  onChanged: (value) => saveController.reset(),
-                  decoration: const InputDecoration(
-                    label: Text("Ability description"),
-                    alignLabelWithHint: true,
-                    prefixIconConstraints: BoxConstraints.expand(width: 48, height: 100),
-                    prefixIcon: Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: Icon(Icons.description),
-                      ),
-                    ),
-                  ),
-                ),
+                DescriptionField(label: Strings.of(context)!.abilityDescription, initialValue: item?.description),
               ],
             ),
           ),

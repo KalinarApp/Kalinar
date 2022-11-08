@@ -4,6 +4,8 @@ import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/management/presentation/edit_ability_screen.dart';
 
+import 'package:flutter_gen/gen_l10n/Strings.dart';
+
 import '../../../application/ability_list_controller.dart';
 import '../../../domain/ability.dart';
 
@@ -25,19 +27,21 @@ class AbilitySelectionField extends ConsumerWidget {
             name: "abilityId",
             valueTransformer: (value) => value?.id,
             initialValue: initialValue,
-            decoration: const InputDecoration(labelText: "Select Ability", prefixIcon: Icon(Icons.handyman)),
+            decoration: InputDecoration(labelText: Strings.of(context)!.selectAnAbility, prefixIcon: const Icon(Icons.handyman)),
             asyncItems: ref.read(abilityListControllerProvider.notifier).filter,
             compareFn: (item1, item2) => item1.name == item2.name,
             itemAsString: (item) => item.name,
             clearButtonProps: const ClearButtonProps(isVisible: true),
-            dropdownSearchDecoration: const InputDecoration(
-              labelText: "Abilities",
-              hintText: "Select ability",
+            dropdownSearchDecoration: InputDecoration(
+              labelText: Strings.of(context)!.abilities,
+              hintText: Strings.of(context)!.selectAnAbility,
             ),
             popupProps: PopupProps.modalBottomSheet(
               modalBottomSheetProps: ModalBottomSheetProps(elevation: 16, backgroundColor: Theme.of(context).dialogBackgroundColor),
               showSearchBox: true,
-              searchFieldProps: const TextFieldProps(decoration: InputDecoration(border: UnderlineInputBorder(), labelText: "Search for ability")),
+              searchFieldProps: TextFieldProps(
+                decoration: InputDecoration(border: const UnderlineInputBorder(), labelText: Strings.of(context)!.searchForAbility),
+              ),
             ),
           ),
         ),
