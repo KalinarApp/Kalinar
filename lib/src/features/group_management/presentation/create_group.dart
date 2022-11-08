@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common_widgets/save_button.dart';
 import '../../../utilities/async_value_extension.dart';
@@ -82,14 +82,14 @@ class _CreateGroupState extends ConsumerState<CreateGroup> {
                 name: "name",
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: (_) => _btnController.reset(),
-                decoration: InputDecoration(labelText: Strings.of(context)!.groupName),
+                decoration: InputDecoration(labelText: AppLocalizations.of(context)!.groupName),
               ),
               FormBuilderTextField(
                 name: "description",
                 minLines: 2,
                 maxLines: 5,
                 onChanged: (_) => _btnController.reset(),
-                decoration: InputDecoration(labelText: Strings.of(context)!.groupDescription),
+                decoration: InputDecoration(labelText: AppLocalizations.of(context)!.groupDescription),
               )
             ],
           ),

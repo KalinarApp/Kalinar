@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hero/src/common_widgets/loading_indicator.dart';
 
 import '../../application/user_list_controller.dart';
@@ -39,7 +39,7 @@ class _UserListState extends ConsumerState<UserList> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("${Strings.of(context)!.members}:", style: Theme.of(context).textTheme.titleLarge),
+              Text("${AppLocalizations.of(context)!.members}:", style: Theme.of(context).textTheme.titleLarge),
               IconButton(
                 onPressed: _refresh,
                 icon: const Icon(Icons.refresh),
@@ -59,8 +59,8 @@ class _UserListState extends ConsumerState<UserList> {
                   itemCount: data.length,
                   itemBuilder: (_, index) => UserListItem(data[index]),
                 ),
-                error: (error, _) => Center(child: Text(Strings.of(context)!.fetchMembersFailed)),
-                loading: () => LoadingIndicator(Strings.of(context)!.fetchMembers),
+                error: (error, _) => Center(child: Text(AppLocalizations.of(context)!.fetchMembersFailed)),
+                loading: () => LoadingIndicator(AppLocalizations.of(context)!.fetchMembers),
               ),
             ),
           ),

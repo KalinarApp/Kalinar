@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AsyncValueList<T> extends StatelessWidget {
   final AsyncValue<List<T>> list;
@@ -23,14 +23,14 @@ class AsyncValueList<T> extends StatelessWidget {
                 itemBuilder: (_, index) => builder(data[index]),
               ),
             )
-          : Center(child: Text(Strings.of(context)!.listEmpty)),
-      error: (_, __) => error ?? Center(child: Text(Strings.of(context)!.listLoadingFailed)),
+          : Center(child: Text(AppLocalizations.of(context)!.listEmpty)),
+      error: (_, __) => error ?? Center(child: Text(AppLocalizations.of(context)!.listLoadingFailed)),
       loading: () =>
           loading ??
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [const CircularProgressIndicator(), Text(Strings.of(context)!.listLoading)],
+              children: [const CircularProgressIndicator(), Text(AppLocalizations.of(context)!.listLoading)],
             ),
           ),
     );

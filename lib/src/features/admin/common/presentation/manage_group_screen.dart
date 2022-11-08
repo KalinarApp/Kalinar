@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../common_widgets/user_menu.dart';
 import '../../../../utilities/async_value_extension.dart';
@@ -24,7 +24,7 @@ class _ManageGroupScreenState extends ConsumerState<ManageGroupScreen> {
 
   void _copyToClipboard(String code) {
     Clipboard.setData(ClipboardData(text: code)).then((value) =>
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(Strings.of(context)!.inviteCopied, textAlign: TextAlign.center))));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.inviteCopied, textAlign: TextAlign.center))));
   }
 
   @override
@@ -41,7 +41,7 @@ class _ManageGroupScreenState extends ConsumerState<ManageGroupScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.of(context)!.inviteTitle),
+        title: Text(AppLocalizations.of(context)!.inviteTitle),
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 12.0),
@@ -55,7 +55,7 @@ class _ManageGroupScreenState extends ConsumerState<ManageGroupScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(Strings.of(context)!.inviteDescription, style: Theme.of(context).textTheme.bodyLarge),
+            Text(AppLocalizations.of(context)!.inviteDescription, style: Theme.of(context).textTheme.bodyLarge),
             const SizedBox(height: 10),
             state.maybeWhen(
               data: (value) => TextFormField(
@@ -63,7 +63,7 @@ class _ManageGroupScreenState extends ConsumerState<ManageGroupScreen> {
                 controller: groupInfoController.controller,
                 onTap: () => _copyToClipboard(groupInfoController.controller.text),
                 decoration: InputDecoration(
-                    labelText: Strings.of(context)!.inviteCopy,
+                    labelText: AppLocalizations.of(context)!.inviteCopy,
                     suffixIcon: const Icon(Icons.copy_all),
                     suffixIconConstraints: const BoxConstraints.expand(width: 30, height: 48)),
               ),
@@ -71,7 +71,7 @@ class _ManageGroupScreenState extends ConsumerState<ManageGroupScreen> {
                 readOnly: true,
                 initialValue: " ",
                 decoration: InputDecoration(
-                  labelText: Strings.of(context)!.inviteCopy,
+                  labelText: AppLocalizations.of(context)!.inviteCopy,
                   prefix: const SizedBox(height: 16, width: 16, child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
                 ),
               ),

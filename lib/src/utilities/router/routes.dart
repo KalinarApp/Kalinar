@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth/models/user_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:hero/src/common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dart';
 import 'package:hero/src/features/authentication/data/auth_repository.dart';
@@ -69,23 +72,23 @@ final routerProvider = Provider<GoRouter>((ref) {
             ScaffoldWithNavbarItem(
                 initialLocation: HomeScreen.route,
                 icon: const Icon(Icons.home),
-                label: const Text("Home"),
+                label: Text(AppLocalizations.of(context)!.home),
                 color: Theme.of(context).colorScheme.primary),
             ScaffoldWithNavbarItem(
                 initialLocation: "/characters",
                 icon: const Icon(Icons.man),
-                label: const Text("Charakter"),
+                label: Text(AppLocalizations.of(context)!.characters),
                 color: Theme.of(context).colorScheme.primary),
             ScaffoldWithNavbarItem(
                 initialLocation: "/skilltrees",
                 icon: const Icon(Icons.trending_up),
-                label: const Text("Fähigkeiten"),
+                label: Text(AppLocalizations.of(context)!.skilltrees),
                 color: Theme.of(context).colorScheme.primary),
             if (null != currentUser && currentUser.isAdmin())
               ScaffoldWithNavbarItem(
                   initialLocation: AdminMenuScreen.route,
                   icon: const Icon(Icons.coffee),
-                  label: const Text("Admin"),
+                  label: Text(AppLocalizations.of(context)!.admin),
                   color: Theme.of(context).colorScheme.primary),
           ],
           child: child,

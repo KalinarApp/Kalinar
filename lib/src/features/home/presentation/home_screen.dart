@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common_widgets/user_menu.dart';
 
@@ -28,7 +28,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(Strings.of(context)!.workInProgress),
+          Text(AppLocalizations.of(context)!.workInProgress),
         ],
       ),
     );

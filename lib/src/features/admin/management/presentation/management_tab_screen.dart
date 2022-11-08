@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/management/presentation/edit_ability_screen.dart';
 import 'package:hero/src/features/admin/management/presentation/edit_skill_screen.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../common_widgets/user_menu.dart';
 import 'components/abilities/abilities_tab.dart';
@@ -32,12 +32,12 @@ class ManagementTabScreen extends StatelessWidget {
           spaceBetweenChildren: 4,
           children: [
             SpeedDialChild(
-              label: Strings.of(context)!.ability,
+              label: AppLocalizations.of(context)!.ability,
               child: const FaIcon(FontAwesomeIcons.award),
               onTap: () => GoRouter.of(context).pushNamed(EditAbilityScreen.name),
             ),
             SpeedDialChild(
-              label: Strings.of(context)!.skill,
+              label: AppLocalizations.of(context)!.skill,
               child: const FaIcon(FontAwesomeIcons.lightbulb),
               onTap: () => GoRouter.of(context).pushNamed(EditSkillScreen.name),
             ),
@@ -49,8 +49,8 @@ class ManagementTabScreen extends StatelessWidget {
           ],
           bottom: TabBar(
             tabs: [
-              Tab(icon: const FaIcon(FontAwesomeIcons.award), text: Strings.of(context)!.abilities),
-              Tab(icon: const FaIcon(FontAwesomeIcons.lightbulb), text: Strings.of(context)!.skills),
+              Tab(icon: const FaIcon(FontAwesomeIcons.award), text: AppLocalizations.of(context)!.abilities),
+              Tab(icon: const FaIcon(FontAwesomeIcons.lightbulb), text: AppLocalizations.of(context)!.skills),
             ],
           ),
         ),

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common_widgets/user_menu.dart';
 import '../../../utilities/async_value_extension.dart';
@@ -50,24 +50,25 @@ class _GroupScreenState extends ConsumerState<GroupScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            Text(Strings.of(context)!.groupNotInGroupText(authState.value!.user!.firstName), style: Theme.of(context).textTheme.bodyMedium),
+            Text(AppLocalizations.of(context)!.groupNotInGroupText(authState.value!.user!.firstName), style: Theme.of(context).textTheme.bodyMedium),
             TextButton(
               onPressed: () => GoRouter.of(context).pushNamed(UserInviteScreen.name),
-              child: Text(Strings.of(context)!.groupGotAnInviteCode),
+              child: Text(AppLocalizations.of(context)!.groupGotAnInviteCode),
             ),
             Text(
-              Strings.of(context)!.groupInstructionTitle,
+              AppLocalizations.of(context)!.groupInstructionTitle,
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.left,
             ),
             const SizedBox(height: 10),
-            Text(Strings.of(context)!.groupInstruction, style: Theme.of(context).textTheme.bodyMedium),
+            Text(AppLocalizations.of(context)!.groupInstruction, style: Theme.of(context).textTheme.bodyMedium),
             const Spacer(),
-            Text(Strings.of(context)!.groupInstructionGM, style: Theme.of(context).textTheme.bodyMedium),
+            Text(AppLocalizations.of(context)!.groupInstructionGM, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 10),
             SizedBox(
                 width: MediaQuery.of(context).size.width * .95,
-                child: ElevatedButton(onPressed: () async => await _showCreateGroupModal(context), child: Text(Strings.of(context)!.groupBeAGM)))
+                child: ElevatedButton(
+                    onPressed: () async => await _showCreateGroupModal(context), child: Text(AppLocalizations.of(context)!.groupBeAGM)))
           ],
         ),
       ),

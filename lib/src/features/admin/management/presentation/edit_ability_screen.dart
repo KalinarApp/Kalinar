@@ -8,7 +8,7 @@ import 'package:hero/src/common_widgets/form_fields/invisible_field.dart';
 import 'package:hero/src/common_widgets/form_fields/name_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../common_widgets/save_button.dart';
 import '../../../../utilities/async_value_extension.dart';
@@ -89,15 +89,15 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
             child: Column(
               children: [
                 const InvisibleField(name: "id"),
-                NameField(label: Strings.of(context)!.abilityName, initialValue: item?.name),
+                NameField(label: AppLocalizations.of(context)!.abilityName, initialValue: item?.name),
                 FormBuilderSwitch(
                   name: "isPassive",
                   initialValue: item?.isPassive ?? false,
-                  title: Text(Strings.of(context)!.abilityIsPasive, style: Theme.of(context).textTheme.titleMedium),
+                  title: Text(AppLocalizations.of(context)!.abilityIsPasive, style: Theme.of(context).textTheme.titleMedium),
                   onChanged: (value) => saveController.reset(),
                   decoration: const InputDecoration(prefixIcon: Icon(Icons.gps_not_fixed_outlined)),
                 ),
-                DescriptionField(label: Strings.of(context)!.abilityDescription, initialValue: item?.description),
+                DescriptionField(label: AppLocalizations.of(context)!.abilityDescription, initialValue: item?.description),
               ],
             ),
           ),

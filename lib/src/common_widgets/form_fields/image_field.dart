@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ImageField extends StatelessWidget {
   final String? initialValue;
@@ -42,7 +42,7 @@ class ImageField extends StatelessWidget {
                       size: 48,
                     ),
                     const SizedBox(height: 3),
-                    Text(Strings.of(context)!.imageSelectionDescription, style: Theme.of(context).textTheme.bodyMedium),
+                    Text(AppLocalizations.of(context)!.imageSelectionDescription, style: Theme.of(context).textTheme.bodyMedium),
                   ],
                 ),
               ),

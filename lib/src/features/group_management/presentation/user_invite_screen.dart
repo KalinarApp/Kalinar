@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common_widgets/user_menu.dart';
 import '../application/invite_controller.dart';
@@ -76,31 +76,31 @@ class _UserInviteScreenState extends ConsumerState<UserInviteScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      Strings.of(context)!.groupJoinTitle(data.owner, data.name),
+                      AppLocalizations.of(context)!.groupJoinTitle(data.owner, data.name),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: 10),
-                    if (null != data.description) Text("${Strings.of(context)!.groupAboutTitle}:"),
+                    if (null != data.description) Text("${AppLocalizations.of(context)!.groupAboutTitle}:"),
                     if (null != data.description) SingleChildScrollView(child: Text(data.description!)),
                     const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(onPressed: () => GoRouter.of(context).pop(), child: Text(Strings.of(context)!.cancel)),
+                        TextButton(onPressed: () => GoRouter.of(context).pop(), child: Text(AppLocalizations.of(context)!.cancel)),
                         const SizedBox(width: 12),
                         RoundedLoadingButton(
                           width: 100,
                           height: 30,
                           controller: btnController,
                           onPressed: () => _joinGroup(data.id, controller.text),
-                          child: Text(Strings.of(context)!.join),
+                          child: Text(AppLocalizations.of(context)!.join),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-              error: (error, stackTrace) => Text(Strings.of(context)!.groupJoinFailed),
+              error: (error, stackTrace) => Text(AppLocalizations.of(context)!.groupJoinFailed),
               loading: () => Container(),
             ),
           ],

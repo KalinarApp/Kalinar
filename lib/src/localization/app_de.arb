@@ -14,6 +14,11 @@
   "edges": "Verknüpfungen",
   "blueprint": "Vorlage",
   "blueprints": "Vorlagen",
+  "character": "Charakter",
+  "characters": "Charaktere",
+
+  "home": "Startseite",
+  "admin": "Admin",
 
   "edit": "Bearbeiten",
   "delete": "Löschen",

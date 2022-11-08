@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter_gen/gen_l10n/Strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../application/auth_controller.dart';
 import 'sign_in_desktop.dart';
@@ -28,11 +28,11 @@ class SignInScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: Image.asset(height: 128, "assets/app_icon/icon.png"),
               ),
-              Text(Strings.of(context)!.applicationTitle, style: Theme.of(context).textTheme.headline3),
+              Text(AppLocalizations.of(context)!.applicationTitle, style: Theme.of(context).textTheme.headline3),
               const SizedBox(height: 10),
-              Text(Strings.of(context)!.applicationSubtitle, style: Theme.of(context).textTheme.subtitle1),
+              Text(AppLocalizations.of(context)!.applicationSubtitle, style: Theme.of(context).textTheme.subtitle1),
               const SizedBox(height: 20),
-              Text(Strings.of(context)!.loginDescription, style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.center),
+              Text(AppLocalizations.of(context)!.loginDescription, style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.center),
               const SizedBox(height: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width * .95,
