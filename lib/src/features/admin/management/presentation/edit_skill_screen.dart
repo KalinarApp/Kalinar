@@ -4,24 +4,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../application/skill_controller.dart';
+import '../application/skill_list_controller.dart';
+import '../domain/skill.dart';
 import '../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../common_widgets/save_button.dart';
 import '../../../../utilities/async_value_extension.dart';
-import '../application/skill_controller.dart';
-import 'components/skill_form.dart';
+import 'components/skills/skill_form.dart';
 
-class CreateSkillScreen extends ConsumerStatefulWidget {
-  static const name = "CreateSkill";
-  static const route = "create";
+class EditSkillScreen extends ConsumerStatefulWidget {
+  static const name = "EditSkill";
+  static const route = "skill/edit";
 
-  const CreateSkillScreen({super.key});
+  final String? skillId;
+
+  const EditSkillScreen(this.skillId, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CreateSkillScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _EditSkillScreenState();
 }
 
-class _CreateSkillScreenState extends ConsumerState<CreateSkillScreen> {
+class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
+  late final Skill? item;
 
   late SkillController controller;
   final RoundedLoadingButtonController _btnController = RoundedLoadingButtonController();
@@ -29,6 +36,7 @@ class _CreateSkillScreenState extends ConsumerState<CreateSkillScreen> {
   @override
   void initState() {
     controller = ref.read(skillControllerProvider);
+    item = null != widget.skillId ? ref.read(skillListControllerProvider).value!.firstWhere((element) => element.id == widget.skillId) : null;
     super.initState();
   }
 
@@ -37,17 +45,16 @@ class _CreateSkillScreenState extends ConsumerState<CreateSkillScreen> {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        controller.create(data).then((value) {
-          if (!mounted) return;
-          value.showSnackbarOnError(context);
-          if (value.hasError) {
-            _btnController.error();
-            Future.delayed(const Duration(seconds: 3), _btnController.reset);
-          } else {
-            _btnController.success();
-            GoRouter.of(context).pop();
-          }
-        });
+        final value = null == widget.skillId ? await controller.create(data) : await controller.update(widget.skillId!, data);
+        if (!mounted) return;
+        value.showSnackbarOnError(context);
+        if (value.hasError) {
+          _btnController.error();
+          Future.delayed(const Duration(seconds: 3), _btnController.reset);
+        } else {
+          _btnController.success();
+          GoRouter.of(context).pop();
+        }
       } else {
         _btnController.error();
         Future.delayed(const Duration(seconds: 3), _btnController.reset);
@@ -67,9 +74,12 @@ class _CreateSkillScreenState extends ConsumerState<CreateSkillScreen> {
           actions: [
             SaveButton(controller: _btnController, onSave: _save),
           ],
-          bottom: const PreferredSize(preferredSize: Size.fromHeight(110), child: NameField()),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(110),
+            child: NameField(label: AppLocalizations.of(context)!.skillName, initialValue: item?.name, readOnly: false),
+          ),
         ),
-        body: SkillForm(_formKey),
+        body: SkillForm(_formKey, item: item),
       ),
     );
   }

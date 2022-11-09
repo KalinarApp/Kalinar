@@ -20,8 +20,8 @@ class AuthRepository extends HeroBaseRepository {
     return await client.init();
   }
 
-  Future<bool> login() async {
-    bool success = await client.login();
+  Future<bool> login({String? username, String? password}) async {
+    bool success = await client.login(username: username, password: password);
     if (success) {
       await _createUser();
     }

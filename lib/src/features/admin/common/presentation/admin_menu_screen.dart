@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../../common_widgets/user_menu.dart';
-import '../../abilities/presentation/list_abilities_screen.dart';
-import '../../skills/presentation/list_skills_screen.dart';
+import '../../management/presentation/management_tab_screen.dart';
 import '../../skilltrees/presentation/skilltree_list_screen.dart';
 import 'admin_menu_item.dart';
 import 'manage_group_screen.dart';
@@ -51,22 +52,17 @@ class AdminMenuScreen extends StatelessWidget {
                 children: [
                   AdminMenuItem(
                     icon: Icons.mail,
-                    title: "Gruppe verwalten",
+                    title: AppLocalizations.of(context)!.manageGroup,
                     onTab: () => GoRouter.of(context).goNamed(ManageGroupScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.bookSkull,
-                    title: "Fähigkeiten verwalten",
-                    onTab: () => GoRouter.of(context).goNamed(ListAbilitiesScreen.name),
-                  ),
-                  AdminMenuItem(
-                    icon: FontAwesomeIcons.bookSkull,
-                    title: "Fertigkeiten verwalten",
-                    onTab: () => GoRouter.of(context).goNamed(ListSkillsScreen.name),
+                    title: AppLocalizations.of(context)!.manageCharacteristics,
+                    onTab: () => GoRouter.of(context).goNamed(ManagementTabScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.circleNodes,
-                    title: "Fähigkeitenbaum verwalten",
+                    title: AppLocalizations.of(context)!.manageSkilltrees,
                     onTab: () => GoRouter.of(context).pushNamed(SkilltreeListScreen.name),
                   ),
                 ],

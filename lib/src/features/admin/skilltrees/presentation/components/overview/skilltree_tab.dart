@@ -7,7 +7,7 @@ import 'package:hero/src/features/admin/skilltrees/presentation/skilltree_builde
 import '../../../../../../common_widgets/loading_indicator.dart';
 import '../../../application/skilltree_list_controller.dart';
 import '../../../domain/skilltree_overview.dart';
-import '../menu/action_menu.dart';
+import '../../../../../../common_widgets/action_menu.dart';
 import 'skilltree_character_item.dart';
 import 'skilltree_item.dart';
 

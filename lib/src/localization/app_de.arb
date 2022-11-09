@@ -1,6 +1,118 @@
 {
   "applicationTitle": "Hero App",
-  "@applicationTitle": {
-    "description": "Thie title of the application."
-  }
+  "applicationSubtitle": "Pen & Paper auf einem neuen Level",
+
+  "skill": "Skill",
+  "skills": "Skills",
+  "ability": "Talent",
+  "abilities": "Talente",
+  "skilltree": "Skillbaum",
+  "skilltrees": "Skillbäume",
+  "node": "Knoten",
+  "nodes": "Knoten",
+  "edge": "Verknüpfung",
+  "edges": "Verknüpfungen",
+  "blueprint": "Vorlage",
+  "blueprints": "Vorlagen",
+  "character": "Charakter",
+  "characters": "Charaktere",
+
+  "home": "Startseite",
+  "admin": "Admin",
+
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "cancel": "Abbrechen",
+  "join": "Beitreten",
+  "actionDialogTitle": "Aktionen",
+
+  "save": "Speichern",
+
+  "workInProgress": "Diese Seite ist noch in Arbeit!",
+
+  "loggingIn": "Du wirst angemeldet, bitte warte noch etwas...",
+
+  "inviteCopied": "Einladungslink kopiert",
+  "inviteCopy": "Einladungscode kopieren",
+  "inviteTitle": "Mitglieder einladen",
+  "inviteDescription": "Hier kannst du neue Mitglieder in deine Gruppe einladen. Teile dazu einfach den unten stehenden Einladungslink mit deinen Freunden.",
+
+  "groupName": "Gruppenname",
+  "groupDescription": "Beschreibung",
+  "groupNotInGroupText": "Hallo {name}, es sieht so aus, als würdest du bisher noch keiner Gruppe angehören.\nSchlag doch deinem Spielleiter einmal vor, sich die Hero App anzusehen oder frag ihn nach einem Einladungslink.",
+  "@groupNotInGroupText": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "groupGotAnInviteCode": "Ich habe bereits einen Einladungscode",
+  "groupInstructionTitle": "Anleitung zum Beitreten",
+  "groupInstruction": "Um einer Gruppe beizutreten öffne den Einladungslink, welchen dir dein Spielleiter zugeschickt hat, du wirst nun gefragt, ob du dieser Gruppe beitreten willst. Wenn du \"Okay\" auswählst, trittst du der Gruppe bei und kannst von da an in der Gruppe agieren.",
+  "groupInstructionGM": "Du kannst natürlich auch gerne selbst in die Rolle des Spielleiters schlüpfen und hier eine eigene Gruppe erstellen.",
+  "groupBeAGM": "Gruppenleiter werden",
+  "groupJoinTitle": "{owner} möchte dich in seine Hero Gruppe '{name}' einladen, möchtest du beitreten?",
+  "@groupJoinTitle": {
+    "placeholders": {
+      "owner": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "groupAboutTitle": "Über die Gruppe",
+  "groupJoinFailed": "Beim abrufen der Gruppeninformationen ist ein Fehler aufgetreten.",
+
+  "username": "Benutzername oder E-Mail",
+  "password": "Passwort",
+  "login": "Anmelden", 
+  "logout": "Abmelden",
+  "loginDescription": "Du bist bisher noch nicht angemeldet.\nMelde dich jetzt an und beginne damit deinen eigenen Character zu kreieren.",
+
+  "loadSkilltrees": "Skillbäume werden abgerufen",
+  "loadSkilltreesFailed": "Beim Laden der Skillbäume ist ein Fehler aufgetreten.",
+
+  "nodeIsEasyReachable": "Direkt Freischaltbar?",
+  "nodeCost": "Benötigte Skillpunkte",
+  "nodeImportance": "Wichtigkeit des Knoten",
+  "nodeColor": "Farbe des Knotens auswählen",
+  
+  "skilltreeName": "Name des Skillbaums",
+  "skilltreePoints": "Initiale Skillpunkt",
+
+  "deleteChanges": "Änderungen löschen",
+  "saveAsBlueprint": "Als Vorlage speichern",
+  
+  "abilityName": "Name des Talents",
+  "abilityIsPasive": "Ist das Talent passiv?",
+  "abilityDescription": "Beschreibung des Talents",
+  "selectAnAbility": "Talent auswählen",
+  "searchForAbility": "Talent suchen",
+
+  "skillName": "Name des Skills",
+  "skillDescription": "Beschreibung des Skills",
+  "selectASkill": "Skill auswählen",
+  "searchForSkills": "Skill suchen",
+
+  "manageGroup": "Gruppe verwalten",
+  "manageCharacteristics": "Eigenschaften verwalten",
+  "manageSkilltrees": "Skillbäume verwalten",
+
+  "member": "Mitglied",
+  "members": "Mitglieder",
+  "fetchMembers": "Mitglieder werden abgerufen...",
+  "fetchMembersFailed": "Beim abrufen der Mitglieder ist ein Fehler aufgetreten.",
+
+  "openProfile": "Profil ansehen",
+  "openProfileFailed": "Das Benutzerprofil konnte nicht geöffnet werden",
+
+  "listEmpty": "Ganz schön leer hier...",
+  "listLoading": "Daten werden abgerufen...",
+  "listLoadingFailed": "Fehler beim Abrufen der Daten.",
+
+  "privacyPolicy": "Datenschutzerklärung",
+  "imageSelectionDescription": "Wähle ein Bild zum hochladen aus."
 }

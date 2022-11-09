@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hero/src/features/admin/management/presentation/edit_ability_screen.dart';
 
-import '../../../abilities/application/ability_list_controller.dart';
-import '../../../abilities/domain/ability.dart';
-import '../../../abilities/presentation/create_ability_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../application/ability_list_controller.dart';
+import '../../../domain/ability.dart';
 
 class AbilitySelectionField extends ConsumerWidget {
   final Ability? initialValue;
@@ -13,7 +15,7 @@ class AbilitySelectionField extends ConsumerWidget {
   const AbilitySelectionField({this.initialValue, super.key});
 
   Future<void> _showAbilityScreen(BuildContext context) async {
-    GoRouter.of(context).pushNamed(CreateAbilityScreen.name);
+    GoRouter.of(context).pushNamed(EditAbilityScreen.name);
   }
 
   @override
@@ -25,20 +27,21 @@ class AbilitySelectionField extends ConsumerWidget {
             name: "abilityId",
             valueTransformer: (value) => value?.id,
             initialValue: initialValue,
-            decoration: const InputDecoration(labelText: "Select Ability", prefixIcon: Icon(Icons.handyman)),
-            // validator: FormBuilderValidators.required(),
+            decoration: InputDecoration(labelText: AppLocalizations.of(context)!.selectAnAbility, prefixIcon: const Icon(Icons.handyman)),
             asyncItems: ref.read(abilityListControllerProvider.notifier).filter,
             compareFn: (item1, item2) => item1.name == item2.name,
             itemAsString: (item) => item.name,
             clearButtonProps: const ClearButtonProps(isVisible: true),
-            dropdownSearchDecoration: const InputDecoration(
-              labelText: "Abilities",
-              hintText: "Select ability",
+            dropdownSearchDecoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.abilities,
+              hintText: AppLocalizations.of(context)!.selectAnAbility,
             ),
             popupProps: PopupProps.modalBottomSheet(
               modalBottomSheetProps: ModalBottomSheetProps(elevation: 16, backgroundColor: Theme.of(context).dialogBackgroundColor),
               showSearchBox: true,
-              searchFieldProps: const TextFieldProps(decoration: InputDecoration(border: UnderlineInputBorder(), labelText: "Search for ability")),
+              searchFieldProps: TextFieldProps(
+                decoration: InputDecoration(border: const UnderlineInputBorder(), labelText: AppLocalizations.of(context)!.searchForAbility),
+              ),
             ),
           ),
         ),

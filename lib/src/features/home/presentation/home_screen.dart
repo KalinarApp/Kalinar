@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/common_widgets/user_menu.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../common_widgets/user_menu.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   static const String name = "Home";
@@ -24,8 +27,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text("Baustelle, bitte nicht weiter gehen!"),
+        children: [
+          Text(AppLocalizations.of(context)!.workInProgress),
         ],
       ),
     );

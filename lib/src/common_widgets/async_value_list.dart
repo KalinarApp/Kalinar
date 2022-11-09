@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class AsyncValueList<T> extends StatelessWidget {
   final AsyncValue<List<T>> list;
   final Widget Function(T item) builder;
@@ -21,14 +23,14 @@ class AsyncValueList<T> extends StatelessWidget {
                 itemBuilder: (_, index) => builder(data[index]),
               ),
             )
-          : const Center(child: Text("Ganz schön leer hier...")),
-      error: (_, __) => error ?? const Center(child: Text("Fehler beim Laden der Daten.")),
+          : Center(child: Text(AppLocalizations.of(context)!.listEmpty)),
+      error: (_, __) => error ?? Center(child: Text(AppLocalizations.of(context)!.listLoadingFailed)),
       loading: () =>
           loading ??
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [CircularProgressIndicator(), Text("Fähigkeiten werden geladen...")],
+              children: [const CircularProgressIndicator(), Text(AppLocalizations.of(context)!.listLoading)],
             ),
           ),
     );

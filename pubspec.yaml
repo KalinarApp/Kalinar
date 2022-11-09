@@ -3,6 +3,7 @@ description: A new Flutter project.
 publish_to: "none"
 
 version: 0.0.2+1
+version: 0.0.3+1
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -40,11 +41,11 @@ dependencies:
   rounded_loading_button: ^2.1.0
   modal_bottom_sheet: ^2.1.2
   dotted_border: ^2.0.0+2
-  flutter_slidable: ^2.0.0
   salomon_bottom_bar: ^3.3.1
   custom_pop_up_menu: ^1.2.4
   font_awesome_flutter: ^10.2.1
   url_launcher: ^6.1.6
+  flutter_speed_dial: ^6.2.0
 
   flutter_auth:
     git:

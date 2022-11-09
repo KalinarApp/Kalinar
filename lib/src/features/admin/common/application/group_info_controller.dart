@@ -12,7 +12,7 @@ class GroupInfoController extends StateNotifier<AsyncValue<Group?>> {
 
   Future<void> getInfo() async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(repo.getGroupInfo);
+    state = await AsyncValue.guard(() async => repo.getGroupInfo());
     if (state.hasValue && null != state.value) {
       controller.text = state.value!.code ?? "";
     }

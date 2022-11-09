@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 enum DialogAction {
   edit,
   delete,
@@ -21,11 +23,11 @@ extension KnowledgeActionExtension on DialogAction {
   String getTitle(BuildContext context) {
     switch (this) {
       case DialogAction.edit:
-        return "Bearbeiten";
+        return AppLocalizations.of(context)!.edit;
       case DialogAction.delete:
-        return "Löschen";
+        return AppLocalizations.of(context)!.delete;
       case DialogAction.cancel:
-        return "Abbrechen";
+        return AppLocalizations.of(context)!.cancel;
     }
   }
 }
@@ -52,7 +54,7 @@ Future<DialogAction?> showActionsModal(BuildContext context, {List<DialogAction>
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          // title: Text(AppLocalizations.of(context)!.actionDialogTitle),
+          title: Text(AppLocalizations.of(context)!.actionDialogTitle),
           actionsPadding: EdgeInsets.zero,
           actions: [
             ...getActions(actions),

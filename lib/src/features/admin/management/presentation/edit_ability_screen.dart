@@ -3,24 +3,34 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hero/src/common_widgets/form_fields/description_field.dart';
+import 'package:hero/src/common_widgets/form_fields/invisible_field.dart';
+import 'package:hero/src/common_widgets/form_fields/name_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../common_widgets/save_button.dart';
 import '../../../../utilities/async_value_extension.dart';
 import '../application/ability_controller.dart';
+import '../application/ability_list_controller.dart';
+import '../domain/ability.dart';
 
-class CreateAbilityScreen extends ConsumerStatefulWidget {
-  static const String name = "CreateAbility";
-  static const route = "create";
+class EditAbilityScreen extends ConsumerStatefulWidget {
+  static const String name = "EditAbility";
+  static const route = "ability";
 
-  const CreateAbilityScreen({Key? key}) : super(key: key);
+  final String? abilityId;
+
+  const EditAbilityScreen(this.abilityId, {Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CreateAbilityScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _EditAbilityScreenState();
 }
 
-class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
+class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
+  late final Ability? item;
 
   final saveController = RoundedLoadingButtonController();
   late AbilityController controller;
@@ -28,6 +38,8 @@ class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
   @override
   void initState() {
     controller = ref.read(abilityControllerProvider);
+    item = null != widget.abilityId ? ref.read(abilityListControllerProvider).value!.firstWhere((element) => element.id == widget.abilityId) : null;
+
     super.initState();
   }
 
@@ -36,20 +48,23 @@ class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        await controller.create(data).then((value) {
-          value.showSnackbarOnError(context);
-          if (value.hasError) {
-            saveController.error();
-          } else {
-            saveController.success();
-            GoRouter.of(context).pop();
-          }
-        });
+        final value = null == widget.abilityId ? await controller.create(data) : await controller.update(widget.abilityId!, data);
+        if (!mounted) return;
+        value.showSnackbarOnError(context);
+        if (value.hasError) {
+          saveController.error();
+          Future.delayed(const Duration(seconds: 3), saveController.reset);
+        } else {
+          saveController.success();
+          GoRouter.of(context).pop();
+        }
       } else {
         saveController.error();
+        Future.delayed(const Duration(seconds: 3), saveController.reset);
       }
     } else {
       saveController.error();
+      Future.delayed(const Duration(seconds: 3), saveController.reset);
     }
   }
 
@@ -73,39 +88,16 @@ class _CreateAbilityScreenState extends ConsumerState<CreateAbilityScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(
               children: [
-                FormBuilderTextField(
-                  name: "name",
-                  initialValue: "",
-                  textInputAction: TextInputAction.next,
-                  validator: FormBuilderValidators.required(),
-                  onChanged: (value) => saveController.reset(),
-                  decoration: const InputDecoration(labelText: "Ability name", prefixIcon: SizedBox(width: 20)),
-                ),
+                const InvisibleField(name: "id"),
+                NameField(label: AppLocalizations.of(context)!.abilityName, initialValue: item?.name),
                 FormBuilderSwitch(
                   name: "isPassive",
-                  initialValue: false,
-                  title: Text("Is passive ability?", style: Theme.of(context).textTheme.titleMedium),
+                  initialValue: item?.isPassive ?? false,
+                  title: Text(AppLocalizations.of(context)!.abilityIsPasive, style: Theme.of(context).textTheme.titleMedium),
                   onChanged: (value) => saveController.reset(),
                   decoration: const InputDecoration(prefixIcon: Icon(Icons.gps_not_fixed_outlined)),
                 ),
-                FormBuilderTextField(
-                  name: "description",
-                  initialValue: "",
-                  maxLines: 4,
-                  onChanged: (value) => saveController.reset(),
-                  decoration: const InputDecoration(
-                    label: Text("Ability description"),
-                    alignLabelWithHint: true,
-                    prefixIconConstraints: BoxConstraints.expand(width: 48, height: 100),
-                    prefixIcon: Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: Icon(Icons.description),
-                      ),
-                    ),
-                  ),
-                ),
+                DescriptionField(label: AppLocalizations.of(context)!.abilityDescription, initialValue: item?.description),
               ],
             ),
           ),

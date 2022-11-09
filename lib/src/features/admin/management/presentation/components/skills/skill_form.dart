@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:hero/src/common_widgets/form_fields/invisible_field.dart';
 
-import '../../../../../common_widgets/form_fields/description_field.dart';
-import '../../../../../common_widgets/form_fields/image_field.dart';
-import '../../../../../common_widgets/form_fields/value_range_field.dart';
-import '../../domain/skill.dart';
+import '../../../../../../common_widgets/form_fields/description_field.dart';
+import '../../../../../../common_widgets/form_fields/image_field.dart';
+import '../../../../../../common_widgets/form_fields/value_range_field.dart';
+import '../../../domain/skill.dart';
 import 'ability_selection_field.dart';
 
 class SkillForm extends StatelessWidget {
@@ -21,6 +22,7 @@ class SkillForm extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const InvisibleField(name: "id"),
             ImageField(initialValue: item?.iconUrl),
             DescriptionField(initialValue: item?.description),
             AbilitySelectionField(initialValue: item?.ability),
