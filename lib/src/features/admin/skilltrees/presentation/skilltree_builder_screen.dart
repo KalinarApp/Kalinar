@@ -9,7 +9,7 @@ import '../application/skilltree_controller.dart';
 import '../domain/node.dart';
 import 'components/menu/save_menu.dart';
 import 'components/modals/node_modal.dart';
-import 'components/skilltree_stack.dart';
+import 'components/builder/skilltree_stack.dart';
 
 class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
   static const String name = "SkilltreeBuilder";

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/features/admin/skilltrees/data/blueprint_repository.dart';
 
 import '../data/skilltrees_repository.dart';
 import '../domain/edge.dart';
@@ -13,11 +14,12 @@ import 'states/skilltree_state.dart';
 
 class SkilltreeController extends StateNotifier<SkilltreeState> {
   final SkilltreesRepository repo;
+  final BlueprintRepository blueprintRepository;
   final SkilltreeListController listController;
 
   Timer? timer;
 
-  SkilltreeController(this.repo, this.listController) : super(const SkilltreeState());
+  SkilltreeController(this.repo, this.blueprintRepository, this.listController) : super(const SkilltreeState());
 
   void addNode(Map<String, dynamic> data) {
     final alteredData = {...data, "skillId": data["skill"]["id"]};
@@ -124,7 +126,25 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
     });
   }
 
+  Future<AsyncValue<void>> createBlueprint(Map<String, dynamic> data) async {
+    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
+    return AsyncValue.guard(() async {
+      await blueprintRepository.createOnServer(alteredData);
+      await listController.refresh();
+      deleteLocal();
+    });
+  }
+
   Future<AsyncValue<void>> update(String id, Map<String, dynamic> data) async {
+    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
+    return AsyncValue.guard(() async {
+      await blueprintRepository.updateOnServer(id, alteredData);
+      await listController.refresh();
+      deleteLocal();
+    });
+  }
+
+  Future<AsyncValue<void>> updateBlueprint(String id, Map<String, dynamic> data) async {
     final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
     return AsyncValue.guard(() async {
       await repo.updateOnServer(id, alteredData);
@@ -140,5 +160,9 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
 }
 
 final skilltreeControllerProvider = StateNotifierProvider<SkilltreeController, SkilltreeState>((ref) {
-  return SkilltreeController(ref.read(skilltreesRepositoryProvider), ref.read(skilltreeListControllerProvider.notifier));
+  return SkilltreeController(
+    ref.read(skilltreesRepositoryProvider),
+    ref.read(blueprintRepositoryProvider),
+    ref.read(skilltreeListControllerProvider.notifier),
+  );
 });

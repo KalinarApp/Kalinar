@@ -2,8 +2,11 @@ import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../../../../common_widgets/modal.dart';
 import '../../../application/skilltree_controller.dart';
+import '../modals/blueprint_modal.dart';
 import '../modals/skilltree_modal.dart';
 
 class SaveMenu extends ConsumerStatefulWidget {
@@ -32,7 +35,7 @@ class _SaveMenuState extends ConsumerState<SaveMenu> {
                     controller.hideMenu();
                     ref.read(skilltreeControllerProvider.notifier).deleteLocal();
                   },
-                  child: const ListTile(title: Text("Änderungen löschen")),
+                  child: ListTile(title: Text(AppLocalizations.of(context)!.deleteChanges)),
                 ),
                 const Divider(),
                 InkWell(
@@ -40,8 +43,13 @@ class _SaveMenuState extends ConsumerState<SaveMenu> {
                       controller.hideMenu();
                       showModal(context, const SkilltreeModal());
                     },
-                    child: const ListTile(title: Text("Speichern"))),
-                const InkWell(onTap: null, child: ListTile(title: Text("Als Vorlage speichern"))),
+                    child: ListTile(title: Text(AppLocalizations.of(context)!.save))),
+                InkWell(
+                    onTap: () {
+                      controller.hideMenu();
+                      showModal(context, const BlueprintModal());
+                    },
+                    child: ListTile(title: Text(AppLocalizations.of(context)!.saveAsBlueprint))),
               ],
             ),
           ),

@@ -54,6 +54,8 @@
     "nodeColor",
     "skilltreeName",
     "skilltreePoints",
+    "fetchSkilltrees",
+    "fetchSkilltreesFailed",
     "deleteChanges",
     "saveAsBlueprint",
     "abilityName",
@@ -78,6 +80,10 @@
     "listLoading",
     "listLoadingFailed",
     "privacyPolicy",
-    "imageSelectionDescription"
+    "imageSelectionDescription",
+    "imageDropHere",
+    "blueprintName",
+    "fetchBlueprints",
+    "fetchBlueprintsFailed"
   ]
 }

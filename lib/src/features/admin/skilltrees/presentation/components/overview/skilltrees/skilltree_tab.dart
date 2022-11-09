@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/skilltrees/application/skilltree_controller.dart';
 import 'package:hero/src/features/admin/skilltrees/presentation/skilltree_builder_screen.dart';
 
-import '../../../../../../common_widgets/loading_indicator.dart';
-import '../../../application/skilltree_list_controller.dart';
-import '../../../domain/skilltree_overview.dart';
-import '../../../../../../common_widgets/action_menu.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../../../../common_widgets/loading_indicator.dart';
+import '../../../../application/skilltree_list_controller.dart';
+import '../../../../domain/skilltree_overview.dart';
+import '../../../../../../../common_widgets/action_menu.dart';
 import 'skilltree_character_item.dart';
 import 'skilltree_item.dart';
 
@@ -78,8 +80,8 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
     final state = ref.watch(skilltreeListControllerProvider);
 
     return state.when(
-      loading: () => const LoadingIndicator("Skillbäume werden abgerufen"),
-      error: (error, stackTrace) => const Center(child: Text("Fehler beim Laden der Daten.")),
+      loading: () => LoadingIndicator(AppLocalizations.of(context)!.fetchSkilltrees),
+      error: (error, stackTrace) => Center(child: Text(AppLocalizations.of(context)!.fetchSkilltreesFailed)),
       data: (data) => Padding(
         padding: const EdgeInsets.all(12.0),
         child: RefreshIndicator(

@@ -82,6 +82,8 @@
   
   "skilltreeName": "Name des Skillbaums",
   "skilltreePoints": "Initiale Skillpunkt",
+  "fetchSkilltrees": "Skillbäume werden abgerufen",
+  "fetchSkilltreesFailed": "Fehler beim Abrufen der Skillbäume",
 
   "deleteChanges": "Änderungen löschen",
   "saveAsBlueprint": "Als Vorlage speichern",
@@ -114,5 +116,10 @@
   "listLoadingFailed": "Fehler beim Abrufen der Daten.",
 
   "privacyPolicy": "Datenschutzerklärung",
-  "imageSelectionDescription": "Wähle ein Bild zum hochladen aus."
+  "imageSelectionDescription": "Wähle ein Bild zum hochladen aus.",
+  "imageDropHere": "Bild hier hinziehen",
+
+  "blueprintName": "Name der Vorlage",
+  "fetchBlueprints": "Vorlagen werden abgerufen",
+  "fetchBlueprintsFailed": "Fehler beim Abrufen der Vorlagen"
 }

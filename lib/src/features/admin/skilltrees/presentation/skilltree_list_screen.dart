@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common_widgets/user_menu.dart';
-import 'components/overview/blueprint_tab.dart';
-import 'components/overview/skilltree_tab.dart';
+import 'components/overview/blueprints/blueprint_tab.dart';
+import 'components/overview/skilltrees/skilltree_tab.dart';
 import 'skilltree_builder_screen.dart';
 
 class SkilltreeListScreen extends ConsumerStatefulWidget {
