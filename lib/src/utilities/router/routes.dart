@@ -58,6 +58,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         name: GroupScreen.name,
         path: GroupScreen.route,
+        redirect: (context, state) => true == groupState.hasGroup ? HomeScreen.route : null,
         pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const GroupScreen()),
       ),
       GoRoute(
@@ -101,6 +102,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             redirect: (context, state) {
               if (state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
                 if (null != groupState.hasGroup && !groupState.hasGroup!) return GroupScreen.route;
+              }
+
+              if (state.subloc != UserInviteScreen.route && (groupState.hasGroup ?? false)) {
+                return HomeScreen.route;
               }
 
               return null;

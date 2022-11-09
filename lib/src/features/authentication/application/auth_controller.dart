@@ -10,7 +10,7 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
   AuthController({required this.authRepository, required this.hasGroupController}) : super(const AsyncData(null));
 
   Future<AsyncValue<bool>> signIn({String? username, String? password}) async {
-    return AsyncValue.guard(() async {
+    return await AsyncValue.guard(() async {
       final success = await authRepository.login(username: username, password: password);
       if (success) {
         await hasGroupController.check();

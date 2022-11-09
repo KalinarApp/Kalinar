@@ -114,5 +114,6 @@
   "listLoadingFailed": "Fehler beim Abrufen der Daten.",
 
   "privacyPolicy": "Datenschutzerklärung",
-  "imageSelectionDescription": "Wähle ein Bild zum hochladen aus."
+  "imageSelectionDescription": "Wähle ein Bild zum hochladen aus.",
+  "imageDropHere": "Bild hier hinziehen"
 }

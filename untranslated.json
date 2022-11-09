@@ -78,6 +78,7 @@
     "listLoading",
     "listLoadingFailed",
     "privacyPolicy",
-    "imageSelectionDescription"
+    "imageSelectionDescription",
+    "imageDropHere"
   ]
 }

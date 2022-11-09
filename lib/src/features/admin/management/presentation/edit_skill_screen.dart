@@ -72,7 +72,10 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
       child: Scaffold(
         appBar: AppBar(
           actions: [
-            SaveButton(controller: _btnController, onSave: _save),
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: SaveButton(controller: _btnController, onSave: _save),
+            ),
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(110),
