@@ -15,8 +15,10 @@ class SkilltreeBuilderScreen extends ConsumerStatefulWidget {
   static const String name = "SkilltreeBuilder";
   static const String route = "builder";
   final String? skilltreeId;
+  final String? blueprintId;
+  final bool blueprintAsNew;
 
-  const SkilltreeBuilderScreen(this.skilltreeId, {super.key});
+  const SkilltreeBuilderScreen({this.skilltreeId, this.blueprintId, this.blueprintAsNew = false, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SkilltreeBuilderScreenState();
@@ -40,13 +42,21 @@ class _SkilltreeBuilderScreenState extends ConsumerState<SkilltreeBuilderScreen>
   @override
   void initState() {
     controller = ref.read(skilltreeControllerProvider.notifier);
-    if (null == widget.skilltreeId) {
+    if (null == widget.skilltreeId && null == widget.blueprintId) {
       Future.delayed(Duration.zero, () {
         controller.loadLocal();
         controller.startSavingLocal();
       });
+    } else if (null != widget.skilltreeId) {
+      Future.delayed(Duration.zero, () => controller.getSkilltreeById(widget.skilltreeId!));
     } else {
-      Future.delayed(Duration.zero, () => controller.getById(widget.skilltreeId!));
+      Future.delayed(Duration.zero, () {
+        if (widget.blueprintAsNew) {
+          controller.loadBlueprintAsNew(widget.blueprintId!);
+        } else {
+          controller.getBlueprintById(widget.blueprintId!);
+        }
+      });
     }
 
     super.initState();

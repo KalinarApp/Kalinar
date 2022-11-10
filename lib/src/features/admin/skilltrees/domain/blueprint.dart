@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hero/src/features/admin/skilltrees/domain/skilltree.dart';
 import 'package:hero/src/features/character_management/domain/character.dart';
 
 import 'node.dart';
@@ -23,5 +24,9 @@ class Blueprint with _$Blueprint {
 extension BlueprintExtension on Blueprint {
   Blueprint updateNodes(List<String> idsToDelete, List<Node> newNodes) {
     return copyWith(nodes: [...nodes.where((element) => !idsToDelete.contains(element.id)), ...newNodes]);
+  }
+
+  Skilltree toSkilltree() {
+    return Skilltree(id: id, name: name, nodes: nodes);
   }
 }

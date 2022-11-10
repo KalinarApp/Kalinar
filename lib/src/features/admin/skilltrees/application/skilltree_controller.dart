@@ -3,7 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hero/src/features/admin/skilltrees/application/blueprint_controller.dart';
 import 'package:hero/src/features/admin/skilltrees/data/blueprint_repository.dart';
+import 'package:hero/src/features/admin/skilltrees/domain/blueprint.dart';
 
 import '../data/skilltrees_repository.dart';
 import '../domain/edge.dart';
@@ -14,12 +16,12 @@ import 'states/skilltree_state.dart';
 
 class SkilltreeController extends StateNotifier<SkilltreeState> {
   final SkilltreesRepository repo;
-  final BlueprintRepository blueprintRepository;
+  final BlueprintController blueprints;
   final SkilltreeListController listController;
 
   Timer? timer;
 
-  SkilltreeController(this.repo, this.blueprintRepository, this.listController) : super(const SkilltreeState());
+  SkilltreeController(this.repo, this.blueprints, this.listController) : super(const SkilltreeState());
 
   void addNode(Map<String, dynamic> data) {
     final alteredData = {...data, "skillId": data["skill"]["id"]};
@@ -85,7 +87,7 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
   }
 
   Future<void> loadLocal() async {
-    state = state.copyWith(skilltree: state.skilltree.updateNodes([], await repo.loadLocal()));
+    state = SkilltreeState(skilltree: Skilltree(nodes: await repo.loadLocal()));
   }
 
   void startSavingLocal() {
@@ -105,9 +107,17 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
     }
   }
 
-  Future<void> deleteLocal() async {
+  Future<void> resetLocal({bool cleanup = false}) async {
     await repo.deleteLocal();
-    state = state.copyWith(skilltree: const Skilltree(), selectedNode: null);
+    if (null != state.id && !cleanup) {
+      if (state.isBlueprint) {
+        getBlueprintById(state.id!);
+      } else {
+        getSkilltreeById(state.id!);
+      }
+    } else {
+      state = state.copyWith(skilltree: const Skilltree(), selectedNode: null);
+    }
   }
 
   Future<AsyncValue> deleteOnServer(String id) async {
@@ -122,47 +132,57 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
     return AsyncValue.guard(() async {
       await repo.createOnServer(alteredData);
       await listController.refresh();
-      deleteLocal();
+      resetLocal(cleanup: true);
     });
   }
 
-  Future<AsyncValue<void>> createBlueprint(Map<String, dynamic> data) async {
-    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
-    return AsyncValue.guard(() async {
-      await blueprintRepository.createOnServer(alteredData);
-      await listController.refresh();
-      deleteLocal();
-    });
-  }
-
-  Future<AsyncValue<void>> update(String id, Map<String, dynamic> data) async {
-    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
-    return AsyncValue.guard(() async {
-      await blueprintRepository.updateOnServer(id, alteredData);
-      await listController.refresh();
-      deleteLocal();
-    });
-  }
-
-  Future<AsyncValue<void>> updateBlueprint(String id, Map<String, dynamic> data) async {
+  Future<AsyncValue<void>> updateSkilltree(String id, Map<String, dynamic> data) async {
     final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
     return AsyncValue.guard(() async {
       await repo.updateOnServer(id, alteredData);
       await listController.refresh();
-      deleteLocal();
+      resetLocal(cleanup: true);
     });
   }
 
-  Future<void> getById(String id) async {
+  Future<void> getSkilltreeById(String id) async {
     var skilltree = await repo.getById(id);
-    state = state.copyWith(skilltree: skilltree);
+    state = state.copyWith(skilltree: skilltree, id: id, isBlueprint: false);
+  }
+
+  Future<AsyncValue<void>> createBlueprint(Map<String, dynamic> data) async {
+    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
+    final result = await blueprints.create(alteredData);
+    if (!result.hasError) {
+      resetLocal(cleanup: true);
+    }
+    return result;
+  }
+
+  Future<AsyncValue<void>> updateBlueprint(String id, Map<String, dynamic> data) async {
+    final alteredData = {...data, "nodes": jsonDecode(jsonEncode(state.skilltree.nodes))};
+    final result = await blueprints.update(id, alteredData);
+    if (!result.hasError) {
+      resetLocal(cleanup: true);
+    }
+    return result;
+  }
+
+  Future<void> getBlueprintById(String id) async {
+    final blueprint = await blueprints.getById(id);
+    state = state.copyWith(skilltree: blueprint.toSkilltree(), id: id, isBlueprint: true);
+  }
+
+  Future<void> loadBlueprintAsNew(String id) async {
+    final blueprint = await blueprints.load(id);
+    state = SkilltreeState(skilltree: blueprint.toSkilltree());
   }
 }
 
 final skilltreeControllerProvider = StateNotifierProvider<SkilltreeController, SkilltreeState>((ref) {
   return SkilltreeController(
     ref.read(skilltreesRepositoryProvider),
-    ref.read(blueprintRepositoryProvider),
+    ref.read(blueprintControllerProvider),
     ref.read(skilltreeListControllerProvider.notifier),
   );
 });

@@ -21,6 +21,10 @@ class BlueprintRepository extends HeroBaseRepository {
     return await heroGet("/api/blueprints/$id", (response) => Blueprint.fromJson(response));
   }
 
+  Future<Blueprint> load(String id) async {
+    return await heroGet("/api/blueprints/$id/load", (response) => Blueprint.fromJson(response));
+  }
+
   Future<void> createOnServer(Map<String, dynamic> data) async {
     await heroPost("/api/blueprints", data, (response) => true);
   }

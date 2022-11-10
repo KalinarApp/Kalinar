@@ -20,7 +20,9 @@ SkilltreeState _$SkilltreeStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SkilltreeState {
+  String? get id => throw _privateConstructorUsedError;
   Skilltree get skilltree => throw _privateConstructorUsedError;
+  bool get isBlueprint => throw _privateConstructorUsedError;
   Node? get selectedNode => throw _privateConstructorUsedError;
   bool get isSaving => throw _privateConstructorUsedError;
 
@@ -36,7 +38,12 @@ abstract class $SkilltreeStateCopyWith<$Res> {
           SkilltreeState value, $Res Function(SkilltreeState) then) =
       _$SkilltreeStateCopyWithImpl<$Res, SkilltreeState>;
   @useResult
-  $Res call({Skilltree skilltree, Node? selectedNode, bool isSaving});
+  $Res call(
+      {String? id,
+      Skilltree skilltree,
+      bool isBlueprint,
+      Node? selectedNode,
+      bool isSaving});
 
   $SkilltreeCopyWith<$Res> get skilltree;
   $NodeCopyWith<$Res>? get selectedNode;
@@ -55,15 +62,25 @@ class _$SkilltreeStateCopyWithImpl<$Res, $Val extends SkilltreeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? skilltree = null,
+    Object? isBlueprint = null,
     Object? selectedNode = freezed,
     Object? isSaving = null,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       skilltree: null == skilltree
           ? _value.skilltree
           : skilltree // ignore: cast_nullable_to_non_nullable
               as Skilltree,
+      isBlueprint: null == isBlueprint
+          ? _value.isBlueprint
+          : isBlueprint // ignore: cast_nullable_to_non_nullable
+              as bool,
       selectedNode: freezed == selectedNode
           ? _value.selectedNode
           : selectedNode // ignore: cast_nullable_to_non_nullable
@@ -104,7 +121,12 @@ abstract class _$$_SkilltreeStateCopyWith<$Res>
       __$$_SkilltreeStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Skilltree skilltree, Node? selectedNode, bool isSaving});
+  $Res call(
+      {String? id,
+      Skilltree skilltree,
+      bool isBlueprint,
+      Node? selectedNode,
+      bool isSaving});
 
   @override
   $SkilltreeCopyWith<$Res> get skilltree;
@@ -123,15 +145,25 @@ class __$$_SkilltreeStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? skilltree = null,
+    Object? isBlueprint = null,
     Object? selectedNode = freezed,
     Object? isSaving = null,
   }) {
     return _then(_$_SkilltreeState(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       skilltree: null == skilltree
           ? _value.skilltree
           : skilltree // ignore: cast_nullable_to_non_nullable
               as Skilltree,
+      isBlueprint: null == isBlueprint
+          ? _value.isBlueprint
+          : isBlueprint // ignore: cast_nullable_to_non_nullable
+              as bool,
       selectedNode: freezed == selectedNode
           ? _value.selectedNode
           : selectedNode // ignore: cast_nullable_to_non_nullable
@@ -148,7 +180,9 @@ class __$$_SkilltreeStateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SkilltreeState implements _SkilltreeState {
   const _$_SkilltreeState(
-      {this.skilltree = const Skilltree(),
+      {this.id,
+      this.skilltree = const Skilltree(),
+      this.isBlueprint = false,
       this.selectedNode,
       this.isSaving = false});
 
@@ -156,8 +190,13 @@ class _$_SkilltreeState implements _SkilltreeState {
       _$$_SkilltreeStateFromJson(json);
 
   @override
+  final String? id;
+  @override
   @JsonKey()
   final Skilltree skilltree;
+  @override
+  @JsonKey()
+  final bool isBlueprint;
   @override
   final Node? selectedNode;
   @override
@@ -166,7 +205,7 @@ class _$_SkilltreeState implements _SkilltreeState {
 
   @override
   String toString() {
-    return 'SkilltreeState(skilltree: $skilltree, selectedNode: $selectedNode, isSaving: $isSaving)';
+    return 'SkilltreeState(id: $id, skilltree: $skilltree, isBlueprint: $isBlueprint, selectedNode: $selectedNode, isSaving: $isSaving)';
   }
 
   @override
@@ -174,8 +213,11 @@ class _$_SkilltreeState implements _SkilltreeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SkilltreeState &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.skilltree, skilltree) ||
                 other.skilltree == skilltree) &&
+            (identical(other.isBlueprint, isBlueprint) ||
+                other.isBlueprint == isBlueprint) &&
             (identical(other.selectedNode, selectedNode) ||
                 other.selectedNode == selectedNode) &&
             (identical(other.isSaving, isSaving) ||
@@ -184,8 +226,8 @@ class _$_SkilltreeState implements _SkilltreeState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, skilltree, selectedNode, isSaving);
+  int get hashCode => Object.hash(
+      runtimeType, id, skilltree, isBlueprint, selectedNode, isSaving);
 
   @JsonKey(ignore: true)
   @override
@@ -203,7 +245,9 @@ class _$_SkilltreeState implements _SkilltreeState {
 
 abstract class _SkilltreeState implements SkilltreeState {
   const factory _SkilltreeState(
-      {final Skilltree skilltree,
+      {final String? id,
+      final Skilltree skilltree,
+      final bool isBlueprint,
       final Node? selectedNode,
       final bool isSaving}) = _$_SkilltreeState;
 
@@ -211,7 +255,11 @@ abstract class _SkilltreeState implements SkilltreeState {
       _$_SkilltreeState.fromJson;
 
   @override
+  String? get id;
+  @override
   Skilltree get skilltree;
+  @override
+  bool get isBlueprint;
   @override
   Node? get selectedNode;
   @override

@@ -21,6 +21,8 @@ class _SaveMenuState extends ConsumerState<SaveMenu> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(skilltreeControllerProvider);
+
     return CustomPopupMenu(
       controller: controller,
       menuBuilder: () => ClipRRect(
@@ -33,7 +35,7 @@ class _SaveMenuState extends ConsumerState<SaveMenu> {
                 InkWell(
                   onTap: () {
                     controller.hideMenu();
-                    ref.read(skilltreeControllerProvider.notifier).deleteLocal();
+                    ref.read(skilltreeControllerProvider.notifier).resetLocal();
                   },
                   child: ListTile(title: Text(AppLocalizations.of(context)!.deleteChanges)),
                 ),
@@ -41,15 +43,23 @@ class _SaveMenuState extends ConsumerState<SaveMenu> {
                 InkWell(
                     onTap: () {
                       controller.hideMenu();
-                      showModal(context, const SkilltreeModal());
+                      if (!state.isBlueprint) {
+                        showModal(context, const SkilltreeModal());
+                      } else {
+                        showModal(context, const BlueprintModal());
+                      }
                     },
                     child: ListTile(title: Text(AppLocalizations.of(context)!.save))),
-                InkWell(
+                if (!state.isBlueprint)
+                  InkWell(
                     onTap: () {
                       controller.hideMenu();
                       showModal(context, const BlueprintModal());
                     },
-                    child: ListTile(title: Text(AppLocalizations.of(context)!.saveAsBlueprint))),
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context)!.saveAsBlueprint),
+                    ),
+                  ),
               ],
             ),
           ),

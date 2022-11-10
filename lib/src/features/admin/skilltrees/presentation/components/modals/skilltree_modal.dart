@@ -22,14 +22,14 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
   static final _formKey = GlobalKey<FormBuilderState>();
   final RoundedLoadingButtonController controller = RoundedLoadingButtonController();
 
-  Future<void> _save(BuildContext context, String id) async {
+  Future<void> _save(BuildContext context, String? id) async {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        final value = id.isEmpty
+        final value = null == id
             ? await ref.read(skilltreeControllerProvider.notifier).createOnServer(data)
-            : await ref.read(skilltreeControllerProvider.notifier).update(id, data);
+            : await ref.read(skilltreeControllerProvider.notifier).updateSkilltree(id, data);
         if (!mounted) return;
         value.showSnackbarOnError(context);
         if (value.hasError) {
@@ -67,7 +67,7 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
                 elevation: 0,
                 automaticallyImplyLeading: false,
                 actions: [
-                  SaveButton(controller: controller, onSave: () => _save(context, state.skilltree.id)),
+                  SaveButton(controller: controller, onSave: () => _save(context, state.id)),
                 ],
               ),
               ContentField(

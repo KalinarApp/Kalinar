@@ -23,12 +23,12 @@ class _BlueprintModalState extends ConsumerState<BlueprintModal> {
   static final _formKey = GlobalKey<FormBuilderState>();
   final RoundedLoadingButtonController controller = RoundedLoadingButtonController();
 
-  Future<void> _save(BuildContext context, String id) async {
+  Future<void> _save(BuildContext context, String? id, bool isBlueprint) async {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        final value = id.isEmpty
+        final value = null == id || !isBlueprint
             ? await ref.read(skilltreeControllerProvider.notifier).createBlueprint(data)
             : await ref.read(skilltreeControllerProvider.notifier).updateBlueprint(id, data);
         if (!mounted) return;
@@ -68,7 +68,7 @@ class _BlueprintModalState extends ConsumerState<BlueprintModal> {
                 elevation: 0,
                 automaticallyImplyLeading: false,
                 actions: [
-                  SaveButton(controller: controller, onSave: () => _save(context, state.skilltree.id)),
+                  SaveButton(controller: controller, onSave: () => _save(context, state.id, state.isBlueprint)),
                 ],
               ),
               ContentField(

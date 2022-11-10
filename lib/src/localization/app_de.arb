@@ -87,6 +87,7 @@
 
   "deleteChanges": "Änderungen löschen",
   "saveAsBlueprint": "Als Vorlage speichern",
+  "loadAsNewSkilltree": "Als neuen Skillbaum laden",
   
   "abilityName": "Name des Talents",
   "abilityIsPasive": "Ist das Talent passiv?",
