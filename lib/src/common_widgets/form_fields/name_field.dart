@@ -20,7 +20,7 @@ class NameField extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 100,
+                height: 102,
                 child: Column(
                   children: [
                     FormBuilderTextField(

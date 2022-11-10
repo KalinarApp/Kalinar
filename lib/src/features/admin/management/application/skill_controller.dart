@@ -34,7 +34,16 @@ class SkillController {
   }
 
   Future<AsyncValue<Skill>> update(String id, Map<String, dynamic> data) async {
-    final state = await AsyncValue.guard(() async => await repo.updateSkill(id, data));
+    final state = await AsyncValue.guard(() async {
+      Map<String, dynamic> map = {};
+      map.addAll(data);
+      if (null != map["iconUrl"] && Uri.tryParse(data["iconUrl"])?.isAbsolute == false) {
+        final iconUrl = await _uploadImage(map["iconUrl"]);
+        map.update("iconUrl", (_) => iconUrl);
+      }
+      return await repo.updateSkill(id, map);
+    });
+
     await skillList.getAllSkills();
     return state;
   }
