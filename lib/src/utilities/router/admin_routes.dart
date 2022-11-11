@@ -50,6 +50,12 @@ final adminSkilltreeRoutes = GoRoute(
       GoRoute(
         name: SkilltreeBuilderScreen.name,
         path: SkilltreeBuilderScreen.route,
-        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: SkilltreeBuilderScreen(state.queryParams["id"])),
+        pageBuilder: (context, state) => NoTransitionPage(
+            key: state.pageKey,
+            child: SkilltreeBuilderScreen(
+              skilltreeId: state.queryParams["skilltreeId"],
+              blueprintId: state.queryParams["blueprintId"],
+              blueprintAsNew: state.queryParams.containsKey("asNew"),
+            )),
       ),
     ]);

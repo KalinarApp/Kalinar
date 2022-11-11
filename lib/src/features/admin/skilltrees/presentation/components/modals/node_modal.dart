@@ -12,7 +12,7 @@ import '../../../../../../common_widgets/form_fields/value_range_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../application/skilltree_controller.dart';
 import '../../../domain/node.dart';
-import '../skill_selection_field.dart';
+import '../builder/skill_selection_field.dart';
 
 class NodeModal extends ConsumerWidget {
   final Node? item;

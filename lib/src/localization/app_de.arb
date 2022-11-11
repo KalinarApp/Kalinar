@@ -82,9 +82,12 @@
   
   "skilltreeName": "Name des Skillbaums",
   "skilltreePoints": "Initiale Skillpunkt",
+  "fetchSkilltrees": "Skillbäume werden abgerufen",
+  "fetchSkilltreesFailed": "Fehler beim Abrufen der Skillbäume",
 
   "deleteChanges": "Änderungen löschen",
   "saveAsBlueprint": "Als Vorlage speichern",
+  "loadAsNewSkilltree": "Als neuen Skillbaum laden",
   
   "abilityName": "Name des Talents",
   "abilityIsPasive": "Ist das Talent passiv?",
@@ -115,5 +118,9 @@
 
   "privacyPolicy": "Datenschutzerklärung",
   "imageSelectionDescription": "Wähle ein Bild zum hochladen aus.",
-  "imageDropHere": "Bild hier hinziehen"
+  "imageDropHere": "Bild hier hinziehen",
+
+  "blueprintName": "Name der Vorlage",
+  "fetchBlueprints": "Vorlagen werden abgerufen",
+  "fetchBlueprintsFailed": "Fehler beim Abrufen der Vorlagen"
 }

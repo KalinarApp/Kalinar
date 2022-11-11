@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/admin/skilltrees/application/skilltree_controller.dart';
+import 'package:hero/src/features/admin/skilltrees/presentation/components/modals/blueprint_modal.dart';
 import 'package:hero/src/features/admin/skilltrees/presentation/skilltree_builder_screen.dart';
 
-import '../../../../../../common_widgets/loading_indicator.dart';
-import '../../../application/skilltree_list_controller.dart';
-import '../../../domain/skilltree_overview.dart';
-import '../../../../../../common_widgets/action_menu.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../../../../common_widgets/loading_indicator.dart';
+import '../../../../../../../common_widgets/modal.dart';
+import '../../../../application/skilltree_list_controller.dart';
+import '../../../../domain/skilltree_overview.dart';
+import '../../../../../../../common_widgets/action_menu.dart';
 import 'skilltree_character_item.dart';
 import 'skilltree_item.dart';
 
@@ -30,11 +34,11 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
   }
 
   void _openBuilder(SkilltreeOverview item) {
-    GoRouter.of(context).goNamed(SkilltreeBuilderScreen.name, queryParams: {"id": item.id});
+    GoRouter.of(context).goNamed(SkilltreeBuilderScreen.name, queryParams: {"skilltreeId": item.id});
   }
 
   Future<void> _showActionDialog(SkilltreeOverview item) async {
-    final action = await showActionsModal(context);
+    final action = await showActionsModal(context, actions: [DialogAction.saveAsBlueprint, DialogAction.edit, DialogAction.delete]);
     if (null == action || !mounted) return;
 
     switch (action) {
@@ -45,6 +49,11 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
         await ref.read(skilltreeControllerProvider.notifier).deleteOnServer(item.id);
         break;
       case DialogAction.cancel:
+        break;
+      case DialogAction.saveAsBlueprint:
+        showModal(context, const BlueprintModal());
+        break;
+      case DialogAction.loadAsNewSkilltree:
         break;
     }
   }
@@ -78,8 +87,8 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
     final state = ref.watch(skilltreeListControllerProvider);
 
     return state.when(
-      loading: () => const LoadingIndicator("Skillbäume werden abgerufen"),
-      error: (error, stackTrace) => const Center(child: Text("Fehler beim Laden der Daten.")),
+      loading: () => LoadingIndicator(AppLocalizations.of(context)!.fetchSkilltrees),
+      error: (error, stackTrace) => Center(child: Text(AppLocalizations.of(context)!.fetchSkilltreesFailed)),
       data: (data) => Padding(
         padding: const EdgeInsets.all(12.0),
         child: RefreshIndicator(

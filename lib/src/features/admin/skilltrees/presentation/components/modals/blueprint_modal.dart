@@ -5,31 +5,32 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../../../../common_widgets/form_fields/content_field.dart';
-import '../../../../../../common_widgets/form_fields/value_range_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../utilities/async_value_extension.dart';
 import '../../../application/skilltree_controller.dart';
 
-class SkilltreeModal extends ConsumerStatefulWidget {
-  const SkilltreeModal({super.key});
+class BlueprintModal extends ConsumerStatefulWidget {
+  const BlueprintModal({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SkilltreeModalState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _BlueprintModalState();
 }
 
-class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
+class _BlueprintModalState extends ConsumerState<BlueprintModal> {
   static final _formKey = GlobalKey<FormBuilderState>();
   final RoundedLoadingButtonController controller = RoundedLoadingButtonController();
 
-  Future<void> _save(BuildContext context, String? id) async {
+  Future<void> _save(BuildContext context, String? id, bool isBlueprint) async {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        final value = null == id
-            ? await ref.read(skilltreeControllerProvider.notifier).createOnServer(data)
-            : await ref.read(skilltreeControllerProvider.notifier).updateSkilltree(id, data);
+        final value = null == id || !isBlueprint
+            ? await ref.read(skilltreeControllerProvider.notifier).createBlueprint(data)
+            : await ref.read(skilltreeControllerProvider.notifier).updateBlueprint(id, data);
         if (!mounted) return;
         value.showSnackbarOnError(context);
         if (value.hasError) {
@@ -67,22 +68,14 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
                 elevation: 0,
                 automaticallyImplyLeading: false,
                 actions: [
-                  SaveButton(controller: controller, onSave: () => _save(context, state.id)),
+                  SaveButton(controller: controller, onSave: () => _save(context, state.id, state.isBlueprint)),
                 ],
               ),
               ContentField(
                 "name",
-                label: "Name",
+                label: AppLocalizations.of(context)!.blueprintName,
                 validators: FormBuilderValidators.required(),
                 initialValue: state.skilltree.name,
-              ),
-              ValueRangeField(
-                name: "points",
-                label: "Initiale Skillpunkte",
-                initialValue: state.skilltree.points,
-                min: 0,
-                max: 10000,
-                step: 1,
               ),
             ],
           ),

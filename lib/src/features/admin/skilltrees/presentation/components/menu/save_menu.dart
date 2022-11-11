@@ -2,8 +2,11 @@ import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../../../../common_widgets/modal.dart';
 import '../../../application/skilltree_controller.dart';
+import '../modals/blueprint_modal.dart';
 import '../modals/skilltree_modal.dart';
 
 class SaveMenu extends ConsumerStatefulWidget {
@@ -18,6 +21,8 @@ class _SaveMenuState extends ConsumerState<SaveMenu> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(skilltreeControllerProvider);
+
     return CustomPopupMenu(
       controller: controller,
       menuBuilder: () => ClipRRect(
@@ -30,18 +35,31 @@ class _SaveMenuState extends ConsumerState<SaveMenu> {
                 InkWell(
                   onTap: () {
                     controller.hideMenu();
-                    ref.read(skilltreeControllerProvider.notifier).deleteLocal();
+                    ref.read(skilltreeControllerProvider.notifier).resetLocal();
                   },
-                  child: const ListTile(title: Text("Änderungen löschen")),
+                  child: ListTile(title: Text(AppLocalizations.of(context)!.deleteChanges)),
                 ),
                 const Divider(),
                 InkWell(
                     onTap: () {
                       controller.hideMenu();
-                      showModal(context, const SkilltreeModal());
+                      if (!state.isBlueprint) {
+                        showModal(context, const SkilltreeModal());
+                      } else {
+                        showModal(context, const BlueprintModal());
+                      }
                     },
-                    child: const ListTile(title: Text("Speichern"))),
-                const InkWell(onTap: null, child: ListTile(title: Text("Als Vorlage speichern"))),
+                    child: ListTile(title: Text(AppLocalizations.of(context)!.save))),
+                if (!state.isBlueprint)
+                  InkWell(
+                    onTap: () {
+                      controller.hideMenu();
+                      showModal(context, const BlueprintModal());
+                    },
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context)!.saveAsBlueprint),
+                    ),
+                  ),
               ],
             ),
           ),
