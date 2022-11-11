@@ -8,7 +8,7 @@ import '../../../../../../utilities/async_value_extension.dart';
 import '../../../application/ability_controller.dart';
 import '../../../application/ability_list_controller.dart';
 import '../../../domain/ability.dart';
-import '../../edit_ability_screen.dart';
+import 'edit_ability_screen.dart';
 import 'ability_list_item.dart';
 
 class AbilitiesTab extends ConsumerStatefulWidget {
@@ -27,7 +27,7 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
   }
 
   Future<void> _showActionDialog(Ability item) async {
-    final action = await showActionsModal(context);
+    final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.delete]);
     if (null == action || !mounted) return;
 
     switch (action) {
@@ -38,6 +38,8 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
         await _deleteAbility(item);
         break;
       case DialogAction.cancel:
+      case DialogAction.loadAsNewSkilltree:
+      case DialogAction.saveAsBlueprint:
         break;
     }
   }

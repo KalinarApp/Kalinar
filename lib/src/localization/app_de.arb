@@ -6,6 +6,8 @@
   "skills": "Skills",
   "ability": "Talent",
   "abilities": "Talente",
+  "attribute": "Attribut",
+  "attributes": "Attribute",
   "skilltree": "Skillbaum",
   "skilltrees": "Skillbäume",
   "node": "Knoten",
@@ -122,5 +124,16 @@
 
   "blueprintName": "Name der Vorlage",
   "fetchBlueprints": "Vorlagen werden abgerufen",
-  "fetchBlueprintsFailed": "Fehler beim Abrufen der Vorlagen"
+  "fetchBlueprintsFailed": "Fehler beim Abrufen der Vorlagen",
+
+  "attributeName": "Name des Attributes",
+  "attributeDescription": "Beschreibung des Attributes",
+  "attributeIcon": "Attributicon",
+  "attributeStepSize": "Schrittgröße",
+  "attributeMinValue": "Kleinster möglicher Wert",
+  "attributeMaxValue": "Größter möglicher Wert",
+
+  "pickAnIcon": "Wähle ein Icon aus",
+  "searchIcon": "Suche nach Icon",
+  "noIconSearchResults": "Keine Ergebnisse gefunden für:"
 }

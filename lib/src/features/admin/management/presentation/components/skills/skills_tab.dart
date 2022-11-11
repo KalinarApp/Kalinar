@@ -8,7 +8,7 @@ import '../../../../../../utilities/async_value_extension.dart';
 import '../../../application/skill_controller.dart';
 import '../../../application/skill_list_controller.dart';
 import '../../../domain/skill.dart';
-import '../../edit_skill_screen.dart';
+import 'edit_skill_screen.dart';
 import 'skill_list_item.dart';
 
 class SkillsTab extends ConsumerStatefulWidget {
@@ -27,7 +27,7 @@ class _SkillTabState extends ConsumerState<SkillsTab> {
   }
 
   Future<void> _showActionDialog(Skill item) async {
-    final action = await showActionsModal(context);
+    final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.delete]);
     if (null == action || !mounted) return;
 
     switch (action) {
@@ -38,6 +38,8 @@ class _SkillTabState extends ConsumerState<SkillsTab> {
         await _deleteSkill(item);
         break;
       case DialogAction.cancel:
+      case DialogAction.loadAsNewSkilltree:
+      case DialogAction.saveAsBlueprint:
         break;
     }
   }

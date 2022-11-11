@@ -6,6 +6,8 @@
     "skills",
     "ability",
     "abilities",
+    "attribute",
+    "attributes",
     "skilltree",
     "skilltrees",
     "node",
@@ -85,6 +87,15 @@
     "imageDropHere",
     "blueprintName",
     "fetchBlueprints",
-    "fetchBlueprintsFailed"
+    "fetchBlueprintsFailed",
+    "attributeName",
+    "attributeDescription",
+    "attributeIcon",
+    "attributeStepSize",
+    "attributeMinValue",
+    "attributeMaxValue",
+    "pickAnIcon",
+    "searchIcon",
+    "noIconSearchResults"
   ]
 }

@@ -6,13 +6,13 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../application/skill_controller.dart';
-import '../application/skill_list_controller.dart';
-import '../domain/skill.dart';
-import '../../../../common_widgets/form_fields/name_field.dart';
-import '../../../../common_widgets/save_button.dart';
-import '../../../../utilities/async_value_extension.dart';
-import 'components/skills/skill_form.dart';
+import '../../../application/skill_controller.dart';
+import '../../../application/skill_list_controller.dart';
+import '../../../domain/skill.dart';
+import '../../../../../../common_widgets/form_fields/name_field.dart';
+import '../../../../../../common_widgets/save_button.dart';
+import '../../../../../../utilities/async_value_extension.dart';
+import 'skill_form.dart';
 
 class EditSkillScreen extends ConsumerStatefulWidget {
   static const name = "EditSkill";
