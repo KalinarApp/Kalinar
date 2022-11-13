@@ -33,7 +33,7 @@ class _AttributeListState extends State<AttributeList> {
 
   @override
   void initState() {
-    attributes = widget.value ?? [];
+    attributes = [...widget.value ?? []];
     super.initState();
   }
 
