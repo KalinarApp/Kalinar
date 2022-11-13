@@ -27,7 +27,7 @@ class _SkillTabState extends ConsumerState<SkillsTab> {
   }
 
   Future<void> _showActionDialog(Skill item) async {
-    final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.delete]);
+    final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.delete, DialogAction.cancel]);
     if (null == action || !mounted) return;
 
     switch (action) {

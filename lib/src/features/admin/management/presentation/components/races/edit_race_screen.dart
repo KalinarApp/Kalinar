@@ -7,40 +7,42 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../common_widgets/form_fields/attribute/attributes_field.dart';
-import '../../../../../../common_widgets/form_fields/description_field.dart';
-import '../../../../../../common_widgets/form_fields/image_field.dart';
-import '../../../../../../common_widgets/form_fields/invisible_field.dart';
-import '../../../application/skill_controller.dart';
-import '../../../application/skill_list_controller.dart';
-import '../../../domain/skill.dart';
 import '../../../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
+import '../../../../../../common_widgets/form_fields/description_field.dart';
+import '../../../../../../common_widgets/form_fields/icon_picker_field.dart';
 import '../../../../../../utilities/async_value_extension.dart';
-import 'ability_selection_field.dart';
+import '../../../application/attribute_controller.dart';
+import '../../../application/race_controller.dart';
+import '../../../application/race_list_controller.dart';
+import '../../../domain/race.dart';
 
-class EditSkillScreen extends ConsumerStatefulWidget {
-  static const name = "EditSkill";
-  static const route = "skill/edit";
+class EditRaceScreen extends ConsumerStatefulWidget {
+  static const name = "EditRace";
+  static const route = "race/edit";
 
-  final String? skillId;
+  final String? raceId;
 
-  const EditSkillScreen(this.skillId, {super.key});
+  const EditRaceScreen(this.raceId, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EditSkillScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _EditRaceScreenState();
 }
 
-class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
+class _EditRaceScreenState extends ConsumerState<EditRaceScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
-  late final Skill? item;
+  Race? item;
 
-  late SkillController controller;
+  late RaceController controller;
   final RoundedLoadingButtonController _btnController = RoundedLoadingButtonController();
 
   @override
   void initState() {
-    controller = ref.read(skillControllerProvider);
-    item = null != widget.skillId ? ref.read(skillListControllerProvider).value!.firstWhere((element) => element.id == widget.skillId) : null;
+    controller = ref.read(raceControllerProvider);
+    if (null != widget.raceId) {
+      item = ref.read(raceListControllerProvider).valueOrNull?.firstWhere((element) => element.id == widget.raceId);
+    }
+
     super.initState();
   }
 
@@ -49,7 +51,7 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
       _formKey.currentState?.save();
       final data = _formKey.currentState?.value;
       if (null != data) {
-        final value = null == widget.skillId ? await controller.create(data) : await controller.update(widget.skillId!, data);
+        final value = null == widget.raceId ? await controller.create(data) : await controller.update(widget.raceId!, data);
         if (!mounted) return;
         value.showSnackbarOnError(context);
         if (value.hasError) {
@@ -81,10 +83,6 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
               child: SaveButton(controller: _btnController, onSave: _save),
             ),
           ],
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(110),
-            child: NameField(label: AppLocalizations.of(context)!.skillName, initialValue: item?.name, readOnly: false),
-          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -92,12 +90,11 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const InvisibleField(name: "id"),
-                ImageField(initialValue: item?.iconUrl),
-                DescriptionField(initialValue: item?.description, label: AppLocalizations.of(context)!.skillDescription),
-                AbilitySelectionField(initialValue: item?.ability),
+                NameField(label: AppLocalizations.of(context)!.raceName, initialValue: item?.name),
+                DescriptionField(label: AppLocalizations.of(context)!.raceDescription, initialValue: item?.description),
                 const SizedBox(height: 30),
-                Text(AppLocalizations.of(context)!.skillAttributeSelection, style: Theme.of(context).textTheme.bodyLarge),
+                Text(AppLocalizations.of(context)!.raceAttributeSelection, style: Theme.of(context).textTheme.bodyLarge),
+                const SizedBox(height: 10),
                 AttributesField(initialValue: item?.attributes),
               ],
             ),

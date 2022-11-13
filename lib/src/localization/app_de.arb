@@ -18,6 +18,8 @@
   "blueprints": "Vorlagen",
   "character": "Charakter",
   "characters": "Charaktere",
+  "race": "Rasse",
+  "races": "Rassen",
 
   "home": "Startseite",
   "admin": "Admin",
@@ -101,6 +103,11 @@
   "skillDescription": "Beschreibung des Skills",
   "selectASkill": "Skill auswählen",
   "searchForSkills": "Skill suchen",
+  "skillAttributeSelection": "Attribute des Skills auswählen:",
+
+  "raceName": "Name der Rasse",
+  "raceDescription": "Beschreibung der Rasse",
+  "raceAttributeSelection": "Attribute der Rasse auswählen:",
 
   "manageGroup": "Gruppe verwalten",
   "manageCharacteristics": "Eigenschaften verwalten",

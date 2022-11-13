@@ -27,7 +27,7 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
   }
 
   Future<void> _showActionDialog(Ability item) async {
-    final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.delete]);
+    final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.delete, DialogAction.cancel]);
     if (null == action || !mounted) return;
 
     switch (action) {
