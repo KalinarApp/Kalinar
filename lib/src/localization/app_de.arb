@@ -132,8 +132,13 @@
   "attributeStepSize": "Schrittgröße",
   "attributeMinValue": "Kleinster möglicher Wert",
   "attributeMaxValue": "Größter möglicher Wert",
+  "selectAnAttribute": "Attribut auswählen",
+  "attributeSearch": "Attribut suchen",
 
   "pickAnIcon": "Wähle ein Icon aus",
   "searchIcon": "Suche nach Icon",
-  "noIconSearchResults": "Keine Ergebnisse gefunden für:"
+  "noIconSearchResults": "Keine Ergebnisse gefunden für:",
+
+  "attributeHealth": "Lebenspunkte",
+  "attributeHealthDescription": "Stellt das maximale Leben des Charakters dar."
 }

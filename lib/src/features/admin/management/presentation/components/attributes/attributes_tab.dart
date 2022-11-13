@@ -69,6 +69,7 @@ class _AttributeTabState extends ConsumerState<AttributesTab> {
 
     return AsyncValueList(
       state,
+      sort: (data) => data.sort((a, b) => b.isGlobal ? 1 : -1),
       builder: (item) => AttributeListItem(item, onLongPress: _showActionDialog),
       refreshList: _refreshAttribute,
     );

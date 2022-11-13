@@ -94,8 +94,12 @@
     "attributeStepSize",
     "attributeMinValue",
     "attributeMaxValue",
+    "selectAnAttribute",
+    "attributeSearch",
     "pickAnIcon",
     "searchIcon",
-    "noIconSearchResults"
+    "noIconSearchResults",
+    "attributeHealth",
+    "attributeHealthDescription"
   ]
 }

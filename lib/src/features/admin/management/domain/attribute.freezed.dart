@@ -27,6 +27,7 @@ mixin _$Attribute {
   double get stepSize => throw _privateConstructorUsedError;
   double get minValue => throw _privateConstructorUsedError;
   double get maxValue => throw _privateConstructorUsedError;
+  bool get isGlobal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +47,8 @@ abstract class $AttributeCopyWith<$Res> {
       String? iconData,
       double stepSize,
       double minValue,
-      double maxValue});
+      double maxValue,
+      bool isGlobal});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
     Object? stepSize = null,
     Object? minValue = null,
     Object? maxValue = null,
+    Object? isGlobal = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -99,6 +102,10 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
           ? _value.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
               as double,
+      isGlobal: null == isGlobal
+          ? _value.isGlobal
+          : isGlobal // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -117,7 +124,8 @@ abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
       String? iconData,
       double stepSize,
       double minValue,
-      double maxValue});
+      double maxValue,
+      bool isGlobal});
 }
 
 /// @nodoc
@@ -138,6 +146,7 @@ class __$$_AttributeCopyWithImpl<$Res>
     Object? stepSize = null,
     Object? minValue = null,
     Object? maxValue = null,
+    Object? isGlobal = null,
   }) {
     return _then(_$_Attribute(
       id: null == id
@@ -168,6 +177,10 @@ class __$$_AttributeCopyWithImpl<$Res>
           ? _value.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
               as double,
+      isGlobal: null == isGlobal
+          ? _value.isGlobal
+          : isGlobal // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -182,7 +195,8 @@ class _$_Attribute implements _Attribute {
       this.iconData,
       this.stepSize = 1,
       this.minValue = 0,
-      this.maxValue = 10});
+      this.maxValue = 10,
+      this.isGlobal = false});
 
   factory _$_Attribute.fromJson(Map<String, dynamic> json) =>
       _$$_AttributeFromJson(json);
@@ -204,10 +218,13 @@ class _$_Attribute implements _Attribute {
   @override
   @JsonKey()
   final double maxValue;
+  @override
+  @JsonKey()
+  final bool isGlobal;
 
   @override
   String toString() {
-    return 'Attribute(id: $id, name: $name, description: $description, iconData: $iconData, stepSize: $stepSize, minValue: $minValue, maxValue: $maxValue)';
+    return 'Attribute(id: $id, name: $name, description: $description, iconData: $iconData, stepSize: $stepSize, minValue: $minValue, maxValue: $maxValue, isGlobal: $isGlobal)';
   }
 
   @override
@@ -226,13 +243,15 @@ class _$_Attribute implements _Attribute {
             (identical(other.minValue, minValue) ||
                 other.minValue == minValue) &&
             (identical(other.maxValue, maxValue) ||
-                other.maxValue == maxValue));
+                other.maxValue == maxValue) &&
+            (identical(other.isGlobal, isGlobal) ||
+                other.isGlobal == isGlobal));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, description, iconData,
-      stepSize, minValue, maxValue);
+      stepSize, minValue, maxValue, isGlobal);
 
   @JsonKey(ignore: true)
   @override
@@ -256,7 +275,8 @@ abstract class _Attribute implements Attribute {
       final String? iconData,
       final double stepSize,
       final double minValue,
-      final double maxValue}) = _$_Attribute;
+      final double maxValue,
+      final bool isGlobal}) = _$_Attribute;
 
   factory _Attribute.fromJson(Map<String, dynamic> json) =
       _$_Attribute.fromJson;
@@ -275,6 +295,8 @@ abstract class _Attribute implements Attribute {
   double get minValue;
   @override
   double get maxValue;
+  @override
+  bool get isGlobal;
   @override
   @JsonKey(ignore: true)
   _$$_AttributeCopyWith<_$_Attribute> get copyWith =>

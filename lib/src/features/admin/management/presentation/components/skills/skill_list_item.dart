@@ -18,10 +18,9 @@ class SkillListItem extends StatelessWidget {
         onLongPress: null != onLongPress ? () => onLongPress!(item) : null,
         leading: null != item.iconUrl ? CircleAvatar(backgroundColor: Colors.purple, backgroundImage: NetworkImage(item.iconUrl!)) : null,
         title: Text(item.name, maxLines: 2, overflow: TextOverflow.ellipsis),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: null != item.description && item.description!.isNotEmpty ? Text(item.description!) : null,
-        ),
+        subtitle: null != item.description && item.description!.isNotEmpty
+            ? Padding(padding: const EdgeInsets.only(top: 8.0), child: Text(item.description!))
+            : null,
       ),
     );
   }

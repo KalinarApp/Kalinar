@@ -6,13 +6,17 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../../../common_widgets/form_fields/attribute/attributes_field.dart';
+import '../../../../../../common_widgets/form_fields/description_field.dart';
+import '../../../../../../common_widgets/form_fields/image_field.dart';
+import '../../../../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../application/skill_controller.dart';
 import '../../../application/skill_list_controller.dart';
 import '../../../domain/skill.dart';
 import '../../../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../utilities/async_value_extension.dart';
-import 'skill_form.dart';
+import 'ability_selection_field.dart';
 
 class EditSkillScreen extends ConsumerStatefulWidget {
   static const name = "EditSkill";
@@ -82,7 +86,22 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
             child: NameField(label: AppLocalizations.of(context)!.skillName, initialValue: item?.name, readOnly: false),
           ),
         ),
-        body: SkillForm(_formKey, item: item),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const InvisibleField(name: "id"),
+                ImageField(initialValue: item?.iconUrl),
+                DescriptionField(initialValue: item?.description, label: AppLocalizations.of(context)!.skillDescription),
+                AbilitySelectionField(initialValue: item?.ability),
+                const SizedBox(height: 30),
+                AttributesField(initialValue: item?.attributes),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

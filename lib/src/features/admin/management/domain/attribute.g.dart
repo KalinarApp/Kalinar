@@ -14,6 +14,7 @@ _$_Attribute _$$_AttributeFromJson(Map<String, dynamic> json) => _$_Attribute(
       stepSize: (json['stepSize'] as num?)?.toDouble() ?? 1,
       minValue: (json['minValue'] as num?)?.toDouble() ?? 0,
       maxValue: (json['maxValue'] as num?)?.toDouble() ?? 10,
+      isGlobal: json['isGlobal'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_AttributeToJson(_$_Attribute instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$$_AttributeToJson(_$_Attribute instance) =>
       'stepSize': instance.stepSize,
       'minValue': instance.minValue,
       'maxValue': instance.maxValue,
+      'isGlobal': instance.isGlobal,
     };

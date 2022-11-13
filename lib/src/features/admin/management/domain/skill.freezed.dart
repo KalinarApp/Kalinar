@@ -25,17 +25,7 @@ mixin _$Skill {
   String? get iconUrl => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  int get healthPointsBoost => throw _privateConstructorUsedError;
-  int get lightPointsBoost => throw _privateConstructorUsedError;
-  double get movementSpeedBoost => throw _privateConstructorUsedError;
-  double get resistenceBoost => throw _privateConstructorUsedError;
-  double get opticalRangeBoost => throw _privateConstructorUsedError;
-  double get meleeDamageBoost => throw _privateConstructorUsedError;
-  double get rangeDamageBoost => throw _privateConstructorUsedError;
-  double get lightDamageBoost => throw _privateConstructorUsedError;
-  double get damageBoost => throw _privateConstructorUsedError;
-  double get parryBoost => throw _privateConstructorUsedError;
-  double get dodgeBoost => throw _privateConstructorUsedError;
+  List<AttributeValue> get attributes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,17 +43,7 @@ abstract class $SkillCopyWith<$Res> {
       String? iconUrl,
       String name,
       String? description,
-      int healthPointsBoost,
-      int lightPointsBoost,
-      double movementSpeedBoost,
-      double resistenceBoost,
-      double opticalRangeBoost,
-      double meleeDamageBoost,
-      double rangeDamageBoost,
-      double lightDamageBoost,
-      double damageBoost,
-      double parryBoost,
-      double dodgeBoost});
+      List<AttributeValue> attributes});
 
   $AbilityCopyWith<$Res>? get ability;
 }
@@ -86,17 +66,7 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
     Object? iconUrl = freezed,
     Object? name = null,
     Object? description = freezed,
-    Object? healthPointsBoost = null,
-    Object? lightPointsBoost = null,
-    Object? movementSpeedBoost = null,
-    Object? resistenceBoost = null,
-    Object? opticalRangeBoost = null,
-    Object? meleeDamageBoost = null,
-    Object? rangeDamageBoost = null,
-    Object? lightDamageBoost = null,
-    Object? damageBoost = null,
-    Object? parryBoost = null,
-    Object? dodgeBoost = null,
+    Object? attributes = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -119,50 +89,10 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      healthPointsBoost: null == healthPointsBoost
-          ? _value.healthPointsBoost
-          : healthPointsBoost // ignore: cast_nullable_to_non_nullable
-              as int,
-      lightPointsBoost: null == lightPointsBoost
-          ? _value.lightPointsBoost
-          : lightPointsBoost // ignore: cast_nullable_to_non_nullable
-              as int,
-      movementSpeedBoost: null == movementSpeedBoost
-          ? _value.movementSpeedBoost
-          : movementSpeedBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      resistenceBoost: null == resistenceBoost
-          ? _value.resistenceBoost
-          : resistenceBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      opticalRangeBoost: null == opticalRangeBoost
-          ? _value.opticalRangeBoost
-          : opticalRangeBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      meleeDamageBoost: null == meleeDamageBoost
-          ? _value.meleeDamageBoost
-          : meleeDamageBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      rangeDamageBoost: null == rangeDamageBoost
-          ? _value.rangeDamageBoost
-          : rangeDamageBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      lightDamageBoost: null == lightDamageBoost
-          ? _value.lightDamageBoost
-          : lightDamageBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      damageBoost: null == damageBoost
-          ? _value.damageBoost
-          : damageBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      parryBoost: null == parryBoost
-          ? _value.parryBoost
-          : parryBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      dodgeBoost: null == dodgeBoost
-          ? _value.dodgeBoost
-          : dodgeBoost // ignore: cast_nullable_to_non_nullable
-              as double,
+      attributes: null == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as List<AttributeValue>,
     ) as $Val);
   }
 
@@ -191,17 +121,7 @@ abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
       String? iconUrl,
       String name,
       String? description,
-      int healthPointsBoost,
-      int lightPointsBoost,
-      double movementSpeedBoost,
-      double resistenceBoost,
-      double opticalRangeBoost,
-      double meleeDamageBoost,
-      double rangeDamageBoost,
-      double lightDamageBoost,
-      double damageBoost,
-      double parryBoost,
-      double dodgeBoost});
+      List<AttributeValue> attributes});
 
   @override
   $AbilityCopyWith<$Res>? get ability;
@@ -221,17 +141,7 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
     Object? iconUrl = freezed,
     Object? name = null,
     Object? description = freezed,
-    Object? healthPointsBoost = null,
-    Object? lightPointsBoost = null,
-    Object? movementSpeedBoost = null,
-    Object? resistenceBoost = null,
-    Object? opticalRangeBoost = null,
-    Object? meleeDamageBoost = null,
-    Object? rangeDamageBoost = null,
-    Object? lightDamageBoost = null,
-    Object? damageBoost = null,
-    Object? parryBoost = null,
-    Object? dodgeBoost = null,
+    Object? attributes = null,
   }) {
     return _then(_$_Skill(
       null == id
@@ -254,50 +164,10 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      healthPointsBoost: null == healthPointsBoost
-          ? _value.healthPointsBoost
-          : healthPointsBoost // ignore: cast_nullable_to_non_nullable
-              as int,
-      lightPointsBoost: null == lightPointsBoost
-          ? _value.lightPointsBoost
-          : lightPointsBoost // ignore: cast_nullable_to_non_nullable
-              as int,
-      movementSpeedBoost: null == movementSpeedBoost
-          ? _value.movementSpeedBoost
-          : movementSpeedBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      resistenceBoost: null == resistenceBoost
-          ? _value.resistenceBoost
-          : resistenceBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      opticalRangeBoost: null == opticalRangeBoost
-          ? _value.opticalRangeBoost
-          : opticalRangeBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      meleeDamageBoost: null == meleeDamageBoost
-          ? _value.meleeDamageBoost
-          : meleeDamageBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      rangeDamageBoost: null == rangeDamageBoost
-          ? _value.rangeDamageBoost
-          : rangeDamageBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      lightDamageBoost: null == lightDamageBoost
-          ? _value.lightDamageBoost
-          : lightDamageBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      damageBoost: null == damageBoost
-          ? _value.damageBoost
-          : damageBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      parryBoost: null == parryBoost
-          ? _value.parryBoost
-          : parryBoost // ignore: cast_nullable_to_non_nullable
-              as double,
-      dodgeBoost: null == dodgeBoost
-          ? _value.dodgeBoost
-          : dodgeBoost // ignore: cast_nullable_to_non_nullable
-              as double,
+      attributes: null == attributes
+          ? _value._attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as List<AttributeValue>,
     ));
   }
 }
@@ -310,17 +180,8 @@ class _$_Skill implements _Skill {
       this.iconUrl,
       required this.name,
       this.description,
-      this.healthPointsBoost = 0,
-      this.lightPointsBoost = 0,
-      this.movementSpeedBoost = 0,
-      this.resistenceBoost = 0,
-      this.opticalRangeBoost = 0,
-      this.meleeDamageBoost = 0,
-      this.rangeDamageBoost = 0,
-      this.lightDamageBoost = 0,
-      this.damageBoost = 0,
-      this.parryBoost = 0,
-      this.dodgeBoost = 0});
+      final List<AttributeValue> attributes = const []})
+      : _attributes = attributes;
 
   factory _$_Skill.fromJson(Map<String, dynamic> json) =>
       _$$_SkillFromJson(json);
@@ -335,43 +196,17 @@ class _$_Skill implements _Skill {
   final String name;
   @override
   final String? description;
+  final List<AttributeValue> _attributes;
   @override
   @JsonKey()
-  final int healthPointsBoost;
-  @override
-  @JsonKey()
-  final int lightPointsBoost;
-  @override
-  @JsonKey()
-  final double movementSpeedBoost;
-  @override
-  @JsonKey()
-  final double resistenceBoost;
-  @override
-  @JsonKey()
-  final double opticalRangeBoost;
-  @override
-  @JsonKey()
-  final double meleeDamageBoost;
-  @override
-  @JsonKey()
-  final double rangeDamageBoost;
-  @override
-  @JsonKey()
-  final double lightDamageBoost;
-  @override
-  @JsonKey()
-  final double damageBoost;
-  @override
-  @JsonKey()
-  final double parryBoost;
-  @override
-  @JsonKey()
-  final double dodgeBoost;
+  List<AttributeValue> get attributes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_attributes);
+  }
 
   @override
   String toString() {
-    return 'Skill(id: $id, ability: $ability, iconUrl: $iconUrl, name: $name, description: $description, healthPointsBoost: $healthPointsBoost, lightPointsBoost: $lightPointsBoost, movementSpeedBoost: $movementSpeedBoost, resistenceBoost: $resistenceBoost, opticalRangeBoost: $opticalRangeBoost, meleeDamageBoost: $meleeDamageBoost, rangeDamageBoost: $rangeDamageBoost, lightDamageBoost: $lightDamageBoost, damageBoost: $damageBoost, parryBoost: $parryBoost, dodgeBoost: $dodgeBoost)';
+    return 'Skill(id: $id, ability: $ability, iconUrl: $iconUrl, name: $name, description: $description, attributes: $attributes)';
   }
 
   @override
@@ -385,50 +220,14 @@ class _$_Skill implements _Skill {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.healthPointsBoost, healthPointsBoost) ||
-                other.healthPointsBoost == healthPointsBoost) &&
-            (identical(other.lightPointsBoost, lightPointsBoost) ||
-                other.lightPointsBoost == lightPointsBoost) &&
-            (identical(other.movementSpeedBoost, movementSpeedBoost) ||
-                other.movementSpeedBoost == movementSpeedBoost) &&
-            (identical(other.resistenceBoost, resistenceBoost) ||
-                other.resistenceBoost == resistenceBoost) &&
-            (identical(other.opticalRangeBoost, opticalRangeBoost) ||
-                other.opticalRangeBoost == opticalRangeBoost) &&
-            (identical(other.meleeDamageBoost, meleeDamageBoost) ||
-                other.meleeDamageBoost == meleeDamageBoost) &&
-            (identical(other.rangeDamageBoost, rangeDamageBoost) ||
-                other.rangeDamageBoost == rangeDamageBoost) &&
-            (identical(other.lightDamageBoost, lightDamageBoost) ||
-                other.lightDamageBoost == lightDamageBoost) &&
-            (identical(other.damageBoost, damageBoost) ||
-                other.damageBoost == damageBoost) &&
-            (identical(other.parryBoost, parryBoost) ||
-                other.parryBoost == parryBoost) &&
-            (identical(other.dodgeBoost, dodgeBoost) ||
-                other.dodgeBoost == dodgeBoost));
+            const DeepCollectionEquality()
+                .equals(other._attributes, _attributes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      ability,
-      iconUrl,
-      name,
-      description,
-      healthPointsBoost,
-      lightPointsBoost,
-      movementSpeedBoost,
-      resistenceBoost,
-      opticalRangeBoost,
-      meleeDamageBoost,
-      rangeDamageBoost,
-      lightDamageBoost,
-      damageBoost,
-      parryBoost,
-      dodgeBoost);
+  int get hashCode => Object.hash(runtimeType, id, ability, iconUrl, name,
+      description, const DeepCollectionEquality().hash(_attributes));
 
   @JsonKey(ignore: true)
   @override
@@ -450,17 +249,7 @@ abstract class _Skill implements Skill {
       final String? iconUrl,
       required final String name,
       final String? description,
-      final int healthPointsBoost,
-      final int lightPointsBoost,
-      final double movementSpeedBoost,
-      final double resistenceBoost,
-      final double opticalRangeBoost,
-      final double meleeDamageBoost,
-      final double rangeDamageBoost,
-      final double lightDamageBoost,
-      final double damageBoost,
-      final double parryBoost,
-      final double dodgeBoost}) = _$_Skill;
+      final List<AttributeValue> attributes}) = _$_Skill;
 
   factory _Skill.fromJson(Map<String, dynamic> json) = _$_Skill.fromJson;
 
@@ -475,27 +264,7 @@ abstract class _Skill implements Skill {
   @override
   String? get description;
   @override
-  int get healthPointsBoost;
-  @override
-  int get lightPointsBoost;
-  @override
-  double get movementSpeedBoost;
-  @override
-  double get resistenceBoost;
-  @override
-  double get opticalRangeBoost;
-  @override
-  double get meleeDamageBoost;
-  @override
-  double get rangeDamageBoost;
-  @override
-  double get lightDamageBoost;
-  @override
-  double get damageBoost;
-  @override
-  double get parryBoost;
-  @override
-  double get dodgeBoost;
+  List<AttributeValue> get attributes;
   @override
   @JsonKey(ignore: true)
   _$$_SkillCopyWith<_$_Skill> get copyWith =>
