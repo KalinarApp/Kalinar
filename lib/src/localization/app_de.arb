@@ -6,6 +6,8 @@
   "skills": "Skills",
   "ability": "Talent",
   "abilities": "Talente",
+  "attribute": "Attribut",
+  "attributes": "Attribute",
   "skilltree": "Skillbaum",
   "skilltrees": "Skillbäume",
   "node": "Knoten",
@@ -16,6 +18,8 @@
   "blueprints": "Vorlagen",
   "character": "Charakter",
   "characters": "Charaktere",
+  "race": "Rasse",
+  "races": "Rassen",
 
   "home": "Startseite",
   "admin": "Admin",
@@ -99,6 +103,11 @@
   "skillDescription": "Beschreibung des Skills",
   "selectASkill": "Skill auswählen",
   "searchForSkills": "Skill suchen",
+  "skillAttributeSelection": "Attribute des Skills auswählen:",
+
+  "raceName": "Name der Rasse",
+  "raceDescription": "Beschreibung der Rasse",
+  "raceAttributeSelection": "Attribute der Rasse auswählen:",
 
   "manageGroup": "Gruppe verwalten",
   "manageCharacteristics": "Eigenschaften verwalten",
@@ -122,5 +131,21 @@
 
   "blueprintName": "Name der Vorlage",
   "fetchBlueprints": "Vorlagen werden abgerufen",
-  "fetchBlueprintsFailed": "Fehler beim Abrufen der Vorlagen"
+  "fetchBlueprintsFailed": "Fehler beim Abrufen der Vorlagen",
+
+  "attributeName": "Name des Attributes",
+  "attributeDescription": "Beschreibung des Attributes",
+  "attributeIcon": "Attributicon",
+  "attributeStepSize": "Schrittgröße",
+  "attributeMinValue": "Kleinster möglicher Wert",
+  "attributeMaxValue": "Größter möglicher Wert",
+  "selectAnAttribute": "Attribut auswählen",
+  "attributeSearch": "Attribut suchen",
+
+  "pickAnIcon": "Wähle ein Icon aus",
+  "searchIcon": "Suche nach Icon",
+  "noIconSearchResults": "Keine Ergebnisse gefunden für:",
+
+  "attributeHealth": "Lebenspunkte",
+  "attributeHealthDescription": "Stellt das maximale Leben des Charakters dar."
 }

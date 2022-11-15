@@ -6,14 +6,14 @@ class NameField extends StatelessWidget {
   final bool readOnly;
   final String? label;
   final String? initialValue;
+  final Widget? icon;
 
-  const NameField({this.label, this.initialValue, this.readOnly = false, super.key});
+  const NameField({this.label, this.icon, this.initialValue, this.readOnly = false, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const SizedBox(width: 52),
         Flexible(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -31,7 +31,11 @@ class NameField extends StatelessWidget {
                       enabled: !readOnly,
                       validator: FormBuilderValidators.required(),
                       textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: label ?? "Name", contentPadding: const EdgeInsets.only(right: 8)),
+                      decoration: InputDecoration(
+                        labelText: label ?? "Name",
+                        prefixIcon: icon ?? const SizedBox(),
+                        contentPadding: const EdgeInsets.only(right: 8),
+                      ),
                       style: Theme.of(context).textTheme.headline5,
                     ),
                   ],

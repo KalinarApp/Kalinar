@@ -15,15 +15,15 @@ class SkillsRepository extends HeroBaseRepository {
   }
 
   Future<Skill> createSkill(Map<String, dynamic> data) async {
-    return heroPost("/api/skills", data, (response) => Skill.fromJson(json.decode(response)));
+    return await heroPost("/api/skills", data, (response) => Skill.fromJson(json.decode(response)));
   }
 
   Future<Skill> updateSkill(String id, Map<String, dynamic> data) async {
-    return heroUpdate("/api/skills/$id", data, (response) => Skill.fromJson(json.decode(response)));
+    return await heroUpdate("/api/skills/$id", data, (response) => Skill.fromJson(json.decode(response)));
   }
 
   Future<bool> deleteSkill(String id) async {
-    return heroDelete("/api/skills/$id");
+    return await heroDelete("/api/skills/$id");
   }
 }
 
