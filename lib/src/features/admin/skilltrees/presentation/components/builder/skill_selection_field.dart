@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
@@ -26,8 +28,7 @@ class SkillSelectionField extends ConsumerWidget {
             name: "skill",
             valueTransformer: (value) {
               if (null != value) {
-                final skill = value.toJson();
-                skill.update("ability", (ability) => ability?.toJson());
+                final skill = jsonDecode(jsonEncode(value));
                 return skill;
               }
               return null;
