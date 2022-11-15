@@ -19,11 +19,12 @@ import 'package:hero/src/features/home/presentation/welcome_screen.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import 'admin_routes.dart';
 
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+final shellNavigatorKey = GlobalKey<NavigatorState>();
 
-GoRouter getRouter(WidgetRef ref, GlobalKey<NavigatorState> rootNavigatorKey, GlobalKey<NavigatorState> shellNavigatorKey) {
+GoRouter getRouter(WidgetRef ref) {
   final authState = RouterStreamNotifier(ref);
   final groupState = ref.read(hasGroupProvider);
-  final currentUser = ref.watch(userChangedProvider);
 
   return GoRouter(
     initialLocation: "/",
@@ -67,32 +68,35 @@ GoRouter getRouter(WidgetRef ref, GlobalKey<NavigatorState> rootNavigatorKey, Gl
       ),
       ShellRoute(
         navigatorKey: shellNavigatorKey,
-        builder: (context, state, child) => ScaffoldWithBottomNavbar(
-          tabs: [
-            ScaffoldWithNavbarItem(
-                initialLocation: HomeScreen.route,
-                icon: const Icon(Icons.home),
-                label: Text(AppLocalizations.of(context)!.home),
-                color: Theme.of(context).colorScheme.primary),
-            ScaffoldWithNavbarItem(
-                initialLocation: "/characters",
-                icon: const Icon(Icons.man),
-                label: Text(AppLocalizations.of(context)!.characters),
-                color: Theme.of(context).colorScheme.primary),
-            ScaffoldWithNavbarItem(
-                initialLocation: "/skilltrees",
-                icon: const Icon(Icons.trending_up),
-                label: Text(AppLocalizations.of(context)!.skilltrees),
-                color: Theme.of(context).colorScheme.primary),
-            if (null != currentUser && currentUser.isAdmin())
+        builder: (context, state, child) {
+          final user = ref.read(userChangedProvider);
+          return ScaffoldWithBottomNavbar(
+            tabs: [
               ScaffoldWithNavbarItem(
-                  initialLocation: AdminMenuScreen.route,
-                  icon: const Icon(Icons.coffee),
-                  label: Text(AppLocalizations.of(context)!.admin),
+                  initialLocation: HomeScreen.route,
+                  icon: const Icon(Icons.home),
+                  label: Text(AppLocalizations.of(context)!.home),
                   color: Theme.of(context).colorScheme.primary),
-          ],
-          child: child,
-        ),
+              ScaffoldWithNavbarItem(
+                  initialLocation: "/characters",
+                  icon: const Icon(Icons.man),
+                  label: Text(AppLocalizations.of(context)!.characters),
+                  color: Theme.of(context).colorScheme.primary),
+              ScaffoldWithNavbarItem(
+                  initialLocation: "/skilltrees",
+                  icon: const Icon(Icons.trending_up),
+                  label: Text(AppLocalizations.of(context)!.skilltrees),
+                  color: Theme.of(context).colorScheme.primary),
+              if (null != user && user.isAdmin())
+                ScaffoldWithNavbarItem(
+                    initialLocation: AdminMenuScreen.route,
+                    icon: const Icon(Icons.coffee),
+                    label: Text(AppLocalizations.of(context)!.admin),
+                    color: Theme.of(context).colorScheme.primary),
+            ],
+            child: child,
+          );
+        },
         routes: [
           GoRoute(
             name: HomeScreen.name,

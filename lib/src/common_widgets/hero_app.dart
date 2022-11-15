@@ -30,8 +30,7 @@ class HeroApp extends ConsumerStatefulWidget {
 }
 
 class _HeroAppState extends ConsumerState<HeroApp> {
-  static final rootNavigatorKey = GlobalKey<NavigatorState>();
-  static final shellNavigatorKey = GlobalKey<NavigatorState>();
+  
 
   @override
   void didChangeDependencies() {
@@ -52,6 +51,6 @@ class _HeroAppState extends ConsumerState<HeroApp> {
           FormBuilderLocalizations.delegate,
           ...GlobalMaterialLocalizations.delegates,
         ],
-        routerConfig: getRouter(ref, rootNavigatorKey, shellNavigatorKey));
+        routerConfig: getRouter(ref));
   }
 }
