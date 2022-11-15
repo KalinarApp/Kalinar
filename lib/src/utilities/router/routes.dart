@@ -19,9 +19,8 @@ import 'package:hero/src/features/home/presentation/welcome_screen.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import 'admin_routes.dart';
 
-final routerProvider = Provider<GoRouter>((ref) {
-  final rootNavigatorKey = GlobalKey<NavigatorState>();
-  final shellNavigatorKey = GlobalKey<NavigatorState>();
+
+GoRouter getRouter(WidgetRef ref, GlobalKey<NavigatorState> rootNavigatorKey, GlobalKey<NavigatorState> shellNavigatorKey) {
   final authState = RouterStreamNotifier(ref);
   final groupState = ref.read(hasGroupProvider);
   final currentUser = ref.watch(userChangedProvider);
@@ -124,7 +123,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
     ],
   );
-});
+}
 
 final authStateChangedProvider = Provider<bool?>((ref) {
   return ref.watch(authChangedProvider.select((data) {
@@ -139,7 +138,7 @@ final userChangedProvider = Provider<UserInfo?>((ref) {
 });
 
 class RouterStreamNotifier with ChangeNotifier {
-  final Ref _ref;
+  final WidgetRef _ref;
   bool skipNotifications = false;
 
   RouterStreamNotifier(this._ref) {
