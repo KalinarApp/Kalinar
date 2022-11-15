@@ -24,7 +24,9 @@ class UserMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(userChangedProvider);
 
-    final gravater = Gravatar(currentUser!.email);
+    if (null == currentUser) return Container();
+
+    final gravater = Gravatar(currentUser.email);
 
     return CustomPopupMenu(
       menuBuilder: () => ClipRRect(
