@@ -12,7 +12,9 @@ class BoolField extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormBuilderCheckbox(
       name: name,
-      title: Text(label),
+      decoration: const InputDecoration(border: UnderlineInputBorder()),
+      activeColor: Theme.of(context).colorScheme.primary,
+      title: Text(label, style: Theme.of(context).textTheme.titleMedium),
       initialValue: initialValue,
     );
   }

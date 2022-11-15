@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/management/presentation/edit_skill_screen.dart';
+import 'package:hero/src/features/admin/management/presentation/components/skills/edit_skill_screen.dart';
 
 import '../../../../management/application/skill_list_controller.dart';
 import '../../../../management/domain/skill.dart';
@@ -26,8 +28,7 @@ class SkillSelectionField extends ConsumerWidget {
             name: "skill",
             valueTransformer: (value) {
               if (null != value) {
-                final skill = value.toJson();
-                skill.update("ability", (ability) => ability?.toJson());
+                final skill = jsonDecode(jsonEncode(value));
                 return skill;
               }
               return null;
