@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:cross_file/cross_file.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hero/src/common_widgets/node_tile.dart';
 import 'package:mime/mime.dart';
 
 class DragDropImage extends StatefulWidget {
@@ -31,12 +32,12 @@ class _DragDropImageState extends State<DragDropImage> {
     return base64;
   }
 
-  Image _getImage() {
+  ImageProvider _getImage() {
     if (null != selectedImage) {
       if (Uri.tryParse(selectedImage!)?.isAbsolute == true) {
-        return Image.network(selectedImage!);
+        return NetworkImage(selectedImage!);
       } else {
-        return Image.memory(base64Decode(selectedImage!));
+        return MemoryImage(base64Decode(selectedImage!));
       }
     }
     throw "cannot be null";
@@ -65,23 +66,21 @@ class _DragDropImageState extends State<DragDropImage> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(4),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               child: SizedBox(
-                  width: 128,
-                  height: 128,
-                  child: Card(
-                    elevation: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: null != selectedImage
-                          ? _getImage()
-                          : Center(
-                              child: Text(
-                              AppLocalizations.of(context)!.imageDropHere,
-                              textAlign: TextAlign.center,
-                            )),
+                width: 86,
+                height: 86,
+                child: NodeTile(
+                  null != selectedImage ? _getImage() : null,
+                  color: Theme.of(context).colorScheme.background.value.toString(),
+                  placeholderWidget: Center(
+                    child: Text(
+                      AppLocalizations.of(context)!.imageDropHere,
+                      textAlign: TextAlign.center,
                     ),
-                  )),
+                  ),
+                ),
+              ),
             ),
             if (null != selectedImage)
               Positioned(

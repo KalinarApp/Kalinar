@@ -12,6 +12,7 @@ class AttributesField extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormBuilderField<List<AttributeValue>>(
       name: "attributes",
+      valueTransformer: (value) => value ?? [],
       initialValue: initialValue,
       builder: (field) => AttributeList(value: field.value, onChanged: (value) => field.didChange(value)),
     );

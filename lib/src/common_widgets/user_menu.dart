@@ -41,7 +41,7 @@ class UserMenu extends ConsumerWidget {
                 const Divider(),
                 InkWell(
                     onTap: () => ref.read(authControllerProvider.notifier).signOut(),
-                    child: ListTile(title: Text(AppLocalizations.of(context)!.login))),
+                    child: ListTile(title: Text(AppLocalizations.of(context)!.logout))),
               ],
             ),
           ),

@@ -3,9 +3,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:uuid/uuid.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../common_widgets/form_fields/bool_field.dart';
 import '../../../../../../common_widgets/form_fields/invisible_field.dart';
@@ -65,18 +66,27 @@ class NodeModal extends ConsumerWidget {
                 ],
               ),
               InvisibleField(name: "id", initialValue: item?.id ?? const Uuid().v4()),
-              InvisibleField(name: "xpos", initialValue: item?.xPos ?? 0),
-              InvisibleField(name: "ypos", initialValue: item?.yPos ?? 0),
+              InvisibleField(name: "xPos", initialValue: item?.xPos ?? 0),
+              InvisibleField(name: "yPos", initialValue: item?.yPos ?? 0),
+              InvisibleField(name: "precessors", initialValue: item?.precessors),
+              InvisibleField(name: "successors", initialValue: item?.successors),
               SkillSelectionField(initialValue: item?.skill),
-              BoolField(name: "isEasyReachable", label: "Direkt Freischaltbar?", initialValue: item?.isEasyReachable ?? false),
-              ValueRangeField(name: "cost", label: "Benötigte Skillpunkte", initialValue: item?.cost ?? 0, min: 0, max: 10, step: 1),
-              ValueRangeField(name: "importance", label: "Benötigte Skillpunkte", initialValue: item?.importance ?? 0, min: 0, max: 10, step: 1),
+              BoolField(
+                  name: "isEasyReachable", label: AppLocalizations.of(context)!.nodeIsEasyReachable, initialValue: item?.isEasyReachable ?? false),
+              ValueRangeField(name: "cost", label: AppLocalizations.of(context)!.nodeCost, initialValue: item?.cost ?? 0, min: 0, max: 10, step: 1),
+              ValueRangeField(
+                  name: "importance",
+                  label: AppLocalizations.of(context)!.nodeImportance,
+                  initialValue: item?.importance ?? 0,
+                  min: 0,
+                  max: 10,
+                  step: 1),
               FormBuilderColorPickerField(
                 name: "color",
                 valueTransformer: (value) => value?.value.toString(),
-                initialValue: null != item?.color ? Color(int.parse(item!.color)) : Colors.purple,
+                initialValue: null != item?.color ? Color(int.parse(item!.color)) : Colors.grey,
                 validator: FormBuilderValidators.required(),
-                decoration: const InputDecoration(labelText: "wähle eine Hintergrundfarbe:"),
+                decoration: InputDecoration(labelText: AppLocalizations.of(context)!.nodeColor),
               )
             ],
           ),

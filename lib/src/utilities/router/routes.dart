@@ -19,12 +19,11 @@ import 'package:hero/src/features/home/presentation/welcome_screen.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import 'admin_routes.dart';
 
-final rootNavigatorKey = GlobalKey<NavigatorState>();
-final shellNavigatorKey = GlobalKey<NavigatorState>();
-
 GoRouter getRouter(WidgetRef ref) {
   final authState = RouterStreamNotifier(ref);
   final groupState = ref.read(hasGroupProvider);
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
+  final shellNavigatorKey = GlobalKey<NavigatorState>();
 
   return GoRouter(
     initialLocation: "/",

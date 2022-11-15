@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hero/src/common_widgets/node_tile.dart';
 
 import '../../../domain/node.dart';
 
@@ -27,7 +28,7 @@ class EditableNode extends StatelessWidget {
               angle: -pi / 4,
               child: null != item.skill.iconUrl
                   ? Padding(
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(2),
                       child: Ink.image(
                         image: NetworkImage(item.skill.iconUrl!),
                       ),
