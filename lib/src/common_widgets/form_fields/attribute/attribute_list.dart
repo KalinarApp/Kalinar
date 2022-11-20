@@ -39,6 +39,7 @@ class _AttributeListState extends State<AttributeList> {
 
   @override
   Widget build(BuildContext context) {
+    attributes.globalFirst();
     return Column(
       children: [
         for (final attribute in attributes)

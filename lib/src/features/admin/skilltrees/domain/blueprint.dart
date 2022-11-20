@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/skilltree.dart';
-import 'package:hero/src/features/character_management/domain/character.dart';
 
+import '../../../characters/domain/character_overview.dart';
+import 'skilltree.dart';
 import 'node.dart';
 
 part 'blueprint.freezed.dart';
@@ -12,7 +12,7 @@ class Blueprint with _$Blueprint {
   const factory Blueprint({
     @Default("") String id,
     @Default("") String name,
-    Character? character,
+    CharacterOverview? character,
     @Default(0) int points,
     @Default(true) bool isActiveTree,
     @Default([]) List<Node> nodes,

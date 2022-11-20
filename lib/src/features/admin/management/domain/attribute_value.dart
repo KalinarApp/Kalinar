@@ -14,3 +14,9 @@ class AttributeValue with _$AttributeValue {
 
   factory AttributeValue.fromJson(Map<String, dynamic> json) => _$AttributeValueFromJson(json);
 }
+
+extension AttributeValueListExtension on List<AttributeValue> {
+  void globalFirst() {
+    sort((a, b) => b.attribute.isGlobal ? 1 : -1);
+  }
+}

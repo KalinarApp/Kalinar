@@ -108,6 +108,21 @@
   "raceName": "Name der Rasse",
   "raceDescription": "Beschreibung der Rasse",
   "raceAttributeSelection": "Attribute der Rasse auswählen:",
+  "selectARace": "Rasse auswählen",
+  "searchForRace": "Nach Rasse suchen",
+
+  "characterName": "Name",
+  "characterAge": "Alter",
+  "characterDescription": "Beschreibung",
+  "characterReligion": "Religion",
+  "characterRelationship": "Beziehungsstatus",
+  "characterProfession": "Beruf",
+  "characterInventory": "Inventar",
+  "characterNotes": "Notizen",
+  "characterRaceSelection": "Rasse auswählen:",
+  "fetchCharacter": "Charakterdetails werden abgerufen...",
+  "fetchCharacters": "Charaktere werden abgerufen",
+  "fetchCharactersFailed": "Fehler beim Abrufen der Charaktere",
 
   "manageGroup": "Gruppe verwalten",
   "manageCharacteristics": "Eigenschaften verwalten",
@@ -143,8 +158,10 @@
   "attributeSearch": "Attribut suchen",
 
   "pickAnIcon": "Wähle ein Icon aus",
+  "pickAnImage": "Wähle ein Bild aus",
   "searchIcon": "Suche nach Icon",
   "noIconSearchResults": "Keine Ergebnisse gefunden für:",
+  "uploadImage": "Bild wird verarbeitet...",
 
   "attributeHealth": "Lebenspunkte",
   "attributeHealthDescription": "Stellt das maximale Leben des Charakters dar."

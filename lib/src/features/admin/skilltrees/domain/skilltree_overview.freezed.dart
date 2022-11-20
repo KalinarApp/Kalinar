@@ -22,7 +22,7 @@ SkilltreeOverview _$SkilltreeOverviewFromJson(Map<String, dynamic> json) {
 mixin _$SkilltreeOverview {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  Character? get character => throw _privateConstructorUsedError;
+  CharacterOverview? get character => throw _privateConstructorUsedError;
   int get points => throw _privateConstructorUsedError;
   bool get isActiveTree => throw _privateConstructorUsedError;
   int get nodeCount => throw _privateConstructorUsedError;
@@ -42,12 +42,12 @@ abstract class $SkilltreeOverviewCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      Character? character,
+      CharacterOverview? character,
       int points,
       bool isActiveTree,
       int nodeCount});
 
-  $CharacterCopyWith<$Res>? get character;
+  $CharacterOverviewCopyWith<$Res>? get character;
 }
 
 /// @nodoc
@@ -82,7 +82,7 @@ class _$SkilltreeOverviewCopyWithImpl<$Res, $Val extends SkilltreeOverview>
       character: freezed == character
           ? _value.character
           : character // ignore: cast_nullable_to_non_nullable
-              as Character?,
+              as CharacterOverview?,
       points: null == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
@@ -100,12 +100,12 @@ class _$SkilltreeOverviewCopyWithImpl<$Res, $Val extends SkilltreeOverview>
 
   @override
   @pragma('vm:prefer-inline')
-  $CharacterCopyWith<$Res>? get character {
+  $CharacterOverviewCopyWith<$Res>? get character {
     if (_value.character == null) {
       return null;
     }
 
-    return $CharacterCopyWith<$Res>(_value.character!, (value) {
+    return $CharacterOverviewCopyWith<$Res>(_value.character!, (value) {
       return _then(_value.copyWith(character: value) as $Val);
     });
   }
@@ -122,13 +122,13 @@ abstract class _$$_SkilltreeOverviewCopyWith<$Res>
   $Res call(
       {String id,
       String name,
-      Character? character,
+      CharacterOverview? character,
       int points,
       bool isActiveTree,
       int nodeCount});
 
   @override
-  $CharacterCopyWith<$Res>? get character;
+  $CharacterOverviewCopyWith<$Res>? get character;
 }
 
 /// @nodoc
@@ -161,7 +161,7 @@ class __$$_SkilltreeOverviewCopyWithImpl<$Res>
       character: freezed == character
           ? _value.character
           : character // ignore: cast_nullable_to_non_nullable
-              as Character?,
+              as CharacterOverview?,
       points: null == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
@@ -197,7 +197,7 @@ class _$_SkilltreeOverview implements _SkilltreeOverview {
   @override
   final String name;
   @override
-  final Character? character;
+  final CharacterOverview? character;
   @override
   final int points;
   @override
@@ -250,7 +250,7 @@ abstract class _SkilltreeOverview implements SkilltreeOverview {
   const factory _SkilltreeOverview(
       {required final String id,
       required final String name,
-      final Character? character,
+      final CharacterOverview? character,
       required final int points,
       required final bool isActiveTree,
       required final int nodeCount}) = _$_SkilltreeOverview;
@@ -263,7 +263,7 @@ abstract class _SkilltreeOverview implements SkilltreeOverview {
   @override
   String get name;
   @override
-  Character? get character;
+  CharacterOverview? get character;
   @override
   int get points;
   @override

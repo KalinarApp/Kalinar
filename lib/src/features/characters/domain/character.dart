@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../admin/management/domain/race.dart';
+
 part 'character.freezed.dart';
 part 'character.g.dart';
 
@@ -8,6 +10,16 @@ class Character with _$Character {
   const factory Character({
     required String id,
     required String name,
+    int? age,
+    String? iconUrl,
+    String? description,
+    String? profession,
+    String? religion,
+    String? relationship,
+    String? notes,
+    String? inventory,
+    required String raceId,
+    required Race race,
   }) = _Character;
 
   factory Character.fromJson(Map<String, dynamic> json) => _$CharacterFromJson(json);

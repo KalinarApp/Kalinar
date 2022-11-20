@@ -12,7 +12,8 @@ _$_SkilltreeOverview _$$_SkilltreeOverviewFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       character: json['character'] == null
           ? null
-          : Character.fromJson(json['character'] as Map<String, dynamic>),
+          : CharacterOverview.fromJson(
+              json['character'] as Map<String, dynamic>),
       points: json['points'] as int,
       isActiveTree: json['isActiveTree'] as bool,
       nodeCount: json['nodeCount'] as int,

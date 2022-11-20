@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hero/src/features/character_management/domain/character.dart';
+import 'package:hero/src/features/characters/domain/character.dart';
+import 'package:hero/src/features/characters/domain/character_overview.dart';
 
 import 'node.dart';
 
@@ -11,7 +12,7 @@ class Skilltree with _$Skilltree {
   const factory Skilltree({
     @Default("") String id,
     @Default("") String name,
-    Character? character,
+    CharacterOverview? character,
     @Default(0) int points,
     @Default(true) bool isActiveTree,
     @Default([]) List<Node> nodes,

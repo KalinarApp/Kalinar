@@ -7,6 +7,7 @@ class SelectionField<T> extends ConsumerWidget {
   final T? initialValue;
   final String? label;
   final Widget? icon;
+
   final Future<List<T>> Function(String? query) items;
   final dynamic Function(T? value)? transformer;
   final bool Function(T item1, T item2)? compareFn;
@@ -14,6 +15,7 @@ class SelectionField<T> extends ConsumerWidget {
   final String? searchLabel;
   final String? searchHint;
   final Function()? onAddPressed;
+  final String? Function(T? value)? validator;
   final Future<bool?> Function(T? previous, T? next)? onChanged;
 
   const SelectionField(
@@ -29,6 +31,7 @@ class SelectionField<T> extends ConsumerWidget {
       this.transformer,
       this.onAddPressed,
       this.onChanged,
+      this.validator,
       super.key});
 
   @override
@@ -41,6 +44,7 @@ class SelectionField<T> extends ConsumerWidget {
             onBeforeChange: onChanged,
             valueTransformer: transformer,
             initialValue: initialValue,
+            validator: validator,
             decoration: InputDecoration(labelText: label, prefixIcon: icon),
             asyncItems: items,
             compareFn: compareFn,

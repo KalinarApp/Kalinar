@@ -13,7 +13,7 @@ void main() {
     color: Colors.red,
     location: BannerLocation.topEnd,
     variables: {
-      "baseUrl": Platform.isAndroid ? "10.0.2.2" : "localhost",
+      "baseUrl": Platform.isAndroid ? "192.168.178.50" : "localhost",
     },
   );
 
@@ -22,7 +22,7 @@ void main() {
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle('Hero App');
     // setWindowMaxSize(const Size(max_width, max_height));
-    setWindowMinSize(const Size(800, 600));
+    setWindowMinSize(const Size(500, 800));
   }
 
   runApp(const ProviderScope(child: HeroApp()));

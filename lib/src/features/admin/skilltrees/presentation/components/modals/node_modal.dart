@@ -74,7 +74,7 @@ class NodeModal extends ConsumerWidget {
               FormBuilderColorPickerField(
                 name: "color",
                 valueTransformer: (value) => value?.value.toString(),
-                initialValue: null != item?.color ? Color(int.parse(item!.color)) : Colors.purple,
+                initialValue: null != item?.color ? Color(int.parse(item!.color)) : Colors.white,
                 validator: FormBuilderValidators.required(),
                 decoration: const InputDecoration(labelText: "wähle eine Hintergrundfarbe:"),
               )

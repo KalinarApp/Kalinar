@@ -19,9 +19,8 @@ void main() {
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle('Hero App');
     // setWindowMaxSize(const Size(max_width, max_height));
-    setWindowMinSize(const Size(800, 600));
+    setWindowMinSize(const Size(500, 800));
   }
 
   runApp(const ProviderScope(child: HeroApp()));
 }
-

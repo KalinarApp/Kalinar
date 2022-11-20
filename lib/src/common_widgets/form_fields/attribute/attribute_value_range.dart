@@ -7,6 +7,7 @@ import 'package:flutter_touch_spin/flutter_touch_spin.dart';
 import 'package:intl/intl.dart';
 
 import '../../../features/admin/management/domain/attribute_value.dart';
+import '../../../features/admin/management/domain/attribute.dart';
 
 class AttributeValueRange extends StatefulWidget {
   final AttributeValue item;
@@ -39,7 +40,7 @@ class _AttributeValueRangeState extends State<AttributeValueRange> {
         children: [
           gridArea("title").containing(Center(
               child: Text(
-            widget.item.attribute.name,
+            widget.item.attribute.translate(context).name,
             style: Theme.of(context).textTheme.titleMedium,
           ))),
           gridArea("icon").containing(Padding(

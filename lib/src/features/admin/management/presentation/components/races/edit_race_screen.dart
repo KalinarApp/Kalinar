@@ -10,9 +10,7 @@ import '../../../../../../common_widgets/form_fields/attribute/attributes_field.
 import '../../../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../common_widgets/form_fields/description_field.dart';
-import '../../../../../../common_widgets/form_fields/icon_picker_field.dart';
 import '../../../../../../utilities/async_value_extension.dart';
-import '../../../application/attribute_controller.dart';
 import '../../../application/race_controller.dart';
 import '../../../application/race_list_controller.dart';
 import '../../../domain/race.dart';

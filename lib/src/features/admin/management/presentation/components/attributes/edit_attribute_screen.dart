@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -97,23 +98,23 @@ class _EditSkillScreenState extends ConsumerState<EditAttributeScreen> {
                 ),
                 DescriptionField(label: AppLocalizations.of(context)!.attributeDescription, initialValue: item?.description),
                 FormBuilderTextField(
-                  name: "stepSize",
-                  initialValue: (item?.stepSize ?? 1).toString(),
-                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeStepSize),
-                  keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                ),
+                    name: "stepSize",
+                    initialValue: (item?.stepSize ?? 1).toString(),
+                    decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeStepSize),
+                    keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly]),
                 FormBuilderTextField(
-                  name: "minValue",
-                  initialValue: (item?.minValue ?? 0).toString(),
-                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMinValue),
-                  keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                ),
+                    name: "minValue",
+                    initialValue: (item?.minValue ?? 0).toString(),
+                    decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMinValue),
+                    keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly]),
                 FormBuilderTextField(
-                  name: "maxValue",
-                  initialValue: (item?.maxValue ?? 10).toString(),
-                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMaxValue),
-                  keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                ),
+                    name: "maxValue",
+                    initialValue: (item?.maxValue ?? 10).toString(),
+                    decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMaxValue),
+                    keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly]),
               ],
             ),
           ),
