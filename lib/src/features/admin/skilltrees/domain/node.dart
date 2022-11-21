@@ -15,6 +15,7 @@ class Node with _$Node {
     required int cost,
     required String color,
     required bool isEasyReachable,
+    @Default(false) isUnlocked,
     @Default(0) double xPos,
     @Default(0) double yPos,
     @Default([]) List<String> precessors,

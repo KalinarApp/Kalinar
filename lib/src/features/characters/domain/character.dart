@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hero/src/features/admin/skilltrees/domain/skilltree_overview.dart';
 
 import '../../admin/management/domain/race.dart';
 
@@ -20,6 +21,7 @@ class Character with _$Character {
     String? inventory,
     required String raceId,
     required Race race,
+    @Default([]) List<SkilltreeOverview> skilltrees,
   }) = _Character;
 
   factory Character.fromJson(Map<String, dynamic> json) => _$CharacterFromJson(json);

@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hero/src/features/characters/presentation/character_detail_screen.dart';
 import 'package:hero/src/features/characters/presentation/character_editor_screen.dart';
 import 'package:hero/src/features/characters/presentation/character_list_screen.dart';
+import 'package:hero/src/features/characters/presentation/skilltree_screen.dart';
 
 final characterRoutes = GoRoute(
   name: CharacterListScreen.name,
@@ -21,5 +22,10 @@ final characterRoutes = GoRoute(
         return NoTransitionPage(key: state.pageKey, child: CharacterDetailScreen(state.params["id"]!));
       },
     ),
+    GoRoute(
+      name: SkilltreeScreen.name,
+      path: SkilltreeScreen.route,
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: SkilltreeScreen(state.params["id"]!)),
+    )
   ],
 );

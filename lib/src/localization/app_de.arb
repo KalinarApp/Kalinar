@@ -123,6 +123,8 @@
   "fetchCharacter": "Charakterdetails werden abgerufen...",
   "fetchCharacters": "Charaktere werden abgerufen",
   "fetchCharactersFailed": "Fehler beim Abrufen der Charaktere",
+  "searchForCharacter": "Nach Charakter suchen",
+  "selectACharacter": "Charakter auswählen",
 
   "manageGroup": "Gruppe verwalten",
   "manageCharacteristics": "Eigenschaften verwalten",

@@ -6,14 +6,14 @@ import '../../../domain/edge.dart';
 
 class EdgeWidget extends StatelessWidget {
   final Edge item;
-  final Function(Edge edge) onTap;
-  const EdgeWidget(this.item, {required this.onTap, super.key});
+  final Function(Edge edge)? onTap;
+  const EdgeWidget(this.item, {this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       GestureDetector(
-        onTap: () => onTap(item),
+        onTap: null != onTap ? () => onTap!(item) : null,
         child: CustomPaint(
           painter: LinesPainter(
             start: Offset(item.start.xPos, item.start.yPos),

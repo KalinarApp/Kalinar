@@ -90,6 +90,8 @@
     "fetchCharacter",
     "fetchCharacters",
     "fetchCharactersFailed",
+    "searchForCharacter",
+    "selectACharacter",
     "manageGroup",
     "manageCharacteristics",
     "manageSkilltrees",

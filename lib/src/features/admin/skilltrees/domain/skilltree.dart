@@ -25,4 +25,12 @@ extension SkilltreeExtension on Skilltree {
   Skilltree updateNodes(List<String> idsToDelete, List<Node> newNodes) {
     return copyWith(nodes: [...nodes.where((element) => !idsToDelete.contains(element.id)), ...newNodes]);
   }
+
+  bool isNodeUnlockable(String nodeId) {
+    Node nodeToCheck = nodes.singleWhere((element) => nodeId == element.id);
+
+    return nodeToCheck.isEasyReachable
+        ? nodes.where((element) => nodeToCheck.precessors.contains(element.id)).any((element) => element.isUnlocked)
+        : !nodes.where((element) => nodeToCheck.precessors.contains(element.id)).any((element) => !element.isUnlocked);
+  }
 }

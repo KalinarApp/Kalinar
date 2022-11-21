@@ -27,6 +27,7 @@ mixin _$Node {
   int get cost => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
   bool get isEasyReachable => throw _privateConstructorUsedError;
+  dynamic get isUnlocked => throw _privateConstructorUsedError;
   double get xPos => throw _privateConstructorUsedError;
   double get yPos => throw _privateConstructorUsedError;
   List<String> get precessors => throw _privateConstructorUsedError;
@@ -50,6 +51,7 @@ abstract class $NodeCopyWith<$Res> {
       int cost,
       String color,
       bool isEasyReachable,
+      dynamic isUnlocked,
       double xPos,
       double yPos,
       List<String> precessors,
@@ -78,6 +80,7 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
     Object? cost = null,
     Object? color = null,
     Object? isEasyReachable = null,
+    Object? isUnlocked = null,
     Object? xPos = null,
     Object? yPos = null,
     Object? precessors = null,
@@ -112,6 +115,10 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
           ? _value.isEasyReachable
           : isEasyReachable // ignore: cast_nullable_to_non_nullable
               as bool,
+      isUnlocked: null == isUnlocked
+          ? _value.isUnlocked
+          : isUnlocked // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       xPos: null == xPos
           ? _value.xPos
           : xPos // ignore: cast_nullable_to_non_nullable
@@ -154,6 +161,7 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
       int cost,
       String color,
       bool isEasyReachable,
+      dynamic isUnlocked,
       double xPos,
       double yPos,
       List<String> precessors,
@@ -179,6 +187,7 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
     Object? cost = null,
     Object? color = null,
     Object? isEasyReachable = null,
+    Object? isUnlocked = null,
     Object? xPos = null,
     Object? yPos = null,
     Object? precessors = null,
@@ -213,6 +222,7 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
           ? _value.isEasyReachable
           : isEasyReachable // ignore: cast_nullable_to_non_nullable
               as bool,
+      isUnlocked: null == isUnlocked ? _value.isUnlocked : isUnlocked,
       xPos: null == xPos
           ? _value.xPos
           : xPos // ignore: cast_nullable_to_non_nullable
@@ -244,6 +254,7 @@ class _$_Node implements _Node {
       required this.cost,
       required this.color,
       required this.isEasyReachable,
+      this.isUnlocked = false,
       this.xPos = 0,
       this.yPos = 0,
       final List<String> precessors = const [],
@@ -269,6 +280,9 @@ class _$_Node implements _Node {
   final bool isEasyReachable;
   @override
   @JsonKey()
+  final dynamic isUnlocked;
+  @override
+  @JsonKey()
   final double xPos;
   @override
   @JsonKey()
@@ -291,7 +305,7 @@ class _$_Node implements _Node {
 
   @override
   String toString() {
-    return 'Node(id: $id, importance: $importance, skill: $skill, skillId: $skillId, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, xPos: $xPos, yPos: $yPos, precessors: $precessors, successors: $successors)';
+    return 'Node(id: $id, importance: $importance, skill: $skill, skillId: $skillId, cost: $cost, color: $color, isEasyReachable: $isEasyReachable, isUnlocked: $isUnlocked, xPos: $xPos, yPos: $yPos, precessors: $precessors, successors: $successors)';
   }
 
   @override
@@ -308,6 +322,8 @@ class _$_Node implements _Node {
             (identical(other.color, color) || other.color == color) &&
             (identical(other.isEasyReachable, isEasyReachable) ||
                 other.isEasyReachable == isEasyReachable) &&
+            const DeepCollectionEquality()
+                .equals(other.isUnlocked, isUnlocked) &&
             (identical(other.xPos, xPos) || other.xPos == xPos) &&
             (identical(other.yPos, yPos) || other.yPos == yPos) &&
             const DeepCollectionEquality()
@@ -327,6 +343,7 @@ class _$_Node implements _Node {
       cost,
       color,
       isEasyReachable,
+      const DeepCollectionEquality().hash(isUnlocked),
       xPos,
       yPos,
       const DeepCollectionEquality().hash(_precessors),
@@ -355,6 +372,7 @@ abstract class _Node implements Node {
       required final int cost,
       required final String color,
       required final bool isEasyReachable,
+      final dynamic isUnlocked,
       final double xPos,
       final double yPos,
       final List<String> precessors,
@@ -376,6 +394,8 @@ abstract class _Node implements Node {
   String get color;
   @override
   bool get isEasyReachable;
+  @override
+  dynamic get isUnlocked;
   @override
   double get xPos;
   @override
