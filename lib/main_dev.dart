@@ -13,7 +13,7 @@ void main() {
     color: Colors.red,
     location: BannerLocation.topEnd,
     variables: {
-      "baseUrl": Platform.isAndroid ? "192.168.178.50" : "localhost",
+      "baseUrl": Platform.isAndroid ? "10.0.2.2" : "localhost",
     },
   );
 
