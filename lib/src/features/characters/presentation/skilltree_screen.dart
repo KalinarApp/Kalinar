@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/skilltree.dart';
-import 'package:hero/src/features/characters/presentation/components/skilltrees/skilltree_stack.dart';
 
+import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
 import '../application/skilltree_controller.dart';
+import 'components/skilltrees/skilltree_stack.dart';
 
 class SkilltreeScreen extends ConsumerStatefulWidget {
   static const String name = "Skilltree";
@@ -59,6 +59,12 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
     }
   }
 
+  Future<void> _unlockNode(String skilltreeId, String nodeId) async {
+    final value = await ref.read(skilltreeControllerProvider.notifier).unlockNode(skilltreeId, nodeId);
+    if (!mounted) return;
+    value.showSnackbarOnError(context);
+  }
+
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
@@ -68,7 +74,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
       final skilltree = ref.read(skilltreeControllerProvider);
 
       if (skilltree.hasValue) {
-        final firstNode = skilltree.value!.nodes.firstWhere((element) => skilltree.value!.isNodeUnlockable(element.id));
+        final firstNode = skilltree.value!.nodes.firstWhere((element) => skilltree.value!.nodes.isNodeUnlockable(element.id));
         navigateToNode(firstNode);
       }
     });
@@ -94,7 +100,11 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
             width: 2000,
             height: 2000,
             child: state.maybeWhen(
-              data: (data) => SkilltreeStack(nodes: data.nodes, edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges()),
+              data: (data) => SkilltreeStack(
+                nodes: data.nodes,
+                edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
+                unlockNode: (node) => _unlockNode(data.id, node.id),
+              ),
               orElse: () => Container(),
             ),
           ),

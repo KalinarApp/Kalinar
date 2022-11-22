@@ -47,6 +47,10 @@ class SkilltreesRepository extends HeroBaseRepository {
     await heroPost("/api/skilltrees", data, (response) => true);
   }
 
+  Future<void> unlockNode(String skilltreeId, String nodeId) async {
+    return await heroPost("/api/skilltrees/$skilltreeId/nodes/$nodeId/unlock", null, (response) => true);
+  }
+
   Future<void> updateOnServer(String id, Map<String, dynamic> data) async {
     await heroUpdate("/api/skilltrees/$id", data, (response) => true);
   }

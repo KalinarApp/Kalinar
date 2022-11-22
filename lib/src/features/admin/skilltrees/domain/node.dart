@@ -33,4 +33,12 @@ extension NodeListExtension on List<Node> {
   List<Node> withoutIds(List<String> ids) {
     return [...where((element) => !ids.contains(element.id))];
   }
+
+  bool isNodeUnlockable(String nodeId) {
+    Node nodeToCheck = singleWhere((element) => nodeId == element.id);
+
+    return nodeToCheck.isEasyReachable
+        ? where((element) => nodeToCheck.precessors.contains(element.id)).any((element) => element.isUnlocked)
+        : where((element) => nodeToCheck.precessors.contains(element.id)).every((element) => element.isUnlocked);
+  }
 }
