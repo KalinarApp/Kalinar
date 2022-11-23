@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hero/src/features/characters/presentation/character_detail_screen.dart';
+import 'character_detail_screen.dart';
 
 import '../../../common_widgets/action_menu.dart';
 import '../../../common_widgets/async_value_grid.dart';

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/blueprint.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/blueprint_overview.dart';
+import '../domain/blueprint.dart';
+import '../domain/blueprint_overview.dart';
 
 import '../../../../utilities/base_repository.dart';
 import '../../../authentication/data/auth_repository.dart';

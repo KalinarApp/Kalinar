@@ -5,7 +5,7 @@ import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_auth/models/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hero/src/utilities/base_repository.dart';
+import '../../../utilities/base_repository.dart';
 
 import '../../../utilities/constants.dart';
 

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:hero/src/features/admin/management/domain/attribute_value.dart';
+import 'attribute_value.dart';
 
 part 'race.freezed.dart';
 part 'race.g.dart';

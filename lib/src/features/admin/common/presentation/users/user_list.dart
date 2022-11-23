@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hero/src/common_widgets/loading_indicator.dart';
+import '../../../../../common_widgets/loading_indicator.dart';
 
 import '../../application/user_list_controller.dart';
 import 'user_list_item.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/characters/domain/character.dart';
+import '../domain/character.dart';
 
 import '../data/characters_repository.dart';
 import '../domain/character_overview.dart';

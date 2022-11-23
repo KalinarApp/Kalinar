@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/group_management/application/has_group_controller.dart';
-import 'package:hero/src/features/group_management/data/group_repository.dart';
+import 'has_group_controller.dart';
+import '../data/group_repository.dart';
 
 import '../domain/group_info.dart';
 

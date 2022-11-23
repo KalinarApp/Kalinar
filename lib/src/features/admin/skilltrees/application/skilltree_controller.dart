@@ -3,9 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/animation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/skilltrees/application/blueprint_controller.dart';
-import 'package:hero/src/features/admin/skilltrees/data/blueprint_repository.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/blueprint.dart';
+import 'blueprint_controller.dart';
+import '../data/blueprint_repository.dart';
+import '../domain/blueprint.dart';
 
 import '../data/skilltrees_repository.dart';
 import '../domain/edge.dart';

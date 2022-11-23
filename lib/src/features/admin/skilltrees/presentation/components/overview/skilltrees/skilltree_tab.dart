@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/skilltrees/application/skilltree_controller.dart';
-import 'package:hero/src/features/admin/skilltrees/presentation/components/modals/blueprint_modal.dart';
-import 'package:hero/src/features/admin/skilltrees/presentation/skilltree_builder_screen.dart';
+import '../../../../application/skilltree_controller.dart';
+import '../../modals/blueprint_modal.dart';
+import '../../../skilltree_builder_screen.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

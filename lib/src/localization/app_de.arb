@@ -31,6 +31,7 @@
   "actionDialogTitle": "Aktionen",
 
   "save": "Speichern",
+  "statistics": "Statistik",
 
   "workInProgress": "Diese Seite ist noch in Arbeit!",
 
@@ -125,6 +126,7 @@
   "fetchCharactersFailed": "Fehler beim Abrufen der Charaktere",
   "searchForCharacter": "Nach Charakter suchen",
   "selectACharacter": "Charakter auswählen",
+  "characterNoPortrait": "Kein Portrait ausgewählt.",
 
   "manageGroup": "Gruppe verwalten",
   "manageCharacteristics": "Eigenschaften verwalten",

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/skillpoints.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/skilltree.dart';
+import '../domain/skillpoints.dart';
+import '../domain/skilltree.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utilities/base_repository.dart';

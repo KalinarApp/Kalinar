@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/imgur_repository.dart';
 import '../data/skills_repository.dart';
 import '../domain/skill.dart';
 import 'skill_list_controller.dart';

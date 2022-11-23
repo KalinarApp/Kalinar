@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hero/src/features/admin/management/domain/attribute.dart';
+import 'attribute.dart';
 
 part 'attribute_value.freezed.dart';
 part 'attribute_value.g.dart';

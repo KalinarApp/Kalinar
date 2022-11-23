@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/loading_indicator.dart';
-import 'package:hero/src/features/admin/skilltrees/application/blueprint_controller.dart';
-import 'package:hero/src/features/admin/skilltrees/application/blueprint_list_controller.dart';
+import '../../../../../../../common_widgets/loading_indicator.dart';
+import '../../../../application/blueprint_controller.dart';
+import '../../../../application/blueprint_list_controller.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/blueprint_overview.dart';
-import 'package:hero/src/features/admin/skilltrees/presentation/components/overview/blueprints/blueprint_item.dart';
+import '../../../../domain/blueprint_overview.dart';
+import 'blueprint_item.dart';
 
 import '../../../../../../../common_widgets/action_menu.dart';
 import '../../../../application/skilltree_controller.dart';

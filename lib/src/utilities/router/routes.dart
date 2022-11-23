@@ -5,18 +5,18 @@ import 'package:go_router/go_router.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:hero/src/common_widgets/navigation/scaffold_with_bottom_navbar.dart';
-import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dart';
-import 'package:hero/src/features/authentication/data/auth_repository.dart';
-import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
-import 'package:hero/src/features/authentication/presentation/sign_in_screen.dart';
-import 'package:hero/src/features/characters/presentation/character_list_screen.dart';
-import 'package:hero/src/features/group_management/application/has_group_controller.dart';
-import 'package:hero/src/features/group_management/presentation/group_screen.dart';
-import 'package:hero/src/features/group_management/presentation/user_invite_screen.dart';
-import 'package:hero/src/features/home/presentation/home_screen.dart';
-import 'package:hero/src/features/home/presentation/welcome_screen.dart';
-import 'package:hero/src/utilities/router/character_routes.dart';
+import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
+import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
+import '../../features/authentication/data/auth_repository.dart';
+import '../../features/authentication/domain/user_info_extensions.dart';
+import '../../features/authentication/presentation/sign_in_screen.dart';
+import '../../features/characters/presentation/character_list_screen.dart';
+import '../../features/group_management/application/has_group_controller.dart';
+import '../../features/group_management/presentation/group_screen.dart';
+import '../../features/group_management/presentation/user_invite_screen.dart';
+import '../../features/home/presentation/home_screen.dart';
+import '../../features/home/presentation/welcome_screen.dart';
+import 'character_routes.dart';
 
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import 'admin_routes.dart';

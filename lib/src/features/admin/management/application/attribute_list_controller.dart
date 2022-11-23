@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/management/domain/attribute.dart';
+import '../domain/attribute.dart';
 
 import '../data/attributes_repository.dart';
 

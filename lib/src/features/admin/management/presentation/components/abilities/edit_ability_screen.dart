@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/form_fields/bool_field.dart';
-import 'package:hero/src/common_widgets/form_fields/description_field.dart';
-import 'package:hero/src/common_widgets/form_fields/invisible_field.dart';
-import 'package:hero/src/common_widgets/form_fields/name_field.dart';
+import '../../../../../../common_widgets/form_fields/bool_field.dart';
+import '../../../../../../common_widgets/form_fields/description_field.dart';
+import '../../../../../../common_widgets/form_fields/invisible_field.dart';
+import '../../../../../../common_widgets/form_fields/name_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

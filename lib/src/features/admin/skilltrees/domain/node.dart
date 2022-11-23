@@ -34,11 +34,14 @@ extension NodeListExtension on List<Node> {
     return [...where((element) => !ids.contains(element.id))];
   }
 
-  bool isNodeUnlockable(String nodeId) {
+  bool isNodeUnlockable(String nodeId, int currentSkillpoints) {
     Node nodeToCheck = singleWhere((element) => nodeId == element.id);
 
-    return nodeToCheck.isEasyReachable
+    bool hasSkillpoints = currentSkillpoints >= nodeToCheck.cost;
+    bool isUnlockable = nodeToCheck.isEasyReachable
         ? where((element) => nodeToCheck.precessors.contains(element.id)).any((element) => element.isUnlocked)
         : where((element) => nodeToCheck.precessors.contains(element.id)).every((element) => element.isUnlocked);
+
+    return hasSkillpoints && isUnlockable;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/management/application/race_list_controller.dart';
+import 'race_list_controller.dart';
 
 import '../data/races_repository.dart';
 import '../domain/race.dart';

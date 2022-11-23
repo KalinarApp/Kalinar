@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/management/presentation/components/attributes/edit_attribute_screen.dart';
-import 'package:hero/src/features/admin/management/presentation/components/races/edit_race_screen.dart';
+import '../../features/admin/management/presentation/components/attributes/edit_attribute_screen.dart';
+import '../../features/admin/management/presentation/components/races/edit_race_screen.dart';
 
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/admin/common/presentation/manage_group_screen.dart';

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/skilltree_overview.dart';
+import '../../admin/skilltrees/domain/skilltree_overview.dart';
 
 import '../../admin/management/domain/race.dart';
 

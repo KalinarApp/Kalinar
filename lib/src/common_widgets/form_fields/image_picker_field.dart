@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:hero/src/common_widgets/form_fields/image_selector.dart';
+import 'image_selector.dart';
 
 class ImagePickerField extends StatelessWidget {
   final String? initialValue;

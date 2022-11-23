@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:hero/src/features/characters/domain/character.dart';
-import 'package:hero/src/features/characters/presentation/components/details/character_portrait.dart';
-import 'package:hero/src/features/characters/presentation/components/details/information_row.dart';
+import '../../../domain/character.dart';
+import 'character_portrait.dart';
+import 'information_row.dart';
 
 class CharacterInformation extends StatelessWidget {
   final Character item;

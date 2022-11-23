@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
 import '../application/skillpoint_controller.dart';
 import '../application/skilltree_controller.dart';
+import 'components/skilltrees/skillpoints_widget.dart';
 import 'components/skilltrees/skilltree_stack.dart';
+import 'components/skilltrees/statistics_widget.dart';
 
 class SkilltreeScreen extends ConsumerStatefulWidget {
   static const String name = "Skilltree";
@@ -25,6 +28,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
   final controller = TransformationController();
   late AnimationController _animationController;
   late Animation<Matrix4> _mapAnimation;
+  late final Timer _timer;
 
   void mapAnimationListener() {
     setState(() {
@@ -64,6 +68,14 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
     final value = await ref.read(skilltreeControllerProvider.notifier).unlockNode(skilltreeId, nodeId);
     if (!mounted) return;
     value.showSnackbarOnError(context);
+
+    await ref.read(skillpointControllerProvider.notifier).getSkillpointsForSkilltree(widget.id);
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -72,12 +84,17 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
       _animationController = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
 
       await ref.read(skillpointControllerProvider.notifier).getSkillpointsForSkilltree(widget.id);
+      _timer = Timer.periodic(
+        const Duration(seconds: 30),
+        (timer) async => await ref.read(skillpointControllerProvider.notifier).getSkillpointsForSkilltree(widget.id),
+      );
+
       await ref.read(skilltreeControllerProvider.notifier).getById(widget.id);
 
       final skilltree = ref.read(skilltreeControllerProvider);
 
       if (skilltree.hasValue) {
-        final firstNode = skilltree.value!.nodes.firstWhere((element) => skilltree.value!.nodes.isNodeUnlockable(element.id));
+        final firstNode = skilltree.value!.nodes.firstWhere((element) => skilltree.value!.nodes.isNodeUnlockable(element.id, element.cost));
         navigateToNode(firstNode);
       }
     });
@@ -91,7 +108,14 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
     final skillpoints = ref.watch(skillpointControllerProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text("Vebleibende Skillpunkte: ${skillpoints.currentSkillpoints}")),
+      appBar: AppBar(
+        actions: [
+          SkillpointsWidget(skillpoints),
+          const SizedBox(width: 10),
+          const StatisticsWidget(),
+          const SizedBox(width: 12),
+        ],
+      ),
       body: InteractiveViewer(
         transformationController: controller,
         constrained: false,
@@ -106,6 +130,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
             child: state.maybeWhen(
               data: (data) => SkilltreeStack(
                 nodes: data.nodes,
+                currentSkillpoints: skillpoints.currentSkillpoints,
                 edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
                 unlockNode: (node) => _unlockNode(data.id, node.id),
               ),

@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/characters/presentation/character_detail_screen.dart';
-import 'package:hero/src/features/characters/presentation/character_editor_screen.dart';
-import 'package:hero/src/features/characters/presentation/character_list_screen.dart';
-import 'package:hero/src/features/characters/presentation/skilltree_screen.dart';
+import '../../features/characters/presentation/character_detail_screen.dart';
+import '../../features/characters/presentation/character_editor_screen.dart';
+import '../../features/characters/presentation/character_list_screen.dart';
+import '../../features/characters/presentation/skilltree_screen.dart';
 
 final characterRoutes = GoRoute(
   name: CharacterListScreen.name,

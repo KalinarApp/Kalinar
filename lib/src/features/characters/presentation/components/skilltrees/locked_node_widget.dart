@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hero/src/features/characters/presentation/components/skilltrees/node_lock.dart';
 
 import '../../../../admin/skilltrees/domain/node.dart';
 
@@ -32,15 +32,7 @@ class _LockedNodeWidgetState extends State<LockedNodeWidget> {
                 angle: -pi / 4,
                 child: Stack(
                   children: [
-                    const Positioned.fill(
-                      child: Center(
-                        child: FaIcon(
-                          FontAwesomeIcons.lock,
-                          size: 18,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                    Positioned.fill(child: NodeLock(widget.item.cost)),
                     Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: null != widget.item.skill.iconUrl

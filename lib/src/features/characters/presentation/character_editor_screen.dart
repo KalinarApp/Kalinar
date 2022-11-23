@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/form_fields/image_picker_field.dart';
-import 'package:hero/src/common_widgets/form_fields/image_selector.dart';
+import '../../../common_widgets/form_fields/image_picker_field.dart';
+import '../../../common_widgets/form_fields/image_selector.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

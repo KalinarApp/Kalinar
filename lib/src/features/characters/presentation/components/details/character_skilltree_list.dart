@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/skilltrees/presentation/components/overview/skilltrees/skilltree_item.dart';
-import 'package:hero/src/features/characters/domain/character.dart';
-import 'package:hero/src/features/characters/presentation/skilltree_screen.dart';
+import '../../../../admin/skilltrees/presentation/components/overview/skilltrees/skilltree_item.dart';
+import '../../../domain/character.dart';
+import '../../skilltree_screen.dart';
 
 class CharacterSkilltreeList extends ConsumerStatefulWidget {
   final Character character;

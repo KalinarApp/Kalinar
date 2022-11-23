@@ -2,9 +2,9 @@ import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/authentication/data/auth_repository.dart';
-import 'package:hero/src/features/authentication/application/auth_controller.dart';
-import 'package:hero/src/utilities/router/routes.dart';
+import '../features/authentication/data/auth_repository.dart';
+import '../features/authentication/application/auth_controller.dart';
+import '../utilities/router/routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

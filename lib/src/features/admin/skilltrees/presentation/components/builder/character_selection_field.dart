@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hero/src/features/characters/application/character_controller.dart';
-import 'package:hero/src/features/characters/domain/character_overview.dart';
+import '../../../../../characters/application/character_controller.dart';
+import '../../../../../characters/domain/character_overview.dart';
 
 import '../../../../../../common_widgets/form_fields/selection_field.dart';
 

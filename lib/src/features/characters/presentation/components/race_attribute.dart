@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hero/src/features/admin/management/domain/attribute.dart';
-import 'package:hero/src/features/admin/management/domain/attribute_value.dart';
+import '../../../admin/management/domain/attribute.dart';
+import '../../../admin/management/domain/attribute_value.dart';
 
 class RaceAttribute extends StatelessWidget {
   final AttributeValue item;

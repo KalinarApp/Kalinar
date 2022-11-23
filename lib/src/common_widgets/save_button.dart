@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class SaveButton extends StatelessWidget {
   final RoundedLoadingButtonController controller;

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hero/src/features/characters/domain/character.dart';
-import 'package:hero/src/features/characters/domain/character_overview.dart';
+import '../../../characters/domain/character.dart';
+import '../../../characters/domain/character_overview.dart';
 
 import 'node.dart';
 
