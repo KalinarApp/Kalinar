@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
+import '../application/skillpoint_controller.dart';
 import '../application/skilltree_controller.dart';
 import 'components/skilltrees/skilltree_stack.dart';
 
@@ -70,7 +71,9 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
     Future.delayed(Duration.zero, () async {
       _animationController = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
 
+      await ref.read(skillpointControllerProvider.notifier).getSkillpointsForSkilltree(widget.id);
       await ref.read(skilltreeControllerProvider.notifier).getById(widget.id);
+
       final skilltree = ref.read(skilltreeControllerProvider);
 
       if (skilltree.hasValue) {
@@ -85,9 +88,10 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(skilltreeControllerProvider);
+    final skillpoints = ref.watch(skillpointControllerProvider);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("Vebleibende Skillpunkte: ${skillpoints.currentSkillpoints}")),
       body: InteractiveViewer(
         transformationController: controller,
         constrained: false,

@@ -74,11 +74,14 @@ flutter:
 
 msix_config:
   display_name: Hero App
-  install_certificate: false
-  certificate_path: assets/heroapp.pfx
-  certificate_password: ""
-  app_installer:
-    publish_folder_path: c:/temp
+  publisher:
+  publisher_display_name: Jonas Curth
+  identity_name: 
+  logo_path: assets/app_icon/play_store_512.png
+  capabilities: internetClient
+  languages: de-de
+  store: true
+  app_installer:  
     hours_between_update_checks: 0
     automatic_background_task: true
     update_blocks_activation: true

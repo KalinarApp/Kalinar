@@ -32,13 +32,12 @@ class SkilltreeController extends StateNotifier<AsyncValue<Skilltree>> {
   }
 
   Future<AsyncValue> unlockNode(String skilltreeId, String nodeId) async {
-    return await AsyncValue.guard(() async {
-      await repo.unlockNode(skilltreeId, nodeId);
-      await refresh(skilltreeId);
-    });
+    final state = await AsyncValue.guard(() async => await repo.unlockNode(skilltreeId, nodeId));
+    await refresh(skilltreeId);
+    return state;
   }
 }
 
-final skilltreeControllerProvider = StateNotifierProvider<SkilltreeController, AsyncValue<Skilltree>>((ref) {
+final skilltreeControllerProvider = StateNotifierProvider.autoDispose<SkilltreeController, AsyncValue<Skilltree>>((ref) {
   return SkilltreeController(ref.read(skilltreesRepositoryProvider));
 });
