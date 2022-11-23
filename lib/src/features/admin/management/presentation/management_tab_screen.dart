@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../common_widgets/user_menu.dart';
+
 import 'components/abilities/abilities_tab.dart';
-import 'components/attributes/attributes_tab.dart';
 import 'components/abilities/edit_ability_screen.dart';
+import 'components/attributes/attributes_tab.dart';
 import 'components/attributes/edit_attribute_screen.dart';
 import 'components/races/edit_race_screen.dart';
 import 'components/races/races_tab.dart';

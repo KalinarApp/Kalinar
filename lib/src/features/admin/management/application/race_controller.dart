@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'race_list_controller.dart';
 
 import '../data/races_repository.dart';
 import '../domain/race.dart';
+
+import 'race_list_controller.dart';
 
 class RaceController {
   final RacesRepository repo;

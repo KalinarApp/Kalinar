@@ -1,24 +1,25 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import '../../../common_widgets/form_fields/image_picker_field.dart';
-import '../../../common_widgets/form_fields/image_selector.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common_widgets/form_fields/custom_text_field.dart';
 import '../../../common_widgets/form_fields/description_field.dart';
+import '../../../common_widgets/form_fields/image_picker_field.dart';
+import '../../../common_widgets/form_fields/image_selector.dart';
 import '../../../common_widgets/form_fields/multiline_text_field.dart';
 import '../../../common_widgets/save_button.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../application/character_controller.dart';
 import '../domain/character.dart';
+
 import 'components/race_selection.dart';
 
 class CharacterEditorScreen extends ConsumerStatefulWidget {

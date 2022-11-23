@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../../admin/skilltrees/domain/node.dart';
-import 'locked_node_widget.dart';
-import 'unlockable_node_widget.dart';
 
 import '../../../../admin/skilltrees/domain/edge.dart';
+import '../../../../admin/skilltrees/domain/node.dart';
 import '../../../../admin/skilltrees/presentation/components/nodes/edge_widget.dart';
+
+import 'locked_node_widget.dart';
+import 'unlockable_node_widget.dart';
 import 'unlocked_node_widget.dart';
 
 class SkilltreeStack extends StatelessWidget {

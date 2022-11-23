@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:hero/src/features/characters/presentation/components/skilltrees/node_tooltip.dart';
-import 'package:just_the_tooltip/just_the_tooltip.dart';
-import '../../../../../common_widgets/custom_long_press.dart';
 
+import 'package:just_the_tooltip/just_the_tooltip.dart';
+
+import '../../../../../common_widgets/custom_long_press.dart';
 import '../../../../admin/skilltrees/domain/node.dart';
+
+import 'node_tooltip.dart';
 
 class UnlockableNodeWidget extends StatefulWidget {
   final Node item;

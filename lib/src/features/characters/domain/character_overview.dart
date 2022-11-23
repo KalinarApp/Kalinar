@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../admin/management/domain/race.dart';
-
 part 'character_overview.freezed.dart';
 part 'character_overview.g.dart';
 

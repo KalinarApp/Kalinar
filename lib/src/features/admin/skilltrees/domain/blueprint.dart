@@ -1,8 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../characters/domain/character_overview.dart';
-import 'skilltree.dart';
+
 import 'node.dart';
+import 'skilltree.dart';
 
 part 'blueprint.freezed.dart';
 part 'blueprint.g.dart';

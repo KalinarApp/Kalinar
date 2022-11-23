@@ -13,8 +13,7 @@ _$_Ability _$$_AbilityFromJson(Map<String, dynamic> json) => _$_Ability(
       isPassive: json['isPassive'] as bool,
     );
 
-Map<String, dynamic> _$$_AbilityToJson(_$_Ability instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$_AbilityToJson(_$_Ability instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,

@@ -19,15 +19,10 @@ _$_Character _$$_CharacterFromJson(Map<String, dynamic> json) => _$_Character(
       inventory: json['inventory'] as String?,
       raceId: json['raceId'] as String,
       race: Race.fromJson(json['race'] as Map<String, dynamic>),
-      skilltrees: (json['skilltrees'] as List<dynamic>?)
-              ?.map(
-                  (e) => SkilltreeOverview.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+      skilltrees: (json['skilltrees'] as List<dynamic>?)?.map((e) => SkilltreeOverview.fromJson(e as Map<String, dynamic>)).toList() ?? const [],
     );
 
-Map<String, dynamic> _$$_CharacterToJson(_$_Character instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$_CharacterToJson(_$_Character instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'age': instance.age,

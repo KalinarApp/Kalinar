@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/skilltrees_repository.dart';
 import '../domain/skilltree_overview.dart';
+
 import 'states/skilltree_overview_state.dart';
 
 class SkilltreeListController extends StateNotifier<AsyncValue<SkilltreeOverviewState>> {

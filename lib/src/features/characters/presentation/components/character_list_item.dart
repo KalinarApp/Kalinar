@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../domain/character_overview.dart';
 
 class CharacterListItem extends StatelessWidget {

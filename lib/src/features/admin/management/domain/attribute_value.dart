@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'attribute.dart';
 
 part 'attribute_value.freezed.dart';

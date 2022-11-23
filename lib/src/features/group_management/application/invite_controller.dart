@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'has_group_controller.dart';
-import '../data/group_repository.dart';
 
+import '../data/group_repository.dart';
 import '../domain/group_info.dart';
+
+import 'has_group_controller.dart';
 
 class InviteController extends StateNotifier<AsyncValue<GroupInfo>> {
   final GroupRepository repo;

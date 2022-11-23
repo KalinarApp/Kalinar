@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+
+import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:cross_file/cross_file.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../loading_indicator.dart';
-import '../../features/admin/management/data/imgur_repository.dart';
 import 'package:mime/mime.dart';
+
+import '../../features/admin/management/data/imgur_repository.dart';
+import '../loading_indicator.dart';
 
 enum ImageType {
   skill,

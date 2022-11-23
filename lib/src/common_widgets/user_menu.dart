@@ -1,15 +1,15 @@
-import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
+
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../features/authentication/data/auth_repository.dart';
-import '../features/authentication/application/auth_controller.dart';
-import '../utilities/router/routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import '../features/authentication/application/auth_controller.dart';
+import '../features/authentication/data/auth_repository.dart';
 import '../utilities/constants.dart';
+import '../utilities/router/routes.dart';
 
 class UserMenu extends ConsumerWidget {
   const UserMenu({Key? key}) : super(key: key);

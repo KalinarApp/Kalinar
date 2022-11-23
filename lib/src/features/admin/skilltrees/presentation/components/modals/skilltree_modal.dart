@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import '../builder/character_selection_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../../../common_widgets/form_fields/content_field.dart';
@@ -11,6 +11,7 @@ import '../../../../../../common_widgets/form_fields/value_range_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../utilities/async_value_extension.dart';
 import '../../../application/skilltree_controller.dart';
+import '../builder/character_selection_field.dart';
 
 class SkilltreeModal extends ConsumerStatefulWidget {
   const SkilltreeModal({super.key});

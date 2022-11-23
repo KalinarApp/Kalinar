@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/node.dart';
+
 import 'editable_node.dart';
 import 'node_widget.dart';
 

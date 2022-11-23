@@ -32,19 +32,13 @@ mixin _$Race {
 
 /// @nodoc
 abstract class $RaceCopyWith<$Res> {
-  factory $RaceCopyWith(Race value, $Res Function(Race) then) =
-      _$RaceCopyWithImpl<$Res, Race>;
+  factory $RaceCopyWith(Race value, $Res Function(Race) then) = _$RaceCopyWithImpl<$Res, Race>;
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      String? description,
-      List<AttributeValue> attributes});
+  $Res call({String id, String name, String? description, List<AttributeValue> attributes});
 }
 
 /// @nodoc
-class _$RaceCopyWithImpl<$Res, $Val extends Race>
-    implements $RaceCopyWith<$Res> {
+class _$RaceCopyWithImpl<$Res, $Val extends Race> implements $RaceCopyWith<$Res> {
   _$RaceCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -83,22 +77,15 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
 
 /// @nodoc
 abstract class _$$_RaceCopyWith<$Res> implements $RaceCopyWith<$Res> {
-  factory _$$_RaceCopyWith(_$_Race value, $Res Function(_$_Race) then) =
-      __$$_RaceCopyWithImpl<$Res>;
+  factory _$$_RaceCopyWith(_$_Race value, $Res Function(_$_Race) then) = __$$_RaceCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      String? description,
-      List<AttributeValue> attributes});
+  $Res call({String id, String name, String? description, List<AttributeValue> attributes});
 }
 
 /// @nodoc
-class __$$_RaceCopyWithImpl<$Res> extends _$RaceCopyWithImpl<$Res, _$_Race>
-    implements _$$_RaceCopyWith<$Res> {
-  __$$_RaceCopyWithImpl(_$_Race _value, $Res Function(_$_Race) _then)
-      : super(_value, _then);
+class __$$_RaceCopyWithImpl<$Res> extends _$RaceCopyWithImpl<$Res, _$_Race> implements _$$_RaceCopyWith<$Res> {
+  __$$_RaceCopyWithImpl(_$_Race _value, $Res Function(_$_Race) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -132,11 +119,7 @@ class __$$_RaceCopyWithImpl<$Res> extends _$RaceCopyWithImpl<$Res, _$_Race>
 /// @nodoc
 @JsonSerializable()
 class _$_Race implements _Race {
-  const _$_Race(
-      {required this.id,
-      required this.name,
-      this.description,
-      final List<AttributeValue> attributes = const []})
+  const _$_Race({required this.id, required this.name, this.description, final List<AttributeValue> attributes = const []})
       : _attributes = attributes;
 
   factory _$_Race.fromJson(Map<String, dynamic> json) => _$$_RaceFromJson(json);
@@ -167,22 +150,18 @@ class _$_Race implements _Race {
             other is _$_Race &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            const DeepCollectionEquality()
-                .equals(other._attributes, _attributes));
+            (identical(other.description, description) || other.description == description) &&
+            const DeepCollectionEquality().equals(other._attributes, _attributes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description,
-      const DeepCollectionEquality().hash(_attributes));
+  int get hashCode => Object.hash(runtimeType, id, name, description, const DeepCollectionEquality().hash(_attributes));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RaceCopyWith<_$_Race> get copyWith =>
-      __$$_RaceCopyWithImpl<_$_Race>(this, _$identity);
+  _$$_RaceCopyWith<_$_Race> get copyWith => __$$_RaceCopyWithImpl<_$_Race>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -193,11 +172,8 @@ class _$_Race implements _Race {
 }
 
 abstract class _Race implements Race {
-  const factory _Race(
-      {required final String id,
-      required final String name,
-      final String? description,
-      final List<AttributeValue> attributes}) = _$_Race;
+  const factory _Race({required final String id, required final String name, final String? description, final List<AttributeValue> attributes}) =
+      _$_Race;
 
   factory _Race.fromJson(Map<String, dynamic> json) = _$_Race.fromJson;
 

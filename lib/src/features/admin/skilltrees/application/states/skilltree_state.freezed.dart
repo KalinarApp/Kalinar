@@ -28,30 +28,21 @@ mixin _$SkilltreeState {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SkilltreeStateCopyWith<SkilltreeState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $SkilltreeStateCopyWith<SkilltreeState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SkilltreeStateCopyWith<$Res> {
-  factory $SkilltreeStateCopyWith(
-          SkilltreeState value, $Res Function(SkilltreeState) then) =
-      _$SkilltreeStateCopyWithImpl<$Res, SkilltreeState>;
+  factory $SkilltreeStateCopyWith(SkilltreeState value, $Res Function(SkilltreeState) then) = _$SkilltreeStateCopyWithImpl<$Res, SkilltreeState>;
   @useResult
-  $Res call(
-      {String? id,
-      Skilltree skilltree,
-      bool isBlueprint,
-      Node? selectedNode,
-      bool isSaving});
+  $Res call({String? id, Skilltree skilltree, bool isBlueprint, Node? selectedNode, bool isSaving});
 
   $SkilltreeCopyWith<$Res> get skilltree;
   $NodeCopyWith<$Res>? get selectedNode;
 }
 
 /// @nodoc
-class _$SkilltreeStateCopyWithImpl<$Res, $Val extends SkilltreeState>
-    implements $SkilltreeStateCopyWith<$Res> {
+class _$SkilltreeStateCopyWithImpl<$Res, $Val extends SkilltreeState> implements $SkilltreeStateCopyWith<$Res> {
   _$SkilltreeStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -114,19 +105,11 @@ class _$SkilltreeStateCopyWithImpl<$Res, $Val extends SkilltreeState>
 }
 
 /// @nodoc
-abstract class _$$_SkilltreeStateCopyWith<$Res>
-    implements $SkilltreeStateCopyWith<$Res> {
-  factory _$$_SkilltreeStateCopyWith(
-          _$_SkilltreeState value, $Res Function(_$_SkilltreeState) then) =
-      __$$_SkilltreeStateCopyWithImpl<$Res>;
+abstract class _$$_SkilltreeStateCopyWith<$Res> implements $SkilltreeStateCopyWith<$Res> {
+  factory _$$_SkilltreeStateCopyWith(_$_SkilltreeState value, $Res Function(_$_SkilltreeState) then) = __$$_SkilltreeStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? id,
-      Skilltree skilltree,
-      bool isBlueprint,
-      Node? selectedNode,
-      bool isSaving});
+  $Res call({String? id, Skilltree skilltree, bool isBlueprint, Node? selectedNode, bool isSaving});
 
   @override
   $SkilltreeCopyWith<$Res> get skilltree;
@@ -135,12 +118,9 @@ abstract class _$$_SkilltreeStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SkilltreeStateCopyWithImpl<$Res>
-    extends _$SkilltreeStateCopyWithImpl<$Res, _$_SkilltreeState>
+class __$$_SkilltreeStateCopyWithImpl<$Res> extends _$SkilltreeStateCopyWithImpl<$Res, _$_SkilltreeState>
     implements _$$_SkilltreeStateCopyWith<$Res> {
-  __$$_SkilltreeStateCopyWithImpl(
-      _$_SkilltreeState _value, $Res Function(_$_SkilltreeState) _then)
-      : super(_value, _then);
+  __$$_SkilltreeStateCopyWithImpl(_$_SkilltreeState _value, $Res Function(_$_SkilltreeState) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -179,15 +159,9 @@ class __$$_SkilltreeStateCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SkilltreeState implements _SkilltreeState {
-  const _$_SkilltreeState(
-      {this.id,
-      this.skilltree = const Skilltree(),
-      this.isBlueprint = false,
-      this.selectedNode,
-      this.isSaving = false});
+  const _$_SkilltreeState({this.id, this.skilltree = const Skilltree(), this.isBlueprint = false, this.selectedNode, this.isSaving = false});
 
-  factory _$_SkilltreeState.fromJson(Map<String, dynamic> json) =>
-      _$$_SkilltreeStateFromJson(json);
+  factory _$_SkilltreeState.fromJson(Map<String, dynamic> json) => _$$_SkilltreeStateFromJson(json);
 
   @override
   final String? id;
@@ -214,26 +188,20 @@ class _$_SkilltreeState implements _SkilltreeState {
         (other.runtimeType == runtimeType &&
             other is _$_SkilltreeState &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.skilltree, skilltree) ||
-                other.skilltree == skilltree) &&
-            (identical(other.isBlueprint, isBlueprint) ||
-                other.isBlueprint == isBlueprint) &&
-            (identical(other.selectedNode, selectedNode) ||
-                other.selectedNode == selectedNode) &&
-            (identical(other.isSaving, isSaving) ||
-                other.isSaving == isSaving));
+            (identical(other.skilltree, skilltree) || other.skilltree == skilltree) &&
+            (identical(other.isBlueprint, isBlueprint) || other.isBlueprint == isBlueprint) &&
+            (identical(other.selectedNode, selectedNode) || other.selectedNode == selectedNode) &&
+            (identical(other.isSaving, isSaving) || other.isSaving == isSaving));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, skilltree, isBlueprint, selectedNode, isSaving);
+  int get hashCode => Object.hash(runtimeType, id, skilltree, isBlueprint, selectedNode, isSaving);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SkilltreeStateCopyWith<_$_SkilltreeState> get copyWith =>
-      __$$_SkilltreeStateCopyWithImpl<_$_SkilltreeState>(this, _$identity);
+  _$$_SkilltreeStateCopyWith<_$_SkilltreeState> get copyWith => __$$_SkilltreeStateCopyWithImpl<_$_SkilltreeState>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -245,14 +213,9 @@ class _$_SkilltreeState implements _SkilltreeState {
 
 abstract class _SkilltreeState implements SkilltreeState {
   const factory _SkilltreeState(
-      {final String? id,
-      final Skilltree skilltree,
-      final bool isBlueprint,
-      final Node? selectedNode,
-      final bool isSaving}) = _$_SkilltreeState;
+      {final String? id, final Skilltree skilltree, final bool isBlueprint, final Node? selectedNode, final bool isSaving}) = _$_SkilltreeState;
 
-  factory _SkilltreeState.fromJson(Map<String, dynamic> json) =
-      _$_SkilltreeState.fromJson;
+  factory _SkilltreeState.fromJson(Map<String, dynamic> json) = _$_SkilltreeState.fromJson;
 
   @override
   String? get id;
@@ -266,6 +229,5 @@ abstract class _SkilltreeState implements SkilltreeState {
   bool get isSaving;
   @override
   @JsonKey(ignore: true)
-  _$$_SkilltreeStateCopyWith<_$_SkilltreeState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_SkilltreeStateCopyWith<_$_SkilltreeState> get copyWith => throw _privateConstructorUsedError;
 }

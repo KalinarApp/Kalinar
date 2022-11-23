@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../domain/attribute.dart';
 
 import '../data/attributes_repository.dart';
+import '../domain/attribute.dart';
 
 class AttributeListController extends StateNotifier<AsyncValue<List<Attribute>>> {
   final AttributesRepository repo;

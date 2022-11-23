@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../domain/group_info.dart';
+
 import '../../../utilities/base_repository.dart';
 import '../../authentication/data/auth_repository.dart';
-
 import '../../authentication/domain/user_info.dart';
 import '../domain/group.dart';
+import '../domain/group_info.dart';
 
 class GroupRepository extends HeroBaseRepository {
   GroupRepository(super.client);

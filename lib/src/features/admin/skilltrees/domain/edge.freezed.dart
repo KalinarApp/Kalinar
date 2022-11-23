@@ -30,8 +30,7 @@ mixin _$Edge {
 
 /// @nodoc
 abstract class $EdgeCopyWith<$Res> {
-  factory $EdgeCopyWith(Edge value, $Res Function(Edge) then) =
-      _$EdgeCopyWithImpl<$Res, Edge>;
+  factory $EdgeCopyWith(Edge value, $Res Function(Edge) then) = _$EdgeCopyWithImpl<$Res, Edge>;
   @useResult
   $Res call({Node start, Node end});
 
@@ -40,8 +39,7 @@ abstract class $EdgeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EdgeCopyWithImpl<$Res, $Val extends Edge>
-    implements $EdgeCopyWith<$Res> {
+class _$EdgeCopyWithImpl<$Res, $Val extends Edge> implements $EdgeCopyWith<$Res> {
   _$EdgeCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -86,8 +84,7 @@ class _$EdgeCopyWithImpl<$Res, $Val extends Edge>
 
 /// @nodoc
 abstract class _$$_EdgeCopyWith<$Res> implements $EdgeCopyWith<$Res> {
-  factory _$$_EdgeCopyWith(_$_Edge value, $Res Function(_$_Edge) then) =
-      __$$_EdgeCopyWithImpl<$Res>;
+  factory _$$_EdgeCopyWith(_$_Edge value, $Res Function(_$_Edge) then) = __$$_EdgeCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Node start, Node end});
@@ -99,10 +96,8 @@ abstract class _$$_EdgeCopyWith<$Res> implements $EdgeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_EdgeCopyWithImpl<$Res> extends _$EdgeCopyWithImpl<$Res, _$_Edge>
-    implements _$$_EdgeCopyWith<$Res> {
-  __$$_EdgeCopyWithImpl(_$_Edge _value, $Res Function(_$_Edge) _then)
-      : super(_value, _then);
+class __$$_EdgeCopyWithImpl<$Res> extends _$EdgeCopyWithImpl<$Res, _$_Edge> implements _$$_EdgeCopyWith<$Res> {
+  __$$_EdgeCopyWithImpl(_$_Edge _value, $Res Function(_$_Edge) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -156,8 +151,7 @@ class _$_Edge implements _Edge {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EdgeCopyWith<_$_Edge> get copyWith =>
-      __$$_EdgeCopyWithImpl<_$_Edge>(this, _$identity);
+  _$$_EdgeCopyWith<_$_Edge> get copyWith => __$$_EdgeCopyWithImpl<_$_Edge>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -168,8 +162,7 @@ class _$_Edge implements _Edge {
 }
 
 abstract class _Edge implements Edge {
-  const factory _Edge({required final Node start, required final Node end}) =
-      _$_Edge;
+  const factory _Edge({required final Node start, required final Node end}) = _$_Edge;
 
   factory _Edge.fromJson(Map<String, dynamic> json) = _$_Edge.fromJson;
 

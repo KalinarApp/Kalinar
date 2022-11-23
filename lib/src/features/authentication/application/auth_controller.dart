@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../group_management/application/has_group_controller.dart';
 
+import '../../group_management/application/has_group_controller.dart';
 import '../data/auth_repository.dart';
 
 class AuthController extends StateNotifier<AsyncValue<void>> {

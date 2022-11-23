@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../common_widgets/user_menu.dart';
-import '../application/invite_controller.dart';
-import '../../home/presentation/home_screen.dart';
 import '../../../utilities/async_value_extension.dart';
+import '../../home/presentation/home_screen.dart';
+import '../application/invite_controller.dart';
 
 class UserInviteScreen extends ConsumerStatefulWidget {
   static const String name = "Invite";

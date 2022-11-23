@@ -32,15 +32,13 @@ mixin _$Ability {
 
 /// @nodoc
 abstract class $AbilityCopyWith<$Res> {
-  factory $AbilityCopyWith(Ability value, $Res Function(Ability) then) =
-      _$AbilityCopyWithImpl<$Res, Ability>;
+  factory $AbilityCopyWith(Ability value, $Res Function(Ability) then) = _$AbilityCopyWithImpl<$Res, Ability>;
   @useResult
   $Res call({String id, String name, String? description, bool isPassive});
 }
 
 /// @nodoc
-class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
-    implements $AbilityCopyWith<$Res> {
+class _$AbilityCopyWithImpl<$Res, $Val extends Ability> implements $AbilityCopyWith<$Res> {
   _$AbilityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -79,20 +77,15 @@ class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
 
 /// @nodoc
 abstract class _$$_AbilityCopyWith<$Res> implements $AbilityCopyWith<$Res> {
-  factory _$$_AbilityCopyWith(
-          _$_Ability value, $Res Function(_$_Ability) then) =
-      __$$_AbilityCopyWithImpl<$Res>;
+  factory _$$_AbilityCopyWith(_$_Ability value, $Res Function(_$_Ability) then) = __$$_AbilityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String name, String? description, bool isPassive});
 }
 
 /// @nodoc
-class __$$_AbilityCopyWithImpl<$Res>
-    extends _$AbilityCopyWithImpl<$Res, _$_Ability>
-    implements _$$_AbilityCopyWith<$Res> {
-  __$$_AbilityCopyWithImpl(_$_Ability _value, $Res Function(_$_Ability) _then)
-      : super(_value, _then);
+class __$$_AbilityCopyWithImpl<$Res> extends _$AbilityCopyWithImpl<$Res, _$_Ability> implements _$$_AbilityCopyWith<$Res> {
+  __$$_AbilityCopyWithImpl(_$_Ability _value, $Res Function(_$_Ability) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -126,14 +119,9 @@ class __$$_AbilityCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Ability implements _Ability {
-  const _$_Ability(
-      {required this.id,
-      required this.name,
-      this.description,
-      required this.isPassive});
+  const _$_Ability({required this.id, required this.name, this.description, required this.isPassive});
 
-  factory _$_Ability.fromJson(Map<String, dynamic> json) =>
-      _$$_AbilityFromJson(json);
+  factory _$_Ability.fromJson(Map<String, dynamic> json) => _$$_AbilityFromJson(json);
 
   @override
   final String id;
@@ -156,22 +144,18 @@ class _$_Ability implements _Ability {
             other is _$_Ability &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.isPassive, isPassive) ||
-                other.isPassive == isPassive));
+            (identical(other.description, description) || other.description == description) &&
+            (identical(other.isPassive, isPassive) || other.isPassive == isPassive));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, description, isPassive);
+  int get hashCode => Object.hash(runtimeType, id, name, description, isPassive);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AbilityCopyWith<_$_Ability> get copyWith =>
-      __$$_AbilityCopyWithImpl<_$_Ability>(this, _$identity);
+  _$$_AbilityCopyWith<_$_Ability> get copyWith => __$$_AbilityCopyWithImpl<_$_Ability>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -182,11 +166,8 @@ class _$_Ability implements _Ability {
 }
 
 abstract class _Ability implements Ability {
-  const factory _Ability(
-      {required final String id,
-      required final String name,
-      final String? description,
-      required final bool isPassive}) = _$_Ability;
+  const factory _Ability({required final String id, required final String name, final String? description, required final bool isPassive}) =
+      _$_Ability;
 
   factory _Ability.fromJson(Map<String, dynamic> json) = _$_Ability.fromJson;
 
@@ -200,6 +181,5 @@ abstract class _Ability implements Ability {
   bool get isPassive;
   @override
   @JsonKey(ignore: true)
-  _$$_AbilityCopyWith<_$_Ability> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_AbilityCopyWith<_$_Ability> get copyWith => throw _privateConstructorUsedError;
 }

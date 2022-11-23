@@ -17,8 +17,7 @@ _$_Attribute _$$_AttributeFromJson(Map<String, dynamic> json) => _$_Attribute(
       isGlobal: json['isGlobal'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_AttributeToJson(_$_Attribute instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$_AttributeToJson(_$_Attribute instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,

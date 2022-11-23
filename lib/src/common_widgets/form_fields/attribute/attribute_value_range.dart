@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_touch_spin/flutter_touch_spin.dart';
 import 'package:intl/intl.dart';
 
-import '../../../features/admin/management/domain/attribute_value.dart';
 import '../../../features/admin/management/domain/attribute.dart';
+import '../../../features/admin/management/domain/attribute_value.dart';
 
 class AttributeValueRange extends StatefulWidget {
   final AttributeValue item;

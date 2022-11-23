@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'components/details/character_sheet_widget.dart';
-import 'components/details/character_skilltree_list.dart';
 
 import '../../../common_widgets/loading_indicator.dart';
 import '../application/character_controller.dart';
 import '../domain/character.dart';
+
+import 'components/details/character_sheet_widget.dart';
+import 'components/details/character_skilltree_list.dart';
 
 class CharacterDetailScreen extends ConsumerStatefulWidget {
   static const String name = "CharacterDetail";

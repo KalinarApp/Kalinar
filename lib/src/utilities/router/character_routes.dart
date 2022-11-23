@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+
 import '../../features/characters/presentation/character_detail_screen.dart';
 import '../../features/characters/presentation/character_editor_screen.dart';
 import '../../features/characters/presentation/character_list_screen.dart';

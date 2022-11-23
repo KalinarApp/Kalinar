@@ -29,30 +29,21 @@ mixin _$SkilltreeOverview {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SkilltreeOverviewCopyWith<SkilltreeOverview> get copyWith =>
-      throw _privateConstructorUsedError;
+  $SkilltreeOverviewCopyWith<SkilltreeOverview> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SkilltreeOverviewCopyWith<$Res> {
-  factory $SkilltreeOverviewCopyWith(
-          SkilltreeOverview value, $Res Function(SkilltreeOverview) then) =
+  factory $SkilltreeOverviewCopyWith(SkilltreeOverview value, $Res Function(SkilltreeOverview) then) =
       _$SkilltreeOverviewCopyWithImpl<$Res, SkilltreeOverview>;
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      CharacterOverview? character,
-      int points,
-      bool isActiveTree,
-      int nodeCount});
+  $Res call({String id, String name, CharacterOverview? character, int points, bool isActiveTree, int nodeCount});
 
   $CharacterOverviewCopyWith<$Res>? get character;
 }
 
 /// @nodoc
-class _$SkilltreeOverviewCopyWithImpl<$Res, $Val extends SkilltreeOverview>
-    implements $SkilltreeOverviewCopyWith<$Res> {
+class _$SkilltreeOverviewCopyWithImpl<$Res, $Val extends SkilltreeOverview> implements $SkilltreeOverviewCopyWith<$Res> {
   _$SkilltreeOverviewCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -112,32 +103,21 @@ class _$SkilltreeOverviewCopyWithImpl<$Res, $Val extends SkilltreeOverview>
 }
 
 /// @nodoc
-abstract class _$$_SkilltreeOverviewCopyWith<$Res>
-    implements $SkilltreeOverviewCopyWith<$Res> {
-  factory _$$_SkilltreeOverviewCopyWith(_$_SkilltreeOverview value,
-          $Res Function(_$_SkilltreeOverview) then) =
+abstract class _$$_SkilltreeOverviewCopyWith<$Res> implements $SkilltreeOverviewCopyWith<$Res> {
+  factory _$$_SkilltreeOverviewCopyWith(_$_SkilltreeOverview value, $Res Function(_$_SkilltreeOverview) then) =
       __$$_SkilltreeOverviewCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      CharacterOverview? character,
-      int points,
-      bool isActiveTree,
-      int nodeCount});
+  $Res call({String id, String name, CharacterOverview? character, int points, bool isActiveTree, int nodeCount});
 
   @override
   $CharacterOverviewCopyWith<$Res>? get character;
 }
 
 /// @nodoc
-class __$$_SkilltreeOverviewCopyWithImpl<$Res>
-    extends _$SkilltreeOverviewCopyWithImpl<$Res, _$_SkilltreeOverview>
+class __$$_SkilltreeOverviewCopyWithImpl<$Res> extends _$SkilltreeOverviewCopyWithImpl<$Res, _$_SkilltreeOverview>
     implements _$$_SkilltreeOverviewCopyWith<$Res> {
-  __$$_SkilltreeOverviewCopyWithImpl(
-      _$_SkilltreeOverview _value, $Res Function(_$_SkilltreeOverview) _then)
-      : super(_value, _then);
+  __$$_SkilltreeOverviewCopyWithImpl(_$_SkilltreeOverview _value, $Res Function(_$_SkilltreeOverview) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -182,15 +162,9 @@ class __$$_SkilltreeOverviewCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SkilltreeOverview implements _SkilltreeOverview {
   const _$_SkilltreeOverview(
-      {required this.id,
-      required this.name,
-      this.character,
-      required this.points,
-      required this.isActiveTree,
-      required this.nodeCount});
+      {required this.id, required this.name, this.character, required this.points, required this.isActiveTree, required this.nodeCount});
 
-  factory _$_SkilltreeOverview.fromJson(Map<String, dynamic> json) =>
-      _$$_SkilltreeOverviewFromJson(json);
+  factory _$_SkilltreeOverview.fromJson(Map<String, dynamic> json) => _$$_SkilltreeOverviewFromJson(json);
 
   @override
   final String id;
@@ -217,26 +191,20 @@ class _$_SkilltreeOverview implements _SkilltreeOverview {
             other is _$_SkilltreeOverview &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.character, character) ||
-                other.character == character) &&
+            (identical(other.character, character) || other.character == character) &&
             (identical(other.points, points) || other.points == points) &&
-            (identical(other.isActiveTree, isActiveTree) ||
-                other.isActiveTree == isActiveTree) &&
-            (identical(other.nodeCount, nodeCount) ||
-                other.nodeCount == nodeCount));
+            (identical(other.isActiveTree, isActiveTree) || other.isActiveTree == isActiveTree) &&
+            (identical(other.nodeCount, nodeCount) || other.nodeCount == nodeCount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, character, points, isActiveTree, nodeCount);
+  int get hashCode => Object.hash(runtimeType, id, name, character, points, isActiveTree, nodeCount);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SkilltreeOverviewCopyWith<_$_SkilltreeOverview> get copyWith =>
-      __$$_SkilltreeOverviewCopyWithImpl<_$_SkilltreeOverview>(
-          this, _$identity);
+  _$$_SkilltreeOverviewCopyWith<_$_SkilltreeOverview> get copyWith => __$$_SkilltreeOverviewCopyWithImpl<_$_SkilltreeOverview>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -255,8 +223,7 @@ abstract class _SkilltreeOverview implements SkilltreeOverview {
       required final bool isActiveTree,
       required final int nodeCount}) = _$_SkilltreeOverview;
 
-  factory _SkilltreeOverview.fromJson(Map<String, dynamic> json) =
-      _$_SkilltreeOverview.fromJson;
+  factory _SkilltreeOverview.fromJson(Map<String, dynamic> json) = _$_SkilltreeOverview.fromJson;
 
   @override
   String get id;
@@ -272,6 +239,5 @@ abstract class _SkilltreeOverview implements SkilltreeOverview {
   int get nodeCount;
   @override
   @JsonKey(ignore: true)
-  _$$_SkilltreeOverviewCopyWith<_$_SkilltreeOverview> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_SkilltreeOverviewCopyWith<_$_SkilltreeOverview> get copyWith => throw _privateConstructorUsedError;
 }

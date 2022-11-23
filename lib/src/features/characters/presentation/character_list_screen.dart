@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'character_detail_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/action_menu.dart';
 import '../../../common_widgets/async_value_grid.dart';
@@ -13,8 +12,10 @@ import '../../../utilities/async_value_extension.dart';
 import '../application/character_controller.dart';
 import '../application/character_list_controller.dart';
 import '../domain/character_overview.dart';
-import 'components/character_list_item.dart';
+
+import 'character_detail_screen.dart';
 import 'character_editor_screen.dart';
+import 'components/character_list_item.dart';
 
 class CharacterListScreen extends ConsumerStatefulWidget {
   static const String name = "CharacterList";

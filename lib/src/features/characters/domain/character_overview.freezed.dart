@@ -26,22 +26,19 @@ mixin _$CharacterOverview {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CharacterOverviewCopyWith<CharacterOverview> get copyWith =>
-      throw _privateConstructorUsedError;
+  $CharacterOverviewCopyWith<CharacterOverview> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CharacterOverviewCopyWith<$Res> {
-  factory $CharacterOverviewCopyWith(
-          CharacterOverview value, $Res Function(CharacterOverview) then) =
+  factory $CharacterOverviewCopyWith(CharacterOverview value, $Res Function(CharacterOverview) then) =
       _$CharacterOverviewCopyWithImpl<$Res, CharacterOverview>;
   @useResult
   $Res call({String id, String name, String? iconUrl});
 }
 
 /// @nodoc
-class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview>
-    implements $CharacterOverviewCopyWith<$Res> {
+class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview> implements $CharacterOverviewCopyWith<$Res> {
   _$CharacterOverviewCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -74,10 +71,8 @@ class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview>
 }
 
 /// @nodoc
-abstract class _$$_CharacterOverviewCopyWith<$Res>
-    implements $CharacterOverviewCopyWith<$Res> {
-  factory _$$_CharacterOverviewCopyWith(_$_CharacterOverview value,
-          $Res Function(_$_CharacterOverview) then) =
+abstract class _$$_CharacterOverviewCopyWith<$Res> implements $CharacterOverviewCopyWith<$Res> {
+  factory _$$_CharacterOverviewCopyWith(_$_CharacterOverview value, $Res Function(_$_CharacterOverview) then) =
       __$$_CharacterOverviewCopyWithImpl<$Res>;
   @override
   @useResult
@@ -85,12 +80,9 @@ abstract class _$$_CharacterOverviewCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CharacterOverviewCopyWithImpl<$Res>
-    extends _$CharacterOverviewCopyWithImpl<$Res, _$_CharacterOverview>
+class __$$_CharacterOverviewCopyWithImpl<$Res> extends _$CharacterOverviewCopyWithImpl<$Res, _$_CharacterOverview>
     implements _$$_CharacterOverviewCopyWith<$Res> {
-  __$$_CharacterOverviewCopyWithImpl(
-      _$_CharacterOverview _value, $Res Function(_$_CharacterOverview) _then)
-      : super(_value, _then);
+  __$$_CharacterOverviewCopyWithImpl(_$_CharacterOverview _value, $Res Function(_$_CharacterOverview) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -119,11 +111,9 @@ class __$$_CharacterOverviewCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CharacterOverview implements _CharacterOverview {
-  const _$_CharacterOverview(
-      {required this.id, required this.name, this.iconUrl});
+  const _$_CharacterOverview({required this.id, required this.name, this.iconUrl});
 
-  factory _$_CharacterOverview.fromJson(Map<String, dynamic> json) =>
-      _$$_CharacterOverviewFromJson(json);
+  factory _$_CharacterOverview.fromJson(Map<String, dynamic> json) => _$$_CharacterOverviewFromJson(json);
 
   @override
   final String id;
@@ -154,9 +144,7 @@ class _$_CharacterOverview implements _CharacterOverview {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CharacterOverviewCopyWith<_$_CharacterOverview> get copyWith =>
-      __$$_CharacterOverviewCopyWithImpl<_$_CharacterOverview>(
-          this, _$identity);
+  _$$_CharacterOverviewCopyWith<_$_CharacterOverview> get copyWith => __$$_CharacterOverviewCopyWithImpl<_$_CharacterOverview>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -167,13 +155,9 @@ class _$_CharacterOverview implements _CharacterOverview {
 }
 
 abstract class _CharacterOverview implements CharacterOverview {
-  const factory _CharacterOverview(
-      {required final String id,
-      required final String name,
-      final String? iconUrl}) = _$_CharacterOverview;
+  const factory _CharacterOverview({required final String id, required final String name, final String? iconUrl}) = _$_CharacterOverview;
 
-  factory _CharacterOverview.fromJson(Map<String, dynamic> json) =
-      _$_CharacterOverview.fromJson;
+  factory _CharacterOverview.fromJson(Map<String, dynamic> json) = _$_CharacterOverview.fromJson;
 
   @override
   String get id;
@@ -183,6 +167,5 @@ abstract class _CharacterOverview implements CharacterOverview {
   String? get iconUrl;
   @override
   @JsonKey(ignore: true)
-  _$$_CharacterOverviewCopyWith<_$_CharacterOverview> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_CharacterOverviewCopyWith<_$_CharacterOverview> get copyWith => throw _privateConstructorUsedError;
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../../../common_widgets/form_fields/selection_field.dart';
 import '../../../../../characters/application/character_controller.dart';
 import '../../../../../characters/domain/character_overview.dart';
-
-import '../../../../../../common_widgets/form_fields/selection_field.dart';
 
 class CharacterSelectionField extends ConsumerWidget {
   final CharacterOverview? initialValue;

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'attribute_list.dart';
+
 import '../../../features/admin/management/domain/attribute_value.dart';
+
+import 'attribute_list.dart';
 
 class AttributesField extends StatelessWidget {
   final List<AttributeValue>? initialValue;

@@ -1,9 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:hero/src/features/characters/presentation/components/skilltrees/node_lock.dart';
 
 import '../../../../admin/skilltrees/domain/node.dart';
+
+import 'node_lock.dart';
 
 class LockedNodeWidget extends StatefulWidget {
   final Node item;

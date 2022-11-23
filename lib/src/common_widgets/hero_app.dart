@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
-import '../utilities/router/routes.dart';
 
 import '../features/authentication/application/init_controller.dart';
+import '../utilities/router/routes.dart';
 
 class HeroApp extends ConsumerStatefulWidget {
   const HeroApp({super.key});

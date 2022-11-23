@@ -34,23 +34,15 @@ mixin _$Skill {
 
 /// @nodoc
 abstract class $SkillCopyWith<$Res> {
-  factory $SkillCopyWith(Skill value, $Res Function(Skill) then) =
-      _$SkillCopyWithImpl<$Res, Skill>;
+  factory $SkillCopyWith(Skill value, $Res Function(Skill) then) = _$SkillCopyWithImpl<$Res, Skill>;
   @useResult
-  $Res call(
-      {String id,
-      Ability? ability,
-      String? iconUrl,
-      String name,
-      String? description,
-      List<AttributeValue> attributes});
+  $Res call({String id, Ability? ability, String? iconUrl, String name, String? description, List<AttributeValue> attributes});
 
   $AbilityCopyWith<$Res>? get ability;
 }
 
 /// @nodoc
-class _$SkillCopyWithImpl<$Res, $Val extends Skill>
-    implements $SkillCopyWith<$Res> {
+class _$SkillCopyWithImpl<$Res, $Val extends Skill> implements $SkillCopyWith<$Res> {
   _$SkillCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -111,27 +103,18 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
 
 /// @nodoc
 abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
-  factory _$$_SkillCopyWith(_$_Skill value, $Res Function(_$_Skill) then) =
-      __$$_SkillCopyWithImpl<$Res>;
+  factory _$$_SkillCopyWith(_$_Skill value, $Res Function(_$_Skill) then) = __$$_SkillCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      Ability? ability,
-      String? iconUrl,
-      String name,
-      String? description,
-      List<AttributeValue> attributes});
+  $Res call({String id, Ability? ability, String? iconUrl, String name, String? description, List<AttributeValue> attributes});
 
   @override
   $AbilityCopyWith<$Res>? get ability;
 }
 
 /// @nodoc
-class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
-    implements _$$_SkillCopyWith<$Res> {
-  __$$_SkillCopyWithImpl(_$_Skill _value, $Res Function(_$_Skill) _then)
-      : super(_value, _then);
+class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill> implements _$$_SkillCopyWith<$Res> {
+  __$$_SkillCopyWithImpl(_$_Skill _value, $Res Function(_$_Skill) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -175,16 +158,10 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
 /// @nodoc
 @JsonSerializable()
 class _$_Skill implements _Skill {
-  const _$_Skill(this.id,
-      {this.ability,
-      this.iconUrl,
-      required this.name,
-      this.description,
-      final List<AttributeValue> attributes = const []})
+  const _$_Skill(this.id, {this.ability, this.iconUrl, required this.name, this.description, final List<AttributeValue> attributes = const []})
       : _attributes = attributes;
 
-  factory _$_Skill.fromJson(Map<String, dynamic> json) =>
-      _$$_SkillFromJson(json);
+  factory _$_Skill.fromJson(Map<String, dynamic> json) => _$$_SkillFromJson(json);
 
   @override
   final String id;
@@ -218,22 +195,18 @@ class _$_Skill implements _Skill {
             (identical(other.ability, ability) || other.ability == ability) &&
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            const DeepCollectionEquality()
-                .equals(other._attributes, _attributes));
+            (identical(other.description, description) || other.description == description) &&
+            const DeepCollectionEquality().equals(other._attributes, _attributes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, ability, iconUrl, name,
-      description, const DeepCollectionEquality().hash(_attributes));
+  int get hashCode => Object.hash(runtimeType, id, ability, iconUrl, name, description, const DeepCollectionEquality().hash(_attributes));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SkillCopyWith<_$_Skill> get copyWith =>
-      __$$_SkillCopyWithImpl<_$_Skill>(this, _$identity);
+  _$$_SkillCopyWith<_$_Skill> get copyWith => __$$_SkillCopyWithImpl<_$_Skill>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -267,6 +240,5 @@ abstract class _Skill implements Skill {
   List<AttributeValue> get attributes;
   @override
   @JsonKey(ignore: true)
-  _$$_SkillCopyWith<_$_Skill> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_SkillCopyWith<_$_Skill> get copyWith => throw _privateConstructorUsedError;
 }

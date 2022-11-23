@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../../../../common_widgets/action_menu.dart';
 import '../../../../../../../common_widgets/loading_indicator.dart';
 import '../../../../application/blueprint_controller.dart';
 import '../../../../application/blueprint_list_controller.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../domain/blueprint_overview.dart';
-import 'blueprint_item.dart';
-
-import '../../../../../../../common_widgets/action_menu.dart';
 import '../../../../application/skilltree_controller.dart';
+import '../../../../domain/blueprint_overview.dart';
 import '../../../skilltree_builder_screen.dart';
+
+import 'blueprint_item.dart';
 
 class BlueprintTab extends ConsumerStatefulWidget {
   const BlueprintTab({super.key});
