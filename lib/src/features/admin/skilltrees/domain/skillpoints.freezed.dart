@@ -26,18 +26,22 @@ mixin _$Skillpoints {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SkillpointsCopyWith<Skillpoints> get copyWith => throw _privateConstructorUsedError;
+  $SkillpointsCopyWith<Skillpoints> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SkillpointsCopyWith<$Res> {
-  factory $SkillpointsCopyWith(Skillpoints value, $Res Function(Skillpoints) then) = _$SkillpointsCopyWithImpl<$Res, Skillpoints>;
+  factory $SkillpointsCopyWith(
+          Skillpoints value, $Res Function(Skillpoints) then) =
+      _$SkillpointsCopyWithImpl<$Res, Skillpoints>;
   @useResult
   $Res call({int currentSkillpoints, int maxSkillpoints, String? iconUrl});
 }
 
 /// @nodoc
-class _$SkillpointsCopyWithImpl<$Res, $Val extends Skillpoints> implements $SkillpointsCopyWith<$Res> {
+class _$SkillpointsCopyWithImpl<$Res, $Val extends Skillpoints>
+    implements $SkillpointsCopyWith<$Res> {
   _$SkillpointsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -70,16 +74,23 @@ class _$SkillpointsCopyWithImpl<$Res, $Val extends Skillpoints> implements $Skil
 }
 
 /// @nodoc
-abstract class _$$_SkillpointsCopyWith<$Res> implements $SkillpointsCopyWith<$Res> {
-  factory _$$_SkillpointsCopyWith(_$_Skillpoints value, $Res Function(_$_Skillpoints) then) = __$$_SkillpointsCopyWithImpl<$Res>;
+abstract class _$$_SkillpointsCopyWith<$Res>
+    implements $SkillpointsCopyWith<$Res> {
+  factory _$$_SkillpointsCopyWith(
+          _$_Skillpoints value, $Res Function(_$_Skillpoints) then) =
+      __$$_SkillpointsCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int currentSkillpoints, int maxSkillpoints, String? iconUrl});
 }
 
 /// @nodoc
-class __$$_SkillpointsCopyWithImpl<$Res> extends _$SkillpointsCopyWithImpl<$Res, _$_Skillpoints> implements _$$_SkillpointsCopyWith<$Res> {
-  __$$_SkillpointsCopyWithImpl(_$_Skillpoints _value, $Res Function(_$_Skillpoints) _then) : super(_value, _then);
+class __$$_SkillpointsCopyWithImpl<$Res>
+    extends _$SkillpointsCopyWithImpl<$Res, _$_Skillpoints>
+    implements _$$_SkillpointsCopyWith<$Res> {
+  __$$_SkillpointsCopyWithImpl(
+      _$_Skillpoints _value, $Res Function(_$_Skillpoints) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -108,9 +119,11 @@ class __$$_SkillpointsCopyWithImpl<$Res> extends _$SkillpointsCopyWithImpl<$Res,
 /// @nodoc
 @JsonSerializable()
 class _$_Skillpoints implements _Skillpoints {
-  const _$_Skillpoints({this.currentSkillpoints = 0, this.maxSkillpoints = 0, this.iconUrl});
+  const _$_Skillpoints(
+      {this.currentSkillpoints = 0, this.maxSkillpoints = 0, this.iconUrl});
 
-  factory _$_Skillpoints.fromJson(Map<String, dynamic> json) => _$$_SkillpointsFromJson(json);
+  factory _$_Skillpoints.fromJson(Map<String, dynamic> json) =>
+      _$$_SkillpointsFromJson(json);
 
   @override
   @JsonKey()
@@ -131,19 +144,23 @@ class _$_Skillpoints implements _Skillpoints {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Skillpoints &&
-            (identical(other.currentSkillpoints, currentSkillpoints) || other.currentSkillpoints == currentSkillpoints) &&
-            (identical(other.maxSkillpoints, maxSkillpoints) || other.maxSkillpoints == maxSkillpoints) &&
+            (identical(other.currentSkillpoints, currentSkillpoints) ||
+                other.currentSkillpoints == currentSkillpoints) &&
+            (identical(other.maxSkillpoints, maxSkillpoints) ||
+                other.maxSkillpoints == maxSkillpoints) &&
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, currentSkillpoints, maxSkillpoints, iconUrl);
+  int get hashCode =>
+      Object.hash(runtimeType, currentSkillpoints, maxSkillpoints, iconUrl);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SkillpointsCopyWith<_$_Skillpoints> get copyWith => __$$_SkillpointsCopyWithImpl<_$_Skillpoints>(this, _$identity);
+  _$$_SkillpointsCopyWith<_$_Skillpoints> get copyWith =>
+      __$$_SkillpointsCopyWithImpl<_$_Skillpoints>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -154,9 +171,13 @@ class _$_Skillpoints implements _Skillpoints {
 }
 
 abstract class _Skillpoints implements Skillpoints {
-  const factory _Skillpoints({final int currentSkillpoints, final int maxSkillpoints, final String? iconUrl}) = _$_Skillpoints;
+  const factory _Skillpoints(
+      {final int currentSkillpoints,
+      final int maxSkillpoints,
+      final String? iconUrl}) = _$_Skillpoints;
 
-  factory _Skillpoints.fromJson(Map<String, dynamic> json) = _$_Skillpoints.fromJson;
+  factory _Skillpoints.fromJson(Map<String, dynamic> json) =
+      _$_Skillpoints.fromJson;
 
   @override
   int get currentSkillpoints;
@@ -166,5 +187,6 @@ abstract class _Skillpoints implements Skillpoints {
   String? get iconUrl;
   @override
   @JsonKey(ignore: true)
-  _$$_SkillpointsCopyWith<_$_Skillpoints> get copyWith => throw _privateConstructorUsedError;
+  _$$_SkillpointsCopyWith<_$_Skillpoints> get copyWith =>
+      throw _privateConstructorUsedError;
 }

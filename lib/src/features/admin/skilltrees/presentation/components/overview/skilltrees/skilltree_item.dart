@@ -24,20 +24,26 @@ class SkilltreeItem extends StatelessWidget {
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: Row(children: [
-            Row(
-              children: [
-                const FaIcon(FontAwesomeIcons.lightbulb, size: 18),
-                const SizedBox(width: 5),
-                Text("${item.points}"),
-              ],
+            SizedBox(
+              width: 100,
+              child: Row(
+                children: [
+                  const FaIcon(FontAwesomeIcons.lightbulb, size: 18),
+                  const SizedBox(width: 8),
+                  Text("${item.leftPoints} / ${item.points}"),
+                ],
+              ),
             ),
-            const SizedBox(width: 10),
-            Row(
-              children: [
-                Transform.rotate(angle: pi / 4, child: FaIcon(FontAwesomeIcons.square, color: Theme.of(context).colorScheme.secondary, size: 18)),
-                const SizedBox(width: 5),
-                Text("${item.nodeCount}"),
-              ],
+            const SizedBox(width: 20),
+            SizedBox(
+              width: 100,
+              child: Row(
+                children: [
+                  Transform.rotate(angle: pi / 4, child: FaIcon(FontAwesomeIcons.square, color: Theme.of(context).colorScheme.secondary, size: 18)),
+                  const SizedBox(width: 8),
+                  Text("${item.unlockedNodeCount} / ${item.nodeCount}")
+                ],
+              ),
             ),
           ]),
         ),

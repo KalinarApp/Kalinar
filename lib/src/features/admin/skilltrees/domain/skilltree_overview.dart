@@ -12,8 +12,10 @@ class SkilltreeOverview with _$SkilltreeOverview {
     required String name,
     CharacterOverview? character,
     required int points,
+    required int leftPoints,
     required bool isActiveTree,
     required int nodeCount,
+    required int unlockedNodeCount,
   }) = _SkilltreeOverview;
 
   factory SkilltreeOverview.fromJson(Map<String, dynamic> json) => _$SkilltreeOverviewFromJson(json);

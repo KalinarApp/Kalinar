@@ -40,7 +40,8 @@ mixin _$Node {
 
 /// @nodoc
 abstract class $NodeCopyWith<$Res> {
-  factory $NodeCopyWith(Node value, $Res Function(Node) then) = _$NodeCopyWithImpl<$Res, Node>;
+  factory $NodeCopyWith(Node value, $Res Function(Node) then) =
+      _$NodeCopyWithImpl<$Res, Node>;
   @useResult
   $Res call(
       {String id,
@@ -60,7 +61,8 @@ abstract class $NodeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$NodeCopyWithImpl<$Res, $Val extends Node> implements $NodeCopyWith<$Res> {
+class _$NodeCopyWithImpl<$Res, $Val extends Node>
+    implements $NodeCopyWith<$Res> {
   _$NodeCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -147,7 +149,8 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node> implements $NodeCopyWith<$Res>
 
 /// @nodoc
 abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
-  factory _$$_NodeCopyWith(_$_Node value, $Res Function(_$_Node) then) = __$$_NodeCopyWithImpl<$Res>;
+  factory _$$_NodeCopyWith(_$_Node value, $Res Function(_$_Node) then) =
+      __$$_NodeCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -169,8 +172,10 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node> implements _$$_NodeCopyWith<$Res> {
-  __$$_NodeCopyWithImpl(_$_Node _value, $Res Function(_$_Node) _then) : super(_value, _then);
+class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
+    implements _$$_NodeCopyWith<$Res> {
+  __$$_NodeCopyWithImpl(_$_Node _value, $Res Function(_$_Node) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -309,17 +314,22 @@ class _$_Node implements _Node {
         (other.runtimeType == runtimeType &&
             other is _$_Node &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.importance, importance) || other.importance == importance) &&
+            (identical(other.importance, importance) ||
+                other.importance == importance) &&
             (identical(other.skill, skill) || other.skill == skill) &&
             (identical(other.skillId, skillId) || other.skillId == skillId) &&
             (identical(other.cost, cost) || other.cost == cost) &&
             (identical(other.color, color) || other.color == color) &&
-            (identical(other.isEasyReachable, isEasyReachable) || other.isEasyReachable == isEasyReachable) &&
-            const DeepCollectionEquality().equals(other.isUnlocked, isUnlocked) &&
+            (identical(other.isEasyReachable, isEasyReachable) ||
+                other.isEasyReachable == isEasyReachable) &&
+            const DeepCollectionEquality()
+                .equals(other.isUnlocked, isUnlocked) &&
             (identical(other.xPos, xPos) || other.xPos == xPos) &&
             (identical(other.yPos, yPos) || other.yPos == yPos) &&
-            const DeepCollectionEquality().equals(other._precessors, _precessors) &&
-            const DeepCollectionEquality().equals(other._successors, _successors));
+            const DeepCollectionEquality()
+                .equals(other._precessors, _precessors) &&
+            const DeepCollectionEquality()
+                .equals(other._successors, _successors));
   }
 
   @JsonKey(ignore: true)
@@ -342,7 +352,8 @@ class _$_Node implements _Node {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NodeCopyWith<_$_Node> get copyWith => __$$_NodeCopyWithImpl<_$_Node>(this, _$identity);
+  _$$_NodeCopyWith<_$_Node> get copyWith =>
+      __$$_NodeCopyWithImpl<_$_Node>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {

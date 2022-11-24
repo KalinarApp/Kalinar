@@ -14,31 +14,40 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SkilltreeOverviewState _$SkilltreeOverviewStateFromJson(Map<String, dynamic> json) {
+SkilltreeOverviewState _$SkilltreeOverviewStateFromJson(
+    Map<String, dynamic> json) {
   return _SkilltreeOverviewState.fromJson(json);
 }
 
 /// @nodoc
 mixin _$SkilltreeOverviewState {
   List<SkilltreeOverview> get unassigned => throw _privateConstructorUsedError;
-  Map<String, List<SkilltreeOverview>> get characters => throw _privateConstructorUsedError;
+  Map<String, List<SkilltreeOverview>> get characters =>
+      throw _privateConstructorUsedError;
   bool get isSaving => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SkilltreeOverviewStateCopyWith<SkilltreeOverviewState> get copyWith => throw _privateConstructorUsedError;
+  $SkilltreeOverviewStateCopyWith<SkilltreeOverviewState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SkilltreeOverviewStateCopyWith<$Res> {
-  factory $SkilltreeOverviewStateCopyWith(SkilltreeOverviewState value, $Res Function(SkilltreeOverviewState) then) =
+  factory $SkilltreeOverviewStateCopyWith(SkilltreeOverviewState value,
+          $Res Function(SkilltreeOverviewState) then) =
       _$SkilltreeOverviewStateCopyWithImpl<$Res, SkilltreeOverviewState>;
   @useResult
-  $Res call({List<SkilltreeOverview> unassigned, Map<String, List<SkilltreeOverview>> characters, bool isSaving});
+  $Res call(
+      {List<SkilltreeOverview> unassigned,
+      Map<String, List<SkilltreeOverview>> characters,
+      bool isSaving});
 }
 
 /// @nodoc
-class _$SkilltreeOverviewStateCopyWithImpl<$Res, $Val extends SkilltreeOverviewState> implements $SkilltreeOverviewStateCopyWith<$Res> {
+class _$SkilltreeOverviewStateCopyWithImpl<$Res,
+        $Val extends SkilltreeOverviewState>
+    implements $SkilltreeOverviewStateCopyWith<$Res> {
   _$SkilltreeOverviewStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -71,18 +80,27 @@ class _$SkilltreeOverviewStateCopyWithImpl<$Res, $Val extends SkilltreeOverviewS
 }
 
 /// @nodoc
-abstract class _$$_SkilltreeOverviewStateCopyWith<$Res> implements $SkilltreeOverviewStateCopyWith<$Res> {
-  factory _$$_SkilltreeOverviewStateCopyWith(_$_SkilltreeOverviewState value, $Res Function(_$_SkilltreeOverviewState) then) =
+abstract class _$$_SkilltreeOverviewStateCopyWith<$Res>
+    implements $SkilltreeOverviewStateCopyWith<$Res> {
+  factory _$$_SkilltreeOverviewStateCopyWith(_$_SkilltreeOverviewState value,
+          $Res Function(_$_SkilltreeOverviewState) then) =
       __$$_SkilltreeOverviewStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<SkilltreeOverview> unassigned, Map<String, List<SkilltreeOverview>> characters, bool isSaving});
+  $Res call(
+      {List<SkilltreeOverview> unassigned,
+      Map<String, List<SkilltreeOverview>> characters,
+      bool isSaving});
 }
 
 /// @nodoc
-class __$$_SkilltreeOverviewStateCopyWithImpl<$Res> extends _$SkilltreeOverviewStateCopyWithImpl<$Res, _$_SkilltreeOverviewState>
+class __$$_SkilltreeOverviewStateCopyWithImpl<$Res>
+    extends _$SkilltreeOverviewStateCopyWithImpl<$Res,
+        _$_SkilltreeOverviewState>
     implements _$$_SkilltreeOverviewStateCopyWith<$Res> {
-  __$$_SkilltreeOverviewStateCopyWithImpl(_$_SkilltreeOverviewState _value, $Res Function(_$_SkilltreeOverviewState) _then) : super(_value, _then);
+  __$$_SkilltreeOverviewStateCopyWithImpl(_$_SkilltreeOverviewState _value,
+      $Res Function(_$_SkilltreeOverviewState) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -112,11 +130,14 @@ class __$$_SkilltreeOverviewStateCopyWithImpl<$Res> extends _$SkilltreeOverviewS
 @JsonSerializable()
 class _$_SkilltreeOverviewState implements _SkilltreeOverviewState {
   const _$_SkilltreeOverviewState(
-      {final List<SkilltreeOverview> unassigned = const [], final Map<String, List<SkilltreeOverview>> characters = const {}, this.isSaving = false})
+      {final List<SkilltreeOverview> unassigned = const [],
+      final Map<String, List<SkilltreeOverview>> characters = const {},
+      this.isSaving = false})
       : _unassigned = unassigned,
         _characters = characters;
 
-  factory _$_SkilltreeOverviewState.fromJson(Map<String, dynamic> json) => _$$_SkilltreeOverviewStateFromJson(json);
+  factory _$_SkilltreeOverviewState.fromJson(Map<String, dynamic> json) =>
+      _$$_SkilltreeOverviewStateFromJson(json);
 
   final List<SkilltreeOverview> _unassigned;
   @override
@@ -148,21 +169,28 @@ class _$_SkilltreeOverviewState implements _SkilltreeOverviewState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SkilltreeOverviewState &&
-            const DeepCollectionEquality().equals(other._unassigned, _unassigned) &&
-            const DeepCollectionEquality().equals(other._characters, _characters) &&
-            (identical(other.isSaving, isSaving) || other.isSaving == isSaving));
+            const DeepCollectionEquality()
+                .equals(other._unassigned, _unassigned) &&
+            const DeepCollectionEquality()
+                .equals(other._characters, _characters) &&
+            (identical(other.isSaving, isSaving) ||
+                other.isSaving == isSaving));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_unassigned), const DeepCollectionEquality().hash(_characters), isSaving);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_unassigned),
+      const DeepCollectionEquality().hash(_characters),
+      isSaving);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_SkilltreeOverviewStateCopyWith<_$_SkilltreeOverviewState> get copyWith =>
-      __$$_SkilltreeOverviewStateCopyWithImpl<_$_SkilltreeOverviewState>(this, _$identity);
+      __$$_SkilltreeOverviewStateCopyWithImpl<_$_SkilltreeOverviewState>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -178,7 +206,8 @@ abstract class _SkilltreeOverviewState implements SkilltreeOverviewState {
       final Map<String, List<SkilltreeOverview>> characters,
       final bool isSaving}) = _$_SkilltreeOverviewState;
 
-  factory _SkilltreeOverviewState.fromJson(Map<String, dynamic> json) = _$_SkilltreeOverviewState.fromJson;
+  factory _SkilltreeOverviewState.fromJson(Map<String, dynamic> json) =
+      _$_SkilltreeOverviewState.fromJson;
 
   @override
   List<SkilltreeOverview> get unassigned;
@@ -188,5 +217,6 @@ abstract class _SkilltreeOverviewState implements SkilltreeOverviewState {
   bool get isSaving;
   @override
   @JsonKey(ignore: true)
-  _$$_SkilltreeOverviewStateCopyWith<_$_SkilltreeOverviewState> get copyWith => throw _privateConstructorUsedError;
+  _$$_SkilltreeOverviewStateCopyWith<_$_SkilltreeOverviewState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

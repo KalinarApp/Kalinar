@@ -95,13 +95,12 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
   }
 
   Widget _buildCharacterImageContent(Image? image) {
-    return DottedBorder(
-      dashPattern: const [20, 2],
-      borderType: BorderType.RRect,
-      radius: const Radius.circular(12),
-      child: SizedBox(
-        width: 200,
-        child: ClipRRect(borderRadius: BorderRadius.circular(12), child: _buildContent(image)),
+    return SizedBox(
+      width: 200,
+      child: Card(
+        elevation: 4,
+        clipBehavior: Clip.hardEdge,
+        child: _buildContent(image),
       ),
     );
   }

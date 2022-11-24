@@ -29,20 +29,29 @@ mixin _$Blueprint {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BlueprintCopyWith<Blueprint> get copyWith => throw _privateConstructorUsedError;
+  $BlueprintCopyWith<Blueprint> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $BlueprintCopyWith<$Res> {
-  factory $BlueprintCopyWith(Blueprint value, $Res Function(Blueprint) then) = _$BlueprintCopyWithImpl<$Res, Blueprint>;
+  factory $BlueprintCopyWith(Blueprint value, $Res Function(Blueprint) then) =
+      _$BlueprintCopyWithImpl<$Res, Blueprint>;
   @useResult
-  $Res call({String id, String name, CharacterOverview? character, int points, bool isActiveTree, List<Node> nodes});
+  $Res call(
+      {String id,
+      String name,
+      CharacterOverview? character,
+      int points,
+      bool isActiveTree,
+      List<Node> nodes});
 
   $CharacterOverviewCopyWith<$Res>? get character;
 }
 
 /// @nodoc
-class _$BlueprintCopyWithImpl<$Res, $Val extends Blueprint> implements $BlueprintCopyWith<$Res> {
+class _$BlueprintCopyWithImpl<$Res, $Val extends Blueprint>
+    implements $BlueprintCopyWith<$Res> {
   _$BlueprintCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -103,18 +112,30 @@ class _$BlueprintCopyWithImpl<$Res, $Val extends Blueprint> implements $Blueprin
 
 /// @nodoc
 abstract class _$$_BlueprintCopyWith<$Res> implements $BlueprintCopyWith<$Res> {
-  factory _$$_BlueprintCopyWith(_$_Blueprint value, $Res Function(_$_Blueprint) then) = __$$_BlueprintCopyWithImpl<$Res>;
+  factory _$$_BlueprintCopyWith(
+          _$_Blueprint value, $Res Function(_$_Blueprint) then) =
+      __$$_BlueprintCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, CharacterOverview? character, int points, bool isActiveTree, List<Node> nodes});
+  $Res call(
+      {String id,
+      String name,
+      CharacterOverview? character,
+      int points,
+      bool isActiveTree,
+      List<Node> nodes});
 
   @override
   $CharacterOverviewCopyWith<$Res>? get character;
 }
 
 /// @nodoc
-class __$$_BlueprintCopyWithImpl<$Res> extends _$BlueprintCopyWithImpl<$Res, _$_Blueprint> implements _$$_BlueprintCopyWith<$Res> {
-  __$$_BlueprintCopyWithImpl(_$_Blueprint _value, $Res Function(_$_Blueprint) _then) : super(_value, _then);
+class __$$_BlueprintCopyWithImpl<$Res>
+    extends _$BlueprintCopyWithImpl<$Res, _$_Blueprint>
+    implements _$$_BlueprintCopyWith<$Res> {
+  __$$_BlueprintCopyWithImpl(
+      _$_Blueprint _value, $Res Function(_$_Blueprint) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -158,10 +179,17 @@ class __$$_BlueprintCopyWithImpl<$Res> extends _$BlueprintCopyWithImpl<$Res, _$_
 /// @nodoc
 @JsonSerializable()
 class _$_Blueprint implements _Blueprint {
-  const _$_Blueprint({this.id = "", this.name = "", this.character, this.points = 0, this.isActiveTree = true, final List<Node> nodes = const []})
+  const _$_Blueprint(
+      {this.id = "",
+      this.name = "",
+      this.character,
+      this.points = 0,
+      this.isActiveTree = true,
+      final List<Node> nodes = const []})
       : _nodes = nodes;
 
-  factory _$_Blueprint.fromJson(Map<String, dynamic> json) => _$$_BlueprintFromJson(json);
+  factory _$_Blueprint.fromJson(Map<String, dynamic> json) =>
+      _$$_BlueprintFromJson(json);
 
   @override
   @JsonKey()
@@ -197,20 +225,24 @@ class _$_Blueprint implements _Blueprint {
             other is _$_Blueprint &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.character, character) || other.character == character) &&
+            (identical(other.character, character) ||
+                other.character == character) &&
             (identical(other.points, points) || other.points == points) &&
-            (identical(other.isActiveTree, isActiveTree) || other.isActiveTree == isActiveTree) &&
+            (identical(other.isActiveTree, isActiveTree) ||
+                other.isActiveTree == isActiveTree) &&
             const DeepCollectionEquality().equals(other._nodes, _nodes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, character, points, isActiveTree, const DeepCollectionEquality().hash(_nodes));
+  int get hashCode => Object.hash(runtimeType, id, name, character, points,
+      isActiveTree, const DeepCollectionEquality().hash(_nodes));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BlueprintCopyWith<_$_Blueprint> get copyWith => __$$_BlueprintCopyWithImpl<_$_Blueprint>(this, _$identity);
+  _$$_BlueprintCopyWith<_$_Blueprint> get copyWith =>
+      __$$_BlueprintCopyWithImpl<_$_Blueprint>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -229,7 +261,8 @@ abstract class _Blueprint implements Blueprint {
       final bool isActiveTree,
       final List<Node> nodes}) = _$_Blueprint;
 
-  factory _Blueprint.fromJson(Map<String, dynamic> json) = _$_Blueprint.fromJson;
+  factory _Blueprint.fromJson(Map<String, dynamic> json) =
+      _$_Blueprint.fromJson;
 
   @override
   String get id;
@@ -245,5 +278,6 @@ abstract class _Blueprint implements Blueprint {
   List<Node> get nodes;
   @override
   @JsonKey(ignore: true)
-  _$$_BlueprintCopyWith<_$_Blueprint> get copyWith => throw _privateConstructorUsedError;
+  _$$_BlueprintCopyWith<_$_Blueprint> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -9,11 +9,11 @@ class CharacterPortrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 150,
-      decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(12)),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
+      child: Card(
+        clipBehavior: Clip.hardEdge,
+        elevation: 4,
         child: null != imageUrl ? Image.network(imageUrl!) : Center(child: Text(AppLocalizations.of(context)!.characterNoPortrait)),
       ),
     );

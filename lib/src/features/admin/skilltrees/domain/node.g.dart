@@ -17,8 +17,14 @@ _$_Node _$$_NodeFromJson(Map<String, dynamic> json) => _$_Node(
       isUnlocked: json['isUnlocked'] ?? false,
       xPos: (json['xPos'] as num?)?.toDouble() ?? 0,
       yPos: (json['yPos'] as num?)?.toDouble() ?? 0,
-      precessors: (json['precessors'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
-      successors: (json['successors'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
+      precessors: (json['precessors'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      successors: (json['successors'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$_NodeToJson(_$_Node instance) => <String, dynamic>{

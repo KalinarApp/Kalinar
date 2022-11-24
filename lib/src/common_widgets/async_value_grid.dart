@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AsyncValueGrid<T> extends StatelessWidget {
   final AsyncValue<List<T>> list;
-  final int columns;
+  final SliverGridDelegate delegate;
   final Widget Function(T item) builder;
   final Future<void> Function() refreshList;
   final Widget? loading;
@@ -17,7 +17,7 @@ class AsyncValueGrid<T> extends StatelessWidget {
     this.list, {
     required this.builder,
     required this.refreshList,
-    this.columns = 2,
+    required this.delegate,
     this.loading,
     this.error,
     this.filter,
@@ -36,7 +36,7 @@ class AsyncValueGrid<T> extends StatelessWidget {
             ? RefreshIndicator(
                 onRefresh: refreshList,
                 child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: columns, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                  gridDelegate: delegate,
                   itemCount: filtered.length,
                   itemBuilder: (_, index) => builder(filtered[index]),
                 ),

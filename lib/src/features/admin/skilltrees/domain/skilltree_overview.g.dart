@@ -6,20 +6,30 @@ part of 'skilltree_overview.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SkilltreeOverview _$$_SkilltreeOverviewFromJson(Map<String, dynamic> json) => _$_SkilltreeOverview(
+_$_SkilltreeOverview _$$_SkilltreeOverviewFromJson(Map<String, dynamic> json) =>
+    _$_SkilltreeOverview(
       id: json['id'] as String,
       name: json['name'] as String,
-      character: json['character'] == null ? null : CharacterOverview.fromJson(json['character'] as Map<String, dynamic>),
+      character: json['character'] == null
+          ? null
+          : CharacterOverview.fromJson(
+              json['character'] as Map<String, dynamic>),
       points: json['points'] as int,
+      leftPoints: json['leftPoints'] as int,
       isActiveTree: json['isActiveTree'] as bool,
       nodeCount: json['nodeCount'] as int,
+      unlockedNodeCount: json['unlockedNodeCount'] as int,
     );
 
-Map<String, dynamic> _$$_SkilltreeOverviewToJson(_$_SkilltreeOverview instance) => <String, dynamic>{
+Map<String, dynamic> _$$_SkilltreeOverviewToJson(
+        _$_SkilltreeOverview instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'character': instance.character,
       'points': instance.points,
+      'leftPoints': instance.leftPoints,
       'isActiveTree': instance.isActiveTree,
       'nodeCount': instance.nodeCount,
+      'unlockedNodeCount': instance.unlockedNodeCount,
     };

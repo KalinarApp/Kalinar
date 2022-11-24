@@ -36,12 +36,14 @@ mixin _$Character {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CharacterCopyWith<Character> get copyWith => throw _privateConstructorUsedError;
+  $CharacterCopyWith<Character> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CharacterCopyWith<$Res> {
-  factory $CharacterCopyWith(Character value, $Res Function(Character) then) = _$CharacterCopyWithImpl<$Res, Character>;
+  factory $CharacterCopyWith(Character value, $Res Function(Character) then) =
+      _$CharacterCopyWithImpl<$Res, Character>;
   @useResult
   $Res call(
       {String id,
@@ -62,7 +64,8 @@ abstract class $CharacterCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CharacterCopyWithImpl<$Res, $Val extends Character> implements $CharacterCopyWith<$Res> {
+class _$CharacterCopyWithImpl<$Res, $Val extends Character>
+    implements $CharacterCopyWith<$Res> {
   _$CharacterCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -154,7 +157,9 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character> implements $Characte
 
 /// @nodoc
 abstract class _$$_CharacterCopyWith<$Res> implements $CharacterCopyWith<$Res> {
-  factory _$$_CharacterCopyWith(_$_Character value, $Res Function(_$_Character) then) = __$$_CharacterCopyWithImpl<$Res>;
+  factory _$$_CharacterCopyWith(
+          _$_Character value, $Res Function(_$_Character) then) =
+      __$$_CharacterCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -177,8 +182,12 @@ abstract class _$$_CharacterCopyWith<$Res> implements $CharacterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CharacterCopyWithImpl<$Res> extends _$CharacterCopyWithImpl<$Res, _$_Character> implements _$$_CharacterCopyWith<$Res> {
-  __$$_CharacterCopyWithImpl(_$_Character _value, $Res Function(_$_Character) _then) : super(_value, _then);
+class __$$_CharacterCopyWithImpl<$Res>
+    extends _$CharacterCopyWithImpl<$Res, _$_Character>
+    implements _$$_CharacterCopyWith<$Res> {
+  __$$_CharacterCopyWithImpl(
+      _$_Character _value, $Res Function(_$_Character) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -273,7 +282,8 @@ class _$_Character implements _Character {
       final List<SkilltreeOverview> skilltrees = const []})
       : _skilltrees = skilltrees;
 
-  factory _$_Character.fromJson(Map<String, dynamic> json) => _$$_CharacterFromJson(json);
+  factory _$_Character.fromJson(Map<String, dynamic> json) =>
+      _$$_CharacterFromJson(json);
 
   @override
   final String id;
@@ -321,26 +331,46 @@ class _$_Character implements _Character {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.age, age) || other.age == age) &&
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
-            (identical(other.description, description) || other.description == description) &&
-            (identical(other.profession, profession) || other.profession == profession) &&
-            (identical(other.religion, religion) || other.religion == religion) &&
-            (identical(other.relationship, relationship) || other.relationship == relationship) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.profession, profession) ||
+                other.profession == profession) &&
+            (identical(other.religion, religion) ||
+                other.religion == religion) &&
+            (identical(other.relationship, relationship) ||
+                other.relationship == relationship) &&
             (identical(other.notes, notes) || other.notes == notes) &&
-            (identical(other.inventory, inventory) || other.inventory == inventory) &&
+            (identical(other.inventory, inventory) ||
+                other.inventory == inventory) &&
             (identical(other.raceId, raceId) || other.raceId == raceId) &&
             (identical(other.race, race) || other.race == race) &&
-            const DeepCollectionEquality().equals(other._skilltrees, _skilltrees));
+            const DeepCollectionEquality()
+                .equals(other._skilltrees, _skilltrees));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, age, iconUrl, description, profession, religion, relationship, notes, inventory, raceId,
-      race, const DeepCollectionEquality().hash(_skilltrees));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      age,
+      iconUrl,
+      description,
+      profession,
+      religion,
+      relationship,
+      notes,
+      inventory,
+      raceId,
+      race,
+      const DeepCollectionEquality().hash(_skilltrees));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CharacterCopyWith<_$_Character> get copyWith => __$$_CharacterCopyWithImpl<_$_Character>(this, _$identity);
+  _$$_CharacterCopyWith<_$_Character> get copyWith =>
+      __$$_CharacterCopyWithImpl<_$_Character>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -366,7 +396,8 @@ abstract class _Character implements Character {
       required final Race race,
       final List<SkilltreeOverview> skilltrees}) = _$_Character;
 
-  factory _Character.fromJson(Map<String, dynamic> json) = _$_Character.fromJson;
+  factory _Character.fromJson(Map<String, dynamic> json) =
+      _$_Character.fromJson;
 
   @override
   String get id;
@@ -396,5 +427,6 @@ abstract class _Character implements Character {
   List<SkilltreeOverview> get skilltrees;
   @override
   @JsonKey(ignore: true)
-  _$$_CharacterCopyWith<_$_Character> get copyWith => throw _privateConstructorUsedError;
+  _$$_CharacterCopyWith<_$_Character> get copyWith =>
+      throw _privateConstructorUsedError;
 }

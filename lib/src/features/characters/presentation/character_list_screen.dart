@@ -43,6 +43,7 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
       case DialogAction.edit:
       case DialogAction.cancel:
       case DialogAction.loadAsNewSkilltree:
+      case DialogAction.reset:
       case DialogAction.saveAsBlueprint:
         break;
     }
@@ -74,16 +75,20 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
           Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu()),
         ],
       ),
-      body: AsyncValueGrid(
-        state,
-        refreshList: _onRefresh,
-        builder: (item) => CharacterListItem(
-          item,
-          onLongPress: _showActionDialog,
-          onTap: (item) => GoRouter.of(context).pushNamed(CharacterDetailScreen.name, params: {"id": item.id}),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: AsyncValueGrid(
+          state,
+          delegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, crossAxisSpacing: 10, mainAxisSpacing: 10),
+          refreshList: _onRefresh,
+          builder: (item) => CharacterListItem(
+            item,
+            onLongPress: _showActionDialog,
+            onTap: (item) => GoRouter.of(context).pushNamed(CharacterDetailScreen.name, params: {"id": item.id}),
+          ),
+          loading: LoadingIndicator(AppLocalizations.of(context)!.fetchCharacters),
+          error: Text(AppLocalizations.of(context)!.fetchCharactersFailed),
         ),
-        loading: LoadingIndicator(AppLocalizations.of(context)!.fetchCharacters),
-        error: Text(AppLocalizations.of(context)!.fetchCharactersFailed),
       ),
     );
   }

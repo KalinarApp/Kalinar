@@ -31,18 +31,29 @@ mixin _$Attribute {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AttributeCopyWith<Attribute> get copyWith => throw _privateConstructorUsedError;
+  $AttributeCopyWith<Attribute> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AttributeCopyWith<$Res> {
-  factory $AttributeCopyWith(Attribute value, $Res Function(Attribute) then) = _$AttributeCopyWithImpl<$Res, Attribute>;
+  factory $AttributeCopyWith(Attribute value, $Res Function(Attribute) then) =
+      _$AttributeCopyWithImpl<$Res, Attribute>;
   @useResult
-  $Res call({String id, String name, String? description, String? iconData, double stepSize, double minValue, double maxValue, bool isGlobal});
+  $Res call(
+      {String id,
+      String name,
+      String? description,
+      String? iconData,
+      double stepSize,
+      double minValue,
+      double maxValue,
+      bool isGlobal});
 }
 
 /// @nodoc
-class _$AttributeCopyWithImpl<$Res, $Val extends Attribute> implements $AttributeCopyWith<$Res> {
+class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
+    implements $AttributeCopyWith<$Res> {
   _$AttributeCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -101,15 +112,29 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute> implements $Attribut
 
 /// @nodoc
 abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
-  factory _$$_AttributeCopyWith(_$_Attribute value, $Res Function(_$_Attribute) then) = __$$_AttributeCopyWithImpl<$Res>;
+  factory _$$_AttributeCopyWith(
+          _$_Attribute value, $Res Function(_$_Attribute) then) =
+      __$$_AttributeCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String? description, String? iconData, double stepSize, double minValue, double maxValue, bool isGlobal});
+  $Res call(
+      {String id,
+      String name,
+      String? description,
+      String? iconData,
+      double stepSize,
+      double minValue,
+      double maxValue,
+      bool isGlobal});
 }
 
 /// @nodoc
-class __$$_AttributeCopyWithImpl<$Res> extends _$AttributeCopyWithImpl<$Res, _$_Attribute> implements _$$_AttributeCopyWith<$Res> {
-  __$$_AttributeCopyWithImpl(_$_Attribute _value, $Res Function(_$_Attribute) _then) : super(_value, _then);
+class __$$_AttributeCopyWithImpl<$Res>
+    extends _$AttributeCopyWithImpl<$Res, _$_Attribute>
+    implements _$$_AttributeCopyWith<$Res> {
+  __$$_AttributeCopyWithImpl(
+      _$_Attribute _value, $Res Function(_$_Attribute) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -173,7 +198,8 @@ class _$_Attribute implements _Attribute {
       this.maxValue = 10,
       this.isGlobal = false});
 
-  factory _$_Attribute.fromJson(Map<String, dynamic> json) => _$$_AttributeFromJson(json);
+  factory _$_Attribute.fromJson(Map<String, dynamic> json) =>
+      _$$_AttributeFromJson(json);
 
   @override
   final String id;
@@ -208,22 +234,30 @@ class _$_Attribute implements _Attribute {
             other is _$_Attribute &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) || other.description == description) &&
-            (identical(other.iconData, iconData) || other.iconData == iconData) &&
-            (identical(other.stepSize, stepSize) || other.stepSize == stepSize) &&
-            (identical(other.minValue, minValue) || other.minValue == minValue) &&
-            (identical(other.maxValue, maxValue) || other.maxValue == maxValue) &&
-            (identical(other.isGlobal, isGlobal) || other.isGlobal == isGlobal));
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.iconData, iconData) ||
+                other.iconData == iconData) &&
+            (identical(other.stepSize, stepSize) ||
+                other.stepSize == stepSize) &&
+            (identical(other.minValue, minValue) ||
+                other.minValue == minValue) &&
+            (identical(other.maxValue, maxValue) ||
+                other.maxValue == maxValue) &&
+            (identical(other.isGlobal, isGlobal) ||
+                other.isGlobal == isGlobal));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, iconData, stepSize, minValue, maxValue, isGlobal);
+  int get hashCode => Object.hash(runtimeType, id, name, description, iconData,
+      stepSize, minValue, maxValue, isGlobal);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AttributeCopyWith<_$_Attribute> get copyWith => __$$_AttributeCopyWithImpl<_$_Attribute>(this, _$identity);
+  _$$_AttributeCopyWith<_$_Attribute> get copyWith =>
+      __$$_AttributeCopyWithImpl<_$_Attribute>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -244,7 +278,8 @@ abstract class _Attribute implements Attribute {
       final double maxValue,
       final bool isGlobal}) = _$_Attribute;
 
-  factory _Attribute.fromJson(Map<String, dynamic> json) = _$_Attribute.fromJson;
+  factory _Attribute.fromJson(Map<String, dynamic> json) =
+      _$_Attribute.fromJson;
 
   @override
   String get id;
@@ -264,5 +299,6 @@ abstract class _Attribute implements Attribute {
   bool get isGlobal;
   @override
   @JsonKey(ignore: true)
-  _$$_AttributeCopyWith<_$_Attribute> get copyWith => throw _privateConstructorUsedError;
+  _$$_AttributeCopyWith<_$_Attribute> get copyWith =>
+      throw _privateConstructorUsedError;
 }
