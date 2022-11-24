@@ -11,6 +11,7 @@ class AttributeValue with _$AttributeValue {
     required String attributeId,
     required Attribute attribute,
     required double value,
+    @Default(0) double currentValue,
   }) = _AttributeValue;
 
   factory AttributeValue.fromJson(Map<String, dynamic> json) => _$AttributeValueFromJson(json);

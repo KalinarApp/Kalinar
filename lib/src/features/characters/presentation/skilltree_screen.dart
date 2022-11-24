@@ -114,7 +114,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
         actions: [
           SkillpointsWidget(skillpoints),
           const SizedBox(width: 10),
-          const StatisticsWidget(),
+          if (state.hasValue) StatisticsWidget(state.value!),
           const SizedBox(width: 12),
         ],
       ),
