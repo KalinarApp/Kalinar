@@ -17,19 +17,19 @@ class AbilityController {
 
   Future<AsyncValue<Ability>> create(Map<String, dynamic> data) async {
     final state = await AsyncValue.guard(() async => await repo.createAbility(data));
-    await abilityList.getAllAbilities();
+    await abilityList.refresh();
     return state;
   }
 
   Future<AsyncValue<Ability>> update(String id, Map<String, dynamic> data) async {
     final state = await AsyncValue.guard(() async => await repo.updateAbility(id, data));
-    await abilityList.getAllAbilities();
+    await abilityList.refresh();
     return state;
   }
 
   Future<AsyncValue<bool>> deleteAbility(String id) async {
     final state = await AsyncValue.guard(() async => await repo.deleteAbility(id));
-    await abilityList.getAllAbilities();
+    await abilityList.refresh();
     return state;
   }
 }

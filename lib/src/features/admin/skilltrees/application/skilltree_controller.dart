@@ -179,6 +179,10 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
     final blueprint = await blueprints.load(id);
     state = SkilltreeState(skilltree: blueprint.toSkilltree());
   }
+
+  Future<AsyncValue> resetSkilltree(String id) async {
+    return AsyncValue.guard(() async => await repo.resetSkilltree(id));
+  }
 }
 
 final skilltreeControllerProvider = StateNotifierProvider<SkilltreeController, SkilltreeState>((ref) {

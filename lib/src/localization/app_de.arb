@@ -32,6 +32,8 @@
 
   "save": "Speichern",
   "statistics": "Statistik",
+  "cost": "Kosten",
+  "reset": "Zurücksetzen",
 
   "workInProgress": "Diese Seite ist noch in Arbeit!",
 
@@ -99,6 +101,7 @@
   "abilityDescription": "Beschreibung des Talents",
   "selectAnAbility": "Talent auswählen",
   "searchForAbility": "Talent suchen",
+  "newAbility": "Neues Talent",
 
   "skillName": "Name des Skills",
   "skillDescription": "Beschreibung des Skills",

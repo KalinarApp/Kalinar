@@ -20,7 +20,6 @@ class SkillController {
 
   Future<AsyncValue<Skill>> update(String id, Map<String, dynamic> data) async {
     final state = await AsyncValue.guard(() async => await repo.updateSkill(id, data));
-
     await skillList.getAllSkills();
     return state;
   }

@@ -20,6 +20,7 @@ class AttributeValueWidget extends StatelessWidget {
     final translatedAttribute = value.attribute.translate(context);
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         JustTheTooltip(
             triggerMode: TooltipTriggerMode.tap,
