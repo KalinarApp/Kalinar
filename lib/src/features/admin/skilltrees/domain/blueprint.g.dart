@@ -11,7 +11,8 @@ _$_Blueprint _$$_BlueprintFromJson(Map<String, dynamic> json) => _$_Blueprint(
       name: json['name'] as String? ?? "",
       character: json['character'] == null
           ? null
-          : Character.fromJson(json['character'] as Map<String, dynamic>),
+          : CharacterOverview.fromJson(
+              json['character'] as Map<String, dynamic>),
       points: json['points'] as int? ?? 0,
       isActiveTree: json['isActiveTree'] as bool? ?? true,
       nodes: (json['nodes'] as List<dynamic>?)

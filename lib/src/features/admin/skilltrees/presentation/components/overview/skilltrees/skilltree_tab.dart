@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hero/src/features/admin/skilltrees/application/skilltree_controller.dart';
-import 'package:hero/src/features/admin/skilltrees/presentation/components/modals/blueprint_modal.dart';
-import 'package:hero/src/features/admin/skilltrees/presentation/skilltree_builder_screen.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../../../common_widgets/action_menu.dart';
 import '../../../../../../../common_widgets/loading_indicator.dart';
 import '../../../../../../../common_widgets/modal.dart';
+import '../../../../../../../utilities/async_value_extension.dart';
+import '../../../../application/skilltree_controller.dart';
 import '../../../../application/skilltree_list_controller.dart';
 import '../../../../domain/skilltree_overview.dart';
-import '../../../../../../../common_widgets/action_menu.dart';
+import '../../../skilltree_builder_screen.dart';
+import '../../modals/blueprint_modal.dart';
+
 import 'skilltree_character_item.dart';
 import 'skilltree_item.dart';
 
@@ -38,7 +40,12 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
   }
 
   Future<void> _showActionDialog(SkilltreeOverview item) async {
-    final action = await showActionsModal(context, actions: [DialogAction.saveAsBlueprint, DialogAction.edit, DialogAction.delete]);
+    final action = await showActionsModal(context, actions: [
+      DialogAction.saveAsBlueprint,
+      DialogAction.edit,
+      DialogAction.reset,
+      DialogAction.delete,
+    ]);
     if (null == action || !mounted) return;
 
     switch (action) {
@@ -48,11 +55,15 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
       case DialogAction.delete:
         await ref.read(skilltreeControllerProvider.notifier).deleteOnServer(item.id);
         break;
-      case DialogAction.cancel:
-        break;
       case DialogAction.saveAsBlueprint:
         showModal(context, const BlueprintModal());
         break;
+      case DialogAction.reset:
+        final result = await ref.read(skilltreeControllerProvider.notifier).resetSkilltree(item.id);
+        if (!mounted) return;
+        result.showSnackbarOnError(context);
+        break;
+      case DialogAction.cancel:
       case DialogAction.loadAsNewSkilltree:
         break;
     }

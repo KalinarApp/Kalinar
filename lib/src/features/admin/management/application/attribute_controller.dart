@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/attributes_repository.dart';
 import '../domain/attribute.dart';
+
 import 'attribute_list_controller.dart';
 
 class AttributeController {

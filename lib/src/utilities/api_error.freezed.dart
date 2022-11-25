@@ -76,13 +76,11 @@ mixin _$APIError {
 
 /// @nodoc
 abstract class $APIErrorCopyWith<$Res> {
-  factory $APIErrorCopyWith(APIError value, $Res Function(APIError) then) =
-      _$APIErrorCopyWithImpl<$Res, APIError>;
+  factory $APIErrorCopyWith(APIError value, $Res Function(APIError) then) = _$APIErrorCopyWithImpl<$Res, APIError>;
 }
 
 /// @nodoc
-class _$APIErrorCopyWithImpl<$Res, $Val extends APIError>
-    implements $APIErrorCopyWith<$Res> {
+class _$APIErrorCopyWithImpl<$Res, $Val extends APIError> implements $APIErrorCopyWith<$Res> {
   _$APIErrorCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -93,18 +91,12 @@ class _$APIErrorCopyWithImpl<$Res, $Val extends APIError>
 
 /// @nodoc
 abstract class _$$_unauthorizedCopyWith<$Res> {
-  factory _$$_unauthorizedCopyWith(
-          _$_unauthorized value, $Res Function(_$_unauthorized) then) =
-      __$$_unauthorizedCopyWithImpl<$Res>;
+  factory _$$_unauthorizedCopyWith(_$_unauthorized value, $Res Function(_$_unauthorized) then) = __$$_unauthorizedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_unauthorizedCopyWithImpl<$Res>
-    extends _$APIErrorCopyWithImpl<$Res, _$_unauthorized>
-    implements _$$_unauthorizedCopyWith<$Res> {
-  __$$_unauthorizedCopyWithImpl(
-      _$_unauthorized _value, $Res Function(_$_unauthorized) _then)
-      : super(_value, _then);
+class __$$_unauthorizedCopyWithImpl<$Res> extends _$APIErrorCopyWithImpl<$Res, _$_unauthorized> implements _$$_unauthorizedCopyWith<$Res> {
+  __$$_unauthorizedCopyWithImpl(_$_unauthorized _value, $Res Function(_$_unauthorized) _then) : super(_value, _then);
 }
 
 /// @nodoc
@@ -119,8 +111,7 @@ class _$_unauthorized implements _unauthorized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_unauthorized);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_unauthorized);
   }
 
   @override
@@ -213,18 +204,14 @@ abstract class _unauthorized implements APIError {
 
 /// @nodoc
 abstract class _$$_NoInternetConnectionCopyWith<$Res> {
-  factory _$$_NoInternetConnectionCopyWith(_$_NoInternetConnection value,
-          $Res Function(_$_NoInternetConnection) then) =
+  factory _$$_NoInternetConnectionCopyWith(_$_NoInternetConnection value, $Res Function(_$_NoInternetConnection) then) =
       __$$_NoInternetConnectionCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_NoInternetConnectionCopyWithImpl<$Res>
-    extends _$APIErrorCopyWithImpl<$Res, _$_NoInternetConnection>
+class __$$_NoInternetConnectionCopyWithImpl<$Res> extends _$APIErrorCopyWithImpl<$Res, _$_NoInternetConnection>
     implements _$$_NoInternetConnectionCopyWith<$Res> {
-  __$$_NoInternetConnectionCopyWithImpl(_$_NoInternetConnection _value,
-      $Res Function(_$_NoInternetConnection) _then)
-      : super(_value, _then);
+  __$$_NoInternetConnectionCopyWithImpl(_$_NoInternetConnection _value, $Res Function(_$_NoInternetConnection) _then) : super(_value, _then);
 }
 
 /// @nodoc
@@ -239,8 +226,7 @@ class _$_NoInternetConnection implements _NoInternetConnection {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NoInternetConnection);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_NoInternetConnection);
   }
 
   @override
@@ -333,18 +319,12 @@ abstract class _NoInternetConnection implements APIError {
 
 /// @nodoc
 abstract class _$$_BadRequestCopyWith<$Res> {
-  factory _$$_BadRequestCopyWith(
-          _$_BadRequest value, $Res Function(_$_BadRequest) then) =
-      __$$_BadRequestCopyWithImpl<$Res>;
+  factory _$$_BadRequestCopyWith(_$_BadRequest value, $Res Function(_$_BadRequest) then) = __$$_BadRequestCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_BadRequestCopyWithImpl<$Res>
-    extends _$APIErrorCopyWithImpl<$Res, _$_BadRequest>
-    implements _$$_BadRequestCopyWith<$Res> {
-  __$$_BadRequestCopyWithImpl(
-      _$_BadRequest _value, $Res Function(_$_BadRequest) _then)
-      : super(_value, _then);
+class __$$_BadRequestCopyWithImpl<$Res> extends _$APIErrorCopyWithImpl<$Res, _$_BadRequest> implements _$$_BadRequestCopyWith<$Res> {
+  __$$_BadRequestCopyWithImpl(_$_BadRequest _value, $Res Function(_$_BadRequest) _then) : super(_value, _then);
 }
 
 /// @nodoc
@@ -359,8 +339,7 @@ class _$_BadRequest implements _BadRequest {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_BadRequest);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_BadRequest);
   }
 
   @override
@@ -453,18 +432,12 @@ abstract class _BadRequest implements APIError {
 
 /// @nodoc
 abstract class _$$_NotFoundCopyWith<$Res> {
-  factory _$$_NotFoundCopyWith(
-          _$_NotFound value, $Res Function(_$_NotFound) then) =
-      __$$_NotFoundCopyWithImpl<$Res>;
+  factory _$$_NotFoundCopyWith(_$_NotFound value, $Res Function(_$_NotFound) then) = __$$_NotFoundCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_NotFoundCopyWithImpl<$Res>
-    extends _$APIErrorCopyWithImpl<$Res, _$_NotFound>
-    implements _$$_NotFoundCopyWith<$Res> {
-  __$$_NotFoundCopyWithImpl(
-      _$_NotFound _value, $Res Function(_$_NotFound) _then)
-      : super(_value, _then);
+class __$$_NotFoundCopyWithImpl<$Res> extends _$APIErrorCopyWithImpl<$Res, _$_NotFound> implements _$$_NotFoundCopyWith<$Res> {
+  __$$_NotFoundCopyWithImpl(_$_NotFound _value, $Res Function(_$_NotFound) _then) : super(_value, _then);
 }
 
 /// @nodoc
@@ -479,8 +452,7 @@ class _$_NotFound implements _NotFound {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NotFound);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_NotFound);
   }
 
   @override
@@ -573,17 +545,12 @@ abstract class _NotFound implements APIError {
 
 /// @nodoc
 abstract class _$$_UnknownCopyWith<$Res> {
-  factory _$$_UnknownCopyWith(
-          _$_Unknown value, $Res Function(_$_Unknown) then) =
-      __$$_UnknownCopyWithImpl<$Res>;
+  factory _$$_UnknownCopyWith(_$_Unknown value, $Res Function(_$_Unknown) then) = __$$_UnknownCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnknownCopyWithImpl<$Res>
-    extends _$APIErrorCopyWithImpl<$Res, _$_Unknown>
-    implements _$$_UnknownCopyWith<$Res> {
-  __$$_UnknownCopyWithImpl(_$_Unknown _value, $Res Function(_$_Unknown) _then)
-      : super(_value, _then);
+class __$$_UnknownCopyWithImpl<$Res> extends _$APIErrorCopyWithImpl<$Res, _$_Unknown> implements _$$_UnknownCopyWith<$Res> {
+  __$$_UnknownCopyWithImpl(_$_Unknown _value, $Res Function(_$_Unknown) _then) : super(_value, _then);
 }
 
 /// @nodoc
@@ -598,8 +565,7 @@ class _$_Unknown implements _Unknown {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Unknown);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_Unknown);
   }
 
   @override

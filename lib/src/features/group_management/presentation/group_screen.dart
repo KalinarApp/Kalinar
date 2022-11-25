@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common_widgets/user_menu.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/common/application/group_info_controller.dart';
 import '../../authentication/data/auth_repository.dart';
+
 import 'create_group.dart';
 import 'user_invite_screen.dart';
 

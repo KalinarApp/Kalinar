@@ -2,15 +2,17 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/animation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/skilltrees/application/blueprint_controller.dart';
-import 'package:hero/src/features/admin/skilltrees/data/blueprint_repository.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/blueprint.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../data/blueprint_repository.dart';
 import '../data/skilltrees_repository.dart';
+import '../domain/blueprint.dart';
 import '../domain/edge.dart';
 import '../domain/node.dart';
 import '../domain/skilltree.dart';
+
+import 'blueprint_controller.dart';
 import 'skilltree_list_controller.dart';
 import 'states/skilltree_state.dart';
 
@@ -176,6 +178,10 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
   Future<void> loadBlueprintAsNew(String id) async {
     final blueprint = await blueprints.load(id);
     state = SkilltreeState(skilltree: blueprint.toSkilltree());
+  }
+
+  Future<AsyncValue> resetSkilltree(String id) async {
+    return AsyncValue.guard(() async => await repo.resetSkilltree(id));
   }
 }
 

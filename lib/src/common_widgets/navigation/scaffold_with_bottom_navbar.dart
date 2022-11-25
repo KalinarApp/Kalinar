@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import 'scaffold_with_navbar_item.dart';
 
 class ScaffoldWithBottomNavbar extends StatefulWidget {
   final Widget child;

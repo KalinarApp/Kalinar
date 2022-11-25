@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hero/src/common_widgets/node_tile.dart';
 
 import '../../../domain/node.dart';
+
 import 'editable_node.dart';
 
 class DraggableNode extends StatelessWidget {

@@ -12,10 +12,13 @@ _$_SkilltreeOverview _$$_SkilltreeOverviewFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       character: json['character'] == null
           ? null
-          : Character.fromJson(json['character'] as Map<String, dynamic>),
+          : CharacterOverview.fromJson(
+              json['character'] as Map<String, dynamic>),
       points: json['points'] as int,
+      leftPoints: json['leftPoints'] as int,
       isActiveTree: json['isActiveTree'] as bool,
       nodeCount: json['nodeCount'] as int,
+      unlockedNodeCount: json['unlockedNodeCount'] as int,
     );
 
 Map<String, dynamic> _$$_SkilltreeOverviewToJson(
@@ -25,6 +28,8 @@ Map<String, dynamic> _$$_SkilltreeOverviewToJson(
       'name': instance.name,
       'character': instance.character,
       'points': instance.points,
+      'leftPoints': instance.leftPoints,
       'isActiveTree': instance.isActiveTree,
       'nodeCount': instance.nodeCount,
+      'unlockedNodeCount': instance.unlockedNodeCount,
     };

@@ -13,8 +13,7 @@ _$_GroupInfo _$$_GroupInfoFromJson(Map<String, dynamic> json) => _$_GroupInfo(
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$_GroupInfoToJson(_$_GroupInfo instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$_GroupInfoToJson(_$_GroupInfo instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'owner': instance.owner,

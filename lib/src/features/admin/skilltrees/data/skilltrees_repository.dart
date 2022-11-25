@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/skilltree.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utilities/base_repository.dart';
 import '../../../authentication/data/auth_repository.dart';
 import '../../../group_management/application/has_group_controller.dart';
 import '../domain/node.dart';
+import '../domain/skillpoints.dart';
+import '../domain/skilltree.dart';
 import '../domain/skilltree_overview.dart';
 
 class SkilltreesRepository extends HeroBaseRepository {
@@ -43,8 +44,20 @@ class SkilltreesRepository extends HeroBaseRepository {
     return await heroGet("/api/skilltrees/$id", (response) => Skilltree.fromJson(response));
   }
 
+  Future<Skillpoints> getSkillpoints(String id) async {
+    return await heroGet("/api/skilltrees/$id/skillpoints", (response) => Skillpoints.fromJson(response));
+  }
+
   Future<void> createOnServer(Map<String, dynamic> data) async {
     await heroPost("/api/skilltrees", data, (response) => true);
+  }
+
+  Future<void> unlockNode(String skilltreeId, String nodeId) async {
+    return await heroPost("/api/skilltrees/$skilltreeId/nodes/$nodeId/unlock", null, (response) => true);
+  }
+
+  Future<void> resetSkilltree(String id) async {
+    await heroPost("/api/skilltrees/$id/reset", null, (response) => true);
   }
 
   Future<void> updateOnServer(String id, Map<String, dynamic> data) async {

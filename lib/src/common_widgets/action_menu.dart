@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 enum DialogAction {
   edit,
   delete,
+  reset,
   loadAsNewSkilltree,
   saveAsBlueprint,
   cancel,
@@ -24,6 +25,8 @@ extension KnowledgeActionExtension on DialogAction {
         return const FaIcon(FontAwesomeIcons.map);
       case DialogAction.loadAsNewSkilltree:
         return const FaIcon(FontAwesomeIcons.handsHoldingCircle);
+      case DialogAction.reset:
+        return const FaIcon(FontAwesomeIcons.arrowsRotate);
     }
   }
 
@@ -39,6 +42,8 @@ extension KnowledgeActionExtension on DialogAction {
         return AppLocalizations.of(context)!.saveAsBlueprint;
       case DialogAction.loadAsNewSkilltree:
         return AppLocalizations.of(context)!.loadAsNewSkilltree;
+      case DialogAction.reset:
+        return AppLocalizations.of(context)!.reset;
     }
   }
 }

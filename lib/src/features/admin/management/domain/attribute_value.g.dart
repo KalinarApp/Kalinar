@@ -11,6 +11,7 @@ _$_AttributeValue _$$_AttributeValueFromJson(Map<String, dynamic> json) =>
       attributeId: json['attributeId'] as String,
       attribute: Attribute.fromJson(json['attribute'] as Map<String, dynamic>),
       value: (json['value'] as num).toDouble(),
+      currentValue: (json['currentValue'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$$_AttributeValueToJson(_$_AttributeValue instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_AttributeValueToJson(_$_AttributeValue instance) =>
       'attributeId': instance.attributeId,
       'attribute': instance.attribute,
       'value': instance.value,
+      'currentValue': instance.currentValue,
     };

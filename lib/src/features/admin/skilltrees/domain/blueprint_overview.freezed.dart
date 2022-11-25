@@ -26,22 +26,19 @@ mixin _$BlueprintOverview {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BlueprintOverviewCopyWith<BlueprintOverview> get copyWith =>
-      throw _privateConstructorUsedError;
+  $BlueprintOverviewCopyWith<BlueprintOverview> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $BlueprintOverviewCopyWith<$Res> {
-  factory $BlueprintOverviewCopyWith(
-          BlueprintOverview value, $Res Function(BlueprintOverview) then) =
+  factory $BlueprintOverviewCopyWith(BlueprintOverview value, $Res Function(BlueprintOverview) then) =
       _$BlueprintOverviewCopyWithImpl<$Res, BlueprintOverview>;
   @useResult
   $Res call({String id, String name, int nodeCount});
 }
 
 /// @nodoc
-class _$BlueprintOverviewCopyWithImpl<$Res, $Val extends BlueprintOverview>
-    implements $BlueprintOverviewCopyWith<$Res> {
+class _$BlueprintOverviewCopyWithImpl<$Res, $Val extends BlueprintOverview> implements $BlueprintOverviewCopyWith<$Res> {
   _$BlueprintOverviewCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -74,10 +71,8 @@ class _$BlueprintOverviewCopyWithImpl<$Res, $Val extends BlueprintOverview>
 }
 
 /// @nodoc
-abstract class _$$_BlueprintOverviewCopyWith<$Res>
-    implements $BlueprintOverviewCopyWith<$Res> {
-  factory _$$_BlueprintOverviewCopyWith(_$_BlueprintOverview value,
-          $Res Function(_$_BlueprintOverview) then) =
+abstract class _$$_BlueprintOverviewCopyWith<$Res> implements $BlueprintOverviewCopyWith<$Res> {
+  factory _$$_BlueprintOverviewCopyWith(_$_BlueprintOverview value, $Res Function(_$_BlueprintOverview) then) =
       __$$_BlueprintOverviewCopyWithImpl<$Res>;
   @override
   @useResult
@@ -85,12 +80,9 @@ abstract class _$$_BlueprintOverviewCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BlueprintOverviewCopyWithImpl<$Res>
-    extends _$BlueprintOverviewCopyWithImpl<$Res, _$_BlueprintOverview>
+class __$$_BlueprintOverviewCopyWithImpl<$Res> extends _$BlueprintOverviewCopyWithImpl<$Res, _$_BlueprintOverview>
     implements _$$_BlueprintOverviewCopyWith<$Res> {
-  __$$_BlueprintOverviewCopyWithImpl(
-      _$_BlueprintOverview _value, $Res Function(_$_BlueprintOverview) _then)
-      : super(_value, _then);
+  __$$_BlueprintOverviewCopyWithImpl(_$_BlueprintOverview _value, $Res Function(_$_BlueprintOverview) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -119,11 +111,9 @@ class __$$_BlueprintOverviewCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_BlueprintOverview implements _BlueprintOverview {
-  const _$_BlueprintOverview(
-      {required this.id, required this.name, required this.nodeCount});
+  const _$_BlueprintOverview({required this.id, required this.name, required this.nodeCount});
 
-  factory _$_BlueprintOverview.fromJson(Map<String, dynamic> json) =>
-      _$$_BlueprintOverviewFromJson(json);
+  factory _$_BlueprintOverview.fromJson(Map<String, dynamic> json) => _$$_BlueprintOverviewFromJson(json);
 
   @override
   final String id;
@@ -144,8 +134,7 @@ class _$_BlueprintOverview implements _BlueprintOverview {
             other is _$_BlueprintOverview &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.nodeCount, nodeCount) ||
-                other.nodeCount == nodeCount));
+            (identical(other.nodeCount, nodeCount) || other.nodeCount == nodeCount));
   }
 
   @JsonKey(ignore: true)
@@ -155,9 +144,7 @@ class _$_BlueprintOverview implements _BlueprintOverview {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_BlueprintOverviewCopyWith<_$_BlueprintOverview> get copyWith =>
-      __$$_BlueprintOverviewCopyWithImpl<_$_BlueprintOverview>(
-          this, _$identity);
+  _$$_BlueprintOverviewCopyWith<_$_BlueprintOverview> get copyWith => __$$_BlueprintOverviewCopyWithImpl<_$_BlueprintOverview>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -168,13 +155,9 @@ class _$_BlueprintOverview implements _BlueprintOverview {
 }
 
 abstract class _BlueprintOverview implements BlueprintOverview {
-  const factory _BlueprintOverview(
-      {required final String id,
-      required final String name,
-      required final int nodeCount}) = _$_BlueprintOverview;
+  const factory _BlueprintOverview({required final String id, required final String name, required final int nodeCount}) = _$_BlueprintOverview;
 
-  factory _BlueprintOverview.fromJson(Map<String, dynamic> json) =
-      _$_BlueprintOverview.fromJson;
+  factory _BlueprintOverview.fromJson(Map<String, dynamic> json) = _$_BlueprintOverview.fromJson;
 
   @override
   String get id;
@@ -184,6 +167,5 @@ abstract class _BlueprintOverview implements BlueprintOverview {
   int get nodeCount;
   @override
   @JsonKey(ignore: true)
-  _$$_BlueprintOverviewCopyWith<_$_BlueprintOverview> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_BlueprintOverviewCopyWith<_$_BlueprintOverview> get copyWith => throw _privateConstructorUsedError;
 }

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hero/src/common_widgets/form_fields/description_field.dart';
-import 'package:hero/src/common_widgets/form_fields/icon_picker_field.dart';
-import 'package:hero/src/features/admin/management/application/attribute_controller.dart';
-import 'package:hero/src/features/admin/management/application/attribute_list_controller.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../domain/attribute.dart';
+import '../../../../../../common_widgets/form_fields/description_field.dart';
+import '../../../../../../common_widgets/form_fields/icon_picker_field.dart';
 import '../../../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../utilities/async_value_extension.dart';
+import '../../../application/attribute_controller.dart';
+import '../../../application/attribute_list_controller.dart';
+import '../../../domain/attribute.dart';
 
 class EditAttributeScreen extends ConsumerStatefulWidget {
   static const name = "EditAttribute";
@@ -97,23 +98,23 @@ class _EditSkillScreenState extends ConsumerState<EditAttributeScreen> {
                 ),
                 DescriptionField(label: AppLocalizations.of(context)!.attributeDescription, initialValue: item?.description),
                 FormBuilderTextField(
-                  name: "stepSize",
-                  initialValue: (item?.stepSize ?? 1).toString(),
-                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeStepSize),
-                  keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                ),
+                    name: "stepSize",
+                    initialValue: (item?.stepSize ?? 1).toString(),
+                    decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeStepSize),
+                    keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly]),
                 FormBuilderTextField(
-                  name: "minValue",
-                  initialValue: (item?.minValue ?? 0).toString(),
-                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMinValue),
-                  keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                ),
+                    name: "minValue",
+                    initialValue: (item?.minValue ?? 0).toString(),
+                    decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMinValue),
+                    keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly]),
                 FormBuilderTextField(
-                  name: "maxValue",
-                  initialValue: (item?.maxValue ?? 10).toString(),
-                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMaxValue),
-                  keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
-                ),
+                    name: "maxValue",
+                    initialValue: (item?.maxValue ?? 10).toString(),
+                    decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMaxValue),
+                    keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly]),
               ],
             ),
           ),

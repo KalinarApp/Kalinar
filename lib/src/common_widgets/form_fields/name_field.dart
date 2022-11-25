@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -15,36 +16,27 @@ class NameField extends StatelessWidget {
     return Row(
       children: [
         Flexible(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 102,
-                child: Column(
-                  children: [
-                    FormBuilderTextField(
-                      name: "name",
-                      maxLines: 2,
-                      maxLength: 100,
-                      initialValue: initialValue,
-                      enabled: !readOnly,
-                      validator: FormBuilderValidators.required(),
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                        labelText: label ?? "Name",
-                        prefixIcon: icon ?? const SizedBox(),
-                        contentPadding: const EdgeInsets.only(right: 8),
-                      ),
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                  ],
+          child: SizedBox(
+            height: 102,
+            child: Column(
+              children: [
+                FormBuilderTextField(
+                  name: "name",
+                  maxLines: 2,
+                  maxLength: 100,
+                  initialValue: initialValue,
+                  enabled: !readOnly,
+                  validator: FormBuilderValidators.required(),
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    labelText: label ?? "Name",
+                    prefixIcon: icon ?? const SizedBox(),
+                    contentPadding: const EdgeInsets.only(right: 8),
+                  ),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ],

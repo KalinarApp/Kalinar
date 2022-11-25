@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../features/admin/management/domain/attribute.dart';
 import '../../../features/admin/management/domain/attribute_value.dart';
-import 'attribute_value_range.dart';
+
 import 'attribute_search.dart';
+import 'attribute_value_range.dart';
 
 class AttributeList extends StatefulWidget {
   final List<AttributeValue>? value;
@@ -39,6 +40,7 @@ class _AttributeListState extends State<AttributeList> {
 
   @override
   Widget build(BuildContext context) {
+    attributes.globalFirst();
     return Column(
       children: [
         for (final attribute in attributes)

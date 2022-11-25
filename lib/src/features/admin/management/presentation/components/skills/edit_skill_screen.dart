@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../../../common_widgets/form_fields/attribute/attributes_field.dart';
 import '../../../../../../common_widgets/form_fields/description_field.dart';
-import '../../../../../../common_widgets/form_fields/image_field.dart';
+import '../../../../../../common_widgets/form_fields/image_picker_field.dart';
 import '../../../../../../common_widgets/form_fields/invisible_field.dart';
-import '../../../application/skill_controller.dart';
-import '../../../application/skill_list_controller.dart';
-import '../../../domain/skill.dart';
 import '../../../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../utilities/async_value_extension.dart';
+import '../../../application/skill_controller.dart';
+import '../../../application/skill_list_controller.dart';
+import '../../../domain/skill.dart';
+
 import 'ability_selection_field.dart';
 
 class EditSkillScreen extends ConsumerStatefulWidget {
@@ -93,7 +94,7 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const InvisibleField(name: "id"),
-                ImageField(initialValue: item?.iconUrl),
+                ImagePickerField(initialValue: item?.iconUrl),
                 DescriptionField(initialValue: item?.description, label: AppLocalizations.of(context)!.skillDescription),
                 AbilitySelectionField(initialValue: item?.ability),
                 const SizedBox(height: 30),

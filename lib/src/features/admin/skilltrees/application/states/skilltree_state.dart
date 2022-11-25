@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hero/src/features/admin/skilltrees/domain/skilltree.dart';
 
 import '../../domain/node.dart';
+import '../../domain/skilltree.dart';
 
 part 'skilltree_state.freezed.dart';
 part 'skilltree_state.g.dart';

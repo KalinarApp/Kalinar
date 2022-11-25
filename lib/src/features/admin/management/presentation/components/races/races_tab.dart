@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../common_widgets/action_menu.dart';
 import '../../../../../../common_widgets/async_value_list.dart';
 import '../../../../../../utilities/async_value_extension.dart';
-import '../../../application/attribute_list_controller.dart';
 import '../../../application/race_controller.dart';
 import '../../../application/race_list_controller.dart';
-import '../../../domain/attribute.dart';
 import '../../../domain/race.dart';
-import 'race_list_item.dart';
+
 import 'edit_race_screen.dart';
+import 'race_list_item.dart';
 
 class RacesTab extends ConsumerStatefulWidget {
   const RacesTab({super.key});

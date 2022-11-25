@@ -6,18 +6,19 @@ import '../../../domain/edge.dart';
 
 class EdgeWidget extends StatelessWidget {
   final Edge item;
-  final Function(Edge edge) onTap;
-  const EdgeWidget(this.item, {required this.onTap, super.key});
+  final Function(Edge edge)? onTap;
+  const EdgeWidget(this.item, {this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       GestureDetector(
-        onTap: () => onTap(item),
+        onTap: null != onTap ? () => onTap!(item) : null,
         child: CustomPaint(
           painter: LinesPainter(
             start: Offset(item.start.xPos, item.start.yPos),
             end: Offset(item.end.xPos, item.end.yPos),
+            color: item.start.isUnlocked && item.end.isUnlocked ? Theme.of(context).colorScheme.secondary : Colors.grey,
           ),
           child: Container(),
         ),
@@ -28,15 +29,16 @@ class EdgeWidget extends StatelessWidget {
 
 class LinesPainter extends CustomPainter {
   final Offset start, end;
+  Color color;
   Path? path;
 
-  LinesPainter({required this.start, required this.end});
+  LinesPainter({required this.start, required this.end, this.color = Colors.grey});
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..strokeWidth = 2
-      ..color = Colors.grey;
+      ..color = color;
 
     const arrowSize = 15;
     const arrowAngle = 25 * pi / 180;

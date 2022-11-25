@@ -15,6 +15,7 @@ class Node with _$Node {
     required int cost,
     required String color,
     required bool isEasyReachable,
+    @Default(false) isUnlocked,
     @Default(0) double xPos,
     @Default(0) double yPos,
     @Default([]) List<String> precessors,
@@ -31,5 +32,16 @@ extension NodeListExtension on List<Node> {
 
   List<Node> withoutIds(List<String> ids) {
     return [...where((element) => !ids.contains(element.id))];
+  }
+
+  bool isNodeUnlockable(String nodeId, int currentSkillpoints) {
+    Node nodeToCheck = singleWhere((element) => nodeId == element.id);
+
+    bool hasSkillpoints = currentSkillpoints >= nodeToCheck.cost;
+    bool isUnlockable = nodeToCheck.isEasyReachable
+        ? where((element) => nodeToCheck.precessors.contains(element.id)).any((element) => element.isUnlocked)
+        : where((element) => nodeToCheck.precessors.contains(element.id)).every((element) => element.isUnlocked);
+
+    return hasSkillpoints && isUnlockable;
   }
 }

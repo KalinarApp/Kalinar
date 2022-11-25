@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_gravatar/flutter_gravatar.dart';
 
 import '../../../../authentication/domain/user_info.dart';
