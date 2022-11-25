@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/edge.dart';
 import '../../../domain/node.dart';
-import 'gridlines.dart';
 import '../menu/menu.dart';
 import '../menu/menu_button.dart';
 import '../nodes/draggable_node.dart';
 import '../nodes/edge_widget.dart';
+
+import 'gridlines.dart';
 
 class SkilltreeStack extends StatefulWidget {
   final List<Node> nodes;

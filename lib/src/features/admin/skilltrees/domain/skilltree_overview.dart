@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:hero/src/features/character_management/domain/character.dart';
+import '../../../characters/domain/character_overview.dart';
 
 part 'skilltree_overview.freezed.dart';
 part 'skilltree_overview.g.dart';
@@ -10,10 +10,12 @@ class SkilltreeOverview with _$SkilltreeOverview {
   const factory SkilltreeOverview({
     required String id,
     required String name,
-    Character? character,
+    CharacterOverview? character,
     required int points,
+    required int leftPoints,
     required bool isActiveTree,
     required int nodeCount,
+    required int unlockedNodeCount,
   }) = _SkilltreeOverview;
 
   factory SkilltreeOverview.fromJson(Map<String, dynamic> json) => _$SkilltreeOverviewFromJson(json);

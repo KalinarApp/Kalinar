@@ -23,6 +23,7 @@ mixin _$AttributeValue {
   String get attributeId => throw _privateConstructorUsedError;
   Attribute get attribute => throw _privateConstructorUsedError;
   double get value => throw _privateConstructorUsedError;
+  double get currentValue => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,11 @@ abstract class $AttributeValueCopyWith<$Res> {
           AttributeValue value, $Res Function(AttributeValue) then) =
       _$AttributeValueCopyWithImpl<$Res, AttributeValue>;
   @useResult
-  $Res call({String attributeId, Attribute attribute, double value});
+  $Res call(
+      {String attributeId,
+      Attribute attribute,
+      double value,
+      double currentValue});
 
   $AttributeCopyWith<$Res> get attribute;
 }
@@ -57,6 +62,7 @@ class _$AttributeValueCopyWithImpl<$Res, $Val extends AttributeValue>
     Object? attributeId = null,
     Object? attribute = null,
     Object? value = null,
+    Object? currentValue = null,
   }) {
     return _then(_value.copyWith(
       attributeId: null == attributeId
@@ -70,6 +76,10 @@ class _$AttributeValueCopyWithImpl<$Res, $Val extends AttributeValue>
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
+              as double,
+      currentValue: null == currentValue
+          ? _value.currentValue
+          : currentValue // ignore: cast_nullable_to_non_nullable
               as double,
     ) as $Val);
   }
@@ -91,7 +101,11 @@ abstract class _$$_AttributeValueCopyWith<$Res>
       __$$_AttributeValueCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String attributeId, Attribute attribute, double value});
+  $Res call(
+      {String attributeId,
+      Attribute attribute,
+      double value,
+      double currentValue});
 
   @override
   $AttributeCopyWith<$Res> get attribute;
@@ -111,6 +125,7 @@ class __$$_AttributeValueCopyWithImpl<$Res>
     Object? attributeId = null,
     Object? attribute = null,
     Object? value = null,
+    Object? currentValue = null,
   }) {
     return _then(_$_AttributeValue(
       attributeId: null == attributeId
@@ -125,6 +140,10 @@ class __$$_AttributeValueCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as double,
+      currentValue: null == currentValue
+          ? _value.currentValue
+          : currentValue // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -135,7 +154,8 @@ class _$_AttributeValue implements _AttributeValue {
   const _$_AttributeValue(
       {required this.attributeId,
       required this.attribute,
-      required this.value});
+      required this.value,
+      this.currentValue = 0});
 
   factory _$_AttributeValue.fromJson(Map<String, dynamic> json) =>
       _$$_AttributeValueFromJson(json);
@@ -146,10 +166,13 @@ class _$_AttributeValue implements _AttributeValue {
   final Attribute attribute;
   @override
   final double value;
+  @override
+  @JsonKey()
+  final double currentValue;
 
   @override
   String toString() {
-    return 'AttributeValue(attributeId: $attributeId, attribute: $attribute, value: $value)';
+    return 'AttributeValue(attributeId: $attributeId, attribute: $attribute, value: $value, currentValue: $currentValue)';
   }
 
   @override
@@ -161,12 +184,15 @@ class _$_AttributeValue implements _AttributeValue {
                 other.attributeId == attributeId) &&
             (identical(other.attribute, attribute) ||
                 other.attribute == attribute) &&
-            (identical(other.value, value) || other.value == value));
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.currentValue, currentValue) ||
+                other.currentValue == currentValue));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, attributeId, attribute, value);
+  int get hashCode =>
+      Object.hash(runtimeType, attributeId, attribute, value, currentValue);
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +212,8 @@ abstract class _AttributeValue implements AttributeValue {
   const factory _AttributeValue(
       {required final String attributeId,
       required final Attribute attribute,
-      required final double value}) = _$_AttributeValue;
+      required final double value,
+      final double currentValue}) = _$_AttributeValue;
 
   factory _AttributeValue.fromJson(Map<String, dynamic> json) =
       _$_AttributeValue.fromJson;
@@ -197,6 +224,8 @@ abstract class _AttributeValue implements AttributeValue {
   Attribute get attribute;
   @override
   double get value;
+  @override
+  double get currentValue;
   @override
   @JsonKey(ignore: true)
   _$$_AttributeValueCopyWith<_$_AttributeValue> get copyWith =>

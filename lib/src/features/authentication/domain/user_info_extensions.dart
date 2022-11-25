@@ -1,4 +1,5 @@
 import 'package:flutter_auth/models/user_info.dart';
+
 import '../../../utilities/constants.dart';
 
 extension UserInfoExtensions on UserInfo {

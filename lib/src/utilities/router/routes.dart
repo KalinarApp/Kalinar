@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_auth/models/user_info.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:hero/src/common_widgets/navigation/scaffold_with_bottom_navbar.dart';
-import 'package:hero/src/common_widgets/navigation/scaffold_with_navbar_item.dart';
-import 'package:hero/src/features/authentication/data/auth_repository.dart';
-import 'package:hero/src/features/authentication/domain/user_info_extensions.dart';
-import 'package:hero/src/features/authentication/presentation/sign_in_screen.dart';
-import 'package:hero/src/features/group_management/application/has_group_controller.dart';
-import 'package:hero/src/features/group_management/presentation/group_screen.dart';
-import 'package:hero/src/features/group_management/presentation/user_invite_screen.dart';
-import 'package:hero/src/features/home/presentation/home_screen.dart';
-import 'package:hero/src/features/home/presentation/welcome_screen.dart';
-
+import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
+import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
-import 'admin_routes.dart';
+import '../../features/authentication/data/auth_repository.dart';
+import '../../features/authentication/domain/user_info_extensions.dart';
+import '../../features/authentication/presentation/sign_in_screen.dart';
+import '../../features/group_management/application/has_group_controller.dart';
+import '../../features/group_management/presentation/group_screen.dart';
+import '../../features/group_management/presentation/user_invite_screen.dart';
+import '../../features/home/presentation/home_screen.dart';
+import '../../features/home/presentation/welcome_screen.dart';
 
-final rootNavigatorKey = GlobalKey<NavigatorState>();
-final shellNavigatorKey = GlobalKey<NavigatorState>();
+import 'admin_routes.dart';
+import 'character_routes.dart';
 
 GoRouter getRouter(WidgetRef ref) {
   final authState = RouterStreamNotifier(ref);
   final groupState = ref.read(hasGroupProvider);
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
+  final shellNavigatorKey = GlobalKey<NavigatorState>();
 
   return GoRouter(
     initialLocation: "/",
@@ -82,11 +82,6 @@ GoRouter getRouter(WidgetRef ref) {
                   icon: const Icon(Icons.man),
                   label: Text(AppLocalizations.of(context)!.characters),
                   color: Theme.of(context).colorScheme.primary),
-              ScaffoldWithNavbarItem(
-                  initialLocation: "/skilltrees",
-                  icon: const Icon(Icons.trending_up),
-                  label: Text(AppLocalizations.of(context)!.skilltrees),
-                  color: Theme.of(context).colorScheme.primary),
               if (null != user && user.isAdmin())
                 ScaffoldWithNavbarItem(
                     initialLocation: AdminMenuScreen.route,
@@ -114,14 +109,7 @@ GoRouter getRouter(WidgetRef ref) {
               return null;
             },
           ),
-          GoRoute(
-            path: "/skilltrees",
-            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Scaffold()),
-          ),
-          GoRoute(
-            path: "/characters",
-            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Scaffold()),
-          ),
+          characterRoutes,
           adminRoutes,
         ],
       ),

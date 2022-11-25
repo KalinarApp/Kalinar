@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -10,6 +11,7 @@ import '../../../../../../common_widgets/form_fields/value_range_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../utilities/async_value_extension.dart';
 import '../../../application/skilltree_controller.dart';
+import '../builder/character_selection_field.dart';
 
 class SkilltreeModal extends ConsumerStatefulWidget {
   const SkilltreeModal({super.key});
@@ -76,6 +78,7 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
                 validators: FormBuilderValidators.required(),
                 initialValue: state.skilltree.name,
               ),
+              CharacterSelectionField(initialValue: state.skilltree.character),
               ValueRangeField(
                 name: "points",
                 label: "Initiale Skillpunkte",

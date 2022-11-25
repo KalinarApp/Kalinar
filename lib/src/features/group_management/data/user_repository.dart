@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hero/src/utilities/base_repository.dart';
 
+import '../../../utilities/base_repository.dart';
 import '../../authentication/data/auth_repository.dart';
 import '../domain/user.dart';
 

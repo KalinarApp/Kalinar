@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
@@ -65,8 +66,10 @@ class NodeModal extends ConsumerWidget {
                 ],
               ),
               InvisibleField(name: "id", initialValue: item?.id ?? const Uuid().v4()),
-              InvisibleField(name: "xpos", initialValue: item?.xPos ?? 0),
-              InvisibleField(name: "ypos", initialValue: item?.yPos ?? 0),
+              InvisibleField(name: "xPos", initialValue: item?.xPos ?? 0),
+              InvisibleField(name: "yPos", initialValue: item?.yPos ?? 0),
+              InvisibleField(name: "precessors", initialValue: item?.precessors ?? []),
+              InvisibleField(name: "successors", initialValue: item?.successors ?? []),
               SkillSelectionField(initialValue: item?.skill),
               BoolField(name: "isEasyReachable", label: "Direkt Freischaltbar?", initialValue: item?.isEasyReachable ?? false),
               ValueRangeField(name: "cost", label: "Benötigte Skillpunkte", initialValue: item?.cost ?? 0, min: 0, max: 10, step: 1),
@@ -74,7 +77,7 @@ class NodeModal extends ConsumerWidget {
               FormBuilderColorPickerField(
                 name: "color",
                 valueTransformer: (value) => value?.value.toString(),
-                initialValue: null != item?.color ? Color(int.parse(item!.color)) : Colors.purple,
+                initialValue: null != item?.color ? Color(int.parse(item!.color)) : Colors.white,
                 validator: FormBuilderValidators.required(),
                 decoration: const InputDecoration(labelText: "wähle eine Hintergrundfarbe:"),
               )
