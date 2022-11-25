@@ -26,7 +26,7 @@ class AttributesRepository extends HeroBaseRepository {
     return await heroUpdate("/api/attributes/$id", data, (response) => Attribute.fromJson(json.decode(response)));
   }
 
-  Future<bool> deleteAttribute(String id) async {
+  Future<void> deleteAttribute(String id) async {
     return await heroDelete("/api/attributes/$id");
   }
 }

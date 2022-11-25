@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:hero/src/utilities/api_error.dart';
+
 extension AsyncValueUI on AsyncValue {
   void showSnackbarOnError(BuildContext context) {
     if (!isRefreshing && hasError) {
+      String message = error.toString();
+
+      if (error is APIError) {
+        message = (error as APIError).getMessage(context);
+      }
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(error.toString())),
+        SnackBar(content: Text(message)),
       );
     }
   }

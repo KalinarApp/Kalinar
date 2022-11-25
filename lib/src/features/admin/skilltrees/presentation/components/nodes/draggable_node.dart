@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:hero/src/common_widgets/node_tile.dart';
 
 import '../../../domain/node.dart';
@@ -20,7 +21,7 @@ class DraggableNode extends StatelessWidget {
         data: item,
         maxSimultaneousDrags: 1,
         feedback: NodeTile(
-          null != item.skill.iconUrl ? NetworkImage(item.skill.iconUrl!) : null,
+          null != item.skill.iconUrl ? Image.network(item.skill.iconUrl!) : null,
           color: item.color,
           width: 32,
           height: 32,

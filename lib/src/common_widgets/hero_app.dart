@@ -20,6 +20,7 @@ class _HeroAppState extends ConsumerState<HeroApp> {
   @override
   void didChangeDependencies() {
     ref.read(initControllerProvider).initialize();
+
     super.didChangeDependencies();
   }
 

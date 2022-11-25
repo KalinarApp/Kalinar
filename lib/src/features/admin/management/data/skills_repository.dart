@@ -22,7 +22,7 @@ class SkillsRepository extends HeroBaseRepository {
     return await heroUpdate("/api/skills/$id", data, (response) => Skill.fromJson(json.decode(response)));
   }
 
-  Future<bool> deleteSkill(String id) async {
+  Future<void> deleteSkill(String id) async {
     return await heroDelete("/api/skills/$id");
   }
 }

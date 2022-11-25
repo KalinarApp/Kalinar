@@ -31,8 +31,8 @@ class AbilitiesRepository extends HeroBaseRepository {
     return await heroUpdate("/api/abilities/$id", data, (response) => Ability.fromJson(json.decode(response)));
   }
 
-  Future<bool> deleteAbility(String id) async {
-    return await heroDelete("/api/abilities/$id");
+  Future<void> deleteAbility(String id) async {
+    await heroDelete("/api/abilities/$id");
   }
 }
 

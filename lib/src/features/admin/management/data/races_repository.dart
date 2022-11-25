@@ -22,7 +22,7 @@ class RacesRepository extends HeroBaseRepository {
     return await heroUpdate("/api/races/$id", data, (response) => Race.fromJson(json.decode(response)));
   }
 
-  Future<bool> deleteRace(String id) async {
+  Future<void> deleteRace(String id) async {
     return await heroDelete("/api/races/$id");
   }
 }

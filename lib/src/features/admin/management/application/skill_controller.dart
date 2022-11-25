@@ -24,7 +24,7 @@ class SkillController {
     return state;
   }
 
-  Future<AsyncValue<bool>> deleteSkill(String id) async {
+  Future<AsyncValue> deleteSkill(String id) async {
     final state = await AsyncValue.guard(() async => await repo.deleteSkill(id));
     await skillList.getAllSkills();
     return state;

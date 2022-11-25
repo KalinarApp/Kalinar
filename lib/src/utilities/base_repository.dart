@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
+import 'package:http/http.dart' as http;
 
 import 'api_error.dart';
 
@@ -11,93 +12,55 @@ class BaseRepository {
 
   BaseRepository(this.client);
 
-  Future<T> get<T>(Uri url, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
+  Future<T> _handleResponse<T>(Future<http.Response> Function() action, T Function(dynamic response) responseBuilder) async {
     try {
-      final response = await client.get(url, headers: headers);
+      final response = await action();
+      final data = json.decode(response.body);
       switch (response.statusCode) {
         case 200:
-          final data = json.decode(response.body);
-          return builder(data);
+          return responseBuilder(data);
+        case 400:
+          throw APIError.badRequest(data["type"], data["title"]);
         case 401:
           throw const APIError.unauthorized();
+        case 403:
+          throw const APIError.forbidden();
         case 404:
-          throw const APIError.notFound();
+          throw APIError.notFound(data["type"], data["title"]);
+        case 500:
+          throw APIError.problem(data["type"], data["title"]);
         default:
-          throw const APIError.unknown();
+          throw APIError.unknown(data["type"], data["title"]);
       }
     } on SocketException catch (_) {
       throw const APIError.noInternetConnection();
     }
+  }
+
+  Future<T> get<T>(Uri url, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
+    return _handleResponse(() async => await client.get(url, headers: headers), builder);
   }
 
   Future<T> post<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
-    Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
-
-    try {
+    return _handleResponse(() async {
+      Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
       var encode = null != data ? json.encode(data) : null;
-      final response = await client.post(url, body: encode, headers: fullHeaders);
-      switch (response.statusCode) {
-        case 200:
-          return builder(response.body);
-        case 400:
-          throw const APIError.badRequest();
-        case 401:
-          throw const APIError.unauthorized();
-        case 404:
-          throw const APIError.notFound();
-        default:
-          throw const APIError.unknown();
-      }
-    } on SocketException catch (_) {
-      throw const APIError.noInternetConnection();
-    }
+      return await client.post(url, body: encode, headers: fullHeaders);
+    }, builder);
   }
 
   Future<T> update<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
-    Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
-
-    try {
+    return _handleResponse(() async {
+      Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
       var encode = json.encode(data);
-      final response = await client.put(url, body: encode, headers: fullHeaders);
-      switch (response.statusCode) {
-        case 200:
-          return builder(response.body);
-        case 400:
-          throw const APIError.badRequest();
-        case 401:
-          throw const APIError.unauthorized();
-        case 404:
-          throw const APIError.notFound();
-        default:
-          throw const APIError.unknown();
-      }
-    } on SocketException catch (_) {
-      throw const APIError.noInternetConnection();
-    }
+      return await client.put(url, body: encode, headers: fullHeaders);
+    }, builder);
   }
 
-  Future<bool> delete(Uri url, {Map<String, String>? headers}) async {
-    bool success = false;
-    try {
-      final response = await client.delete(url, headers: headers);
-      switch (response.statusCode) {
-        case 200:
-          success = true;
-          break;
-        case 400:
-          throw const APIError.badRequest();
-        case 401:
-          throw const APIError.unauthorized();
-        case 404:
-          throw const APIError.notFound();
-        default:
-          throw const APIError.unknown();
-      }
-    } on SocketException catch (_) {
-      throw const APIError.noInternetConnection();
-    }
-
-    return success;
+  Future<void> delete(Uri url, {Map<String, String>? headers}) async {
+    _handleResponse(() async {
+      return await client.delete(url, headers: headers);
+    }, (response) => true);
   }
 }
 
@@ -122,7 +85,7 @@ class HeroBaseRepository extends BaseRepository {
     return await super.update(Uri.https(baseUrl, url), data, builder, headers: headers);
   }
 
-  Future<bool> heroDelete(String url) async {
+  Future<void> heroDelete(String url) async {
     return await super.delete(Uri.https(baseUrl, url), headers: headers);
   }
 }

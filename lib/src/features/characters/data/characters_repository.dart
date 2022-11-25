@@ -25,8 +25,8 @@ class CharactersRepository extends HeroBaseRepository {
     return await heroUpdate("/api/characters/$id", data, (response) => true);
   }
 
-  Future<bool> deleteCharacter(String id) async {
-    return await heroDelete("/api/characters/$id");
+  Future<void> deleteCharacter(String id) async {
+    await heroDelete("/api/characters/$id");
   }
 }
 
