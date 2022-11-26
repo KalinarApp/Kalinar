@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/base_repository.dart';
@@ -19,11 +17,11 @@ class AttributesRepository extends HeroBaseRepository {
   }
 
   Future<Attribute> createAttribute(Map<String, dynamic> data) async {
-    return await heroPost("/api/attributes", data, (response) => Attribute.fromJson(json.decode(response)));
+    return await heroPost("/api/attributes", data, (response) => Attribute.fromJson(response));
   }
 
   Future<Attribute> updateAttribute(String id, Map<String, dynamic> data) async {
-    return await heroUpdate("/api/attributes/$id", data, (response) => Attribute.fromJson(json.decode(response)));
+    return await heroUpdate("/api/attributes/$id", data, (response) => Attribute.fromJson(response));
   }
 
   Future<void> deleteAttribute(String id) async {

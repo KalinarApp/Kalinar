@@ -15,7 +15,7 @@ class BaseRepository {
   Future<T> _handleResponse<T>(Future<http.Response> Function() action, T Function(dynamic response) responseBuilder) async {
     try {
       final response = await action();
-      final data = json.decode(response.body);
+      final data = response.body.isNotEmpty ? json.decode(response.body) : {};
       switch (response.statusCode) {
         case 200:
           return responseBuilder(data);
@@ -38,11 +38,11 @@ class BaseRepository {
   }
 
   Future<T> get<T>(Uri url, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
-    return _handleResponse(() async => await client.get(url, headers: headers), builder);
+    return await _handleResponse(() async => await client.get(url, headers: headers), builder);
   }
 
   Future<T> post<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
-    return _handleResponse(() async {
+    return await _handleResponse(() async {
       Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
       var encode = null != data ? json.encode(data) : null;
       return await client.post(url, body: encode, headers: fullHeaders);
@@ -50,7 +50,7 @@ class BaseRepository {
   }
 
   Future<T> update<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
-    return _handleResponse(() async {
+    return await _handleResponse(() async {
       Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
       var encode = json.encode(data);
       return await client.put(url, body: encode, headers: fullHeaders);
@@ -58,7 +58,7 @@ class BaseRepository {
   }
 
   Future<void> delete(Uri url, {Map<String, String>? headers}) async {
-    _handleResponse(() async {
+    await _handleResponse(() async {
       return await client.delete(url, headers: headers);
     }, (response) => true);
   }

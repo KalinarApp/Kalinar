@@ -1,5 +1,5 @@
 {
-  "applicationTitle": "Hero App",
+  "applicationTitle": "Kalinar",
   "applicationSubtitle": "Pen & Paper auf einem neuen Level",
 
   "skill": "Skill",
@@ -46,7 +46,7 @@
 
   "groupName": "Gruppenname",
   "groupDescription": "Beschreibung",
-  "groupNotInGroupText": "Hallo {name}, es sieht so aus, als würdest du bisher noch keiner Gruppe angehören.\nSchlag doch deinem Spielleiter einmal vor, sich die Hero App anzusehen oder frag ihn nach einem Einladungslink.",
+  "groupNotInGroupText": "Hallo {name}, es sieht so aus, als würdest du bisher noch keiner Gruppe angehören.\nSchlag doch deinem Spielleiter einmal vor, sich die Welt Kalinars anzusehen oder frag ihn nach einem Einladungslink.",
   "@groupNotInGroupText": {
     "placeholders": {
       "name": {
@@ -59,7 +59,7 @@
   "groupInstruction": "Um einer Gruppe beizutreten öffne den Einladungslink, welchen dir dein Spielleiter zugeschickt hat, du wirst nun gefragt, ob du dieser Gruppe beitreten willst. Wenn du \"Okay\" auswählst, trittst du der Gruppe bei und kannst von da an in der Gruppe agieren.",
   "groupInstructionGM": "Du kannst natürlich auch gerne selbst in die Rolle des Spielleiters schlüpfen und hier eine eigene Gruppe erstellen.",
   "groupBeAGM": "Gruppenleiter werden",
-  "groupJoinTitle": "{owner} möchte dich in seine Hero Gruppe '{name}' einladen, möchtest du beitreten?",
+  "groupJoinTitle": "{owner} möchte dich nach'{name}' in die Welt von Kalinar einladen, möchtest du beitreten?",
   "@groupJoinTitle": {
     "placeholders": {
       "owner": {

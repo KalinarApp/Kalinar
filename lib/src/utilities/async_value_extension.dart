@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hero/src/utilities/api_error.dart';
+import 'api_error.dart';
 
 extension AsyncValueUI on AsyncValue {
   void showSnackbarOnError(BuildContext context) {

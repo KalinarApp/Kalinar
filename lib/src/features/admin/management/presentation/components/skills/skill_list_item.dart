@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:hero/src/common_widgets/node_tile.dart';
-
+import '../../../../../../common_widgets/node_tile.dart';
 import '../../../domain/skill.dart';
 
 class SkillListItem extends StatelessWidget {

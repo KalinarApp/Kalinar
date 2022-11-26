@@ -1,4 +1,4 @@
-name: hero
+name: kalinar
 description: A new Flutter project.
 publish_to: "none"
 
@@ -74,7 +74,7 @@ flutter:
     - assets/app_icon/icon.png
 
 msix_config:
-  display_name: Hero App
+  display_name: Kalinar
   publisher:
   publisher_display_name: Jonas Curth
   identity_name: 
