@@ -1,5 +1,5 @@
 {
-  "applicationTitle": "Hero App",
+  "applicationTitle": "Kalinar",
   "applicationSubtitle": "Pen & Paper auf einem neuen Level",
 
   "skill": "Skill",
@@ -46,7 +46,7 @@
 
   "groupName": "Gruppenname",
   "groupDescription": "Beschreibung",
-  "groupNotInGroupText": "Hallo {name}, es sieht so aus, als würdest du bisher noch keiner Gruppe angehören.\nSchlag doch deinem Spielleiter einmal vor, sich die Hero App anzusehen oder frag ihn nach einem Einladungslink.",
+  "groupNotInGroupText": "Hallo {name}, es sieht so aus, als würdest du bisher noch keiner Gruppe angehören.\nSchlag doch deinem Spielleiter einmal vor, sich die Welt Kalinars anzusehen oder frag ihn nach einem Einladungslink.",
   "@groupNotInGroupText": {
     "placeholders": {
       "name": {
@@ -59,7 +59,7 @@
   "groupInstruction": "Um einer Gruppe beizutreten öffne den Einladungslink, welchen dir dein Spielleiter zugeschickt hat, du wirst nun gefragt, ob du dieser Gruppe beitreten willst. Wenn du \"Okay\" auswählst, trittst du der Gruppe bei und kannst von da an in der Gruppe agieren.",
   "groupInstructionGM": "Du kannst natürlich auch gerne selbst in die Rolle des Spielleiters schlüpfen und hier eine eigene Gruppe erstellen.",
   "groupBeAGM": "Gruppenleiter werden",
-  "groupJoinTitle": "{owner} möchte dich in seine Hero Gruppe '{name}' einladen, möchtest du beitreten?",
+  "groupJoinTitle": "{owner} möchte dich nach'{name}' in die Welt von Kalinar einladen, möchtest du beitreten?",
   "@groupJoinTitle": {
     "placeholders": {
       "owner": {
@@ -126,7 +126,7 @@
   "characterRaceSelection": "Rasse auswählen:",
   "fetchCharacter": "Charakterdetails werden abgerufen...",
   "fetchCharacters": "Charaktere werden abgerufen",
-  "fetchCharactersFailed": "Fehler beim Abrufen der Charaktere",
+  "fetchCharactersFailed": "Beim Abrufen der Charaktere ist ein Fehler aufgetreten. Überprüfe deine Internetverbindung und versuche es später erneut.",
   "searchForCharacter": "Nach Charakter suchen",
   "selectACharacter": "Charakter auswählen",
   "characterNoPortrait": "Kein Portrait ausgewählt.",
@@ -138,7 +138,7 @@
   "member": "Mitglied",
   "members": "Mitglieder",
   "fetchMembers": "Mitglieder werden abgerufen...",
-  "fetchMembersFailed": "Beim abrufen der Mitglieder ist ein Fehler aufgetreten.",
+  "fetchMembersFailed": "Beim Abrufen der Mitglieder ist ein Fehler aufgetreten. Überprüfe deine Internetverbindung und versuche es später erneut.",
 
   "openProfile": "Profil ansehen",
   "openProfileFailed": "Das Benutzerprofil konnte nicht geöffnet werden",
@@ -171,5 +171,10 @@
   "uploadImage": "Bild wird verarbeitet...",
 
   "attributeHealth": "Lebenspunkte",
-  "attributeHealthDescription": "Stellt das maximale Leben des Charakters dar."
+  "attributeHealthDescription": "Stellt das maximale Leben des Charakters dar.",
+
+  "errorNoInternetConnection": "Der Server ist nicht erreichbar, bitte überprüfe deine Internetverbindung und versuche es später erneut.",
+  "errorUnauthorized": "Du bist nicht angemeldet.",
+  "errorForbidden": "Du bist nicht der Gamemaster dieser Gruppe!",
+  "errorUnknown": "Deine Anfrage konnte nicht verarbeitet werden"
 }

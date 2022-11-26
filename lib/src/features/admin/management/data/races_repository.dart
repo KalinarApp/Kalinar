@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/base_repository.dart';
@@ -15,14 +13,14 @@ class RacesRepository extends HeroBaseRepository {
   }
 
   Future<Race> createRace(Map<String, dynamic> data) async {
-    return await heroPost("/api/races", data, (response) => Race.fromJson(json.decode(response)));
+    return await heroPost("/api/races", data, (response) => Race.fromJson(response));
   }
 
   Future<Race> updateRace(String id, Map<String, dynamic> data) async {
-    return await heroUpdate("/api/races/$id", data, (response) => Race.fromJson(json.decode(response)));
+    return await heroUpdate("/api/races/$id", data, (response) => Race.fromJson(response));
   }
 
-  Future<bool> deleteRace(String id) async {
+  Future<void> deleteRace(String id) async {
     return await heroDelete("/api/races/$id");
   }
 }

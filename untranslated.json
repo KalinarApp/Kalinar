@@ -129,6 +129,10 @@
     "noIconSearchResults",
     "uploadImage",
     "attributeHealth",
-    "attributeHealthDescription"
+    "attributeHealthDescription",
+    "errorNoInternetConnection",
+    "errorUnauthorized",
+    "errorForbidden",
+    "errorUnknown"
   ]
 }

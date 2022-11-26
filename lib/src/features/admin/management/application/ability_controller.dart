@@ -27,7 +27,7 @@ class AbilityController {
     return state;
   }
 
-  Future<AsyncValue<bool>> deleteAbility(String id) async {
+  Future<AsyncValue> deleteAbility(String id) async {
     final state = await AsyncValue.guard(() async => await repo.deleteAbility(id));
     await abilityList.refresh();
     return state;

@@ -41,6 +41,7 @@ class _RacesTabState extends ConsumerState<RacesTab> {
         break;
       case DialogAction.cancel:
       case DialogAction.loadAsNewSkilltree:
+      case DialogAction.reset:
       case DialogAction.saveAsBlueprint:
         break;
     }

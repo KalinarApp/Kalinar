@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +13,7 @@ import 'package:mime/mime.dart';
 
 import '../../features/admin/management/data/imgur_repository.dart';
 import '../loading_indicator.dart';
+import '../node_tile.dart';
 
 enum ImageType {
   skill,
@@ -82,16 +82,15 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
   }
 
   Widget _buildSkillContent(Image? image) {
-    return SizedBox(
-        width: 128,
-        height: 128,
-        child: Card(
-          elevation: 4,
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: _buildContent(image),
-          ),
-        ));
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: NodeTile(
+        image,
+        height: 89,
+        width: 89,
+        placeholderWidget: const Center(child: FaIcon(FontAwesomeIcons.camera)),
+      ),
+    );
   }
 
   Widget _buildCharacterImageContent(Image? image) {
@@ -113,21 +112,18 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
           )
         : Center(
             child: image ??
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      const FaIcon(FontAwesomeIcons.camera),
-                      const SizedBox(height: 10),
-                      Text(
-                        AppLocalizations.of(context)!.pickAnImage,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const FaIcon(FontAwesomeIcons.camera),
+                    const SizedBox(height: 10),
+                    Text(
+                      AppLocalizations.of(context)!.pickAnImage,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
           );
   }

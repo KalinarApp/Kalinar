@@ -54,22 +54,22 @@ android {
         multiDexEnabled true
 
         manifestPlaceholders += [
-            'appAuthRedirectScheme': 'hero'
+            'appAuthRedirectScheme': 'kalinar'
         ]
     }
 
-    flavorDimensions "hero"
+    flavorDimensions "kalinar"
 
     productFlavors {
         dev {
-            dimension "hero"
+            dimension "kalinar"
             applicationIdSuffix ".dev"
-            resValue "string", "app_name", "Hero App - DEV"
+            resValue "string", "app_name", "Kalinar - DEV"
             versionNameSuffix ".dev"
         }
         prod {
-            dimension "hero"
-            resValue "string", "app_name", "Hero App"
+            dimension "kalinar"
+            resValue "string", "app_name", "Kalinar"
             versionNameSuffix ""
         }
     }

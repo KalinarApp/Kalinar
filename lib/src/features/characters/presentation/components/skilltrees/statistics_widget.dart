@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import 'package:collection/collection.dart';
@@ -7,10 +5,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
-import 'package:hero/src/features/admin/management/domain/attribute_value.dart';
-import 'package:hero/src/features/characters/presentation/components/skilltrees/attribute_statistic.dart';
-
+import '../../../../admin/management/domain/attribute_value.dart';
 import '../../../../admin/skilltrees/domain/skilltree.dart';
+
+import 'attribute_statistic.dart';
 
 class StatisticsWidget extends StatelessWidget {
   final Skilltree skilltree;

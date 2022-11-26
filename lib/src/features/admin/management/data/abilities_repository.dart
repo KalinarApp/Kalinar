@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/base_repository.dart';
@@ -24,15 +22,15 @@ class AbilitiesRepository extends HeroBaseRepository {
   }
 
   Future<Ability> createAbility(Map<String, dynamic> data) async {
-    return await heroPost("/api/abilities", data, (response) => Ability.fromJson(json.decode(response)));
+    return await heroPost("/api/abilities", data, (response) => Ability.fromJson(response));
   }
 
   Future<Ability> updateAbility(String id, Map<String, dynamic> data) async {
-    return await heroUpdate("/api/abilities/$id", data, (response) => Ability.fromJson(json.decode(response)));
+    return await heroUpdate("/api/abilities/$id", data, (response) => Ability.fromJson(response));
   }
 
-  Future<bool> deleteAbility(String id) async {
-    return await heroDelete("/api/abilities/$id");
+  Future<void> deleteAbility(String id) async {
+    await heroDelete("/api/abilities/$id");
   }
 }
 

@@ -17,7 +17,7 @@ class RaceListController extends StateNotifier<AsyncValue<List<Race>>> {
   }
 
   Future<void> refresh() async {
-    state = await AsyncValue.guard(() async => await repo.getAll());
+    state = await AsyncValue.guard(() => repo.getAll());
   }
 }
 

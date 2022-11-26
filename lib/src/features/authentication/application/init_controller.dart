@@ -9,10 +9,12 @@ class InitController {
 
   InitController(this.authRepository, this.hasGroupController);
 
-  Future<void> initialize() async {
-    if (await authRepository.init()) {
-      await hasGroupController.check();
-    }
+  Future<AsyncValue> initialize() async {
+    return AsyncValue.guard(() async {
+      if (await authRepository.init()) {
+        await hasGroupController.check();
+      }
+    });
   }
 }
 

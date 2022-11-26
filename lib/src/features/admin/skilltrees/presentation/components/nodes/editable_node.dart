@@ -27,7 +27,7 @@ class EditableNode extends StatelessWidget {
               angle: -pi / 4,
               child: null != item.skill.iconUrl
                   ? Padding(
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(2),
                       child: Ink.image(
                         image: NetworkImage(item.skill.iconUrl!),
                       ),

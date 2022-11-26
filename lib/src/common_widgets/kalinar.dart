@@ -9,17 +9,18 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import '../features/authentication/application/init_controller.dart';
 import '../utilities/router/routes.dart';
 
-class HeroApp extends ConsumerStatefulWidget {
-  const HeroApp({super.key});
+class Kalinar extends ConsumerStatefulWidget {
+  const Kalinar({super.key});
 
   @override
-  ConsumerState<HeroApp> createState() => _HeroAppState();
+  ConsumerState<Kalinar> createState() => _KalinarState();
 }
 
-class _HeroAppState extends ConsumerState<HeroApp> {
+class _KalinarState extends ConsumerState<Kalinar> {
   @override
   void didChangeDependencies() {
     ref.read(initControllerProvider).initialize();
+
     super.didChangeDependencies();
   }
 
