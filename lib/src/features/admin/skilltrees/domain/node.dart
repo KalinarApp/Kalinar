@@ -42,6 +42,6 @@ extension NodeListExtension on List<Node> {
         ? where((element) => nodeToCheck.precessors.contains(element.id)).any((element) => element.isUnlocked)
         : where((element) => nodeToCheck.precessors.contains(element.id)).every((element) => element.isUnlocked);
 
-    return hasSkillpoints && isUnlockable;
+    return hasSkillpoints && (nodeToCheck.precessors.isEmpty || isUnlockable);
   }
 }

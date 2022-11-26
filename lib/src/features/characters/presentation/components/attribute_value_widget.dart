@@ -19,26 +19,28 @@ class AttributeValueWidget extends StatelessWidget {
     final icon = null != value.attribute.iconData ? deserializeIcon(json.decode(value.attribute.iconData!)) : null;
     final translatedAttribute = value.attribute.translate(context);
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        JustTheTooltip(
-            triggerMode: TooltipTriggerMode.tap,
-            content: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(translatedAttribute.name, style: Theme.of(context).textTheme.titleLarge),
-                  if (null != translatedAttribute.description) Text(translatedAttribute.description!),
-                ],
-              ),
-            ),
-            child: FaIcon(icon ?? FontAwesomeIcons.tag, size: 20)),
-        const SizedBox(width: 4),
-        Text(value.value.toString()),
-      ],
+    return JustTheTooltip(
+      triggerMode: TooltipTriggerMode.tap,
+      isModal: true,
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(translatedAttribute.name, style: Theme.of(context).textTheme.titleLarge),
+            if (null != translatedAttribute.description) Text(translatedAttribute.description!),
+          ],
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FaIcon(icon ?? FontAwesomeIcons.tag, size: 20),
+          const SizedBox(width: 4),
+          Text(value.value.toString()),
+        ],
+      ),
     );
   }
 }

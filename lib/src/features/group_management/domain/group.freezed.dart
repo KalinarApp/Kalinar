@@ -32,13 +32,15 @@ mixin _$Group {
 
 /// @nodoc
 abstract class $GroupCopyWith<$Res> {
-  factory $GroupCopyWith(Group value, $Res Function(Group) then) = _$GroupCopyWithImpl<$Res, Group>;
+  factory $GroupCopyWith(Group value, $Res Function(Group) then) =
+      _$GroupCopyWithImpl<$Res, Group>;
   @useResult
   $Res call({String id, String name, String? code, String? description});
 }
 
 /// @nodoc
-class _$GroupCopyWithImpl<$Res, $Val extends Group> implements $GroupCopyWith<$Res> {
+class _$GroupCopyWithImpl<$Res, $Val extends Group>
+    implements $GroupCopyWith<$Res> {
   _$GroupCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -77,15 +79,18 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group> implements $GroupCopyWith<$R
 
 /// @nodoc
 abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
-  factory _$$_GroupCopyWith(_$_Group value, $Res Function(_$_Group) then) = __$$_GroupCopyWithImpl<$Res>;
+  factory _$$_GroupCopyWith(_$_Group value, $Res Function(_$_Group) then) =
+      __$$_GroupCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String name, String? code, String? description});
 }
 
 /// @nodoc
-class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group> implements _$$_GroupCopyWith<$Res> {
-  __$$_GroupCopyWithImpl(_$_Group _value, $Res Function(_$_Group) _then) : super(_value, _then);
+class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
+    implements _$$_GroupCopyWith<$Res> {
+  __$$_GroupCopyWithImpl(_$_Group _value, $Res Function(_$_Group) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -119,9 +124,11 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group> i
 /// @nodoc
 @JsonSerializable()
 class _$_Group implements _Group {
-  const _$_Group({required this.id, required this.name, this.code, this.description});
+  const _$_Group(
+      {required this.id, required this.name, this.code, this.description});
 
-  factory _$_Group.fromJson(Map<String, dynamic> json) => _$$_GroupFromJson(json);
+  factory _$_Group.fromJson(Map<String, dynamic> json) =>
+      _$$_GroupFromJson(json);
 
   @override
   final String id;
@@ -145,7 +152,8 @@ class _$_Group implements _Group {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.code, code) || other.code == code) &&
-            (identical(other.description, description) || other.description == description));
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
@@ -155,7 +163,8 @@ class _$_Group implements _Group {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GroupCopyWith<_$_Group> get copyWith => __$$_GroupCopyWithImpl<_$_Group>(this, _$identity);
+  _$$_GroupCopyWith<_$_Group> get copyWith =>
+      __$$_GroupCopyWithImpl<_$_Group>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -166,7 +175,11 @@ class _$_Group implements _Group {
 }
 
 abstract class _Group implements Group {
-  const factory _Group({required final String id, required final String name, final String? code, final String? description}) = _$_Group;
+  const factory _Group(
+      {required final String id,
+      required final String name,
+      final String? code,
+      final String? description}) = _$_Group;
 
   factory _Group.fromJson(Map<String, dynamic> json) = _$_Group.fromJson;
 
@@ -180,5 +193,6 @@ abstract class _Group implements Group {
   String? get description;
   @override
   @JsonKey(ignore: true)
-  _$$_GroupCopyWith<_$_Group> get copyWith => throw _privateConstructorUsedError;
+  _$$_GroupCopyWith<_$_Group> get copyWith =>
+      throw _privateConstructorUsedError;
 }

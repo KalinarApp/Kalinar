@@ -8,7 +8,9 @@ part of 'user.dart';
 
 _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       id: json['id'] as String,
-      group: json['group'] == null ? null : Group.fromJson(json['group'] as Map<String, dynamic>),
+      group: json['group'] == null
+          ? null
+          : Group.fromJson(json['group'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{

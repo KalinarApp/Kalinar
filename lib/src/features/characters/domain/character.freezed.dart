@@ -30,6 +30,7 @@ mixin _$Character {
   String? get relationship => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   String? get inventory => throw _privateConstructorUsedError;
+  List<AttributeValue> get attributes => throw _privateConstructorUsedError;
   String get raceId => throw _privateConstructorUsedError;
   Race get race => throw _privateConstructorUsedError;
   List<SkilltreeOverview> get skilltrees => throw _privateConstructorUsedError;
@@ -56,6 +57,7 @@ abstract class $CharacterCopyWith<$Res> {
       String? relationship,
       String? notes,
       String? inventory,
+      List<AttributeValue> attributes,
       String raceId,
       Race race,
       List<SkilltreeOverview> skilltrees});
@@ -86,6 +88,7 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
     Object? relationship = freezed,
     Object? notes = freezed,
     Object? inventory = freezed,
+    Object? attributes = null,
     Object? raceId = null,
     Object? race = null,
     Object? skilltrees = null,
@@ -131,6 +134,10 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
           ? _value.inventory
           : inventory // ignore: cast_nullable_to_non_nullable
               as String?,
+      attributes: null == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as List<AttributeValue>,
       raceId: null == raceId
           ? _value.raceId
           : raceId // ignore: cast_nullable_to_non_nullable
@@ -173,6 +180,7 @@ abstract class _$$_CharacterCopyWith<$Res> implements $CharacterCopyWith<$Res> {
       String? relationship,
       String? notes,
       String? inventory,
+      List<AttributeValue> attributes,
       String raceId,
       Race race,
       List<SkilltreeOverview> skilltrees});
@@ -202,6 +210,7 @@ class __$$_CharacterCopyWithImpl<$Res>
     Object? relationship = freezed,
     Object? notes = freezed,
     Object? inventory = freezed,
+    Object? attributes = null,
     Object? raceId = null,
     Object? race = null,
     Object? skilltrees = null,
@@ -247,6 +256,10 @@ class __$$_CharacterCopyWithImpl<$Res>
           ? _value.inventory
           : inventory // ignore: cast_nullable_to_non_nullable
               as String?,
+      attributes: null == attributes
+          ? _value._attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as List<AttributeValue>,
       raceId: null == raceId
           ? _value.raceId
           : raceId // ignore: cast_nullable_to_non_nullable
@@ -277,10 +290,12 @@ class _$_Character implements _Character {
       this.relationship,
       this.notes,
       this.inventory,
+      final List<AttributeValue> attributes = const [],
       required this.raceId,
       required this.race,
       final List<SkilltreeOverview> skilltrees = const []})
-      : _skilltrees = skilltrees;
+      : _attributes = attributes,
+        _skilltrees = skilltrees;
 
   factory _$_Character.fromJson(Map<String, dynamic> json) =>
       _$$_CharacterFromJson(json);
@@ -305,6 +320,14 @@ class _$_Character implements _Character {
   final String? notes;
   @override
   final String? inventory;
+  final List<AttributeValue> _attributes;
+  @override
+  @JsonKey()
+  List<AttributeValue> get attributes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_attributes);
+  }
+
   @override
   final String raceId;
   @override
@@ -319,7 +342,7 @@ class _$_Character implements _Character {
 
   @override
   String toString() {
-    return 'Character(id: $id, name: $name, age: $age, iconUrl: $iconUrl, description: $description, profession: $profession, religion: $religion, relationship: $relationship, notes: $notes, inventory: $inventory, raceId: $raceId, race: $race, skilltrees: $skilltrees)';
+    return 'Character(id: $id, name: $name, age: $age, iconUrl: $iconUrl, description: $description, profession: $profession, religion: $religion, relationship: $relationship, notes: $notes, inventory: $inventory, attributes: $attributes, raceId: $raceId, race: $race, skilltrees: $skilltrees)';
   }
 
   @override
@@ -342,6 +365,8 @@ class _$_Character implements _Character {
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.inventory, inventory) ||
                 other.inventory == inventory) &&
+            const DeepCollectionEquality()
+                .equals(other._attributes, _attributes) &&
             (identical(other.raceId, raceId) || other.raceId == raceId) &&
             (identical(other.race, race) || other.race == race) &&
             const DeepCollectionEquality()
@@ -362,6 +387,7 @@ class _$_Character implements _Character {
       relationship,
       notes,
       inventory,
+      const DeepCollectionEquality().hash(_attributes),
       raceId,
       race,
       const DeepCollectionEquality().hash(_skilltrees));
@@ -392,6 +418,7 @@ abstract class _Character implements Character {
       final String? relationship,
       final String? notes,
       final String? inventory,
+      final List<AttributeValue> attributes,
       required final String raceId,
       required final Race race,
       final List<SkilltreeOverview> skilltrees}) = _$_Character;
@@ -419,6 +446,8 @@ abstract class _Character implements Character {
   String? get notes;
   @override
   String? get inventory;
+  @override
+  List<AttributeValue> get attributes;
   @override
   String get raceId;
   @override

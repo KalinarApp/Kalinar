@@ -17,6 +17,10 @@ _$_Character _$$_CharacterFromJson(Map<String, dynamic> json) => _$_Character(
       relationship: json['relationship'] as String?,
       notes: json['notes'] as String?,
       inventory: json['inventory'] as String?,
+      attributes: (json['attributes'] as List<dynamic>?)
+              ?.map((e) => AttributeValue.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       raceId: json['raceId'] as String,
       race: Race.fromJson(json['race'] as Map<String, dynamic>),
       skilltrees: (json['skilltrees'] as List<dynamic>?)
@@ -38,6 +42,7 @@ Map<String, dynamic> _$$_CharacterToJson(_$_Character instance) =>
       'relationship': instance.relationship,
       'notes': instance.notes,
       'inventory': instance.inventory,
+      'attributes': instance.attributes,
       'raceId': instance.raceId,
       'race': instance.race,
       'skilltrees': instance.skilltrees,

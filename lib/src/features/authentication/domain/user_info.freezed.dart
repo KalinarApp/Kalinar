@@ -28,18 +28,26 @@ mixin _$UserInfo {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserInfoCopyWith<UserInfo> get copyWith => throw _privateConstructorUsedError;
+  $UserInfoCopyWith<UserInfo> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $UserInfoCopyWith<$Res> {
-  factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) = _$UserInfoCopyWithImpl<$Res, UserInfo>;
+  factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
+      _$UserInfoCopyWithImpl<$Res, UserInfo>;
   @useResult
-  $Res call({String id, String firstname, String lastname, String email, String username});
+  $Res call(
+      {String id,
+      String firstname,
+      String lastname,
+      String email,
+      String username});
 }
 
 /// @nodoc
-class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo> implements $UserInfoCopyWith<$Res> {
+class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
+    implements $UserInfoCopyWith<$Res> {
   _$UserInfoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -83,15 +91,26 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo> implements $UserInfoCo
 
 /// @nodoc
 abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
-  factory _$$_UserInfoCopyWith(_$_UserInfo value, $Res Function(_$_UserInfo) then) = __$$_UserInfoCopyWithImpl<$Res>;
+  factory _$$_UserInfoCopyWith(
+          _$_UserInfo value, $Res Function(_$_UserInfo) then) =
+      __$$_UserInfoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String firstname, String lastname, String email, String username});
+  $Res call(
+      {String id,
+      String firstname,
+      String lastname,
+      String email,
+      String username});
 }
 
 /// @nodoc
-class __$$_UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res, _$_UserInfo> implements _$$_UserInfoCopyWith<$Res> {
-  __$$_UserInfoCopyWithImpl(_$_UserInfo _value, $Res Function(_$_UserInfo) _then) : super(_value, _then);
+class __$$_UserInfoCopyWithImpl<$Res>
+    extends _$UserInfoCopyWithImpl<$Res, _$_UserInfo>
+    implements _$$_UserInfoCopyWith<$Res> {
+  __$$_UserInfoCopyWithImpl(
+      _$_UserInfo _value, $Res Function(_$_UserInfo) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -130,9 +149,15 @@ class __$$_UserInfoCopyWithImpl<$Res> extends _$UserInfoCopyWithImpl<$Res, _$_Us
 /// @nodoc
 @JsonSerializable()
 class _$_UserInfo implements _UserInfo {
-  const _$_UserInfo({required this.id, required this.firstname, required this.lastname, required this.email, required this.username});
+  const _$_UserInfo(
+      {required this.id,
+      required this.firstname,
+      required this.lastname,
+      required this.email,
+      required this.username});
 
-  factory _$_UserInfo.fromJson(Map<String, dynamic> json) => _$$_UserInfoFromJson(json);
+  factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
+      _$$_UserInfoFromJson(json);
 
   @override
   final String id;
@@ -156,20 +181,25 @@ class _$_UserInfo implements _UserInfo {
         (other.runtimeType == runtimeType &&
             other is _$_UserInfo &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.firstname, firstname) || other.firstname == firstname) &&
-            (identical(other.lastname, lastname) || other.lastname == lastname) &&
+            (identical(other.firstname, firstname) ||
+                other.firstname == firstname) &&
+            (identical(other.lastname, lastname) ||
+                other.lastname == lastname) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.username, username) || other.username == username));
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, firstname, lastname, email, username);
+  int get hashCode =>
+      Object.hash(runtimeType, id, firstname, lastname, email, username);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith => __$$_UserInfoCopyWithImpl<_$_UserInfo>(this, _$identity);
+  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
+      __$$_UserInfoCopyWithImpl<_$_UserInfo>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -201,5 +231,6 @@ abstract class _UserInfo implements UserInfo {
   String get username;
   @override
   @JsonKey(ignore: true)
-  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith => throw _privateConstructorUsedError;
+  _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
+      throw _privateConstructorUsedError;
 }

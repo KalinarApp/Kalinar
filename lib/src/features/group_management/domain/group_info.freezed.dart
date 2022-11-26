@@ -27,18 +27,21 @@ mixin _$GroupInfo {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $GroupInfoCopyWith<GroupInfo> get copyWith => throw _privateConstructorUsedError;
+  $GroupInfoCopyWith<GroupInfo> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $GroupInfoCopyWith<$Res> {
-  factory $GroupInfoCopyWith(GroupInfo value, $Res Function(GroupInfo) then) = _$GroupInfoCopyWithImpl<$Res, GroupInfo>;
+  factory $GroupInfoCopyWith(GroupInfo value, $Res Function(GroupInfo) then) =
+      _$GroupInfoCopyWithImpl<$Res, GroupInfo>;
   @useResult
   $Res call({String id, String name, String owner, String? description});
 }
 
 /// @nodoc
-class _$GroupInfoCopyWithImpl<$Res, $Val extends GroupInfo> implements $GroupInfoCopyWith<$Res> {
+class _$GroupInfoCopyWithImpl<$Res, $Val extends GroupInfo>
+    implements $GroupInfoCopyWith<$Res> {
   _$GroupInfoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -77,15 +80,21 @@ class _$GroupInfoCopyWithImpl<$Res, $Val extends GroupInfo> implements $GroupInf
 
 /// @nodoc
 abstract class _$$_GroupInfoCopyWith<$Res> implements $GroupInfoCopyWith<$Res> {
-  factory _$$_GroupInfoCopyWith(_$_GroupInfo value, $Res Function(_$_GroupInfo) then) = __$$_GroupInfoCopyWithImpl<$Res>;
+  factory _$$_GroupInfoCopyWith(
+          _$_GroupInfo value, $Res Function(_$_GroupInfo) then) =
+      __$$_GroupInfoCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String name, String owner, String? description});
 }
 
 /// @nodoc
-class __$$_GroupInfoCopyWithImpl<$Res> extends _$GroupInfoCopyWithImpl<$Res, _$_GroupInfo> implements _$$_GroupInfoCopyWith<$Res> {
-  __$$_GroupInfoCopyWithImpl(_$_GroupInfo _value, $Res Function(_$_GroupInfo) _then) : super(_value, _then);
+class __$$_GroupInfoCopyWithImpl<$Res>
+    extends _$GroupInfoCopyWithImpl<$Res, _$_GroupInfo>
+    implements _$$_GroupInfoCopyWith<$Res> {
+  __$$_GroupInfoCopyWithImpl(
+      _$_GroupInfo _value, $Res Function(_$_GroupInfo) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -119,9 +128,14 @@ class __$$_GroupInfoCopyWithImpl<$Res> extends _$GroupInfoCopyWithImpl<$Res, _$_
 /// @nodoc
 @JsonSerializable()
 class _$_GroupInfo implements _GroupInfo {
-  const _$_GroupInfo({required this.id, required this.name, required this.owner, this.description});
+  const _$_GroupInfo(
+      {required this.id,
+      required this.name,
+      required this.owner,
+      this.description});
 
-  factory _$_GroupInfo.fromJson(Map<String, dynamic> json) => _$$_GroupInfoFromJson(json);
+  factory _$_GroupInfo.fromJson(Map<String, dynamic> json) =>
+      _$$_GroupInfoFromJson(json);
 
   @override
   final String id;
@@ -145,7 +159,8 @@ class _$_GroupInfo implements _GroupInfo {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.owner, owner) || other.owner == owner) &&
-            (identical(other.description, description) || other.description == description));
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
@@ -155,7 +170,8 @@ class _$_GroupInfo implements _GroupInfo {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GroupInfoCopyWith<_$_GroupInfo> get copyWith => __$$_GroupInfoCopyWithImpl<_$_GroupInfo>(this, _$identity);
+  _$$_GroupInfoCopyWith<_$_GroupInfo> get copyWith =>
+      __$$_GroupInfoCopyWithImpl<_$_GroupInfo>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -166,10 +182,14 @@ class _$_GroupInfo implements _GroupInfo {
 }
 
 abstract class _GroupInfo implements GroupInfo {
-  const factory _GroupInfo({required final String id, required final String name, required final String owner, final String? description}) =
-      _$_GroupInfo;
+  const factory _GroupInfo(
+      {required final String id,
+      required final String name,
+      required final String owner,
+      final String? description}) = _$_GroupInfo;
 
-  factory _GroupInfo.fromJson(Map<String, dynamic> json) = _$_GroupInfo.fromJson;
+  factory _GroupInfo.fromJson(Map<String, dynamic> json) =
+      _$_GroupInfo.fromJson;
 
   @override
   String get id;
@@ -181,5 +201,6 @@ abstract class _GroupInfo implements GroupInfo {
   String? get description;
   @override
   @JsonKey(ignore: true)
-  _$$_GroupInfoCopyWith<_$_GroupInfo> get copyWith => throw _privateConstructorUsedError;
+  _$$_GroupInfoCopyWith<_$_GroupInfo> get copyWith =>
+      throw _privateConstructorUsedError;
 }

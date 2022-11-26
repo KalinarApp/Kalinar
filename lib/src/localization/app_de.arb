@@ -176,5 +176,7 @@
   "errorNoInternetConnection": "Der Server ist nicht erreichbar, bitte überprüfe deine Internetverbindung und versuche es später erneut.",
   "errorUnauthorized": "Du bist nicht angemeldet.",
   "errorForbidden": "Du bist nicht der Gamemaster dieser Gruppe!",
-  "errorUnknown": "Deine Anfrage konnte nicht verarbeitet werden"
+  "errorUnknown": "Deine Anfrage konnte nicht verarbeitet werden",
+  "errorNodeNotUnlockable": "Der Skill konnte nicht freigeschaltet werden, versuche es später noch einmal.",
+  "errorNotEnoughSkillpoints": "Du hast nicht genug Skillpunkte um diesen Skill freizuschalten."
 }
