@@ -28,6 +28,10 @@ _$_Character _$$_CharacterFromJson(Map<String, dynamic> json) => _$_Character(
                   (e) => SkilltreeOverview.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      unlockedAbilities: (json['unlockedAbilities'] as List<dynamic>?)
+              ?.map((e) => Ability.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$_CharacterToJson(_$_Character instance) =>
@@ -46,4 +50,5 @@ Map<String, dynamic> _$$_CharacterToJson(_$_Character instance) =>
       'raceId': instance.raceId,
       'race': instance.race,
       'skilltrees': instance.skilltrees,
+      'unlockedAbilities': instance.unlockedAbilities,
     };

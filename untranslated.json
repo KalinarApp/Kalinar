@@ -97,6 +97,7 @@
     "searchForCharacter",
     "selectACharacter",
     "characterNoPortrait",
+    "characteristics",
     "manageGroup",
     "manageCharacteristics",
     "manageSkilltrees",
@@ -133,6 +134,8 @@
     "errorNoInternetConnection",
     "errorUnauthorized",
     "errorForbidden",
-    "errorUnknown"
+    "errorUnknown",
+    "errorNodeNotUnlockable",
+    "errorNotEnoughSkillpoints"
   ]
 }

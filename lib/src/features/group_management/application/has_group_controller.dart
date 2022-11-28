@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../authentication/data/auth_repository.dart';
+import '../../authentication/data/flutter_auth.dart';
 import '../data/user_repository.dart';
 import '../domain/user.dart';
 

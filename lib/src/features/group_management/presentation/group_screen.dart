@@ -51,7 +51,7 @@ class _GroupScreenState extends ConsumerState<GroupScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            Text(AppLocalizations.of(context)!.groupNotInGroupText(authState.value!.user!.firstName), style: Theme.of(context).textTheme.bodyMedium),
+            Text(AppLocalizations.of(context)!.groupNotInGroupText(authState.value!.user!.firstname), style: Theme.of(context).textTheme.bodyMedium),
             TextButton(
               onPressed: () => GoRouter.of(context).pushNamed(UserInviteScreen.name),
               child: Text(AppLocalizations.of(context)!.groupGotAnInviteCode),

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
@@ -67,15 +70,18 @@ class NodeTooltip extends StatelessWidget {
       offset: 5,
       content: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildTitle(context),
-            if (null != node.skill.description && node.skill.description!.isNotEmpty) Text(node.skill.description!),
-            if (null != node.skill.ability) _buildAbilityDescription(context, node.skill.ability!),
-            if (node.skill.attributes.isNotEmpty) _buildAttributes(node.skill.attributes),
-          ],
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildTitle(context),
+              if (null != node.skill.description && node.skill.description!.isNotEmpty) Text(node.skill.description!),
+              if (null != node.skill.ability) _buildAbilityDescription(context, node.skill.ability!),
+              if (node.skill.attributes.isNotEmpty) _buildAttributes(node.skill.attributes),
+            ],
+          ),
         ),
       ),
       child: child,

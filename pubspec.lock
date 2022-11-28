@@ -252,7 +252,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_appauth:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_appauth
       url: "https://pub.dartlang.org"
@@ -265,15 +265,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.0"
-  flutter_auth:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "807d5cb569af728d3907be0a46b584a9d55e3842"
-      url: "https://curth.dev/opensource/flutter_auth"
-    source: git
-    version: "0.0.1"
   flutter_chips_input:
     dependency: transitive
     description:
@@ -737,6 +728,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  package_info_plus:
+    dependency: transitive
+    description:
+      name: package_info_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.2"
+  package_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: package_info_plus_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   path:
     dependency: transitive
     description:
@@ -857,7 +862,7 @@ packages:
     source: hosted
     version: "2.1.0"
   rxdart:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rxdart
       url: "https://pub.dartlang.org"
@@ -870,6 +875,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.1"
+  sentry:
+    dependency: transitive
+    description:
+      name: sentry
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.16.1"
+  sentry_flutter:
+    dependency: "direct main"
+    description:
+      name: sentry_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.16.1"
   shared_preferences:
     dependency: "direct main"
     description:

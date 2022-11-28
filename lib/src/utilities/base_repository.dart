@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_auth/flutter_auth.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
+
+import '../features/authentication/data/flutter_auth.dart';
 
 import 'api_error.dart';
 

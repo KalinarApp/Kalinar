@@ -34,6 +34,7 @@ mixin _$Character {
   String get raceId => throw _privateConstructorUsedError;
   Race get race => throw _privateConstructorUsedError;
   List<SkilltreeOverview> get skilltrees => throw _privateConstructorUsedError;
+  List<Ability> get unlockedAbilities => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +61,8 @@ abstract class $CharacterCopyWith<$Res> {
       List<AttributeValue> attributes,
       String raceId,
       Race race,
-      List<SkilltreeOverview> skilltrees});
+      List<SkilltreeOverview> skilltrees,
+      List<Ability> unlockedAbilities});
 
   $RaceCopyWith<$Res> get race;
 }
@@ -92,6 +94,7 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
     Object? raceId = null,
     Object? race = null,
     Object? skilltrees = null,
+    Object? unlockedAbilities = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -150,6 +153,10 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
           ? _value.skilltrees
           : skilltrees // ignore: cast_nullable_to_non_nullable
               as List<SkilltreeOverview>,
+      unlockedAbilities: null == unlockedAbilities
+          ? _value.unlockedAbilities
+          : unlockedAbilities // ignore: cast_nullable_to_non_nullable
+              as List<Ability>,
     ) as $Val);
   }
 
@@ -183,7 +190,8 @@ abstract class _$$_CharacterCopyWith<$Res> implements $CharacterCopyWith<$Res> {
       List<AttributeValue> attributes,
       String raceId,
       Race race,
-      List<SkilltreeOverview> skilltrees});
+      List<SkilltreeOverview> skilltrees,
+      List<Ability> unlockedAbilities});
 
   @override
   $RaceCopyWith<$Res> get race;
@@ -214,6 +222,7 @@ class __$$_CharacterCopyWithImpl<$Res>
     Object? raceId = null,
     Object? race = null,
     Object? skilltrees = null,
+    Object? unlockedAbilities = null,
   }) {
     return _then(_$_Character(
       id: null == id
@@ -272,6 +281,10 @@ class __$$_CharacterCopyWithImpl<$Res>
           ? _value._skilltrees
           : skilltrees // ignore: cast_nullable_to_non_nullable
               as List<SkilltreeOverview>,
+      unlockedAbilities: null == unlockedAbilities
+          ? _value._unlockedAbilities
+          : unlockedAbilities // ignore: cast_nullable_to_non_nullable
+              as List<Ability>,
     ));
   }
 }
@@ -293,9 +306,11 @@ class _$_Character implements _Character {
       final List<AttributeValue> attributes = const [],
       required this.raceId,
       required this.race,
-      final List<SkilltreeOverview> skilltrees = const []})
+      final List<SkilltreeOverview> skilltrees = const [],
+      final List<Ability> unlockedAbilities = const []})
       : _attributes = attributes,
-        _skilltrees = skilltrees;
+        _skilltrees = skilltrees,
+        _unlockedAbilities = unlockedAbilities;
 
   factory _$_Character.fromJson(Map<String, dynamic> json) =>
       _$$_CharacterFromJson(json);
@@ -340,9 +355,17 @@ class _$_Character implements _Character {
     return EqualUnmodifiableListView(_skilltrees);
   }
 
+  final List<Ability> _unlockedAbilities;
+  @override
+  @JsonKey()
+  List<Ability> get unlockedAbilities {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_unlockedAbilities);
+  }
+
   @override
   String toString() {
-    return 'Character(id: $id, name: $name, age: $age, iconUrl: $iconUrl, description: $description, profession: $profession, religion: $religion, relationship: $relationship, notes: $notes, inventory: $inventory, attributes: $attributes, raceId: $raceId, race: $race, skilltrees: $skilltrees)';
+    return 'Character(id: $id, name: $name, age: $age, iconUrl: $iconUrl, description: $description, profession: $profession, religion: $religion, relationship: $relationship, notes: $notes, inventory: $inventory, attributes: $attributes, raceId: $raceId, race: $race, skilltrees: $skilltrees, unlockedAbilities: $unlockedAbilities)';
   }
 
   @override
@@ -370,7 +393,9 @@ class _$_Character implements _Character {
             (identical(other.raceId, raceId) || other.raceId == raceId) &&
             (identical(other.race, race) || other.race == race) &&
             const DeepCollectionEquality()
-                .equals(other._skilltrees, _skilltrees));
+                .equals(other._skilltrees, _skilltrees) &&
+            const DeepCollectionEquality()
+                .equals(other._unlockedAbilities, _unlockedAbilities));
   }
 
   @JsonKey(ignore: true)
@@ -390,7 +415,8 @@ class _$_Character implements _Character {
       const DeepCollectionEquality().hash(_attributes),
       raceId,
       race,
-      const DeepCollectionEquality().hash(_skilltrees));
+      const DeepCollectionEquality().hash(_skilltrees),
+      const DeepCollectionEquality().hash(_unlockedAbilities));
 
   @JsonKey(ignore: true)
   @override
@@ -421,7 +447,8 @@ abstract class _Character implements Character {
       final List<AttributeValue> attributes,
       required final String raceId,
       required final Race race,
-      final List<SkilltreeOverview> skilltrees}) = _$_Character;
+      final List<SkilltreeOverview> skilltrees,
+      final List<Ability> unlockedAbilities}) = _$_Character;
 
   factory _Character.fromJson(Map<String, dynamic> json) =
       _$_Character.fromJson;
@@ -454,6 +481,8 @@ abstract class _Character implements Character {
   Race get race;
   @override
   List<SkilltreeOverview> get skilltrees;
+  @override
+  List<Ability> get unlockedAbilities;
   @override
   @JsonKey(ignore: true)
   _$$_CharacterCopyWith<_$_Character> get copyWith =>

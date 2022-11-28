@@ -12,6 +12,13 @@ _$_UserInfo _$$_UserInfoFromJson(Map<String, dynamic> json) => _$_UserInfo(
       lastname: json['lastname'] as String,
       email: json['email'] as String,
       username: json['username'] as String,
+      roles:
+          (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
+      groups: (json['groups'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$_UserInfoToJson(_$_UserInfo instance) =>
@@ -21,4 +28,6 @@ Map<String, dynamic> _$$_UserInfoToJson(_$_UserInfo instance) =>
       'lastname': instance.lastname,
       'email': instance.email,
       'username': instance.username,
+      'roles': instance.roles,
+      'groups': instance.groups,
     };

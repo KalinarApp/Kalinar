@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_size/window_size.dart';
 
 import 'src/common_widgets/kalinar.dart';
 
-void main() {
+void main() async {
   FlavorConfig(
     variables: {
       "baseUrl": "api.kalinar.app",
@@ -22,5 +23,11 @@ void main() {
     setWindowMinSize(const Size(500, 800));
   }
 
-  runApp(const ProviderScope(child: Kalinar()));
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = String.fromEnvironment("SENTRY_DSN");
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(const ProviderScope(child: Kalinar())),
+  );
 }

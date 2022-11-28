@@ -2,13 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:flutter_auth/flutter_auth.dart';
-import 'package:flutter_auth/models/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../utilities/base_repository.dart';
 import '../../../utilities/constants.dart';
+import '../application/auth_state.dart';
+
+import 'flutter_auth.dart';
 
 class AuthRepository extends HeroBaseRepository {
   AuthRepository(super.client);

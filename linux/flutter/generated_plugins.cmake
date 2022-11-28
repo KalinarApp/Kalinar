@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   desktop_drop
   flutter_secure_storage_linux
+  sentry_flutter
   url_launcher_linux
   window_size
 )

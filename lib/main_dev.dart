@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_size/window_size.dart';
 
 import 'src/common_widgets/kalinar.dart';
 
-void main() {
+void main() async {
   FlavorConfig(
     name: "DEV",
     color: Colors.red,
@@ -22,9 +23,15 @@ void main() {
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle('Kalinar');
-    // setWindowMaxSize(const Size(max_width, max_height));
     setWindowMinSize(const Size(500, 800));
   }
 
-  runApp(const ProviderScope(child: Kalinar()));
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = const String.fromEnvironment("SENTRY_DSN");
+      options.tracesSampleRate = 1.0;
+      options.debug = true;
+    },
+    appRunner: () => runApp(const ProviderScope(child: Kalinar())),
+  );
 }

@@ -40,12 +40,7 @@ class _LockedNodeWidgetState extends State<LockedNodeWidget> {
                       Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: null != widget.item.skill.iconUrl
-                            ? Ink.image(
-                                image: NetworkImage(widget.item.skill.iconUrl!),
-                                fit: BoxFit.fill,
-                                width: 32,
-                                height: 32,
-                              )
+                            ? Ink.image(image: NetworkImage(widget.item.skill.iconUrl!), fit: BoxFit.fill, width: 32, height: 32)
                             : const SizedBox(width: 32, height: 32),
                       ),
                     ],

@@ -25,6 +25,8 @@ mixin _$UserInfo {
   String get lastname => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  List<String> get roles => throw _privateConstructorUsedError;
+  List<String> get groups => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +44,9 @@ abstract class $UserInfoCopyWith<$Res> {
       String firstname,
       String lastname,
       String email,
-      String username});
+      String username,
+      List<String> roles,
+      List<String> groups});
 }
 
 /// @nodoc
@@ -63,6 +67,8 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
     Object? lastname = null,
     Object? email = null,
     Object? username = null,
+    Object? roles = null,
+    Object? groups = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -85,6 +91,14 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      roles: null == roles
+          ? _value.roles
+          : roles // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      groups: null == groups
+          ? _value.groups
+          : groups // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -101,7 +115,9 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
       String firstname,
       String lastname,
       String email,
-      String username});
+      String username,
+      List<String> roles,
+      List<String> groups});
 }
 
 /// @nodoc
@@ -120,6 +136,8 @@ class __$$_UserInfoCopyWithImpl<$Res>
     Object? lastname = null,
     Object? email = null,
     Object? username = null,
+    Object? roles = null,
+    Object? groups = null,
   }) {
     return _then(_$_UserInfo(
       id: null == id
@@ -142,6 +160,14 @@ class __$$_UserInfoCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      roles: null == roles
+          ? _value._roles
+          : roles // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      groups: null == groups
+          ? _value._groups
+          : groups // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -154,7 +180,11 @@ class _$_UserInfo implements _UserInfo {
       required this.firstname,
       required this.lastname,
       required this.email,
-      required this.username});
+      required this.username,
+      final List<String> roles = const [],
+      final List<String> groups = const []})
+      : _roles = roles,
+        _groups = groups;
 
   factory _$_UserInfo.fromJson(Map<String, dynamic> json) =>
       _$$_UserInfoFromJson(json);
@@ -169,10 +199,25 @@ class _$_UserInfo implements _UserInfo {
   final String email;
   @override
   final String username;
+  final List<String> _roles;
+  @override
+  @JsonKey()
+  List<String> get roles {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_roles);
+  }
+
+  final List<String> _groups;
+  @override
+  @JsonKey()
+  List<String> get groups {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_groups);
+  }
 
   @override
   String toString() {
-    return 'UserInfo(id: $id, firstname: $firstname, lastname: $lastname, email: $email, username: $username)';
+    return 'UserInfo(id: $id, firstname: $firstname, lastname: $lastname, email: $email, username: $username, roles: $roles, groups: $groups)';
   }
 
   @override
@@ -187,13 +232,22 @@ class _$_UserInfo implements _UserInfo {
                 other.lastname == lastname) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.username, username) ||
-                other.username == username));
+                other.username == username) &&
+            const DeepCollectionEquality().equals(other._roles, _roles) &&
+            const DeepCollectionEquality().equals(other._groups, _groups));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, firstname, lastname, email, username);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      firstname,
+      lastname,
+      email,
+      username,
+      const DeepCollectionEquality().hash(_roles),
+      const DeepCollectionEquality().hash(_groups));
 
   @JsonKey(ignore: true)
   @override
@@ -215,7 +269,9 @@ abstract class _UserInfo implements UserInfo {
       required final String firstname,
       required final String lastname,
       required final String email,
-      required final String username}) = _$_UserInfo;
+      required final String username,
+      final List<String> roles,
+      final List<String> groups}) = _$_UserInfo;
 
   factory _UserInfo.fromJson(Map<String, dynamic> json) = _$_UserInfo.fromJson;
 
@@ -229,6 +285,10 @@ abstract class _UserInfo implements UserInfo {
   String get email;
   @override
   String get username;
+  @override
+  List<String> get roles;
+  @override
+  List<String> get groups;
   @override
   @JsonKey(ignore: true)
   _$$_UserInfoCopyWith<_$_UserInfo> get copyWith =>
