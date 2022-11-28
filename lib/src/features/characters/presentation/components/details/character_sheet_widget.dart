@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:kalinar/src/features/characters/presentation/components/details/auto_saving_text_field.dart';
 import 'package:kalinar/src/features/characters/presentation/components/details/character_attributes.dart';
 
 import '../../../domain/character.dart';
@@ -19,12 +20,10 @@ class CharacterSheetWidget extends ConsumerStatefulWidget {
 }
 
 class _CharacterSheetWidgetState extends ConsumerState<CharacterSheetWidget> {
-  late final notesController;
   late final inventoryController;
 
   @override
   void initState() {
-    notesController = TextEditingController(text: widget.character.notes);
     inventoryController = TextEditingController(text: widget.character.inventory);
 
     super.initState();
@@ -39,19 +38,18 @@ class _CharacterSheetWidgetState extends ConsumerState<CharacterSheetWidget> {
           padding: const EdgeInsets.all(4),
           child: CharacterAttributes(widget.character),
         ),
-        TextField(
-          controller: inventoryController,
-          enabled: false,
-          minLines: 1,
-          maxLines: 10,
-          decoration: InputDecoration(labelText: AppLocalizations.of(context)!.characterInventory),
+        AutoSavingTextField(
+          title: AppLocalizations.of(context)!.characterInventory,
+          initialValue: widget.character.inventory,
+          onSaving: (currentText) async {
+            await Future.delayed(Duration(seconds: 2));
+            print("current inventory: $currentText");
+          },
         ),
-        TextField(
-          controller: notesController,
-          enabled: false,
-          minLines: 1,
-          maxLines: 10,
-          decoration: InputDecoration(labelText: AppLocalizations.of(context)!.characterNotes),
+        AutoSavingTextField(
+          title: AppLocalizations.of(context)!.characterNotes,
+          initialValue: widget.character.notes,
+          onSaving: (currentText) => print("current notes: $currentText"),
         ),
       ],
     );

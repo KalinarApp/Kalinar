@@ -133,6 +133,8 @@
     "errorNoInternetConnection",
     "errorUnauthorized",
     "errorForbidden",
-    "errorUnknown"
+    "errorUnknown",
+    "errorNodeNotUnlockable",
+    "errorNotEnoughSkillpoints"
   ]
 }
