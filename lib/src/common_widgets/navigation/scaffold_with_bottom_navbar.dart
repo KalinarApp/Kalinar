@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'scaffold_with_navbar_item.dart';
 
@@ -44,7 +43,7 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
       ),
       child: Scaffold(
         body: widget.child,
-        bottomNavigationBar: SalomonBottomBar(
+        bottomNavigationBar: BottomNavigationBar(
           items: widget.tabs,
           currentIndex: _currentIndex,
           onTap: (value) => _onItemTapped(context, value),

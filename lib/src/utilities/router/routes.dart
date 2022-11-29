@@ -72,21 +72,21 @@ GoRouter getRouter(WidgetRef ref) {
           return ScaffoldWithBottomNavbar(
             tabs: [
               ScaffoldWithNavbarItem(
-                  initialLocation: HomeScreen.route,
-                  icon: const Icon(Icons.home),
-                  label: Text(AppLocalizations.of(context)!.home),
-                  color: Theme.of(context).colorScheme.primary),
+                initialLocation: HomeScreen.route,
+                icon: const Icon(Icons.home),
+                label: (AppLocalizations.of(context)!.home),
+              ),
               ScaffoldWithNavbarItem(
-                  initialLocation: "/characters",
-                  icon: const Icon(Icons.man),
-                  label: Text(AppLocalizations.of(context)!.characters),
-                  color: Theme.of(context).colorScheme.primary),
+                initialLocation: "/characters",
+                icon: const Icon(Icons.man),
+                label: (AppLocalizations.of(context)!.characters),
+              ),
               if (null != user && user.isAdmin())
                 ScaffoldWithNavbarItem(
-                    initialLocation: AdminMenuScreen.route,
-                    icon: const Icon(Icons.coffee),
-                    label: Text(AppLocalizations.of(context)!.admin),
-                    color: Theme.of(context).colorScheme.primary),
+                  initialLocation: AdminMenuScreen.route,
+                  icon: const Icon(Icons.coffee),
+                  label: (AppLocalizations.of(context)!.admin),
+                ),
             ],
             child: child,
           );

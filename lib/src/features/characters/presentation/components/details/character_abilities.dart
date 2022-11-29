@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:kalinar/src/common_widgets/debounced_text_field.dart';
+import 'package:kalinar/src/features/admin/management/domain/ability.dart';
 import 'package:kalinar/src/features/characters/presentation/components/details/abilities_item.dart';
 
 import '../../../domain/character.dart';
@@ -15,11 +17,45 @@ class CharacterAbilities extends ConsumerStatefulWidget {
 }
 
 class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
+  List<Ability> items = [];
+
+  void _filterAbilities(String? query) {
+    setState(() => items = null == query || query.isEmpty
+        ? widget.character.unlockedAbilities
+        : widget.character.unlockedAbilities
+            .where((ability) =>
+                ability.name.toLowerCase().contains(query.toLowerCase()) ||
+                (ability.description?.toLowerCase().contains(query.toLowerCase()) ?? false))
+            .toList());
+  }
+
+  @override
+  void initState() {
+    items = widget.character.unlockedAbilities;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.character.unlockedAbilities.length,
-      itemBuilder: (context, index) => AbilitiesItem(widget.character.unlockedAbilities[index]),
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: DebouncedTextField(
+              icon: const Icon(Icons.search),
+              title: "Suchen...",
+              duration: const Duration(milliseconds: 100),
+              onChanged: _filterAbilities,
+            ),
+          ),
+        ),
+        SliverList(
+            delegate: SliverChildBuilderDelegate(
+          (context, index) => AbilitiesItem(items[index]),
+          childCount: items.length,
+        ))
+      ],
     );
   }
 }
