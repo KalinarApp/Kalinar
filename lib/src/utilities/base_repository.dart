@@ -57,6 +57,14 @@ class BaseRepository {
     }, builder);
   }
 
+  Future<T> patch<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
+    return await _handleResponse(() async {
+      Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
+      var encode = json.encode(data);
+      return await client.patch(url, body: encode, headers: fullHeaders);
+    }, builder);
+  }
+
   Future<void> delete(Uri url, {Map<String, String>? headers}) async {
     await _handleResponse(() async {
       return await client.delete(url, headers: headers);
@@ -83,6 +91,10 @@ class HeroBaseRepository extends BaseRepository {
 
   Future<T> heroUpdate<T>(String url, dynamic data, T Function(dynamic response) builder) async {
     return await super.update(Uri.https(baseUrl, url), data, builder, headers: headers);
+  }
+
+  Future<T> heroPatch<T>(String url, dynamic data, T Function(dynamic response) builder) async {
+    return await super.patch(Uri.https(baseUrl, url), data, builder, headers: headers);
   }
 
   Future<void> heroDelete(String url) async {
