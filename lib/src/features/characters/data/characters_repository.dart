@@ -22,7 +22,7 @@ class CharactersRepository extends HeroBaseRepository {
   }
 
   Future<void> updateCharacter(String id, Map<String, dynamic> data) async {
-    return await heroUpdate("/api/characters/$id", data, (response) => true);
+    return await heroPatch("/api/characters/$id", data, (response) => true);
   }
 
   Future<void> deleteCharacter(String id) async {
