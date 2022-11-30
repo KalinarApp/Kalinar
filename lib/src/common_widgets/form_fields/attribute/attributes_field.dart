@@ -8,8 +8,9 @@ import 'attribute_list.dart';
 
 class AttributesField extends StatelessWidget {
   final List<AttributeValue>? initialValue;
+  final bool alwaysShowGlobal;
 
-  const AttributesField({this.initialValue, super.key});
+  const AttributesField({this.initialValue, this.alwaysShowGlobal = false, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class AttributesField extends StatelessWidget {
       name: "attributes",
       valueTransformer: (value) => value ?? [],
       initialValue: initialValue,
-      builder: (field) => AttributeList(value: field.value, onChanged: (value) => field.didChange(value)),
+      builder: (field) => AttributeList(value: field.value, alwaysShowGlobal: alwaysShowGlobal, onChanged: (value) => field.didChange(value)),
     );
   }
 }

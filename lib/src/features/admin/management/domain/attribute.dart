@@ -27,8 +27,18 @@ class Attribute with _$Attribute {
 extension AttributeExtension on Attribute {
   Attribute translate(BuildContext context) {
     switch (id.toLowerCase()) {
-      case GlobalAttribute.heart:
+      case GlobalAttribute.health:
         return copyWith(name: AppLocalizations.of(context)!.attributeHealth, description: AppLocalizations.of(context)!.attributeHealthDescription);
+      case GlobalAttribute.parry:
+        return copyWith(name: AppLocalizations.of(context)!.attributeParry, description: AppLocalizations.of(context)!.attributeParryDescription);
+      case GlobalAttribute.dodge:
+        return copyWith(name: AppLocalizations.of(context)!.attributeDodge, description: AppLocalizations.of(context)!.attributeDodgeDescription);
+      case GlobalAttribute.motionRange:
+        return copyWith(
+            name: AppLocalizations.of(context)!.attributeMotionRange, description: AppLocalizations.of(context)!.attributeMotionRangeDescription);
+      case GlobalAttribute.initiative:
+        return copyWith(
+            name: AppLocalizations.of(context)!.attributeInitiative, description: AppLocalizations.of(context)!.attributeInitiativeDescription);
       default:
         return this;
     }

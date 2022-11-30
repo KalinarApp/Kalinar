@@ -175,6 +175,18 @@
   "attributeHealth": "Lebenspunkte",
   "attributeHealthDescription": "Stellt das maximale Leben des Charakters dar.",
 
+  "attributeParry": "Parade",
+  "attributeParryDescription": "Wird ein Charakter angegriffen kann er versuchen den Angriff zu parrieren. Ist dies erfolgreich, so blockiert er den Angriff.",
+  
+  "attributeDodge": "Ausweichen",
+  "attributeDodgeDescription": "Wird ein Charakter angegriffen, kann er versuchen dem Angriff auszuweichen. Ist er erfolgreich, so geht der Angriff daneben.",
+
+  "attributeMotionRange": "Bewegungsreichweite",
+  "attributeMotionRangeDescription": "Die Anzahl an Metern, die ein Charakter pro Zug zurücklegen kann.",
+
+  "attributeInitiative": "Initiative",
+  "attributeInitiativeDescription": "Je höher die Inititative, desto früher ist ein Charakter im Kampf am Zug.",
+
   "errorNoInternetConnection": "Der Server ist nicht erreichbar, bitte überprüfe deine Internetverbindung und versuche es später erneut.",
   "errorUnauthorized": "Du bist nicht angemeldet.",
   "errorForbidden": "Du bist nicht der Gamemaster dieser Gruppe!",

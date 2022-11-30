@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -33,13 +34,16 @@ class AttributeValueWidget extends StatelessWidget {
           ],
         ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FaIcon(icon ?? FontAwesomeIcons.tag, size: 20),
-          const SizedBox(width: 4),
-          Text(value.value.toString()),
-        ],
+      child: ListTile(
+        dense: true,
+        horizontalTitleGap: 0,
+        minVerticalPadding: 0,
+        minLeadingWidth: 30,
+        contentPadding: const EdgeInsets.only(left: 0),
+        visualDensity: const VisualDensity(vertical: -4),
+        leading: FaIcon(icon ?? FontAwesomeIcons.tag, size: 20),
+        title: Text(value.attribute.name),
+        trailing: Text(value.value.toString()),
       ),
     );
   }

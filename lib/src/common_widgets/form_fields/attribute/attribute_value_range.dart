@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_touch_spin/flutter_touch_spin.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../../features/admin/management/domain/attribute.dart';
@@ -30,13 +31,11 @@ class _AttributeValueRangeState extends State<AttributeValueRange> {
         areas: '''
           . icon title   close
           . icon spinner .
-          . .    .       .
         ''',
-        columnSizes: [4.px, auto, 4.fr, 20.px],
+        columnSizes: [4.px, auto, 4.fr, 24.px],
         rowSizes: [
           1.fr,
           2.fr,
-          4.px,
         ],
         children: [
           gridArea("title").containing(Center(
@@ -45,10 +44,10 @@ class _AttributeValueRangeState extends State<AttributeValueRange> {
             style: Theme.of(context).textTheme.titleMedium,
           ))),
           gridArea("icon").containing(Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
             child: Center(
                 child: null != widget.item.attribute.iconData
-                    ? Icon(deserializeIcon(json.decode(widget.item.attribute.iconData!)), size: 28)
+                    ? FaIcon(deserializeIcon(json.decode(widget.item.attribute.iconData!)), size: 28)
                     : const SizedBox(width: 28)),
           )),
           if (null != widget.onDelete)
