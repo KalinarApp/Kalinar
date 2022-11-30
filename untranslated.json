@@ -31,6 +31,7 @@
     "statistics",
     "cost",
     "reset",
+    "search",
     "workInProgress",
     "loggingIn",
     "inviteCopied",

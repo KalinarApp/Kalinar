@@ -47,8 +47,7 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
       builder: (context, snapshot) {
         final List<Widget> tabs = [
           Tab(icon: const FaIcon(FontAwesomeIcons.person), text: AppLocalizations.of(context)!.characteristics),
-          // Tab(icon: const FaIcon(FontAwesomeIcons.award), text: AppLocalizations.of(context)!.abilities),
-          // if (snapshot.hasData && snapshot.data!.skilltrees.isNotEmpty)
+          Tab(icon: const FaIcon(FontAwesomeIcons.award), text: AppLocalizations.of(context)!.abilities),
           Tab(icon: const FaIcon(FontAwesomeIcons.circleNodes), text: AppLocalizations.of(context)!.skilltrees),
         ];
 
