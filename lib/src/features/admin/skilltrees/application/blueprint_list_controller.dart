@@ -19,4 +19,4 @@ class BlueprintListController extends StateNotifier<AsyncValue<List<BlueprintOve
 }
 
 final blueprintListControllerProvider = StateNotifierProvider<BlueprintListController, AsyncValue<List<BlueprintOverview>>>(
-    (ref) => BlueprintListController(ref.read(blueprintRepositoryProvider)));
+    (ref) => BlueprintListController(ref.watch(blueprintRepositoryProvider)));

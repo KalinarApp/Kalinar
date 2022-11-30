@@ -1,15 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:kalinar/src/features/group_management/application/group_controller.dart';
+
 import '../data/group_repository.dart';
 import '../domain/group_info.dart';
 
-import 'has_group_controller.dart';
-
 class InviteController extends StateNotifier<AsyncValue<GroupInfo>> {
   final GroupRepository repo;
-  final HasGroupController hasGroup;
+  final GroupController groups;
 
-  InviteController(this.repo, this.hasGroup) : super(const AsyncLoading());
+  InviteController(this.repo, this.groups) : super(const AsyncLoading());
 
   Future<void> getInfo(String code) async {
     state = const AsyncLoading();
@@ -19,11 +19,11 @@ class InviteController extends StateNotifier<AsyncValue<GroupInfo>> {
   Future<AsyncValue<void>> joinGroup(String id, String code) async {
     return await AsyncValue.guard(() async {
       await repo.joinGroup(id, code);
-      await hasGroup.check();
+      await groups.check();
     });
   }
 }
 
 final inviteControllerProvider = StateNotifierProvider<InviteController, AsyncValue<GroupInfo>>((ref) {
-  return InviteController(ref.read(groupRepositoryProvider), ref.read(hasGroupProvider));
+  return InviteController(ref.watch(groupRepositoryProvider), ref.watch(groupControllerProvider));
 });

@@ -19,4 +19,4 @@ class AttributeListController extends StateNotifier<AsyncValue<List<Attribute>>>
 }
 
 final attributeListControllerProvider = StateNotifierProvider<AttributeListController, AsyncValue<List<Attribute>>>(
-    (ref) => AttributeListController(ref.read(attributesRepositoryProvider)));
+    (ref) => AttributeListController(ref.watch(attributesRepositoryProvider)));

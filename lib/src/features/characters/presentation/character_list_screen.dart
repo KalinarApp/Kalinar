@@ -66,10 +66,12 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
     final state = ref.watch(characterListControllerProvider);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => GoRouter.of(context).pushNamed(CharacterEditorScreen.name),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: !state.hasError
+          ? FloatingActionButton(
+              onPressed: () => GoRouter.of(context).pushNamed(CharacterEditorScreen.name),
+              child: const Icon(Icons.add),
+            )
+          : null,
       appBar: AppBar(
         actions: const [
           Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu()),

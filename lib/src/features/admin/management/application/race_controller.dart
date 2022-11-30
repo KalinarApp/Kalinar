@@ -43,4 +43,4 @@ class RaceController {
 }
 
 final raceControllerProvider =
-    Provider<RaceController>((ref) => RaceController(ref.read(racesRepositoryProvider), ref.read(raceListControllerProvider.notifier)));
+    Provider<RaceController>((ref) => RaceController(ref.watch(racesRepositoryProvider), ref.watch(raceListControllerProvider.notifier)));
