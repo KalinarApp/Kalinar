@@ -1,23 +1,32 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/group_repository.dart';
+import 'package:kalinar/src/features/group_management/data/user_repository.dart';
 
-import 'has_group_controller.dart';
+import '../data/group_repository.dart';
+import '../domain/user.dart';
+
+import 'group_notifier.dart';
 
 class GroupController {
   final GroupRepository repo;
-  final HasGroupController hasGroup;
+  final UserRepository userRepo;
+  final GroupNotifier notifier;
 
-  GroupController(this.repo, this.hasGroup);
+  GroupController(this.repo, this.userRepo, this.notifier);
 
   Future<AsyncValue<void>> save(Map<String, dynamic> data) async {
     return await AsyncValue.guard(() async {
       await repo.createGroup(data);
-      await hasGroup.check();
+      await check();
     });
+  }
+
+  Future<void> check() async {
+    User user = await userRepo.getUser();
+    notifier.updateGroup(user.group);
   }
 }
 
 final groupControllerProvider = Provider((ref) {
-  return GroupController(ref.read(groupRepositoryProvider), ref.read(hasGroupProvider));
+  return GroupController(ref.watch(groupRepositoryProvider), ref.watch(userRepositoryProvider), ref.watch(groupNotifierProvider));
 });

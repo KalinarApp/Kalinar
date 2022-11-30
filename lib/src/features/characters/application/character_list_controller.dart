@@ -19,4 +19,4 @@ class CharacterListController extends StateNotifier<AsyncValue<List<CharacterOve
 }
 
 final characterListControllerProvider = StateNotifierProvider<CharacterListController, AsyncValue<List<CharacterOverview>>>(
-    (ref) => CharacterListController(ref.read(charactersRepositoryProvider)));
+    (ref) => CharacterListController(ref.watch(charactersRepositoryProvider)));

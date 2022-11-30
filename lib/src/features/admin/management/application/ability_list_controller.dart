@@ -24,4 +24,4 @@ class AbilityListController extends StateNotifier<AsyncValue<List<Ability>>> {
 }
 
 final abilityListControllerProvider =
-    StateNotifierProvider<AbilityListController, AsyncValue<List<Ability>>>((ref) => AbilityListController(ref.read(abilitiesRepositoryProvider)));
+    StateNotifierProvider<AbilityListController, AsyncValue<List<Ability>>>((ref) => AbilityListController(ref.watch(abilitiesRepositoryProvider)));

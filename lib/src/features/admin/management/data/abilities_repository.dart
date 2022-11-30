@@ -2,11 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/base_repository.dart';
 import '../../../authentication/data/auth_repository.dart';
-import '../../../group_management/application/has_group_controller.dart';
+import '../../../group_management/application/group_notifier.dart';
 import '../domain/ability.dart';
 
 class AbilitiesRepository extends HeroBaseRepository {
-  AbilitiesRepository(super.client, String? groupId) : super(groupId: groupId);
+  AbilitiesRepository(super.client, {super.group});
 
   Future<Ability> getByName(String id) async {
     return await heroGet("/api/abilities/$id", (response) => Ability.fromJson(response));
@@ -35,4 +35,4 @@ class AbilitiesRepository extends HeroBaseRepository {
 }
 
 final abilitiesRepositoryProvider =
-    Provider<AbilitiesRepository>((ref) => AbilitiesRepository(ref.read(authProvider), ref.watch(hasGroupProvider).groupId));
+    Provider<AbilitiesRepository>((ref) => AbilitiesRepository(ref.watch(authProvider), group: ref.watch(groupNotifierProvider).group));

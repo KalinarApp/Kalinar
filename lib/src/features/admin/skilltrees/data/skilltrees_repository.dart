@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
+
 import '../../../../utilities/base_repository.dart';
 import '../../../authentication/data/auth_repository.dart';
-import '../../../group_management/application/has_group_controller.dart';
 import '../domain/node.dart';
 import '../domain/skillpoints.dart';
 import '../domain/skilltree.dart';
@@ -14,7 +15,7 @@ import '../domain/skilltree_overview.dart';
 class SkilltreesRepository extends HeroBaseRepository {
   static const String nodesKey = "currentNodes";
 
-  SkilltreesRepository(super.client, String? groupId) : super(groupId: groupId);
+  SkilltreesRepository(super.client, {super.group});
 
   Future<List<Node>> loadLocal() async {
     final prefs = await SharedPreferences.getInstance();
@@ -70,5 +71,5 @@ class SkilltreesRepository extends HeroBaseRepository {
 }
 
 final skilltreesRepositoryProvider = Provider<SkilltreesRepository>((ref) {
-  return SkilltreesRepository(ref.read(authProvider), ref.read(hasGroupProvider).groupId);
+  return SkilltreesRepository(ref.watch(authProvider), group: ref.watch(groupNotifierProvider).group);
 });

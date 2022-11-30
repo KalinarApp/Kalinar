@@ -44,4 +44,4 @@ class CharacterController {
 }
 
 final characterControllerProvider = Provider<CharacterController>(
-    (ref) => CharacterController(ref.read(charactersRepositoryProvider), ref.read(characterListControllerProvider.notifier)));
+    (ref) => CharacterController(ref.watch(charactersRepositoryProvider), ref.watch(characterListControllerProvider.notifier)));
