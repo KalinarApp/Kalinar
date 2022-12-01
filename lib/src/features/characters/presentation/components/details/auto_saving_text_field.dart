@@ -7,11 +7,15 @@ class AutoSavingTextField extends StatefulWidget {
   final String title;
   final String? initialValue;
   final Duration duration;
+  final int minLines;
+  final int maxLines;
 
   const AutoSavingTextField({
     required this.onSaving,
     this.duration = const Duration(milliseconds: 400),
     this.initialValue,
+    this.minLines = 1,
+    this.maxLines = 10,
     required this.title,
     super.key,
   });
@@ -41,8 +45,8 @@ class _AutoSavingTextFieldState extends State<AutoSavingTextField> {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      minLines: 1,
-      maxLines: 10,
+      minLines: widget.minLines,
+      maxLines: widget.maxLines,
       onChanged: (value) {
         if (_timer?.isActive ?? false) _timer!.cancel();
         _timer = Timer(widget.duration, () async {
@@ -52,14 +56,22 @@ class _AutoSavingTextFieldState extends State<AutoSavingTextField> {
         });
       },
       decoration: InputDecoration(
-          label: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(widget.title),
-          const SizedBox(width: 4),
-          if (isLoading) const Center(child: SizedBox(width: 12, height: 12, child: CircularProgressIndicator(strokeWidth: 2))),
-        ],
-      )),
+        label: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(widget.title),
+            const SizedBox(width: 4),
+            if (isLoading)
+              const Center(
+                child: SizedBox(
+                  width: 12,
+                  height: 12,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
