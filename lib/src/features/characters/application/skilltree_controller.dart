@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../admin/skilltrees/data/skilltrees_repository.dart';
@@ -39,5 +41,5 @@ class SkilltreeController extends StateNotifier<AsyncValue<Skilltree>> {
 }
 
 final skilltreeControllerProvider = StateNotifierProvider.autoDispose<SkilltreeController, AsyncValue<Skilltree>>((ref) {
-  return SkilltreeController(ref.read(skilltreesRepositoryProvider));
+  return SkilltreeController(ref.watch(skilltreesRepositoryProvider));
 });

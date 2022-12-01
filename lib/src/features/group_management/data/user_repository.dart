@@ -13,5 +13,5 @@ class UserRepository extends HeroBaseRepository {
 }
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
-  return UserRepository(ref.read(authProvider));
+  return UserRepository(ref.watch(authProvider));
 });

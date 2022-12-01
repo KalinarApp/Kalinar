@@ -187,8 +187,8 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
 
 final skilltreeControllerProvider = StateNotifierProvider<SkilltreeController, SkilltreeState>((ref) {
   return SkilltreeController(
-    ref.read(skilltreesRepositoryProvider),
-    ref.read(blueprintControllerProvider),
-    ref.read(skilltreeListControllerProvider.notifier),
+    ref.watch(skilltreesRepositoryProvider),
+    ref.watch(blueprintControllerProvider),
+    ref.watch(skilltreeListControllerProvider.notifier),
   );
 });

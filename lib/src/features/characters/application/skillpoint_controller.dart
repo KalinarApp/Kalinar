@@ -17,5 +17,5 @@ class SkillpointController extends StateNotifier<Skillpoints> {
 }
 
 final skillpointControllerProvider = StateNotifierProvider.autoDispose<SkillpointController, Skillpoints>((ref) {
-  return SkillpointController(ref.read(skilltreesRepositoryProvider));
+  return SkillpointController(ref.watch(skilltreesRepositoryProvider));
 });

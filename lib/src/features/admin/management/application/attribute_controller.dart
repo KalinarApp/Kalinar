@@ -43,4 +43,4 @@ class AttributeController {
 }
 
 final attributeControllerProvider = Provider<AttributeController>(
-    (ref) => AttributeController(ref.read(attributesRepositoryProvider), ref.read(attributeListControllerProvider.notifier)));
+    (ref) => AttributeController(ref.watch(attributesRepositoryProvider), ref.watch(attributeListControllerProvider.notifier)));

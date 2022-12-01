@@ -5,6 +5,7 @@ import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
 
 import '../features/authentication/data/flutter_auth.dart';
+import '../features/group_management/domain/group.dart';
 
 import 'api_error.dart';
 
@@ -77,9 +78,9 @@ class HeroBaseRepository extends BaseRepository {
   Map<String, String>? headers;
   late final String baseUrl;
 
-  HeroBaseRepository(super.client, {String? groupId}) {
+  HeroBaseRepository(super.client, {Group? group}) {
     baseUrl = FlavorConfig.instance.variables["baseUrl"];
-    headers = null != groupId ? headers = {"Group": groupId} : headers = {};
+    headers = null != group ? headers = {"Group": group.id} : headers = {};
   }
 
   Future<T> heroGet<T>(String url, T Function(dynamic response) builder, {Map<String, String>? query}) async {

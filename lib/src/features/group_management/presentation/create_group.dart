@@ -10,7 +10,7 @@ import '../../../common_widgets/save_button.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../home/presentation/home_screen.dart';
 import '../application/group_controller.dart';
-import '../application/has_group_controller.dart';
+import '../application/group_notifier.dart';
 
 class CreateGroup extends ConsumerStatefulWidget {
   const CreateGroup({super.key});
@@ -46,7 +46,7 @@ class _CreateGroupState extends ConsumerState<CreateGroup> {
           } else {
             _btnController.success();
 
-            ref.read(hasGroupProvider.notifier).check().then((value) => GoRouter.of(context).goNamed(HomeScreen.name));
+            ref.read(groupControllerProvider).check().then((value) => GoRouter.of(context).goNamed(HomeScreen.name));
           }
         });
       } else {

@@ -32,4 +32,4 @@ class SkillController {
 }
 
 final skillControllerProvider =
-    Provider<SkillController>((ref) => SkillController(ref.read(skillsRepositoryProvider), ref.read(skillListControllerProvider.notifier)));
+    Provider<SkillController>((ref) => SkillController(ref.watch(skillsRepositoryProvider), ref.watch(skillListControllerProvider.notifier)));
