@@ -40,13 +40,13 @@ class CharacterAttributes extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Wrap(spacing: 10, runSpacing: 5, children: globalAttributes),
+        Wrap(spacing: 10, runSpacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: globalAttributes),
         const SizedBox(height: 20),
         Text(AppLocalizations.of(context)!.attributesMore),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8),
         Wrap(
           spacing: 10,
-          runSpacing: 5,
+          runSpacing: 4,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: others.map((e) => AttributeValueWidget(e, showTitle: true)).toList(),
         ),
