@@ -34,5 +34,5 @@ class AbilityController {
   }
 }
 
-final abilityControllerProvider =
-    Provider<AbilityController>((ref) => AbilityController(ref.read(abilitiesRepositoryProvider), ref.read(abilityListControllerProvider.notifier)));
+final abilityControllerProvider = Provider<AbilityController>(
+    (ref) => AbilityController(ref.watch(abilitiesRepositoryProvider), ref.watch(abilityListControllerProvider.notifier)));

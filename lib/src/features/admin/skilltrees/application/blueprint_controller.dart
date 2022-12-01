@@ -44,8 +44,5 @@ class BlueprintController {
 }
 
 final blueprintControllerProvider = Provider<BlueprintController>((ref) {
-  return BlueprintController(
-    ref.read(blueprintRepositoryProvider),
-    ref.read(blueprintListControllerProvider.notifier),
-  );
+  return BlueprintController(ref.watch(blueprintRepositoryProvider), ref.watch(blueprintListControllerProvider.notifier));
 });

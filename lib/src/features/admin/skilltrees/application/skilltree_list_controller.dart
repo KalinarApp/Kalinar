@@ -29,4 +29,4 @@ class SkilltreeListController extends StateNotifier<AsyncValue<SkilltreeOverview
 }
 
 final skilltreeListControllerProvider = StateNotifierProvider<SkilltreeListController, AsyncValue<SkilltreeOverviewState>>(
-    (ref) => SkilltreeListController(ref.read(skilltreesRepositoryProvider)));
+    (ref) => SkilltreeListController(ref.watch(skilltreesRepositoryProvider)));

@@ -22,4 +22,4 @@ class RaceListController extends StateNotifier<AsyncValue<List<Race>>> {
 }
 
 final raceListControllerProvider =
-    StateNotifierProvider<RaceListController, AsyncValue<List<Race>>>((ref) => RaceListController(ref.read(racesRepositoryProvider)));
+    StateNotifierProvider<RaceListController, AsyncValue<List<Race>>>((ref) => RaceListController(ref.watch(racesRepositoryProvider)));

@@ -31,5 +31,5 @@ class GroupRepository extends HeroBaseRepository {
 }
 
 final groupRepositoryProvider = Provider<GroupRepository>((ref) {
-  return GroupRepository(ref.read(authProvider));
+  return GroupRepository(ref.watch(authProvider));
 });

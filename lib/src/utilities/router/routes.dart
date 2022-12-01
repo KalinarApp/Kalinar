@@ -10,7 +10,7 @@ import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/authentication/data/auth_repository.dart';
 import '../../features/authentication/domain/user_info.dart';
 import '../../features/authentication/presentation/sign_in_screen.dart';
-import '../../features/group_management/application/has_group_controller.dart';
+import '../../features/group_management/application/group_notifier.dart';
 import '../../features/group_management/presentation/group_screen.dart';
 import '../../features/group_management/presentation/user_invite_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
@@ -21,7 +21,7 @@ import 'character_routes.dart';
 
 GoRouter getRouter(WidgetRef ref) {
   final authState = RouterStreamNotifier(ref);
-  final groupState = ref.read(hasGroupProvider);
+  final groupState = ref.read(groupNotifierProvider);
   final rootNavigatorKey = GlobalKey<NavigatorState>();
   final shellNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -57,7 +57,7 @@ GoRouter getRouter(WidgetRef ref) {
       GoRoute(
         name: GroupScreen.name,
         path: GroupScreen.route,
-        redirect: (context, state) => true == groupState.hasGroup ? HomeScreen.route : null,
+        redirect: (context, state) => null != groupState.group ? HomeScreen.route : null,
         pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const GroupScreen()),
       ),
       GoRoute(
@@ -98,7 +98,7 @@ GoRouter getRouter(WidgetRef ref) {
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
             redirect: (context, state) {
               if (state.location != GroupScreen.route && state.subloc != UserInviteScreen.route) {
-                if (null != groupState.hasGroup && !groupState.hasGroup!) return GroupScreen.route;
+                if (false == groupState.hasGroup) return GroupScreen.route;
               }
 
               if (state.subloc != UserInviteScreen.route && (groupState.hasGroup ?? false)) {
