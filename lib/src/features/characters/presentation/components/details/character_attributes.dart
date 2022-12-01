@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:kalinar/src/features/characters/domain/character.dart';
-import 'package:kalinar/src/features/characters/presentation/components/attribute_value_widget.dart';
-import 'package:kalinar/src/utilities/global_attributes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../../utilities/global_attributes.dart';
+import '../../../domain/character.dart';
+import '../attribute_value_widget.dart';
 
 class CharacterAttributes extends StatelessWidget {
   final Character character;
@@ -12,7 +14,7 @@ class CharacterAttributes extends StatelessWidget {
   List<AttributeValueWidget> _getGlobalAttribute(String id) {
     return [
       if (character.attributes.any((element) => element.attribute.id.toLowerCase() == id))
-        AttributeValueWidget(character.attributes.firstWhere((element) => element.attribute.id.toLowerCase() == id)),
+        AttributeValueWidget(character.attributes.firstWhere((element) => element.attribute.id.toLowerCase() == id), showTitle: true),
     ];
   }
 
@@ -26,14 +28,11 @@ class CharacterAttributes extends StatelessWidget {
       ..._getGlobalAttribute(GlobalAttribute.initiative),
     ];
 
-    final others = character.attributes
-        .where((x) => !globalAttributes.any((y) => x.attributeId == y.value.attributeId))
-        .map((e) => AttributeValueWidget(e))
-        .toList();
+    final others = character.attributes.where((x) => !globalAttributes.any((y) => x.attributeId == y.value.attributeId)).toList();
 
-    others.sort((a, b) => a.value.value == b.value.value
+    others.sort((a, b) => a.value == b.value
         ? 0
-        : a.value.value > b.value.value
+        : a.value > b.value
             ? -1
             : 1);
 
@@ -41,24 +40,15 @@ class CharacterAttributes extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GridView.extent(
-          maxCrossAxisExtent: 250,
-          crossAxisSpacing: 10,
-          childAspectRatio: 250 / 30,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: globalAttributes,
-        ),
+        Wrap(spacing: 10, runSpacing: 5, children: globalAttributes),
         const SizedBox(height: 20),
-        Text("Weitere Charakterattribute:"),
+        Text(AppLocalizations.of(context)!.attributesMore),
         const SizedBox(height: 4),
-        GridView.extent(
-          maxCrossAxisExtent: 250,
-          crossAxisSpacing: 10,
-          childAspectRatio: 250 / 30,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: others,
+        Wrap(
+          spacing: 10,
+          runSpacing: 5,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: others.map((e) => AttributeValueWidget(e, showTitle: true)).toList(),
         ),
       ],
     );
