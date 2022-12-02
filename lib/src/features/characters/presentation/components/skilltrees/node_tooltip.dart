@@ -53,6 +53,7 @@ class NodeTooltip extends StatelessWidget {
         const Divider(),
         Wrap(
           runSpacing: 4,
+          spacing: 10,
           children: [for (final attribute in attributes) AttributeValueWidget(attribute)],
         ),
       ],
