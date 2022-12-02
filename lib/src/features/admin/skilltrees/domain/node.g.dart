@@ -14,6 +14,9 @@ _$_Node _$$_NodeFromJson(Map<String, dynamic> json) => _$_Node(
       cost: json['cost'] as int,
       color: json['color'] as String,
       isEasyReachable: json['isEasyReachable'] as bool,
+      unlockedAt: json['unlockedAt'] == null
+          ? null
+          : DateTime.parse(json['unlockedAt'] as String),
       isUnlocked: json['isUnlocked'] ?? false,
       xPos: (json['xPos'] as num?)?.toDouble() ?? 0,
       yPos: (json['yPos'] as num?)?.toDouble() ?? 0,
@@ -35,6 +38,7 @@ Map<String, dynamic> _$$_NodeToJson(_$_Node instance) => <String, dynamic>{
       'cost': instance.cost,
       'color': instance.color,
       'isEasyReachable': instance.isEasyReachable,
+      'unlockedAt': instance.unlockedAt?.toIso8601String(),
       'isUnlocked': instance.isUnlocked,
       'xPos': instance.xPos,
       'yPos': instance.yPos,

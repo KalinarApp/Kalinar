@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../common_widgets/action_menu.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
 import '../application/skillpoint_controller.dart';
@@ -74,6 +75,25 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
     await ref.read(skillpointControllerProvider.notifier).getSkillpointsForSkilltree(widget.id);
   }
 
+  Future<void> _showActionDialog(Node item) async {
+    final action = await showActionsModal(context, actions: [if (item.isResettable()) DialogAction.reset, DialogAction.cancel]);
+    if (null == action || !mounted) return;
+
+    switch (action) {
+      case DialogAction.reset:
+        final value = await ref.read(skilltreeControllerProvider.notifier).resetNode(widget.id, item.id);
+        if (!mounted) return;
+        value.showSnackbarOnError(context);
+        break;
+      case DialogAction.delete:
+      case DialogAction.edit:
+      case DialogAction.loadAsNewSkilltree:
+      case DialogAction.saveAsBlueprint:
+      case DialogAction.cancel:
+        break;
+    }
+  }
+
   @override
   void dispose() {
     _timer.cancel();
@@ -135,6 +155,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
                 currentSkillpoints: skillpoints.currentSkillpoints,
                 edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
                 unlockNode: (node) => _unlockNode(data.id, node.id),
+                onUnlockedLongPress: _showActionDialog,
               ),
               orElse: () => Container(),
             ),

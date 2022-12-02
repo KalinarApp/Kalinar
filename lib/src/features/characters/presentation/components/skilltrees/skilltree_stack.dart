@@ -11,14 +11,16 @@ import 'unlocked_node_widget.dart';
 class SkilltreeStack extends StatelessWidget {
   final List<Node> nodes;
   final List<Edge> edges;
+  final Function(Node item)? onUnlockedLongPress;
   final int currentSkillpoints;
   final Function(Node node) unlockNode;
 
-  const SkilltreeStack({required this.nodes, required this.unlockNode, required this.edges, this.currentSkillpoints = 0, super.key});
+  const SkilltreeStack(
+      {required this.nodes, required this.unlockNode, required this.edges, this.currentSkillpoints = 0, this.onUnlockedLongPress, super.key});
 
   Widget _buildNode(Node node) {
     if (node.isUnlocked) {
-      return UnlockedNodeWidget(node);
+      return UnlockedNodeWidget(node, onLongPress: onUnlockedLongPress);
     }
     bool isUnlockable = nodes.isNodeUnlockable(node.id, currentSkillpoints);
 
