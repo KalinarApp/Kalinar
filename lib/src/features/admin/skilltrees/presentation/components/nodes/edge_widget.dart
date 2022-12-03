@@ -40,8 +40,8 @@ class LinesPainter extends CustomPainter {
       ..strokeWidth = 2
       ..color = color;
 
-    const arrowSize = 15;
-    const arrowAngle = 25 * pi / 180;
+    const arrowSize = 12;
+    const arrowAngle = 20 * pi / 180;
 
     final p1 = Offset(start.dx + 26, start.dy + 26);
     final p2 = Offset(end.dx + 26, end.dy + 26);

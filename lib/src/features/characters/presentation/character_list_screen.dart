@@ -44,6 +44,7 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
       case DialogAction.cancel:
       case DialogAction.loadAsNewSkilltree:
       case DialogAction.reset:
+      case DialogAction.resetDisabled:
       case DialogAction.saveAsBlueprint:
         break;
     }

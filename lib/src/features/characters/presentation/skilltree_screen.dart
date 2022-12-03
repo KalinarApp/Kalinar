@@ -76,7 +76,10 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
   }
 
   Future<void> _showActionDialog(Node item) async {
-    final action = await showActionsModal(context, actions: [if (item.isResettable()) DialogAction.reset, DialogAction.cancel]);
+    final action = await showActionsModal(context, actions: [
+      item.isResettable() ? DialogAction.reset : DialogAction.resetDisabled,
+      DialogAction.cancel,
+    ]);
     if (null == action || !mounted) return;
 
     switch (action) {
@@ -89,6 +92,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
       case DialogAction.edit:
       case DialogAction.loadAsNewSkilltree:
       case DialogAction.saveAsBlueprint:
+      case DialogAction.resetDisabled:
       case DialogAction.cancel:
         break;
     }

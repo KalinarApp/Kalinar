@@ -19,7 +19,7 @@ import '../../features/home/presentation/welcome_screen.dart';
 import 'admin_routes.dart';
 import 'character_routes.dart';
 
-GoRouter getRouter(WidgetRef ref) {
+final routeProvider = Provider<GoRouter>((ref) {
   final authState = RouterStreamNotifier(ref);
   final groupState = ref.read(groupNotifierProvider);
   final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -114,7 +114,7 @@ GoRouter getRouter(WidgetRef ref) {
       ),
     ],
   );
-}
+});
 
 final authStateChangedProvider = Provider<bool?>((ref) {
   return ref.watch(authChangedProvider.select((data) {
@@ -129,7 +129,7 @@ final userChangedProvider = Provider<UserInfo?>((ref) {
 });
 
 class RouterStreamNotifier with ChangeNotifier {
-  final WidgetRef _ref;
+  final ProviderRef _ref;
   bool skipNotifications = false;
 
   RouterStreamNotifier(this._ref) {
