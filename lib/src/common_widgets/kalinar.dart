@@ -37,6 +37,6 @@ class _KalinarState extends ConsumerState<Kalinar> {
           FormBuilderLocalizations.delegate,
           ...GlobalMaterialLocalizations.delegates,
         ],
-        routerConfig: getRouter(ref));
+        routerConfig: ref.watch(routeProvider));
   }
 }

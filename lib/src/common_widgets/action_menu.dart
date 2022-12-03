@@ -7,6 +7,7 @@ enum DialogAction {
   edit,
   delete,
   reset,
+  resetDisabled,
   loadAsNewSkilltree,
   saveAsBlueprint,
   cancel,
@@ -25,6 +26,7 @@ extension KnowledgeActionExtension on DialogAction {
         return const FaIcon(FontAwesomeIcons.map);
       case DialogAction.loadAsNewSkilltree:
         return const FaIcon(FontAwesomeIcons.handsHoldingCircle);
+      case DialogAction.resetDisabled:
       case DialogAction.reset:
         return const FaIcon(FontAwesomeIcons.arrowsRotate);
     }
@@ -42,6 +44,7 @@ extension KnowledgeActionExtension on DialogAction {
         return AppLocalizations.of(context)!.saveAsBlueprint;
       case DialogAction.loadAsNewSkilltree:
         return AppLocalizations.of(context)!.loadAsNewSkilltree;
+      case DialogAction.resetDisabled:
       case DialogAction.reset:
         return AppLocalizations.of(context)!.reset;
     }
@@ -49,6 +52,10 @@ extension KnowledgeActionExtension on DialogAction {
 }
 
 Future<DialogAction?> showActionsModal(BuildContext context, {List<DialogAction>? actions}) async {
+  bool _isEnabled(DialogAction action) {
+    return action != DialogAction.resetDisabled;
+  }
+
   List<Widget> getActions(List<DialogAction>? actions) {
     return (actions ?? DialogAction.values)
         .map(
@@ -61,7 +68,8 @@ Future<DialogAction?> showActionsModal(BuildContext context, {List<DialogAction>
               : ListTile(
                   leading: element.getIcon(),
                   title: Text(element.getTitle(context)),
-                  onTap: () => Navigator.of(context, rootNavigator: true).pop(element)),
+                  enabled: _isEnabled(element),
+                  onTap: _isEnabled(element) ? () => Navigator.of(context, rootNavigator: true).pop(element) : null),
         )
         .toList();
   }

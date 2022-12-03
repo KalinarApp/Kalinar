@@ -56,8 +56,8 @@ dependencies:
   url_launcher: ^6.1.6
   flutter_speed_dial: ^6.2.0
   flutter_layout_grid: ^2.0.1
-  just_the_tooltip: ^0.0.12
-  auto_size_text:
+  just_the_tooltip:
+  square_progress_bar:
 
 dev_dependencies:
   flutter_test:

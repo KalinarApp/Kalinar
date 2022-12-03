@@ -15,6 +15,7 @@ class Node with _$Node {
     required int cost,
     required String color,
     required bool isEasyReachable,
+    DateTime? unlockedAt,
     @Default(false) isUnlocked,
     @Default(0) double xPos,
     @Default(0) double yPos,
@@ -43,5 +44,11 @@ extension NodeListExtension on List<Node> {
         : where((element) => nodeToCheck.precessors.contains(element.id)).every((element) => element.isUnlocked);
 
     return hasSkillpoints && (nodeToCheck.precessors.isEmpty || isUnlockable);
+  }
+}
+
+extension NodeExtension on Node {
+  bool isResettable() {
+    return unlockedAt?.isAfter(DateTime.now().toUtc().add(const Duration(minutes: -5))) ?? false;
   }
 }
