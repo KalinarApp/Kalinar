@@ -35,7 +35,7 @@ class AuthRepository extends HeroBaseRepository {
   }
 }
 
-final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository(ref.read(authProvider)));
+final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository(ref.watch(authProvider)));
 
 final authProvider = Provider<FlutterAuth>((ref) {
   FlutterAuth auth = FlutterAuth.initialize(

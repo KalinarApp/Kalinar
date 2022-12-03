@@ -39,9 +39,10 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
       case DialogAction.delete:
         await _deleteAbility(item);
         break;
-      case DialogAction.cancel:
+      case DialogAction.reset:
       case DialogAction.loadAsNewSkilltree:
       case DialogAction.saveAsBlueprint:
+      case DialogAction.cancel:
         break;
     }
   }

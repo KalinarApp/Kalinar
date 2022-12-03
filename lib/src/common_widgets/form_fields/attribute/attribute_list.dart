@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:kalinar/src/features/admin/management/application/attribute_controller.dart';
+
 import '../../../features/admin/management/domain/attribute.dart';
 import '../../../features/admin/management/domain/attribute_value.dart';
 
 import 'attribute_search.dart';
 import 'attribute_value_range.dart';
 
-class AttributeList extends StatefulWidget {
+class AttributeList extends ConsumerStatefulWidget {
   final List<AttributeValue>? value;
+  final bool alwaysShowGlobal;
   final Function(List<AttributeValue>? value) onChanged;
 
-  const AttributeList({required this.onChanged, this.value, super.key});
+  const AttributeList({required this.onChanged, this.alwaysShowGlobal = false, this.value, super.key});
 
   @override
-  State<AttributeList> createState() => _AttributeListState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AttributeListState();
 }
 
-class _AttributeListState extends State<AttributeList> {
+class _AttributeListState extends ConsumerState<AttributeList> {
   List<AttributeValue> attributes = [];
 
   void _removeItem(AttributeValue item) {
@@ -32,24 +37,43 @@ class _AttributeListState extends State<AttributeList> {
     setState(() => attributes = [...attributes]);
   }
 
+  Future<List<AttributeValue>> _getAllGlobal() async {
+    try {
+      final attributes = await ref.read(attributeControllerProvider).getAllGlobal();
+      return attributes.map((e) => AttributeValue(attributeId: e.id, attribute: e, value: 0)).toList();
+    } catch (error) {}
+
+    return [];
+  }
+
   @override
   void initState() {
-    attributes = [...widget.value ?? []];
+    Future.delayed(Duration.zero, () async {
+      if (null != widget.value && widget.value!.isNotEmpty) {
+        setState(() => attributes = [...widget.value!]);
+      } else if (widget.alwaysShowGlobal) {
+        final tmp = await _getAllGlobal();
+        setState(() => attributes = tmp);
+      }
+    });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    attributes.globalFirst();
     return Column(
       children: [
-        for (final attribute in attributes)
-          Column(
+        ListView.builder(
+          itemCount: attributes.length,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => Column(
             children: [
               AttributeValueRange(
-                attribute,
-                key: ValueKey(attribute.attributeId),
-                onDelete: (item) => _removeItem(item),
+                attributes[index],
+                key: ValueKey(attributes[index].attributeId),
+                onDelete: attributes[index].attribute.isGlobal && widget.alwaysShowGlobal ? null : (item) => _removeItem(item),
                 onChanged: (attributeId, value) {
                   updateValue(attributeId, value);
                   widget.onChanged(attributes);
@@ -58,12 +82,10 @@ class _AttributeListState extends State<AttributeList> {
               const Divider(),
             ],
           ),
+        ),
         AttributeSearch(
           onSelect: (selected) {
-            setState(() => attributes = [
-                  ...attributes,
-                  AttributeValue(attributeId: selected.id, attribute: selected.translate(context), value: selected.minValue)
-                ]);
+            setState(() => attributes = [...attributes, AttributeValue(attributeId: selected.id, attribute: selected.translate(context), value: 0)]);
             widget.onChanged(attributes);
           },
           selectedAttributes: attributes.map((e) => e.attribute).toList(),
