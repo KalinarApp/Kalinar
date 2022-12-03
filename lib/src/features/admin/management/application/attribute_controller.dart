@@ -20,6 +20,10 @@ class AttributeController {
     return await repo.getAll();
   }
 
+  Future<List<Attribute>> getAllGlobal() async {
+    return await repo.getAllGlobal();
+  }
+
   Future<AsyncValue> create(Map<String, dynamic> data) async {
     return await AsyncValue.guard(() async {
       await repo.createAttribute(data);

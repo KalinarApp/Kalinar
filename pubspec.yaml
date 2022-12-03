@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
-  flutter_appauth:
+  flutter_appauth: ^4.0.1
   rxdart:
 
   http: ^0.13.5
@@ -29,7 +29,7 @@ dependencies:
   sentry_flutter: ^6.16.1
 
   shared_preferences: ^2.0.15
-  flutter_secure_storage: ^5.0.2
+  flutter_secure_storage: ^6.1.0
   flutter_gravatar: ^2.0.2
 
   window_size:
@@ -56,7 +56,8 @@ dependencies:
   url_launcher: ^6.1.6
   flutter_speed_dial: ^6.2.0
   flutter_layout_grid: ^2.0.1
-  just_the_tooltip:
+  just_the_tooltip: ^0.0.12
+  auto_size_text:
 
 dev_dependencies:
   flutter_test:

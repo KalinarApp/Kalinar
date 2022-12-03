@@ -52,7 +52,7 @@ class NodeTooltip extends StatelessWidget {
       children: [
         const Divider(),
         Wrap(
-          runSpacing: 10,
+          runSpacing: 4,
           spacing: 10,
           children: [for (final attribute in attributes) AttributeValueWidget(attribute)],
         ),
@@ -64,7 +64,7 @@ class NodeTooltip extends StatelessWidget {
   Widget build(BuildContext context) {
     return JustTheTooltip(
       controller: controller,
-      isModal: true,
+      isModal: !Platform.isWindows,
       triggerMode: TooltipTriggerMode.tap,
       elevation: 4,
       offset: 5,

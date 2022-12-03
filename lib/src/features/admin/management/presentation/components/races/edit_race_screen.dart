@@ -93,7 +93,7 @@ class _EditRaceScreenState extends ConsumerState<EditRaceScreen> {
                 const SizedBox(height: 30),
                 Text(AppLocalizations.of(context)!.raceAttributeSelection, style: Theme.of(context).textTheme.bodyLarge),
                 const SizedBox(height: 10),
-                AttributesField(initialValue: item?.attributes),
+                AttributesField(initialValue: item?.attributes, alwaysShowGlobal: true),
               ],
             ),
           ),
