@@ -4,6 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:kalinar/src/features/characters/domain/character_overview.dart';
+
 import '../../../../../../../common_widgets/action_menu.dart';
 import '../../../../../../../common_widgets/loading_indicator.dart';
 import '../../../../../../../common_widgets/modal.dart';
@@ -89,7 +91,10 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
         mainAxisSpacing: 12,
         childAspectRatio: 1,
       ),
-      delegate: SliverChildBuilderDelegate((context, index) => const SkilltreeCharacterItem(), childCount: characters.length),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => SkilltreeCharacterItem(characters[characters.keys.toList()[index]]!),
+        childCount: characters.length,
+      ),
     );
   }
 
@@ -107,6 +112,7 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
           child: CustomScrollView(
             slivers: [
               _getUnassignedList(data.unassigned),
+              const SliverToBoxAdapter(child: SizedBox(height: 10)),
               _getCharacterGrid(data.characters),
             ],
           ),
