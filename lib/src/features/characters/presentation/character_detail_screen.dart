@@ -66,53 +66,56 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
               text: AppLocalizations.of(context)!.characteristics,
               tab: CharacterSheetWidget(data),
             ),
-            CharacterTab(
-              icon: const FaIcon(FontAwesomeIcons.award),
-              text: AppLocalizations.of(context)!.abilities,
-              tab: CharacterAbilities(data),
-            ),
-            if (_isOwnerOrAdmin(user, data))
+            if (_isOwner(user, data) || (data.shareAbilities ?? false))
+              CharacterTab(
+                icon: const FaIcon(FontAwesomeIcons.award),
+                text: AppLocalizations.of(context)!.abilities,
+                tab: CharacterAbilities(data),
+              ),
+            if (_isOwner(user, data) || (data.shareSkilltree ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.circleNodes),
                 text: AppLocalizations.of(context)!.skilltrees,
                 tab: CharacterSkilltreeList(data),
               ),
-            CharacterTab(
-              icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
-              text: AppLocalizations.of(context)!.characterInventory,
-              tab: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    AutoSavingTextField(
-                      title: AppLocalizations.of(context)!.characterInventory,
-                      initialValue: data.inventory,
-                      minLines: 1,
-                      maxLines: 2000000000,
-                      enabled: _isOwner(user, data),
-                      onSaving: (currentText) async => await _saveField("inventory", currentText),
-                    ),
-                  ],
+            if (_isOwner(user, data) || (data.shareAbilities ?? false))
+              CharacterTab(
+                icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
+                text: AppLocalizations.of(context)!.characterInventory,
+                tab: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AutoSavingTextField(
+                        title: AppLocalizations.of(context)!.characterInventory,
+                        initialValue: data.inventory,
+                        minLines: 1,
+                        maxLines: 2000000000,
+                        enabled: _isOwner(user, data),
+                        onSaving: (currentText) async => await _saveField("inventory", currentText),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            CharacterTab(
-              icon: const FaIcon(FontAwesomeIcons.noteSticky),
-              text: AppLocalizations.of(context)!.characterNotes,
-              tab: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    AutoSavingTextField(
-                      title: AppLocalizations.of(context)!.characterNotes,
-                      initialValue: data.notes,
-                      minLines: 1,
-                      maxLines: 2000000000,
-                      enabled: _isOwner(user, data),
-                      onSaving: (currentText) async => await _saveField("notes", currentText),
-                    ),
-                  ],
+            if (_isOwner(user, data) || (data.shareNotes ?? false))
+              CharacterTab(
+                icon: const FaIcon(FontAwesomeIcons.noteSticky),
+                text: AppLocalizations.of(context)!.characterNotes,
+                tab: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AutoSavingTextField(
+                        title: AppLocalizations.of(context)!.characterNotes,
+                        initialValue: data.notes,
+                        minLines: 1,
+                        maxLines: 2000000000,
+                        enabled: _isOwner(user, data),
+                        onSaving: (currentText) async => await _saveField("notes", currentText),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
             if (_isOwner(user, data))
               CharacterTab(
                 icon: const FaIcon(Icons.settings),
