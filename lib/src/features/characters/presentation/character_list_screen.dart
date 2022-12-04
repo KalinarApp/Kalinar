@@ -51,7 +51,7 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
   }
 
   Future<void> _deleteCharacter(CharacterOverview item) async {
-    final value = await ref.read(characterControllerProvider).delete(item.id);
+    final value = await ref.read(characterControllerProvider.notifier).delete(item.id);
     if (!mounted) return;
     value.showSnackbarOnError(context);
   }

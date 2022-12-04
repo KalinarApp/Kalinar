@@ -17,7 +17,6 @@ class SkilltreeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
         onTap: null != onPress ? () => onPress!(item) : null,
         onLongPress: null != onLongPress ? () => onLongPress!(item) : null,

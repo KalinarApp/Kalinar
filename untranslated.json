@@ -32,6 +32,7 @@
     "cost",
     "reset",
     "search",
+    "settings",
     "workInProgress",
     "loggingIn",
     "inviteCopied",

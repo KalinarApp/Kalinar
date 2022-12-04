@@ -42,7 +42,7 @@ class _CharacterEditorScreenState extends ConsumerState<CharacterEditorScreen> {
 
   @override
   void initState() {
-    controller = ref.read(characterControllerProvider);
+    controller = ref.read(characterControllerProvider.notifier);
     super.initState();
   }
 

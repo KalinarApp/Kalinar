@@ -30,6 +30,13 @@ mixin _$Character {
   String? get relationship => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
   String? get inventory => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+  bool get isPublic => throw _privateConstructorUsedError;
+  bool? get shareSkilltree => throw _privateConstructorUsedError;
+  bool? get shareNotes => throw _privateConstructorUsedError;
+  bool? get shareInventory => throw _privateConstructorUsedError;
+  bool? get shareAbilities => throw _privateConstructorUsedError;
+  bool? get shareAttributes => throw _privateConstructorUsedError;
   List<AttributeValue> get attributes => throw _privateConstructorUsedError;
   String get raceId => throw _privateConstructorUsedError;
   Race get race => throw _privateConstructorUsedError;
@@ -58,6 +65,13 @@ abstract class $CharacterCopyWith<$Res> {
       String? relationship,
       String? notes,
       String? inventory,
+      String? userId,
+      bool isPublic,
+      bool? shareSkilltree,
+      bool? shareNotes,
+      bool? shareInventory,
+      bool? shareAbilities,
+      bool? shareAttributes,
       List<AttributeValue> attributes,
       String raceId,
       Race race,
@@ -90,6 +104,13 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
     Object? relationship = freezed,
     Object? notes = freezed,
     Object? inventory = freezed,
+    Object? userId = freezed,
+    Object? isPublic = null,
+    Object? shareSkilltree = freezed,
+    Object? shareNotes = freezed,
+    Object? shareInventory = freezed,
+    Object? shareAbilities = freezed,
+    Object? shareAttributes = freezed,
     Object? attributes = null,
     Object? raceId = null,
     Object? race = null,
@@ -137,6 +158,34 @@ class _$CharacterCopyWithImpl<$Res, $Val extends Character>
           ? _value.inventory
           : inventory // ignore: cast_nullable_to_non_nullable
               as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isPublic: null == isPublic
+          ? _value.isPublic
+          : isPublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      shareSkilltree: freezed == shareSkilltree
+          ? _value.shareSkilltree
+          : shareSkilltree // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shareNotes: freezed == shareNotes
+          ? _value.shareNotes
+          : shareNotes // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shareInventory: freezed == shareInventory
+          ? _value.shareInventory
+          : shareInventory // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shareAbilities: freezed == shareAbilities
+          ? _value.shareAbilities
+          : shareAbilities // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shareAttributes: freezed == shareAttributes
+          ? _value.shareAttributes
+          : shareAttributes // ignore: cast_nullable_to_non_nullable
+              as bool?,
       attributes: null == attributes
           ? _value.attributes
           : attributes // ignore: cast_nullable_to_non_nullable
@@ -187,6 +236,13 @@ abstract class _$$_CharacterCopyWith<$Res> implements $CharacterCopyWith<$Res> {
       String? relationship,
       String? notes,
       String? inventory,
+      String? userId,
+      bool isPublic,
+      bool? shareSkilltree,
+      bool? shareNotes,
+      bool? shareInventory,
+      bool? shareAbilities,
+      bool? shareAttributes,
       List<AttributeValue> attributes,
       String raceId,
       Race race,
@@ -218,6 +274,13 @@ class __$$_CharacterCopyWithImpl<$Res>
     Object? relationship = freezed,
     Object? notes = freezed,
     Object? inventory = freezed,
+    Object? userId = freezed,
+    Object? isPublic = null,
+    Object? shareSkilltree = freezed,
+    Object? shareNotes = freezed,
+    Object? shareInventory = freezed,
+    Object? shareAbilities = freezed,
+    Object? shareAttributes = freezed,
     Object? attributes = null,
     Object? raceId = null,
     Object? race = null,
@@ -265,6 +328,34 @@ class __$$_CharacterCopyWithImpl<$Res>
           ? _value.inventory
           : inventory // ignore: cast_nullable_to_non_nullable
               as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isPublic: null == isPublic
+          ? _value.isPublic
+          : isPublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      shareSkilltree: freezed == shareSkilltree
+          ? _value.shareSkilltree
+          : shareSkilltree // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shareNotes: freezed == shareNotes
+          ? _value.shareNotes
+          : shareNotes // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shareInventory: freezed == shareInventory
+          ? _value.shareInventory
+          : shareInventory // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shareAbilities: freezed == shareAbilities
+          ? _value.shareAbilities
+          : shareAbilities // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shareAttributes: freezed == shareAttributes
+          ? _value.shareAttributes
+          : shareAttributes // ignore: cast_nullable_to_non_nullable
+              as bool?,
       attributes: null == attributes
           ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
@@ -303,6 +394,13 @@ class _$_Character implements _Character {
       this.relationship,
       this.notes,
       this.inventory,
+      this.userId,
+      this.isPublic = false,
+      this.shareSkilltree,
+      this.shareNotes,
+      this.shareInventory,
+      this.shareAbilities,
+      this.shareAttributes,
       final List<AttributeValue> attributes = const [],
       required this.raceId,
       required this.race,
@@ -335,6 +433,21 @@ class _$_Character implements _Character {
   final String? notes;
   @override
   final String? inventory;
+  @override
+  final String? userId;
+  @override
+  @JsonKey()
+  final bool isPublic;
+  @override
+  final bool? shareSkilltree;
+  @override
+  final bool? shareNotes;
+  @override
+  final bool? shareInventory;
+  @override
+  final bool? shareAbilities;
+  @override
+  final bool? shareAttributes;
   final List<AttributeValue> _attributes;
   @override
   @JsonKey()
@@ -365,7 +478,7 @@ class _$_Character implements _Character {
 
   @override
   String toString() {
-    return 'Character(id: $id, name: $name, age: $age, iconUrl: $iconUrl, description: $description, profession: $profession, religion: $religion, relationship: $relationship, notes: $notes, inventory: $inventory, attributes: $attributes, raceId: $raceId, race: $race, skilltrees: $skilltrees, unlockedAbilities: $unlockedAbilities)';
+    return 'Character(id: $id, name: $name, age: $age, iconUrl: $iconUrl, description: $description, profession: $profession, religion: $religion, relationship: $relationship, notes: $notes, inventory: $inventory, userId: $userId, isPublic: $isPublic, shareSkilltree: $shareSkilltree, shareNotes: $shareNotes, shareInventory: $shareInventory, shareAbilities: $shareAbilities, shareAttributes: $shareAttributes, attributes: $attributes, raceId: $raceId, race: $race, skilltrees: $skilltrees, unlockedAbilities: $unlockedAbilities)';
   }
 
   @override
@@ -388,6 +501,19 @@ class _$_Character implements _Character {
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.inventory, inventory) ||
                 other.inventory == inventory) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.isPublic, isPublic) ||
+                other.isPublic == isPublic) &&
+            (identical(other.shareSkilltree, shareSkilltree) ||
+                other.shareSkilltree == shareSkilltree) &&
+            (identical(other.shareNotes, shareNotes) ||
+                other.shareNotes == shareNotes) &&
+            (identical(other.shareInventory, shareInventory) ||
+                other.shareInventory == shareInventory) &&
+            (identical(other.shareAbilities, shareAbilities) ||
+                other.shareAbilities == shareAbilities) &&
+            (identical(other.shareAttributes, shareAttributes) ||
+                other.shareAttributes == shareAttributes) &&
             const DeepCollectionEquality()
                 .equals(other._attributes, _attributes) &&
             (identical(other.raceId, raceId) || other.raceId == raceId) &&
@@ -400,23 +526,31 @@ class _$_Character implements _Character {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      age,
-      iconUrl,
-      description,
-      profession,
-      religion,
-      relationship,
-      notes,
-      inventory,
-      const DeepCollectionEquality().hash(_attributes),
-      raceId,
-      race,
-      const DeepCollectionEquality().hash(_skilltrees),
-      const DeepCollectionEquality().hash(_unlockedAbilities));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        name,
+        age,
+        iconUrl,
+        description,
+        profession,
+        religion,
+        relationship,
+        notes,
+        inventory,
+        userId,
+        isPublic,
+        shareSkilltree,
+        shareNotes,
+        shareInventory,
+        shareAbilities,
+        shareAttributes,
+        const DeepCollectionEquality().hash(_attributes),
+        raceId,
+        race,
+        const DeepCollectionEquality().hash(_skilltrees),
+        const DeepCollectionEquality().hash(_unlockedAbilities)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -444,6 +578,13 @@ abstract class _Character implements Character {
       final String? relationship,
       final String? notes,
       final String? inventory,
+      final String? userId,
+      final bool isPublic,
+      final bool? shareSkilltree,
+      final bool? shareNotes,
+      final bool? shareInventory,
+      final bool? shareAbilities,
+      final bool? shareAttributes,
       final List<AttributeValue> attributes,
       required final String raceId,
       required final Race race,
@@ -473,6 +614,20 @@ abstract class _Character implements Character {
   String? get notes;
   @override
   String? get inventory;
+  @override
+  String? get userId;
+  @override
+  bool get isPublic;
+  @override
+  bool? get shareSkilltree;
+  @override
+  bool? get shareNotes;
+  @override
+  bool? get shareInventory;
+  @override
+  bool? get shareAbilities;
+  @override
+  bool? get shareAttributes;
   @override
   List<AttributeValue> get attributes;
   @override
