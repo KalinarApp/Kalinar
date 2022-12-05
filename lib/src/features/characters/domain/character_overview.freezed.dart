@@ -22,6 +22,7 @@ CharacterOverview _$CharacterOverviewFromJson(Map<String, dynamic> json) {
 mixin _$CharacterOverview {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   String? get iconUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,7 @@ abstract class $CharacterOverviewCopyWith<$Res> {
           CharacterOverview value, $Res Function(CharacterOverview) then) =
       _$CharacterOverviewCopyWithImpl<$Res, CharacterOverview>;
   @useResult
-  $Res call({String id, String name, String? iconUrl});
+  $Res call({String id, String name, String userId, String? iconUrl});
 }
 
 /// @nodoc
@@ -54,6 +55,7 @@ class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? userId = null,
     Object? iconUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -64,6 +66,10 @@ class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       iconUrl: freezed == iconUrl
           ? _value.iconUrl
@@ -81,7 +87,7 @@ abstract class _$$_CharacterOverviewCopyWith<$Res>
       __$$_CharacterOverviewCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String? iconUrl});
+  $Res call({String id, String name, String userId, String? iconUrl});
 }
 
 /// @nodoc
@@ -97,6 +103,7 @@ class __$$_CharacterOverviewCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? userId = null,
     Object? iconUrl = freezed,
   }) {
     return _then(_$_CharacterOverview(
@@ -107,6 +114,10 @@ class __$$_CharacterOverviewCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       iconUrl: freezed == iconUrl
           ? _value.iconUrl
@@ -120,7 +131,10 @@ class __$$_CharacterOverviewCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CharacterOverview implements _CharacterOverview {
   const _$_CharacterOverview(
-      {required this.id, required this.name, this.iconUrl});
+      {required this.id,
+      required this.name,
+      required this.userId,
+      this.iconUrl});
 
   factory _$_CharacterOverview.fromJson(Map<String, dynamic> json) =>
       _$$_CharacterOverviewFromJson(json);
@@ -130,11 +144,13 @@ class _$_CharacterOverview implements _CharacterOverview {
   @override
   final String name;
   @override
+  final String userId;
+  @override
   final String? iconUrl;
 
   @override
   String toString() {
-    return 'CharacterOverview(id: $id, name: $name, iconUrl: $iconUrl)';
+    return 'CharacterOverview(id: $id, name: $name, userId: $userId, iconUrl: $iconUrl)';
   }
 
   @override
@@ -144,12 +160,13 @@ class _$_CharacterOverview implements _CharacterOverview {
             other is _$_CharacterOverview &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, iconUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, userId, iconUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -170,6 +187,7 @@ abstract class _CharacterOverview implements CharacterOverview {
   const factory _CharacterOverview(
       {required final String id,
       required final String name,
+      required final String userId,
       final String? iconUrl}) = _$_CharacterOverview;
 
   factory _CharacterOverview.fromJson(Map<String, dynamic> json) =
@@ -179,6 +197,8 @@ abstract class _CharacterOverview implements CharacterOverview {
   String get id;
   @override
   String get name;
+  @override
+  String get userId;
   @override
   String? get iconUrl;
   @override

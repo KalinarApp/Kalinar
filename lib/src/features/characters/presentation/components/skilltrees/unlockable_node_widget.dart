@@ -12,7 +12,7 @@ import 'node_tooltip.dart';
 
 class UnlockableNodeWidget extends StatefulWidget {
   final Node item;
-  final Function(Node item) onUnlock;
+  final Function(Node item)? onUnlock;
 
   const UnlockableNodeWidget(this.item, {required this.onUnlock, super.key});
 
@@ -60,7 +60,7 @@ class _UnlockableNodeWidgetState extends State<UnlockableNodeWidget> {
                   child: CustomLongPress(
                     onTap: () => controller.showTooltip(),
                     duration: const Duration(milliseconds: 1500),
-                    onLongPress: () => widget.onUnlock(widget.item),
+                    onLongPress: null == widget.onUnlock ? null : () => widget.onUnlock!(widget.item),
                     onStateChanged: (state) => setState(() => isLoading = state),
                     child: Stack(
                       children: [

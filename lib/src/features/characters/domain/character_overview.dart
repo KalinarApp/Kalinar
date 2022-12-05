@@ -8,6 +8,7 @@ class CharacterOverview with _$CharacterOverview {
   const factory CharacterOverview({
     required String id,
     required String name,
+    required String userId,
     String? iconUrl,
   }) = _CharacterOverview;
 
