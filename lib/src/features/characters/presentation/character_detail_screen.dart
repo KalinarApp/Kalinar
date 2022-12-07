@@ -66,19 +66,19 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
               text: AppLocalizations.of(context)!.characteristics,
               tab: CharacterSheetWidget(data),
             ),
-            if (_isOwner(user, data) || (data.shareAbilities ?? false))
+            if (_isOwnerOrAdmin(user, data) || (data.shareAbilities ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.award),
                 text: AppLocalizations.of(context)!.abilities,
                 tab: CharacterAbilities(data),
               ),
-            if (_isOwner(user, data) || (data.shareSkilltree ?? false))
+            if (_isOwnerOrAdmin(user, data) || (data.shareSkilltree ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.circleNodes),
                 text: AppLocalizations.of(context)!.skilltrees,
                 tab: CharacterSkilltreeList(data),
               ),
-            if (_isOwner(user, data) || (data.shareAbilities ?? false))
+            if (_isOwnerOrAdmin(user, data) || (data.shareInventory ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
                 text: AppLocalizations.of(context)!.characterInventory,
@@ -97,7 +97,7 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
                   ),
                 ),
               ),
-            if (_isOwner(user, data) || (data.shareNotes ?? false))
+            if (_isOwnerOrAdmin(user, data) || (data.shareNotes ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.noteSticky),
                 text: AppLocalizations.of(context)!.characterNotes,
@@ -129,13 +129,15 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
             initialIndex: 0,
             child: Scaffold(
               appBar: AppBar(
-                bottom: TabBar(tabs: tabs, isScrollable: true),
+                bottom: 1 < tabs.length ? TabBar(tabs: tabs, isScrollable: true) : null,
               ),
               body: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: TabBarView(
-                  children: [...tabs.map((e) => e.tab)],
-                ),
+                child: 1 < tabs.length
+                    ? TabBarView(
+                        children: [...tabs.map((e) => e.tab)],
+                      )
+                    : tabs.first.tab,
               ),
             ),
           );
