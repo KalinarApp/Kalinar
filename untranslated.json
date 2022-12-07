@@ -100,6 +100,8 @@
     "selectACharacter",
     "characterNoPortrait",
     "characteristics",
+    "ownCharacters",
+    "otherCharacters",
     "manageGroup",
     "manageCharacteristics",
     "manageSkilltrees",
