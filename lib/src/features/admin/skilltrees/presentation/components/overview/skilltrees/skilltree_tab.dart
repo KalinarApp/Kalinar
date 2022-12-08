@@ -63,8 +63,7 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
         if (!mounted) return;
         result.showSnackbarOnError(context);
         break;
-      case DialogAction.cancel:
-      case DialogAction.loadAsNewSkilltree:
+      default:
         break;
     }
   }
@@ -89,7 +88,10 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
         mainAxisSpacing: 12,
         childAspectRatio: 1,
       ),
-      delegate: SliverChildBuilderDelegate((context, index) => const SkilltreeCharacterItem(), childCount: characters.length),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => SkilltreeCharacterItem(characters[characters.keys.toList()[index]]!),
+        childCount: characters.length,
+      ),
     );
   }
 
@@ -107,6 +109,7 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
           child: CustomScrollView(
             slivers: [
               _getUnassignedList(data.unassigned),
+              const SliverToBoxAdapter(child: SizedBox(height: 10)),
               _getCharacterGrid(data.characters),
             ],
           ),
