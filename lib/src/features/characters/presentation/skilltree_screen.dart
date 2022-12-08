@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:kalinar/src/utilities/router/routes.dart';
+
 import '../../../common_widgets/action_menu.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
@@ -131,6 +133,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(skilltreeControllerProvider);
+    final user = ref.watch(userChangedProvider);
     final skillpoints = ref.watch(skillpointControllerProvider);
 
     return Scaffold(
@@ -154,13 +157,16 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
             width: 2000,
             height: 2000,
             child: state.maybeWhen(
-              data: (data) => SkilltreeStack(
-                nodes: data.nodes,
-                currentSkillpoints: skillpoints.currentSkillpoints,
-                edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
-                unlockNode: (node) => _unlockNode(data.id, node.id),
-                onUnlockedLongPress: _showActionDialog,
-              ),
+              data: (data) {
+                final isEditable = null != user?.id && user!.id == data.character!.userId;
+                return SkilltreeStack(
+                  nodes: data.nodes,
+                  currentSkillpoints: skillpoints.currentSkillpoints,
+                  edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
+                  unlockNode: !isEditable ? null : (node) => _unlockNode(data.id, node.id),
+                  onUnlockedLongPress: !isEditable ? null : _showActionDialog,
+                );
+              },
               orElse: () => Container(),
             ),
           ),

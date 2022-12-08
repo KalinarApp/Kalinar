@@ -13,7 +13,7 @@ class SkilltreeStack extends StatelessWidget {
   final List<Edge> edges;
   final Function(Node item)? onUnlockedLongPress;
   final int currentSkillpoints;
-  final Function(Node node) unlockNode;
+  final Function(Node node)? unlockNode;
 
   const SkilltreeStack(
       {required this.nodes, required this.unlockNode, required this.edges, this.currentSkillpoints = 0, this.onUnlockedLongPress, super.key});

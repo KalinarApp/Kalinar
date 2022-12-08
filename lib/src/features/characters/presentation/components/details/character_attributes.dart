@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../../../utilities/global_attributes.dart';
 import '../../../domain/character.dart';
@@ -40,16 +41,17 @@ class CharacterAttributes extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Wrap(spacing: 10, runSpacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: globalAttributes),
+        StaggeredGrid.extent(maxCrossAxisExtent: 200, mainAxisSpacing: 4, crossAxisSpacing: 10, children: globalAttributes),
         const SizedBox(height: 20),
-        Text(AppLocalizations.of(context)!.attributesMore),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 10,
-          runSpacing: 4,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: others.map((e) => AttributeValueWidget(e, showTitle: true)).toList(),
-        ),
+        if (others.isNotEmpty) Text(AppLocalizations.of(context)!.attributesMore),
+        if (others.isNotEmpty) const SizedBox(height: 8),
+        if (others.isNotEmpty)
+          StaggeredGrid.extent(
+            maxCrossAxisExtent: 200,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 10,
+            children: others.map((e) => AttributeValueWidget(e, showTitle: true)).toList(),
+          ),
       ],
     );
   }

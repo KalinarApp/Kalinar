@@ -10,6 +10,7 @@ _$_CharacterOverview _$$_CharacterOverviewFromJson(Map<String, dynamic> json) =>
     _$_CharacterOverview(
       id: json['id'] as String,
       name: json['name'] as String,
+      userId: json['userId'] as String,
       iconUrl: json['iconUrl'] as String?,
     );
 
@@ -18,5 +19,6 @@ Map<String, dynamic> _$$_CharacterOverviewToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'userId': instance.userId,
       'iconUrl': instance.iconUrl,
     };

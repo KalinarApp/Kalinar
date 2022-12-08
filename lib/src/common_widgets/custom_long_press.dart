@@ -6,7 +6,7 @@ class CustomLongPress extends StatefulWidget {
   final Widget? child;
   final Duration duration;
   final Function()? onTap;
-  final Function() onLongPress;
+  final Function()? onLongPress;
   final Function(bool state)? onStateChanged;
 
   const CustomLongPress(
@@ -20,7 +20,7 @@ class _CustomLongPressState extends State<CustomLongPress> {
   Timer? _timer;
 
   void _startOperation() {
-    _timer = Timer(widget.duration, widget.onLongPress);
+    _timer = Timer(widget.duration, widget.onLongPress!);
     if (null != widget.onStateChanged) widget.onStateChanged!(true);
   }
 
@@ -39,9 +39,9 @@ class _CustomLongPressState extends State<CustomLongPress> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      onTapDown: (_) => _startOperation(),
-      onTapCancel: () => _endOperation(),
-      onTapUp: (_) => _endOperation(),
+      onTapDown: null == widget.onLongPress ? null : (_) => _startOperation(),
+      onTapCancel: null == widget.onLongPress ? null : () => _endOperation(),
+      onTapUp: null == widget.onLongPress ? null : (_) => _endOperation(),
       child: widget.child,
     );
   }

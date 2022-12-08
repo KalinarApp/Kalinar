@@ -35,6 +35,7 @@
   "cost": "Kosten",
   "reset": "Zurücksetzen",
   "search": "Suchen",
+  "settings": "Einstellungen",
 
   "workInProgress": "Diese Seite ist noch in Arbeit!",
 
@@ -132,6 +133,8 @@
   "selectACharacter": "Charakter auswählen",
   "characterNoPortrait": "Kein Portrait ausgewählt.",
   "characteristics": "Steckbrief",
+  "ownCharacters": "Eigene Charaktere",
+  "otherCharacters": "Weitere Charaktere",
 
   "manageGroup": "Gruppe verwalten",
   "manageCharacteristics": "Eigenschaften verwalten",

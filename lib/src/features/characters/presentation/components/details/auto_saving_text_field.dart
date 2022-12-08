@@ -9,6 +9,7 @@ class AutoSavingTextField extends StatefulWidget {
   final Duration duration;
   final int minLines;
   final int maxLines;
+  final bool enabled;
 
   const AutoSavingTextField({
     required this.onSaving,
@@ -17,6 +18,7 @@ class AutoSavingTextField extends StatefulWidget {
     this.minLines = 1,
     this.maxLines = 10,
     required this.title,
+    this.enabled = true,
     super.key,
   });
 
@@ -47,6 +49,7 @@ class _AutoSavingTextFieldState extends State<AutoSavingTextField> {
       controller: controller,
       minLines: widget.minLines,
       maxLines: widget.maxLines,
+      enabled: widget.enabled,
       onChanged: (value) {
         if (_timer?.isActive ?? false) _timer!.cancel();
         _timer = Timer(widget.duration, () async {

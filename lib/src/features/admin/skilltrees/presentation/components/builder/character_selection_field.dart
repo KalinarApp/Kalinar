@@ -24,7 +24,7 @@ class CharacterSelectionField extends ConsumerWidget {
       label: AppLocalizations.of(context)!.selectACharacter,
       searchLabel: AppLocalizations.of(context)!.searchForCharacter,
       icon: const Icon(FontAwesomeIcons.person),
-      items: (_) async => await ref.read(characterControllerProvider).getAll(),
+      items: (_) async => await ref.read(characterControllerProvider.notifier).getAll(),
       onChanged: (previous, next) async => true,
     );
   }

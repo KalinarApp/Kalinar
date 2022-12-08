@@ -6,15 +6,20 @@ import '../domain/character_overview.dart';
 
 import 'character_list_controller.dart';
 
-class CharacterController {
+class CharacterController extends StateNotifier<AsyncValue<Character>> {
   final CharactersRepository repo;
 
   final CharacterListController characterList;
 
-  CharacterController(this.repo, this.characterList);
+  CharacterController(this.repo, this.characterList) : super(const AsyncLoading());
 
-  Future<Character> getById(String id) async {
-    return await repo.getById(id);
+  Future refresh(String id) async {
+    state = await AsyncValue.guard(() async => await repo.getById(id));
+  }
+
+  Future getById(String id) async {
+    state = const AsyncLoading();
+    await refresh(id);
   }
 
   Future<List<CharacterOverview>> getAll() async {
@@ -32,6 +37,7 @@ class CharacterController {
     return await AsyncValue.guard(() async {
       await repo.updateCharacter(id, data);
       characterList.refresh();
+      refresh(id);
     });
   }
 
@@ -43,5 +49,5 @@ class CharacterController {
   }
 }
 
-final characterControllerProvider = Provider<CharacterController>(
+final characterControllerProvider = StateNotifierProvider<CharacterController, AsyncValue<Character>>(
     (ref) => CharacterController(ref.watch(charactersRepositoryProvider), ref.watch(characterListControllerProvider.notifier)));
