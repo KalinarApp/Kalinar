@@ -13,11 +13,21 @@ class UserListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final gravatar = Gravatar(user.email);
 
-    return ListTile(
-      leading: CircleAvatar(backgroundImage: NetworkImage(gravatar.imageUrl())),
-      title: Text("${user.firstname} ${user.lastname}"),
-      subtitle: Text(user.username),
-      // trailing: IconButton(icon: const Icon(Icons.delete), onPressed: () {}),
+    return Column(
+      children: [
+        ListTile(
+          leading: CircleAvatar(backgroundImage: NetworkImage(gravatar.imageUrl())),
+          title: Text("${user.firstname} ${user.lastname}"),
+          subtitle: Text(user.username),
+          // trailing: Column(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     InkWell(borderRadius: BorderRadius.circular(12), onTap: () {}, child: const Icon(Icons.close, size: 20)),
+          //   ],
+          // ),
+        ),
+        const Divider()
+      ],
     );
   }
 }

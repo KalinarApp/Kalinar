@@ -15,5 +15,5 @@ class UserListController extends StateNotifier<AsyncValue<List<UserInfo>>> {
 }
 
 final userListControllerProvider = StateNotifierProvider<UserListController, AsyncValue<List<UserInfo>>>((ref) {
-  return UserListController(ref.read(groupRepositoryProvider));
+  return UserListController(ref.watch(groupRepositoryProvider));
 });

@@ -101,18 +101,21 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.noteSticky),
                 text: AppLocalizations.of(context)!.characterNotes,
-                tab: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      AutoSavingTextField(
-                        title: AppLocalizations.of(context)!.characterNotes,
-                        initialValue: data.notes,
-                        minLines: 1,
-                        maxLines: 2000000000,
-                        enabled: _isOwner(user, data),
-                        onSaving: (currentText) async => await _saveField("notes", currentText),
-                      ),
-                    ],
+                tab: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        AutoSavingTextField(
+                          title: AppLocalizations.of(context)!.characterNotes,
+                          initialValue: data.notes,
+                          minLines: 1,
+                          maxLines: 2000000000,
+                          enabled: _isOwner(user, data),
+                          onSaving: (currentText) async => await _saveField("notes", currentText),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

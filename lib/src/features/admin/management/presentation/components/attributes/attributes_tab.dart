@@ -39,9 +39,7 @@ class _AttributeTabState extends ConsumerState<AttributesTab> {
       case DialogAction.delete:
         await _deleteAttribute(item);
         break;
-      case DialogAction.cancel:
-      case DialogAction.loadAsNewSkilltree:
-      case DialogAction.saveAsBlueprint:
+      default:
         break;
     }
   }
@@ -54,6 +52,16 @@ class _AttributeTabState extends ConsumerState<AttributesTab> {
 
   void _editAttribute(Attribute attribute) {
     GoRouter.of(context).goNamed(EditAttributeScreen.name, queryParams: {"id": attribute.id});
+  }
+
+  List<Attribute> _filter(List<Attribute> items, String? query) {
+    return items = null == query || query.isEmpty
+        ? items
+        : items
+            .where((attribute) =>
+                attribute.name.toLowerCase().contains(query.toLowerCase()) ||
+                (attribute.description?.toLowerCase().contains(query.toLowerCase()) ?? false))
+            .toList();
   }
 
   @override
@@ -71,6 +79,8 @@ class _AttributeTabState extends ConsumerState<AttributesTab> {
 
     return AsyncValueList(
       state,
+      isSearchable: true,
+      queryFn: _filter,
       sort: (data) => data.sort((a, b) => b.isGlobal ? 1 : -1),
       builder: (item) => AttributeListItem(item, onLongPress: _showActionDialog),
       refreshList: _refreshAttribute,
