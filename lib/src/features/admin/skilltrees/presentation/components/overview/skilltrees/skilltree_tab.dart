@@ -89,7 +89,11 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
         childAspectRatio: 1,
       ),
       delegate: SliverChildBuilderDelegate(
-        (context, index) => SkilltreeCharacterItem(characters[characters.keys.toList()[index]]!),
+        (context, index) => SkilltreeCharacterItem(
+          characters[characters.keys.toList()[index]]!,
+          onTap: _openBuilder,
+          onLongPress: _showActionDialog,
+        ),
         childCount: characters.length,
       ),
     );
@@ -110,7 +114,9 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
             slivers: [
               _getUnassignedList(data.unassigned),
               const SliverToBoxAdapter(child: SizedBox(height: 10)),
-              _getCharacterGrid(data.characters),
+              _getCharacterGrid(
+                data.characters,
+              ),
             ],
           ),
         ),

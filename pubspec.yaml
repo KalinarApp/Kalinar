@@ -2,7 +2,7 @@ name: kalinar
 description: A new Flutter project.
 publish_to: "none"
 
-version: 0.3.3+1
+version: 0.3.4+1
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/app_icon/icon.png
 
+# flutter pub run msix:create
 msix_config:
   display_name: Kalinar
   publisher: CN=F507F5FC-3669-4046-BDE3-4F9D28238B0E
