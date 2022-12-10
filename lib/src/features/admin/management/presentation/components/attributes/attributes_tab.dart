@@ -59,8 +59,8 @@ class _AttributeTabState extends ConsumerState<AttributesTab> {
         ? items
         : items
             .where((attribute) =>
-                attribute.name.toLowerCase().contains(query.toLowerCase()) ||
-                (attribute.description?.toLowerCase().contains(query.toLowerCase()) ?? false))
+                attribute.translate(context).name.toLowerCase().contains(query.toLowerCase()) ||
+                (attribute.translate(context).description?.toLowerCase().contains(query.toLowerCase()) ?? false))
             .toList();
   }
 
