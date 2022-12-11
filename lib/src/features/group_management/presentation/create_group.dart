@@ -10,7 +10,6 @@ import '../../../common_widgets/save_button.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../home/presentation/home_screen.dart';
 import '../application/group_controller.dart';
-import '../application/group_notifier.dart';
 
 class CreateGroup extends ConsumerStatefulWidget {
   const CreateGroup({super.key});

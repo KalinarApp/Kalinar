@@ -30,6 +30,8 @@ class CharacterListScreen extends ConsumerStatefulWidget {
 }
 
 class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
+  int lastIndex = 0;
+
   Future<void> _onRefresh() async {
     await ref.read(characterListControllerProvider.notifier).getAll();
   }
@@ -58,7 +60,8 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
     value.showSnackbarOnError(context);
   }
 
-  Widget _buildTab(AsyncValue<List<CharacterOverview>> items, List<CharacterOverview> Function(List<CharacterOverview>) filter) {
+  Widget _buildTab(
+      AsyncValue<List<CharacterOverview>> items, List<CharacterOverview> Function(List<CharacterOverview>) filter, bool showActionDialog) {
     return AsyncValueGrid(
       items,
       filter: filter,
@@ -66,7 +69,7 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
       refreshList: _onRefresh,
       builder: (item) => CharacterListItem(
         item,
-        onLongPress: _showActionDialog,
+        onLongPress: showActionDialog ? _showActionDialog : null,
         onTap: (item) => GoRouter.of(context).pushNamed(CharacterDetailScreen.name, params: {"id": item.id}),
       ),
       loading: LoadingIndicator(AppLocalizations.of(context)!.fetchCharacters),
@@ -89,21 +92,21 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
       if (state.hasValue && null != user?.id && state.value!.any((element) => element.userId == user!.id))
         CharacterTab(
           text: AppLocalizations.of(context)!.ownCharacters,
-          tab: _buildTab(state, (list) => list.where((element) => element.userId == user?.id).toList()),
+          tab: _buildTab(state, (list) => list.where((element) => element.userId == user?.id).toList(), true),
         ),
       if (state.hasValue && null != user?.id && state.value!.any((element) => element.userId != user!.id))
         CharacterTab(
           text: AppLocalizations.of(context)!.otherCharacters,
-          tab: _buildTab(state, (list) => list.where((element) => element.userId != user?.id).toList()),
+          tab: _buildTab(state, (list) => list.where((element) => element.userId != user?.id).toList(), false),
         ),
-      if (state.isLoading) CharacterTab(text: "", tab: _buildTab(state, (p0) => [])),
-      if (state.hasValue && state.value!.isEmpty) CharacterTab(text: "", tab: _buildTab(state, (p0) => [])),
-      if (state.hasError) CharacterTab(text: "", tab: _buildTab(state, (p0) => []))
+      if (state.isLoading) CharacterTab(text: "", tab: _buildTab(state, (p0) => [], false)),
+      if (state.hasValue && state.value!.isEmpty) CharacterTab(text: "", tab: _buildTab(state, (p0) => [], false)),
+      if (state.hasError) CharacterTab(text: "", tab: _buildTab(state, (p0) => [], false))
     ];
 
     return DefaultTabController(
       length: tabs.length,
-      initialIndex: 0,
+      initialIndex: lastIndex,
       child: Scaffold(
         floatingActionButton: !state.hasError
             ? FloatingActionButton(
@@ -115,7 +118,12 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
           actions: const [
             Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu()),
           ],
-          bottom: 1 < tabs.length ? TabBar(tabs: tabs) : null,
+          bottom: 1 < tabs.length
+              ? TabBar(
+                  tabs: tabs,
+                  onTap: (value) => setState(() => lastIndex = value),
+                )
+              : null,
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),

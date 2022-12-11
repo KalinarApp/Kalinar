@@ -39,10 +39,7 @@ class _RacesTabState extends ConsumerState<RacesTab> {
       case DialogAction.delete:
         await _delete(item);
         break;
-      case DialogAction.cancel:
-      case DialogAction.loadAsNewSkilltree:
-      case DialogAction.reset:
-      case DialogAction.saveAsBlueprint:
+      default:
         break;
     }
   }
@@ -55,6 +52,15 @@ class _RacesTabState extends ConsumerState<RacesTab> {
 
   void _edit(Race item) {
     GoRouter.of(context).goNamed(EditRaceScreen.name, queryParams: {"id": item.id});
+  }
+
+  List<Race> _filter(List<Race> items, String? query) {
+    return items = null == query || query.isEmpty
+        ? items
+        : items
+            .where((race) =>
+                race.name.toLowerCase().contains(query.toLowerCase()) || (race.description?.toLowerCase().contains(query.toLowerCase()) ?? false))
+            .toList();
   }
 
   @override
@@ -72,6 +78,8 @@ class _RacesTabState extends ConsumerState<RacesTab> {
 
     return AsyncValueList(
       state,
+      isSearchable: true,
+      queryFn: _filter,
       builder: (item) => RaceListItem(item, onTab: _edit, onLongPress: _showActionDialog),
       refreshList: _refresh,
     );

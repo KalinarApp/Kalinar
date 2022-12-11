@@ -42,7 +42,7 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
+            padding: const EdgeInsets.only(bottom: 10.0, left: 4, right: 4),
             child: DebouncedTextField(
               icon: const Icon(Icons.search),
               title: AppLocalizations.of(context)!.search,
@@ -52,10 +52,11 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
           ),
         ),
         SliverList(
-            delegate: SliverChildBuilderDelegate(
-          (context, index) => AbilitiesItem(items[index]),
-          childCount: items.length,
-        ))
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => AbilitiesItem(items[index]),
+            childCount: items.length,
+          ),
+        )
       ],
     );
   }

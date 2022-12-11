@@ -39,10 +39,7 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
       case DialogAction.delete:
         await _deleteAbility(item);
         break;
-      case DialogAction.reset:
-      case DialogAction.loadAsNewSkilltree:
-      case DialogAction.saveAsBlueprint:
-      case DialogAction.cancel:
+      default:
         break;
     }
   }
@@ -55,6 +52,16 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
 
   void _editAbility(Ability ability) {
     GoRouter.of(context).goNamed(EditAbilityScreen.name, queryParams: {"id": ability.id});
+  }
+
+  List<Ability> _filter(List<Ability> items, String? query) {
+    return items = null == query || query.isEmpty
+        ? items
+        : items
+            .where((ability) =>
+                ability.name.toLowerCase().contains(query.toLowerCase()) ||
+                (ability.description?.toLowerCase().contains(query.toLowerCase()) ?? false))
+            .toList();
   }
 
   @override
@@ -72,6 +79,8 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
 
     return AsyncValueList(
       state,
+      isSearchable: true,
+      queryFn: _filter,
       builder: (item) => AbilityListItem(
         item,
         onLongPress: _showActionDialog,

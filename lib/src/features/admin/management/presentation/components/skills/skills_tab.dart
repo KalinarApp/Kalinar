@@ -39,9 +39,7 @@ class _SkillTabState extends ConsumerState<SkillsTab> {
       case DialogAction.delete:
         await _deleteSkill(item);
         break;
-      case DialogAction.cancel:
-      case DialogAction.loadAsNewSkilltree:
-      case DialogAction.saveAsBlueprint:
+      default:
         break;
     }
   }
@@ -54,6 +52,15 @@ class _SkillTabState extends ConsumerState<SkillsTab> {
 
   void _editSkill(Skill skill) {
     GoRouter.of(context).goNamed(EditSkillScreen.name, queryParams: {"id": skill.id});
+  }
+
+  List<Skill> _filter(List<Skill> items, String? query) {
+    return items = null == query || query.isEmpty
+        ? items
+        : items
+            .where((skill) =>
+                skill.name.toLowerCase().contains(query.toLowerCase()) || (skill.description?.toLowerCase().contains(query.toLowerCase()) ?? false))
+            .toList();
   }
 
   @override
@@ -71,6 +78,8 @@ class _SkillTabState extends ConsumerState<SkillsTab> {
 
     return AsyncValueList(
       state,
+      isSearchable: true,
+      queryFn: _filter,
       builder: (item) => SkillListItem(item, onLongPress: _showActionDialog, onPress: _editSkill),
       refreshList: _refreshSkill,
     );
