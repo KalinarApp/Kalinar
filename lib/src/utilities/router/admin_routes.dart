@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 
+import 'package:kalinar/src/features/admin/storyline/presentation/storyline_overview_screen.dart';
+
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/admin/common/presentation/manage_group_screen.dart';
 import '../../features/admin/management/presentation/components/abilities/edit_ability_screen.dart';
@@ -21,6 +23,7 @@ final adminRoutes = GoRoute(
     ),
     adminSkillRoutes,
     adminSkilltreeRoutes,
+    adminStorylineRoutes,
   ],
 );
 
@@ -73,3 +76,9 @@ final adminSkilltreeRoutes = GoRoute(
             )),
       ),
     ]);
+
+final adminStorylineRoutes = GoRoute(
+  name: StorylineOverviewScreen.name,
+  path: StorylineOverviewScreen.route,
+  pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const StorylineOverviewScreen()),
+);

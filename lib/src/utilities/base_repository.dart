@@ -28,7 +28,7 @@ class BaseRepository {
         case 403:
           throw const APIError.forbidden();
         case 404:
-          throw APIError.notFound(data["type"], data["title"]);
+          throw APIError.notFound(data["type"] ?? "", data["title"] ?? "");
         case 500:
           throw APIError.problem(data["type"], data["title"]);
         default:

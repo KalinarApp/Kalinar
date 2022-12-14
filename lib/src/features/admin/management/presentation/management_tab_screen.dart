@@ -74,6 +74,7 @@ class ManagementTabScreen extends StatelessWidget {
         body: const Padding(
           padding: EdgeInsets.all(12.0),
           child: TabBarView(
+            physics: BouncingScrollPhysics(),
             children: [
               AttributesTab(),
               RacesTab(),

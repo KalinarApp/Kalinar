@@ -196,5 +196,7 @@
   "errorForbidden": "Du bist nicht der Gamemaster dieser Gruppe!",
   "errorUnknown": "Deine Anfrage konnte nicht verarbeitet werden",
   "errorNodeNotUnlockable": "Der Skill konnte nicht freigeschaltet werden, versuche es später noch einmal.",
-  "errorNotEnoughSkillpoints": "Du hast nicht genug Skillpunkte um diesen Skill freizuschalten."
+  "errorNotEnoughSkillpoints": "Du hast nicht genug Skillpunkte um diesen Skill freizuschalten.",
+
+  "manageStoryline": "Storyeinträge verwalten"
 }

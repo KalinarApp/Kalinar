@@ -48,6 +48,7 @@ class _AsyncValueListState<T> extends State<AsyncValueList<T>> {
                 : RefreshIndicator(
                     onRefresh: widget.refreshList,
                     child: CustomScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                       slivers: [
                         SliverList(
                           delegate: SliverChildBuilderDelegate(

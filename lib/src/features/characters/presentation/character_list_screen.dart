@@ -127,7 +127,12 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: 1 < tabs.length ? TabBarView(children: [...tabs.map((e) => e.tab)]) : tabs.first.tab,
+          child: 1 < tabs.length
+              ? TabBarView(
+                  physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                  children: [...tabs.map((e) => e.tab)],
+                )
+              : tabs.first.tab,
         ),
       ),
     );

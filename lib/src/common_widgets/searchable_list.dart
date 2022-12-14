@@ -35,6 +35,7 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
     return RefreshIndicator(
       onRefresh: widget.refreshList,
       child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
           SliverToBoxAdapter(
             child: Padding(

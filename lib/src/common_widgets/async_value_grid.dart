@@ -36,6 +36,7 @@ class AsyncValueGrid<T> extends StatelessWidget {
             ? RefreshIndicator(
                 onRefresh: refreshList,
                 child: GridView.builder(
+                  physics: const BouncingScrollPhysics(),
                   gridDelegate: delegate,
                   itemCount: filtered.length,
                   itemBuilder: (_, index) => builder(filtered[index]),

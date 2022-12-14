@@ -1,0 +1,44 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../data/story_entry_repository.dart';
+
+import 'story_entry_list_controller.dart';
+
+class StoryEntryController {
+  final StoryEntryRepository repo;
+  final StoryEntryListController storyEntrylist;
+
+  StoryEntryController(this.repo, this.storyEntrylist);
+
+  Future<AsyncValue> reorder(String id, int newPosition) async {
+    return AsyncValue.guard(() async {
+      await repo.reorder(id, newPosition);
+      storyEntrylist.refresh();
+    });
+  }
+
+  // Future<AsyncValue<StoryEntry>> get(String id) async {
+  //   return await AsyncValue.guard(() async => repo.getByName(id));
+  // }
+
+  // Future<AsyncValue<StoryEntry>> create(Map<String, dynamic> data) async {
+  //   final state = await AsyncValue.guard(() async => await repo.createStoryEntry(data));
+  //   await storyEntrylist.refresh();
+  //   return state;
+  // }
+
+  // Future<AsyncValue<StoryEntry>> update(String id, Map<String, dynamic> data) async {
+  //   final state = await AsyncValue.guard(() async => await repo.updateStoryEntry(id, data));
+  //   await storyEntrylist.refresh();
+  //   return state;
+  // }
+
+  // Future<AsyncValue> delete(String id) async {
+  //   final state = await AsyncValue.guard(() async => await repo.deleteStoryEntry(id));
+  //   await storyEntrylist.refresh();
+  //   return state;
+  // }
+}
+
+final storyEntryControllerProvider = Provider<StoryEntryController>(
+    (ref) => StoryEntryController(ref.watch(storyEntryRepositoryProvider), ref.watch(storyEntryListControllerProvider.notifier)));
