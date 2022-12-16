@@ -25,7 +25,7 @@ void main() async {
 
   await SentryFlutter.init(
     (options) {
-      options.dsn = String.fromEnvironment("SENTRY_DSN");
+      options.dsn = const String.fromEnvironment("SENTRY_DSN");
       options.tracesSampleRate = 1.0;
     },
     appRunner: () => runApp(const ProviderScope(child: Kalinar())),

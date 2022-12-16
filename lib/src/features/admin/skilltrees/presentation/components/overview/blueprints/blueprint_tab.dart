@@ -8,7 +8,6 @@ import '../../../../../../../common_widgets/action_menu.dart';
 import '../../../../../../../common_widgets/loading_indicator.dart';
 import '../../../../application/blueprint_controller.dart';
 import '../../../../application/blueprint_list_controller.dart';
-import '../../../../application/skilltree_controller.dart';
 import '../../../../domain/blueprint_overview.dart';
 import '../../../skilltree_builder_screen.dart';
 
@@ -47,12 +46,10 @@ class _BlueprintTabState extends ConsumerState<BlueprintTab> {
       case DialogAction.delete:
         await ref.read(blueprintControllerProvider).delete(item.id);
         break;
-      case DialogAction.cancel:
-        break;
       case DialogAction.loadAsNewSkilltree:
         _openBuilder(item, asNew: true);
         break;
-      case DialogAction.saveAsBlueprint:
+      default:
         break;
     }
   }

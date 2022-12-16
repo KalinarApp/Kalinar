@@ -46,7 +46,7 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
           Future.delayed(const Duration(seconds: 3), controller.reset);
         } else {
           controller.success();
-          GoRouter.of(context).pop();
+          Navigator.of(context).pop(true);
         }
       } else {
         controller.error();
