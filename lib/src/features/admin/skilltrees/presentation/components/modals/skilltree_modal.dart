@@ -1,10 +1,15 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import 'package:kalinar/src/common_widgets/form_fields/bool_field.dart';
 
 import '../../../../../../common_widgets/form_fields/content_field.dart';
 import '../../../../../../common_widgets/form_fields/value_range_field.dart';
@@ -23,6 +28,8 @@ class SkilltreeModal extends ConsumerStatefulWidget {
 class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
   static final _formKey = GlobalKey<FormBuilderState>();
   final RoundedLoadingButtonController controller = RoundedLoadingButtonController();
+
+  bool hasCharacter = false;
 
   Future<void> _save(BuildContext context, String? id) async {
     if (_formKey.currentState?.validate() ?? false) {
@@ -74,19 +81,25 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
               ),
               ContentField(
                 "name",
-                label: "Name",
+                label: AppLocalizations.of(context)!.skilltreeName,
                 validators: FormBuilderValidators.required(),
                 initialValue: state.skilltree.name,
               ),
-              CharacterSelectionField(initialValue: state.skilltree.character),
+              CharacterSelectionField(initialValue: state.skilltree.character, onChanged: ((value) => setState(() => hasCharacter = null != value))),
               ValueRangeField(
                 name: "points",
-                label: "Initiale Skillpunkte",
+                label: AppLocalizations.of(context)!.skilltreePoints,
                 initialValue: state.skilltree.points,
                 min: 0,
                 max: 10000,
                 step: 1,
               ),
+              if (hasCharacter || null != state.skilltree.character)
+                BoolField(
+                  name: "isActiveTree",
+                  label: AppLocalizations.of(context)!.skilltreeIsActive,
+                  initialValue: state.skilltree.isActiveTree,
+                ),
             ],
           ),
         ),

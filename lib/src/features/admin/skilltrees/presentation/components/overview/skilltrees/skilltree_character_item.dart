@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
 
 import 'package:animations/animations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:kalinar/src/features/admin/skilltrees/domain/skilltree_overview.dart';
+import '../../../../../../../utilities/async_value_extension.dart';
+import '../../../../../../characters/domain/character_overview.dart';
+import '../../../../application/skilltree_controller.dart';
+import '../../../../domain/skilltree_overview.dart';
 
 import 'skilltree_item.dart';
 
-class SkilltreeCharacterItem extends StatelessWidget {
+class SkilltreeCharacterItem extends ConsumerStatefulWidget {
   final List<SkilltreeOverview> skilltrees;
   final Function(SkilltreeOverview skilltree)? onTap;
   final Function(SkilltreeOverview skilltree)? onLongPress;
 
   const SkilltreeCharacterItem(this.skilltrees, {this.onTap, this.onLongPress, super.key});
 
+  @override
+  ConsumerState<SkilltreeCharacterItem> createState() => _SkilltreeCharacterItemState();
+}
+
+class _SkilltreeCharacterItemState extends ConsumerState<SkilltreeCharacterItem> {
   Widget _closedContainer(BuildContext context, Function() action) {
-    final character = skilltrees.first.character!;
+    final character = widget.skilltrees.first.character!;
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -57,18 +66,21 @@ class SkilltreeCharacterItem extends StatelessWidget {
   }
 
   Widget _openedContainer(BuildContext context, Function() action) {
-    final character = skilltrees.first.character!;
+    CharacterOverview character = widget.skilltrees.first.character!;
 
     return Scaffold(
       appBar: AppBar(title: Text(character.name)),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView.builder(
-          itemCount: skilltrees.length,
+          itemCount: widget.skilltrees.length,
           itemBuilder: (context, index) => SkilltreeItem(
-            skilltrees[index],
-            onPress: onTap,
-            onLongPress: onLongPress,
+            widget.skilltrees[index],
+            onPress: widget.onTap,
+            onLongPress: widget.onLongPress,
+            onChangeActiveState: (item, state) {
+              ref.read(skilltreeControllerProvider.notifier).updateActiveState(item.id, state).then((value) => value.showSnackbarOnError(context));
+            },
           ),
         ),
       ),
