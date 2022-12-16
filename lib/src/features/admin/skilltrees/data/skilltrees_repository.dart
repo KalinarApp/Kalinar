@@ -65,6 +65,10 @@ class SkilltreesRepository extends HeroBaseRepository {
     await heroPost("/api/skilltrees/$id/reset", null, (response) => true);
   }
 
+  Future updateAcvtiveState(String id, bool state) async {
+    await heroPost("/api/skilltrees/$id/active", {"state": state}, (response) => true);
+  }
+
   Future<void> updateOnServer(String id, Map<String, dynamic> data) async {
     await heroUpdate("/api/skilltrees/$id", data, (response) => true);
   }

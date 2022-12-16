@@ -52,7 +52,7 @@ extension KnowledgeActionExtension on DialogAction {
 }
 
 Future<DialogAction?> showActionsModal(BuildContext context, {List<DialogAction>? actions}) async {
-  bool _isEnabled(DialogAction action) {
+  bool isEnabled(DialogAction action) {
     return action != DialogAction.resetDisabled;
   }
 
@@ -68,8 +68,8 @@ Future<DialogAction?> showActionsModal(BuildContext context, {List<DialogAction>
               : ListTile(
                   leading: element.getIcon(),
                   title: Text(element.getTitle(context)),
-                  enabled: _isEnabled(element),
-                  onTap: _isEnabled(element) ? () => Navigator.of(context, rootNavigator: true).pop(element) : null),
+                  enabled: isEnabled(element),
+                  onTap: isEnabled(element) ? () => Navigator.of(context, rootNavigator: true).pop(element) : null),
         )
         .toList();
   }

@@ -10,8 +10,9 @@ import '../../../../../characters/domain/character_overview.dart';
 
 class CharacterSelectionField extends ConsumerWidget {
   final CharacterOverview? initialValue;
+  final Function(CharacterOverview? value)? onChanged;
 
-  const CharacterSelectionField({this.initialValue, super.key});
+  const CharacterSelectionField({this.initialValue, this.onChanged, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +26,10 @@ class CharacterSelectionField extends ConsumerWidget {
       searchLabel: AppLocalizations.of(context)!.searchForCharacter,
       icon: const Icon(FontAwesomeIcons.person),
       items: (_) async => await ref.read(characterControllerProvider.notifier).getAll(),
-      onChanged: (previous, next) async => true,
+      onChanged: (previous, next) async {
+        if (null != onChanged) onChanged!(next);
+        return true;
+      },
     );
   }
 }
