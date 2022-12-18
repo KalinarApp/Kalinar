@@ -198,5 +198,8 @@
   "errorNodeNotUnlockable": "Der Skill konnte nicht freigeschaltet werden, versuche es später noch einmal.",
   "errorNotEnoughSkillpoints": "Du hast nicht genug Skillpunkte um diesen Skill freizuschalten.",
 
-  "manageStoryline": "Storyeinträge verwalten"
+  "manageStoryline": "Storyeinträge verwalten",
+
+  "storyImage": "Bild",
+  "storyBook": "Buch"
 }

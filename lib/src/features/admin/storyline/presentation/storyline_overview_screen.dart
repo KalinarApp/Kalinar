@@ -1,9 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:kalinar/src/features/admin/storyline/presentation/reorderable_entry_list.dart';
+import 'package:kalinar/src/features/admin/storyline/presentation/storyline_edit_screen.dart';
 
 import '../../../../common_widgets/user_menu.dart';
 import '../../../../utilities/async_value_extension.dart';
@@ -41,6 +45,10 @@ class _StorylineOverviewScreenState extends ConsumerState<StorylineOverviewScree
         actions: const [
           Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu()),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => GoRouter.of(context).pushNamed(StorylineEditScreen.name),
+        child: const Icon(Icons.add),
       ),
       body: state.when(
         data: (data) {

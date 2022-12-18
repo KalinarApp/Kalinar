@@ -150,6 +150,8 @@
     "errorUnknown",
     "errorNodeNotUnlockable",
     "errorNotEnoughSkillpoints",
-    "manageStoryline"
+    "manageStoryline",
+    "storyImage",
+    "storyBook"
   ]
 }

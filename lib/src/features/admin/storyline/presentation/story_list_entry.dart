@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:kalinar/src/features/admin/storyline/domain/story_entry_overview.dart';
 
 class StoryListEntry extends StatelessWidget {
@@ -9,14 +11,14 @@ class StoryListEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          key: key,
-          title: Text(item.title),
-        ),
-        const Divider(),
-      ],
+    return ListTile(
+      key: key,
+      leading: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [Icon(FontAwesomeIcons.bookTanakh)],
+      ),
+      title: Text(item.title),
+      subtitle: null != item.description ? Text(item.description!) : null,
     );
   }
 }

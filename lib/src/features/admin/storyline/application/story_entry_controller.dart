@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/story_entry_repository.dart';
+import '../domain/story_entry.dart';
 
 import 'story_entry_list_controller.dart';
 
@@ -17,9 +18,9 @@ class StoryEntryController {
     });
   }
 
-  // Future<AsyncValue<StoryEntry>> get(String id) async {
-  //   return await AsyncValue.guard(() async => repo.getByName(id));
-  // }
+  Future<StoryEntry> get(String id) async {
+    return await repo.getById(id);
+  }
 
   // Future<AsyncValue<StoryEntry>> create(Map<String, dynamic> data) async {
   //   final state = await AsyncValue.guard(() async => await repo.createStoryEntry(data));

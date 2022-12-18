@@ -22,10 +22,11 @@ enum ImageType {
 
 class ImageSelector extends ConsumerStatefulWidget {
   final ImageType type;
+  final Widget Function(Image? image, bool isLoading)? builder;
   final Function(String? data)? onChanged;
   final String? initialValue;
 
-  const ImageSelector({this.initialValue, this.type = ImageType.skill, this.onChanged, super.key});
+  const ImageSelector({this.initialValue, this.type = ImageType.skill, this.builder, this.onChanged, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ImageSelectorState();
@@ -73,6 +74,10 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
   }
 
   Widget _buildByType(image) {
+    if (null != widget.builder) {
+      return widget.builder!(image, isLoading);
+    }
+
     switch (widget.type) {
       case ImageType.skill:
         return _buildSkillContent(image);

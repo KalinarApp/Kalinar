@@ -32,6 +32,7 @@ class _ReorderableEntryListState extends ConsumerState<ReorderableEntryList> {
       itemCount: items.length,
       itemBuilder: (context, index) => StoryListEntry(items[index], key: ValueKey(items[index].id)),
       physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      padding: const EdgeInsets.all(12),
       onReorder: (oldIndex, newIndex) {
         if (oldIndex < newIndex) newIndex -= 1;
 
