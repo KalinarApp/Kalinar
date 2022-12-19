@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -58,4 +59,8 @@ class DevHttpOverrides extends HttpOverrides {
 final authChangedProvider = StreamProvider<AuthState>((ref) {
   if (kDebugMode) HttpOverrides.global = DevHttpOverrides();
   return ref.watch(authProvider).authStateChanged;
+});
+
+final firebaseAuthProvider = StreamProvider<User?>((ref) {
+  return FirebaseAuth.instance.authStateChanges();
 });

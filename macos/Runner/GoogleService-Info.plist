@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>718959006853-svbkm1a0imbm0qajbnjo4a11c772f5sl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.718959006853-svbkm1a0imbm0qajbnjo4a11c772f5sl</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDKxV6XoqGswCqnM-hj7H0sOVn1ok_JeEI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>718959006853</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.hero</string>
+	<key>PROJECT_ID</key>
+	<string>kalinar-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kalinar-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:718959006853:ios:6e80392cbee4c7531185ec</string>
+</dict>
+</plist>

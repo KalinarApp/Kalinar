@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,6 @@ import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/authentication/data/auth_repository.dart';
 import '../../features/authentication/domain/user_info.dart';
-import '../../features/authentication/presentation/sign_in_screen.dart';
 import '../../features/group_management/application/group_notifier.dart';
 import '../../features/group_management/presentation/group_screen.dart';
 import '../../features/group_management/presentation/user_invite_screen.dart';
@@ -19,31 +19,34 @@ import '../../features/home/presentation/welcome_screen.dart';
 import 'admin_routes.dart';
 import 'character_routes.dart';
 
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+final shellNavigatorKey = GlobalKey<NavigatorState>();
+
 final routeProvider = Provider<GoRouter>((ref) {
-  final authState = RouterStreamNotifier(ref);
-  final groupState = ref.read(groupNotifierProvider);
-  final rootNavigatorKey = GlobalKey<NavigatorState>();
-  final shellNavigatorKey = GlobalKey<NavigatorState>();
+  // final authState = RouterStreamNotifier(ref);
+  final authState = ref.watch(firebaseAuthProvider);
+  final groupState = ref.watch(groupNotifierProvider);
 
   return GoRouter(
     initialLocation: "/",
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
-    refreshListenable: Listenable.merge([authState, groupState]),
     redirect: (context, state) {
-      final isAuthenticated = ref.read(authStateChangedProvider);
+      if (authState.isLoading || authState.hasError) return null;
 
-      if (null == isAuthenticated) return null;
+      final isAuthenticated = authState.valueOrNull != null;
 
       if (state.location == "/") {
-        return isAuthenticated ? HomeScreen.route : SignInScreen.route;
+        return isAuthenticated ? HomeScreen.route : "/login";
       }
 
-      if (state.location == SignInScreen.route) {
+      final isLoggedIn = state.location == "/login";
+
+      if (isLoggedIn) {
         return isAuthenticated ? HomeScreen.route : null;
       }
 
-      return isAuthenticated ? null : SignInScreen.route;
+      return isAuthenticated ? null : "/";
     },
     routes: [
       GoRoute(
@@ -51,8 +54,20 @@ final routeProvider = Provider<GoRouter>((ref) {
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const WelcomeScreen()),
       ),
       GoRoute(
-        path: SignInScreen.route,
-        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const SignInScreen()),
+        path: "/login",
+        pageBuilder: (context, state) => NoTransitionPage(
+            key: state.pageKey,
+            child: SignInScreen(
+              providers: [EmailAuthProvider(), UniversalEmailSignInProvider()],
+              showAuthActionSwitch: true,
+              headerBuilder: (context, constraints, shrinkOffset) => ConstrainedBox(
+                constraints: constraints,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Image.asset("assets/app_icon/icon.png"),
+                ),
+              ),
+            )),
       ),
       GoRoute(
         name: GroupScreen.name,
@@ -107,6 +122,11 @@ final routeProvider = Provider<GoRouter>((ref) {
 
               return null;
             },
+          ),
+          GoRoute(
+            path: "/profile",
+            name: "Profile",
+            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const ProfileScreen()),
           ),
           characterRoutes,
           adminRoutes,

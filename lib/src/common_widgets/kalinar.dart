@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,9 +33,10 @@ class _KalinarState extends ConsumerState<Kalinar> {
         darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         supportedLocales: const [Locale("de"), Locale("en")],
-        localizationsDelegates: const [
+        localizationsDelegates: [
           AppLocalizations.delegate,
           FormBuilderLocalizations.delegate,
+          FirebaseUILocalizations.delegate,
           ...GlobalMaterialLocalizations.delegates,
         ],
         routerConfig: ref.watch(routeProvider));

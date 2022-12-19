@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../features/authentication/application/auth_controller.dart';
@@ -22,11 +24,11 @@ class UserMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUser = ref.watch(userChangedProvider);
+    final currentUser = FirebaseAuth.instance.currentUser;
 
     if (null == currentUser) return Container();
 
-    final gravater = Gravatar(currentUser.email);
+    final gravater = Gravatar(currentUser.email!);
 
     return CustomPopupMenu(
       menuBuilder: () => ClipRRect(
@@ -36,12 +38,11 @@ class UserMenu extends ConsumerWidget {
           child: IntrinsicWidth(
             child: Column(
               children: [
-                InkWell(onTap: () => ref.read(authProvider).openProfile(), child: ListTile(title: Text(AppLocalizations.of(context)!.openProfile))),
+                InkWell(
+                    onTap: () => GoRouter.of(context).pushNamed("profile"), child: ListTile(title: Text(AppLocalizations.of(context)!.openProfile))),
                 InkWell(onTap: () async => await _openPrivacy(context), child: ListTile(title: Text(AppLocalizations.of(context)!.privacyPolicy))),
                 const Divider(),
-                InkWell(
-                    onTap: () => ref.read(authControllerProvider.notifier).signOut(),
-                    child: ListTile(title: Text(AppLocalizations.of(context)!.logout))),
+                InkWell(onTap: () => FirebaseAuth.instance.signOut(), child: ListTile(title: Text(AppLocalizations.of(context)!.logout))),
               ],
             ),
           ),
