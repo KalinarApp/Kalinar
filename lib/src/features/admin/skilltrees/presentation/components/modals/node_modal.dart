@@ -31,7 +31,7 @@ class NodeModal extends ConsumerWidget {
       if (null != data) {
         try {
           ref.read(skilltreeControllerProvider.notifier).addNode(data);
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(true);
         } catch (error) {
           controller.error();
           Future.delayed(const Duration(seconds: 3), controller.reset);
