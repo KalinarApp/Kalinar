@@ -5,6 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:kalinar/src/features/authentication/presentation/auth_screen.dart';
+
 import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
@@ -37,10 +39,10 @@ final routeProvider = Provider<GoRouter>((ref) {
       final isAuthenticated = authState.valueOrNull != null;
 
       if (state.location == "/") {
-        return isAuthenticated ? HomeScreen.route : "/login";
+        return isAuthenticated ? HomeScreen.route : AuthScreen.route;
       }
 
-      final isLoggedIn = state.location == "/login";
+      final isLoggedIn = state.location == AuthScreen.route;
 
       if (isLoggedIn) {
         return isAuthenticated ? HomeScreen.route : null;
@@ -54,20 +56,9 @@ final routeProvider = Provider<GoRouter>((ref) {
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const WelcomeScreen()),
       ),
       GoRoute(
-        path: "/login",
-        pageBuilder: (context, state) => NoTransitionPage(
-            key: state.pageKey,
-            child: SignInScreen(
-              providers: [EmailAuthProvider(), UniversalEmailSignInProvider()],
-              showAuthActionSwitch: true,
-              headerBuilder: (context, constraints, shrinkOffset) => ConstrainedBox(
-                constraints: constraints,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Image.asset("assets/app_icon/icon.png"),
-                ),
-              ),
-            )),
+        name: AuthScreen.name,
+        path: AuthScreen.route,
+        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const AuthScreen()),
       ),
       GoRoute(
         name: GroupScreen.name,
