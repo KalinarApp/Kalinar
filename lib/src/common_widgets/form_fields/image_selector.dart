@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mime/mime.dart';
 
-import '../../features/admin/management/data/imgur_repository.dart';
+import '../../features/admin/management/data/image_repository.dart';
 import '../loading_indicator.dart';
 import '../node_tile.dart';
 
@@ -56,6 +56,7 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
       File file = File(result.files.single.path!);
       setState(() {
         isLoading = true;
+        // selectedImage = file.path;
       });
       _uploadImage(_toBase64(XFile(file.path)));
     }
@@ -135,7 +136,7 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
 
   Future<void> _uploadImage(String? base64) async {
     if (null != base64) {
-      final url = await ref.read(imgurRepositoryProvider).uploadImageToImgur(base64);
+      final url = await ref.read(imageRepositoryProvider).uploadImageToImgur(base64);
       setState(() {
         isLoading = false;
         selectedImage = url;
