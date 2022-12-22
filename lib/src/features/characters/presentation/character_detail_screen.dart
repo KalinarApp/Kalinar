@@ -1,18 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:kalinar/src/features/characters/presentation/components/details/character_configuration.dart';
 import 'package:kalinar/src/utilities/async_value_extension.dart';
 
 import '../../../common_widgets/loading_indicator.dart';
-import '../../../utilities/router/routes.dart';
-import '../../authentication/domain/user_info.dart';
 import '../application/character_controller.dart';
 import '../domain/character.dart';
-
 import 'components/details/auto_saving_text_field.dart';
 import 'components/details/character_abilities.dart';
 import 'components/details/character_sheet_widget.dart';
@@ -32,12 +28,13 @@ class CharacterDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
-  bool _isOwner(UserInfo? user, Character character) {
-    return user?.id == character.userId;
+  bool _isOwner(Character character) {
+    return FirebaseAuth.instance.currentUser?.uid == character.userId;
   }
 
-  bool _isOwnerOrAdmin(UserInfo? user, Character character) {
-    return _isOwner(user, character) || (user?.isAdmin() ?? false);
+// ToDo: Fix how group admins are determined.
+  bool _isOwnerOrAdmin(Character character) {
+    return _isOwner(character) || (false);
   }
 
   Future _saveField(String fieldName, dynamic value) async {
@@ -54,7 +51,6 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userChangedProvider);
     final state = ref.watch(characterControllerProvider);
     ref.listen(characterControllerProvider, (previous, next) => next.showSnackbarOnError(context));
 
@@ -66,19 +62,19 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
               text: AppLocalizations.of(context)!.characteristics,
               tab: CharacterSheetWidget(data),
             ),
-            if (_isOwnerOrAdmin(user, data) || (data.shareAbilities ?? false))
+            if (_isOwnerOrAdmin(data) || (data.shareAbilities ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.award),
                 text: AppLocalizations.of(context)!.abilities,
                 tab: CharacterAbilities(data),
               ),
-            if (_isOwnerOrAdmin(user, data) || (data.shareSkilltree ?? false))
+            if (_isOwnerOrAdmin(data) || (data.shareSkilltree ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.circleNodes),
                 text: AppLocalizations.of(context)!.skilltrees,
                 tab: CharacterSkilltreeList(data),
               ),
-            if (_isOwnerOrAdmin(user, data) || (data.shareInventory ?? false))
+            if (_isOwnerOrAdmin(data) || (data.shareInventory ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
                 text: AppLocalizations.of(context)!.characterInventory,
@@ -90,14 +86,14 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
                         initialValue: data.inventory,
                         minLines: 1,
                         maxLines: 2000000000,
-                        enabled: _isOwner(user, data),
+                        enabled: _isOwner(data),
                         onSaving: (currentText) async => await _saveField("inventory", currentText),
                       ),
                     ],
                   ),
                 ),
               ),
-            if (_isOwnerOrAdmin(user, data) || (data.shareNotes ?? false))
+            if (_isOwnerOrAdmin(data) || (data.shareNotes ?? false))
               CharacterTab(
                 icon: const FaIcon(FontAwesomeIcons.noteSticky),
                 text: AppLocalizations.of(context)!.characterNotes,
@@ -111,7 +107,7 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
                           initialValue: data.notes,
                           minLines: 1,
                           maxLines: 2000000000,
-                          enabled: _isOwner(user, data),
+                          enabled: _isOwner(data),
                           onSaving: (currentText) async => await _saveField("notes", currentText),
                         ),
                       ],
@@ -119,7 +115,7 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
                   ),
                 ),
               ),
-            if (_isOwner(user, data))
+            if (_isOwner(data))
               CharacterTab(
                 icon: const FaIcon(Icons.settings),
                 text: AppLocalizations.of(context)!.settings,

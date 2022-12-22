@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:kalinar/src/features/group_management/application/group_controller.dart';
 
 import '../data/group_repository.dart';
@@ -19,7 +18,6 @@ class InviteController extends StateNotifier<AsyncValue<GroupInfo>> {
   Future<AsyncValue<void>> joinGroup(String id, String code) async {
     return await AsyncValue.guard(() async {
       await repo.joinGroup(id, code);
-      await groups.check();
     });
   }
 }
