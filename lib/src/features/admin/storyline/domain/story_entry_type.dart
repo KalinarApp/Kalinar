@@ -16,7 +16,7 @@ extension StoryEntryTypeExtensions on StoryEntryType {
       case StoryEntryType.StoryImage:
         return const FaIcon(FontAwesomeIcons.image);
       case StoryEntryType.StoryBook:
-        return const FaIcon(FontAwesomeIcons.book);
+        return const FaIcon(FontAwesomeIcons.bookAtlas);
     }
   }
 

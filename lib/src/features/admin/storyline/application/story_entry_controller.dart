@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/story_entry_repository.dart';
 import '../domain/story_entry.dart';
-
 import 'story_entry_list_controller.dart';
 
 class StoryEntryController {
@@ -18,21 +17,28 @@ class StoryEntryController {
     });
   }
 
+  Future<AsyncValue> unlock(String id, bool isUnlocked) async {
+    return AsyncValue.guard(() async {
+      await repo.unlock(id, isUnlocked);
+      storyEntrylist.refresh();
+    });
+  }
+
   Future<StoryEntry> get(String id) async {
     return await repo.getById(id);
   }
 
-  // Future<AsyncValue<StoryEntry>> create(Map<String, dynamic> data) async {
-  //   final state = await AsyncValue.guard(() async => await repo.createStoryEntry(data));
-  //   await storyEntrylist.refresh();
-  //   return state;
-  // }
+  Future<AsyncValue> create(Map<String, dynamic> data) async {
+    final state = await AsyncValue.guard(() async => await repo.createEntry(data));
+    await storyEntrylist.refresh();
+    return state;
+  }
 
-  // Future<AsyncValue<StoryEntry>> update(String id, Map<String, dynamic> data) async {
-  //   final state = await AsyncValue.guard(() async => await repo.updateStoryEntry(id, data));
-  //   await storyEntrylist.refresh();
-  //   return state;
-  // }
+  Future<AsyncValue> update(String id, Map<String, dynamic> data) async {
+    final state = await AsyncValue.guard(() async => await repo.updateEntry(id, data));
+    await storyEntrylist.refresh();
+    return state;
+  }
 
   // Future<AsyncValue> delete(String id) async {
   //   final state = await AsyncValue.guard(() async => await repo.deleteStoryEntry(id));

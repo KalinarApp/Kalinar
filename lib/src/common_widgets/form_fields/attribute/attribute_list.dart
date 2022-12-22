@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:kalinar/src/features/admin/management/application/attribute_controller.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../../features/admin/management/domain/attribute.dart';
 import '../../../features/admin/management/domain/attribute_value.dart';
@@ -41,7 +42,9 @@ class _AttributeListState extends ConsumerState<AttributeList> {
     try {
       final attributes = await ref.read(attributeControllerProvider).getAllGlobal();
       return attributes.map((e) => AttributeValue(attributeId: e.id, attribute: e, value: 0)).toList();
-    } catch (error) {}
+    } catch (ex, stackTrace) {
+      Sentry.captureException(ex, stackTrace: stackTrace);
+    }
 
     return [];
   }

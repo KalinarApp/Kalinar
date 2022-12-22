@@ -17,8 +17,20 @@ class StoryEntryRepository extends HeroBaseRepository {
     return await heroGet("/api/story/$id", (response) => StoryEntry.fromJson(response));
   }
 
+  Future createEntry(Map<String, dynamic> data) async {
+    return await heroPost("/api/story", data, (response) => true);
+  }
+
+  Future updateEntry(String id, Map<String, dynamic> data) async {
+    return await heroUpdate("/api/story/$id", data, (response) => true);
+  }
+
   Future reorder(String id, int newPosition) async {
     await heroPost("/api/story/reorder", {"entityId": id, "position": newPosition}, (response) => true);
+  }
+
+  Future unlock(String id, bool isUnlocked) async {
+    await heroPost("/api/story/$id/unlock", {"state": isUnlocked}, (response) => true);
   }
 }
 

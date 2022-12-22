@@ -1,17 +1,15 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:kalinar/src/features/admin/storyline/presentation/reorderable_entry_list.dart';
+import 'package:kalinar/src/features/admin/storyline/application/story_entry_controller.dart';
+import 'package:kalinar/src/features/admin/storyline/presentation/components/reorderable_entry_list.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/storyline_edit_screen.dart';
 
 import '../../../../common_widgets/user_menu.dart';
 import '../../../../utilities/async_value_extension.dart';
-import '../application/story_entry_controller.dart';
 import '../application/story_entry_list_controller.dart';
 
 class StorylineOverviewScreen extends ConsumerStatefulWidget {
@@ -27,6 +25,10 @@ class StorylineOverviewScreen extends ConsumerStatefulWidget {
 class _StorylineOverviewScreenState extends ConsumerState<StorylineOverviewScreen> {
   Future<void> _onRefresh() async {
     await ref.read(storyEntryListControllerProvider.notifier).getAll();
+  }
+
+  Future _unlock(String id, bool isUnlocked) async {
+    ref.read(storyEntryControllerProvider).unlock(id, isUnlocked).then((value) => value.showSnackbarOnError(context));
   }
 
   @override
@@ -56,7 +58,7 @@ class _StorylineOverviewScreenState extends ConsumerState<StorylineOverviewScree
 
           return data.isEmpty
               ? Center(child: Text(AppLocalizations.of(context)!.listEmpty))
-              : RefreshIndicator(onRefresh: _onRefresh, child: ReorderableEntryList(data));
+              : RefreshIndicator(onRefresh: _onRefresh, child: ReorderableEntryList(data, unlock: _unlock));
         },
         error: (_, __) => Center(child: Text(AppLocalizations.of(context)!.listLoadingFailed)),
         loading: () => Center(

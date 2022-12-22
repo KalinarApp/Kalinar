@@ -23,7 +23,7 @@ class AbilitiesItem extends StatelessWidget {
             ],
           ),
           subtitle: null != ability.description && ability.description!.isNotEmpty ? Text(ability.description!) : null,
-          trailing: ability.isPassive ? null : IconButton(icon: const FaIcon(FontAwesomeIcons.diceD20), onPressed: null),
+          trailing: ability.isPassive ? null : const IconButton(icon: FaIcon(FontAwesomeIcons.diceD20), onPressed: null),
         ),
         const Divider(),
       ],

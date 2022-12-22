@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../application/auth_controller.dart';
-
 import 'sign_in_desktop.dart';
 import 'sign_in_mobile.dart';
 
@@ -17,8 +15,6 @@ class SignInScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authControllerProvider);
-
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor.withOpacity(.9),
         body: Center(

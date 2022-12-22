@@ -5,7 +5,6 @@ import 'package:flutter/animation.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/blueprint_repository.dart';
 import '../data/skilltrees_repository.dart';
 import '../domain/blueprint.dart';
 import '../domain/edge.dart';

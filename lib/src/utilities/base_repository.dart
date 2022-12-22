@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 import '../features/authentication/data/flutter_auth.dart';
 import '../features/group_management/domain/group.dart';
-
 import 'api_error.dart';
 
 class BaseRepository {
