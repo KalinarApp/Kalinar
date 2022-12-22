@@ -149,11 +149,11 @@ class _StorylineEditScreenState extends ConsumerState<StorylineEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<StoryEntry?>(
+    return FutureBuilder(
         future: _loadItem(),
         builder: (context, snapshot) {
           final item = snapshot.data;
-          if (!snapshot.hasData) {
+          if (!snapshot.hasData && snapshot.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
           }
 
@@ -178,6 +178,7 @@ class _StorylineEditScreenState extends ConsumerState<StorylineEditScreen> {
                       FormBuilderDropdown<StoryEntryType>(
                         name: "type",
                         isExpanded: true,
+                        enabled: widget.id == null,
                         valueTransformer: (value) => value.toString().split(".")[1],
                         initialValue: selectedType,
                         onChanged: (value) => setState(() => selectedType = value ?? StoryEntryType.StoryImage),

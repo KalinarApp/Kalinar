@@ -25,7 +25,7 @@ class StoryListEntry extends StatelessWidget {
           : InkWell(
               onTap: () => unlock(item.id, !item.isUnlocked),
               borderRadius: BorderRadius.circular(20),
-              child: FaIcon(item.isUnlocked ? FontAwesomeIcons.book : FontAwesomeIcons.bookOpen),
+              child: FaIcon(item.isUnlocked ? FontAwesomeIcons.bookOpen : FontAwesomeIcons.book),
             ),
     );
   }

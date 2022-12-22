@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/admin/storyline/presentation/page_editor_screen.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/storyline_detail_screen.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/storyline_edit_screen.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/storyline_overview_screen.dart';
@@ -89,9 +90,18 @@ final adminStorylineRoutes = GoRoute(
       pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: StorylineEditScreen(state.queryParams["id"])),
     ),
     GoRoute(
-      name: StorylineDetailScreen.name,
-      path: StorylineDetailScreen.route,
-      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: StorylineDetailScreen(state.params["id"]!)),
-    )
+        name: StorylineDetailScreen.name,
+        path: StorylineDetailScreen.route,
+        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: StorylineDetailScreen(state.params["id"]!)),
+        routes: [
+          GoRoute(
+            name: PageEditorScreen.name,
+            path: PageEditorScreen.route,
+            pageBuilder: (context, state) => NoTransitionPage(
+              key: state.pageKey,
+              child: PageEditorScreen(state.queryParams["id"], state.params["id"]),
+            ),
+          )
+        ])
   ],
 );

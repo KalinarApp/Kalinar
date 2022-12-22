@@ -5,6 +5,7 @@ import 'package:kalinar/src/features/admin/storyline/application/story_entry_con
 import 'package:kalinar/src/features/admin/storyline/domain/story_entry.dart';
 import 'package:kalinar/src/features/admin/storyline/domain/story_entry_type.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/components/image_details.dart';
+import 'package:kalinar/src/features/admin/storyline/presentation/page_editor_screen.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/storyline_edit_screen.dart';
 
 class StorylineDetailScreen extends ConsumerStatefulWidget {
@@ -23,13 +24,12 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
   StoryEntry? item;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
     Future.delayed(Duration.zero, () async {
       final result = await ref.read(storyEntryControllerProvider).get(widget.id);
       setState(() => item = result);
     });
-
-    super.initState();
+    super.didChangeDependencies();
   }
 
   Widget _buildBody() {
@@ -49,6 +49,12 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: null != item && StoryEntryType.StoryBook == StoryEntryType.values.byName(item!.type)
+          ? FloatingActionButton(
+              onPressed: () => GoRouter.of(context).pushNamed(PageEditorScreen.name, params: {"id": widget.id}),
+              child: const Icon(Icons.add),
+            )
+          : null,
       appBar: AppBar(
         title: null == item ? const CircularProgressIndicator() : Text(item!.title),
         actions: [

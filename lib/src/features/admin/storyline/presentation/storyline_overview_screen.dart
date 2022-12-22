@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:kalinar/src/features/admin/storyline/application/story_entry_controller.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/components/reorderable_entry_list.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/storyline_edit_screen.dart';
@@ -27,8 +25,12 @@ class _StorylineOverviewScreenState extends ConsumerState<StorylineOverviewScree
     await ref.read(storyEntryListControllerProvider.notifier).getAll();
   }
 
-  Future _unlock(String id, bool isUnlocked) async {
+  void _unlock(String id, bool isUnlocked) {
     ref.read(storyEntryControllerProvider).unlock(id, isUnlocked).then((value) => value.showSnackbarOnError(context));
+  }
+
+  void _reorder(String id, int newIndex) {
+    ref.read(storyEntryControllerProvider).reorder(id, newIndex).then((value) => value.showSnackbarOnError(context));
   }
 
   @override
@@ -58,7 +60,7 @@ class _StorylineOverviewScreenState extends ConsumerState<StorylineOverviewScree
 
           return data.isEmpty
               ? Center(child: Text(AppLocalizations.of(context)!.listEmpty))
-              : RefreshIndicator(onRefresh: _onRefresh, child: ReorderableEntryList(data, unlock: _unlock));
+              : RefreshIndicator(onRefresh: _onRefresh, child: ReorderableEntryList(data, unlock: _unlock, reorder: _reorder));
         },
         error: (_, __) => Center(child: Text(AppLocalizations.of(context)!.listLoadingFailed)),
         loading: () => Center(
