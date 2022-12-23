@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kalinar/src/features/characters/presentation/components/details/character_configuration.dart';
+import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
 import 'package:kalinar/src/utilities/async_value_extension.dart';
 
 import '../../../common_widgets/loading_indicator.dart';
@@ -32,9 +33,8 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
     return FirebaseAuth.instance.currentUser?.uid == character.userId;
   }
 
-// ToDo: Fix how group admins are determined.
   bool _isOwnerOrAdmin(Character character) {
-    return _isOwner(character) || (false);
+    return _isOwner(character) || ref.read(groupNotifierProvider).group?.id == FirebaseAuth.instance.currentUser?.uid;
   }
 
   Future _saveField(String fieldName, dynamic value) async {

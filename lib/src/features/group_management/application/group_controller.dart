@@ -18,16 +18,16 @@ class GroupController {
     });
   }
 
-  Future<bool> hasGroup() async {
-    User user = await userRepo.getUser();
-    notifier.updateGroup(user.group);
-    return null != user.group;
-  }
-
-  // Future<void> check() async {
+  // Future<bool> hasGroup() async {
   //   User user = await userRepo.getUser();
   //   notifier.updateGroup(user.group);
+  //   return null != user.group;
   // }
+
+  Future<void> check() async {
+    User user = await userRepo.getUser();
+    notifier.updateGroup(user.group);
+  }
 }
 
 final groupControllerProvider = Provider((ref) {

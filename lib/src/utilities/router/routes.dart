@@ -10,7 +10,7 @@ import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/authentication/presentation/auth_screen.dart';
 import '../../features/group_management/application/group_controller.dart';
-// import '../../features/group_management/application/group_notifier.dart';
+import '../../features/group_management/application/group_notifier.dart';
 import '../../features/group_management/presentation/group_screen.dart';
 import '../../features/group_management/presentation/user_invite_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
@@ -22,9 +22,14 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final routeProvider = Provider<GoRouter>((ref) {
-  // final authState = RouterStreamNotifier(ref);
+  ref.listen(firebaseAuthProvider, (previous, next) {
+    if (next.valueOrNull != null) {
+      ref.read(groupControllerProvider).check();
+    }
+  });
+
   final authState = ref.watch(firebaseAuthProvider);
-  // final groupState = ref.watch(groupNotifierProvider);
+  final groupState = ref.watch(groupNotifierProvider);
 
   return GoRouter(
     initialLocation: "/",
@@ -60,7 +65,7 @@ final routeProvider = Provider<GoRouter>((ref) {
       GoRoute(
         name: GroupScreen.name,
         path: GroupScreen.route,
-        redirect: (context, state) async => await ref.read(groupControllerProvider).hasGroup() ? HomeScreen.route : null,
+        redirect: (context, state) async => groupState.hasGroup ?? true ? HomeScreen.route : null,
         pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const GroupScreen()),
       ),
       GoRoute(
@@ -71,7 +76,7 @@ final routeProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         navigatorKey: shellNavigatorKey,
         builder: (context, state, child) {
-// ToDo: Fix how group admins are determined.
+          final isAdmin = FirebaseAuth.instance.currentUser?.uid == groupState.group?.ownerId;
           return ScaffoldWithBottomNavbar(
             tabs: [
               ScaffoldWithNavbarItem(
@@ -84,12 +89,12 @@ final routeProvider = Provider<GoRouter>((ref) {
                 icon: const Icon(Icons.man),
                 label: (AppLocalizations.of(context)!.characters),
               ),
-              // if (null != user && user.isAdmin())
-              ScaffoldWithNavbarItem(
-                initialLocation: AdminMenuScreen.route,
-                icon: const Icon(Icons.coffee),
-                label: (AppLocalizations.of(context)!.admin),
-              ),
+              if (isAdmin)
+                ScaffoldWithNavbarItem(
+                  initialLocation: AdminMenuScreen.route,
+                  icon: const Icon(Icons.coffee),
+                  label: (AppLocalizations.of(context)!.admin),
+                ),
             ],
             child: child,
           );

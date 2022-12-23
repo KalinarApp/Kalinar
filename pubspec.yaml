@@ -40,6 +40,11 @@ dependencies:
   flutter_secure_storage: ^6.1.0
   flutter_gravatar: ^2.0.2
 
+  firebase_auth_desktop:
+    git:
+      url: https://github.com/NirmalAriyathilake/flutterfire_desktop.git
+      path: packages/firebase_auth/firebase_auth_desktop
+
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding
