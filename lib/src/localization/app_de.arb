@@ -91,6 +91,7 @@
   
   "skilltreeName": "Name des Skillbaums",
   "skilltreePoints": "Initiale Skillpunkt",
+  "skilltreeIsActive": "Soll der Baum bei der Attributberechnung mit einbezogen werden?",
   "fetchSkilltrees": "Skillbäume werden abgerufen",
   "fetchSkilltreesFailed": "Fehler beim Abrufen der Skillbäume",
 

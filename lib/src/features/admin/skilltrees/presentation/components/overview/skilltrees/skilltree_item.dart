@@ -6,12 +6,26 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../domain/skilltree_overview.dart';
 
-class SkilltreeItem extends StatelessWidget {
+class SkilltreeItem extends StatefulWidget {
   final SkilltreeOverview item;
   final Function(SkilltreeOverview item)? onLongPress;
   final Function(SkilltreeOverview item)? onPress;
+  final Function(SkilltreeOverview item, bool state)? onChangeActiveState;
 
-  const SkilltreeItem(this.item, {this.onLongPress, this.onPress, super.key});
+  const SkilltreeItem(this.item, {this.onLongPress, this.onPress, this.onChangeActiveState, super.key});
+
+  @override
+  State<SkilltreeItem> createState() => _SkilltreeItemState();
+}
+
+class _SkilltreeItemState extends State<SkilltreeItem> {
+  late SkilltreeOverview item;
+
+  @override
+  void initState() {
+    item = widget.item;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +33,8 @@ class SkilltreeItem extends StatelessWidget {
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
-        onTap: null != onPress ? () => onPress!(item) : null,
-        onLongPress: null != onLongPress ? () => onLongPress!(item) : null,
+        onTap: null != widget.onPress ? () => widget.onPress!(item) : null,
+        onLongPress: null != widget.onLongPress ? () => widget.onLongPress!(item) : null,
         title: Text(item.name, maxLines: 2, overflow: TextOverflow.ellipsis),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -49,9 +63,21 @@ class SkilltreeItem extends StatelessWidget {
           ]),
         ),
         trailing: null != item.character
-            ? item.isActiveTree
-                ? const Icon(Icons.check_circle_outline_outlined, size: 32)
-                : const Icon(Icons.check_circle_outline_outlined, size: 32)
+            ? InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: null == widget.onChangeActiveState
+                    ? null
+                    : () {
+                        widget.onChangeActiveState!(item, !item.isActiveTree);
+                        setState(() {
+                          item = item.copyWith(isActiveTree: !item.isActiveTree);
+                        });
+                      },
+                child: Icon(
+                  item.isActiveTree ? Icons.check_circle_outline_outlined : Icons.circle_outlined,
+                  size: 32,
+                ),
+              )
             : null,
       ),
     );
