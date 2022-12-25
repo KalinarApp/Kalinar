@@ -102,6 +102,13 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
       if (state.hasError) CharacterTab(text: "", tab: _buildTab(state, (p0) => [], false))
     ];
 
+    if (tabs.isEmpty) {
+      tabs.add(CharacterTab(
+        text: AppLocalizations.of(context)!.ownCharacters,
+        tab: _buildTab(const AsyncData([]), (list) => [], true),
+      ));
+    }
+
     return DefaultTabController(
       length: tabs.length,
       initialIndex: lastIndex,

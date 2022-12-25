@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
 
 import '../../../utilities/base_repository.dart';
 import '../../authentication/domain/user_info.dart';
@@ -6,7 +7,7 @@ import '../domain/group.dart';
 import '../domain/group_info.dart';
 
 class GroupRepository extends HeroBaseRepository {
-  GroupRepository();
+  GroupRepository({super.group});
 
   Future<Group> getGroupInfo() async {
     return await heroGet("/api/groups", (response) => Group.fromJson(response));
@@ -30,5 +31,5 @@ class GroupRepository extends HeroBaseRepository {
 }
 
 final groupRepositoryProvider = Provider<GroupRepository>((ref) {
-  return GroupRepository();
+  return GroupRepository(group: ref.watch(groupNotifierProvider).group);
 });

@@ -34,7 +34,7 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
   }
 
   bool _isOwnerOrAdmin(Character character) {
-    return _isOwner(character) || ref.read(groupNotifierProvider).group?.id == FirebaseAuth.instance.currentUser?.uid;
+    return _isOwner(character) || ref.read(groupNotifierProvider).group?.ownerId == FirebaseAuth.instance.currentUser?.uid;
   }
 
   Future _saveField(String fieldName, dynamic value) async {

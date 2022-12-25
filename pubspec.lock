@@ -339,6 +339,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  firebase_core_desktop:
+    dependency: "direct main"
+    description:
+      path: "packages/firebase_core/firebase_core_desktop"
+      ref: HEAD
+      resolved-ref: baf44f5c5e5e1bb6bcfd15d21dd2a96abf3e9b68
+      url: "https://github.com/NirmalAriyathilake/flutterfire_desktop.git"
+    source: git
+    version: "1.0.2"
   firebase_core_platform_interface:
     dependency: transitive
     description:

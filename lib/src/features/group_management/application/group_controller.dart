@@ -15,6 +15,7 @@ class GroupController {
   Future<AsyncValue<void>> save(Map<String, dynamic> data) async {
     return await AsyncValue.guard(() async {
       await repo.createGroup(data);
+      await check();
     });
   }
 

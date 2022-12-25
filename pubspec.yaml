@@ -45,6 +45,11 @@ dependencies:
       url: https://github.com/NirmalAriyathilake/flutterfire_desktop.git
       path: packages/firebase_auth/firebase_auth_desktop
 
+  firebase_core_desktop:
+    git:
+      url: https://github.com/NirmalAriyathilake/flutterfire_desktop.git
+      path: packages/firebase_core/firebase_core_desktop
+
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding
