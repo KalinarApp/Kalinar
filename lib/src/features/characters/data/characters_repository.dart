@@ -1,13 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../utilities/base_repository.dart';
-import '../../authentication/data/auth_repository.dart';
 import '../../group_management/application/group_notifier.dart';
 import '../domain/character.dart';
 import '../domain/character_overview.dart';
 
 class CharactersRepository extends HeroBaseRepository {
-  CharactersRepository(super.client, {super.group});
+  CharactersRepository({super.group});
 
   Future<Character> getById(String id) async {
     return await heroGet("/api/characters/$id", (response) => Character.fromJson(response));
@@ -31,5 +30,5 @@ class CharactersRepository extends HeroBaseRepository {
 }
 
 final charactersRepositoryProvider = Provider<CharactersRepository>((ref) {
-  return CharactersRepository(ref.watch(authProvider), group: ref.watch(groupNotifierProvider).group);
+  return CharactersRepository(group: ref.watch(groupNotifierProvider).group);
 });

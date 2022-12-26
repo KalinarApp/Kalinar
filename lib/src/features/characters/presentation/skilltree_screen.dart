@@ -1,18 +1,15 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:kalinar/src/utilities/router/routes.dart';
 
 import '../../../common_widgets/action_menu.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
 import '../application/skillpoint_controller.dart';
 import '../application/skilltree_controller.dart';
-
 import 'components/skilltrees/skillpoints_widget.dart';
 import 'components/skilltrees/skilltree_stack.dart';
 import 'components/skilltrees/statistics_widget.dart';
@@ -133,7 +130,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(skilltreeControllerProvider);
-    final user = ref.watch(userChangedProvider);
+    final user = FirebaseAuth.instance.currentUser;
     final skillpoints = ref.watch(skillpointControllerProvider);
 
     return Scaffold(
@@ -158,7 +155,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
             height: 2000,
             child: state.maybeWhen(
               data: (data) {
-                final isEditable = null != user?.id && user!.id == data.character!.userId;
+                final isEditable = null != user?.uid && user!.uid == data.character!.userId;
                 return SkilltreeStack(
                   nodes: data.nodes,
                   currentSkillpoints: skillpoints.currentSkillpoints,

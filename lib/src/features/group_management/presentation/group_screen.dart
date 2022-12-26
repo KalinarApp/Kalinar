@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,8 +8,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../common_widgets/user_menu.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/common/application/group_info_controller.dart';
-import '../../authentication/data/auth_repository.dart';
-
 import 'create_group.dart';
 import 'user_invite_screen.dart';
 
@@ -38,7 +36,6 @@ class _GroupScreenState extends ConsumerState<GroupScreen> {
   @override
   Widget build(BuildContext context) {
     ref.listen(groupInfoControllerProvider, (_, state) => state.showSnackbarOnError(context));
-    final authState = ref.watch(authChangedProvider);
 
     return Scaffold(
       appBar: AppBar(actions: const [
@@ -51,7 +48,8 @@ class _GroupScreenState extends ConsumerState<GroupScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            Text(AppLocalizations.of(context)!.groupNotInGroupText(authState.value!.user!.firstname), style: Theme.of(context).textTheme.bodyMedium),
+            Text(AppLocalizations.of(context)!.groupNotInGroupText(FirebaseAuth.instance.currentUser?.displayName ?? ""),
+                style: Theme.of(context).textTheme.bodyMedium),
             TextButton(
               onPressed: () => GoRouter.of(context).pushNamed(UserInviteScreen.name),
               child: Text(AppLocalizations.of(context)!.groupGotAnInviteCode),
