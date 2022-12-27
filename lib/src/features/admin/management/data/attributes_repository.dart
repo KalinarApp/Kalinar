@@ -2,11 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
 
 import '../../../../utilities/base_repository.dart';
-import '../../../authentication/data/auth_repository.dart';
 import '../domain/attribute.dart';
 
 class AttributesRepository extends HeroBaseRepository {
-  AttributesRepository(super.client, {super.group});
+  AttributesRepository({super.group});
 
   Future<Attribute> getById(String id) async {
     return await heroGet("/api/attributes/$id", (response) => Attribute.fromJson(response));
@@ -41,5 +40,4 @@ class AttributesRepository extends HeroBaseRepository {
   }
 }
 
-final attributesRepositoryProvider =
-    Provider<AttributesRepository>((ref) => AttributesRepository(ref.watch(authProvider), group: ref.watch(groupNotifierProvider).group));
+final attributesRepositoryProvider = Provider<AttributesRepository>((ref) => AttributesRepository(group: ref.watch(groupNotifierProvider).group));

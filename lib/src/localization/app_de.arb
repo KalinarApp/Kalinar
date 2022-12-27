@@ -61,7 +61,7 @@
   "groupInstruction": "Um einer Gruppe beizutreten öffne den Einladungslink, welchen dir dein Spielleiter zugeschickt hat, du wirst nun gefragt, ob du dieser Gruppe beitreten willst. Wenn du \"Okay\" auswählst, trittst du der Gruppe bei und kannst von da an in der Gruppe agieren.",
   "groupInstructionGM": "Du kannst natürlich auch gerne selbst in die Rolle des Spielleiters schlüpfen und hier eine eigene Gruppe erstellen.",
   "groupBeAGM": "Gruppenleiter werden",
-  "groupJoinTitle": "{owner} möchte dich nach'{name}' in die Welt von Kalinar einladen, möchtest du beitreten?",
+  "groupJoinTitle": "{owner} möchte dich nach'{name}', in die Welt von Kalinar einladen, möchtest du beitreten?",
   "@groupJoinTitle": {
     "placeholders": {
       "owner": {

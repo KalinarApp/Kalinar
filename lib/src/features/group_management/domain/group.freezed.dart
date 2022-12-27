@@ -21,6 +21,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Group {
   String get id => throw _privateConstructorUsedError;
+  String get ownerId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -35,7 +36,12 @@ abstract class $GroupCopyWith<$Res> {
   factory $GroupCopyWith(Group value, $Res Function(Group) then) =
       _$GroupCopyWithImpl<$Res, Group>;
   @useResult
-  $Res call({String id, String name, String? code, String? description});
+  $Res call(
+      {String id,
+      String ownerId,
+      String name,
+      String? code,
+      String? description});
 }
 
 /// @nodoc
@@ -52,6 +58,7 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
   @override
   $Res call({
     Object? id = null,
+    Object? ownerId = null,
     Object? name = null,
     Object? code = freezed,
     Object? description = freezed,
@@ -60,6 +67,10 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -83,7 +94,12 @@ abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
       __$$_GroupCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String? code, String? description});
+  $Res call(
+      {String id,
+      String ownerId,
+      String name,
+      String? code,
+      String? description});
 }
 
 /// @nodoc
@@ -96,6 +112,7 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
   @override
   $Res call({
     Object? id = null,
+    Object? ownerId = null,
     Object? name = null,
     Object? code = freezed,
     Object? description = freezed,
@@ -104,6 +121,10 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -125,13 +146,19 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
 @JsonSerializable()
 class _$_Group implements _Group {
   const _$_Group(
-      {required this.id, required this.name, this.code, this.description});
+      {required this.id,
+      required this.ownerId,
+      required this.name,
+      this.code,
+      this.description});
 
   factory _$_Group.fromJson(Map<String, dynamic> json) =>
       _$$_GroupFromJson(json);
 
   @override
   final String id;
+  @override
+  final String ownerId;
   @override
   final String name;
   @override
@@ -141,7 +168,7 @@ class _$_Group implements _Group {
 
   @override
   String toString() {
-    return 'Group(id: $id, name: $name, code: $code, description: $description)';
+    return 'Group(id: $id, ownerId: $ownerId, name: $name, code: $code, description: $description)';
   }
 
   @override
@@ -150,6 +177,7 @@ class _$_Group implements _Group {
         (other.runtimeType == runtimeType &&
             other is _$_Group &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.description, description) ||
@@ -158,7 +186,8 @@ class _$_Group implements _Group {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, code, description);
+  int get hashCode =>
+      Object.hash(runtimeType, id, ownerId, name, code, description);
 
   @JsonKey(ignore: true)
   @override
@@ -177,6 +206,7 @@ class _$_Group implements _Group {
 abstract class _Group implements Group {
   const factory _Group(
       {required final String id,
+      required final String ownerId,
       required final String name,
       final String? code,
       final String? description}) = _$_Group;
@@ -185,6 +215,8 @@ abstract class _Group implements Group {
 
   @override
   String get id;
+  @override
+  String get ownerId;
   @override
   String get name;
   @override

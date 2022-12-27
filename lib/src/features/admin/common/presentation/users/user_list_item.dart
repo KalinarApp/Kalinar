@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gravatar/flutter_gravatar.dart';
 
 import '../../../../authentication/domain/user_info.dart';
@@ -17,14 +16,7 @@ class UserListItem extends StatelessWidget {
       children: [
         ListTile(
           leading: CircleAvatar(backgroundImage: NetworkImage(gravatar.imageUrl())),
-          title: Text("${user.firstname} ${user.lastname}"),
-          subtitle: Text(user.username),
-          // trailing: Column(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   children: [
-          //     InkWell(borderRadius: BorderRadius.circular(12), onTap: () {}, child: const Icon(Icons.close, size: 20)),
-          //   ],
-          // ),
+          title: Text(user.username.isNotEmpty ? user.username : user.email),
         ),
         const Divider()
       ],

@@ -21,8 +21,6 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserInfo {
   String get id => throw _privateConstructorUsedError;
-  String get firstname => throw _privateConstructorUsedError;
-  String get lastname => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   List<String> get roles => throw _privateConstructorUsedError;
@@ -41,8 +39,6 @@ abstract class $UserInfoCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String firstname,
-      String lastname,
       String email,
       String username,
       List<String> roles,
@@ -63,8 +59,6 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
   @override
   $Res call({
     Object? id = null,
-    Object? firstname = null,
-    Object? lastname = null,
     Object? email = null,
     Object? username = null,
     Object? roles = null,
@@ -74,14 +68,6 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstname: null == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastname: null == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
@@ -112,8 +98,6 @@ abstract class _$$_UserInfoCopyWith<$Res> implements $UserInfoCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String firstname,
-      String lastname,
       String email,
       String username,
       List<String> roles,
@@ -132,8 +116,6 @@ class __$$_UserInfoCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? firstname = null,
-    Object? lastname = null,
     Object? email = null,
     Object? username = null,
     Object? roles = null,
@@ -143,14 +125,6 @@ class __$$_UserInfoCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstname: null == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastname: null == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
@@ -177,8 +151,6 @@ class __$$_UserInfoCopyWithImpl<$Res>
 class _$_UserInfo implements _UserInfo {
   const _$_UserInfo(
       {required this.id,
-      required this.firstname,
-      required this.lastname,
       required this.email,
       required this.username,
       final List<String> roles = const [],
@@ -191,10 +163,6 @@ class _$_UserInfo implements _UserInfo {
 
   @override
   final String id;
-  @override
-  final String firstname;
-  @override
-  final String lastname;
   @override
   final String email;
   @override
@@ -219,7 +187,7 @@ class _$_UserInfo implements _UserInfo {
 
   @override
   String toString() {
-    return 'UserInfo(id: $id, firstname: $firstname, lastname: $lastname, email: $email, username: $username, roles: $roles, groups: $groups)';
+    return 'UserInfo(id: $id, email: $email, username: $username, roles: $roles, groups: $groups)';
   }
 
   @override
@@ -228,10 +196,6 @@ class _$_UserInfo implements _UserInfo {
         (other.runtimeType == runtimeType &&
             other is _$_UserInfo &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.firstname, firstname) ||
-                other.firstname == firstname) &&
-            (identical(other.lastname, lastname) ||
-                other.lastname == lastname) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.username, username) ||
                 other.username == username) &&
@@ -244,8 +208,6 @@ class _$_UserInfo implements _UserInfo {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      firstname,
-      lastname,
       email,
       username,
       const DeepCollectionEquality().hash(_roles),
@@ -268,8 +230,6 @@ class _$_UserInfo implements _UserInfo {
 abstract class _UserInfo implements UserInfo {
   const factory _UserInfo(
       {required final String id,
-      required final String firstname,
-      required final String lastname,
       required final String email,
       required final String username,
       final List<String> roles,
@@ -279,10 +239,6 @@ abstract class _UserInfo implements UserInfo {
 
   @override
   String get id;
-  @override
-  String get firstname;
-  @override
-  String get lastname;
   @override
   String get email;
   @override
