@@ -101,7 +101,7 @@ class _EditSkillScreenState extends ConsumerState<EditAttributeScreen> {
                 TypeAheadTextField(
                   name: "category",
                   controller: categoriesController,
-                  decoration: const InputDecoration(labelText: "Kategorie"),
+                  decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeCategory),
                   itemBuilder: (context, itemData) => ListTile(title: Text(itemData)),
                   suggestionsCallback: (pattern) async => await ref.read(attributeControllerProvider).getCategories(pattern),
                   getImmediateSuggestions: false,
