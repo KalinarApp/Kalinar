@@ -182,6 +182,10 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
   Future<AsyncValue> resetSkilltree(String id) async {
     return AsyncValue.guard(() async => await repo.resetSkilltree(id));
   }
+
+  Future<AsyncValue> updateActiveState(String id, bool state) async {
+    return AsyncValue.guard(() async => await repo.updateAcvtiveState(id, state));
+  }
 }
 
 final skilltreeControllerProvider = StateNotifierProvider<SkilltreeController, SkilltreeState>((ref) {

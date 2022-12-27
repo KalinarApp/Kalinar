@@ -7,6 +7,7 @@ part 'group.g.dart';
 class Group with _$Group {
   const factory Group({
     required String id,
+    required String ownerId,
     required String name,
     String? code,
     String? description,

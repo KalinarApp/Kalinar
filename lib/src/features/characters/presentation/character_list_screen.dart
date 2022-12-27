@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,11 +9,9 @@ import '../../../common_widgets/async_value_grid.dart';
 import '../../../common_widgets/loading_indicator.dart';
 import '../../../common_widgets/user_menu.dart';
 import '../../../utilities/async_value_extension.dart';
-import '../../../utilities/router/routes.dart';
 import '../application/character_controller.dart';
 import '../application/character_list_controller.dart';
 import '../domain/character_overview.dart';
-
 import 'character_detail_screen.dart';
 import 'character_editor_screen.dart';
 import 'components/character_list_item.dart';
@@ -85,24 +83,31 @@ class CharacterListScreenState extends ConsumerState<CharacterListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userChangedProvider);
+    final user = FirebaseAuth.instance.currentUser;
     final state = ref.watch(characterListControllerProvider);
 
     final tabs = [
-      if (state.hasValue && null != user?.id && state.value!.any((element) => element.userId == user!.id))
+      if (state.hasValue && null != user?.uid && state.value!.any((element) => element.userId == user!.uid))
         CharacterTab(
           text: AppLocalizations.of(context)!.ownCharacters,
-          tab: _buildTab(state, (list) => list.where((element) => element.userId == user?.id).toList(), true),
+          tab: _buildTab(state, (list) => list.where((element) => element.userId == user?.uid).toList(), true),
         ),
-      if (state.hasValue && null != user?.id && state.value!.any((element) => element.userId != user!.id))
+      if (state.hasValue && null != user?.uid && state.value!.any((element) => element.userId != user!.uid))
         CharacterTab(
           text: AppLocalizations.of(context)!.otherCharacters,
-          tab: _buildTab(state, (list) => list.where((element) => element.userId != user?.id).toList(), false),
+          tab: _buildTab(state, (list) => list.where((element) => element.userId != user?.uid).toList(), false),
         ),
       if (state.isLoading) CharacterTab(text: "", tab: _buildTab(state, (p0) => [], false)),
       if (state.hasValue && state.value!.isEmpty) CharacterTab(text: "", tab: _buildTab(state, (p0) => [], false)),
       if (state.hasError) CharacterTab(text: "", tab: _buildTab(state, (p0) => [], false))
     ];
+
+    if (tabs.isEmpty) {
+      tabs.add(CharacterTab(
+        text: AppLocalizations.of(context)!.ownCharacters,
+        tab: _buildTab(const AsyncData([]), (list) => [], true),
+      ));
+    }
 
     return DefaultTabController(
       length: tabs.length,

@@ -63,6 +63,7 @@
     "nodeColor",
     "skilltreeName",
     "skilltreePoints",
+    "skilltreeIsActive",
     "fetchSkilltrees",
     "fetchSkilltreesFailed",
     "deleteChanges",

@@ -1,17 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
 
-import '../features/authentication/data/flutter_auth.dart';
 import '../features/group_management/domain/group.dart';
 import 'api_error.dart';
 
 class BaseRepository {
-  final FlutterAuth client;
-
-  BaseRepository(this.client);
+  BaseRepository();
 
   Future<T> _handleResponse<T>(Future<http.Response> Function() action, T Function(dynamic response) responseBuilder) async {
     try {
@@ -38,37 +36,42 @@ class BaseRepository {
     }
   }
 
+  Future<Map<String, String>> getDefaultHeaders() async {
+    final idToken = await FirebaseAuth.instance.currentUser?.getIdToken();
+    return {
+      "Authorization": "Bearer $idToken",
+      "content-type": "application/json",
+    };
+  }
+
   Future<T> get<T>(Uri url, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
-    return await _handleResponse(() async => await client.get(url, headers: headers), builder);
+    return await _handleResponse(() async => await http.get(url, headers: {...await getDefaultHeaders(), ...headers ?? {}}), builder);
   }
 
   Future<T> post<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
     return await _handleResponse(() async {
-      Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
       var encode = null != data ? json.encode(data) : null;
-      return await client.post(url, body: encode, headers: fullHeaders);
+      return await http.post(url, body: encode, headers: {...await getDefaultHeaders(), ...headers ?? {}});
     }, builder);
   }
 
   Future<T> update<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
     return await _handleResponse(() async {
-      Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
       var encode = json.encode(data);
-      return await client.put(url, body: encode, headers: fullHeaders);
+      return await http.put(url, body: encode, headers: {...await getDefaultHeaders(), ...headers ?? {}});
     }, builder);
   }
 
   Future<T> patch<T>(Uri url, dynamic data, T Function(dynamic response) builder, {Map<String, String>? headers}) async {
     return await _handleResponse(() async {
-      Map<String, String> fullHeaders = {"content-type": "application/json", ...headers ?? {}};
       var encode = json.encode(data);
-      return await client.patch(url, body: encode, headers: fullHeaders);
+      return await http.patch(url, body: encode, headers: {...await getDefaultHeaders(), ...headers ?? {}});
     }, builder);
   }
 
   Future<void> delete(Uri url, {Map<String, String>? headers}) async {
     await _handleResponse(() async {
-      return await client.delete(url, headers: headers);
+      return await http.delete(url, headers: {...await getDefaultHeaders(), ...headers ?? {}});
     }, (response) => true);
   }
 }
@@ -77,9 +80,9 @@ class HeroBaseRepository extends BaseRepository {
   Map<String, String>? headers;
   late final String baseUrl;
 
-  HeroBaseRepository(super.client, {Group? group}) {
+  HeroBaseRepository({Group? group}) {
     baseUrl = FlavorConfig.instance.variables["baseUrl"];
-    headers = null != group ? headers = {"Group": group.id} : headers = {};
+    headers = null != group ? headers = {"x-kalinar-group": group.id} : headers = {};
   }
 
   Future<T> heroGet<T>(String url, T Function(dynamic response) builder, {Map<String, String>? query}) async {
