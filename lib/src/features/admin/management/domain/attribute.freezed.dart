@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'attribute.dart';
 
@@ -23,6 +23,7 @@ mixin _$Attribute {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
   String? get iconData => throw _privateConstructorUsedError;
   double get stepSize => throw _privateConstructorUsedError;
   double get minValue => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $AttributeCopyWith<$Res> {
       {String id,
       String name,
       String? description,
+      String? category,
       String? iconData,
       double stepSize,
       double minValue,
@@ -67,6 +69,7 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
     Object? id = null,
     Object? name = null,
     Object? description = freezed,
+    Object? category = freezed,
     Object? iconData = freezed,
     Object? stepSize = null,
     Object? minValue = null,
@@ -85,6 +88,10 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String?,
       iconData: freezed == iconData
           ? _value.iconData
@@ -121,6 +128,7 @@ abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
       {String id,
       String name,
       String? description,
+      String? category,
       String? iconData,
       double stepSize,
       double minValue,
@@ -142,6 +150,7 @@ class __$$_AttributeCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? description = freezed,
+    Object? category = freezed,
     Object? iconData = freezed,
     Object? stepSize = null,
     Object? minValue = null,
@@ -160,6 +169,10 @@ class __$$_AttributeCopyWithImpl<$Res>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String?,
       iconData: freezed == iconData
           ? _value.iconData
@@ -192,6 +205,7 @@ class _$_Attribute implements _Attribute {
       {required this.id,
       required this.name,
       this.description,
+      this.category,
       this.iconData,
       this.stepSize = 1,
       this.minValue = 0,
@@ -207,6 +221,8 @@ class _$_Attribute implements _Attribute {
   final String name;
   @override
   final String? description;
+  @override
+  final String? category;
   @override
   final String? iconData;
   @override
@@ -224,7 +240,7 @@ class _$_Attribute implements _Attribute {
 
   @override
   String toString() {
-    return 'Attribute(id: $id, name: $name, description: $description, iconData: $iconData, stepSize: $stepSize, minValue: $minValue, maxValue: $maxValue, isGlobal: $isGlobal)';
+    return 'Attribute(id: $id, name: $name, description: $description, category: $category, iconData: $iconData, stepSize: $stepSize, minValue: $minValue, maxValue: $maxValue, isGlobal: $isGlobal)';
   }
 
   @override
@@ -236,6 +252,8 @@ class _$_Attribute implements _Attribute {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.iconData, iconData) ||
                 other.iconData == iconData) &&
             (identical(other.stepSize, stepSize) ||
@@ -250,8 +268,8 @@ class _$_Attribute implements _Attribute {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, iconData,
-      stepSize, minValue, maxValue, isGlobal);
+  int get hashCode => Object.hash(runtimeType, id, name, description, category,
+      iconData, stepSize, minValue, maxValue, isGlobal);
 
   @JsonKey(ignore: true)
   @override
@@ -272,6 +290,7 @@ abstract class _Attribute implements Attribute {
       {required final String id,
       required final String name,
       final String? description,
+      final String? category,
       final String? iconData,
       final double stepSize,
       final double minValue,
@@ -287,6 +306,8 @@ abstract class _Attribute implements Attribute {
   String get name;
   @override
   String? get description;
+  @override
+  String? get category;
   @override
   String? get iconData;
   @override

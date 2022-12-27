@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
 
 import '../../../../utilities/base_repository.dart';
@@ -19,6 +18,14 @@ class AttributesRepository extends HeroBaseRepository {
 
   Future<List<Attribute>> getAllGlobal() async {
     return await heroGet("/api/attributes/global", (response) => List<Attribute>.from(response.map((model) => Attribute.fromJson(model))));
+  }
+
+  Future<List<String>> getFilteredCategories(String? query) async {
+    return await heroGet(
+      "/api/attributes/categories",
+      (response) => List<String>.from(response.map((model) => model)),
+      query: {"query": query ?? ""},
+    );
   }
 
   Future<Attribute> createAttribute(Map<String, dynamic> data) async {

@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/attributes_repository.dart';
 import '../domain/attribute.dart';
-
 import 'attribute_list_controller.dart';
 
 class AttributeController {
@@ -22,6 +21,10 @@ class AttributeController {
 
   Future<List<Attribute>> getAllGlobal() async {
     return await repo.getAllGlobal();
+  }
+
+  Future<List<String>> getCategories(String? query) async {
+    return await repo.getFilteredCategories(query);
   }
 
   Future<AsyncValue> create(Map<String, dynamic> data) async {

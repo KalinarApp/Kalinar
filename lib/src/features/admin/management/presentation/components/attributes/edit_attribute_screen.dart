@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +9,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../../../../../common_widgets/form_fields/description_field.dart';
 import '../../../../../../common_widgets/form_fields/icon_picker_field.dart';
 import '../../../../../../common_widgets/form_fields/name_field.dart';
+import '../../../../../../common_widgets/form_fields/typeahead_text_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../utilities/async_value_extension.dart';
 import '../../../application/attribute_controller.dart';
@@ -34,12 +34,14 @@ class _EditSkillScreenState extends ConsumerState<EditAttributeScreen> {
 
   late AttributeController controller;
   final RoundedLoadingButtonController _btnController = RoundedLoadingButtonController();
+  final categoriesController = TextEditingController();
 
   @override
   void initState() {
     controller = ref.read(attributeControllerProvider);
     if (null != widget.attributeId) {
       item = ref.read(attributeListControllerProvider).valueOrNull?.firstWhere((element) => element.id == widget.attributeId);
+      categoriesController.text = item?.category ?? '';
     }
 
     super.initState();
@@ -95,6 +97,19 @@ class _EditSkillScreenState extends ConsumerState<EditAttributeScreen> {
                     padding: const EdgeInsets.all(4.0),
                     child: IconPickerField(initialValue: item?.iconData),
                   ),
+                ),
+                TypeAheadTextField(
+                  name: "category",
+                  controller: categoriesController,
+                  decoration: const InputDecoration(labelText: "Kategorie"),
+                  itemBuilder: (context, itemData) => ListTile(title: Text(itemData)),
+                  suggestionsCallback: (pattern) async => await ref.read(attributeControllerProvider).getCategories(pattern),
+                  getImmediateSuggestions: false,
+                  hideOnEmpty: true,
+                  hideOnError: true,
+                  hideOnLoading: true,
+                  hideSuggestionsOnKeyboardHide: true,
+                  keepSuggestionsOnLoading: true,
                 ),
                 DescriptionField(label: AppLocalizations.of(context)!.attributeDescription, initialValue: item?.description),
                 FormBuilderTextField(
