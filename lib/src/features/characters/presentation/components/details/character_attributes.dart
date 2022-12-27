@@ -20,16 +20,38 @@ class CharacterAttributes extends StatelessWidget {
     ];
   }
 
-  List<Widget> _getGroupedAttributes(List<AttributeValue> attributes) {
+  List<Widget> _getGroupedAttributes(List<AttributeValue> attributes, BuildContext context) {
     final grouped = groupBy(attributes, (element) => element.attribute.category);
+    final keys = grouped.keys.toList()
+      ..sort(
+        (a, b) {
+          if (a == null) return 1;
+          if (b == null) return -1;
+          return a.compareTo(b);
+        },
+      );
+
     List<Widget> groups = [];
-    for (final key in grouped.keys) {
-      final list = grouped[key];
+    for (final key in keys) {
+      final list = grouped[key]!;
+      list.sortBy((element) => element.attribute.name);
       groups.add(
         Padding(
           padding: const EdgeInsets.only(top: 8),
           child: Column(
-            children: [],
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("${key ?? AppLocalizations.of(context)!.attributesMore}:"),
+              const SizedBox(height: 4),
+              StaggeredGrid.extent(
+                maxCrossAxisExtent: 200,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 10,
+                children: list.map((e) => AttributeValueWidget(e, showTitle: true)).toList(),
+              ),
+              const SizedBox(height: 10),
+            ],
           ),
         ),
       );
@@ -56,16 +78,7 @@ class CharacterAttributes extends StatelessWidget {
       children: [
         StaggeredGrid.extent(maxCrossAxisExtent: 200, mainAxisSpacing: 4, crossAxisSpacing: 10, children: globalAttributes),
         const SizedBox(height: 20),
-        ..._getGroupedAttributes(others),
-        if (others.isNotEmpty) Text(AppLocalizations.of(context)!.attributesMore),
-        if (others.isNotEmpty) const SizedBox(height: 8),
-        if (others.isNotEmpty)
-          StaggeredGrid.extent(
-            maxCrossAxisExtent: 200,
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 10,
-            children: others.map((e) => AttributeValueWidget(e, showTitle: true)).toList(),
-          ),
+        ..._getGroupedAttributes(others, context),
       ],
     );
   }
