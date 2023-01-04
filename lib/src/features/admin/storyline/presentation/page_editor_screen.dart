@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:markdown_toolbar/markdown_toolbar.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:super_editor/super_editor.dart';
 
 import '../../../../common_widgets/form_fields/custom_text_field.dart';
 import '../../../../common_widgets/save_button.dart';
@@ -25,6 +25,7 @@ class _PageEditorScreenState extends ConsumerState<PageEditorScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
 
   final controller = RoundedLoadingButtonController();
+  MutableDocument document = MutableDocument(nodes: []);
 
   Future _save() async {
     // if (_formKey.currentState?.validate() ?? false) {
@@ -92,7 +93,20 @@ class _PageEditorScreenState extends ConsumerState<PageEditorScreen> {
                   children: [
                     CustomtextField(name: "title", label: "Titel", initialValue: item?.title),
                     const SizedBox(height: 10),
-                    const Expanded(child: MarkdownToolbar(useIncludedTextField: true, height: 32, width: 32, iconSize: 24)),
+                    Expanded(
+                      child: Card(
+                        elevation: 4,
+                        // color: Theme.of(context).colorScheme.inverseSurface,
+                        margin: const EdgeInsets.symmetric(horizontal: 0),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: SuperEditor(
+                            editor: DocumentEditor(document: document),
+                            androidToolbarBuilder: (context) => Container(height: 25, color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

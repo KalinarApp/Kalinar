@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
@@ -185,7 +186,7 @@ class _StorylineEditScreenState extends ConsumerState<StorylineEditScreen> {
                         items:
                             StoryEntryType.values.map((e) => DropdownMenuItem<StoryEntryType>(value: e, child: Text(e.getTitle(context)))).toList(),
                       ),
-                      CustomtextField(name: "title", label: "Titel", initialValue: item?.title),
+                      CustomtextField(name: "title", label: "Titel", validator: FormBuilderValidators.required(), initialValue: item?.title),
                       Row(
                         children: [
                           if (StoryEntryType.StoryImage != selectedType)

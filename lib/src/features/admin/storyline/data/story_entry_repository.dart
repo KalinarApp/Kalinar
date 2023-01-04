@@ -1,13 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/base_repository.dart';
-import '../../../authentication/data/auth_repository.dart';
 import '../../../group_management/application/group_notifier.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_overview.dart';
 
 class StoryEntryRepository extends HeroBaseRepository {
-  StoryEntryRepository(super.client, {super.group});
+  StoryEntryRepository({super.group});
 
   Future<List<StoryEntryOverview>> getAll() async {
     return await heroGet("/api/story", (response) => List<StoryEntryOverview>.from(response.map((model) => StoryEntryOverview.fromJson(model))));
@@ -32,8 +31,12 @@ class StoryEntryRepository extends HeroBaseRepository {
   Future unlock(String id, bool isUnlocked) async {
     await heroPost("/api/story/$id/unlock", {"state": isUnlocked}, (response) => true);
   }
+
+  Future deleteEntry(String id) async {
+    await heroDelete("/api/story/$id");
+  }
 }
 
 final storyEntryRepositoryProvider = Provider<StoryEntryRepository>((ref) {
-  return StoryEntryRepository(ref.watch(authProvider), group: ref.watch(groupNotifierProvider).group);
+  return StoryEntryRepository(group: ref.watch(groupNotifierProvider).group);
 });

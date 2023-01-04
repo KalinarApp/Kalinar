@@ -10,7 +10,7 @@ class ImageDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PhotoView(
-      imageProvider: NetworkImage(item.imageUrl!),
+      imageProvider: null != item.imageUrl ? NetworkImage(item.imageUrl!) : null,
       backgroundDecoration: const BoxDecoration(color: Colors.transparent),
       maxScale: 2.0,
       minScale: .5,

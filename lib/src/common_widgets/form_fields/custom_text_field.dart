@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class CustomtextField extends StatelessWidget {
@@ -8,8 +7,9 @@ class CustomtextField extends StatelessWidget {
   final String? label;
   final IconData? icon;
   final TextInputAction? action;
+  final String? Function(String?)? validator;
 
-  const CustomtextField({required this.name, this.label, this.initialValue, this.icon, this.action, super.key});
+  const CustomtextField({required this.name, this.label, this.initialValue, this.icon, this.validator, this.action, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,7 @@ class CustomtextField extends StatelessWidget {
       initialValue: initialValue,
       enableSuggestions: true,
       autocorrect: true,
+      validator: validator,
       textCapitalization: TextCapitalization.sentences,
       textInputAction: action ?? TextInputAction.next,
       decoration: InputDecoration(

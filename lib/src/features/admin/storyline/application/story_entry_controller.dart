@@ -40,11 +40,11 @@ class StoryEntryController {
     return state;
   }
 
-  // Future<AsyncValue> delete(String id) async {
-  //   final state = await AsyncValue.guard(() async => await repo.deleteStoryEntry(id));
-  //   await storyEntrylist.refresh();
-  //   return state;
-  // }
+  Future<AsyncValue> delete(String id) async {
+    final state = await AsyncValue.guard(() async => await repo.deleteEntry(id));
+    await storyEntrylist.refresh();
+    return state;
+  }
 }
 
 final storyEntryControllerProvider = Provider<StoryEntryController>(
