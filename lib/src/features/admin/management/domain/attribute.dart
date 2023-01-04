@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,6 +13,7 @@ class Attribute with _$Attribute {
     required String id,
     required String name,
     String? description,
+    String? category,
     String? iconData,
     @Default(1) double stepSize,
     @Default(0) double minValue,

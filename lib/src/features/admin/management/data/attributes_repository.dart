@@ -19,6 +19,14 @@ class AttributesRepository extends HeroBaseRepository {
     return await heroGet("/api/attributes/global", (response) => List<Attribute>.from(response.map((model) => Attribute.fromJson(model))));
   }
 
+  Future<List<String>> getFilteredCategories(String? query) async {
+    return await heroGet(
+      "/api/attributes/categories",
+      (response) => List<String>.from(response.map((model) => model)),
+      query: {"query": query ?? ""},
+    );
+  }
+
   Future<Attribute> createAttribute(Map<String, dynamic> data) async {
     return await heroPost("/api/attributes", data, (response) => Attribute.fromJson(response));
   }
