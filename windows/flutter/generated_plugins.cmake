@@ -5,7 +5,6 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   desktop_drop
   desktop_webview_auth
-  flutter_secure_storage_windows
   sentry_flutter
   url_launcher_windows
   window_size
