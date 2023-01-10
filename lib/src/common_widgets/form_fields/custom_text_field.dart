@@ -7,15 +7,19 @@ class CustomtextField extends StatelessWidget {
   final String? label;
   final IconData? icon;
   final TextInputAction? action;
+  final int? maxChararcters;
   final String? Function(String?)? validator;
+  final String? helperText;
 
-  const CustomtextField({required this.name, this.label, this.initialValue, this.icon, this.validator, this.action, super.key});
+  const CustomtextField(
+      {required this.name, this.label, this.initialValue, this.icon, this.validator, this.action, this.maxChararcters, this.helperText, super.key});
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       name: name,
       initialValue: initialValue,
+      maxLength: maxChararcters,
       enableSuggestions: true,
       autocorrect: true,
       validator: validator,
@@ -24,6 +28,7 @@ class CustomtextField extends StatelessWidget {
       decoration: InputDecoration(
         label: null != label ? Text(label!) : null,
         prefixIcon: null != icon ? Icon(icon!) : null,
+        helperText: helperText,
       ),
     );
   }

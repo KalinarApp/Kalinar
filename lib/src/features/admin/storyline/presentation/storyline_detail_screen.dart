@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/admin/storyline/presentation/components/book_details.dart';
 
 import '../application/story_entry_controller.dart';
 import '../domain/story_entry.dart';
@@ -44,7 +45,7 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
       case StoryEntryType.StoryImage:
         return ImageDetails(item!);
       case StoryEntryType.StoryBook:
-        return Container();
+        return BookDetails(item!);
     }
   }
 
