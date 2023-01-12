@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/admin/storyline/application/story_entries_controller.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/form_fields/bool_field.dart';
@@ -15,7 +16,6 @@ import '../../../../common_widgets/form_fields/multiline_text_field.dart';
 import '../../../../common_widgets/loading_indicator.dart';
 import '../../../../common_widgets/save_button.dart';
 import '../../../../utilities/async_value_extension.dart';
-import '../application/story_entry_controller.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_type.dart';
 
@@ -39,7 +39,7 @@ class _StorylineEditScreenState extends ConsumerState<StorylineEditScreen> {
 
   Future<StoryEntry?> _loadItem() async {
     if (null != widget.id) {
-      final result = await ref.read(storyEntryControllerProvider).get(widget.id!);
+      final result = await ref.read(storyEntriesControllerProvider).getById(widget.id!);
       setState(() {
         selectedType = StoryEntryType.values.byName(result.type);
       });
@@ -127,8 +127,8 @@ class _StorylineEditScreenState extends ConsumerState<StorylineEditScreen> {
       final data = _formKey.currentState?.value;
       if (null != data) {
         final value = null == widget.id
-            ? await ref.read(storyEntryControllerProvider).create(data)
-            : await ref.read(storyEntryControllerProvider).update(widget.id!, data);
+            ? await ref.read(storyEntriesControllerProvider).create(data)
+            : await ref.read(storyEntriesControllerProvider).update(widget.id!, data);
         if (!mounted) return;
         value.showSnackbarOnError(context);
         if (value.hasError) {

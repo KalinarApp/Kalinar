@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/admin/storyline/application/story_entries_controller.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/components/book_details.dart';
 
-import '../application/story_entry_controller.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_type.dart';
 import 'components/image_details.dart';
@@ -29,7 +29,7 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
   @override
   void didChangeDependencies() {
     Future.delayed(Duration.zero, () async {
-      final result = await ref.read(storyEntryControllerProvider).get(widget.id);
+      final result = await ref.read(storyEntriesControllerProvider).getById(widget.id);
       setState(() => item = result);
     });
     super.didChangeDependencies();
@@ -62,7 +62,7 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
     );
 
     if (shouldDelete) {
-      ref.read(storyEntryControllerProvider).delete(widget.id);
+      ref.read(storyEntriesControllerProvider).delete(widget.id);
       if (!mounted) return;
       GoRouter.of(context).pop();
     }

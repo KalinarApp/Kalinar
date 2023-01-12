@@ -33,10 +33,6 @@ class BookPageController {
       await repo.updatePageNumber(bookId, id, newPosition);
     });
 
-    // if (state.hasError) {
-    //   await getBook(bookId);
-    // }
-
     return state;
   }
 
@@ -66,42 +62,6 @@ class BookPageController {
       notifier.delete(pageId);
     });
   }
-
-  // Future<AsyncValue> reorder(String id, int newPosition) async {
-  //   return AsyncValue.guard(() async {
-  //     await repo.reorder(id, newPosition);
-  //     storyEntrylist.refresh();
-  //   });
-  // }
-
-  // Future<AsyncValue> unlock(String id, bool isUnlocked) async {
-  //   return AsyncValue.guard(() async {
-  //     await repo.unlock(id, isUnlocked);
-  //     storyEntrylist.refresh();
-  //   });
-  // }
-
-  // Future<> getAllPages(String bookId) async {
-  //   return await AsyncValue.guard(() async => await repo.getAllPages(bookId));
-  // }
-
-  // Future<AsyncValue> create(String bookId, Map<String, dynamic> data) async {
-  //   final state = await AsyncValue.guard(() async => await repo.createPage(data));
-  //   await storyEntrylist.refresh();
-  //   return state;
-  // }
-
-  // Future<AsyncValue> update(String id, Map<String, dynamic> data) async {
-  //   final state = await AsyncValue.guard(() async => await repo.updateEntry(id, data));
-  //   await storyEntrylist.refresh();
-  //   return state;
-  // }
-
-  // Future<AsyncValue> delete(String id) async {
-  //   final state = await AsyncValue.guard(() async => await repo.deleteEntry(id));
-  //   await storyEntrylist.refresh();
-  //   return state;
-  // }
 }
 
 final storyBookControllerProvider = Provider<BookPageController>((ref) => BookPageController(
