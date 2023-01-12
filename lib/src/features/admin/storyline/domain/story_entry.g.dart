@@ -14,6 +14,7 @@ _$_StoryEntry _$$_StoryEntryFromJson(Map<String, dynamic> json) =>
       type: json['type'] as String,
       iconUrl: json['iconUrl'] as String?,
       description: json['description'] as String?,
+      date: json['date'] as String?,
       imageUrl: json['imageUrl'] as String?,
       pages: (json['pages'] as List<dynamic>?)
               ?.map((e) => BookPage.fromJson(e as Map<String, dynamic>))
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$_StoryEntryToJson(_$_StoryEntry instance) =>
       'type': instance.type,
       'iconUrl': instance.iconUrl,
       'description': instance.description,
+      'date': instance.date,
       'imageUrl': instance.imageUrl,
       'pages': instance.pages,
       'isUnlocked': instance.isUnlocked,

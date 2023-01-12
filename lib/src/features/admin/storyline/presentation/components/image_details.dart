@@ -12,8 +12,6 @@ class ImageDetails extends StatelessWidget {
     return PhotoView(
       imageProvider: null != item.imageUrl ? NetworkImage(item.imageUrl!) : null,
       backgroundDecoration: const BoxDecoration(color: Colors.transparent),
-      maxScale: 2.0,
-      minScale: .5,
     );
   }
 }

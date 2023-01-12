@@ -13,6 +13,7 @@ class StoryEntry with _$StoryEntry {
     required String type,
     String? iconUrl,
     String? description,
+    String? date,
     String? imageUrl,
     @Default([]) List<BookPage> pages,
     @Default(false) bool isUnlocked,

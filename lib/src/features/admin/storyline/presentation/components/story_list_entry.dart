@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -18,15 +16,17 @@ class StoryListEntry extends StatelessWidget {
     return ListTile(
       key: key,
       onTap: () => GoRouter.of(context).pushNamed(StorylineDetailScreen.name, params: {"id": item.id}),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Material(
+          child: IconButton(
+            icon: FaIcon(item.isUnlocked ? FontAwesomeIcons.bookOpen : FontAwesomeIcons.book),
+            onPressed: () => unlock(item.id, !item.isUnlocked),
+          ),
+        ),
+      ),
       title: Text(item.title),
       subtitle: null != item.description ? Text(item.description!) : null,
-      trailing: Platform.isWindows
-          ? null
-          : InkWell(
-              onTap: () => unlock(item.id, !item.isUnlocked),
-              borderRadius: BorderRadius.circular(20),
-              child: FaIcon(item.isUnlocked ? FontAwesomeIcons.bookOpen : FontAwesomeIcons.book),
-            ),
     );
   }
 }

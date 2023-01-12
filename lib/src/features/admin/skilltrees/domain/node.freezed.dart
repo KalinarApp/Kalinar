@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'node.dart';
 
@@ -83,7 +83,7 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
     Object? color = null,
     Object? isEasyReachable = null,
     Object? unlockedAt = freezed,
-    Object? isUnlocked = freezed,
+    Object? isUnlocked = null,
     Object? xPos = null,
     Object? yPos = null,
     Object? precessors = null,
@@ -122,7 +122,7 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
           ? _value.unlockedAt
           : unlockedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      isUnlocked: freezed == isUnlocked
+      isUnlocked: null == isUnlocked
           ? _value.isUnlocked
           : isUnlocked // ignore: cast_nullable_to_non_nullable
               as dynamic,
@@ -196,7 +196,7 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
     Object? color = null,
     Object? isEasyReachable = null,
     Object? unlockedAt = freezed,
-    Object? isUnlocked = freezed,
+    Object? isUnlocked = null,
     Object? xPos = null,
     Object? yPos = null,
     Object? precessors = null,
@@ -235,7 +235,7 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
           ? _value.unlockedAt
           : unlockedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      isUnlocked: freezed == isUnlocked ? _value.isUnlocked! : isUnlocked,
+      isUnlocked: null == isUnlocked ? _value.isUnlocked : isUnlocked,
       xPos: null == xPos
           ? _value.xPos
           : xPos // ignore: cast_nullable_to_non_nullable
@@ -307,7 +307,6 @@ class _$_Node implements _Node {
   @override
   @JsonKey()
   List<String> get precessors {
-    if (_precessors is EqualUnmodifiableListView) return _precessors;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_precessors);
   }
@@ -316,7 +315,6 @@ class _$_Node implements _Node {
   @override
   @JsonKey()
   List<String> get successors {
-    if (_successors is EqualUnmodifiableListView) return _successors;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_successors);
   }

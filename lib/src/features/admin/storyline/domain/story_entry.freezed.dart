@@ -26,6 +26,7 @@ mixin _$StoryEntry {
   String get type => throw _privateConstructorUsedError;
   String? get iconUrl => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get date => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   List<BookPage> get pages => throw _privateConstructorUsedError;
   bool get isUnlocked => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $StoryEntryCopyWith<$Res> {
       String type,
       String? iconUrl,
       String? description,
+      String? date,
       String? imageUrl,
       List<BookPage> pages,
       bool isUnlocked});
@@ -73,6 +75,7 @@ class _$StoryEntryCopyWithImpl<$Res, $Val extends StoryEntry>
     Object? type = null,
     Object? iconUrl = freezed,
     Object? description = freezed,
+    Object? date = freezed,
     Object? imageUrl = freezed,
     Object? pages = null,
     Object? isUnlocked = null,
@@ -101,6 +104,10 @@ class _$StoryEntryCopyWithImpl<$Res, $Val extends StoryEntry>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
@@ -133,6 +140,7 @@ abstract class _$$_StoryEntryCopyWith<$Res>
       String type,
       String? iconUrl,
       String? description,
+      String? date,
       String? imageUrl,
       List<BookPage> pages,
       bool isUnlocked});
@@ -155,6 +163,7 @@ class __$$_StoryEntryCopyWithImpl<$Res>
     Object? type = null,
     Object? iconUrl = freezed,
     Object? description = freezed,
+    Object? date = freezed,
     Object? imageUrl = freezed,
     Object? pages = null,
     Object? isUnlocked = null,
@@ -184,6 +193,10 @@ class __$$_StoryEntryCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -210,6 +223,7 @@ class _$_StoryEntry implements _StoryEntry {
       required this.type,
       this.iconUrl,
       this.description,
+      this.date,
       this.imageUrl,
       final List<BookPage> pages = const [],
       this.isUnlocked = false})
@@ -231,6 +245,8 @@ class _$_StoryEntry implements _StoryEntry {
   @override
   final String? description;
   @override
+  final String? date;
+  @override
   final String? imageUrl;
   final List<BookPage> _pages;
   @override
@@ -246,7 +262,7 @@ class _$_StoryEntry implements _StoryEntry {
 
   @override
   String toString() {
-    return 'StoryEntry(id: $id, title: $title, order: $order, type: $type, iconUrl: $iconUrl, description: $description, imageUrl: $imageUrl, pages: $pages, isUnlocked: $isUnlocked)';
+    return 'StoryEntry(id: $id, title: $title, order: $order, type: $type, iconUrl: $iconUrl, description: $description, date: $date, imageUrl: $imageUrl, pages: $pages, isUnlocked: $isUnlocked)';
   }
 
   @override
@@ -261,6 +277,7 @@ class _$_StoryEntry implements _StoryEntry {
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.date, date) || other.date == date) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             const DeepCollectionEquality().equals(other._pages, _pages) &&
@@ -278,6 +295,7 @@ class _$_StoryEntry implements _StoryEntry {
       type,
       iconUrl,
       description,
+      date,
       imageUrl,
       const DeepCollectionEquality().hash(_pages),
       isUnlocked);
@@ -304,6 +322,7 @@ abstract class _StoryEntry implements StoryEntry {
       required final String type,
       final String? iconUrl,
       final String? description,
+      final String? date,
       final String? imageUrl,
       final List<BookPage> pages,
       final bool isUnlocked}) = _$_StoryEntry;
@@ -323,6 +342,8 @@ abstract class _StoryEntry implements StoryEntry {
   String? get iconUrl;
   @override
   String? get description;
+  @override
+  String? get date;
   @override
   String? get imageUrl;
   @override

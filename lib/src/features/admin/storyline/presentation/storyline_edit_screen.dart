@@ -198,6 +198,12 @@ class _StorylineEditScreenState extends ConsumerState<StorylineEditScreen> {
                               child: MultilineTextField(name: "description", initialValue: item?.description, label: "Beschreibung", maxLines: 6)),
                         ],
                       ),
+                      CustomtextField(
+                        name: "date",
+                        label: "Veröffentlichungsdatum",
+                        initialValue: item?.date,
+                        helperText: "Dient nur der Anzeige und ändert nichts an der Reihenfolge.",
+                      ),
                       BoolField(
                           name: "isUnlocked", initialValue: item?.isUnlocked, label: "Wurde der Eintrag bereits von der Gruppe freigeschaltet?"),
                       if (StoryEntryType.StoryImage == selectedType) ..._buildImageFields(item?.imageUrl),

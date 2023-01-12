@@ -8,11 +8,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kalinar/src/common_widgets/content_tab.dart';
-import 'package:kalinar/src/common_widgets/form_fields/bool_field.dart';
-import 'package:kalinar/src/common_widgets/form_fields/custom_text_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/save_button.dart';
@@ -38,7 +35,6 @@ class _PageEditorScreenState extends ConsumerState<PageEditorScreen> with Single
   static final _formKey = GlobalKey<FormBuilderState>();
 
   final controller = RoundedLoadingButtonController();
-  late final TabController tabController;
   late final QuillController quillController;
 
   late final List<ContentTab> tabs;
@@ -91,45 +87,6 @@ class _PageEditorScreenState extends ConsumerState<PageEditorScreen> with Single
       quillController = QuillController.basic();
     }
 
-    tabController = TabController(length: 2, vsync: this);
-
-    tabs = [
-      ContentTab(
-        icon: const FaIcon(FontAwesomeIcons.fileLines),
-        text: "Dokument",
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: QuillEditor.basic(controller: quillController, readOnly: false, embedBuilders: FlutterQuillEmbeds.builders()),
-            ),
-            QuillToolbar.basic(controller: quillController, embedButtons: FlutterQuillEmbeds.buttons()),
-          ],
-        ),
-      ),
-      ContentTab(
-        icon: const FaIcon(FontAwesomeIcons.gear),
-        text: "Konfiguration",
-        content: Column(
-          children: [
-            CustomtextField(
-              name: "title",
-              label: "Überschrift der Seite",
-              initialValue: page?.title,
-              maxChararcters: 100,
-              helperText: "Wenn kein Text angegeben ist, wird die erste Zeile des Texts verwendet.",
-            ),
-            BoolField(name: "isWritten", label: "Wurde diese Seite bereits verfasst?", initialValue: page?.isWritten ?? false),
-            const CustomtextField(
-              name: "date",
-              label: "Veröffentlichungsdatum",
-              helperText: "Wird nur zur Anzeige im Zeitstrahl verwendet.",
-            ),
-          ],
-        ),
-      )
-    ];
-
     return null;
   }
 
@@ -150,11 +107,21 @@ class _PageEditorScreenState extends ConsumerState<PageEditorScreen> with Single
                   child: SaveButton(controller: controller, onSave: _save),
                 )
               ],
-              bottom: TabBar(controller: tabController, tabs: tabs),
             ),
             body: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: FormBuilder(key: _formKey, child: TabBarView(controller: tabController, children: [...tabs.map((e) => e.content)])),
+              child: FormBuilder(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: QuillEditor.basic(controller: quillController, readOnly: false, embedBuilders: FlutterQuillEmbeds.builders()),
+                    ),
+                    QuillToolbar.basic(controller: quillController, embedButtons: FlutterQuillEmbeds.buttons()),
+                  ],
+                ),
+              ),
             ),
           );
         });
