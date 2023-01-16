@@ -85,7 +85,7 @@ class HeroBaseRepository extends BaseRepository {
     headers = null != group ? headers = {"x-kalinar-group": group.id} : headers = {};
   }
 
-  Future<T> heroGet<T>(String url, T Function(dynamic response) builder, {Map<String, String>? query}) async {
+  Future<T> heroGet<T>(String url, T Function(dynamic response) builder, {Map<String, dynamic>? query}) async {
     return await super.get(Uri.https(baseUrl, url, query), builder, headers: headers);
   }
 

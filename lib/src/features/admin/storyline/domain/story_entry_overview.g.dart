@@ -14,6 +14,8 @@ _$_StoryEntryOverview _$$_StoryEntryOverviewFromJson(
       order: json['order'] as int,
       type: json['type'] as String,
       iconUrl: json['iconUrl'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      pageCount: json['pageCount'] as int?,
       description: json['description'] as String?,
       isUnlocked: json['isUnlocked'] as bool? ?? false,
     );
@@ -26,6 +28,8 @@ Map<String, dynamic> _$$_StoryEntryOverviewToJson(
       'order': instance.order,
       'type': instance.type,
       'iconUrl': instance.iconUrl,
+      'imageUrl': instance.imageUrl,
+      'pageCount': instance.pageCount,
       'description': instance.description,
       'isUnlocked': instance.isUnlocked,
     };

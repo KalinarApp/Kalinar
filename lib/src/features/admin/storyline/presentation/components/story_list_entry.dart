@@ -26,7 +26,7 @@ class StoryListEntry extends StatelessWidget {
         ),
       ),
       title: Text(item.title),
-      subtitle: null != item.description ? Text(item.description!) : null,
+      subtitle: null != item.description ? Text(item.description!.replaceAll(RegExp(r'(?:[\t ]*(?:\r?\n|\r))+'), '\n'), maxLines: 2) : null,
     );
   }
 }

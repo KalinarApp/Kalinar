@@ -11,6 +11,8 @@ class StoryEntryOverview with _$StoryEntryOverview {
     required int order,
     required String type,
     String? iconUrl,
+    String? imageUrl,
+    int? pageCount,
     String? description,
     @Default(false) bool isUnlocked,
   }) = _StoryEntryOverview;

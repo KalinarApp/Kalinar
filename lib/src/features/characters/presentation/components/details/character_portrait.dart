@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-
 import 'package:animations/animations.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:photo_view/photo_view.dart';
 
 class CharacterPortrait extends StatelessWidget {
   final String? imageUrl;
@@ -10,7 +11,7 @@ class CharacterPortrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = null == imageUrl ? null : Image.network(imageUrl!);
+    final image = null == imageUrl ? null : CachedNetworkImage(imageUrl: imageUrl!);
     return OpenContainer(
       closedElevation: 4,
       closedColor: Theme.of(context).backgroundColor,
@@ -26,12 +27,9 @@ class CharacterPortrait extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Image.network(
-          imageUrl!,
-          fit: BoxFit.contain,
-          width: double.infinity,
-          height: double.infinity,
-          alignment: Alignment.center,
+        body: PhotoView(
+          imageProvider: CachedNetworkImageProvider(imageUrl!),
+          backgroundDecoration: const BoxDecoration(color: Colors.transparent),
         ),
       ),
     );

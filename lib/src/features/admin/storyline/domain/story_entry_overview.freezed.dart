@@ -25,6 +25,8 @@ mixin _$StoryEntryOverview {
   int get order => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   String? get iconUrl => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  int? get pageCount => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   bool get isUnlocked => throw _privateConstructorUsedError;
 
@@ -46,6 +48,8 @@ abstract class $StoryEntryOverviewCopyWith<$Res> {
       int order,
       String type,
       String? iconUrl,
+      String? imageUrl,
+      int? pageCount,
       String? description,
       bool isUnlocked});
 }
@@ -68,6 +72,8 @@ class _$StoryEntryOverviewCopyWithImpl<$Res, $Val extends StoryEntryOverview>
     Object? order = null,
     Object? type = null,
     Object? iconUrl = freezed,
+    Object? imageUrl = freezed,
+    Object? pageCount = freezed,
     Object? description = freezed,
     Object? isUnlocked = null,
   }) {
@@ -92,6 +98,14 @@ class _$StoryEntryOverviewCopyWithImpl<$Res, $Val extends StoryEntryOverview>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pageCount: freezed == pageCount
+          ? _value.pageCount
+          : pageCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -118,6 +132,8 @@ abstract class _$$_StoryEntryOverviewCopyWith<$Res>
       int order,
       String type,
       String? iconUrl,
+      String? imageUrl,
+      int? pageCount,
       String? description,
       bool isUnlocked});
 }
@@ -138,6 +154,8 @@ class __$$_StoryEntryOverviewCopyWithImpl<$Res>
     Object? order = null,
     Object? type = null,
     Object? iconUrl = freezed,
+    Object? imageUrl = freezed,
+    Object? pageCount = freezed,
     Object? description = freezed,
     Object? isUnlocked = null,
   }) {
@@ -162,6 +180,14 @@ class __$$_StoryEntryOverviewCopyWithImpl<$Res>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pageCount: freezed == pageCount
+          ? _value.pageCount
+          : pageCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -183,6 +209,8 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
       required this.order,
       required this.type,
       this.iconUrl,
+      this.imageUrl,
+      this.pageCount,
       this.description,
       this.isUnlocked = false});
 
@@ -200,6 +228,10 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
   @override
   final String? iconUrl;
   @override
+  final String? imageUrl;
+  @override
+  final int? pageCount;
+  @override
   final String? description;
   @override
   @JsonKey()
@@ -207,7 +239,7 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
 
   @override
   String toString() {
-    return 'StoryEntryOverview(id: $id, title: $title, order: $order, type: $type, iconUrl: $iconUrl, description: $description, isUnlocked: $isUnlocked)';
+    return 'StoryEntryOverview(id: $id, title: $title, order: $order, type: $type, iconUrl: $iconUrl, imageUrl: $imageUrl, pageCount: $pageCount, description: $description, isUnlocked: $isUnlocked)';
   }
 
   @override
@@ -220,6 +252,10 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
             (identical(other.order, order) || other.order == order) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.pageCount, pageCount) ||
+                other.pageCount == pageCount) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.isUnlocked, isUnlocked) ||
@@ -228,8 +264,8 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, title, order, type, iconUrl, description, isUnlocked);
+  int get hashCode => Object.hash(runtimeType, id, title, order, type, iconUrl,
+      imageUrl, pageCount, description, isUnlocked);
 
   @JsonKey(ignore: true)
   @override
@@ -253,6 +289,8 @@ abstract class _StoryEntryOverview implements StoryEntryOverview {
       required final int order,
       required final String type,
       final String? iconUrl,
+      final String? imageUrl,
+      final int? pageCount,
       final String? description,
       final bool isUnlocked}) = _$_StoryEntryOverview;
 
@@ -269,6 +307,10 @@ abstract class _StoryEntryOverview implements StoryEntryOverview {
   String get type;
   @override
   String? get iconUrl;
+  @override
+  String? get imageUrl;
+  @override
+  int? get pageCount;
   @override
   String? get description;
   @override

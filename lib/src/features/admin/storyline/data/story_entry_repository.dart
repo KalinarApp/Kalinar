@@ -8,8 +8,12 @@ import '../domain/story_entry_overview.dart';
 class StoryEntryRepository extends HeroBaseRepository {
   StoryEntryRepository({super.group});
 
-  Future<List<StoryEntryOverview>> getAll() async {
-    return await heroGet("/api/story", (response) => List<StoryEntryOverview>.from(response.map((model) => StoryEntryOverview.fromJson(model))));
+  Future<List<StoryEntryOverview>> getAll({bool unlockedOnly = false}) async {
+    return await heroGet(
+      "/api/story",
+      query: {"unlockedOnly": unlockedOnly.toString()},
+      (response) => List<StoryEntryOverview>.from(response.map((model) => StoryEntryOverview.fromJson(model))),
+    );
   }
 
   Future<StoryEntry> getById(String id) async {
