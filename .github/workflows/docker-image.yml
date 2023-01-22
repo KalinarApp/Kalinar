@@ -27,17 +27,12 @@ jobs:
       uses: docker/metadata-action@v4.0.1
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        
-    - # Setting up Docker Buildx with docker-container driver is required
-      # at the moment to be able to use a subdirectory with Git context
-      name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
 
     - name: Build and push Docker images
       uses: docker/build-push-action@v3.1.1
       with:
         file: Server/Hero.Server/Dockerfile
-        context: "{{defaultContext}}:Server"
+        context: ./Server
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
