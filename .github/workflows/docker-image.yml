@@ -32,6 +32,7 @@ jobs:
       uses: docker/build-push-action@v3.1.1
       with:
         file: Server/Hero.Server/Dockerfile
+        context: "{{defaultContext}}:Server"
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
