@@ -8,6 +8,7 @@
 
 #include <desktop_drop/desktop_drop_plugin.h>
 #include <desktop_webview_auth/desktop_webview_auth_plugin.h>
+#include <pasteboard/pasteboard_plugin.h>
 #include <sentry_flutter/sentry_flutter_plugin.h>
 #include <url_launcher_windows/url_launcher_windows.h>
 #include <window_size/window_size_plugin.h>
@@ -17,6 +18,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("DesktopDropPlugin"));
   DesktopWebviewAuthPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("DesktopWebviewAuthPlugin"));
+  PasteboardPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("PasteboardPlugin"));
   SentryFlutterPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("SentryFlutterPlugin"));
   UrlLauncherWindowsRegisterWithRegistrar(

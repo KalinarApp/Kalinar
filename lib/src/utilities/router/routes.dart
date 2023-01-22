@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/story/presentation/story_screen.dart';
 
 import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
@@ -89,6 +90,11 @@ final routeProvider = Provider<GoRouter>((ref) {
                 icon: const Icon(Icons.man),
                 label: (AppLocalizations.of(context)!.characters),
               ),
+              ScaffoldWithNavbarItem(
+                initialLocation: StoryScreen.route,
+                icon: const Icon(Icons.book),
+                label: (AppLocalizations.of(context)!.story),
+              ),
               if (isAdmin)
                 ScaffoldWithNavbarItem(
                   initialLocation: AdminMenuScreen.route,
@@ -110,8 +116,13 @@ final routeProvider = Provider<GoRouter>((ref) {
             name: "Profile",
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const ProfileScreen()),
           ),
-          characterRoutes,
           adminRoutes,
+          characterRoutes,
+          GoRoute(
+            name: StoryScreen.name,
+            path: StoryScreen.route,
+            pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const StoryScreen()),
+          )
         ],
       ),
     ],

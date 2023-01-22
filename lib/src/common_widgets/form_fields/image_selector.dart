@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mime/mime.dart';
 
-import '../../features/admin/management/data/imgur_repository.dart';
+import '../../features/admin/management/data/image_repository.dart';
 import '../loading_indicator.dart';
 import '../node_tile.dart';
 
@@ -22,10 +22,11 @@ enum ImageType {
 
 class ImageSelector extends ConsumerStatefulWidget {
   final ImageType type;
+  final Widget Function(Image? image, bool isLoading)? builder;
   final Function(String? data)? onChanged;
   final String? initialValue;
 
-  const ImageSelector({this.initialValue, this.type = ImageType.skill, this.onChanged, super.key});
+  const ImageSelector({this.initialValue, this.type = ImageType.skill, this.builder, this.onChanged, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ImageSelectorState();
@@ -55,6 +56,7 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
       File file = File(result.files.single.path!);
       setState(() {
         isLoading = true;
+        // selectedImage = file.path;
       });
       _uploadImage(_toBase64(XFile(file.path)));
     }
@@ -64,7 +66,7 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
     Image? image;
     if (null != selectedImage) {
       if (Uri.tryParse(selectedImage!)?.isAbsolute == true) {
-        image = Image.network(selectedImage!);
+        image = Image(image: CachedNetworkImageProvider(selectedImage!));
       } else {
         image = Image.memory(base64Decode(selectedImage!));
       }
@@ -73,6 +75,10 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
   }
 
   Widget _buildByType(image) {
+    if (null != widget.builder) {
+      return widget.builder!(image, isLoading);
+    }
+
     switch (widget.type) {
       case ImageType.skill:
         return _buildSkillContent(image);
@@ -130,7 +136,7 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
 
   Future<void> _uploadImage(String? base64) async {
     if (null != base64) {
-      final url = await ref.read(imgurRepositoryProvider).uploadImageToImgur(base64);
+      final url = await ref.read(imageRepositoryProvider).uploadImageToImgur(base64);
       setState(() {
         isLoading = false;
         selectedImage = url;

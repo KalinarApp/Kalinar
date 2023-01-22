@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   desktop_drop
   desktop_webview_auth
+  pasteboard
   sentry_flutter
   url_launcher_linux
   window_size

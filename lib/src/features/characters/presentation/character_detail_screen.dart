@@ -79,6 +79,7 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
                 icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
                 text: AppLocalizations.of(context)!.characterInventory,
                 tab: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                   child: Column(
                     children: [
                       AutoSavingTextField(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class BoolField extends StatelessWidget {
@@ -13,6 +12,7 @@ class BoolField extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormBuilderCheckbox(
       name: name,
+      valueTransformer: (value) => value ?? false,
       decoration: const InputDecoration(border: UnderlineInputBorder()),
       activeColor: Theme.of(context).colorScheme.primary,
       title: Text(label, style: Theme.of(context).textTheme.titleMedium),

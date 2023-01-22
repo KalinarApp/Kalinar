@@ -87,6 +87,7 @@ class _CharacterEditorScreenState extends ConsumerState<CharacterEditorScreen> {
         body: FocusTraversalGroup(
           policy: ReadingOrderTraversalPolicy(),
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: Column(

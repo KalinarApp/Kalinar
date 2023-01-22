@@ -333,7 +333,6 @@ class TypeAheadTextField extends FormBuilderField<String> {
                 focusNode: state.effectiveFocusNode,
                 decoration: state.decoration,
               ),
-              // TODO HACK to satisfy strictness
               suggestionsCallback: suggestionsCallback,
               itemBuilder: itemBuilder,
               transitionBuilder: (context, suggestionsBox, controller) => suggestionsBox,

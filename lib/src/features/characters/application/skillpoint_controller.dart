@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../admin/skilltrees/data/skilltrees_repository.dart';
 import '../../admin/skilltrees/domain/skillpoints.dart';
@@ -12,7 +13,9 @@ class SkillpointController extends StateNotifier<Skillpoints> {
   Future<void> getSkillpointsForSkilltree(String id) async {
     try {
       state = await repo.getSkillpoints(id);
-    } catch (error) {}
+    } catch (ex, stackTrace) {
+      Sentry.captureException(ex, stackTrace: stackTrace);
+    }
   }
 }
 

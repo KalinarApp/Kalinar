@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'debounced_text_field.dart';
@@ -25,9 +24,11 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
   }
 
   @override
-  void initState() {
-    items = widget.items;
-    super.initState();
+  void didChangeDependencies() {
+    setState(() {
+      items = widget.items;
+    });
+    super.didChangeDependencies();
   }
 
   @override
@@ -35,6 +36,7 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
     return RefreshIndicator(
       onRefresh: widget.refreshList,
       child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
           SliverToBoxAdapter(
             child: Padding(

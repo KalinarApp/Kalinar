@@ -1,0 +1,36 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'story_entry.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$_StoryEntry _$$_StoryEntryFromJson(Map<String, dynamic> json) =>
+    _$_StoryEntry(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      order: json['order'] as int,
+      type: json['type'] as String,
+      description: json['description'] as String?,
+      date: json['date'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      pages: (json['pages'] as List<dynamic>?)
+              ?.map((e) => BookPage.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      isUnlocked: json['isUnlocked'] as bool? ?? false,
+    );
+
+Map<String, dynamic> _$$_StoryEntryToJson(_$_StoryEntry instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'order': instance.order,
+      'type': instance.type,
+      'description': instance.description,
+      'date': instance.date,
+      'imageUrl': instance.imageUrl,
+      'pages': instance.pages,
+      'isUnlocked': instance.isUnlocked,
+    };

@@ -61,6 +61,10 @@ dependencies:
   flutter_touch_spin: ^2.0.0
   file_picker:
   flutter_typeahead: ^4.1.1
+  cross_file: ^0.3.3+2
+
+  flutter_quill: ^6.1.11
+  flutter_quill_extensions: ^0.1.0
 
   rounded_loading_button: ^2.1.0
   modal_bottom_sheet: ^2.1.2
@@ -74,6 +78,13 @@ dependencies:
   just_the_tooltip:
   square_progress_bar:
   animations: ^2.0.7
+  photo_view: ^0.14.0
+  carousel_slider: ^4.2.1
+  fancy_shimmer_image: ^2.0.2
+  smooth_page_indicator: ^1.0.0+2
+  cached_network_image: ^3.2.3
+  timeline_tile: ^2.0.0
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
