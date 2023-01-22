@@ -1,6 +1,9 @@
 name: Build and Test Project
 
 on:
+  push:
+    paths:
+      - Server/**
   pull_request:
     branches: [ "main" ]
 
