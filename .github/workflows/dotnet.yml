@@ -3,6 +3,7 @@ name: Build and Test Project
 on:
   push:
     paths:
+      - .github/workflows/dotnet.yml
       - Server/**
   pull_request:
     branches: [ "main" ]
