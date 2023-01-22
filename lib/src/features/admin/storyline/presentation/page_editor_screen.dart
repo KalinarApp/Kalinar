@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/widgets/text.dart' as text;
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -75,7 +76,7 @@ class _PageEditorScreenState extends ConsumerState<PageEditorScreen> with Single
     if (null != widget.id) {
       final state = ref.read(bookStateNotifierProvider);
       if (state?.id != widget.bookId) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: text.Text("Du hast wohl das falsche Buch aufgeschlagen!")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: text.Text(AppLocalizations.of(context)!.bookNotFound)));
       }
 
       page = state?.pages.firstWhere((element) => element.id == widget.id);

@@ -2,15 +2,17 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kalinar/src/common_widgets/custom_image_button.dart';
-import 'package:kalinar/src/common_widgets/loading_indicator.dart';
-import 'package:kalinar/src/features/story/application/story_controller.dart';
-import 'package:kalinar/src/features/story/presentation/components/image_carousel.dart';
 
+import '../../../common_widgets/custom_image_button.dart';
+import '../../../common_widgets/loading_indicator.dart';
 import '../../../common_widgets/user_menu.dart';
+import '../application/story_controller.dart';
 import 'components/book_stack.dart';
+import 'components/image_carousel.dart';
+import 'components/timeline_widget.dart';
 
 class StoryScreen extends ConsumerStatefulWidget {
   static const name = "Story";
@@ -49,18 +51,21 @@ class _StoryScreenState extends ConsumerState<StoryScreen> {
         children: [
           Positioned.fill(
             child: state.when(
-              loading: () => const LoadingIndicator("Loading storyline..."),
-              error: (error, stackTrace) => const Center(child: Text("Loading storyline failed!")),
+              loading: () => LoadingIndicator(AppLocalizations.of(context)!.storyLoading),
+              error: (error, stackTrace) => Center(child: Text(AppLocalizations.of(context)!.storyLoadingFailed)),
               data: (data) {
                 return RefreshIndicator(
                   onRefresh: _refresh,
-                  child: CustomScrollView(
-                    physics: const ClampingScrollPhysics(),
-                    slivers: [
-                      ImageCarousel(data.images, controller: carouselController),
-                      BookStack(data.books),
-                    ],
-                  ),
+                  child: data.books.isEmpty && data.images.isEmpty && data.history.isEmpty
+                      ? Center(child: Text(AppLocalizations.of(context)!.storyEmpty))
+                      : CustomScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          slivers: [
+                            if (data.images.isNotEmpty) ImageCarousel(data.images, controller: carouselController),
+                            if (data.books.isNotEmpty) BookStack(data.books),
+                            if (data.history.isNotEmpty) TimelineWidget(data.history),
+                          ],
+                        ),
                 );
               },
             ),

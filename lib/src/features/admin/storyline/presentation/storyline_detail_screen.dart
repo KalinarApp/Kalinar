@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kalinar/src/features/admin/storyline/application/story_entries_controller.dart';
 import 'package:kalinar/src/features/admin/storyline/presentation/components/book_details.dart';
+import 'package:kalinar/src/features/admin/storyline/presentation/components/entry_details.dart';
 
 import '../domain/story_entry.dart';
 import '../domain/story_entry_type.dart';
@@ -46,6 +47,8 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
         return ImageDetails(item!);
       case StoryEntryType.StoryBook:
         return BookDetails(item!);
+      case StoryEntryType.StoryEntry:
+        return EntryDetails(item!);
     }
   }
 
@@ -53,7 +56,7 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
     final shouldDelete = await showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Soll der Eintrag gelöscht werden?"),
+        title: Text(AppLocalizations.of(context)!.entryDelete),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(AppLocalizations.of(ctx)!.cancel)),
           TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text(AppLocalizations.of(ctx)!.delete)),

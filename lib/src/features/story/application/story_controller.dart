@@ -10,7 +10,6 @@ class StoryController extends StateNotifier<AsyncValue<StoryState>> {
   StoryController(this.repo) : super(const AsyncLoading());
 
   Future refresh() async {
-    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final all = await repo.getAll(unlockedOnly: true);
       final image = all.where((element) => StoryEntryType.StoryImage == StoryEntryType.values.byName(element.type)).toList();

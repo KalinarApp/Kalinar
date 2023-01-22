@@ -83,6 +83,8 @@ dependencies:
   fancy_shimmer_image: ^2.0.2
   smooth_page_indicator: ^1.0.0+2
   cached_network_image: ^3.2.3
+  timeline_tile: ^2.0.0
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

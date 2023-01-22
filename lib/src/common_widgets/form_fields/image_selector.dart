@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,7 +66,7 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
     Image? image;
     if (null != selectedImage) {
       if (Uri.tryParse(selectedImage!)?.isAbsolute == true) {
-        image = Image.network(selectedImage!);
+        image = Image(image: CachedNetworkImageProvider(selectedImage!));
       } else {
         image = Image.memory(base64Decode(selectedImage!));
       }

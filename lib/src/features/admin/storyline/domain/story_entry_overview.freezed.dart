@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'story_entry_overview.dart';
 
@@ -24,7 +24,7 @@ mixin _$StoryEntryOverview {
   String get title => throw _privateConstructorUsedError;
   int get order => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
-  String? get iconUrl => throw _privateConstructorUsedError;
+  String? get date => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   int? get pageCount => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ abstract class $StoryEntryOverviewCopyWith<$Res> {
       String title,
       int order,
       String type,
-      String? iconUrl,
+      String? date,
       String? imageUrl,
       int? pageCount,
       String? description,
@@ -71,7 +71,7 @@ class _$StoryEntryOverviewCopyWithImpl<$Res, $Val extends StoryEntryOverview>
     Object? title = null,
     Object? order = null,
     Object? type = null,
-    Object? iconUrl = freezed,
+    Object? date = freezed,
     Object? imageUrl = freezed,
     Object? pageCount = freezed,
     Object? description = freezed,
@@ -94,9 +94,9 @@ class _$StoryEntryOverviewCopyWithImpl<$Res, $Val extends StoryEntryOverview>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      iconUrl: freezed == iconUrl
-          ? _value.iconUrl
-          : iconUrl // ignore: cast_nullable_to_non_nullable
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
@@ -131,7 +131,7 @@ abstract class _$$_StoryEntryOverviewCopyWith<$Res>
       String title,
       int order,
       String type,
-      String? iconUrl,
+      String? date,
       String? imageUrl,
       int? pageCount,
       String? description,
@@ -153,7 +153,7 @@ class __$$_StoryEntryOverviewCopyWithImpl<$Res>
     Object? title = null,
     Object? order = null,
     Object? type = null,
-    Object? iconUrl = freezed,
+    Object? date = freezed,
     Object? imageUrl = freezed,
     Object? pageCount = freezed,
     Object? description = freezed,
@@ -176,9 +176,9 @@ class __$$_StoryEntryOverviewCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      iconUrl: freezed == iconUrl
-          ? _value.iconUrl
-          : iconUrl // ignore: cast_nullable_to_non_nullable
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
@@ -208,7 +208,7 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
       required this.title,
       required this.order,
       required this.type,
-      this.iconUrl,
+      this.date,
       this.imageUrl,
       this.pageCount,
       this.description,
@@ -226,7 +226,7 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
   @override
   final String type;
   @override
-  final String? iconUrl;
+  final String? date;
   @override
   final String? imageUrl;
   @override
@@ -239,7 +239,7 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
 
   @override
   String toString() {
-    return 'StoryEntryOverview(id: $id, title: $title, order: $order, type: $type, iconUrl: $iconUrl, imageUrl: $imageUrl, pageCount: $pageCount, description: $description, isUnlocked: $isUnlocked)';
+    return 'StoryEntryOverview(id: $id, title: $title, order: $order, type: $type, date: $date, imageUrl: $imageUrl, pageCount: $pageCount, description: $description, isUnlocked: $isUnlocked)';
   }
 
   @override
@@ -251,7 +251,7 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.order, order) || other.order == order) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
+            (identical(other.date, date) || other.date == date) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.pageCount, pageCount) ||
@@ -264,7 +264,7 @@ class _$_StoryEntryOverview implements _StoryEntryOverview {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, order, type, iconUrl,
+  int get hashCode => Object.hash(runtimeType, id, title, order, type, date,
       imageUrl, pageCount, description, isUnlocked);
 
   @JsonKey(ignore: true)
@@ -288,7 +288,7 @@ abstract class _StoryEntryOverview implements StoryEntryOverview {
       required final String title,
       required final int order,
       required final String type,
-      final String? iconUrl,
+      final String? date,
       final String? imageUrl,
       final int? pageCount,
       final String? description,
@@ -306,7 +306,7 @@ abstract class _StoryEntryOverview implements StoryEntryOverview {
   @override
   String get type;
   @override
-  String? get iconUrl;
+  String? get date;
   @override
   String? get imageUrl;
   @override

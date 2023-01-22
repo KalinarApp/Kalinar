@@ -204,5 +204,25 @@
   "manageStoryline": "Storyeinträge verwalten",
 
   "storyImage": "Bild",
-  "storyBook": "Buch"
+  "storyBook": "Buch",
+  "storyEntry": "Ereignis",
+  "entryTitle": "Ereignis",
+  "entryDescription": "Beschreibung",
+  "entryDate": "Zeitpunkt des Ereignisses",
+  "entryDateHelp": "Dient nur der Anzeige und ändert nichts an der Reihenfolge.",
+  "entryIsUnlocked": "Wurde der Eintrag bereits von der Gruppe freigeschaltet?",
+  "entryDelete": "Soll der Eintrag gelöscht werden?",
+  "bookTitle": "Buchtitel",
+  "bookReleaseDate": "Erstveröffentlichung",
+  "bookNotFound": "Du hast wohl das falsche Buch aufgeschlagen!",
+  "bookContentTable": "Inhaltsverzeichnis",
+  "allBooks": "Gefundene Bücher",
+  "bookLoading": "Buch wird geladen...",
+  "bookLoadingFailed": "Laden des Buchs fehlgeschlagen.",
+  "imageTitle": "Bildüberschrift",
+  "imageDate": "Veröffentlichungsdatum",
+  "storyLoading": "Geschichte wird geladen...",
+  "storyLoadingFailed": "Fehler beim laden der Geschichte!",
+  "storyEmpty": "Ganz schön leer hier :(",
+  "timeline": "Eine Zeitreise durch die Geschichte"
 }

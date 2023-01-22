@@ -10,7 +10,7 @@ class StoryEntryOverview with _$StoryEntryOverview {
     required String title,
     required int order,
     required String type,
-    String? iconUrl,
+    String? date,
     String? imageUrl,
     int? pageCount,
     String? description,

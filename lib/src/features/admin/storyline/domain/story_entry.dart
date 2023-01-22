@@ -11,7 +11,6 @@ class StoryEntry with _$StoryEntry {
     required String title,
     required int order,
     required String type,
-    String? iconUrl,
     String? description,
     String? date,
     String? imageUrl,

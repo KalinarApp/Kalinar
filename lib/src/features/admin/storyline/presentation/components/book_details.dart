@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
+import '../../../../../common_widgets/custom_image_button.dart';
 import '../../../../../common_widgets/loading_indicator.dart';
 import '../../../../../utilities/async_value_extension.dart';
 import '../../application/book_controller.dart';
@@ -72,7 +74,7 @@ class _BookDetailsState extends ConsumerState<BookDetails> {
     final state = ref.watch(bookStateNotifierProvider);
 
     if (null == state) {
-      return const LoadingIndicator("Loading...");
+      return LoadingIndicator(AppLocalizations.of(context)!.storyLoading);
     }
 
     List<BookPage> pages = [...state.pages];
@@ -85,16 +87,12 @@ class _BookDetailsState extends ConsumerState<BookDetails> {
         onReorder: (oldIndex, newIndex) => _reorder(pages[oldIndex].bookId, pages[oldIndex].id, oldIndex, newIndex),
         itemBuilder: (context, index) => ListTile(
           key: ValueKey(pages[index].id),
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Material(
-              child: IconButton(
-                icon: FaIcon(pages[index].isWritten ? FontAwesomeIcons.penToSquare : FontAwesomeIcons.square),
-                onPressed: () => _updateWrittenState(pages[index].bookId, pages[index].id, !pages[index].isWritten),
-              ),
-            ),
+          leading: CustomImageButton(
+            icon: FaIcon(pages[index].isWritten ? FontAwesomeIcons.penToSquare : FontAwesomeIcons.square),
+            onPressed: () => _updateWrittenState(pages[index].bookId, pages[index].id, !pages[index].isWritten),
           ),
           title: Text(pages[index].title),
+          trailing: ReorderableDelayedDragStartListener(index: index, child: const Icon(Icons.drag_handle)),
           onLongPress: () => _showActionDialog(pages[index].bookId, pages[index].id),
           onTap: () => _editPage(pages[index].bookId, pages[index].id),
         ),

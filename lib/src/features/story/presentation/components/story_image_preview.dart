@@ -2,8 +2,9 @@ import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry_overview.dart';
 import 'package:photo_view/photo_view.dart';
+
+import '../../../admin/storyline/domain/story_entry_overview.dart';
 
 class StoryImagePreview extends StatelessWidget {
   final StoryEntryOverview item;
@@ -33,7 +34,7 @@ class StoryImagePreview extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               closedBuilder: (context, action) => FancyShimmerImage(
                 imageUrl: item.imageUrl!,
-                boxFit: BoxFit.fitWidth,
+                boxFit: BoxFit.cover,
               ),
               openBuilder: (context, action) => Scaffold(
                 appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
@@ -48,7 +49,7 @@ class StoryImagePreview extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15),
-          if (null != item.description) Text(item.description!, maxLines: 4)
+          if (null != item.description) Text(item.description!, maxLines: 5)
         ],
       ),
     );

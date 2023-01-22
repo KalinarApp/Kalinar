@@ -155,6 +155,26 @@
     "errorNotEnoughSkillpoints",
     "manageStoryline",
     "storyImage",
-    "storyBook"
+    "storyBook",
+    "storyEntry",
+    "entryTitle",
+    "entryDescription",
+    "entryDate",
+    "entryDateHelp",
+    "entryIsUnlocked",
+    "entryDelete",
+    "bookTitle",
+    "bookReleaseDate",
+    "bookNotFound",
+    "bookContentTable",
+    "allBooks",
+    "bookLoading",
+    "bookLoadingFailed",
+    "imageTitle",
+    "imageDate",
+    "storyLoading",
+    "storyLoadingFailed",
+    "storyEmpty",
+    "timeline"
   ]
 }
