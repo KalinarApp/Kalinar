@@ -1,11 +1,11 @@
-name: Build and Publish Image
+name: Build and Publish Server Image
 
 on:
   push:
     branches: [ "main" ]
-#  pull_request:
-#    branches: [ "main" ]
-    
+    paths:
+      - Server/**
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
