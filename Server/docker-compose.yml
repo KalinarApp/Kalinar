@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  hero.server:
+    image: ${DOCKER_REGISTRY-}heroserver
+    ports:
+      - 443:443
+      - 80:80
+    build:
+      context: .
+      dockerfile: Hero.Server/Dockerfile
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/resources/credentials.json
+      - ConnectionStrings__Default=${ConnectionStrings__Default}

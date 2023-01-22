@@ -1,0 +1,23 @@
+name: Build and Test Project
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore "Hero.Server/Hero.Server.csproj"
+    - name: Build
+      run: dotnet build "Hero.Server.sln" --no-restore
+#    - name: Test
+#      run: dotnet test "Hero.Server.sln" --no-build --verbosity normal
