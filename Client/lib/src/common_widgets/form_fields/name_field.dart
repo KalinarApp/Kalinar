@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -33,7 +32,7 @@ class NameField extends StatelessWidget {
                     prefixIcon: icon ?? const SizedBox(),
                     contentPadding: const EdgeInsets.only(right: 8),
                   ),
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             ),

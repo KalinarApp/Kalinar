@@ -14,7 +14,7 @@ class CharacterPortrait extends StatelessWidget {
     final image = null == imageUrl ? null : CachedNetworkImage(imageUrl: imageUrl!);
     return OpenContainer(
       closedElevation: 4,
-      closedColor: Theme.of(context).backgroundColor,
+      closedColor: Theme.of(context).colorScheme.background,
       clipBehavior: Clip.hardEdge,
       closedBuilder: (context, action) => SizedBox(
         width: 150,

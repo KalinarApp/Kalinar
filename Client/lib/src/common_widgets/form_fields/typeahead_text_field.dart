@@ -327,7 +327,7 @@ class TypeAheadTextField extends FormBuilderField<String> {
                 },
                 style: state.enabled
                     ? textFieldConfiguration.style
-                    : theme.textTheme.subtitle1!.copyWith(
+                    : theme.textTheme.titleMedium!.copyWith(
                         color: theme.disabledColor,
                       ),
                 focusNode: state.effectiveFocusNode,
