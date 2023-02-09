@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../../common_widgets/modal.dart';
 import '../../../application/skilltree_controller.dart';
@@ -44,9 +44,13 @@ class _SaveMenuState extends ConsumerState<SaveMenu> {
                     onTap: () {
                       controller.hideMenu();
                       if (!state.isBlueprint) {
-                        showModal(context, const SkilltreeModal());
+                        showModal(context, const SkilltreeModal()).then((value) {
+                          if (true == value) GoRouter.of(context).pop();
+                        });
                       } else {
-                        showModal(context, const BlueprintModal());
+                        showModal(context, const BlueprintModal()).then((value) {
+                          if (true == value) GoRouter.of(context).pop();
+                        });
                       }
                     },
                     child: ListTile(title: Text(AppLocalizations.of(context)!.save))),
