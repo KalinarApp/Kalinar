@@ -16,7 +16,7 @@ class Menu extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

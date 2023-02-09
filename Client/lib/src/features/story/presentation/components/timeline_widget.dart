@@ -25,7 +25,7 @@ class _TimelineWidgetState extends State<TimelineWidget> {
         children: [
           Text(item.title, style: Theme.of(context).textTheme.titleLarge, maxLines: 2),
           const SizedBox(height: 5),
-          if (null != item.description) Text(item.description!, style: Theme.of(context).textTheme.caption),
+          if (null != item.description) Text(item.description!, style: Theme.of(context).textTheme.bodySmall),
         ],
       ),
     );

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
@@ -37,9 +36,9 @@ class NodeTooltip extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Divider(),
-        Text("${AppLocalizations.of(context)!.newAbility}: ${ability.name}", style: Theme.of(context).textTheme.caption),
+        Text("${AppLocalizations.of(context)!.newAbility}: ${ability.name}", style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 4),
-        if (null != ability.description && ability.description!.isNotEmpty) Text(ability.description!, style: Theme.of(context).textTheme.caption),
+        if (null != ability.description && ability.description!.isNotEmpty) Text(ability.description!, style: Theme.of(context).textTheme.bodySmall),
       ],
     );
   }

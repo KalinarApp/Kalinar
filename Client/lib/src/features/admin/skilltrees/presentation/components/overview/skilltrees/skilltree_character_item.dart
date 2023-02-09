@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
-
 import 'package:animations/animations.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../../../utilities/async_value_extension.dart';
 import '../../../../../../characters/domain/character_overview.dart';
 import '../../../../application/skilltree_controller.dart';
 import '../../../../domain/skilltree_overview.dart';
-
 import 'skilltree_item.dart';
 
 class SkilltreeCharacterItem extends ConsumerStatefulWidget {
@@ -92,7 +90,7 @@ class _SkilltreeCharacterItemState extends ConsumerState<SkilltreeCharacterItem>
     return OpenContainer(
       clipBehavior: Clip.hardEdge,
       closedElevation: 4,
-      closedColor: Theme.of(context).backgroundColor,
+      closedColor: Theme.of(context).colorScheme.background,
       closedBuilder: _closedContainer,
       openBuilder: _openedContainer,
     );

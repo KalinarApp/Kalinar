@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../domain/character.dart';
-
 import 'character_portrait.dart';
 import 'information_row.dart';
 
@@ -24,7 +22,7 @@ class CharacterInformation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(item.name, style: Theme.of(context).textTheme.titleLarge),
-              if (null != item.description) Text(item.description!, style: Theme.of(context).textTheme.caption),
+              if (null != item.description) Text(item.description!, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 10),
               SizedBox(
                 width: MediaQuery.of(context).size.width - 184,

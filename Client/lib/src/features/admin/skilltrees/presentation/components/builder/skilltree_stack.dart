@@ -6,7 +6,6 @@ import '../menu/menu.dart';
 import '../menu/menu_button.dart';
 import '../nodes/draggable_node.dart';
 import '../nodes/edge_widget.dart';
-
 import 'gridlines.dart';
 
 class SkilltreeStack extends StatefulWidget {
@@ -71,7 +70,7 @@ class _SkilltreeStackState extends State<SkilltreeStack> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Gridlines(color: Theme.of(context).backgroundColor.withOpacity(.1)),
+      Gridlines(color: Theme.of(context).colorScheme.background.withOpacity(.1)),
       for (final edge in widget.edges) EdgeWidget(edge, onTap: (edge) => setState(() => selectedEdge = edge == selectedEdge ? null : edge)),
       for (final node in widget.nodes) DraggableNode(node, onTap: (node) => setState(() => selectedNode = node == selectedNode ? null : node)),
       if (null != selectedNode) _drawNodeMenu(selectedNode!),
