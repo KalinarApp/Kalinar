@@ -1,0 +1,44 @@
+name: Build Flutter for Windows and publish to Windows Store
+
+on: 
+  push:
+    branches: [ "main" ]
+    
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Flutter action
+      uses: subosito/flutter-action@v2.8.0
+      with:
+        cache: true
+    - run: flutter pub get
+    - run: flutter config --enable-windows-desktop
+    - run: flutter pub run msix:create
+    
+    - name: Windows Store Publish
+      # You may pin to the exact commit or the version.
+      # uses: isaacrlevin/windows-store-action@3ec3476a8da1d536355b536986bd7fc8f49c4945
+      uses: isaacrlevin/windows-store-action@1.0
+      with:
+        # Id of Partner Tenant
+        tenant-id: 
+        # Id of Partner App Registration
+        client-id: 
+        # Secret for Partner App Registration
+        client-secret: 
+        # Id for App in Partner Center
+        app-id: 
+        # Path to MISX Package
+        package-path: # optional, default is 
+        # Skip polling the submission after committing it to Dev Center
+        skip-polling: # optional, default is true
+        # Enable deletion of one or more old packages (sorted by version)
+        delete-packages: # optional, default is true
+        # Specify number of latest packages (sorted by version) to be kept
+        packages-keep: # optional, default is 0
+        # Update Package Images
+        update-images: # optional, default is false
+    
