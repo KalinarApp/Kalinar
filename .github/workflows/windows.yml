@@ -19,26 +19,16 @@ jobs:
     - run: flutter pub run msix:create
     
     - name: Windows Store Publish
-      # You may pin to the exact commit or the version.
-      # uses: isaacrlevin/windows-store-action@3ec3476a8da1d536355b536986bd7fc8f49c4945
       uses: isaacrlevin/windows-store-action@1.0
       with:
         # Id of Partner Tenant
-        tenant-id: 
+        tenant-id: ${{ env.WINDOWS_STORE_TENANT_ID }}
         # Id of Partner App Registration
-        client-id: 
+        client-id: ${{ env.WINDOWS_STORE_CLIENT_ID }}
         # Secret for Partner App Registration
-        client-secret: 
+        client-secret: ${{ secrets.WINDOWS_STORE_CLIENT_SECRET }}
         # Id for App in Partner Center
-        app-id: 
+        app-id: ${{ env.WINDOWS_STORE_APP_ID }}
         # Path to MISX Package
-        package-path: # optional, default is 
-        # Skip polling the submission after committing it to Dev Center
-        skip-polling: # optional, default is true
-        # Enable deletion of one or more old packages (sorted by version)
-        delete-packages: # optional, default is true
-        # Specify number of latest packages (sorted by version) to be kept
-        packages-keep: # optional, default is 0
-        # Update Package Images
-        update-images: # optional, default is false
+        package-path: ${GITHUB_WORKSPACE}/Client/build/windows/runner/Release/kalinar.msix
     
