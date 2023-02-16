@@ -14,17 +14,53 @@ jobs:
       
     - name: Support longpaths
       run: git config --system core.longpaths true
-      
-    - name: Flutter action
+
+    - name: Install Flutter
       uses: subosito/flutter-action@v2.8.0
       with:
         cache: true
-    - run: flutter pub get
+        
+    - name: Restore packages
       working-directory: ./Client
-    - run: flutter config --enable-windows-desktop
+      run: flutter pub get
+      
+    - name: Build for Windows
       working-directory: ./Client
-    - run: flutter pub run msix:create
+      run: |
+        flutter config --enable-windows-desktop
+        flutter pub run msix:create
+    
+    - name: Generate build number
+      id: buildnumber
+      uses: onyxmueller/build-number@v1
+      with:
+        token: ${{secrets.github_token}} 
+    
+    - name: Build for Android
       working-directory: ./Client
+      run: flutter build appbundle --dart-define=SENTRY_DSN=${{ env.SENTRY_DNS }} --flavor=prod --release --no-tree-shake-icons --build_number=${{ steps.buildnumber.outputs.build_number }}
+      
+    - uses: r0adkll/sign-android-release@v1
+      name: Sign app APK
+      id: sign_app
+      with:
+        releaseDirectory: Client/build/outputs/apk/release
+        signingKeyBase64: ${{ secrets.GOOGLE_PLAY_SIGNING_KEY }}
+        alias: ${{ env.GOOGLE_PLAY_SIGNING_KEY_ALIAS }}
+        keyStorePassword: ${{ secrets.GOOGLE_PLAY_SIGNING_KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.GOOGLE_PLAY_SIGNING_KEY_PASSWORD }}
+        
+    - uses: actions/upload-artifact@v2
+      name: Upload windows msix artifact 
+      with:
+        name: Windows MSIX
+        path: ./Client/build/windows/runner/Release/kalinar.msix
+        
+    - uses: actions/upload-artifact@v2
+      name: Upload android appbundle artifact 
+      with:
+        name: Signed app bundle
+        path: ${{steps.sign_app.outputs.signedReleaseFile}}
     
 #    - name: Windows Store Publish
 #      uses: isaacrlevin/windows-store-action@1.0
