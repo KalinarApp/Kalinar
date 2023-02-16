@@ -2,7 +2,9 @@ name: Build Flutter for Windows and publish to Windows Store
 
 on: 
   push:
-    branches: [ "main" ]
+    paths: 
+      - ".github/workflows/windows.yml"
+  # branches: [ "main" ]
     
 jobs:
   build:
