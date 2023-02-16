@@ -49,7 +49,7 @@ jobs:
       name: Sign app APK
       id: sign_app
       with:
-        releaseDirectory: Client/build/app/outputs/bundle/prodRelease
+        releaseDirectory: ./Client/build/app/outputs/bundle/prodRelease
         signingKeyBase64: ${{ secrets.GOOGLE_PLAY_SIGNING_KEY }}
         alias: ${{ env.GOOGLE_PLAY_SIGNING_KEY_ALIAS }}
         keyStorePassword: ${{ secrets.GOOGLE_PLAY_SIGNING_KEY_STORE_PASSWORD }}
