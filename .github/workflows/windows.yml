@@ -11,26 +11,29 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
-    
+      
     - name: Flutter action
       uses: subosito/flutter-action@v2.8.0
       with:
         cache: true
     - run: flutter pub get
+      working-directory: ./Client
     - run: flutter config --enable-windows-desktop
+      working-directory: ./Client
     - run: flutter pub run msix:create
+      working-directory: ./Client
     
-    - name: Windows Store Publish
-      uses: isaacrlevin/windows-store-action@1.0
-      with:
-        # Id of Partner Tenant
-        tenant-id: ${{ env.WINDOWS_STORE_TENANT_ID }}
-        # Id of Partner App Registration
-        client-id: ${{ env.WINDOWS_STORE_CLIENT_ID }}
-        # Secret for Partner App Registration
-        client-secret: ${{ secrets.WINDOWS_STORE_CLIENT_SECRET }}
-        # Id for App in Partner Center
-        app-id: ${{ env.WINDOWS_STORE_APP_ID }}
-        # Path to MISX Package
-        package-path: ${GITHUB_WORKSPACE}/Client/build/windows/runner/Release/kalinar.msix
+#    - name: Windows Store Publish
+#      uses: isaacrlevin/windows-store-action@1.0
+#      with:
+#        # Id of Partner Tenant
+#        tenant-id: ${{ env.WINDOWS_STORE_TENANT_ID }}
+#        # Id of Partner App Registration
+#        client-id: ${{ env.WINDOWS_STORE_CLIENT_ID }}
+#        # Secret for Partner App Registration
+#        client-secret: ${{ secrets.WINDOWS_STORE_CLIENT_SECRET }}
+#        # Id for App in Partner Center
+#        app-id: ${{ env.WINDOWS_STORE_APP_ID }}
+#        # Path to MISX Package
+#        package-path: ${GITHUB_WORKSPACE}/Client/build/windows/runner/Release/kalinar.msix
     
