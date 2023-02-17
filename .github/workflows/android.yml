@@ -1,4 +1,4 @@
-name: Build Flutter for Windows and publish to Windows Store
+name: Build Flutter for Android and publish to Play Store
 
 on: 
   push:
@@ -16,10 +16,7 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '11'
-      
-    - name: Support longpaths
-      run: git config --system core.longpaths true
-
+  
     - name: Install Flutter
       uses: subosito/flutter-action@v2.8.0
       with:
