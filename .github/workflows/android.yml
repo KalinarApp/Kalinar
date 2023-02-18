@@ -36,7 +36,7 @@ jobs:
         echo "storeFile=/tmp/key.jks" >> key.properties
         echo "storePassword=${{ secrets.GOOGLE_PLAY_SIGNING_KEY_STORE_PASSWORD }}" >> ./Client/android/key.properties
         echo "keyPassword=${{ secrets.GOOGLE_PLAY_SIGNING_KEY_PASSWORD }}" >> ./Client/android/key.properties
-        echo "keyAlias=${{ env.GOOGLE_PLAY_SIGNING_KEY_ALIAS }}" >> ./Client/android/key.properties
+        echo "keyAlias=upload" >> ./Client/android/key.properties
         
     - run: ls -al ./Client/android
     
