@@ -26,6 +26,18 @@ jobs:
       working-directory: ./Client
       run: flutter pub get
       
+    - name: Download Android keystore
+      run: echo "${{ secrets.GOOGLE_PLAY_SIGNING_KEY }}" | base64 --decode > /tmp/key.jks
+      
+    - name: Create key.properties
+      run: |
+        rm -f -- key.properties
+        touch ${{env.PROPERTIES_PATH}}
+        echo "storeFile=/tmp/key.jks" >> key.properties
+        echo "storePassword=${{ secrets.GOOGLE_PLAY_SIGNING_KEY_STORE_PASSWORD }}" >> key.properties
+        echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
+        echo "keyAlias=${{ secrets.GOOGLE_PLAY_SIGNING_KEY_PASSWORD }}" >> key.properties
+    
     - name: Generate build number
       id: buildnumber
       uses: onyxmueller/build-tag-number@v1
@@ -35,16 +47,6 @@ jobs:
     - name: Build for Android
       working-directory: ./Client
       run: flutter build appbundle --dart-define=SENTRY_DSN=${{ env.SENTRY_DNS }} --flavor=prod --release --no-tree-shake-icons --build-number=${BUILD_NUMBER}
-      
-    - uses: r0adkll/sign-android-release@v1
-      name: Sign app APK
-      id: sign_app
-      with:
-        releaseDirectory: ./Client/build/app/outputs/bundle/prodRelease
-        signingKeyBase64: ${{ secrets.GOOGLE_PLAY_SIGNING_KEY }}
-        alias: ${{ env.GOOGLE_PLAY_SIGNING_KEY_ALIAS }}
-        keyStorePassword: ${{ secrets.GOOGLE_PLAY_SIGNING_KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.GOOGLE_PLAY_SIGNING_KEY_PASSWORD }}
         
     - uses: actions/upload-artifact@v2
       name: Upload android appbundle artifact 
