@@ -35,7 +35,7 @@ jobs:
         touch key.properties
         echo "storeFile=/tmp/key.jks" >> key.properties
         echo "storePassword=${{ secrets.GOOGLE_PLAY_SIGNING_KEY_STORE_PASSWORD }}" >> key.properties
-        echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
+        echo "keyPassword=${{ secrets.GOOGLE_PLAY_SIGNING_KEY_PASSWORD }}" >> key.properties
         echo "keyAlias=${{ env.GOOGLE_PLAY_SIGNING_KEY_ALIAS }}" >> key.properties
     
     - name: Generate build number
