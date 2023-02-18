@@ -53,3 +53,21 @@ jobs:
       with:
         name: Signed app bundle
         path: ./Client/android/build/app/outputs/bundle/prodRelease/app-prod-release.aab
+        
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.2
+      with:
+        name: Signed app bundle
+        path: app-prod-release.aab
+    - name: Upload Android Release to Play Store
+      uses: r0adkll/upload-google-play@v1.1.1
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        packageName: dev.curth.hero
+        releaseFiles: app-prod-release.aab
+        track: internal
+        inAppUpdatePriority: 5
+        userFraction: 1.0
