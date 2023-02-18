@@ -52,4 +52,4 @@ jobs:
       name: Upload android appbundle artifact 
       with:
         name: Signed app bundle
-        path: ${{steps.sign_app.outputs.signedReleaseFile}}
+        path: ./Client/android/build/app/outputs/bundle/prodRelease/app-prod-release.aab
