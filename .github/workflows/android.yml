@@ -32,7 +32,7 @@ jobs:
     - name: Create key.properties
       run: |
         rm -f -- key.properties
-        touch ${{env.PROPERTIES_PATH}}
+        touch key.properties
         echo "storeFile=/tmp/key.jks" >> key.properties
         echo "storePassword=${{ secrets.GOOGLE_PLAY_SIGNING_KEY_STORE_PASSWORD }}" >> key.properties
         echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
