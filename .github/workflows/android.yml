@@ -68,5 +68,5 @@ jobs:
       with:
         serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
         packageName: dev.curth.hero
-        releaseFiles: app-prod-release.aab
+        releaseFile: ./app-prod-release.aab
         track: internal
