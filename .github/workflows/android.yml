@@ -51,8 +51,8 @@ jobs:
     - uses: actions/upload-artifact@v2
       name: Upload android appbundle artifact 
       with:
-        name: Signed app bundle
-        path: ./Client/android/build/app/outputs/bundle/prodRelease/app-prod-release.aab
+        name: appbundle
+        path: ./Client/build/app/outputs/bundle/prodRelease/app-prod-release.aab
         
   release:
     runs-on: ubuntu-latest
@@ -61,7 +61,7 @@ jobs:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v3.0.2
       with:
-        name: Signed app bundle
+        name: appbundle
         path: app-prod-release.aab
     - name: Upload Android Release to Play Store
       uses: r0adkll/upload-google-play@v1.1.1
