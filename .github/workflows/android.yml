@@ -70,5 +70,3 @@ jobs:
         packageName: dev.curth.hero
         releaseFiles: app-prod-release.aab
         track: internal
-        inAppUpdatePriority: 5
-        userFraction: 1.0
