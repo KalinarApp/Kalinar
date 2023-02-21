@@ -57,5 +57,5 @@ jobs:
         client-id: ${{ vars.WINDOWS_STORE_CLIENT_ID }}
         client-secret: ${{ secrets.WINDOWS_STORE_CLIENT_SECRET }}
         app-id: ${{ vars.WINDOWS_STORE_APP_ID }}
-        package-path: ./kalinar.msix
+        package-path: .
     
