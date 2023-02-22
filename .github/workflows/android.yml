@@ -46,7 +46,7 @@ jobs:
     
     - name: Build for Android
       working-directory: ./Client
-      run: flutter build appbundle --dart-define=SENTRY_DSN=${{ env.SENTRY_DNS }} --flavor=prod --release --no-tree-shake-icons --build-number=${BUILD_NUMBER}
+      run: flutter build appbundle --dart-define=SENTRY_DSN=${{ vars.SENTRY_DNS }} --flavor=prod --release --no-tree-shake-icons --build-number=${BUILD_NUMBER}
         
     - uses: actions/upload-artifact@v2
       name: Upload android appbundle artifact 
