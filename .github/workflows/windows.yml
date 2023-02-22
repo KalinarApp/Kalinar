@@ -1,4 +1,4 @@
-name: Build Flutter for Windows and publish to Windows Store
+name: Build Client for Windows and publish to Windows Store
 
 on: 
   push:
