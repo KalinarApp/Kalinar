@@ -4,9 +4,14 @@ on:
   push:
     paths: 
       - ".github/workflows/windows.yml"
+      - "Client"
     branches: [ "main" ]
   pull_request:
+    paths: 
+      - ".github/workflows/android.yml"
+      - "Client"
     branches: [ "main" ]
+    
 jobs:
   build:
     runs-on: windows-latest
