@@ -4,7 +4,13 @@ on:
   push:
     paths: 
       - ".github/workflows/android.yml"
-  # branches: [ "main" ]
+      - "Client"
+    branches: [ "main" ]
+  pull_request:
+    paths: 
+      - ".github/workflows/android.yml"
+      - "Client"
+    branches: [ "main" ]
     
 jobs:
   build:
@@ -56,6 +62,7 @@ jobs:
         
   release:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' }}
     needs: [build]
     steps:
     - name: Download a Build Artifact
