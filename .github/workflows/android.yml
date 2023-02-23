@@ -1,4 +1,4 @@
-name: Build Flutter for Android and publish to Play Store
+name: Build Client for Android and publish to Play Store
 
 on: 
   push:
