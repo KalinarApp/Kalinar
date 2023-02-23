@@ -51,7 +51,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     environment:
-        name: deploy_windows
+        name: Production
     if: ${{ github.event_name != 'pull_request' }}
     needs: [build]
     steps:
