@@ -77,3 +77,18 @@ jobs:
         packageName: dev.curth.hero
         releaseFiles: ./app-prod-release.aab
         track: internal
+       
+  production:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' }}
+    needs: [release]
+    environment:
+        name: Production
+    steps:
+    - name: Promote release to open testing
+      uses: kevin-david/promote-play-release@v1.0.0
+      with:
+        service-account-json-raw: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        package-name: dev.curth.hero
+        from-track: internal
+        to-track: beta
