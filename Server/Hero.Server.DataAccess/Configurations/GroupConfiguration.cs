@@ -3,9 +3,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    public class GroupModelConfiguration : IEntityTypeConfiguration<Group>
+    public class GroupConfiguration : IEntityTypeConfiguration<Group>
     {
         public void Configure(EntityTypeBuilder<Group> builder)
         {
@@ -29,18 +29,6 @@ namespace Hero.Server.DataAccess.ModelConfigurations
                 .WithOne(u => u.OwnedGroup)
                 .HasForeignKey<Group>(g => g.OwnerId)
                 .OnDelete(DeleteBehavior.SetNull);
-
-            builder
-                .HasMany(g => g.Abilities)
-                .WithOne()
-                .HasForeignKey(ability => ability.GroupId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder
-                .HasMany(g => g.Skills)
-                .WithOne()
-                .HasForeignKey(skill => skill.GroupId)
-                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasMany(g => g.Characters)

@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    internal class SkilltreeModelConfiguration : IEntityTypeConfiguration<Skilltree>
+    internal class SkilltreeConfiguration : IEntityTypeConfiguration<Skilltree>
     {
         public void Configure(EntityTypeBuilder<Skilltree> builder)
         {

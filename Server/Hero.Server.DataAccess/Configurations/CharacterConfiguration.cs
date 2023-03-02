@@ -3,9 +3,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.Core.ModelConfigurations
+namespace Hero.Server.Core.Configurations
 {
-    public class CharacterModelConfiguration : IEntityTypeConfiguration<Character>
+    public class CharacterConfiguration : IEntityTypeConfiguration<Character>
     {
         public void Configure(EntityTypeBuilder<Character> builder)
         {

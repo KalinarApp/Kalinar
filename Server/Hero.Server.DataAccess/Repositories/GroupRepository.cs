@@ -72,6 +72,17 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
+        public async Task CreateIfNotExistAsync(Group group, CancellationToken cancellationToken = default)
+        {
+            Group? existing = await this.context.Groups.FirstOrDefaultAsync(item => item.Id == group.Id);
+
+            if (null == existing)
+            {
+                await this.context.Groups.AddAsync(group, cancellationToken);
+                await this.context.SaveChangesAsync(cancellationToken);
+            }
+        }
+
         public async Task<Group> GetGroupByOwnerId(string userId, CancellationToken cancellationToken = default)
         {
             try

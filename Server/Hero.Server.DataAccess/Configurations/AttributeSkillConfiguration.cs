@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    public class AttributeSkillModelConfiguration : IEntityTypeConfiguration<AttributeSkill>
+    public class AttributeSkillConfiguration : IEntityTypeConfiguration<AttributeSkill>
     {
         public void Configure(EntityTypeBuilder<AttributeSkill> builder)
         {

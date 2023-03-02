@@ -23,48 +23,45 @@ namespace Hero.Server.DataAccess.Repositories
             this.logger = logger;
         }
 
+        private async Task<Ability> EsureUserIsEnlightableForAction(Guid id, string userId, CancellationToken cancellationToken = default)
+        {
+            Ability? existing = await this.GetAbilityByIdAsync(id, cancellationToken);
+
+            if (existing == null)
+            {
+                throw new ObjectNotFoundException("The ability you are looking for does not exist.");
+            }
+            else if (null == existing || !existing.IsOwnerOrAdmin(userId))
+            {
+                throw new AccessForbiddenException("You are neither the creator of this ability nor an admin.");
+            }
+
+            return existing;
+        }
+
+        public async Task<Ability?> GetAbilityByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                return await this.context.Abilities.Include(item => item.Group).FirstOrDefaultAsync(item => item.Id == id);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error occured while fetching this ability");
+            }
+        }
+
         public async Task<Ability> GetAbilityByNameAsync(string name, CancellationToken cancellationToken = default)
         {
-            return await this.context.Abilities.FirstOrDefaultAsync(g => EF.Functions.ILike(g.Name, name), cancellationToken) ?? throw new HeroException("The ability you are looking for is not there.");
-        }
-
-        public async Task CreateAbilityAsync(Ability ability, CancellationToken cancellationToken = default)
-        {
             try
             {
-                ability.GroupId = this.groupContext.Id;
-                await this.context.Abilities.AddAsync(ability, cancellationToken);
-                await this.context.SaveChangesAsync(cancellationToken);                
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw new HeroException("An error occured while creating an ability.");
-            }
-        }
+                return await this.context.Abilities.FirstOrDefaultAsync(g => EF.Functions.ILike(g.Name, name), cancellationToken) ?? throw new HeroException("The ability you are looking for is not there.");
 
-        public async Task DeleteAbilityAsync(Guid id, CancellationToken cancellationToken = default)
-        {
-            try
-            {
-                Ability? existing = await this.context.Abilities.SingleAsync(a => a.Id == id, cancellationToken);
-                if(null == existing)
-                {
-                    this.logger.LogAbilityDoesNotExist(id);
-                    throw new ObjectNotFoundException("The ability you are looking for is not there.");
-                }
-                this.context.Abilities.Remove(existing);
-                await this.context.SaveChangesAsync(cancellationToken);
             }
-            catch (HeroException ex)
+            catch (Exception)
             {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw new HeroException("An error occured while deleting the ability.");
+                throw new HeroException("An error occured while fetching abilities");
             }
         }
 
@@ -81,30 +78,53 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task UpdateAbilityAsync(Guid id, Ability updatedAbility, CancellationToken cancellationToken = default)
+        public async Task CreateAbilityAsync(Ability ability, CancellationToken cancellationToken = default)
         {
             try
             {
-                Ability? existing = await this.context.Abilities.SingleAsync(a => a.Id == id, cancellationToken);
+                ability.GroupId = this.groupContext.Id;
 
-                if (null == existing)
-                {
-                    throw new ObjectNotFoundException($"The Ability (id: {id}) you're trying to update does not exist.");
-                }
+                await this.context.Abilities.AddAsync(ability, cancellationToken);
+                await this.context.SaveChangesAsync(cancellationToken);                
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error occured while creating an ability.");
+            }
+        }
 
-                existing.Update(updatedAbility);
+        public async Task TryUpdateAbilityAsync(Guid id, string userId, Ability updated, CancellationToken cancellationToken = default)
+        {
+            Ability existing = await this.EsureUserIsEnlightableForAction(id, userId, cancellationToken);
+
+            try
+            {
+                existing.Update(updated);
 
                 this.context.Abilities.Update(existing);
                 await this.context.SaveChangesAsync(cancellationToken);
-            }catch (HeroException ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw;
             }
             catch (Exception ex)
             {
                 this.logger.LogUnknownErrorOccured(ex);
                 throw new HeroException("An error occured while updating the ability.");
+            }
+        }
+
+        public async Task TryDeleteAbilityAsync(Guid id, string userId, CancellationToken cancellationToken = default)
+        {
+            Ability existing = await this.EsureUserIsEnlightableForAction(id, userId, cancellationToken);
+
+            try
+            {
+                this.context.Abilities.Remove(existing);
+                await this.context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error occured while deleting the ability.");
             }
         }
     }

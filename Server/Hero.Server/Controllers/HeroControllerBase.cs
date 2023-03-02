@@ -22,7 +22,7 @@ namespace Hero.Server.Controllers
             this.logger.LogUnknownErrorOccured(ex.Error);
 
             IActionResult response;
-            if (ex.Error is GroupAccessForbiddenException)
+            if (ex.Error is GroupAccessForbiddenException || ex.Error is AccessForbiddenException)
             {
                 response = this.Forbid();
             }

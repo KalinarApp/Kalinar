@@ -3,14 +3,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    public class AbilityModelConfiguration : IEntityTypeConfiguration<Ability>
+    public class AbilityConfiguration : SuggestableConfiguration<Ability>
     {
-        public void Configure(EntityTypeBuilder<Ability> builder)
+        public override void Configure(EntityTypeBuilder<Ability> builder)
         {
             builder.ToTable("Abilities");
-            builder.HasKey(x => x.Id);
+            base.Configure(builder);
 
             builder.Property(x => x.Name).IsRequired();
             builder.Property(c => c.Name).HasMaxLength(100);

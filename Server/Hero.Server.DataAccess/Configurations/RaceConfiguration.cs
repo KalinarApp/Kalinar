@@ -3,9 +3,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    public class RaceModelConfiguration : IEntityTypeConfiguration<Race>
+    public class RaceConfiguration : IEntityTypeConfiguration<Race>
     {
         public void Configure(EntityTypeBuilder<Race> builder)
         {

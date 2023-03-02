@@ -4,9 +4,9 @@ using Hero.Server.Core.Models.Storyline;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    public class StoryEntryModelConfiguration : IEntityTypeConfiguration<StoryEntry>
+    public class StoryEntryConfiguration : IEntityTypeConfiguration<StoryEntry>
     {
         public void Configure(EntityTypeBuilder<StoryEntry> builder)
         {

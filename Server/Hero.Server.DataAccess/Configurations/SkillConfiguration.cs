@@ -3,11 +3,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    public class SkillModelConfiguration : IEntityTypeConfiguration<Skill>
+    public class SkillConfiguration : SuggestableConfiguration<Skill>
     {
-        public void Configure(EntityTypeBuilder<Skill> builder)
+        public override void Configure(EntityTypeBuilder<Skill> builder)
         {
             builder.ToTable("Skills");
             builder.HasKey(x => x.Id);
@@ -17,6 +17,8 @@ namespace Hero.Server.DataAccess.ModelConfigurations
                 .WithMany()
                 .HasForeignKey(skill => skill.AbilityId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            base.Configure(builder);
         }
     }
 }

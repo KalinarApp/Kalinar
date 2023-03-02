@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    internal class BlueprintModelConfiguration : IEntityTypeConfiguration<Blueprint>
+    internal class BlueprintConfiguration : IEntityTypeConfiguration<Blueprint>
     {
         public void Configure(EntityTypeBuilder<Blueprint> builder)
         {

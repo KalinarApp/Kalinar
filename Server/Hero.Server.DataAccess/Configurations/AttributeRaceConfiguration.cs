@@ -1,10 +1,11 @@
 ﻿using Hero.Server.Core.Models;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    public class AttributeRaceModelConfiguration : IEntityTypeConfiguration<AttributeRace>
+    public class AttributeRaceConfiguration : IEntityTypeConfiguration<AttributeRace>
     {
         public void Configure(EntityTypeBuilder<AttributeRace> builder)
         {

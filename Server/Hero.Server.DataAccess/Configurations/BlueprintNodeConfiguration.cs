@@ -3,13 +3,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Hero.Server.DataAccess.ModelConfigurations
+namespace Hero.Server.DataAccess.Configurations
 {
-    public class SkilltreeNodeModelConfiguration : IEntityTypeConfiguration<SkilltreeNode>
+    public class BlueprintNodeConfiguration : IEntityTypeConfiguration<BlueprintNode>
     {
-        public void Configure(EntityTypeBuilder<SkilltreeNode> builder)
+        public void Configure(EntityTypeBuilder<BlueprintNode> builder)
         {
-            builder.ToTable("SkilltreeNodes");
+            builder.ToTable("BlueprintNodes");
             builder.HasKey(x => x.Id);
 
             builder
@@ -24,10 +24,9 @@ namespace Hero.Server.DataAccess.ModelConfigurations
             builder.Property(n => n.XPos).IsRequired();
             builder.Property(n => n.YPos).IsRequired();
             builder.Property(n => n.Color).IsRequired();
-            builder.Property(n => n.IsUnlocked).IsRequired();
             builder.Property(n => n.IsEasyReachable).IsRequired();
             builder.Property(n => n.Precessors).IsRequired();
-            builder.Property(n => n.Successors).IsRequired();                
+            builder.Property(n => n.Successors).IsRequired();
         }
     }
 }
