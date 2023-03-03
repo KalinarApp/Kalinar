@@ -57,7 +57,6 @@ namespace Hero.Server.DataAccess.Repositories
             try
             {
                 return await this.context.Abilities.FirstOrDefaultAsync(g => EF.Functions.ILike(g.Name, name), cancellationToken) ?? throw new HeroException("The ability you are looking for is not there.");
-
             }
             catch (Exception)
             {

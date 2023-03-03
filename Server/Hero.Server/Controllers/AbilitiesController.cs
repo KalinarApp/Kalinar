@@ -39,41 +39,24 @@ namespace Hero.Server.Controllers
         }
 
         [HttpGet, IsGroupMember]
+        [ProducesErrorResponseType(typeof(HeroException))]
         public async Task<List<AbilityResponse>> GetAllAbilitiesAsync(CancellationToken token)
         {
             List<Ability> abilities = await this.repository.GetAllAbilitiesAsync(token);
-
             return abilities.Select(ability => this.mapper.Map<AbilityResponse>(ability)).ToList();
         }
 
         [HttpDelete("{id}"), IsGroupMember]
         public async Task DeleteAbilityAsync(Guid id, CancellationToken token)
         {
-            string userId = this.HttpContext.User.GetUserId();
-            Ability? ability = await this.repository.GetAbilityByIdAsync(id, token);
-
-            if (null == ability || !ability.IsOwnerOrAdmin(userId))
-            {
-                throw new AccessForbiddenException("You are neither the creator of this ability nor an admin.");
-            }
-
-            await this.repository.TryDeleteAbilityAsync(ability, token);
+            await this.repository.TryDeleteAbilityAsync(id, this.HttpContext.User.GetUserId(), token);
         }
 
         [HttpPut("{id}"), IsGroupMember]
         public async Task<AbilityResponse> UpdateAbilityAsync(Guid id, [FromBody] AbilityRequest request, CancellationToken token)
         {
             Ability updated = this.mapper.Map<Ability>(request);
-
-            string userId = this.HttpContext.User.GetUserId();
-            Ability? ability = await this.repository.GetAbilityByIdAsync(id, token);
-
-            if (null == ability || !ability.IsOwnerOrAdmin(userId))
-            {
-                throw new AccessForbiddenException("You are neither the creator of this ability nor an admin.");
-            }
-
-            await this.repository.TryUpdateAbilityAsync(ability, updated, token);
+            await this.repository.TryUpdateAbilityAsync(id, this.HttpContext.User.GetUserId(), updated, token);
 
             return this.mapper.Map<AbilityResponse>(updated);
         }
