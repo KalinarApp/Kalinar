@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using Hero.Server.Core.Exceptions;
 using Hero.Server.Core.Repositories;
 using Hero.Server.Identity;
 using Hero.Server.Identity.Attributes;
@@ -31,79 +31,75 @@ namespace Hero.Server.Controllers
         [ApiExplorerSettings(IgnoreApi = true), NonAction, Route("/error")]
         public IActionResult HandleError() => this.HandleErrors();
 
-        [HttpGet("{id}"), IsGroupAdmin]
-        public async Task<IActionResult> GetAttributeByIdAsync(Guid id)
+        [HttpGet("{id}"), IsGroupMember]
+        public async Task<AttributeResponse> GetAttributeByIdAsync(Guid id)
         {
             Attribute? attribute = await this.repository.GetAttributeByIdAsync(id);
 
-            if (attribute != null)
+            if (attribute == null)
             {
-                return this.Ok(this.mapper.Map<AttributeResponse>(attribute));
+                throw new ObjectNotFoundException("No Attribute found.");
             }
 
-            return this.NotFound();
+            return this.mapper.Map<AttributeResponse>(attribute);
         }
 
-        [HttpGet, IsGroupAdmin]
-        public async Task<IActionResult> GetAllAttributesAsync()
+        [HttpGet, IsGroupMember]
+        public async Task<List<AttributeResponse>> GetAllAttributesAsync()
         {
-            await userRepository.IsOwner(this.HttpContext.User.GetUserId());
-
             List<Attribute> attributes = await this.repository.GetAllAttributesAsync();
-
-            return this.Ok(attributes.Select(attribute => this.mapper.Map<AttributeResponse>(attribute)).ToList());
+            return attributes.Select(attribute => this.mapper.Map<AttributeResponse>(attribute)).ToList();
         }
 
-        [HttpGet("global"), IsGroupAdmin]
-        public async Task<IActionResult> GetAllGlobalAttributesAsync()
+        [HttpGet("global"), IsGroupMember]
+        public async Task<List<AttributeResponse>> GetAllGlobalAttributesAsync()
         {
-            await userRepository.IsOwner(this.HttpContext.User.GetUserId());
-
             List<Attribute> attributes = await this.repository.GetAllGlobalAttributesAsync();
 
-            return this.Ok(attributes.Select(attribute => this.mapper.Map<AttributeResponse>(attribute)).ToList());
+            return attributes.Select(attribute => this.mapper.Map<AttributeResponse>(attribute)).ToList();
         }
 
         
-        [HttpGet("categories"), IsGroupAdmin]
-        public async Task<IActionResult> GetAllExistingCategoriesAsync([FromQuery]string? query, CancellationToken cancellationToken)
+        [HttpGet("categories"), IsGroupMember]
+        public async Task<List<string>> GetAllExistingCategoriesAsync([FromQuery]string? query, CancellationToken cancellationToken)
         {
-            List<string> categories = await this.repository.GetAllCategoriesAsync(query, cancellationToken);
-
-            return this.Ok(categories);
+            return await this.repository.GetAllCategoriesAsync(query, cancellationToken);
         }
 
-        [HttpDelete("{id}"), IsGroupAdmin]
-        public async Task<IActionResult> DeleteAttributeAsync(Guid id)
+        [HttpDelete("{id}"), IsGroupMember]
+        public async Task DeleteAttributeAsync(Guid id)
         {
-            await userRepository.IsOwner(this.HttpContext.User.GetUserId());
-
             await this.repository.DeleteAttributeAsync(id);
-
-            return this.Ok();
         }
 
-        [HttpPut("{id}"), IsGroupAdmin]
-        public async Task<IActionResult> UpdateAttributeAsync(Guid id, [FromBody] AttributeRequest request)
+        [HttpPut("{id}"), IsGroupMember]
+        public async Task<AttributeResponse> UpdateAttributeAsync(Guid id, [FromBody] AttributeRequest request)
         {
-            await userRepository.IsOwner(this.HttpContext.User.GetUserId());
-
             Attribute attribute = this.mapper.Map<Attribute>(request);
             await this.repository.UpdateAttributeAsync(id, attribute);
 
-            return this.Ok(this.mapper.Map<AttributeResponse>(attribute));
+            return this.mapper.Map<AttributeResponse>(attribute);
         }
 
         [HttpPost, IsGroupAdmin]
-        public async Task<IActionResult> CreateAttributeAsync([FromBody] AttributeRequest request)
+        public async Task<AttributeResponse> CreateAttributeAsync([FromBody] AttributeRequest request)
         {
-            await userRepository.IsOwner(this.HttpContext.User.GetUserId());
-
             Attribute attribute = this.mapper.Map<Attribute>(request);
             await this.repository.CreateAttributeAsync(attribute);
 
-            return this.Ok(this.mapper.Map<AttributeResponse>(attribute));
+            return this.mapper.Map<AttributeResponse>(attribute);
         }
 
+        [HttpPost("{id}/approve"), IsGroupAdminAttribute]
+        public async Task ApproveAttributeAsync(Guid id, CancellationToken cancellationToken)
+        {
+            await this.repository.ApproveAttribute(id, cancellationToken);
+        }
+
+        [HttpPost("{id}/reject"), IsGroupAdminAttribute]
+        public async Task RejectAttributeAsync(Guid id, [FromBody] SuggestionRejectionRequest request, CancellationToken cancellationToken)
+        {
+            await this.repository.RejectAttribute(id, request.Reason, cancellationToken);
+        }
     }
 }

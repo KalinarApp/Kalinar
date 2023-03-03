@@ -77,5 +77,17 @@ namespace Hero.Server.Controllers
 
             return this.mapper.Map<AbilityResponse>(ability);
         }
+
+        [HttpPost("{id}/approve"), IsGroupAdminAttribute]
+        public async Task ApproveAbilityAsync(Guid id, CancellationToken cancellationToken)
+        {
+            await this.repository.ApproveAbility(id, cancellationToken);
+        }
+
+        [HttpPost("{id}/reject"), IsGroupAdminAttribute]
+        public async Task RejectAbilityAsync(Guid id, [FromBody] SuggestionRejectionRequest request, CancellationToken cancellationToken)
+        {
+            await this.repository.RejectAbility(id, request.Reason, cancellationToken);
+        }
     }
 }

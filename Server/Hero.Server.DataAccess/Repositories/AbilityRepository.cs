@@ -126,5 +126,54 @@ namespace Hero.Server.DataAccess.Repositories
                 throw new HeroException("An error occured while deleting the ability.");
             }
         }
+
+        public async Task ApproveAbility(Guid id, CancellationToken cancellationToken = default)
+        {
+            Ability? ability = await this.GetAbilityByIdAsync(id, cancellationToken);
+
+            if (null == ability)
+            {
+                throw new ObjectNotFoundException("Ability not found.");
+            }
+
+            try
+            {
+                ability.ApprovedAt = DateTime.Now;
+                ability.State = SuggestionState.Approved;
+
+                this.context.Abilities.Update(ability);
+                await this.context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error ccoured while approving the ability.");
+            }
+        }
+
+        public async Task RejectAbility(Guid id, string reason, CancellationToken cancellationToken = default)
+        {
+            Ability? ability = await this.GetAbilityByIdAsync(id, cancellationToken);
+
+            if (null == ability)
+            {
+                throw new ObjectNotFoundException("Ability not found.");
+            }
+
+            try
+            {
+                ability.RejectedAt = DateTime.Now;
+                ability.RejectionReason = reason;
+                ability.State = SuggestionState.Approved;
+
+                this.context.Abilities.Update(ability);
+                await this.context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error ccoured while approving the ability.");
+            }
+        }
     }
 }

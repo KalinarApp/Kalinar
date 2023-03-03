@@ -1,5 +1,6 @@
-﻿using AutoMapper;
-
+﻿using System.Threading;
+using AutoMapper;
+using FirebaseAdmin;
 using FirebaseAdmin.Auth;
 
 using Hero.Server.Core.Models;
@@ -29,24 +30,35 @@ namespace Hero.Server.Controllers
         [ApiExplorerSettings(IgnoreApi = true), NonAction, Route("/error")]
         public IActionResult HandleError() => this.HandleErrors();
 
-        [HttpGet()]
-        public async Task<IActionResult> GetUser()
+        private async Task<UserInfo> GetUserInfoByIdAsync(string id, CancellationToken cancellationToken = default)
         {
-            User? user = await this.repository.GetUserByIdAsync(this.HttpContext.User.GetUserId());
-                
-            if (null == user)
+            if (FirebaseApp.DefaultInstance != null)
             {
-                user = await repository.CreateUserIfNotExistAsync(this.HttpContext.User.GetUserId());
+                UserRecord user = await FirebaseAuth.DefaultInstance.GetUserAsync(id, cancellationToken);
+                return new()
+                {
+                    Id = user.Uid,
+                    Email = user.Email,
+                    Username = user.DisplayName ?? user.Email.Split('@')[0],
+                };
             }
+            return new() { Id = id };
+        }
 
-            return this.Ok(new {Id = user.Id, Group = this.mapper.Map<GroupResponse>(user.OwnedGroup ?? user.Group)}); 
+        [HttpGet()]
+        public async Task<UserInfo> GetUser(CancellationToken cancellationToken)
+        {
+            UserInfo userInfo = await this.GetUserInfoByIdAsync(this.HttpContext.User.GetUserId(), cancellationToken); 
+            await this.repository.UpdateUserAsync(userInfo.Id, userInfo.Email, userInfo.Username, cancellationToken);
+
+            return userInfo; 
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser()
+        public async Task CreateUserAsync(CancellationToken cancellationToken)
         {
-            await repository.CreateUserIfNotExistAsync(this.HttpContext.User.GetUserId());
-            return this.Ok(); 
+            UserInfo userInfo = await this.GetUserInfoByIdAsync(this.HttpContext.User.GetUserId(), cancellationToken);
+            await this.repository.UpdateUserAsync(userInfo.Id, userInfo.Email, userInfo.Username, cancellationToken);
         }
     }
 }
