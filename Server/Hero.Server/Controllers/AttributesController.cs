@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Hero.Server.Core.Exceptions;
+using Hero.Server.Core.Models;
 using Hero.Server.Core.Repositories;
 using Hero.Server.Identity;
 using Hero.Server.Identity.Attributes;
@@ -69,34 +70,42 @@ namespace Hero.Server.Controllers
         [HttpDelete("{id}"), IsGroupMember]
         public async Task DeleteAttributeAsync(Guid id)
         {
-            await this.repository.DeleteAttributeAsync(id);
+            await this.repository.TryDeleteAttributeAsync(id, this.HttpContext.User.GetUserId());
         }
 
         [HttpPut("{id}"), IsGroupMember]
-        public async Task<AttributeResponse> UpdateAttributeAsync(Guid id, [FromBody] AttributeRequest request)
+        public async Task<AttributeResponse> UpdateAttributeAsync(Guid id, [FromBody] AttributeRequest request, CancellationToken cancellationToken)
         {
             Attribute attribute = this.mapper.Map<Attribute>(request);
-            await this.repository.UpdateAttributeAsync(id, attribute);
+            await this.repository.TryUpdateAttributeAsync(id, this.HttpContext.User.GetUserId(), attribute, cancellationToken);
 
             return this.mapper.Map<AttributeResponse>(attribute);
         }
 
-        [HttpPost, IsGroupAdmin]
-        public async Task<AttributeResponse> CreateAttributeAsync([FromBody] AttributeRequest request)
+        [HttpPost, IsGroupMember]
+        public async Task<AttributeResponse> CreateAttributeAsync([FromBody] AttributeRequest request, CancellationToken cancellationToken)
         {
+            string userId = this.HttpContext.User.GetUserId();
             Attribute attribute = this.mapper.Map<Attribute>(request);
-            await this.repository.CreateAttributeAsync(attribute);
+
+            attribute.CreatorId = userId;
+            if (!await userRepository.IsOwner(userId, cancellationToken))
+            {
+                attribute.State = SuggestionState.Pending;
+            }
+
+            await this.repository.CreateAttributeAsync(attribute, cancellationToken);
 
             return this.mapper.Map<AttributeResponse>(attribute);
         }
 
-        [HttpPost("{id}/approve"), IsGroupAdminAttribute]
+        [HttpPost("{id}/approve"), IsGroupAdmin]
         public async Task ApproveAttributeAsync(Guid id, CancellationToken cancellationToken)
         {
             await this.repository.ApproveAttribute(id, cancellationToken);
         }
 
-        [HttpPost("{id}/reject"), IsGroupAdminAttribute]
+        [HttpPost("{id}/reject"), IsGroupAdmin]
         public async Task RejectAttributeAsync(Guid id, [FromBody] SuggestionRejectionRequest request, CancellationToken cancellationToken)
         {
             await this.repository.RejectAttribute(id, request.Reason, cancellationToken);
