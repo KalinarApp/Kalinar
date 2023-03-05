@@ -31,18 +31,24 @@ namespace Hero.Server.Controllers
         [ApiExplorerSettings(IgnoreApi = true), NonAction, Route("/error")]
         public IActionResult HandleError() => this.HandleErrors();
 
-        [HttpGet("{name}"), IsGroupMember]
-        public async Task<AbilityResponse> GetAbilityByIdAsync(string name, CancellationToken token)
+        [HttpGet("{id}"), IsGroupMember]
+        public async Task<AbilityResponse> GetAbilityByIdAsync(Guid id, CancellationToken token)
         {
-            Ability ability = await this.repository.GetAbilityByNameAsync(name, token);
+            Ability? ability = await this.repository.GetAbilityByIdAsync(id, token);
+
+            if (null == ability)
+            {
+                throw new ObjectNotFoundException("Ability not found.");
+            }
+
             return this.mapper.Map<AbilityResponse>(ability);
         }
 
         [HttpGet, IsGroupMember]
         [ProducesErrorResponseType(typeof(HeroException))]
-        public async Task<List<AbilityResponse>> GetAllAbilitiesAsync(CancellationToken token)
+        public async Task<List<AbilityResponse>> FilterAbilitiesAsync([FromQuery] string? query, CancellationToken token)
         {
-            List<Ability> abilities = await this.repository.GetAllAbilitiesAsync(token);
+            List<Ability> abilities = await this.repository.FilterAbilitiesAsync(query, token);
             return abilities.Select(ability => this.mapper.Map<AbilityResponse>(ability)).ToList();
         }
 
@@ -55,8 +61,10 @@ namespace Hero.Server.Controllers
         [HttpPut("{id}"), IsGroupMember]
         public async Task<AbilityResponse> UpdateAbilityAsync(Guid id, [FromBody] AbilityRequest request, CancellationToken token)
         {
+            string userId = this.HttpContext.User.GetUserId();
             Ability updated = this.mapper.Map<Ability>(request);
-            await this.repository.TryUpdateAbilityAsync(id, this.HttpContext.User.GetUserId(), updated, token);
+
+            await this.repository.TryUpdateAbilityAsync(id, userId, updated, token);
 
             return this.mapper.Map<AbilityResponse>(updated);
         }
@@ -76,12 +84,6 @@ namespace Hero.Server.Controllers
             await this.repository.CreateAbilityAsync(ability, token);
 
             return this.mapper.Map<AbilityResponse>(ability);
-        }
-
-        [HttpPost("{id}/approve"), IsGroupAdmin]
-        public async Task ApproveAbilityAsync(Guid id, CancellationToken cancellationToken)
-        {
-            await this.repository.ApproveAbility(id, cancellationToken);
         }
 
         [HttpPost("{id}/reject"), IsGroupAdmin]

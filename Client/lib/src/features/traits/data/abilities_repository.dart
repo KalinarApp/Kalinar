@@ -7,25 +7,20 @@ import '../domain/ability.dart';
 class AbilitiesRepository extends HeroBaseRepository {
   AbilitiesRepository({super.group});
 
-  Future<Ability> getByName(String id) async {
+  Future<Ability> getById(String id) async {
     return await heroGet("/api/abilities/$id", (response) => Ability.fromJson(response));
   }
 
-  Future<List<Ability>> getAll() async {
-    return await heroGet("/api/abilities", (response) => List<Ability>.from(response.map((model) => Ability.fromJson(model))));
-  }
-
-  Future<List<Ability>> filter(String query) async {
-    return await heroGet("/api/abilities", (response) => List<Ability>.from(response.map((model) => Ability.fromJson(model))),
-        query: {"search": query});
+  Future<List<Ability>> filter(String? query) async {
+    return await heroGet(
+      "/api/abilities",
+      (response) => List<Ability>.from(response.map((model) => Ability.fromJson(model))),
+      query: {"query": query},
+    );
   }
 
   Future<Ability> createAbility(Map<String, dynamic> data) async {
     return await heroPost("/api/abilities", data, (response) => Ability.fromJson(response));
-  }
-
-  Future<void> approve(String id) async {
-    await heroPost("/api/abilities/$id/approve", {}, (response) => true);
   }
 
   Future<void> reject(String id, String reason) async {

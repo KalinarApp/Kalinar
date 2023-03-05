@@ -100,7 +100,7 @@ final routeProvider = Provider<GoRouter>((ref) {
               ),
               ScaffoldWithNavbarItem(
                 initialLocation: TraitsOverviewScreen.route,
-                icon: const FaIcon(Icons.featured_video_sharp),
+                icon: const FaIcon(FontAwesomeIcons.bookSkull),
                 label: AppLocalizations.of(context)!.traits,
               ),
               if (isAdmin)

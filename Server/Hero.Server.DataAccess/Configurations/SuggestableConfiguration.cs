@@ -14,7 +14,6 @@ namespace Hero.Server.DataAccess.Configurations
 
             builder.Property(x => x.State)
                 .IsRequired()
-                .HasDefaultValue(SuggestionState.Approved)
                 .HasConversion(x => x.ToString(), x => (SuggestionState)Enum.Parse(typeof(SuggestionState), x));
 
             builder.Property(x => x.CreatedAt)

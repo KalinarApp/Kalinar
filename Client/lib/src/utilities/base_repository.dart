@@ -23,11 +23,11 @@ class BaseRepository {
         case 403:
           throw const APIError.forbidden();
         case 404:
-          throw APIError.notFound();
+          throw const APIError.notFound();
         case 500:
           throw APIError.problem(data["type"], data["title"]);
         default:
-          throw APIError.unknown();
+          throw const APIError.unknown();
       }
     } on SocketException catch (_) {
       throw const APIError.noInternetConnection();

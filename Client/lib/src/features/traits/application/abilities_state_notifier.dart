@@ -36,17 +36,6 @@ class AbilitiesStateNotifier extends StateNotifier<List<Ability>?> {
     state = state?.where((element) => element.id != id).toList();
   }
 
-  void approve(String id) {
-    final index = state?.indexWhere((element) => element.id == id);
-    if (null != index) {
-      final list = [...state ?? []];
-      var ability = list.removeAt(index);
-      ability = ability.copyWith(state: SuggestionState.approved);
-
-      refresh([...list, ability]);
-    }
-  }
-
   void reject(String id, String reason) {
     final index = state?.indexWhere((element) => element.id == id);
     if (null != index) {
@@ -59,6 +48,6 @@ class AbilitiesStateNotifier extends StateNotifier<List<Ability>?> {
   }
 }
 
-final abilityStateNotifierProvider = StateNotifierProvider<AbilitiesStateNotifier, List<Ability>?>((ref) {
+final abilitiesStateNotifierProvider = StateNotifierProvider<AbilitiesStateNotifier, List<Ability>?>((ref) {
   return AbilitiesStateNotifier();
 });

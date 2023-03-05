@@ -8,6 +8,8 @@ class DebouncedTextField extends StatefulWidget {
   final String? initialValue;
   final Duration duration;
   final Widget? icon;
+  final bool isEnabled;
+  final bool canClear;
 
   const DebouncedTextField({
     required this.onChanged,
@@ -15,6 +17,8 @@ class DebouncedTextField extends StatefulWidget {
     this.duration = const Duration(milliseconds: 400),
     this.initialValue,
     required this.title,
+    this.isEnabled = true,
+    this.canClear = false,
     super.key,
   });
 
@@ -43,11 +47,23 @@ class _DebouncedTextFieldState extends State<DebouncedTextField> {
     return TextField(
       controller: controller,
       maxLines: 1,
+      enabled: widget.isEnabled,
       onChanged: (value) {
         if (_timer?.isActive ?? false) _timer!.cancel();
         _timer = Timer(widget.duration, () => widget.onChanged(controller.text));
       },
-      decoration: InputDecoration(hintText: widget.title, prefixIcon: widget.icon),
+      decoration: InputDecoration(
+        hintText: widget.title,
+        prefixIcon: widget.icon,
+        suffixIcon: widget.canClear
+            ? IconButton(
+                onPressed: () {
+                  controller.clear();
+                  widget.onChanged("");
+                },
+                icon: const Icon(Icons.clear))
+            : null,
+      ),
     );
   }
 }

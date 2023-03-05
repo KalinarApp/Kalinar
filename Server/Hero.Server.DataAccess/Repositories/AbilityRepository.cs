@@ -43,7 +43,7 @@ namespace Hero.Server.DataAccess.Repositories
         {
             try
             {
-                return await this.context.Abilities.Include(item => item.Group).FirstOrDefaultAsync(item => item.Id == id);
+                return await this.context.Abilities.Include(item => item.Group).Include(item => item.Creator).FirstOrDefaultAsync(item => item.Id == id, cancellationToken: cancellationToken);
             }
             catch (Exception ex)
             {
@@ -52,23 +52,18 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<Ability> GetAbilityByNameAsync(string name, CancellationToken cancellationToken = default)
+        public async Task<List<Ability>> FilterAbilitiesAsync(string? query, CancellationToken cancellationToken = default)
         {
             try
             {
-                return await this.context.Abilities.FirstOrDefaultAsync(g => EF.Functions.ILike(g.Name, name), cancellationToken) ?? throw new HeroException("The ability you are looking for is not there.");
-            }
-            catch (Exception)
-            {
-                throw new HeroException("An error occured while fetching abilities");
-            }
-        }
+                IQueryable<Ability> abilities = this.context.Abilities.Include(item => item.Creator).Where(a => a.GroupId == this.groupContext.Id);
 
-        public async Task<List<Ability>> GetAllAbilitiesAsync(CancellationToken cancellationToken = default)
-        {
-            try
-            {
-                return await this.context.Abilities.Include(item => item.Creator).Where(a => a.GroupId == this.groupContext.Id).ToListAsync(cancellationToken);
+                if (!String.IsNullOrEmpty(query))
+                {
+                    abilities = abilities.Where(item => item.Name.ToLower().Contains(query.ToLower()) || (null != item.Description && item.Description.ToLower().Contains(query.ToLower())));
+                }
+
+                return await abilities.ToListAsync(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -99,6 +94,12 @@ namespace Hero.Server.DataAccess.Repositories
 
             try
             {
+                if (existing.Group.OwnerId == userId && SuggestionState.Pending == existing.State)
+                {
+                    updated.State = SuggestionState.Approved;
+                    updated.ApprovedAt = DateTime.Now;
+                }
+
                 existing.Update(updated);
 
                 this.context.Abilities.Update(existing);
@@ -127,30 +128,6 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task ApproveAbility(Guid id, CancellationToken cancellationToken = default)
-        {
-            Ability? ability = await this.GetAbilityByIdAsync(id, cancellationToken);
-
-            if (null == ability)
-            {
-                throw new ObjectNotFoundException("Ability not found.");
-            }
-
-            try
-            {
-                ability.ApprovedAt = DateTime.Now;
-                ability.State = SuggestionState.Approved;
-
-                this.context.Abilities.Update(ability);
-                await this.context.SaveChangesAsync(cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw new HeroException("An error ccoured while approving the ability.");
-            }
-        }
-
         public async Task RejectAbility(Guid id, string reason, CancellationToken cancellationToken = default)
         {
             Ability? ability = await this.GetAbilityByIdAsync(id, cancellationToken);
@@ -158,6 +135,10 @@ namespace Hero.Server.DataAccess.Repositories
             if (null == ability)
             {
                 throw new ObjectNotFoundException("Ability not found.");
+            }
+            else if (SuggestionState.Pending != ability.State)
+            {
+                throw new HeroException("This ability is already approved or rejected and therefore cannot be rejected again.");
             }
 
             try

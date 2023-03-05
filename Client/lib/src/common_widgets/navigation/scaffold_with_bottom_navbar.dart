@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:go_router/go_router.dart';
 
 import 'scaffold_with_navbar_item.dart';
@@ -46,6 +45,7 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
         bottomNavigationBar: BottomNavigationBar(
           items: widget.tabs,
           currentIndex: _currentIndex,
+          useLegacyColorScheme: false,
           onTap: (value) => _onItemTapped(context, value),
         ),
       ),

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/user_menu.dart';
 import 'components/abilities_tab.dart';
+import 'edit_ability_screen.dart';
 
 class TraitsOverviewScreen extends ConsumerStatefulWidget {
   static const String name = "traits";
@@ -18,12 +20,18 @@ class TraitsOverviewScreen extends ConsumerStatefulWidget {
 }
 
 class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> with TickerProviderStateMixin {
-  late final TabController controller;
-  late final List<ContentTab> tabs;
+  late final TabController controller = TabController(length: 1, vsync: this);
+
+  void _addTrait() {
+    switch (controller.index) {
+      case 0:
+        GoRouter.of(context).goNamed(EditAbilityScreen.name);
+    }
+  }
 
   @override
-  void didChangeDependencies() {
-    tabs = [
+  Widget build(BuildContext context) {
+    final tabs = [
       ContentTab(
         icon: const FaIcon(FontAwesomeIcons.award),
         text: AppLocalizations.of(context)!.abilities,
@@ -31,25 +39,16 @@ class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> wit
       )
     ];
 
-    controller = TabController(length: tabs.length, vsync: this);
-    super.didChangeDependencies();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(onPressed: _addTrait, child: const Icon(Icons.add)),
       appBar: AppBar(
         actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())],
         bottom: TabBar(tabs: tabs, controller: controller),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: TabBarView(
-          controller: controller,
-          physics: const BouncingScrollPhysics(),
-          children: tabs.map((e) => e.content).toList(),
-        ),
+      body: TabBarView(
+        controller: controller,
+        physics: const BouncingScrollPhysics(),
+        children: tabs.map((e) => e.content).toList(),
       ),
     );
   }
