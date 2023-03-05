@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+
 using Hero.Server.Core.Models;
 
 namespace Hero.Server.Messages.Responses
@@ -7,6 +9,7 @@ namespace Hero.Server.Messages.Responses
 	{
         public UserResponse Creator { get; set; }
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public SuggestionState State { get; set; }
         public string? RejectionReason { get; set; }
 

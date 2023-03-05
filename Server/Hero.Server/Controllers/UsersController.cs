@@ -45,13 +45,13 @@ namespace Hero.Server.Controllers
             return new() { Id = id };
         }
 
-        [HttpGet()]
-        public async Task<UserInfo> GetUser(CancellationToken cancellationToken)
+        [HttpGet]
+        public async Task<UserResponse> GetUser(CancellationToken cancellationToken)
         {
             UserInfo userInfo = await this.GetUserInfoByIdAsync(this.HttpContext.User.GetUserId(), cancellationToken); 
-            await this.repository.UpdateUserAsync(userInfo.Id, userInfo.Email, userInfo.Username, cancellationToken);
+            User user = await this.repository.UpdateUserAsync(userInfo.Id, userInfo.Email, userInfo.Username, cancellationToken);
 
-            return userInfo; 
+            return this.mapper.Map<UserResponse>(user); 
         }
 
         [HttpPost]

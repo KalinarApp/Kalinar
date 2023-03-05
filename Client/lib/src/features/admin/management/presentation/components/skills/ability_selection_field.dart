@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../application/ability_list_controller.dart';
-import '../../../domain/ability.dart';
-import '../abilities/edit_ability_screen.dart';
+import '../../../../../traits/domain/ability.dart';
 
 class AbilitySelectionField extends ConsumerWidget {
   final Ability? initialValue;
@@ -15,7 +11,7 @@ class AbilitySelectionField extends ConsumerWidget {
   const AbilitySelectionField({this.initialValue, super.key});
 
   Future<void> _showAbilityScreen(BuildContext context) async {
-    GoRouter.of(context).pushNamed(EditAbilityScreen.name);
+    // GoRouter.of(context).pushNamed(EditAbilityScreen.name);
   }
 
   @override
@@ -28,7 +24,7 @@ class AbilitySelectionField extends ConsumerWidget {
             valueTransformer: (value) => value?.id,
             initialValue: initialValue,
             decoration: InputDecoration(labelText: AppLocalizations.of(context)!.selectAnAbility, prefixIcon: const Icon(Icons.handyman)),
-            asyncItems: ref.read(abilityListControllerProvider.notifier).filter,
+            // asyncItems: ref.read(abilityListControllerProvider.notifier).filter,
             compareFn: (item1, item2) => item1.name == item2.name,
             itemAsString: (item) => item.name,
             clearButtonProps: const ClearButtonProps(isVisible: true),

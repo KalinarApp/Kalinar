@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../features/admin/management/application/attribute_controller.dart';
-import '../../../features/admin/management/domain/attribute.dart';
+import '../../../features/traits/domain/attribute.dart';
 import '../selection_field.dart';
 
 class AttributeSearch extends ConsumerWidget {

@@ -21,9 +21,9 @@ mixin _$APIError {
     required TResult Function() unauthorized,
     required TResult Function() forbidden,
     required TResult Function(String errorId, String errorMessage) badRequest,
-    required TResult Function(String errorId, String errorMessage) notFound,
+    required TResult Function() notFound,
     required TResult Function(String errorId, String errorMessage) problem,
-    required TResult Function(String errorId, String errorMessage) unknown,
+    required TResult Function() unknown,
     required TResult Function() noInternetConnection,
   }) =>
       throw _privateConstructorUsedError;
@@ -32,9 +32,9 @@ mixin _$APIError {
     TResult? Function()? unauthorized,
     TResult? Function()? forbidden,
     TResult? Function(String errorId, String errorMessage)? badRequest,
-    TResult? Function(String errorId, String errorMessage)? notFound,
+    TResult? Function()? notFound,
     TResult? Function(String errorId, String errorMessage)? problem,
-    TResult? Function(String errorId, String errorMessage)? unknown,
+    TResult? Function()? unknown,
     TResult? Function()? noInternetConnection,
   }) =>
       throw _privateConstructorUsedError;
@@ -43,9 +43,9 @@ mixin _$APIError {
     TResult Function()? unauthorized,
     TResult Function()? forbidden,
     TResult Function(String errorId, String errorMessage)? badRequest,
-    TResult Function(String errorId, String errorMessage)? notFound,
+    TResult Function()? notFound,
     TResult Function(String errorId, String errorMessage)? problem,
-    TResult Function(String errorId, String errorMessage)? unknown,
+    TResult Function()? unknown,
     TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) =>
@@ -144,9 +144,9 @@ class _$_unauthorized implements _unauthorized {
     required TResult Function() unauthorized,
     required TResult Function() forbidden,
     required TResult Function(String errorId, String errorMessage) badRequest,
-    required TResult Function(String errorId, String errorMessage) notFound,
+    required TResult Function() notFound,
     required TResult Function(String errorId, String errorMessage) problem,
-    required TResult Function(String errorId, String errorMessage) unknown,
+    required TResult Function() unknown,
     required TResult Function() noInternetConnection,
   }) {
     return unauthorized();
@@ -158,9 +158,9 @@ class _$_unauthorized implements _unauthorized {
     TResult? Function()? unauthorized,
     TResult? Function()? forbidden,
     TResult? Function(String errorId, String errorMessage)? badRequest,
-    TResult? Function(String errorId, String errorMessage)? notFound,
+    TResult? Function()? notFound,
     TResult? Function(String errorId, String errorMessage)? problem,
-    TResult? Function(String errorId, String errorMessage)? unknown,
+    TResult? Function()? unknown,
     TResult? Function()? noInternetConnection,
   }) {
     return unauthorized?.call();
@@ -172,9 +172,9 @@ class _$_unauthorized implements _unauthorized {
     TResult Function()? unauthorized,
     TResult Function()? forbidden,
     TResult Function(String errorId, String errorMessage)? badRequest,
-    TResult Function(String errorId, String errorMessage)? notFound,
+    TResult Function()? notFound,
     TResult Function(String errorId, String errorMessage)? problem,
-    TResult Function(String errorId, String errorMessage)? unknown,
+    TResult Function()? unknown,
     TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) {
@@ -276,9 +276,9 @@ class _$_forbidden implements _forbidden {
     required TResult Function() unauthorized,
     required TResult Function() forbidden,
     required TResult Function(String errorId, String errorMessage) badRequest,
-    required TResult Function(String errorId, String errorMessage) notFound,
+    required TResult Function() notFound,
     required TResult Function(String errorId, String errorMessage) problem,
-    required TResult Function(String errorId, String errorMessage) unknown,
+    required TResult Function() unknown,
     required TResult Function() noInternetConnection,
   }) {
     return forbidden();
@@ -290,9 +290,9 @@ class _$_forbidden implements _forbidden {
     TResult? Function()? unauthorized,
     TResult? Function()? forbidden,
     TResult? Function(String errorId, String errorMessage)? badRequest,
-    TResult? Function(String errorId, String errorMessage)? notFound,
+    TResult? Function()? notFound,
     TResult? Function(String errorId, String errorMessage)? problem,
-    TResult? Function(String errorId, String errorMessage)? unknown,
+    TResult? Function()? unknown,
     TResult? Function()? noInternetConnection,
   }) {
     return forbidden?.call();
@@ -304,9 +304,9 @@ class _$_forbidden implements _forbidden {
     TResult Function()? unauthorized,
     TResult Function()? forbidden,
     TResult Function(String errorId, String errorMessage)? badRequest,
-    TResult Function(String errorId, String errorMessage)? notFound,
+    TResult Function()? notFound,
     TResult Function(String errorId, String errorMessage)? problem,
-    TResult Function(String errorId, String errorMessage)? unknown,
+    TResult Function()? unknown,
     TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) {
@@ -443,9 +443,9 @@ class _$_BadRequest implements _BadRequest {
     required TResult Function() unauthorized,
     required TResult Function() forbidden,
     required TResult Function(String errorId, String errorMessage) badRequest,
-    required TResult Function(String errorId, String errorMessage) notFound,
+    required TResult Function() notFound,
     required TResult Function(String errorId, String errorMessage) problem,
-    required TResult Function(String errorId, String errorMessage) unknown,
+    required TResult Function() unknown,
     required TResult Function() noInternetConnection,
   }) {
     return badRequest(errorId, errorMessage);
@@ -457,9 +457,9 @@ class _$_BadRequest implements _BadRequest {
     TResult? Function()? unauthorized,
     TResult? Function()? forbidden,
     TResult? Function(String errorId, String errorMessage)? badRequest,
-    TResult? Function(String errorId, String errorMessage)? notFound,
+    TResult? Function()? notFound,
     TResult? Function(String errorId, String errorMessage)? problem,
-    TResult? Function(String errorId, String errorMessage)? unknown,
+    TResult? Function()? unknown,
     TResult? Function()? noInternetConnection,
   }) {
     return badRequest?.call(errorId, errorMessage);
@@ -471,9 +471,9 @@ class _$_BadRequest implements _BadRequest {
     TResult Function()? unauthorized,
     TResult Function()? forbidden,
     TResult Function(String errorId, String errorMessage)? badRequest,
-    TResult Function(String errorId, String errorMessage)? notFound,
+    TResult Function()? notFound,
     TResult Function(String errorId, String errorMessage)? problem,
-    TResult Function(String errorId, String errorMessage)? unknown,
+    TResult Function()? unknown,
     TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) {
@@ -546,8 +546,6 @@ abstract class _$$_NotFoundCopyWith<$Res> {
   factory _$$_NotFoundCopyWith(
           _$_NotFound value, $Res Function(_$_NotFound) then) =
       __$$_NotFoundCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String errorId, String errorMessage});
 }
 
 /// @nodoc
@@ -557,59 +555,26 @@ class __$$_NotFoundCopyWithImpl<$Res>
   __$$_NotFoundCopyWithImpl(
       _$_NotFound _value, $Res Function(_$_NotFound) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? errorId = null,
-    Object? errorMessage = null,
-  }) {
-    return _then(_$_NotFound(
-      null == errorId
-          ? _value.errorId
-          : errorId // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_NotFound implements _NotFound {
-  const _$_NotFound(this.errorId, this.errorMessage);
-
-  @override
-  final String errorId;
-  @override
-  final String errorMessage;
+  const _$_NotFound();
 
   @override
   String toString() {
-    return 'APIError.notFound(errorId: $errorId, errorMessage: $errorMessage)';
+    return 'APIError.notFound()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_NotFound &&
-            (identical(other.errorId, errorId) || other.errorId == errorId) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+        (other.runtimeType == runtimeType && other is _$_NotFound);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, errorId, errorMessage);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_NotFoundCopyWith<_$_NotFound> get copyWith =>
-      __$$_NotFoundCopyWithImpl<_$_NotFound>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -617,12 +582,12 @@ class _$_NotFound implements _NotFound {
     required TResult Function() unauthorized,
     required TResult Function() forbidden,
     required TResult Function(String errorId, String errorMessage) badRequest,
-    required TResult Function(String errorId, String errorMessage) notFound,
+    required TResult Function() notFound,
     required TResult Function(String errorId, String errorMessage) problem,
-    required TResult Function(String errorId, String errorMessage) unknown,
+    required TResult Function() unknown,
     required TResult Function() noInternetConnection,
   }) {
-    return notFound(errorId, errorMessage);
+    return notFound();
   }
 
   @override
@@ -631,12 +596,12 @@ class _$_NotFound implements _NotFound {
     TResult? Function()? unauthorized,
     TResult? Function()? forbidden,
     TResult? Function(String errorId, String errorMessage)? badRequest,
-    TResult? Function(String errorId, String errorMessage)? notFound,
+    TResult? Function()? notFound,
     TResult? Function(String errorId, String errorMessage)? problem,
-    TResult? Function(String errorId, String errorMessage)? unknown,
+    TResult? Function()? unknown,
     TResult? Function()? noInternetConnection,
   }) {
-    return notFound?.call(errorId, errorMessage);
+    return notFound?.call();
   }
 
   @override
@@ -645,14 +610,14 @@ class _$_NotFound implements _NotFound {
     TResult Function()? unauthorized,
     TResult Function()? forbidden,
     TResult Function(String errorId, String errorMessage)? badRequest,
-    TResult Function(String errorId, String errorMessage)? notFound,
+    TResult Function()? notFound,
     TResult Function(String errorId, String errorMessage)? problem,
-    TResult Function(String errorId, String errorMessage)? unknown,
+    TResult Function()? unknown,
     TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) {
     if (notFound != null) {
-      return notFound(errorId, errorMessage);
+      return notFound();
     }
     return orElse();
   }
@@ -705,14 +670,7 @@ class _$_NotFound implements _NotFound {
 }
 
 abstract class _NotFound implements APIError {
-  const factory _NotFound(final String errorId, final String errorMessage) =
-      _$_NotFound;
-
-  String get errorId;
-  String get errorMessage;
-  @JsonKey(ignore: true)
-  _$$_NotFoundCopyWith<_$_NotFound> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _NotFound() = _$_NotFound;
 }
 
 /// @nodoc
@@ -790,9 +748,9 @@ class _$_problem implements _problem {
     required TResult Function() unauthorized,
     required TResult Function() forbidden,
     required TResult Function(String errorId, String errorMessage) badRequest,
-    required TResult Function(String errorId, String errorMessage) notFound,
+    required TResult Function() notFound,
     required TResult Function(String errorId, String errorMessage) problem,
-    required TResult Function(String errorId, String errorMessage) unknown,
+    required TResult Function() unknown,
     required TResult Function() noInternetConnection,
   }) {
     return problem(errorId, errorMessage);
@@ -804,9 +762,9 @@ class _$_problem implements _problem {
     TResult? Function()? unauthorized,
     TResult? Function()? forbidden,
     TResult? Function(String errorId, String errorMessage)? badRequest,
-    TResult? Function(String errorId, String errorMessage)? notFound,
+    TResult? Function()? notFound,
     TResult? Function(String errorId, String errorMessage)? problem,
-    TResult? Function(String errorId, String errorMessage)? unknown,
+    TResult? Function()? unknown,
     TResult? Function()? noInternetConnection,
   }) {
     return problem?.call(errorId, errorMessage);
@@ -818,9 +776,9 @@ class _$_problem implements _problem {
     TResult Function()? unauthorized,
     TResult Function()? forbidden,
     TResult Function(String errorId, String errorMessage)? badRequest,
-    TResult Function(String errorId, String errorMessage)? notFound,
+    TResult Function()? notFound,
     TResult Function(String errorId, String errorMessage)? problem,
-    TResult Function(String errorId, String errorMessage)? unknown,
+    TResult Function()? unknown,
     TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) {
@@ -893,8 +851,6 @@ abstract class _$$_UnknownCopyWith<$Res> {
   factory _$$_UnknownCopyWith(
           _$_Unknown value, $Res Function(_$_Unknown) then) =
       __$$_UnknownCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String errorId, String errorMessage});
 }
 
 /// @nodoc
@@ -903,59 +859,26 @@ class __$$_UnknownCopyWithImpl<$Res>
     implements _$$_UnknownCopyWith<$Res> {
   __$$_UnknownCopyWithImpl(_$_Unknown _value, $Res Function(_$_Unknown) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? errorId = null,
-    Object? errorMessage = null,
-  }) {
-    return _then(_$_Unknown(
-      null == errorId
-          ? _value.errorId
-          : errorId // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Unknown implements _Unknown {
-  const _$_Unknown(this.errorId, this.errorMessage);
-
-  @override
-  final String errorId;
-  @override
-  final String errorMessage;
+  const _$_Unknown();
 
   @override
   String toString() {
-    return 'APIError.unknown(errorId: $errorId, errorMessage: $errorMessage)';
+    return 'APIError.unknown()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Unknown &&
-            (identical(other.errorId, errorId) || other.errorId == errorId) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+        (other.runtimeType == runtimeType && other is _$_Unknown);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, errorId, errorMessage);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_UnknownCopyWith<_$_Unknown> get copyWith =>
-      __$$_UnknownCopyWithImpl<_$_Unknown>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -963,12 +886,12 @@ class _$_Unknown implements _Unknown {
     required TResult Function() unauthorized,
     required TResult Function() forbidden,
     required TResult Function(String errorId, String errorMessage) badRequest,
-    required TResult Function(String errorId, String errorMessage) notFound,
+    required TResult Function() notFound,
     required TResult Function(String errorId, String errorMessage) problem,
-    required TResult Function(String errorId, String errorMessage) unknown,
+    required TResult Function() unknown,
     required TResult Function() noInternetConnection,
   }) {
-    return unknown(errorId, errorMessage);
+    return unknown();
   }
 
   @override
@@ -977,12 +900,12 @@ class _$_Unknown implements _Unknown {
     TResult? Function()? unauthorized,
     TResult? Function()? forbidden,
     TResult? Function(String errorId, String errorMessage)? badRequest,
-    TResult? Function(String errorId, String errorMessage)? notFound,
+    TResult? Function()? notFound,
     TResult? Function(String errorId, String errorMessage)? problem,
-    TResult? Function(String errorId, String errorMessage)? unknown,
+    TResult? Function()? unknown,
     TResult? Function()? noInternetConnection,
   }) {
-    return unknown?.call(errorId, errorMessage);
+    return unknown?.call();
   }
 
   @override
@@ -991,14 +914,14 @@ class _$_Unknown implements _Unknown {
     TResult Function()? unauthorized,
     TResult Function()? forbidden,
     TResult Function(String errorId, String errorMessage)? badRequest,
-    TResult Function(String errorId, String errorMessage)? notFound,
+    TResult Function()? notFound,
     TResult Function(String errorId, String errorMessage)? problem,
-    TResult Function(String errorId, String errorMessage)? unknown,
+    TResult Function()? unknown,
     TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) {
     if (unknown != null) {
-      return unknown(errorId, errorMessage);
+      return unknown();
     }
     return orElse();
   }
@@ -1051,14 +974,7 @@ class _$_Unknown implements _Unknown {
 }
 
 abstract class _Unknown implements APIError {
-  const factory _Unknown(final String errorId, final String errorMessage) =
-      _$_Unknown;
-
-  String get errorId;
-  String get errorMessage;
-  @JsonKey(ignore: true)
-  _$$_UnknownCopyWith<_$_Unknown> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _Unknown() = _$_Unknown;
 }
 
 /// @nodoc
@@ -1102,9 +1018,9 @@ class _$_NoInternetConnection implements _NoInternetConnection {
     required TResult Function() unauthorized,
     required TResult Function() forbidden,
     required TResult Function(String errorId, String errorMessage) badRequest,
-    required TResult Function(String errorId, String errorMessage) notFound,
+    required TResult Function() notFound,
     required TResult Function(String errorId, String errorMessage) problem,
-    required TResult Function(String errorId, String errorMessage) unknown,
+    required TResult Function() unknown,
     required TResult Function() noInternetConnection,
   }) {
     return noInternetConnection();
@@ -1116,9 +1032,9 @@ class _$_NoInternetConnection implements _NoInternetConnection {
     TResult? Function()? unauthorized,
     TResult? Function()? forbidden,
     TResult? Function(String errorId, String errorMessage)? badRequest,
-    TResult? Function(String errorId, String errorMessage)? notFound,
+    TResult? Function()? notFound,
     TResult? Function(String errorId, String errorMessage)? problem,
-    TResult? Function(String errorId, String errorMessage)? unknown,
+    TResult? Function()? unknown,
     TResult? Function()? noInternetConnection,
   }) {
     return noInternetConnection?.call();
@@ -1130,9 +1046,9 @@ class _$_NoInternetConnection implements _NoInternetConnection {
     TResult Function()? unauthorized,
     TResult Function()? forbidden,
     TResult Function(String errorId, String errorMessage)? badRequest,
-    TResult Function(String errorId, String errorMessage)? notFound,
+    TResult Function()? notFound,
     TResult Function(String errorId, String errorMessage)? problem,
-    TResult Function(String errorId, String errorMessage)? unknown,
+    TResult Function()? unknown,
     TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) {

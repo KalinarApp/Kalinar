@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:kalinar/src/features/admin/management/application/attribute_controller.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-import '../../../features/admin/management/domain/attribute.dart';
-import '../../../features/admin/management/domain/attribute_value.dart';
-
+import '../../../features/admin/management/application/attribute_controller.dart';
+import '../../../features/traits/domain/attribute.dart';
+import '../../../features/traits/domain/attribute_value.dart';
 import 'attribute_search.dart';
 import 'attribute_value_range.dart';
 

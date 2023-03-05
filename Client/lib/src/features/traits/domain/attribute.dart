@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../utilities/global_attributes.dart';
+import '../../../utilities/global_attributes.dart';
+import '../../group_management/domain/user.dart';
+import 'suggestion_state.dart';
 
 part 'attribute.freezed.dart';
 part 'attribute.g.dart';
@@ -19,6 +21,13 @@ class Attribute with _$Attribute {
     @Default(0) double minValue,
     @Default(10) double maxValue,
     @Default(false) bool isGlobal,
+    required User creator,
+    required SuggestionState state,
+    String? rejectionReason,
+    required DateTime createdAt,
+    DateTime? lastUpdatedAt,
+    DateTime? approvedAt,
+    DateTime? rejectedAt,
   }) = _Attribute;
 
   factory Attribute.fromJson(Map<String, dynamic> json) => _$AttributeFromJson(json);

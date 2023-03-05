@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../../../features/admin/management/domain/attribute_value.dart';
-
+import '../../../features/traits/domain/attribute_value.dart';
 import 'attribute_list.dart';
 
 class AttributesField extends StatelessWidget {

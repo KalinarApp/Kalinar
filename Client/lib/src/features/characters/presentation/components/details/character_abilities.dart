@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:kalinar/src/common_widgets/debounced_text_field.dart';
-import 'package:kalinar/src/features/admin/management/domain/ability.dart';
-import 'package:kalinar/src/features/characters/presentation/components/details/abilities_item.dart';
-
+import '../../../../../common_widgets/debounced_text_field.dart';
+import '../../../../traits/domain/ability.dart';
 import '../../../domain/character.dart';
+import 'abilities_item.dart';
 
 class CharacterAbilities extends ConsumerStatefulWidget {
   final Character character;

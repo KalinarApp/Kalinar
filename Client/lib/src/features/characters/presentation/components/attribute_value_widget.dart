@@ -2,13 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
-import '../../../admin/management/domain/attribute.dart';
-import '../../../admin/management/domain/attribute_value.dart';
+import '../../../traits/domain/attribute.dart';
+import '../../../traits/domain/attribute_value.dart';
 
 class AttributeValueWidget extends StatelessWidget {
   final AttributeValue value;

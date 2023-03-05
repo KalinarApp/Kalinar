@@ -6,7 +6,6 @@ import 'package:kalinar/src/features/admin/storyline/presentation/storyline_over
 
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/admin/common/presentation/manage_group_screen.dart';
-import '../../features/admin/management/presentation/components/abilities/edit_ability_screen.dart';
 import '../../features/admin/management/presentation/components/attributes/edit_attribute_screen.dart';
 import '../../features/admin/management/presentation/components/races/edit_race_screen.dart';
 import '../../features/admin/management/presentation/components/skills/edit_skill_screen.dart';
@@ -44,13 +43,13 @@ final adminSkillRoutes = GoRoute(
       path: EditSkillScreen.route,
       pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditSkillScreen(state.queryParams["id"])),
     ),
-    GoRoute(
-      name: EditAbilityScreen.name,
-      path: EditAbilityScreen.route,
-      pageBuilder: (context, state) {
-        return NoTransitionPage(key: state.pageKey, child: EditAbilityScreen(state.queryParams["id"]));
-      },
-    ),
+    // GoRoute(
+    //   name: EditAbilityScreen.name,
+    //   path: EditAbilityScreen.route,
+    //   pageBuilder: (context, state) {
+    //     return NoTransitionPage(key: state.pageKey, child: EditAbilityScreen(state.queryParams["id"]));
+    //   },
+    // ),
     GoRoute(
       name: EditRaceScreen.name,
       path: EditRaceScreen.route,

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'attribute_value.dart';
+import '../../../traits/domain/attribute_value.dart';
 
 part 'race.freezed.dart';
 part 'race.g.dart';

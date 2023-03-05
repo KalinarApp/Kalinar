@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'ability.dart';
-import 'attribute_value.dart';
+import '../../../traits/domain/ability.dart';
+import '../../../traits/domain/attribute_value.dart';
 
 part 'skill.freezed.dart';
 part 'skill.g.dart';

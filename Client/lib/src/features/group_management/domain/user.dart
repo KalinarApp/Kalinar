@@ -9,6 +9,8 @@ part 'user.g.dart';
 class User with _$User {
   const factory User({
     required String id,
+    required String email,
+    required String username,
     Group? group,
   }) = _User;
 

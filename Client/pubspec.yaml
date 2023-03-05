@@ -92,6 +92,7 @@ dependencies:
   cached_network_image: ^3.2.3
   timeline_tile: ^2.0.0
   auto_size_text: ^3.0.0
+  readmore: ^2.2.0
 
 dependency_overrides:
   flutter_chips_input: 

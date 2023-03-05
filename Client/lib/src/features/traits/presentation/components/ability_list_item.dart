@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
 
-import '../../../domain/ability.dart';
+import '../../domain/ability.dart';
 
 class AbilityListItem extends StatelessWidget {
   final Ability item;
@@ -18,8 +19,16 @@ class AbilityListItem extends StatelessWidget {
         onLongPress: null != onLongPress ? () => onLongPress!(item) : null,
         title: Text(item.name, maxLines: 2, overflow: TextOverflow.ellipsis),
         subtitle: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: null != item.description && item.description!.isNotEmpty ? Text(item.description!) : null,
+          padding: const EdgeInsets.only(top: 4.0),
+          child: null != item.description && item.description!.isNotEmpty
+              ? ReadMoreText(
+                  item.description!,
+                  trimLines: 2,
+                  trimMode: TrimMode.Line,
+                  colorClickableText: Theme.of(context).colorScheme.primary,
+                  style: TextStyle(color: Theme.of(context).textTheme.bodySmall!.color),
+                )
+              : null,
         ),
       ),
     );

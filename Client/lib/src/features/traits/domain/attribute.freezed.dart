@@ -29,6 +29,13 @@ mixin _$Attribute {
   double get minValue => throw _privateConstructorUsedError;
   double get maxValue => throw _privateConstructorUsedError;
   bool get isGlobal => throw _privateConstructorUsedError;
+  User get creator => throw _privateConstructorUsedError;
+  SuggestionState get state => throw _privateConstructorUsedError;
+  String? get rejectionReason => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime? get lastUpdatedAt => throw _privateConstructorUsedError;
+  DateTime? get approvedAt => throw _privateConstructorUsedError;
+  DateTime? get rejectedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +57,16 @@ abstract class $AttributeCopyWith<$Res> {
       double stepSize,
       double minValue,
       double maxValue,
-      bool isGlobal});
+      bool isGlobal,
+      User creator,
+      SuggestionState state,
+      String? rejectionReason,
+      DateTime createdAt,
+      DateTime? lastUpdatedAt,
+      DateTime? approvedAt,
+      DateTime? rejectedAt});
+
+  $UserCopyWith<$Res> get creator;
 }
 
 /// @nodoc
@@ -75,6 +91,13 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
     Object? minValue = null,
     Object? maxValue = null,
     Object? isGlobal = null,
+    Object? creator = null,
+    Object? state = null,
+    Object? rejectionReason = freezed,
+    Object? createdAt = null,
+    Object? lastUpdatedAt = freezed,
+    Object? approvedAt = freezed,
+    Object? rejectedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -113,7 +136,43 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
           ? _value.isGlobal
           : isGlobal // ignore: cast_nullable_to_non_nullable
               as bool,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User,
+      state: null == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as SuggestionState,
+      rejectionReason: freezed == rejectionReason
+          ? _value.rejectionReason
+          : rejectionReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      lastUpdatedAt: freezed == lastUpdatedAt
+          ? _value.lastUpdatedAt
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rejectedAt: freezed == rejectedAt
+          ? _value.rejectedAt
+          : rejectedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get creator {
+    return $UserCopyWith<$Res>(_value.creator, (value) {
+      return _then(_value.copyWith(creator: value) as $Val);
+    });
   }
 }
 
@@ -133,7 +192,17 @@ abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
       double stepSize,
       double minValue,
       double maxValue,
-      bool isGlobal});
+      bool isGlobal,
+      User creator,
+      SuggestionState state,
+      String? rejectionReason,
+      DateTime createdAt,
+      DateTime? lastUpdatedAt,
+      DateTime? approvedAt,
+      DateTime? rejectedAt});
+
+  @override
+  $UserCopyWith<$Res> get creator;
 }
 
 /// @nodoc
@@ -156,6 +225,13 @@ class __$$_AttributeCopyWithImpl<$Res>
     Object? minValue = null,
     Object? maxValue = null,
     Object? isGlobal = null,
+    Object? creator = null,
+    Object? state = null,
+    Object? rejectionReason = freezed,
+    Object? createdAt = null,
+    Object? lastUpdatedAt = freezed,
+    Object? approvedAt = freezed,
+    Object? rejectedAt = freezed,
   }) {
     return _then(_$_Attribute(
       id: null == id
@@ -194,6 +270,34 @@ class __$$_AttributeCopyWithImpl<$Res>
           ? _value.isGlobal
           : isGlobal // ignore: cast_nullable_to_non_nullable
               as bool,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User,
+      state: null == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as SuggestionState,
+      rejectionReason: freezed == rejectionReason
+          ? _value.rejectionReason
+          : rejectionReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      lastUpdatedAt: freezed == lastUpdatedAt
+          ? _value.lastUpdatedAt
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rejectedAt: freezed == rejectedAt
+          ? _value.rejectedAt
+          : rejectedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -210,7 +314,14 @@ class _$_Attribute implements _Attribute {
       this.stepSize = 1,
       this.minValue = 0,
       this.maxValue = 10,
-      this.isGlobal = false});
+      this.isGlobal = false,
+      required this.creator,
+      required this.state,
+      this.rejectionReason,
+      required this.createdAt,
+      this.lastUpdatedAt,
+      this.approvedAt,
+      this.rejectedAt});
 
   factory _$_Attribute.fromJson(Map<String, dynamic> json) =>
       _$$_AttributeFromJson(json);
@@ -237,10 +348,24 @@ class _$_Attribute implements _Attribute {
   @override
   @JsonKey()
   final bool isGlobal;
+  @override
+  final User creator;
+  @override
+  final SuggestionState state;
+  @override
+  final String? rejectionReason;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime? lastUpdatedAt;
+  @override
+  final DateTime? approvedAt;
+  @override
+  final DateTime? rejectedAt;
 
   @override
   String toString() {
-    return 'Attribute(id: $id, name: $name, description: $description, category: $category, iconData: $iconData, stepSize: $stepSize, minValue: $minValue, maxValue: $maxValue, isGlobal: $isGlobal)';
+    return 'Attribute(id: $id, name: $name, description: $description, category: $category, iconData: $iconData, stepSize: $stepSize, minValue: $minValue, maxValue: $maxValue, isGlobal: $isGlobal, creator: $creator, state: $state, rejectionReason: $rejectionReason, createdAt: $createdAt, lastUpdatedAt: $lastUpdatedAt, approvedAt: $approvedAt, rejectedAt: $rejectedAt)';
   }
 
   @override
@@ -263,13 +388,41 @@ class _$_Attribute implements _Attribute {
             (identical(other.maxValue, maxValue) ||
                 other.maxValue == maxValue) &&
             (identical(other.isGlobal, isGlobal) ||
-                other.isGlobal == isGlobal));
+                other.isGlobal == isGlobal) &&
+            (identical(other.creator, creator) || other.creator == creator) &&
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.rejectionReason, rejectionReason) ||
+                other.rejectionReason == rejectionReason) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.lastUpdatedAt, lastUpdatedAt) ||
+                other.lastUpdatedAt == lastUpdatedAt) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
+            (identical(other.rejectedAt, rejectedAt) ||
+                other.rejectedAt == rejectedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, category,
-      iconData, stepSize, minValue, maxValue, isGlobal);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      description,
+      category,
+      iconData,
+      stepSize,
+      minValue,
+      maxValue,
+      isGlobal,
+      creator,
+      state,
+      rejectionReason,
+      createdAt,
+      lastUpdatedAt,
+      approvedAt,
+      rejectedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -295,7 +448,14 @@ abstract class _Attribute implements Attribute {
       final double stepSize,
       final double minValue,
       final double maxValue,
-      final bool isGlobal}) = _$_Attribute;
+      final bool isGlobal,
+      required final User creator,
+      required final SuggestionState state,
+      final String? rejectionReason,
+      required final DateTime createdAt,
+      final DateTime? lastUpdatedAt,
+      final DateTime? approvedAt,
+      final DateTime? rejectedAt}) = _$_Attribute;
 
   factory _Attribute.fromJson(Map<String, dynamic> json) =
       _$_Attribute.fromJson;
@@ -318,6 +478,20 @@ abstract class _Attribute implements Attribute {
   double get maxValue;
   @override
   bool get isGlobal;
+  @override
+  User get creator;
+  @override
+  SuggestionState get state;
+  @override
+  String? get rejectionReason;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime? get lastUpdatedAt;
+  @override
+  DateTime? get approvedAt;
+  @override
+  DateTime? get rejectedAt;
   @override
   @JsonKey(ignore: true)
   _$$_AttributeCopyWith<_$_Attribute> get copyWith =>

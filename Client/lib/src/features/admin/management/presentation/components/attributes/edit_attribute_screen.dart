@@ -12,9 +12,9 @@ import '../../../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../../../common_widgets/form_fields/typeahead_text_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
 import '../../../../../../utilities/async_value_extension.dart';
+import '../../../../../traits/domain/attribute.dart';
 import '../../../application/attribute_controller.dart';
 import '../../../application/attribute_list_controller.dart';
-import '../../../domain/attribute.dart';
 
 class EditAttributeScreen extends ConsumerStatefulWidget {
   static const name = "EditAttribute";

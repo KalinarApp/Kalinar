@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../utilities/base_repository.dart';
-import '../../../group_management/application/group_notifier.dart';
+import '../../../utilities/base_repository.dart';
+import '../../group_management/application/group_notifier.dart';
 import '../domain/ability.dart';
 
 class AbilitiesRepository extends HeroBaseRepository {
@@ -22,6 +22,14 @@ class AbilitiesRepository extends HeroBaseRepository {
 
   Future<Ability> createAbility(Map<String, dynamic> data) async {
     return await heroPost("/api/abilities", data, (response) => Ability.fromJson(response));
+  }
+
+  Future<void> approve(String id) async {
+    await heroPost("/api/abilities/$id/approve", {}, (response) => true);
+  }
+
+  Future<void> reject(String id, String reason) async {
+    await heroPost("/api/abilities/$id/reject", {"reason": reason}, (response) => true);
   }
 
   Future<Ability> updateAbility(String id, Map<String, dynamic> data) async {

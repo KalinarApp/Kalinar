@@ -1,0 +1,10 @@
+import 'package:go_router/go_router.dart';
+
+import '../../features/traits/presentation/traits_overview_screen.dart';
+
+final traitsRoutes = GoRoute(
+  name: TraitsOverviewScreen.name,
+  path: TraitsOverviewScreen.route,
+  pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const TraitsOverviewScreen()),
+  routes: [],
+);

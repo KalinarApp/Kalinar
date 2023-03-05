@@ -16,6 +16,19 @@ _$_Attribute _$$_AttributeFromJson(Map<String, dynamic> json) => _$_Attribute(
       minValue: (json['minValue'] as num?)?.toDouble() ?? 0,
       maxValue: (json['maxValue'] as num?)?.toDouble() ?? 10,
       isGlobal: json['isGlobal'] as bool? ?? false,
+      creator: User.fromJson(json['creator'] as Map<String, dynamic>),
+      state: $enumDecode(_$SuggestionStateEnumMap, json['state']),
+      rejectionReason: json['rejectionReason'] as String?,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      lastUpdatedAt: json['lastUpdatedAt'] == null
+          ? null
+          : DateTime.parse(json['lastUpdatedAt'] as String),
+      approvedAt: json['approvedAt'] == null
+          ? null
+          : DateTime.parse(json['approvedAt'] as String),
+      rejectedAt: json['rejectedAt'] == null
+          ? null
+          : DateTime.parse(json['rejectedAt'] as String),
     );
 
 Map<String, dynamic> _$$_AttributeToJson(_$_Attribute instance) =>
@@ -29,4 +42,17 @@ Map<String, dynamic> _$$_AttributeToJson(_$_Attribute instance) =>
       'minValue': instance.minValue,
       'maxValue': instance.maxValue,
       'isGlobal': instance.isGlobal,
+      'creator': instance.creator,
+      'state': _$SuggestionStateEnumMap[instance.state]!,
+      'rejectionReason': instance.rejectionReason,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'lastUpdatedAt': instance.lastUpdatedAt?.toIso8601String(),
+      'approvedAt': instance.approvedAt?.toIso8601String(),
+      'rejectedAt': instance.rejectedAt?.toIso8601String(),
     };
+
+const _$SuggestionStateEnumMap = {
+  SuggestionState.pending: 'Pending',
+  SuggestionState.approved: 'Approved',
+  SuggestionState.rejected: 'rejected',
+};

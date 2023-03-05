@@ -68,7 +68,7 @@ namespace Hero.Server.DataAccess.Repositories
         {
             try
             {
-                return await this.context.Abilities.Where(a => a.GroupId == this.groupContext.Id).ToListAsync(cancellationToken);
+                return await this.context.Abilities.Include(item => item.Creator).Where(a => a.GroupId == this.groupContext.Id).ToListAsync(cancellationToken);
             }
             catch (Exception ex)
             {

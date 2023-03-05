@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:kalinar/src/features/admin/management/domain/ability.dart';
+import '../../../../traits/domain/ability.dart';
 
 class AbilitiesItem extends StatelessWidget {
   final Ability ability;

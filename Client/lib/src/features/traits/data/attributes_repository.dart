@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
 
-import '../../../../utilities/base_repository.dart';
+import '../../../utilities/base_repository.dart';
 import '../domain/attribute.dart';
 
 class AttributesRepository extends HeroBaseRepository {
