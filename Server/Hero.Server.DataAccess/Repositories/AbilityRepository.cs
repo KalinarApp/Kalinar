@@ -88,22 +88,23 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task TryUpdateAbilityAsync(Guid id, string userId, Ability updated, CancellationToken cancellationToken = default)
+        public async Task<Ability> TryUpdateAbilityAsync(Guid id, string userId, Ability updated, CancellationToken cancellationToken = default)
         {
             Ability existing = await this.EsureUserIsEnlightableForAction(id, userId, cancellationToken);
 
             try
             {
+                existing.Update(updated);
                 if (existing.Group.OwnerId == userId && SuggestionState.Pending == existing.State)
                 {
-                    updated.State = SuggestionState.Approved;
-                    updated.ApprovedAt = DateTime.Now;
+                    existing.State = SuggestionState.Approved;
+                    existing.ApprovedAt = DateTime.Now;
                 }
-
-                existing.Update(updated);
 
                 this.context.Abilities.Update(existing);
                 await this.context.SaveChangesAsync(cancellationToken);
+
+                return existing;
             }
             catch (Exception ex)
             {
@@ -145,7 +146,7 @@ namespace Hero.Server.DataAccess.Repositories
             {
                 ability.RejectedAt = DateTime.Now;
                 ability.RejectionReason = reason;
-                ability.State = SuggestionState.Approved;
+                ability.State = SuggestionState.Rejected;
 
                 this.context.Abilities.Update(ability);
                 await this.context.SaveChangesAsync(cancellationToken);

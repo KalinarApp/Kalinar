@@ -13,6 +13,9 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       group: json['group'] == null
           ? null
           : Group.fromJson(json['group'] as Map<String, dynamic>),
+      ownedGroup: json['ownedGroup'] == null
+          ? null
+          : Group.fromJson(json['ownedGroup'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -20,4 +23,5 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'email': instance.email,
       'username': instance.username,
       'group': instance.group,
+      'ownedGroup': instance.ownedGroup,
     };

@@ -21,7 +21,7 @@ class GroupController {
 
   Future<void> check() async {
     User user = await userRepo.getUser();
-    notifier.updateGroup(user.group);
+    notifier.updateGroup(user.ownedGroup ?? user.group);
   }
 }
 

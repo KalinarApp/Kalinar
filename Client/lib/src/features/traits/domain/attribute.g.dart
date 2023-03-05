@@ -54,5 +54,5 @@ Map<String, dynamic> _$$_AttributeToJson(_$_Attribute instance) =>
 const _$SuggestionStateEnumMap = {
   SuggestionState.pending: 'Pending',
   SuggestionState.approved: 'Approved',
-  SuggestionState.rejected: 'rejected',
+  SuggestionState.rejected: 'Rejected',
 };

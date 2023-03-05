@@ -24,6 +24,7 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   Group? get group => throw _privateConstructorUsedError;
+  Group? get ownedGroup => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,9 +36,15 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String id, String email, String username, Group? group});
+  $Res call(
+      {String id,
+      String email,
+      String username,
+      Group? group,
+      Group? ownedGroup});
 
   $GroupCopyWith<$Res>? get group;
+  $GroupCopyWith<$Res>? get ownedGroup;
 }
 
 /// @nodoc
@@ -57,6 +64,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? username = null,
     Object? group = freezed,
+    Object? ownedGroup = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,6 +83,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as Group?,
+      ownedGroup: freezed == ownedGroup
+          ? _value.ownedGroup
+          : ownedGroup // ignore: cast_nullable_to_non_nullable
+              as Group?,
     ) as $Val);
   }
 
@@ -89,6 +101,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       return _then(_value.copyWith(group: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $GroupCopyWith<$Res>? get ownedGroup {
+    if (_value.ownedGroup == null) {
+      return null;
+    }
+
+    return $GroupCopyWith<$Res>(_value.ownedGroup!, (value) {
+      return _then(_value.copyWith(ownedGroup: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -97,10 +121,17 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String email, String username, Group? group});
+  $Res call(
+      {String id,
+      String email,
+      String username,
+      Group? group,
+      Group? ownedGroup});
 
   @override
   $GroupCopyWith<$Res>? get group;
+  @override
+  $GroupCopyWith<$Res>? get ownedGroup;
 }
 
 /// @nodoc
@@ -116,6 +147,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? email = null,
     Object? username = null,
     Object? group = freezed,
+    Object? ownedGroup = freezed,
   }) {
     return _then(_$_User(
       id: null == id
@@ -134,6 +166,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as Group?,
+      ownedGroup: freezed == ownedGroup
+          ? _value.ownedGroup
+          : ownedGroup // ignore: cast_nullable_to_non_nullable
+              as Group?,
     ));
   }
 }
@@ -145,7 +181,8 @@ class _$_User implements _User {
       {required this.id,
       required this.email,
       required this.username,
-      this.group});
+      this.group,
+      this.ownedGroup});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -157,10 +194,12 @@ class _$_User implements _User {
   final String username;
   @override
   final Group? group;
+  @override
+  final Group? ownedGroup;
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, username: $username, group: $group)';
+    return 'User(id: $id, email: $email, username: $username, group: $group, ownedGroup: $ownedGroup)';
   }
 
   @override
@@ -172,12 +211,15 @@ class _$_User implements _User {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.group, group) || other.group == group));
+            (identical(other.group, group) || other.group == group) &&
+            (identical(other.ownedGroup, ownedGroup) ||
+                other.ownedGroup == ownedGroup));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, username, group);
+  int get hashCode =>
+      Object.hash(runtimeType, id, email, username, group, ownedGroup);
 
   @JsonKey(ignore: true)
   @override
@@ -198,7 +240,8 @@ abstract class _User implements User {
       {required final String id,
       required final String email,
       required final String username,
-      final Group? group}) = _$_User;
+      final Group? group,
+      final Group? ownedGroup}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -210,6 +253,8 @@ abstract class _User implements User {
   String get username;
   @override
   Group? get group;
+  @override
+  Group? get ownedGroup;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

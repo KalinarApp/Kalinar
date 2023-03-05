@@ -7,5 +7,6 @@
         public string Username { get; set; }
 
         public GroupResponse? Group { get; set; }
+        public GroupResponse? OwnedGroup { get; set; }
     }
 }

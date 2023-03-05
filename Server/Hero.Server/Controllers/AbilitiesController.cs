@@ -64,7 +64,7 @@ namespace Hero.Server.Controllers
             string userId = this.HttpContext.User.GetUserId();
             Ability updated = this.mapper.Map<Ability>(request);
 
-            await this.repository.TryUpdateAbilityAsync(id, userId, updated, token);
+            updated = await this.repository.TryUpdateAbilityAsync(id, userId, updated, token);
 
             return this.mapper.Map<AbilityResponse>(updated);
         }

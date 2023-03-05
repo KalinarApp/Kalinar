@@ -44,5 +44,5 @@ Map<String, dynamic> _$$_AbilityToJson(_$_Ability instance) =>
 const _$SuggestionStateEnumMap = {
   SuggestionState.pending: 'Pending',
   SuggestionState.approved: 'Approved',
-  SuggestionState.rejected: 'rejected',
+  SuggestionState.rejected: 'Rejected',
 };

@@ -34,16 +34,12 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
   bool hasChanges = false;
 
   final saveController = RoundedLoadingButtonController();
+  final _rejectionController = TextEditingController();
   late AbilitiesController controller;
 
   @override
   void initState() {
     controller = ref.read(abilitiesControllerProvider);
-
-    if (null != widget.abilityId) {
-      Future.delayed(Duration.zero, () => controller.getAbilityById(widget.abilityId!));
-    }
-
     super.initState();
   }
 
@@ -87,6 +83,30 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
     return isAdmin && ability?.state == SuggestionState.pending ? "Speichern & Genehmigen" : "Speichern";
   }
 
+  Future _reject(Ability item) async {
+    final bool? success = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Ablehnen"),
+        content: TextField(controller: _rejectionController, decoration: const InputDecoration(hintText: "Grund der Ablehnung")),
+        actions: <Widget>[
+          TextButton(child: const Text('CANCEL'), onPressed: () => Navigator.pop(context)),
+          TextButton(child: const Text('OK'), onPressed: () => setState(() => Navigator.pop(context, true))),
+        ],
+      ),
+    );
+    if (success ?? false) {
+      final value = await ref.read(abilitiesControllerProvider).reject(item.id, _rejectionController.text);
+      if (!mounted) return;
+      value.showSnackbarOnError(context);
+      if (!value.hasError) {
+        GoRouter.of(context).pop();
+      }
+    }
+
+    _rejectionController.clear();
+  }
+
   Widget _buildContent(BuildContext context, AsyncValue<Ability>? state) {
     return SingleChildScrollView(
       child: Column(
@@ -119,9 +139,9 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
               child: Center(child: Text(_getSaveButtonTitle(state?.valueOrNull), style: Theme.of(context).textTheme.titleLarge)),
             ),
           ),
-          if (_isAdmin())
+          if (_isAdmin() && state?.valueOrNull?.state == SuggestionState.pending)
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => _reject(state!.value!),
               style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.error),
               child: SizedBox(width: double.infinity, child: Center(child: Text("Ablehnen", style: Theme.of(context).textTheme.titleLarge))),
             ),
@@ -148,37 +168,5 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
         ),
       ),
     );
-
-    // return SizedBox(
-    //   height: MediaQuery.of(context).size.height * .95,
-    //   width: MediaQuery.of(context).size.width * .4,
-    //   child: Scaffold(
-    //     appBar: AppBar(
-    //       actions: [
-    //         Padding(
-    //           padding: const EdgeInsets.only(right: 12.0),
-    //           child: SaveButton(controller: saveController, onSave: _save),
-    //         ),
-    //       ],
-    //     ),
-    //     body: FormBuilder(
-    //       key: _formKey,
-    //       child: Padding(
-    //         padding: const EdgeInsets.symmetric(horizontal: 12),
-    //         child: SingleChildScrollView(
-    //           child: Column(
-    //             children: [
-    //               const SizedBox(height: 12),
-    //               const InvisibleField(name: "id"),
-    //               NameField(label: AppLocalizations.of(context)!.abilityName, initialValue: item?.name),
-    //               BoolField(name: "isPassive", initialValue: item?.isPassive ?? false, label: AppLocalizations.of(context)!.abilityIsPasive),
-    //               DescriptionField(label: AppLocalizations.of(context)!.abilityDescription, initialValue: item?.description),
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
