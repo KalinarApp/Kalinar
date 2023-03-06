@@ -77,26 +77,8 @@ class AbilityListItem extends StatelessWidget {
                         const SizedBox(height: 5),
                         Row(
                           children: [
-                            if (null != gravatar) CircleAvatar(radius: 15, backgroundImage: CachedNetworkImageProvider(gravatar.imageUrl())),
+                            if (null != gravatar) CircleAvatar(radius: 10, backgroundImage: CachedNetworkImageProvider(gravatar.imageUrl())),
                             if (null != gravatar) const SizedBox(width: 12),
-                            // Container(
-                            //   width: 45,
-                            //   height: 20,
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(20),
-                            //     color: Theme.of(context).colorScheme.background,
-                            //   ),
-                            //   child: Padding(
-                            //     padding: const EdgeInsets.all(4.0),
-                            //     child: Row(
-                            //       children: [
-                            //         const Icon(Icons.chat_bubble, size: 15),
-                            //         const SizedBox(width: 3),
-                            //         Text("12", style: Theme.of(context).textTheme.bodySmall),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // )
                           ],
                         )
                       ],
