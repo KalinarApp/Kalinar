@@ -11,12 +11,12 @@ class AttributesRepository extends HeroBaseRepository {
     return await heroGet("/api/attributes/$id", (response) => Attribute.fromJson(response));
   }
 
-  Future<List<Attribute>> getAll() async {
-    return await heroGet("/api/attributes", (response) => List<Attribute>.from(response.map((model) => Attribute.fromJson(model))));
-  }
-
-  Future<List<Attribute>> getAllGlobal() async {
-    return await heroGet("/api/attributes/global", (response) => List<Attribute>.from(response.map((model) => Attribute.fromJson(model))));
+  Future<List<Attribute>> filter({String? query, bool? globalOnly}) async {
+    return await heroGet(
+      "/api/attributes",
+      (response) => List<Attribute>.from(response.map((model) => Attribute.fromJson(model))),
+      query: {"query": query, "globalOnly": globalOnly},
+    );
   }
 
   Future<List<String>> getFilteredCategories(String? query) async {
@@ -29,6 +29,10 @@ class AttributesRepository extends HeroBaseRepository {
 
   Future<Attribute> createAttribute(Map<String, dynamic> data) async {
     return await heroPost("/api/attributes", data, (response) => Attribute.fromJson(response));
+  }
+
+  Future reject(String id, String reason) async {
+    await heroPost("/api/attributes/$id/reject", {"reason": reason}, (response) => true);
   }
 
   Future<Attribute> updateAttribute(String id, Map<String, dynamic> data) async {

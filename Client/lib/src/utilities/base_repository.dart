@@ -31,6 +31,8 @@ class BaseRepository {
       }
     } on SocketException catch (_) {
       throw const APIError.noInternetConnection();
+    } catch (error) {
+      throw const APIError.unknown();
     }
   }
 

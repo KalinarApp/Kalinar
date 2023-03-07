@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/user_menu.dart';
-import 'components/abilities_tab.dart';
+import 'components/tabs/abilities_tab.dart';
+import 'components/tabs/attributes_tab.dart';
 import 'edit_ability_screen.dart';
+import 'edit_attribute_screen.dart';
 
 class TraitsOverviewScreen extends ConsumerStatefulWidget {
   static const String name = "traits";
@@ -20,13 +22,23 @@ class TraitsOverviewScreen extends ConsumerStatefulWidget {
 }
 
 class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> with TickerProviderStateMixin {
-  late final TabController controller = TabController(length: 1, vsync: this);
+  late final TabController controller = TabController(length: 2, vsync: this);
 
   void _addTrait() {
     switch (controller.index) {
       case 0:
         GoRouter.of(context).goNamed(EditAbilityScreen.name);
+        break;
+      case 1:
+        GoRouter.of(context).goNamed(EditAttributeScreen.name);
+        break;
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+    super.didChangeDependencies();
   }
 
   @override
@@ -36,6 +48,11 @@ class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> wit
         icon: const FaIcon(FontAwesomeIcons.award),
         text: AppLocalizations.of(context)!.abilities,
         content: const AbilitiesTab(),
+      ),
+      ContentTab(
+        icon: const FaIcon(FontAwesomeIcons.tag),
+        text: AppLocalizations.of(context)!.attributes,
+        content: const AttributesTab(),
       )
     ];
 

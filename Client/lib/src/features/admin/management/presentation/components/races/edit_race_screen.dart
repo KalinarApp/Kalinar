@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../../../../../common_widgets/form_fields/attribute/attributes_field.dart';
 import '../../../../../../common_widgets/form_fields/description_field.dart';
 import '../../../../../../common_widgets/form_fields/name_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
@@ -93,7 +91,7 @@ class _EditRaceScreenState extends ConsumerState<EditRaceScreen> {
                 const SizedBox(height: 30),
                 Text(AppLocalizations.of(context)!.raceAttributeSelection, style: Theme.of(context).textTheme.bodyLarge),
                 const SizedBox(height: 10),
-                AttributesField(initialValue: item?.attributes, alwaysShowGlobal: true),
+                // AttributesField(initialValue: item?.attributes, alwaysShowGlobal: true),
               ],
             ),
           ),

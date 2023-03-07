@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kalinar/src/features/traits/domain/suggestable.dart';
 
 import '../../../utilities/global_attributes.dart';
 import '../../group_management/domain/user.dart';
@@ -10,7 +11,7 @@ part 'attribute.freezed.dart';
 part 'attribute.g.dart';
 
 @freezed
-class Attribute with _$Attribute {
+class Attribute with _$Attribute implements Suggestable {
   const factory Attribute({
     required String id,
     required String name,

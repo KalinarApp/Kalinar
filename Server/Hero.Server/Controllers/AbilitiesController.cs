@@ -76,9 +76,10 @@ namespace Hero.Server.Controllers
             Ability ability = this.mapper.Map<Ability>(request);
 
             ability.CreatorId = userId;
-            if (!await userRepository.IsOwner(userId, token))
+            if (await userRepository.IsOwner(userId, token))
             {
-                ability.State = SuggestionState.Pending;
+                ability.State = SuggestionState.Approved;
+                ability.ApprovedAt = DateTime.Now;
             }
 
             await this.repository.CreateAbilityAsync(ability, token);

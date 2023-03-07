@@ -5,8 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common_widgets/user_menu.dart';
-import 'components/attributes/attributes_tab.dart';
-import 'components/attributes/edit_attribute_screen.dart';
 import 'components/races/edit_race_screen.dart';
 import 'components/races/races_tab.dart';
 import 'components/skills/edit_skill_screen.dart';
@@ -32,11 +30,11 @@ class ManagementTabScreen extends StatelessWidget {
           spacing: 3,
           spaceBetweenChildren: 4,
           children: [
-            SpeedDialChild(
-              label: AppLocalizations.of(context)!.attribute,
-              child: const FaIcon(FontAwesomeIcons.tag),
-              onTap: () => GoRouter.of(context).pushNamed(EditAttributeScreen.name),
-            ),
+            // SpeedDialChild(
+            //   label: AppLocalizations.of(context)!.attribute,
+            //   child: const FaIcon(FontAwesomeIcons.tag),
+            //   onTap: () => GoRouter.of(context).pushNamed(EditAttributeScreen.name),
+            // ),
             // SpeedDialChild(
             //   label: AppLocalizations.of(context)!.ability,
             //   child: const FaIcon(FontAwesomeIcons.award),
@@ -72,7 +70,7 @@ class ManagementTabScreen extends StatelessWidget {
           child: TabBarView(
             physics: BouncingScrollPhysics(),
             children: [
-              AttributesTab(),
+              // AttributesTab(),
               RacesTab(),
               // AbilitiesTab(),
               SkillsTab(),

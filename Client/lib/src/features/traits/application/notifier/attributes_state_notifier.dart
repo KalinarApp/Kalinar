@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 
-import '../domain/ability.dart';
+import '../../domain/attribute.dart';
+import '../../domain/suggestion_state.dart';
 
-class AbilitiesStateNotifier extends StateNotifier<List<Ability>?> {
-  AbilitiesStateNotifier() : super(null);
+class AttributesStateNotifier extends StateNotifier<List<Attribute>?> {
+  AttributesStateNotifier() : super(null);
 
-  void refresh(List<Ability>? list) {
+  void refresh(List<Attribute>? list) {
     list?.sort((a, b) {
       int dateComparison = a.createdAt.compareTo(b.createdAt);
       if (dateComparison != 0) {
@@ -18,11 +18,11 @@ class AbilitiesStateNotifier extends StateNotifier<List<Ability>?> {
     state = list;
   }
 
-  void add(Ability ability) {
-    refresh([...state ?? [], ability]);
+  void add(Attribute attribute) {
+    refresh([...state ?? [], attribute]);
   }
 
-  void update(String id, Ability updated) {
+  void update(String id, Attribute updated) {
     final index = state?.indexWhere((element) => element.id == id);
     if (null != index) {
       final list = [...state ?? []];
@@ -40,14 +40,14 @@ class AbilitiesStateNotifier extends StateNotifier<List<Ability>?> {
     final index = state?.indexWhere((element) => element.id == id);
     if (null != index) {
       final list = [...state ?? []];
-      var ability = list.removeAt(index);
-      ability = ability.copyWith(state: SuggestionState.approved, rejectionReason: reason);
+      var attribute = list.removeAt(index);
+      attribute = attribute.copyWith(state: SuggestionState.rejected, rejectionReason: reason);
 
-      refresh([...list, ability]);
+      refresh([...list, attribute]);
     }
   }
 }
 
-final abilitiesStateNotifierProvider = StateNotifierProvider<AbilitiesStateNotifier, List<Ability>?>((ref) {
-  return AbilitiesStateNotifier();
+final attributesStateNotifierProvider = StateNotifierProvider<AttributesStateNotifier, List<Attribute>?>((ref) {
+  return AttributesStateNotifier();
 });

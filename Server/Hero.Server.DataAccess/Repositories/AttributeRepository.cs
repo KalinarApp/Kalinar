@@ -44,7 +44,7 @@ namespace Hero.Server.DataAccess.Repositories
         {
             try
             {
-                return await this.context.Attributes.FirstOrDefaultAsync(g => g.Id == id, cancellationToken);
+                return await this.context.Attributes.Include(item => item.Creator).FirstOrDefaultAsync(g => g.Id == id, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -69,27 +69,27 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Attribute>> GetAllAttributesAsync(CancellationToken cancellationToken = default)
+        public async Task<List<Attribute>> FilterAttributesAsync(string? query, bool? globalOnly, CancellationToken cancellationToken = default)
         {
             try
             {
-                return await this.context.Attributes.ToListAsync(cancellationToken);
-            }
-            catch (Exception)
-            {
-                throw new HeroException("An error occured while getting a list of attributes.");
-            }
-        }
+                IQueryable<Attribute> attributes = this.context.Attributes.Include(item => item.Creator).Where(a => a.GroupId == this.group.Id);
 
-        public async Task<List<Attribute>> GetAllGlobalAttributesAsync(CancellationToken cancellationToken = default)
-        {
-            try
-            {
-                return await this.context.Attributes.Where(a => a.GroupId == new Guid()).ToListAsync(cancellationToken);
+                if (!String.IsNullOrEmpty(query))
+                {
+                    attributes = attributes.Where(item => item.Name.ToLower().Contains(query.ToLower()) || (null != item.Description && item.Description.ToLower().Contains(query.ToLower())));
+                }
+                if (true == globalOnly)
+                {
+                    attributes = attributes.Where(item => item.Id == Guid.Empty);
+                }
+
+                return await attributes.ToListAsync(cancellationToken);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new HeroException("An error occured while getting a list of attributes.");
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error occured while getting a list of abilities.");
             }
         }
 
@@ -127,16 +127,23 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task TryUpdateAttributeAsync(Guid id, string userId, Attribute updatedAttribute, CancellationToken cancellationToken = default)
+        public async Task<Attribute> TryUpdateAttributeAsync(Guid id, string userId, Attribute updatedAttribute, CancellationToken cancellationToken = default)
         {
             Attribute existing = await this.EsureUserIsEnlightableForAction(id, userId, cancellationToken);
 
             try
             {
                 existing.Update(updatedAttribute);
+                if (existing.Group.OwnerId == userId && SuggestionState.Pending == existing.State)
+                {
+                    existing.State = SuggestionState.Approved;
+                    existing.ApprovedAt = DateTime.Now;
+                }
 
                 this.context.Attributes.Update(existing);
                 await this.context.SaveChangesAsync(cancellationToken);
+
+                return existing;
             }
             catch (Exception ex)
             {
@@ -161,30 +168,6 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task ApproveAttribute(Guid id, CancellationToken cancellationToken = default)
-        {
-            Attribute? attribute = await this.GetAttributeByIdAsync(id, cancellationToken);
-
-            if (null == attribute)
-            {
-                throw new ObjectNotFoundException("Attribute not found.");
-            }
-
-            try
-            {
-                attribute.ApprovedAt = DateTime.Now;
-                attribute.State = SuggestionState.Approved;
-
-                this.context.Attributes.Update(attribute);
-                await this.context.SaveChangesAsync(cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw new HeroException("An error ccoured while approving the attribute.");
-            }
-        }
-
         public async Task RejectAttribute(Guid id, string reason, CancellationToken cancellationToken = default)
         {
             Attribute? attribute = await this.GetAttributeByIdAsync(id, cancellationToken);
@@ -193,12 +176,16 @@ namespace Hero.Server.DataAccess.Repositories
             {
                 throw new ObjectNotFoundException("Attribute not found.");
             }
+            else if (SuggestionState.Pending != attribute.State)
+            {
+                throw new HeroException("This attribute is already approved or rejected and therefore cannot be rejected again.");
+            }
 
             try
             {
                 attribute.RejectedAt = DateTime.Now;
                 attribute.RejectionReason = reason;
-                attribute.State = SuggestionState.Approved;
+                attribute.State = SuggestionState.Rejected;
 
                 this.context.Attributes.Update(attribute);
                 await this.context.SaveChangesAsync(cancellationToken);

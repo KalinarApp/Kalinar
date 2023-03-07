@@ -5,15 +5,16 @@ import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:readmore/readmore.dart';
 import 'package:timeago_flutter/timeago_flutter.dart';
 
-import '../../domain/ability.dart';
+import '../../domain/suggestable.dart';
 import '../../domain/suggestion_state.dart';
 
-class AbilityListItem extends StatelessWidget {
-  final Ability item;
-  final Function(Ability item)? onLongPress;
-  final Function(Ability item)? onPress;
+class ListItem<T extends Suggestable> extends StatelessWidget {
+  final T item;
+  final Widget? leading;
+  final Function(T item)? onLongPress;
+  final Function(T item)? onPress;
 
-  const AbilityListItem(this.item, {this.onLongPress, this.onPress, super.key});
+  const ListItem(this.item, {this.leading, this.onLongPress, this.onPress, super.key});
 
   Widget _getStateIcon(BuildContext context) {
     Widget widget;
@@ -41,9 +42,10 @@ class AbilityListItem extends StatelessWidget {
         ListTile(
             onTap: null != onPress ? () => onPress!(item) : null,
             onLongPress: null != onLongPress ? () => onLongPress!(item) : null,
-            horizontalTitleGap: 0,
+            horizontalTitleGap: null == leading ? 0 : 12.0,
             minLeadingWidth: 0,
             contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+            leading: leading,
             trailing: Container(
               alignment: Alignment.centerRight,
               width: 35,
