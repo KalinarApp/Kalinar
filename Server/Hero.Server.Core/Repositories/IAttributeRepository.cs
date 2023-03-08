@@ -5,7 +5,7 @@ namespace Hero.Server.Core.Repositories
     public interface IAttributeRepository
     {
         Task<Attribute?> GetAttributeByIdAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<List<Attribute>> FilterAttributesAsync(string? query, bool? globalOnly, CancellationToken cancellationToken = default);
+        Task<List<Attribute>> FilterAttributesAsync(string? query, bool? globalOnly, Models.SuggestionState[] allowedStates, CancellationToken cancellationToken = default);
         Task<List<string>> GetAllCategoriesAsync(string? query, CancellationToken cancellationToken = default);
         Task CreateIfNotExistsAsync(Attribute attribute, CancellationToken cancellationToken = default);
         Task CreateAttributeAsync(Attribute attribute, CancellationToken cancellationToken = default);

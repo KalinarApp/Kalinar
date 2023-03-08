@@ -47,9 +47,9 @@ namespace Hero.Server.Controllers
 
         [HttpGet, IsGroupMember]
         [ProducesErrorResponseType(typeof(HeroException))]
-        public async Task<List<AttributeResponse>> FilterAbilitiesAsync([FromQuery] string? query, [FromQuery] bool? onlyGlobal, CancellationToken token)
+        public async Task<List<AttributeResponse>> FilterAbilitiesAsync([FromQuery] string? query, [FromQuery] bool? onlyGlobal, [FromQuery] SuggestionState[]? allowedStates, CancellationToken token)
         {
-            List<Attribute> attributes = await this.repository.FilterAttributesAsync(query, onlyGlobal, token);
+            List<Attribute> attributes = await this.repository.FilterAttributesAsync(query, onlyGlobal, allowedStates ?? Array.Empty<SuggestionState>(), token);
             return attributes.Select(attribute => this.mapper.Map<AttributeResponse>(attribute)).ToList();
         }
                 

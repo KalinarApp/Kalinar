@@ -52,7 +52,7 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Ability>> FilterAbilitiesAsync(string? query, CancellationToken cancellationToken = default)
+        public async Task<List<Ability>> FilterAbilitiesAsync(string? query, SuggestionState[] allowedStates, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -61,6 +61,10 @@ namespace Hero.Server.DataAccess.Repositories
                 if (!String.IsNullOrEmpty(query))
                 {
                     abilities = abilities.Where(item => item.Name.ToLower().Contains(query.ToLower()) || (null != item.Description && item.Description.ToLower().Contains(query.ToLower())));
+                }
+                if (allowedStates.Any() && allowedStates.Distinct().Count() != Enum.GetNames(typeof(SuggestionState)).Length)
+                {
+                    abilities = abilities.Where(item => allowedStates.Any(state => state == item.State));
                 }
 
                 return await abilities.ToListAsync(cancellationToken);

@@ -69,7 +69,7 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Attribute>> FilterAttributesAsync(string? query, bool? globalOnly, CancellationToken cancellationToken = default)
+        public async Task<List<Attribute>> FilterAttributesAsync(string? query, bool? globalOnly, SuggestionState[] allowedStates, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -78,6 +78,10 @@ namespace Hero.Server.DataAccess.Repositories
                 if (!String.IsNullOrEmpty(query))
                 {
                     attributes = attributes.Where(item => item.Name.ToLower().Contains(query.ToLower()) || (null != item.Description && item.Description.ToLower().Contains(query.ToLower())));
+                }
+                if (allowedStates.Any() && allowedStates.Distinct().Count() != Enum.GetNames(typeof(SuggestionState)).Length)
+                {
+                    attributes = attributes.Where(item => allowedStates.Any(state => state == item.State));
                 }
                 if (true == globalOnly)
                 {

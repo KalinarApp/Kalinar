@@ -3,7 +3,7 @@ using Hero.Server.Core.Models;
 
 namespace Hero.Server.Messages.Responses
 {
-    public class SkillResponse
+    public class SkillResponse : SuggestableResponse
     {
         public Guid Id { get; set; }
         public Guid? AbilityId { get; set; }
