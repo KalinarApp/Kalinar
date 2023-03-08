@@ -94,6 +94,7 @@ class _EditViewState extends ConsumerState<EditView> {
 
   Widget _buildContent() {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
           ...widget.children,

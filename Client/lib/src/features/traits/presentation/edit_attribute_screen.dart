@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +9,7 @@ import '../../../common_widgets/form_fields/description_field.dart';
 import '../../../common_widgets/form_fields/icon_picker_field.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
+import '../../../common_widgets/form_fields/typeahead_text_field.dart';
 import '../../group_management/application/group_notifier.dart';
 import '../application/controller/attributes_controller.dart';
 import '../application/notifier/attribute_state_notifier.dart';
@@ -27,6 +30,8 @@ class EditAttributeScreen extends ConsumerStatefulWidget {
 }
 
 class _EditAttributeScreenState extends ConsumerState<EditAttributeScreen> {
+  final categoriesController = TextEditingController();
+
   bool _isCreatorOrAdminOrNew(Attribute? item) {
     return widget.attributeId == null ||
         _isAdmin() ||
@@ -39,6 +44,12 @@ class _EditAttributeScreenState extends ConsumerState<EditAttributeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(attributeStateNotifierProvider, (previous, next) {
+      if (null == previous || previous.isLoading) {
+        categoriesController.text = next.valueOrNull?.category ?? "";
+      }
+    });
+
     final state = null == widget.attributeId ? null : ref.watch(attributeStateNotifierProvider);
 
     return EditView(
@@ -56,19 +67,48 @@ class _EditAttributeScreenState extends ConsumerState<EditAttributeScreen> {
             child: IconPickerField(initialValue: state?.valueOrNull?.iconData),
           ),
         ),
-        // BoolField(
-        //   name: "isPassive",
-        //   label: AppLocalizations.of(context)!.abilityIsPasive,
-        //   isLoading: state?.isLoading ?? false,
-        //   initialValue: state?.value?.isPassive ?? false,
-        //   readOnly: !_isCreatorOrAdminOrNew(state?.valueOrNull),
-        // ),
         DescriptionField(
           label: AppLocalizations.of(context)!.attributeDescription,
           isLoading: state?.isLoading ?? false,
           initialValue: state?.valueOrNull?.description,
           readOnly: !_isCreatorOrAdminOrNew(state?.valueOrNull),
         ),
+        TypeAheadTextField(
+          name: "category",
+          controller: categoriesController,
+          decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeCategory, prefixIcon: const Icon(Icons.category)),
+          itemBuilder: (context, itemData) => ListTile(title: Text(itemData)),
+          suggestionsCallback: (pattern) async => await ref.read(attributesControllerProvider).getCategories(pattern),
+          getImmediateSuggestions: false,
+          hideOnEmpty: true,
+          hideOnError: true,
+          hideOnLoading: true,
+          hideSuggestionsOnKeyboardHide: true,
+          enabled: _isCreatorOrAdminOrNew(state?.valueOrNull),
+          keepSuggestionsOnLoading: true,
+        ),
+        FormBuilderTextField(
+          name: "stepSize",
+          initialValue: (state?.valueOrNull?.stepSize ?? 1).toString(),
+          decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeStepSize, prefixIcon: const SizedBox(width: 24)),
+          keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          enabled: _isCreatorOrAdminOrNew(state?.valueOrNull),
+        ),
+        FormBuilderTextField(
+            name: "minValue",
+            initialValue: (state?.valueOrNull?.minValue ?? 0).toString(),
+            decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMinValue, prefixIcon: const SizedBox(width: 24)),
+            keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            enabled: _isCreatorOrAdminOrNew(state?.valueOrNull)),
+        FormBuilderTextField(
+            name: "maxValue",
+            initialValue: (state?.valueOrNull?.maxValue ?? 10).toString(),
+            decoration: InputDecoration(labelText: AppLocalizations.of(context)!.attributeMaxValue, prefixIcon: const SizedBox(width: 24)),
+            keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            enabled: _isCreatorOrAdminOrNew(state?.valueOrNull)),
       ],
     );
   }
