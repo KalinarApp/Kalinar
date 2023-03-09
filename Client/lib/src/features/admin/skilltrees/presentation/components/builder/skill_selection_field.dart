@@ -1,15 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:go_router/go_router.dart';
 
+import '../../../../../traits/domain/skill.dart';
 import '../../../../management/application/skill_list_controller.dart';
-import '../../../../management/domain/skill.dart';
-import '../../../../management/presentation/components/skills/edit_skill_screen.dart';
 
 class SkillSelectionField extends ConsumerWidget {
   final Skill? initialValue;
@@ -17,7 +14,7 @@ class SkillSelectionField extends ConsumerWidget {
   const SkillSelectionField({this.initialValue, super.key});
 
   Future<void> _showCreateSkillScreen(BuildContext context) async {
-    GoRouter.of(context).pushNamed(EditSkillScreen.name);
+    // GoRouter.of(context).pushNamed(EditSkillScreen.name);
   }
 
   @override

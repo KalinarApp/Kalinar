@@ -8,7 +8,6 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../../../../utilities/async_value_extension.dart';
 import '../../../group_management/application/group_notifier.dart';
 import '../../application/controller/traits_controller.dart';
-import '../../application/notifier/ability_state_notifier.dart';
 import '../../domain/suggestable.dart';
 import '../../domain/suggestion_state.dart';
 
@@ -96,6 +95,7 @@ class _EditViewState extends ConsumerState<EditView> {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ...widget.children,
           const SizedBox(height: 50),
@@ -119,16 +119,14 @@ class _EditViewState extends ConsumerState<EditView> {
 
   @override
   Widget build(BuildContext context) {
-    final state = null == widget.item ? null : ref.watch(abilityStateNotifierProvider);
-
     return Scaffold(
       appBar: AppBar(),
       body: FormBuilder(
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: null != state
-              ? state.maybeWhen(
+          child: null != widget.item
+              ? widget.item!.maybeWhen(
                   error: (error, stackTrace) => const Center(child: Text("Fehler beim Abrufen des gewünschten Talents.")), orElse: _buildContent)
               : _buildContent(),
         ),

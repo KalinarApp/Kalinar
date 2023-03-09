@@ -26,6 +26,13 @@ mixin _$Skill {
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   List<AttributeValue> get attributes => throw _privateConstructorUsedError;
+  User get creator => throw _privateConstructorUsedError;
+  SuggestionState get state => throw _privateConstructorUsedError;
+  String? get rejectionReason => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime? get lastUpdatedAt => throw _privateConstructorUsedError;
+  DateTime? get approvedAt => throw _privateConstructorUsedError;
+  DateTime? get rejectedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,9 +50,17 @@ abstract class $SkillCopyWith<$Res> {
       String? iconUrl,
       String name,
       String? description,
-      List<AttributeValue> attributes});
+      List<AttributeValue> attributes,
+      User creator,
+      SuggestionState state,
+      String? rejectionReason,
+      DateTime createdAt,
+      DateTime? lastUpdatedAt,
+      DateTime? approvedAt,
+      DateTime? rejectedAt});
 
   $AbilityCopyWith<$Res>? get ability;
+  $UserCopyWith<$Res> get creator;
 }
 
 /// @nodoc
@@ -67,6 +82,13 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
     Object? name = null,
     Object? description = freezed,
     Object? attributes = null,
+    Object? creator = null,
+    Object? state = null,
+    Object? rejectionReason = freezed,
+    Object? createdAt = null,
+    Object? lastUpdatedAt = freezed,
+    Object? approvedAt = freezed,
+    Object? rejectedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -93,6 +115,34 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
           ? _value.attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as List<AttributeValue>,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User,
+      state: null == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as SuggestionState,
+      rejectionReason: freezed == rejectionReason
+          ? _value.rejectionReason
+          : rejectionReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      lastUpdatedAt: freezed == lastUpdatedAt
+          ? _value.lastUpdatedAt
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rejectedAt: freezed == rejectedAt
+          ? _value.rejectedAt
+          : rejectedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 
@@ -105,6 +155,14 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
 
     return $AbilityCopyWith<$Res>(_value.ability!, (value) {
       return _then(_value.copyWith(ability: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get creator {
+    return $UserCopyWith<$Res>(_value.creator, (value) {
+      return _then(_value.copyWith(creator: value) as $Val);
     });
   }
 }
@@ -121,10 +179,19 @@ abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
       String? iconUrl,
       String name,
       String? description,
-      List<AttributeValue> attributes});
+      List<AttributeValue> attributes,
+      User creator,
+      SuggestionState state,
+      String? rejectionReason,
+      DateTime createdAt,
+      DateTime? lastUpdatedAt,
+      DateTime? approvedAt,
+      DateTime? rejectedAt});
 
   @override
   $AbilityCopyWith<$Res>? get ability;
+  @override
+  $UserCopyWith<$Res> get creator;
 }
 
 /// @nodoc
@@ -142,6 +209,13 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
     Object? name = null,
     Object? description = freezed,
     Object? attributes = null,
+    Object? creator = null,
+    Object? state = null,
+    Object? rejectionReason = freezed,
+    Object? createdAt = null,
+    Object? lastUpdatedAt = freezed,
+    Object? approvedAt = freezed,
+    Object? rejectedAt = freezed,
   }) {
     return _then(_$_Skill(
       null == id
@@ -168,6 +242,34 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
           ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as List<AttributeValue>,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User,
+      state: null == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as SuggestionState,
+      rejectionReason: freezed == rejectionReason
+          ? _value.rejectionReason
+          : rejectionReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      lastUpdatedAt: freezed == lastUpdatedAt
+          ? _value.lastUpdatedAt
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      approvedAt: freezed == approvedAt
+          ? _value.approvedAt
+          : approvedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      rejectedAt: freezed == rejectedAt
+          ? _value.rejectedAt
+          : rejectedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -180,7 +282,14 @@ class _$_Skill implements _Skill {
       this.iconUrl,
       required this.name,
       this.description,
-      final List<AttributeValue> attributes = const []})
+      final List<AttributeValue> attributes = const [],
+      required this.creator,
+      required this.state,
+      this.rejectionReason,
+      required this.createdAt,
+      this.lastUpdatedAt,
+      this.approvedAt,
+      this.rejectedAt})
       : _attributes = attributes;
 
   factory _$_Skill.fromJson(Map<String, dynamic> json) =>
@@ -206,8 +315,23 @@ class _$_Skill implements _Skill {
   }
 
   @override
+  final User creator;
+  @override
+  final SuggestionState state;
+  @override
+  final String? rejectionReason;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime? lastUpdatedAt;
+  @override
+  final DateTime? approvedAt;
+  @override
+  final DateTime? rejectedAt;
+
+  @override
   String toString() {
-    return 'Skill(id: $id, ability: $ability, iconUrl: $iconUrl, name: $name, description: $description, attributes: $attributes)';
+    return 'Skill(id: $id, ability: $ability, iconUrl: $iconUrl, name: $name, description: $description, attributes: $attributes, creator: $creator, state: $state, rejectionReason: $rejectionReason, createdAt: $createdAt, lastUpdatedAt: $lastUpdatedAt, approvedAt: $approvedAt, rejectedAt: $rejectedAt)';
   }
 
   @override
@@ -222,13 +346,38 @@ class _$_Skill implements _Skill {
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality()
-                .equals(other._attributes, _attributes));
+                .equals(other._attributes, _attributes) &&
+            (identical(other.creator, creator) || other.creator == creator) &&
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.rejectionReason, rejectionReason) ||
+                other.rejectionReason == rejectionReason) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.lastUpdatedAt, lastUpdatedAt) ||
+                other.lastUpdatedAt == lastUpdatedAt) &&
+            (identical(other.approvedAt, approvedAt) ||
+                other.approvedAt == approvedAt) &&
+            (identical(other.rejectedAt, rejectedAt) ||
+                other.rejectedAt == rejectedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, ability, iconUrl, name,
-      description, const DeepCollectionEquality().hash(_attributes));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      ability,
+      iconUrl,
+      name,
+      description,
+      const DeepCollectionEquality().hash(_attributes),
+      creator,
+      state,
+      rejectionReason,
+      createdAt,
+      lastUpdatedAt,
+      approvedAt,
+      rejectedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -250,7 +399,14 @@ abstract class _Skill implements Skill {
       final String? iconUrl,
       required final String name,
       final String? description,
-      final List<AttributeValue> attributes}) = _$_Skill;
+      final List<AttributeValue> attributes,
+      required final User creator,
+      required final SuggestionState state,
+      final String? rejectionReason,
+      required final DateTime createdAt,
+      final DateTime? lastUpdatedAt,
+      final DateTime? approvedAt,
+      final DateTime? rejectedAt}) = _$_Skill;
 
   factory _Skill.fromJson(Map<String, dynamic> json) = _$_Skill.fromJson;
 
@@ -266,6 +422,20 @@ abstract class _Skill implements Skill {
   String? get description;
   @override
   List<AttributeValue> get attributes;
+  @override
+  User get creator;
+  @override
+  SuggestionState get state;
+  @override
+  String? get rejectionReason;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime? get lastUpdatedAt;
+  @override
+  DateTime? get approvedAt;
+  @override
+  DateTime? get rejectedAt;
   @override
   @JsonKey(ignore: true)
   _$$_SkillCopyWith<_$_Skill> get copyWith =>

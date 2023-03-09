@@ -43,6 +43,7 @@ namespace Hero.Server.DataAccess.Repositories
             try
             {
                 return await this.context.Skills
+                    .Include(s => s.Creator)
                     .Include(s => s.Ability)
                     .Include(s => s.Attributes)
                         .ThenInclude(ats => ats.Attribute)

@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/traits/application/controller/attributes_controller.dart';
-import 'package:kalinar/src/features/traits/domain/attribute.dart';
-import 'package:kalinar/src/features/traits/presentation/components/list_item.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
 import '../../../../../utilities/async_value_extension.dart';
 import '../../../../group_management/application/group_notifier.dart';
+import '../../../application/controller/attributes_controller.dart';
 import '../../../application/notifier/attributes_state_notifier.dart';
+import '../../../domain/attribute.dart';
 import '../../../domain/suggestion_state.dart';
 import '../../edit_attribute_screen.dart';
-import 'searchable_list.dart';
+import '../list_item.dart';
+import '../searchable_list.dart';
 
 class AttributesTab extends ConsumerStatefulWidget {
   const AttributesTab({super.key});

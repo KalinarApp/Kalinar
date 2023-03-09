@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/traits/presentation/components/tabs/skills_tab.dart';
+import 'package:kalinar/src/features/traits/presentation/edit_skill_screen.dart';
 
 import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/user_menu.dart';
@@ -22,7 +24,7 @@ class TraitsOverviewScreen extends ConsumerStatefulWidget {
 }
 
 class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> with TickerProviderStateMixin {
-  late final TabController controller = TabController(length: 2, vsync: this);
+  late final TabController controller = TabController(length: 3, vsync: this);
 
   void _addTrait() {
     switch (controller.index) {
@@ -31,6 +33,9 @@ class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> wit
         break;
       case 1:
         GoRouter.of(context).goNamed(EditAttributeScreen.name);
+        break;
+      case 3:
+        GoRouter.of(context).goNamed(EditSkillScreen.name);
         break;
     }
   }
@@ -53,6 +58,11 @@ class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> wit
         icon: const FaIcon(FontAwesomeIcons.tag),
         text: AppLocalizations.of(context)!.attributes,
         content: const AttributesTab(),
+      ),
+      ContentTab(
+        icon: const FaIcon(FontAwesomeIcons.lightbulb),
+        text: AppLocalizations.of(context)!.skills,
+        content: const SkillsTab(),
       )
     ];
 

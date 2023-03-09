@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../traits/domain/skill.dart';
 import '../data/races_repository.dart';
 import '../domain/race.dart';
-import '../domain/skill.dart';
 
 class RaceListController extends StateNotifier<AsyncValue<List<Race>>> {
   final RacesRepository repo;

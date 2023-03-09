@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/skills_repository.dart';
-import '../domain/skill.dart';
-
+import '../../../traits/data/skills_repository.dart';
+import '../../../traits/domain/skill.dart';
 import 'skill_list_controller.dart';
 
 class SkillController {

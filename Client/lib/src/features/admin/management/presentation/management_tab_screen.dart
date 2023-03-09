@@ -7,8 +7,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../common_widgets/user_menu.dart';
 import 'components/races/edit_race_screen.dart';
 import 'components/races/races_tab.dart';
-import 'components/skills/edit_skill_screen.dart';
-import 'components/skills/skills_tab.dart';
 
 class ManagementTabScreen extends StatelessWidget {
   static const String name = "ListSkills";
@@ -40,11 +38,11 @@ class ManagementTabScreen extends StatelessWidget {
             //   child: const FaIcon(FontAwesomeIcons.award),
             //   onTap: () => GoRouter.of(context).pushNamed(EditAbilityScreen.name),
             // ),
-            SpeedDialChild(
-              label: AppLocalizations.of(context)!.skill,
-              child: const FaIcon(FontAwesomeIcons.lightbulb),
-              onTap: () => GoRouter.of(context).pushNamed(EditSkillScreen.name),
-            ),
+            // SpeedDialChild(
+            //   label: AppLocalizations.of(context)!.skill,
+            //   child: const FaIcon(FontAwesomeIcons.lightbulb),
+            //   onTap: () => GoRouter.of(context).pushNamed(EditSkillScreen.name),
+            // ),
             SpeedDialChild(
               label: AppLocalizations.of(context)!.race,
               child: const FaIcon(FontAwesomeIcons.person),
@@ -58,10 +56,10 @@ class ManagementTabScreen extends StatelessWidget {
           ],
           bottom: TabBar(
             tabs: [
-              Tab(icon: const FaIcon(FontAwesomeIcons.tag), text: AppLocalizations.of(context)!.attributes),
+              // Tab(icon: const FaIcon(FontAwesomeIcons.tag), text: AppLocalizations.of(context)!.attributes),
               Tab(icon: const FaIcon(FontAwesomeIcons.person), text: AppLocalizations.of(context)!.races),
               // Tab(icon: const FaIcon(FontAwesomeIcons.award), text: AppLocalizations.of(context)!.abilities),
-              Tab(icon: const FaIcon(FontAwesomeIcons.lightbulb), text: AppLocalizations.of(context)!.skills),
+              // Tab(icon: const FaIcon(FontAwesomeIcons.lightbulb), text: AppLocalizations.of(context)!.skills),
             ],
           ),
         ),
@@ -73,7 +71,7 @@ class ManagementTabScreen extends StatelessWidget {
               // AttributesTab(),
               RacesTab(),
               // AbilitiesTab(),
-              SkillsTab(),
+              // SkillsTab(),
             ],
           ),
         ),

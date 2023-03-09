@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/skills_repository.dart';
-import '../domain/skill.dart';
+import '../../../traits/data/skills_repository.dart';
+import '../../../traits/domain/skill.dart';
 
 class SkillListController extends StateNotifier<AsyncValue<List<Skill>>> {
   final SkillsRepository repo;
@@ -13,13 +13,13 @@ class SkillListController extends StateNotifier<AsyncValue<List<Skill>>> {
   Future<void> getAllSkills() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      skills = await repo.getAll();
+      skills = await repo.filter();
       return skills;
     });
   }
 
   Future<List<Skill>> filter(String query) async {
-    return await repo.getAll();
+    return await repo.filter();
   }
 }
 
