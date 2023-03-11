@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/skills_repository.dart';
+import '../../domain/skill.dart';
+import '../../domain/suggestion_state.dart';
 import '../notifier/skill_state_notifier.dart';
 import '../notifier/skills_state_notifier.dart';
 import 'traits_controller.dart';
@@ -24,6 +26,11 @@ class SkillsController implements TraitsController {
       final skills = await repo.filter(query: query);
       notifier.refresh(skills);
     });
+  }
+
+  Future<List<Skill>> search({String? query, List<SuggestionState>? allowedStates}) async {
+    final states = allowedStates?.map((e) => e.index.toString()).toList();
+    return await repo.filter(query: query, allowedStates: states);
   }
 
   @override

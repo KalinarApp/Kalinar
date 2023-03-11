@@ -11,7 +11,7 @@ class SkillsRepository extends HeroBaseRepository {
     return await heroGet("/api/skills/$id", (response) => Skill.fromJson(response));
   }
 
-  Future<List<Skill>> filter({String? query, List<int>? allowedStates}) async {
+  Future<List<Skill>> filter({String? query, List<String>? allowedStates}) async {
     return await heroGet(
       "/api/skills",
       (response) => List<Skill>.from(response.map((model) => Skill.fromJson(model))),

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
@@ -27,10 +28,12 @@ class EditAbilityScreen extends ConsumerStatefulWidget {
 }
 
 class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
+  static final _formKey = GlobalKey<FormBuilderState>();
+
   bool _isCreatorOrAdminOrNew(Ability? item) {
     return widget.abilityId == null ||
         _isAdmin() ||
-        (null != item && item.creator.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
+        (null != item?.creator && item!.creator!.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
   }
 
   bool _isAdmin() {
@@ -43,6 +46,7 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
 
     return EditView(
       state,
+      formKey: _formKey,
       controller: ref.read(abilitiesControllerProvider),
       children: [
         const InvisibleField(name: "id"),

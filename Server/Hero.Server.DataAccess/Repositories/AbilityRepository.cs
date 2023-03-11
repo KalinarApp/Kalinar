@@ -64,7 +64,7 @@ namespace Hero.Server.DataAccess.Repositories
                 }
                 if (allowedStates.Any() && allowedStates.Distinct().Count() != Enum.GetNames(typeof(SuggestionState)).Length)
                 {
-                    abilities = abilities.Where(item => allowedStates.Any(state => state == item.State));
+                    abilities = abilities.Where(item => allowedStates.Contains(item.State));
                 }
 
                 return await abilities.ToListAsync(cancellationToken);

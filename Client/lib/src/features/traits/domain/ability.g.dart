@@ -11,7 +11,9 @@ _$_Ability _$$_AbilityFromJson(Map<String, dynamic> json) => _$_Ability(
       name: json['name'] as String,
       description: json['description'] as String?,
       isPassive: json['isPassive'] as bool,
-      creator: User.fromJson(json['creator'] as Map<String, dynamic>),
+      creator: json['creator'] == null
+          ? null
+          : User.fromJson(json['creator'] as Map<String, dynamic>),
       state: $enumDecode(_$SuggestionStateEnumMap, json['state']),
       rejectionReason: json['rejectionReason'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),

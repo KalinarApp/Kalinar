@@ -3,6 +3,7 @@ import 'package:kalinar/src/features/traits/application/controller/traits_contro
 
 import '../../data/attributes_repository.dart';
 import '../../domain/attribute.dart';
+import '../../domain/suggestion_state.dart';
 import '../notifier/attribute_state_notifier.dart';
 import '../notifier/attributes_state_notifier.dart';
 
@@ -30,6 +31,11 @@ class AttributesController implements TraitsController {
 
   Future<List<Attribute>> getAllGlobal() async {
     return await repo.filter(globalOnly: true);
+  }
+
+  Future<List<Attribute>> search({String? query, List<SuggestionState>? allowedStates}) async {
+    final states = allowedStates?.map((e) => e.index.toString()).toList();
+    return await repo.filter(query: query, allowedStates: states);
   }
 
   @override

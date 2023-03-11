@@ -11,11 +11,11 @@ class AttributesRepository extends HeroBaseRepository {
     return await heroGet("/api/attributes/$id", (response) => Attribute.fromJson(response));
   }
 
-  Future<List<Attribute>> filter({String? query, bool? globalOnly}) async {
+  Future<List<Attribute>> filter({String? query, bool? globalOnly, List<String>? allowedStates}) async {
     return await heroGet(
       "/api/attributes",
       (response) => List<Attribute>.from(response.map((model) => Attribute.fromJson(model))),
-      query: {"query": query, "globalOnly": globalOnly},
+      query: {"query": query, "onlyGlobal": globalOnly?.toString(), "allowedStates": allowedStates ?? []},
     );
   }
 

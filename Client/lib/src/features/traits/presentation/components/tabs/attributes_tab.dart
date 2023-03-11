@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
@@ -66,7 +67,8 @@ class _AttributesTabState extends ConsumerState<AttributesTab> {
   }
 
   bool _isCreatorOrAdminOrNew(Attribute? item) {
-    return _isAdmin() || (null != item && item.creator.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
+    return _isAdmin() ||
+        (null != item?.creator && item!.creator!.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
   }
 
   bool _isAdmin() {
@@ -87,9 +89,25 @@ class _AttributesTabState extends ConsumerState<AttributesTab> {
       state,
       onRefresh: _onRefresh,
       itemBuilder: (context, index) => ListItem(state![index],
-          onPress: _editAbility,
-          onLongPress: _showActionDialog,
-          leading: null != state[index].iconData ? Icon(deserializeIcon(jsonDecode(state[index].iconData!)), size: 28) : null),
+          onPress: state[index].isGlobal ? null : _editAbility,
+          onLongPress: state[index].isGlobal ? null : _showActionDialog,
+          leading: null != state[index].iconData
+              ? SizedBox(
+                  width: 42,
+                  height: 42,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                          child: Icon(
+                        deserializeIcon(jsonDecode(state[index].iconData!)),
+                        size: 35,
+                      )),
+                      if (state[index].isGlobal)
+                        Positioned(top: 0, right: 0, child: FaIcon(FontAwesomeIcons.globe, size: 15, color: Theme.of(context).colorScheme.primary))
+                    ],
+                  ),
+                )
+              : null),
       onSearchChanged: (query) {
         setState(() => queryString = query);
         _onRefresh();

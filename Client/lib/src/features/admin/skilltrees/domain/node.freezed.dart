@@ -58,6 +58,8 @@ abstract class $NodeCopyWith<$Res> {
       double yPos,
       List<String> precessors,
       List<String> successors});
+
+  $SkillCopyWith<$Res> get skill;
 }
 
 /// @nodoc
@@ -75,7 +77,7 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
   $Res call({
     Object? id = null,
     Object? importance = null,
-    Object? skill = freezed,
+    Object? skill = null,
     Object? skillId = null,
     Object? cost = null,
     Object? color = null,
@@ -96,7 +98,7 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
               as int,
-      skill: freezed == skill
+      skill: null == skill
           ? _value.skill
           : skill // ignore: cast_nullable_to_non_nullable
               as Skill,
@@ -142,6 +144,14 @@ class _$NodeCopyWithImpl<$Res, $Val extends Node>
               as List<String>,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SkillCopyWith<$Res> get skill {
+    return $SkillCopyWith<$Res>(_value.skill, (value) {
+      return _then(_value.copyWith(skill: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -164,6 +174,9 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
       double yPos,
       List<String> precessors,
       List<String> successors});
+
+  @override
+  $SkillCopyWith<$Res> get skill;
 }
 
 /// @nodoc
@@ -177,7 +190,7 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
   $Res call({
     Object? id = null,
     Object? importance = null,
-    Object? skill = freezed,
+    Object? skill = null,
     Object? skillId = null,
     Object? cost = null,
     Object? color = null,
@@ -198,7 +211,7 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res, _$_Node>
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
               as int,
-      skill: freezed == skill
+      skill: null == skill
           ? _value.skill
           : skill // ignore: cast_nullable_to_non_nullable
               as Skill,
@@ -321,7 +334,7 @@ class _$_Node implements _Node {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.importance, importance) ||
                 other.importance == importance) &&
-            const DeepCollectionEquality().equals(other.skill, skill) &&
+            (identical(other.skill, skill) || other.skill == skill) &&
             (identical(other.skillId, skillId) || other.skillId == skillId) &&
             (identical(other.cost, cost) || other.cost == cost) &&
             (identical(other.color, color) || other.color == color) &&
@@ -345,7 +358,7 @@ class _$_Node implements _Node {
       runtimeType,
       id,
       importance,
-      const DeepCollectionEquality().hash(skill),
+      skill,
       skillId,
       cost,
       color,

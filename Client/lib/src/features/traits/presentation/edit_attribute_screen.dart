@@ -30,12 +30,13 @@ class EditAttributeScreen extends ConsumerStatefulWidget {
 }
 
 class _EditAttributeScreenState extends ConsumerState<EditAttributeScreen> {
+  static final _formKey = GlobalKey<FormBuilderState>();
   final categoriesController = TextEditingController();
 
   bool _isCreatorOrAdminOrNew(Attribute? item) {
     return widget.attributeId == null ||
         _isAdmin() ||
-        (null != item && item.creator.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
+        (null != item?.creator && item!.creator!.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
   }
 
   bool _isAdmin() {
@@ -54,6 +55,7 @@ class _EditAttributeScreenState extends ConsumerState<EditAttributeScreen> {
 
     return EditView(
       state,
+      formKey: _formKey,
       controller: ref.read(attributesControllerProvider),
       children: [
         const InvisibleField(name: "id"),

@@ -26,7 +26,7 @@ mixin _$Skill {
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   List<AttributeValue> get attributes => throw _privateConstructorUsedError;
-  User get creator => throw _privateConstructorUsedError;
+  User? get creator => throw _privateConstructorUsedError;
   SuggestionState get state => throw _privateConstructorUsedError;
   String? get rejectionReason => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $SkillCopyWith<$Res> {
       String name,
       String? description,
       List<AttributeValue> attributes,
-      User creator,
+      User? creator,
       SuggestionState state,
       String? rejectionReason,
       DateTime createdAt,
@@ -60,7 +60,7 @@ abstract class $SkillCopyWith<$Res> {
       DateTime? rejectedAt});
 
   $AbilityCopyWith<$Res>? get ability;
-  $UserCopyWith<$Res> get creator;
+  $UserCopyWith<$Res>? get creator;
 }
 
 /// @nodoc
@@ -82,7 +82,7 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
     Object? name = null,
     Object? description = freezed,
     Object? attributes = null,
-    Object? creator = null,
+    Object? creator = freezed,
     Object? state = null,
     Object? rejectionReason = freezed,
     Object? createdAt = null,
@@ -115,10 +115,10 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
           ? _value.attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as List<AttributeValue>,
-      creator: null == creator
+      creator: freezed == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as User,
+              as User?,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -160,8 +160,12 @@ class _$SkillCopyWithImpl<$Res, $Val extends Skill>
 
   @override
   @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get creator {
-    return $UserCopyWith<$Res>(_value.creator, (value) {
+  $UserCopyWith<$Res>? get creator {
+    if (_value.creator == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.creator!, (value) {
       return _then(_value.copyWith(creator: value) as $Val);
     });
   }
@@ -180,7 +184,7 @@ abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
       String name,
       String? description,
       List<AttributeValue> attributes,
-      User creator,
+      User? creator,
       SuggestionState state,
       String? rejectionReason,
       DateTime createdAt,
@@ -191,7 +195,7 @@ abstract class _$$_SkillCopyWith<$Res> implements $SkillCopyWith<$Res> {
   @override
   $AbilityCopyWith<$Res>? get ability;
   @override
-  $UserCopyWith<$Res> get creator;
+  $UserCopyWith<$Res>? get creator;
 }
 
 /// @nodoc
@@ -209,7 +213,7 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
     Object? name = null,
     Object? description = freezed,
     Object? attributes = null,
-    Object? creator = null,
+    Object? creator = freezed,
     Object? state = null,
     Object? rejectionReason = freezed,
     Object? createdAt = null,
@@ -242,10 +246,10 @@ class __$$_SkillCopyWithImpl<$Res> extends _$SkillCopyWithImpl<$Res, _$_Skill>
           ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as List<AttributeValue>,
-      creator: null == creator
+      creator: freezed == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as User,
+              as User?,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -315,7 +319,7 @@ class _$_Skill implements _Skill {
   }
 
   @override
-  final User creator;
+  final User? creator;
   @override
   final SuggestionState state;
   @override
@@ -400,7 +404,7 @@ abstract class _Skill implements Skill {
       required final String name,
       final String? description,
       final List<AttributeValue> attributes,
-      required final User creator,
+      required final User? creator,
       required final SuggestionState state,
       final String? rejectionReason,
       required final DateTime createdAt,
@@ -423,7 +427,7 @@ abstract class _Skill implements Skill {
   @override
   List<AttributeValue> get attributes;
   @override
-  User get creator;
+  User? get creator;
   @override
   SuggestionState get state;
   @override

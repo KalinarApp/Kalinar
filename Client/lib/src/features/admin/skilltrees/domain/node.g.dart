@@ -9,7 +9,7 @@ part of 'node.dart';
 _$_Node _$$_NodeFromJson(Map<String, dynamic> json) => _$_Node(
       id: json['id'] as String,
       importance: json['importance'] as int,
-      skill: json['skill'],
+      skill: Skill.fromJson(json['skill'] as Map<String, dynamic>),
       skillId: json['skillId'] as String,
       cost: json['cost'] as int,
       color: json['color'] as String,

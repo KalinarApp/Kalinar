@@ -34,7 +34,7 @@ class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> wit
       case 1:
         GoRouter.of(context).goNamed(EditAttributeScreen.name);
         break;
-      case 3:
+      case 2:
         GoRouter.of(context).goNamed(EditSkillScreen.name);
         break;
     }

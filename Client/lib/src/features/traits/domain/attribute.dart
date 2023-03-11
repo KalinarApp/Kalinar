@@ -22,7 +22,7 @@ class Attribute with _$Attribute implements Suggestable {
     @Default(0) double minValue,
     @Default(10) double maxValue,
     @Default(false) bool isGlobal,
-    required User creator,
+    required User? creator,
     required SuggestionState state,
     String? rejectionReason,
     required DateTime createdAt,

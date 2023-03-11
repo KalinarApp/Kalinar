@@ -18,7 +18,7 @@ class Skill with _$Skill implements Suggestable {
     required String name,
     String? description,
     @Default([]) List<AttributeValue> attributes,
-    required User creator,
+    required User? creator,
     required SuggestionState state,
     String? rejectionReason,
     required DateTime createdAt,

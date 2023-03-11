@@ -45,8 +45,11 @@ namespace Hero.Server.DataAccess.Repositories
                 return await this.context.Skills
                     .Include(s => s.Creator)
                     .Include(s => s.Ability)
+                        .ThenInclude(s => s.Creator)
                     .Include(s => s.Attributes)
                         .ThenInclude(ats => ats.Attribute)
+                    .Include(s => s.Attributes)
+                        .ThenInclude(s => s.Attribute.Creator)
                     .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
             }
             catch (Exception ex)
@@ -68,7 +71,7 @@ namespace Hero.Server.DataAccess.Repositories
                 }
                 if (allowedStates.Any() && allowedStates.Distinct().Count() != Enum.GetNames(typeof(SuggestionState)).Length)
                 {
-                    skills = skills.Where(item => allowedStates.Any(state => state == item.State));
+                    skills = skills.Where(item => allowedStates.Contains(item.State));
                 }
 
                 return await skills.ToListAsync(cancellationToken);
@@ -114,6 +117,9 @@ namespace Hero.Server.DataAccess.Repositories
 
                 existing.Attributes.RemoveAll(ats => !updatedSkill.Attributes.Select(x => (x.SkillId, x.AttributeId)).Contains((ats.SkillId, ats.AttributeId)));
                 existing.Attributes.AddRange(updatedSkill.Attributes.Where(ats => !existing.Attributes.Select(x => (x.SkillId, x.AttributeId)).Contains((ats.SkillId, ats.AttributeId))));
+
+                this.context.Skills.Update(existing);
+                await this.context.SaveChangesAsync(cancellationToken);
 
                 if (existing.Group.OwnerId == userId && SuggestionState.Pending == existing.State)
                 {

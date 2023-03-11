@@ -73,7 +73,7 @@ namespace Hero.Server.DataAccess.Repositories
         {
             try
             {
-                IQueryable<Attribute> attributes = this.context.Attributes.Include(item => item.Creator).Where(a => a.GroupId == this.group.Id);
+                IQueryable<Attribute> attributes = this.context.Attributes.Include(item => item.Creator).Where(a => a.GroupId == this.group.Id || a.GroupId == Guid.Empty);
 
                 if (!String.IsNullOrEmpty(query))
                 {
@@ -81,11 +81,11 @@ namespace Hero.Server.DataAccess.Repositories
                 }
                 if (allowedStates.Any() && allowedStates.Distinct().Count() != Enum.GetNames(typeof(SuggestionState)).Length)
                 {
-                    attributes = attributes.Where(item => allowedStates.Any(state => state == item.State));
+                    attributes = attributes.Where(item => allowedStates.Contains(item.State));
                 }
                 if (true == globalOnly)
                 {
-                    attributes = attributes.Where(item => item.Id == Guid.Empty);
+                    attributes = attributes.Where(item => item.GroupId == Guid.Empty);
                 }
 
                 return await attributes.ToListAsync(cancellationToken);

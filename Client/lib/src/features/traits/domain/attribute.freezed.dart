@@ -29,7 +29,7 @@ mixin _$Attribute {
   double get minValue => throw _privateConstructorUsedError;
   double get maxValue => throw _privateConstructorUsedError;
   bool get isGlobal => throw _privateConstructorUsedError;
-  User get creator => throw _privateConstructorUsedError;
+  User? get creator => throw _privateConstructorUsedError;
   SuggestionState get state => throw _privateConstructorUsedError;
   String? get rejectionReason => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -58,7 +58,7 @@ abstract class $AttributeCopyWith<$Res> {
       double minValue,
       double maxValue,
       bool isGlobal,
-      User creator,
+      User? creator,
       SuggestionState state,
       String? rejectionReason,
       DateTime createdAt,
@@ -66,7 +66,7 @@ abstract class $AttributeCopyWith<$Res> {
       DateTime? approvedAt,
       DateTime? rejectedAt});
 
-  $UserCopyWith<$Res> get creator;
+  $UserCopyWith<$Res>? get creator;
 }
 
 /// @nodoc
@@ -91,7 +91,7 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
     Object? minValue = null,
     Object? maxValue = null,
     Object? isGlobal = null,
-    Object? creator = null,
+    Object? creator = freezed,
     Object? state = null,
     Object? rejectionReason = freezed,
     Object? createdAt = null,
@@ -136,10 +136,10 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
           ? _value.isGlobal
           : isGlobal // ignore: cast_nullable_to_non_nullable
               as bool,
-      creator: null == creator
+      creator: freezed == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as User,
+              as User?,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -169,8 +169,12 @@ class _$AttributeCopyWithImpl<$Res, $Val extends Attribute>
 
   @override
   @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get creator {
-    return $UserCopyWith<$Res>(_value.creator, (value) {
+  $UserCopyWith<$Res>? get creator {
+    if (_value.creator == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.creator!, (value) {
       return _then(_value.copyWith(creator: value) as $Val);
     });
   }
@@ -193,7 +197,7 @@ abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
       double minValue,
       double maxValue,
       bool isGlobal,
-      User creator,
+      User? creator,
       SuggestionState state,
       String? rejectionReason,
       DateTime createdAt,
@@ -202,7 +206,7 @@ abstract class _$$_AttributeCopyWith<$Res> implements $AttributeCopyWith<$Res> {
       DateTime? rejectedAt});
 
   @override
-  $UserCopyWith<$Res> get creator;
+  $UserCopyWith<$Res>? get creator;
 }
 
 /// @nodoc
@@ -225,7 +229,7 @@ class __$$_AttributeCopyWithImpl<$Res>
     Object? minValue = null,
     Object? maxValue = null,
     Object? isGlobal = null,
-    Object? creator = null,
+    Object? creator = freezed,
     Object? state = null,
     Object? rejectionReason = freezed,
     Object? createdAt = null,
@@ -270,10 +274,10 @@ class __$$_AttributeCopyWithImpl<$Res>
           ? _value.isGlobal
           : isGlobal // ignore: cast_nullable_to_non_nullable
               as bool,
-      creator: null == creator
+      creator: freezed == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as User,
+              as User?,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -349,7 +353,7 @@ class _$_Attribute implements _Attribute {
   @JsonKey()
   final bool isGlobal;
   @override
-  final User creator;
+  final User? creator;
   @override
   final SuggestionState state;
   @override
@@ -449,7 +453,7 @@ abstract class _Attribute implements Attribute {
       final double minValue,
       final double maxValue,
       final bool isGlobal,
-      required final User creator,
+      required final User? creator,
       required final SuggestionState state,
       final String? rejectionReason,
       required final DateTime createdAt,
@@ -479,7 +483,7 @@ abstract class _Attribute implements Attribute {
   @override
   bool get isGlobal;
   @override
-  User get creator;
+  User? get creator;
   @override
   SuggestionState get state;
   @override

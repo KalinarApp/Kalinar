@@ -24,7 +24,7 @@ mixin _$Ability {
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   bool get isPassive => throw _privateConstructorUsedError;
-  User get creator => throw _privateConstructorUsedError;
+  User? get creator => throw _privateConstructorUsedError;
   SuggestionState get state => throw _privateConstructorUsedError;
   String? get rejectionReason => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ abstract class $AbilityCopyWith<$Res> {
       String name,
       String? description,
       bool isPassive,
-      User creator,
+      User? creator,
       SuggestionState state,
       String? rejectionReason,
       DateTime createdAt,
@@ -55,7 +55,7 @@ abstract class $AbilityCopyWith<$Res> {
       DateTime? approvedAt,
       DateTime? rejectedAt});
 
-  $UserCopyWith<$Res> get creator;
+  $UserCopyWith<$Res>? get creator;
 }
 
 /// @nodoc
@@ -75,7 +75,7 @@ class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
     Object? name = null,
     Object? description = freezed,
     Object? isPassive = null,
-    Object? creator = null,
+    Object? creator = freezed,
     Object? state = null,
     Object? rejectionReason = freezed,
     Object? createdAt = null,
@@ -100,10 +100,10 @@ class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
           ? _value.isPassive
           : isPassive // ignore: cast_nullable_to_non_nullable
               as bool,
-      creator: null == creator
+      creator: freezed == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as User,
+              as User?,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -133,8 +133,12 @@ class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
 
   @override
   @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get creator {
-    return $UserCopyWith<$Res>(_value.creator, (value) {
+  $UserCopyWith<$Res>? get creator {
+    if (_value.creator == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.creator!, (value) {
       return _then(_value.copyWith(creator: value) as $Val);
     });
   }
@@ -152,7 +156,7 @@ abstract class _$$_AbilityCopyWith<$Res> implements $AbilityCopyWith<$Res> {
       String name,
       String? description,
       bool isPassive,
-      User creator,
+      User? creator,
       SuggestionState state,
       String? rejectionReason,
       DateTime createdAt,
@@ -161,7 +165,7 @@ abstract class _$$_AbilityCopyWith<$Res> implements $AbilityCopyWith<$Res> {
       DateTime? rejectedAt});
 
   @override
-  $UserCopyWith<$Res> get creator;
+  $UserCopyWith<$Res>? get creator;
 }
 
 /// @nodoc
@@ -178,7 +182,7 @@ class __$$_AbilityCopyWithImpl<$Res>
     Object? name = null,
     Object? description = freezed,
     Object? isPassive = null,
-    Object? creator = null,
+    Object? creator = freezed,
     Object? state = null,
     Object? rejectionReason = freezed,
     Object? createdAt = null,
@@ -203,10 +207,10 @@ class __$$_AbilityCopyWithImpl<$Res>
           ? _value.isPassive
           : isPassive // ignore: cast_nullable_to_non_nullable
               as bool,
-      creator: null == creator
+      creator: freezed == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
-              as User,
+              as User?,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -263,7 +267,7 @@ class _$_Ability implements _Ability {
   @override
   final bool isPassive;
   @override
-  final User creator;
+  final User? creator;
   @override
   final SuggestionState state;
   @override
@@ -343,7 +347,7 @@ abstract class _Ability implements Ability {
       required final String name,
       final String? description,
       required final bool isPassive,
-      required final User creator,
+      required final User? creator,
       required final SuggestionState state,
       final String? rejectionReason,
       required final DateTime createdAt,
@@ -362,7 +366,7 @@ abstract class _Ability implements Ability {
   @override
   bool get isPassive;
   @override
-  User get creator;
+  User? get creator;
   @override
   SuggestionState get state;
   @override

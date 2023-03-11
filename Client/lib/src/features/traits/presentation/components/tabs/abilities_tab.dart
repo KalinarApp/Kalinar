@@ -65,7 +65,8 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
   }
 
   bool _isCreatorOrAdminOrNew(Ability? item) {
-    return _isAdmin() || (null != item && item.creator.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
+    return _isAdmin() ||
+        (null != item?.creator && item!.creator!.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
   }
 
   bool _isAdmin() {

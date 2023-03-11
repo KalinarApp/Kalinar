@@ -35,7 +35,7 @@ class ListItem<T extends Suggestable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gravatar = item.creator.email.isNotEmpty ? Gravatar(item.creator.email) : null;
+    final gravatar = null != item.creator && item.creator!.email.isNotEmpty ? Gravatar(item.creator!.email) : null;
 
     return Column(
       children: [

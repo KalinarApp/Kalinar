@@ -3,6 +3,9 @@ import 'package:kalinar/src/features/traits/application/controller/traits_contro
 import 'package:kalinar/src/features/traits/application/notifier/abilities_state_notifier.dart';
 import 'package:kalinar/src/features/traits/application/notifier/ability_state_notifier.dart';
 import 'package:kalinar/src/features/traits/data/abilities_repository.dart';
+import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
+
+import '../../domain/ability.dart';
 
 class AbilitiesController implements TraitsController {
   final AbilitiesRepository repo;
@@ -20,9 +23,14 @@ class AbilitiesController implements TraitsController {
   @override
   Future<AsyncValue> filter(String? query) async {
     return AsyncValue.guard(() async {
-      final abilities = await repo.filter(query);
+      final abilities = await repo.filter(query: query);
       notifier.refresh(abilities);
     });
+  }
+
+  Future<List<Ability>> search({String? query, List<SuggestionState>? allowedStates}) async {
+    final states = allowedStates?.map((e) => e.index.toString()).toList();
+    return await repo.filter(query: query, allowedStates: states);
   }
 
   @override
@@ -60,8 +68,5 @@ class AbilitiesController implements TraitsController {
 
 final abilitiesControllerProvider = Provider<AbilitiesController>((ref) {
   return AbilitiesController(
-    ref.watch(abilitiesRepositoryProvider),
-    ref.watch(abilitiesStateNotifierProvider.notifier),
-    ref.watch(abilityStateNotifierProvider.notifier),
-  );
+      ref.watch(abilitiesRepositoryProvider), ref.watch(abilitiesStateNotifierProvider.notifier), ref.watch(abilityStateNotifierProvider.notifier));
 });

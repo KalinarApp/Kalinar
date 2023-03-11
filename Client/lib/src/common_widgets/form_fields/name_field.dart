@@ -17,34 +17,20 @@ class NameField extends StatelessWidget {
   Widget build(BuildContext context) {
     return isLoading
         ? const ShimmerWidget.rectangular(height: 102)
-        : Row(
-            children: [
-              Flexible(
-                child: SizedBox(
-                  height: 102,
-                  child: Column(
-                    children: [
-                      FormBuilderTextField(
-                        name: "name",
-                        maxLines: 2,
-                        maxLength: 100,
-                        onChanged: onChanged,
-                        initialValue: initialValue,
-                        enabled: !readOnly,
-                        validator: FormBuilderValidators.required(),
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          labelText: label ?? "Name",
-                          prefixIcon: icon ?? const SizedBox(),
-                          contentPadding: const EdgeInsets.only(right: 8),
-                        ),
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+        : FormBuilderTextField(
+            name: "name",
+            maxLines: 2,
+            maxLength: 100,
+            onChanged: onChanged,
+            initialValue: initialValue,
+            enabled: !readOnly,
+            validator: FormBuilderValidators.required(),
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              labelText: label ?? "Name",
+              prefixIcon: icon ?? const SizedBox(),
+              contentPadding: const EdgeInsets.only(right: 8),
+            ),
           );
   }
 }

@@ -18,7 +18,9 @@ _$_Skill _$$_SkillFromJson(Map<String, dynamic> json) => _$_Skill(
               ?.map((e) => AttributeValue.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      creator: User.fromJson(json['creator'] as Map<String, dynamic>),
+      creator: json['creator'] == null
+          ? null
+          : User.fromJson(json['creator'] as Map<String, dynamic>),
       state: $enumDecode(_$SuggestionStateEnumMap, json['state']),
       rejectionReason: json['rejectionReason'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),

@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/traits/application/controller/skills_controller.dart';
+import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 
 import '../../../../../traits/domain/skill.dart';
-import '../../../../management/application/skill_list_controller.dart';
+import '../../../../../traits/presentation/edit_skill_screen.dart';
 
 class SkillSelectionField extends ConsumerWidget {
   final Skill? initialValue;
@@ -14,7 +17,7 @@ class SkillSelectionField extends ConsumerWidget {
   const SkillSelectionField({this.initialValue, super.key});
 
   Future<void> _showCreateSkillScreen(BuildContext context) async {
-    // GoRouter.of(context).pushNamed(EditSkillScreen.name);
+    GoRouter.of(context).pushNamed(EditSkillScreen.name);
   }
 
   @override
@@ -34,7 +37,8 @@ class SkillSelectionField extends ConsumerWidget {
             initialValue: initialValue,
             decoration: const InputDecoration(labelText: "Select Skill", prefixIcon: Icon(Icons.handyman)),
             validator: FormBuilderValidators.required(),
-            asyncItems: ref.read(skillListControllerProvider.notifier).filter,
+            asyncItems: (query) =>
+                ref.read(skillsControllerProvider).search(query: query, allowedStates: [SuggestionState.approved, SuggestionState.pending]),
             compareFn: (item1, item2) => item1.name == item2.name,
             itemAsString: (item) => item.name,
             clearButtonProps: const ClearButtonProps(isVisible: true),

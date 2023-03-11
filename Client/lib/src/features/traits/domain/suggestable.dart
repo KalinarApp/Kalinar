@@ -8,7 +8,7 @@ abstract class Suggestable {
   String get name;
   String? get description;
 
-  User get creator;
+  User? get creator;
   SuggestionState get state;
   String? get rejectionReason;
   DateTime get createdAt;

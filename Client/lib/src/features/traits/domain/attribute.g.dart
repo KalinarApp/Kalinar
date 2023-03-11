@@ -16,7 +16,9 @@ _$_Attribute _$$_AttributeFromJson(Map<String, dynamic> json) => _$_Attribute(
       minValue: (json['minValue'] as num?)?.toDouble() ?? 0,
       maxValue: (json['maxValue'] as num?)?.toDouble() ?? 10,
       isGlobal: json['isGlobal'] as bool? ?? false,
-      creator: User.fromJson(json['creator'] as Map<String, dynamic>),
+      creator: json['creator'] == null
+          ? null
+          : User.fromJson(json['creator'] as Map<String, dynamic>),
       state: $enumDecode(_$SuggestionStateEnumMap, json['state']),
       rejectionReason: json['rejectionReason'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),

@@ -11,11 +11,11 @@ class AbilitiesRepository extends HeroBaseRepository {
     return await heroGet("/api/abilities/$id", (response) => Ability.fromJson(response));
   }
 
-  Future<List<Ability>> filter(String? query) async {
+  Future<List<Ability>> filter({String? query, List<String>? allowedStates}) async {
     return await heroGet(
       "/api/abilities",
       (response) => List<Ability>.from(response.map((model) => Ability.fromJson(model))),
-      query: {"query": query},
+      query: {"query": query, "allowedStates": allowedStates ?? []},
     );
   }
 

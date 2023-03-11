@@ -15,22 +15,22 @@ class EditView<T extends Suggestable> extends ConsumerStatefulWidget {
   final TraitsController controller;
   final AsyncValue<T>? item;
   final List<Widget> children;
+  final GlobalKey<FormBuilderState> formKey;
 
-  const EditView(this.item, {required this.controller, required this.children, super.key});
+  const EditView(this.item, {required this.formKey, required this.controller, required this.children, super.key});
 
   @override
   ConsumerState<EditView> createState() => _EditViewState();
 }
 
 class _EditViewState extends ConsumerState<EditView> {
-  static final _formKey = GlobalKey<FormBuilderState>();
   final saveController = RoundedLoadingButtonController();
   final _rejectionController = TextEditingController();
 
   Future<void> _save() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      _formKey.currentState?.save();
-      final data = _formKey.currentState?.value;
+    if (widget.formKey.currentState?.validate() ?? false) {
+      widget.formKey.currentState?.save();
+      final data = widget.formKey.currentState?.value;
       if (null != data) {
         final value = null == widget.item ? await widget.controller.create(data) : await widget.controller.update(widget.item!.value!.id, data);
         if (!mounted) return;
@@ -55,7 +55,7 @@ class _EditViewState extends ConsumerState<EditView> {
   bool _isCreatorOrAdminOrNew(Suggestable? item) {
     return widget.item == null ||
         _isAdmin() ||
-        (null != item && item.creator.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
+        (null != item && item.creator?.id == FirebaseAuth.instance.currentUser?.uid && item.state == SuggestionState.pending);
   }
 
   bool _isAdmin() {
@@ -95,7 +95,6 @@ class _EditViewState extends ConsumerState<EditView> {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ...widget.children,
           const SizedBox(height: 50),
@@ -122,7 +121,7 @@ class _EditViewState extends ConsumerState<EditView> {
     return Scaffold(
       appBar: AppBar(),
       body: FormBuilder(
-        key: _formKey,
+        key: widget.formKey,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: null != widget.item
