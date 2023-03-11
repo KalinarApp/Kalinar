@@ -12,23 +12,42 @@ namespace Hero.Server.DataAccess.Repositories
     public class RaceRepository : IRaceRepository
     {
         private readonly HeroDbContext context;
-        private readonly IUserRepository userRepository;
         private readonly IGroupContext group;
         private readonly ILogger<RaceRepository> logger;
 
-        public RaceRepository(HeroDbContext context, IUserRepository userRepository, IGroupContext group, ILogger<RaceRepository> logger)
+        public RaceRepository(HeroDbContext context, IGroupContext group, ILogger<RaceRepository> logger)
         {
             this.context = context;
-            this.userRepository = userRepository;
             this.group = group;
             this.logger = logger;
+        }
+
+        private async Task<Race> EsureUserIsEnlightableForAction(Guid id, string userId, CancellationToken cancellationToken = default)
+        {
+            Race? existing = await this.GetRaceByIdAsync(id, cancellationToken);
+
+            if (existing == null)
+            {
+                throw new ObjectNotFoundException("The race you are looking for does not exist.");
+            }
+            else if (null == existing || !existing.IsOwnerOrAdmin(userId))
+            {
+                throw new AccessForbiddenException("You are neither the creator of this race nor an admin.");
+            }
+
+            return existing;
         }
 
         public async Task<Race?> GetRaceByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             try
             {
-                return await this.context.Races.Include(r => r.Attributes).ThenInclude(ar => ar.Attribute).FirstOrDefaultAsync(g => g.Id == id, cancellationToken);
+                return await this.context.Races
+                    .Include(r => r.Creator)
+                    .Include(r => r.Attributes)
+                        .ThenInclude(ar => ar.Attribute)
+                        .ThenInclude(a => a.Creator)
+                    .FirstOrDefaultAsync(g => g.Id == id, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -37,12 +56,36 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
+        public async Task<List<Race>> FilterRacesAsync(string? query, SuggestionState[] allowedStates, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                IQueryable<Race> races = this.context.Races.Include(item => item.Creator).Where(a => a.GroupId == this.group.Id);
+
+                if (!String.IsNullOrEmpty(query))
+                {
+                    races = races.Where(item => item.Name.ToLower().Contains(query.ToLower()) || (null != item.Description && item.Description.ToLower().Contains(query.ToLower())));
+                }
+                if (allowedStates.Any() && allowedStates.Distinct().Count() != Enum.GetNames(typeof(SuggestionState)).Length)
+                {
+                    races = races.Where(item => allowedStates.Contains(item.State));
+                }
+
+                return await races.ToListAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error occured while getting a list of races.");
+            }
+        }
+
         public async Task CreateRaceAsync(Race race, CancellationToken cancellationToken = default)
         {
             try
             {
                 race.GroupId = group.Id;
-                race.Id = Guid.NewGuid();
+
                 race.Attributes.ForEach(ats => ats.RaceId = race.Id);
 
                 await this.context.Races.AddAsync(race, cancellationToken);
@@ -55,23 +98,14 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task DeleteRaceAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task TryDeleteRaceAsync(Guid id, string userId, CancellationToken cancellationToken = default)
         {
+            Race existing = await this.EsureUserIsEnlightableForAction(id, userId, cancellationToken);
+
             try
             {
-                Race? existing = await this.GetRaceByIdAsync(id, cancellationToken);
-                if(null == existing)
-                {
-                    this.logger.LogRaceDoesNotExist(id);
-                    throw new ObjectNotFoundException($"The race (id: {id}) you're trying to delete does not exist.");
-                }
                 this.context.Races.Remove(existing);
                 await this.context.SaveChangesAsync(cancellationToken);
-            }
-            catch (HeroException ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw;
             }
             catch (Exception ex)
             {
@@ -80,30 +114,12 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Race>> GetAllRacesAsync(CancellationToken cancellationToken = default)
+        public async Task TryUpdateRaceAsync(Guid id, string userId, Race updatedRace, CancellationToken cancellationToken = default)
         {
+            Race existing = await this.EsureUserIsEnlightableForAction(id, userId, cancellationToken);
+
             try
             {
-                return await this.context.Races.Include(r => r.Attributes).ThenInclude(ar => ar.Attribute).ToListAsync(cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw new HeroException("An error occured while getting a list of races.");
-            }
-        }
-
-        public async Task UpdateRaceAsync(Guid id, Race updatedRace, CancellationToken cancellationToken = default)
-        {
-            try
-            {
-                Race? existing = await this.GetRaceByIdAsync(id, cancellationToken);
-
-                if (null == existing)
-                {
-                    throw new ObjectNotFoundException($"The Race (id: {id}) you're trying to update does not exist.");
-                }
-
                 existing.Update(updatedRace);
 
                 foreach (AttributeRace existingAttributeRace in existing.Attributes.Where(ats => updatedRace.Attributes.Select(x => (x.RaceId, x.AttributeId)).Contains((ats.RaceId, ats.AttributeId))))
@@ -117,16 +133,55 @@ namespace Hero.Server.DataAccess.Repositories
 
                 this.context.Races.Update(existing);
                 await this.context.SaveChangesAsync(cancellationToken);
-            }
-            catch (HeroException ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw;
+
+                if (existing.Group.OwnerId == userId && SuggestionState.Pending == existing.State)
+                {
+                    existing.State = SuggestionState.Approved;
+                    existing.ApprovedAt = DateTime.Now;
+
+                    foreach (AttributeRace item in existing.Attributes.Where(item => item.Attribute.State != SuggestionState.Approved))
+                    {
+                        item.Attribute.State = SuggestionState.Approved;
+                        item.Attribute.ApprovedAt = existing.ApprovedAt;
+                    }
+                }
+
+                this.context.Races.Update(existing);
+                await this.context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception ex)
             {
                 this.logger.LogUnknownErrorOccured(ex);
                 throw new HeroException("An error occured while updating race.");
+            }
+        }
+
+        public async Task RejectRaceAsync(Guid id, string reason, CancellationToken cancellationToken = default)
+        {
+            Race? race = await this.GetRaceByIdAsync(id, cancellationToken);
+
+            if (null == race)
+            {
+                throw new ObjectNotFoundException("Race not found.");
+            }
+            else if (SuggestionState.Pending != race.State)
+            {
+                throw new HeroException("This race is already approved or rejected and therefore cannot be rejected again.");
+            }
+
+            try
+            {
+                race.RejectedAt = DateTime.Now;
+                race.RejectionReason = reason;
+                race.State = SuggestionState.Rejected;
+
+                this.context.Races.Update(race);
+                await this.context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error ccoured while approving skill.");
             }
         }
     }

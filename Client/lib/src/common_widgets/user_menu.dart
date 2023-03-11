@@ -14,6 +14,7 @@ class UserMenu extends ConsumerWidget {
 
   Future<void> _openPrivacy(BuildContext ctx) async {
     if (!await launchUrl(Uri.parse(Constants.privacyUrl), mode: LaunchMode.inAppWebView)) {
+      if (!ctx.mounted) return;
       throw AppLocalizations.of(ctx)!.openProfileFailed;
     }
   }

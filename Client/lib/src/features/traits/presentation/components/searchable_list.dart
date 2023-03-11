@@ -22,7 +22,9 @@ class SearchableList<T> extends StatelessWidget {
         : RefreshIndicator(
             onRefresh: onRefresh,
             child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
               slivers: [
                 SliverPadding(
                   padding: const EdgeInsets.all(12.0),

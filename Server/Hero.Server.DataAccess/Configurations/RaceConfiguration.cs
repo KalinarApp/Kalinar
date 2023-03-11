@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Hero.Server.DataAccess.Configurations
 {
-    public class RaceConfiguration : IEntityTypeConfiguration<Race>
+    public class RaceConfiguration : SuggestableConfiguration<Race>
     {
-        public void Configure(EntityTypeBuilder<Race> builder)
+        public override void Configure(EntityTypeBuilder<Race> builder)
         {
             builder.ToTable("Races");
             builder.HasKey(x => x.Id);
 
             builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
 
+            base.Configure(builder);
         }
     }
 }

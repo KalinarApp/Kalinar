@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 
 import '../../../../common_widgets/form_fields/selection_field.dart';
-import '../../../admin/management/application/race_controller.dart';
-import '../../../admin/management/domain/race.dart';
-
+import '../../../traits/application/controller/races_controller.dart';
+import '../../../traits/domain/race.dart';
 import 'attribute_value_widget.dart';
 
 class RaceSelection extends ConsumerStatefulWidget {
@@ -44,7 +43,7 @@ class _RaceSelectionState extends ConsumerState<RaceSelection> {
           label: AppLocalizations.of(context)!.selectARace,
           searchLabel: AppLocalizations.of(context)!.searchForRace,
           icon: const Icon(FontAwesomeIcons.person),
-          items: (_) async => await ref.read(raceControllerProvider).getAll(),
+          items: (query) async => await ref.read(racesControllerProvider).search(query: query, allowedStates: [SuggestionState.approved]),
           onChanged: (previous, next) async {
             setState(() => selectedRace = next);
             return true;

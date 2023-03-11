@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:kalinar/src/features/admin/storyline/presentation/storyline_overview_screen.dart';
 
 import '../../../../common_widgets/user_menu.dart';
-import '../../management/presentation/management_tab_screen.dart';
 import '../../skilltrees/presentation/skilltree_list_screen.dart';
-
 import 'admin_menu_item.dart';
 import 'manage_group_screen.dart';
 
@@ -62,11 +58,6 @@ class AdminMenuScreen extends StatelessWidget {
                     icon: FontAwesomeIcons.bookJournalWhills,
                     title: AppLocalizations.of(context)!.manageStoryline,
                     onTab: () => GoRouter.of(context).goNamed(StorylineOverviewScreen.name),
-                  ),
-                  AdminMenuItem(
-                    icon: FontAwesomeIcons.bookSkull,
-                    title: AppLocalizations.of(context)!.manageCharacteristics,
-                    onTab: () => GoRouter.of(context).goNamed(ManagementTabScreen.name),
                   ),
                   AdminMenuItem(
                     icon: FontAwesomeIcons.circleNodes,

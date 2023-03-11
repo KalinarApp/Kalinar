@@ -144,11 +144,6 @@ namespace Hero.Server.DataAccess.Repositories
 
                 return existing;
             }
-            catch (HeroException ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw;
-            }
             catch (Exception ex)
             {
                 this.logger.LogUnknownErrorOccured(ex);
@@ -164,11 +159,6 @@ namespace Hero.Server.DataAccess.Repositories
             {
                 this.context.Skills.Remove(existing);
                 await this.context.SaveChangesAsync(cancellationToken);
-            }
-            catch (HeroException ex)
-            {
-                this.logger.LogUnknownErrorOccured(ex);
-                throw;
             }
             catch (Exception ex)
             {
