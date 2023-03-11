@@ -42,20 +42,6 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
     return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
   }
 
-  // ToDo: Needed in races.
-  // @override
-  // void didChangeDependencies() {
-  //   if (null == widget.skillId) {
-  //     Future.delayed(Duration.zero, () async {
-  //       final globalAttributes = await ref.read(attributesControllerProvider).getAllGlobal()
-  //         ..sortBy((element) => element.name);
-  //       _formKey.currentState?.fields["attributes"]
-  //           ?.didChange(globalAttributes.map((e) => AttributeValue(attributeId: e.id, attribute: e, value: max(e.minValue, 0))).toList());
-  //     });
-  //   }
-  //   super.didChangeDependencies();
-  // }
-
   @override
   Widget build(BuildContext context) {
     ref.listen(skillStateNotifierProvider, (previous, next) {
@@ -72,6 +58,7 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
       state,
       formKey: _formKey,
       controller: ref.read(skillsControllerProvider),
+      errorWidget: Center(child: Text(AppLocalizations.of(context)!.loadSkillFailed)),
       children: [
         const InvisibleField(name: "id"),
         ImagePickerField(initialValue: iconUrl),

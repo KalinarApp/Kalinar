@@ -29,17 +29,22 @@
   "edit": "Bearbeiten",
   "delete": "Löschen",
   "cancel": "Abbrechen",
+  "ok": "Ok",
   "join": "Beitreten",
   "actionDialogTitle": "Aktionen",
   "showMore": "Weiter lesen",
   "showLess": " Weniger",
 
   "save": "Speichern",
+  "saveApprove": "Speichern & Genehmigen",
   "statistics": "Statistik",
   "cost": "Kosten",
   "reset": "Zurücksetzen",
   "search": "Suchen",
   "settings": "Einstellungen",
+
+  "reject": "Ablehnen",
+  "rejectReason": "Grund der Ablehnung",
 
   "workInProgress": "Diese Seite ist noch in Arbeit!",
 
@@ -109,18 +114,21 @@
   "selectAnAbility": "Talent auswählen",
   "searchForAbility": "Talent suchen",
   "newAbility": "Neues Talent",
+  "loadAbilityFailed": "Fehler beim Abrufen des gewünschten Talents.",
 
   "skillName": "Name des Skills",
   "skillDescription": "Beschreibung des Skills",
   "selectASkill": "Skill auswählen",
   "searchForSkills": "Skill suchen",
   "skillAttributeSelection": "Attribute des Skills auswählen:",
+  "loadSkillFailed": "Fehler beim Abrufen des gewünschten Skills.",
 
   "raceName": "Name der Rasse",
   "raceDescription": "Beschreibung der Rasse",
   "raceAttributeSelection": "Attribute der Rasse auswählen:",
   "selectARace": "Rasse auswählen",
   "searchForRace": "Nach Rasse suchen",
+  "loadRaceFailed": "Fehler beim Abrufen der gewünschten Rasse.",
 
   "characterName": "Name",
   "characterAge": "Alter",
@@ -175,6 +183,7 @@
   "attributeSearch": "Attribut suchen",
   "attributesMore": "Weitere Attribute",
   "attributeCategory": "Kategorie",
+  "loadAttributeFailed": "Fehler beim Abrufen des gewünschten Attributs.",
 
   "pickAnIcon": "Wähle ein Icon aus",
   "pickAnImage": "Wähle ein Bild aus",

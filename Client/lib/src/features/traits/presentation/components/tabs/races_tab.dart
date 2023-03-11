@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/traits/presentation/edit_race_screen.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
 import '../../../../../utilities/async_value_extension.dart';
@@ -11,6 +10,7 @@ import '../../../application/controller/races_controller.dart';
 import '../../../application/notifier/races_state_notifier.dart';
 import '../../../domain/race.dart';
 import '../../../domain/suggestion_state.dart';
+import '../../edit_race_screen.dart';
 import '../list_item.dart';
 import '../searchable_list.dart';
 

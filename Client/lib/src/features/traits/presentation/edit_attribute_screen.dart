@@ -57,6 +57,7 @@ class _EditAttributeScreenState extends ConsumerState<EditAttributeScreen> {
       state,
       formKey: _formKey,
       controller: ref.read(attributesControllerProvider),
+      errorWidget: Center(child: Text(AppLocalizations.of(context)!.loadAttributeFailed)),
       children: [
         const InvisibleField(name: "id"),
         NameField(

@@ -71,6 +71,7 @@ class _EditRaceScreenState extends ConsumerState<EditRaceScreen> {
       state,
       formKey: _formKey,
       controller: ref.read(racesControllerProvider),
+      errorWidget: Center(child: Text(AppLocalizations.of(context)!.loadRaceFailed)),
       children: [
         const InvisibleField(name: "id"),
         NameField(

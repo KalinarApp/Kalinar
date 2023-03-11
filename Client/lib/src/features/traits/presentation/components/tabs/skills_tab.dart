@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/traits/presentation/components/list_item.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
 import '../../../../../common_widgets/node_tile.dart';
@@ -14,6 +13,7 @@ import '../../../application/notifier/skills_state_notifier.dart';
 import '../../../domain/skill.dart';
 import '../../../domain/suggestion_state.dart';
 import '../../edit_skill_screen.dart';
+import '../list_item.dart';
 import '../searchable_list.dart';
 
 class SkillsTab extends ConsumerStatefulWidget {

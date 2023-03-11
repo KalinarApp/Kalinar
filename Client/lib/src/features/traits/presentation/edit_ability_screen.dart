@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
-import 'package:kalinar/src/features/traits/presentation/components/edit_view.dart';
 
 import '../../../common_widgets/form_fields/bool_field.dart';
 import '../../../common_widgets/form_fields/description_field.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
+import '../../group_management/application/group_notifier.dart';
 import '../application/controller/abilities_controller.dart';
 import '../application/notifier/ability_state_notifier.dart';
 import '../domain/ability.dart';
+import '../domain/suggestion_state.dart';
+import 'components/edit_view.dart';
 
 class EditAbilityScreen extends ConsumerStatefulWidget {
   static const String name = "EditAbility";
@@ -48,6 +48,7 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
       state,
       formKey: _formKey,
       controller: ref.read(abilitiesControllerProvider),
+      errorWidget: Center(child: Text(AppLocalizations.of(context)!.loadAbilityFailed)),
       children: [
         const InvisibleField(name: "id"),
         NameField(

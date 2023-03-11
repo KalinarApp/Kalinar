@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../utilities/async_value_extension.dart';
 import '../../../group_management/application/group_notifier.dart';
@@ -15,16 +15,16 @@ class EditView<T extends Suggestable> extends ConsumerStatefulWidget {
   final TraitsController controller;
   final AsyncValue<T>? item;
   final List<Widget> children;
+  final Widget? errorWidget;
   final GlobalKey<FormBuilderState> formKey;
 
-  const EditView(this.item, {required this.formKey, required this.controller, required this.children, super.key});
+  const EditView(this.item, {required this.formKey, required this.controller, required this.children, this.errorWidget, super.key});
 
   @override
   ConsumerState<EditView> createState() => _EditViewState();
 }
 
 class _EditViewState extends ConsumerState<EditView> {
-  final saveController = RoundedLoadingButtonController();
   final _rejectionController = TextEditingController();
 
   Future<void> _save() async {
@@ -35,20 +35,10 @@ class _EditViewState extends ConsumerState<EditView> {
         final value = null == widget.item ? await widget.controller.create(data) : await widget.controller.update(widget.item!.value!.id, data);
         if (!mounted) return;
         value.showSnackbarOnError(context);
-        if (value.hasError) {
-          saveController.error();
-          Future.delayed(const Duration(seconds: 3), saveController.reset);
-        } else {
-          saveController.success();
+        if (!value.hasError) {
           GoRouter.of(context).pop();
         }
-      } else {
-        saveController.error();
-        Future.delayed(const Duration(seconds: 3), saveController.reset);
       }
-    } else {
-      saveController.error();
-      Future.delayed(const Duration(seconds: 3), saveController.reset);
     }
   }
 
@@ -64,18 +54,18 @@ class _EditViewState extends ConsumerState<EditView> {
 
   String _getSaveButtonTitle(Suggestable? item) {
     final isAdmin = _isAdmin();
-    return isAdmin && item?.state == SuggestionState.pending ? "Speichern & Genehmigen" : "Speichern";
+    return isAdmin && item?.state == SuggestionState.pending ? AppLocalizations.of(context)!.saveApprove : AppLocalizations.of(context)!.save;
   }
 
   Future _reject(Suggestable item) async {
     final bool? success = await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Ablehnen"),
-        content: TextField(controller: _rejectionController, decoration: const InputDecoration(hintText: "Grund der Ablehnung")),
+        title: Text(AppLocalizations.of(context)!.reject),
+        content: TextField(controller: _rejectionController, decoration: InputDecoration(hintText: AppLocalizations.of(context)!.rejectReason)),
         actions: <Widget>[
-          TextButton(child: const Text('CANCEL'), onPressed: () => Navigator.pop(context)),
-          TextButton(child: const Text('OK'), onPressed: () => setState(() => Navigator.pop(context, true))),
+          TextButton(child: Text(AppLocalizations.of(context)!.cancel), onPressed: () => Navigator.pop(context)),
+          TextButton(child: Text(AppLocalizations.of(context)!.ok), onPressed: () => setState(() => Navigator.pop(context, true))),
         ],
       ),
     );
@@ -109,7 +99,9 @@ class _EditViewState extends ConsumerState<EditView> {
             ElevatedButton(
               onPressed: () => _reject(widget.item!.value!),
               style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.error),
-              child: SizedBox(width: double.infinity, child: Center(child: Text("Ablehnen", style: Theme.of(context).textTheme.titleLarge))),
+              child: SizedBox(
+                  width: double.infinity,
+                  child: Center(child: Text(AppLocalizations.of(context)!.reject, style: Theme.of(context).textTheme.titleLarge))),
             ),
         ],
       ),
@@ -125,8 +117,7 @@ class _EditViewState extends ConsumerState<EditView> {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: null != widget.item
-              ? widget.item!.maybeWhen(
-                  error: (error, stackTrace) => const Center(child: Text("Fehler beim Abrufen des gewünschten Talents.")), orElse: _buildContent)
+              ? widget.item!.maybeWhen(error: (error, stackTrace) => widget.errorWidget ?? Container(), orElse: _buildContent)
               : _buildContent(),
         ),
       ),
