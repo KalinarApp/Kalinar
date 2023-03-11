@@ -757,6 +757,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.2.0"
+  flutter_spinbox:
+    dependency: "direct main"
+    description:
+      name: flutter_spinbox
+      sha256: ba52f88304774efca16545a8173dfe89c58ec3e794a19cb5d5d6183732bb5ea0
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.0"
   flutter_staggered_grid_view:
     dependency: "direct main"
     description:
@@ -779,7 +787,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_touch_spin:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_touch_spin
       sha256: "0d5378a01cebddee87e75403f7f0a80cd6dcb18f7ab65b018c08821c4204ff7f"

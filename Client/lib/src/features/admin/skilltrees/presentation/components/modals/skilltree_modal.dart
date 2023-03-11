@@ -74,6 +74,7 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
                   SaveButton(controller: controller, onSave: () => _save(context, state.id)),
                 ],
               ),
+              const SizedBox(height: 10),
               ContentField(
                 "name",
                 label: AppLocalizations.of(context)!.skilltreeName,
@@ -81,10 +82,11 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
                 initialValue: state.skilltree.name,
               ),
               CharacterSelectionField(initialValue: state.skilltree.character, onChanged: ((value) => setState(() => hasCharacter = null != value))),
+              const SizedBox(height: 10),
               ValueRangeField(
                 name: "points",
                 label: AppLocalizations.of(context)!.skilltreePoints,
-                initialValue: state.skilltree.points,
+                initialValue: state.skilltree.points.toDouble(),
                 min: 0,
                 max: 10000,
                 step: 1,

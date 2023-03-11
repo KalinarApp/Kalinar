@@ -28,7 +28,8 @@ class AttributeList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        ListView.builder(
+        ListView.separated(
+          separatorBuilder: (context, index) => const SizedBox(height: 15),
           itemCount: value?.length ?? 0,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -42,7 +43,6 @@ class AttributeList extends ConsumerWidget {
                   updateValue(attributeId, x);
                 },
               ),
-              const Divider(),
             ],
           ),
         ),

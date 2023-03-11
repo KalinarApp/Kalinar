@@ -1,13 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_iconpicker/flutter_iconpicker.dart';
-import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:flutter_touch_spin/flutter_touch_spin.dart';
+import 'package:flutter_iconpicker/Serialization/iconDataSerialization.dart';
+import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 
-import '../../domain/attribute.dart';
 import '../../domain/attribute_value.dart';
 
 class AttributeValueRange extends StatefulWidget {
@@ -22,57 +19,47 @@ class AttributeValueRange extends StatefulWidget {
 }
 
 class _AttributeValueRangeState extends State<AttributeValueRange> {
+  bool _isInteger(num value) => value is int || value == value.roundToDouble();
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: LayoutGrid(
-        areas: '''
-          . icon title   close
-          . icon spinner .
-        ''',
-        columnSizes: [4.px, auto, 4.fr, 24.px],
-        rowSizes: [
-          1.fr,
-          2.fr,
-        ],
-        children: [
-          gridArea("title").containing(Center(
-              child: Text(
-            widget.item.attribute.translate(context).name,
-            style: Theme.of(context).textTheme.titleMedium,
-          ))),
-          gridArea("icon").containing(Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
-            child: Center(
-                child: null != widget.item.attribute.iconData
-                    ? FaIcon(deserializeIcon(json.decode(widget.item.attribute.iconData!)), size: 28)
-                    : const SizedBox(width: 28)),
-          )),
-          if (null != widget.onDelete)
-            InkWell(
-              borderRadius: BorderRadius.circular(4),
-              onTap: () => widget.onDelete!(widget.item),
-              child: const Icon(Icons.close, size: 20),
-            ).inGridArea("close"),
-          if (null == widget.onDelete) const SizedBox(width: 20, height: 20).inGridArea("close"),
-          gridArea("spinner").containing(
-            TouchSpin(
-              min: widget.item.attribute.minValue,
-              max: widget.item.attribute.maxValue,
-              value: widget.item.value,
-              displayFormat: NumberFormat.decimalPattern(),
-              onChanged: (value) {
-                if (null != widget.onChanged) Future.delayed(Duration.zero, () => widget.onChanged!(widget.item.attributeId, value.toDouble()));
-              },
-              step: widget.item.attribute.stepSize,
-              addIcon: const Icon(Icons.add_circle_outline),
-              subtractIcon: const Icon(Icons.remove_circle_outline),
-              iconDisabledColor: Theme.of(context).disabledColor,
+    return Stack(
+      children: [
+        SpinBox(
+          min: widget.item.attribute.minValue,
+          max: widget.item.attribute.maxValue,
+          value: widget.item.value,
+          decimals: _isInteger(widget.item.attribute.stepSize) ? 0 : 1,
+          step: widget.item.attribute.stepSize,
+          incrementIcon: const Icon(Icons.add_circle_outline),
+          decrementIcon: const Icon(Icons.remove_circle_outline),
+          decoration: InputDecoration(
+            label: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (null != widget.item.attribute.iconData)
+                  Padding(
+                      padding: const EdgeInsets.only(left: 12, right: 8.0),
+                      child: FaIcon(deserializeIcon(json.decode(widget.item.attribute.iconData!)), size: 28)),
+                Text(widget.item.attribute.name),
+              ],
             ),
+            labelStyle: Theme.of(context).textTheme.titleLarge,
           ),
-        ],
-      ),
+          onChanged: (value) {
+            if (null != widget.onChanged) widget.onChanged!(widget.item.attributeId, value.toDouble());
+          },
+        ),
+        if (null != widget.onDelete)
+          Positioned(
+              top: 0,
+              right: 0,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(4),
+                onTap: () => widget.onDelete!(widget.item),
+                child: const Icon(Icons.close, size: 20),
+              )),
+      ],
     );
   }
 }

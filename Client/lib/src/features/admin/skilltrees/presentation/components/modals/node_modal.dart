@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -73,11 +72,14 @@ class NodeModal extends ConsumerWidget {
               SkillSelectionField(initialValue: item?.skill),
               BoolField(
                   name: "isEasyReachable", label: AppLocalizations.of(context)!.nodeIsEasyReachable, initialValue: item?.isEasyReachable ?? false),
-              ValueRangeField(name: "cost", label: AppLocalizations.of(context)!.nodeCost, initialValue: item?.cost ?? 0, min: 0, max: 10, step: 1),
+              const SizedBox(height: 10),
+              ValueRangeField(
+                  name: "cost", label: AppLocalizations.of(context)!.nodeCost, initialValue: item?.cost.toDouble() ?? 0, min: 0, max: 10, step: 1),
+              const SizedBox(height: 10),
               ValueRangeField(
                   name: "importance",
                   label: AppLocalizations.of(context)!.nodeImportance,
-                  initialValue: item?.importance ?? 0,
+                  initialValue: item?.importance.toDouble() ?? 0,
                   min: 0,
                   max: 10,
                   step: 1),
