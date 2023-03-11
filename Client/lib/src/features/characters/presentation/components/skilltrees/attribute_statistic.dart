@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../admin/management/domain/attribute.dart';
-import '../../../../admin/management/domain/attribute_value.dart';
+import '../../../../traits/domain/attribute.dart';
+import '../../../../traits/domain/attribute_value.dart';
 
 class AttributeStatistic extends StatelessWidget {
   final AttributeValue attribute;

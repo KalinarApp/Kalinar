@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'image_selector.dart';
@@ -19,7 +18,7 @@ class ImagePickerField extends StatelessWidget {
       initialValue: initialValue,
       builder: (field) {
         return ImageSelector(
-          initialValue: field.value,
+          value: field.value,
           type: type,
           builder: builder,
           onChanged: (file) => field.didChange(file),

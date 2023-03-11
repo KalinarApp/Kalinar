@@ -1,9 +1,7 @@
 ﻿namespace Hero.Server.Core.Models
 {
-    public class Skill
+    public class Skill : Suggestable
     {
-        public Guid Id { get; set; }
-        public Guid GroupId { get; set; }
         public Guid? AbilityId { get; set; }
         public string? IconUrl { get; set; }
         public string Name { get; set; }
@@ -16,8 +14,7 @@
             this.AbilityId = skill.AbilityId;
             this.IconUrl= skill.IconUrl;
             this.Name= skill.Name;
-            this.Description= skill.Description;    
-            this.Attributes= skill.Attributes;
+            this.Description= skill.Description;   
         }
     }
 }

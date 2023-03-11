@@ -11,8 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mime/mime.dart';
 
-import '../../features/admin/management/data/image_repository.dart';
-import '../loading_indicator.dart';
+import '../../utilities/image_repository.dart';
 import '../node_tile.dart';
 
 enum ImageType {
@@ -20,22 +19,13 @@ enum ImageType {
   characterImage,
 }
 
-class ImageSelector extends ConsumerStatefulWidget {
+class ImageSelector extends ConsumerWidget {
   final ImageType type;
   final Widget Function(Image? image, bool isLoading)? builder;
   final Function(String? data)? onChanged;
-  final String? initialValue;
+  final String? value;
 
-  const ImageSelector({this.initialValue, this.type = ImageType.skill, this.builder, this.onChanged, super.key});
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ImageSelectorState();
-}
-
-class _ImageSelectorState extends ConsumerState<ImageSelector> {
-  bool isDragging = false;
-  bool isLoading = false;
-  String? selectedImage;
+  const ImageSelector({this.value, this.type = ImageType.skill, this.builder, this.onChanged, super.key});
 
   String? _toBase64(XFile? file) {
     String? base64;
@@ -46,7 +36,7 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
     return base64;
   }
 
-  Future<void> _openFilePicker() async {
+  Future<void> _openFilePicker(WidgetRef ref) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: false,
       type: FileType.image,
@@ -54,36 +44,32 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      setState(() {
-        isLoading = true;
-        // selectedImage = file.path;
-      });
-      _uploadImage(_toBase64(XFile(file.path)));
+      _uploadImage(_toBase64(XFile(file.path)), ref);
     }
   }
 
   Image? _getImage() {
     Image? image;
-    if (null != selectedImage) {
-      if (Uri.tryParse(selectedImage!)?.isAbsolute == true) {
-        image = Image(image: CachedNetworkImageProvider(selectedImage!));
+    if (null != value) {
+      if (Uri.tryParse(value!)?.isAbsolute == true) {
+        image = Image(image: CachedNetworkImageProvider(value!));
       } else {
-        image = Image.memory(base64Decode(selectedImage!));
+        image = Image.memory(base64Decode(value!));
       }
     }
     return image;
   }
 
-  Widget _buildByType(image) {
-    if (null != widget.builder) {
-      return widget.builder!(image, isLoading);
+  Widget _buildByType(image, BuildContext context) {
+    if (null != builder) {
+      return builder!(image, false);
     }
 
-    switch (widget.type) {
+    switch (type) {
       case ImageType.skill:
         return _buildSkillContent(image);
       case ImageType.characterImage:
-        return _buildCharacterImageContent(image);
+        return _buildCharacterImageContent(image, context);
     }
   }
 
@@ -92,89 +78,71 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
       padding: const EdgeInsets.all(12.0),
       child: NodeTile(
         image,
-        height: 89,
-        width: 89,
-        placeholderWidget: const Center(child: FaIcon(FontAwesomeIcons.camera)),
+        height: 110,
+        width: 110,
+        placeholderWidget: const Center(child: FaIcon(FontAwesomeIcons.camera, size: 40)),
       ),
     );
   }
 
-  Widget _buildCharacterImageContent(Image? image) {
+  Widget _buildCharacterImageContent(Image? image, BuildContext context) {
     return SizedBox(
       width: 200,
       child: Card(
         elevation: 4,
         clipBehavior: Clip.hardEdge,
-        child: _buildContent(image),
+        child: _buildContent(image, context),
       ),
     );
   }
 
-  Widget _buildContent(Image? image) {
-    return isLoading
-        ? Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: LoadingIndicator(AppLocalizations.of(context)!.uploadImage),
-          )
-        : Center(
-            child: image ??
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const FaIcon(FontAwesomeIcons.camera),
-                    const SizedBox(height: 10),
-                    Text(
-                      AppLocalizations.of(context)!.pickAnImage,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-          );
+  Widget _buildContent(Image? image, BuildContext context) {
+    return Center(
+      child: image ??
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const FaIcon(FontAwesomeIcons.camera),
+              const SizedBox(height: 10),
+              Text(
+                AppLocalizations.of(context)!.pickAnImage,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+    );
   }
 
-  Future<void> _uploadImage(String? base64) async {
+  Future<void> _uploadImage(String? base64, WidgetRef ref) async {
     if (null != base64) {
       final url = await ref.read(imageRepositoryProvider).uploadImageToImgur(base64);
-      setState(() {
-        isLoading = false;
-        selectedImage = url;
-      });
-      if (null != widget.onChanged) widget.onChanged!(url);
+      if (null != onChanged) onChanged!(url);
     }
   }
 
   @override
-  void initState() {
-    selectedImage = widget.initialValue;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final image = _getImage();
     return GestureDetector(
-      onTap: _openFilePicker,
+      onTap: () => _openFilePicker(ref),
       child: DropTarget(
         onDragDone: (details) {
           if (lookupMimeType(details.files.first.name)?.startsWith("image/") ?? false) {
             final value = _toBase64(details.files.first);
-            setState(() => isLoading = true);
-            _uploadImage(value);
+            _uploadImage(value, ref);
           }
         },
-        onDragEntered: (details) => setState(() => isDragging = true),
-        onDragExited: (_) => setState(() => isDragging = false),
         child: Padding(
           padding: const EdgeInsets.only(top: 12.0),
           child: Stack(
             children: [
               Padding(
                 padding: const EdgeInsets.all(4),
-                child: _buildByType(image),
+                child: _buildByType(image, context),
               ),
-              if (null != selectedImage)
+              if (null != value)
                 Positioned(
                   right: 0,
                   top: 0,
@@ -182,8 +150,7 @@ class _ImageSelectorState extends ConsumerState<ImageSelector> {
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.grey),
                     child: InkWell(
                       onTap: () {
-                        if (null != widget.onChanged) widget.onChanged!(null);
-                        setState(() => selectedImage = null);
+                        if (null != onChanged) onChanged!(null);
                       },
                       borderRadius: BorderRadius.circular(12),
                       child: const Icon(Icons.close),

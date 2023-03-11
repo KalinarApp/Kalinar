@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-
-import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_spinbox/material.dart';
 import 'package:intl/intl.dart';
 
-class ValueRangeField<T extends num> extends StatelessWidget {
-  final T initialValue;
+class ValueRangeField extends StatelessWidget {
+  final double initialValue;
   final String label;
-  final T min;
-  final T max;
-  final T step;
+  final double min;
+  final double max;
+  final double step;
   final String name;
   final NumberFormat? format;
 
@@ -22,20 +22,27 @@ class ValueRangeField<T extends num> extends StatelessWidget {
       this.format,
       super.key});
 
+  bool _isInteger(num value) => value is int || value == value.roundToDouble();
+
   @override
   Widget build(BuildContext context) {
-    return FormBuilderTouchSpin(
+    return FormBuilderField(
       name: name,
-      decoration: InputDecoration(label: Text(label, style: Theme.of(context).textTheme.titleLarge)),
-      min: min,
-      max: max,
-      step: step,
       initialValue: initialValue,
-      displayFormat: format,
-      addIcon: const Icon(Icons.add_circle_outline),
-      subtractIcon: const Icon(Icons.remove_circle_outline),
-      iconDisabledColor: Theme.of(context).disabledColor,
-      iconPadding: const EdgeInsets.all(20),
+      builder: (field) => SpinBox(
+        min: min,
+        max: max,
+        value: field.value ?? 0,
+        decimals: _isInteger(step) ? 1 : 0,
+        step: step,
+        incrementIcon: const Icon(Icons.add_circle_outline),
+        decrementIcon: const Icon(Icons.remove_circle_outline),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: Theme.of(context).textTheme.titleLarge,
+        ),
+        onChanged: (value) => field.didChange(value),
+      ),
     );
   }
 }

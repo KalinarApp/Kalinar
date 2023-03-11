@@ -1,9 +1,7 @@
 ﻿namespace Hero.Server.Core.Models
 {
-    public class Attribute
+    public class Attribute : Suggestable
     {
-        public Guid Id { get; set; }
-        public Guid? GroupId { get; set; }
         public string Name { get; set; }
         public string? IconData { get; set; }
         public string? Description { get; set; }
@@ -23,8 +21,6 @@
             this.StepSize = attribute.StepSize;
             this.MinValue = attribute.MinValue;
             this.MaxValue = attribute.MaxValue;
-            this.AttributeRaces = attribute.AttributeRaces;
-            this.AttributeSkills = attribute.AttributeSkills;
         }
     }
 }

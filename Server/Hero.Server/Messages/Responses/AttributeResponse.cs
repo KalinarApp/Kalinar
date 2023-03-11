@@ -1,6 +1,6 @@
 ﻿namespace Hero.Server.Messages.Responses
 {
-    public class AttributeResponse
+    public class AttributeResponse : SuggestableResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

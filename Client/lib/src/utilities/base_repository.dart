@@ -9,8 +9,6 @@ import '../features/group_management/domain/group.dart';
 import 'api_error.dart';
 
 class BaseRepository {
-  BaseRepository();
-
   Future<T> _handleResponse<T>(Future<http.Response> Function() action, T Function(dynamic response) responseBuilder) async {
     try {
       final response = await action();
@@ -25,14 +23,16 @@ class BaseRepository {
         case 403:
           throw const APIError.forbidden();
         case 404:
-          throw APIError.notFound(data["type"] ?? "", data["title"] ?? "");
+          throw const APIError.notFound();
         case 500:
           throw APIError.problem(data["type"], data["title"]);
         default:
-          throw APIError.unknown(data["type"], data["title"]);
+          throw const APIError.unknown();
       }
     } on SocketException catch (_) {
       throw const APIError.noInternetConnection();
+    } catch (error) {
+      throw const APIError.unknown();
     }
   }
 

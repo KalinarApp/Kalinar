@@ -3,8 +3,11 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kalinar/src/features/story/presentation/story_screen.dart';
+import 'package:kalinar/src/features/traits/presentation/traits_overview_screen.dart';
+import 'package:kalinar/src/utilities/router/traits_routes.dart';
 
 import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
@@ -95,6 +98,11 @@ final routeProvider = Provider<GoRouter>((ref) {
                 icon: const Icon(Icons.book),
                 label: (AppLocalizations.of(context)!.story),
               ),
+              ScaffoldWithNavbarItem(
+                initialLocation: TraitsOverviewScreen.route,
+                icon: const FaIcon(FontAwesomeIcons.bookSkull),
+                label: AppLocalizations.of(context)!.traits,
+              ),
               if (isAdmin)
                 ScaffoldWithNavbarItem(
                   initialLocation: AdminMenuScreen.route,
@@ -118,6 +126,7 @@ final routeProvider = Provider<GoRouter>((ref) {
           ),
           adminRoutes,
           characterRoutes,
+          traitsRoutes,
           GoRoute(
             name: StoryScreen.name,
             path: StoryScreen.route,

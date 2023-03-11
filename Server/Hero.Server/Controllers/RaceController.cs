@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+
+using Hero.Server.Core.Exceptions;
 using Hero.Server.Core.Models;
 using Hero.Server.Core.Repositories;
-using Hero.Server.DataAccess.Repositories;
 using Hero.Server.Identity;
 using Hero.Server.Identity.Attributes;
 using Hero.Server.Messages.Requests;
@@ -31,57 +32,64 @@ namespace Hero.Server.Controllers
         public IActionResult HandleError() => this.HandleErrors();
 
         [HttpGet("{id}"), IsGroupMember]
-        public async Task<IActionResult> GetRaceByIdAsync(Guid id)
+        public async Task<RaceResponse> GetRaceByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            Race? race = await this.repository.GetRaceByIdAsync(id);
-            if (race != null)
+            Race? race = await this.repository.GetRaceByIdAsync(id, cancellationToken);
+            if (race == null)
             {
-                return this.Ok(this.mapper.Map<RaceResponse>(race));
+                throw new ObjectNotFoundException("No race found.");
             }
 
-            return this.NotFound();
+            return this.mapper.Map<RaceResponse>(race);
         }
 
         [HttpGet, IsGroupMember]
-        public async Task<IActionResult> GetAllRacesAsync()
+        public async Task<List<RaceResponse>> FilterRacesAsync([FromQuery] string? query, [FromQuery] SuggestionState[]? allowedStates, CancellationToken token)
         {
-            List<Race> races = await this.repository.GetAllRacesAsync();
+            List<Race> races = await this.repository.FilterRacesAsync(query, allowedStates ?? Array.Empty<SuggestionState>(), token);
 
-            return this.Ok(races.Select(race => this.mapper.Map<RaceResponse>(race)).ToList());
+            return races.Select(skill => this.mapper.Map<RaceResponse>(skill)).ToList();
         }
 
-        [HttpDelete("{id}"), IsGroupAdmin]
-        public async Task<IActionResult> DeleteRaceAsync(Guid id)
+        [HttpDelete("{id}"), IsGroupMember]
+        public async Task DeleteRaceAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            await userRepository.IsOwner(this.HttpContext.User.GetUserId());
-
-            await this.repository.DeleteRaceAsync(id);
-
-            return this.Ok();
+            await this.repository.TryDeleteRaceAsync(id, this.HttpContext.User.GetUserId(), cancellationToken);
         }
 
-        [HttpPut("{id}"), IsGroupAdmin]
-        public async Task<IActionResult> UpdateRaceAsync(Guid id, [FromBody] RaceRequest request)
+        [HttpPut("{id}"), IsGroupMember]
+        public async Task<RaceResponse> UpdateRaceAsync(Guid id, [FromBody] RaceRequest request, CancellationToken cancellationToken = default)
         {
-            await userRepository.IsOwner(this.HttpContext.User.GetUserId());
-
             Race race = this.mapper.Map<Race>(request);
-            await this.repository.UpdateRaceAsync(id, race);
+            await this.repository.TryUpdateRaceAsync(id, this.HttpContext.User.GetUserId(), race, cancellationToken);
+            race = await this.repository.GetRaceByIdAsync(id, cancellationToken);
 
-            return this.Ok(this.mapper.Map<RaceResponse>(race));
+            return this.mapper.Map<RaceResponse>(race);
         }
-
-        [HttpPost, IsGroupAdmin]
-        public async Task<IActionResult> CreateRaceAsync([FromBody] RaceRequest request)
+         
+        [HttpPost, IsGroupMember]
+        public async Task<RaceResponse> CreateRaceAsync([FromBody] RaceRequest request, CancellationToken cancellationToken = default)
         {
-            await userRepository.IsOwner(this.HttpContext.User.GetUserId());
-
+            string userId = this.HttpContext.User.GetUserId();
             Race race = this.mapper.Map<Race>(request);
 
-            await this.repository.CreateRaceAsync(race);
-            race = await this.repository.GetRaceByIdAsync(race.Id);
+            race.CreatorId = userId;
+            if (await userRepository.IsOwner(userId, cancellationToken))
+            {
+                race.State = SuggestionState.Approved;
+                race.ApprovedAt = DateTime.Now;
+            }
 
-            return this.Ok(this.mapper.Map<RaceResponse>(race));
+            await this.repository.CreateRaceAsync(race, cancellationToken);
+            race = await this.repository.GetRaceByIdAsync(race.Id, cancellationToken);
+
+            return this.mapper.Map<RaceResponse>(race);
+        }
+
+        [HttpPost("{id}/reject"), IsGroupAdmin]
+        public async Task RejectRaceAsync(Guid id, [FromBody] SuggestionRejectionRequest request, CancellationToken cancellationToken)
+        {
+            await this.repository.RejectRaceAsync(id, request.Reason, cancellationToken);
         }
     }
 }

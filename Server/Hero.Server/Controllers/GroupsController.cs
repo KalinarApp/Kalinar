@@ -1,4 +1,5 @@
-﻿using FirebaseAdmin;
+﻿using AutoMapper;
+using FirebaseAdmin;
 using FirebaseAdmin.Auth;
 
 using Hero.Server.Core.Logging;
@@ -7,7 +8,7 @@ using Hero.Server.Core.Repositories;
 using Hero.Server.Identity;
 using Hero.Server.Identity.Attributes;
 using Hero.Server.Messages.Requests;
-
+using Hero.Server.Messages.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,13 @@ namespace Hero.Server.Controllers
     public class GroupsController : HeroControllerBase
     {
         private readonly IGroupRepository repository;
+        private readonly IMapper mapper;
 
-        public GroupsController(IGroupRepository repository, ILogger<GroupsController> logger)
+        public GroupsController(IGroupRepository repository, IMapper mapper, ILogger<GroupsController> logger)
             : base(logger)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
 
         [ApiExplorerSettings(IgnoreApi = true), NonAction, Route("/error")]
@@ -40,37 +43,14 @@ namespace Hero.Server.Controllers
         {
             Group group = await this.repository.GetGroupByInviteCode(code, token);
 
-            UserRecord user = await FirebaseAuth.DefaultInstance.GetUserAsync(group.OwnerId);
-
-            return this.Ok(new { Id = group.Id, Name = group.Name, Owner = String.IsNullOrEmpty(user.DisplayName) ? user.Email : user.DisplayName, Description = group.Description });
+            return this.Ok(new { Id = group.Id, Name = group.Name, Owner = group.Owner.Username, Description = group.Description });
         }
         
         [HttpGet("users"), IsGroupAdmin]
-        public async Task<IActionResult> GetAllUsersInGroup(CancellationToken token)
+        public async Task<List<UserResponse>> GetAllUsersInGroup(CancellationToken token)
         {
             Group? group = await this.repository.GetGroupByOwnerId(this.HttpContext.User.GetUserId());
-            List<UserInfo> users = new();
-
-            if (FirebaseApp.DefaultInstance != null)
-            {
-                foreach (User member in group.Members ?? new())
-                {
-                    if (Guid.TryParse(member.Id, out _))
-                    {
-                        continue;
-                    }
-
-                    UserRecord user = await FirebaseAuth.DefaultInstance.GetUserAsync(member.Id);
-                    users.Add(new()
-                    {
-                        Id = user.Uid,
-                        Email = user.Email,
-                        Username = user.DisplayName,
-                    });
-                }
-            }
-
-            return this.Ok(users);
+            return group.Members.Select(item => this.mapper.Map<UserResponse>(item)).ToList();
         }
 
         [HttpPost]

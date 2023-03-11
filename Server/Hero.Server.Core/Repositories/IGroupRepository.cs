@@ -15,5 +15,6 @@ namespace Hero.Server.Core.Repositories
         //Task<UserInfo> GetGroupOwner(Group group, CancellationToken cancellationToken = default);
         void EnsureIsMemberOrOwner(string userId);
         void EnsureIsOwner(string userId);
+        Task CreateIfNotExistAsync(Group group, CancellationToken cancellationToken = default);
     }
 }

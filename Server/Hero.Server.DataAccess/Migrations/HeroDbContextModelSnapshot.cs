@@ -30,6 +30,20 @@ namespace Hero.Server.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset?>("ApprovedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("qmMgPtrCXXgvpT6oYYxZE8IA1Aw1");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -39,12 +53,28 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Property<bool>("IsPassive")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTimeOffset?>("LastUpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<DateTimeOffset?>("RejectedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RejectionReason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
 
                     b.HasIndex("GroupId");
 
@@ -57,18 +87,35 @@ namespace Hero.Server.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset?>("ApprovedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Category")
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("qmMgPtrCXXgvpT6oYYxZE8IA1Aw1");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("GroupId")
+                    b.Property<Guid>("GroupId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("IconData")
                         .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("LastUpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<double>("MaxValue")
                         .HasColumnType("double precision");
@@ -80,10 +127,25 @@ namespace Hero.Server.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTimeOffset?>("RejectedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RejectionReason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<double>("StepSize")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Attributes", "Hero");
                 });
@@ -308,18 +370,50 @@ namespace Hero.Server.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset?>("ApprovedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("qmMgPtrCXXgvpT6oYYxZE8IA1Aw1");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset?>("LastUpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<DateTimeOffset?>("RejectedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RejectionReason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Races", "Hero");
                 });
@@ -333,6 +427,20 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Property<Guid?>("AbilityId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset?>("ApprovedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("qmMgPtrCXXgvpT6oYYxZE8IA1Aw1");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -342,13 +450,29 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Property<string>("IconUrl")
                         .HasColumnType("text");
 
+                    b.Property<DateTimeOffset?>("LastUpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("RejectedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RejectionReason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AbilityId");
+
+                    b.HasIndex("CreatorId");
 
                     b.HasIndex("GroupId");
 
@@ -541,8 +665,18 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
                     b.Property<Guid?>("GroupId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -567,11 +701,40 @@ namespace Hero.Server.DataAccess.Migrations
 
             modelBuilder.Entity("Hero.Server.Core.Models.Ability", b =>
                 {
-                    b.HasOne("Hero.Server.Core.Models.Group", null)
-                        .WithMany("Abilities")
+                    b.HasOne("Hero.Server.Core.Models.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hero.Server.Core.Models.Group", "Group")
+                        .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Hero.Server.Core.Models.Attribute", b =>
+                {
+                    b.HasOne("Hero.Server.Core.Models.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hero.Server.Core.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Hero.Server.Core.Models.AttributeRace", b =>
@@ -662,6 +825,25 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("Hero.Server.Core.Models.Race", b =>
+                {
+                    b.HasOne("Hero.Server.Core.Models.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hero.Server.Core.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Group");
+                });
+
             modelBuilder.Entity("Hero.Server.Core.Models.Skill", b =>
                 {
                     b.HasOne("Hero.Server.Core.Models.Ability", "Ability")
@@ -669,13 +851,23 @@ namespace Hero.Server.DataAccess.Migrations
                         .HasForeignKey("AbilityId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Hero.Server.Core.Models.Group", null)
-                        .WithMany("Skills")
+                    b.HasOne("Hero.Server.Core.Models.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hero.Server.Core.Models.Group", "Group")
+                        .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Ability");
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Hero.Server.Core.Models.Skilltree", b =>
@@ -765,13 +957,9 @@ namespace Hero.Server.DataAccess.Migrations
 
             modelBuilder.Entity("Hero.Server.Core.Models.Group", b =>
                 {
-                    b.Navigation("Abilities");
-
                     b.Navigation("Characters");
 
                     b.Navigation("Members");
-
-                    b.Navigation("Skills");
 
                     b.Navigation("Skilltrees");
 

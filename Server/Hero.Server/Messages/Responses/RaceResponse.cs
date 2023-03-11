@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Hero.Server.Core.Models;
-
-namespace Hero.Server.Messages.Responses
+﻿namespace Hero.Server.Messages.Responses
 {
-    public class RaceResponse
+    public class RaceResponse : SuggestableResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

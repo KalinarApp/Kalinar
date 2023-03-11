@@ -1,4 +1,5 @@
-﻿using Hero.Server.Core.Exceptions;
+﻿using System.Diagnostics.Metrics;
+using Hero.Server.Core.Exceptions;
 using Hero.Server.Core.Logging;
 using Hero.Server.Core.Models;
 using Hero.Server.Core.Repositories;
@@ -22,36 +23,46 @@ namespace Hero.Server.DataAccess.Repositories
             this.logger = logger;
         }
 
-
         public async Task<bool> IsOwner(string userId, CancellationToken cancellationToken = default)
         {
             User? user = await this.GetUserByIdAsync(userId, cancellationToken);
             return null != user?.OwnedGroup && user.OwnedGroup.Id == this.group.Id;
         }
 
-        public async Task<User> CreateUserIfNotExistAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<User> UpdateUserAsync(string id, string email, string username, CancellationToken cancellationToken = default)
         {
-            try
+            User? user = await this.GetUserByIdAsync(id, cancellationToken);
+
+            if (null == user)
             {
-                User user = new()
+                user = new()
                 {
                     Id = id,
+                    Email = email,
+                    Username = username,
                 };
 
-                if (this.context.Users.Find(id) == null)
-                {
-                    await this.context.Users.AddAsync(user, cancellationToken);
-                    await this.context.SaveChangesAsync(cancellationToken);
-                }
+                await this.context.Users.AddAsync(user, cancellationToken);
+            }
+            else
+            {
+                user.Email = email;
+                user.Username = username;
 
+                this.context.Users.Update(user);
+            }
+
+            try
+            {
+                await this.context.SaveChangesAsync(cancellationToken);
                 return user;
             }
             catch (Exception ex)
             {
                 this.logger.LogUnknownErrorOccured(ex);
-                throw new HeroException("An error occured while creating user.");
+                throw new HeroException("An error occured while getting user.");
             }
-        }
+        } 
 
         public async Task<User?> GetUserByIdAsync(string id, CancellationToken cancellationToken = default)
         {

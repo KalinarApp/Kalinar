@@ -11,8 +11,6 @@ namespace Hero.Server.Core.Models
         public string OwnerId { get; set; }
         public User Owner { get; set; }
         public List<User> Members { get; set; }
-        public List<Ability> Abilities { get; set; }
-        public List<Skill> Skills { get; set; }
         public List<Character> Characters { get; set; }
         public List<Skilltree> Skilltrees { get; set; }
 

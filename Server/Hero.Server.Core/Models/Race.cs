@@ -2,7 +2,7 @@
 
 namespace Hero.Server.Core.Models
 {
-    public class Race
+    public class Race : Suggestable
     {
         public Guid Id  { get; set; }
         public Guid GroupId { get; set; }
