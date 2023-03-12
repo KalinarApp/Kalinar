@@ -27,7 +27,9 @@ namespace Hero.Server
                 .ForMember(dst => dst.Notes, src => src.MapFrom(character => character.ShareNotes ?? false ? character.Notes : null));
 
             this.CreateMap<Ability, AbilityResponse>();
-            this.CreateMap<AbilityRequest, Ability>();
+            this.CreateMap<AbilityRequest, Ability>()
+                .ForMember(dst => dst.Tags, opt => opt.MapFrom(src => src.Tags ?? new()));
+
             this.CreateMap<SkillRequest, Skill>()
                 .ForMember(dst => dst.Attributes, src => src.MapFrom(req => req.Attributes));
             this.CreateMap<AttributeSkillValueRequest, AttributeSkill>();

@@ -9,6 +9,8 @@ namespace Hero.Server.Messages.Requests
 
         public string? Description { get; set; }
 
+        public List<string>? Tags { get; set; }
+
         [Required]
         public bool IsPassive { get; set; }
 
