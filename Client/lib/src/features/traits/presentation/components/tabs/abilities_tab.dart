@@ -10,6 +10,7 @@ import '../../../../../utilities/async_value_extension.dart';
 import '../../../../group_management/application/group_notifier.dart';
 import '../../../application/controller/abilities_controller.dart';
 import '../../../application/notifier/abilities_state_notifier.dart';
+import '../../../application/state/filter_state.dart';
 import '../../../domain/ability.dart';
 import '../../../domain/suggestion_state.dart';
 import '../../edit_ability_screen.dart';
@@ -26,9 +27,10 @@ class AbilitiesTab extends ConsumerStatefulWidget {
 class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
   String? queryString;
   bool isSearchEnabled = true;
+  FilterState filter = const FilterState();
 
   Future _onRefresh() async {
-    final value = await ref.read(abilitiesControllerProvider).filter(queryString);
+    final value = await ref.read(abilitiesControllerProvider).filter(queryString, allowedStates: filter.states);
     setState(() => isSearchEnabled = !value.hasError);
 
     if (!mounted) return;
@@ -86,6 +88,8 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
     return SearchableList(
       state,
       onRefresh: _onRefresh,
+      filter: filter,
+      onFilterChanged: (state) => setState(() => filter = state),
       isSearchEnabled: isSearchEnabled,
       itemBuilder: (context, index) => ListItem(state![index], onPress: _editAbility, onLongPress: _showActionDialog),
       onSearchChanged: (query) {

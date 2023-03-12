@@ -12,6 +12,7 @@ import '../../../../../utilities/async_value_extension.dart';
 import '../../../../group_management/application/group_notifier.dart';
 import '../../../application/controller/attributes_controller.dart';
 import '../../../application/notifier/attributes_state_notifier.dart';
+import '../../../application/state/filter_state.dart';
 import '../../../domain/attribute.dart';
 import '../../../domain/suggestion_state.dart';
 import '../../edit_attribute_screen.dart';
@@ -28,9 +29,10 @@ class AttributesTab extends ConsumerStatefulWidget {
 class _AttributesTabState extends ConsumerState<AttributesTab> {
   String? queryString;
   bool isSearchEnabled = true;
+  FilterState filter = const FilterState();
 
   Future _onRefresh() async {
-    final value = await ref.read(attributesControllerProvider).filter(queryString);
+    final value = await ref.read(attributesControllerProvider).filter(queryString, allowedStates: filter.states);
     setState(() => isSearchEnabled = !value.hasError);
 
     if (!mounted) return;
@@ -75,6 +77,26 @@ class _AttributesTabState extends ConsumerState<AttributesTab> {
     return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
   }
 
+  Widget? _getIcon(Attribute item) {
+    return null != item.iconData
+        ? SizedBox(
+            width: 42,
+            height: 42,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                    child: Icon(
+                  deserializeIcon(jsonDecode(item.iconData!)),
+                  size: 35,
+                )),
+                if (item.isGlobal)
+                  Positioned(top: 0, right: 0, child: FaIcon(FontAwesomeIcons.globe, size: 15, color: Theme.of(context).colorScheme.primary))
+              ],
+            ),
+          )
+        : null;
+  }
+
   @override
   void initState() {
     Future.delayed(Duration.zero, _onRefresh);
@@ -88,26 +110,14 @@ class _AttributesTabState extends ConsumerState<AttributesTab> {
     return SearchableList(
       state,
       onRefresh: _onRefresh,
-      itemBuilder: (context, index) => ListItem(state![index],
-          onPress: state[index].isGlobal ? null : _editAbility,
-          onLongPress: state[index].isGlobal ? null : _showActionDialog,
-          leading: null != state[index].iconData
-              ? SizedBox(
-                  width: 42,
-                  height: 42,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                          child: Icon(
-                        deserializeIcon(jsonDecode(state[index].iconData!)),
-                        size: 35,
-                      )),
-                      if (state[index].isGlobal)
-                        Positioned(top: 0, right: 0, child: FaIcon(FontAwesomeIcons.globe, size: 15, color: Theme.of(context).colorScheme.primary))
-                    ],
-                  ),
-                )
-              : null),
+      filter: filter,
+      onFilterChanged: (state) => setState(() => filter = state),
+      itemBuilder: (context, index) => ListItem(
+        state![index],
+        onPress: state[index].isGlobal ? null : _editAbility,
+        onLongPress: state[index].isGlobal ? null : _showActionDialog,
+        leading: _getIcon(state[index]),
+      ),
       onSearchChanged: (query) {
         setState(() => queryString = query);
         _onRefresh();

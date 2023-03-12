@@ -10,6 +10,7 @@ import '../../../../../utilities/async_value_extension.dart';
 import '../../../../group_management/application/group_notifier.dart';
 import '../../../application/controller/skills_controller.dart';
 import '../../../application/notifier/skills_state_notifier.dart';
+import '../../../application/state/filter_state.dart';
 import '../../../domain/skill.dart';
 import '../../../domain/suggestion_state.dart';
 import '../../edit_skill_screen.dart';
@@ -26,9 +27,10 @@ class SkillsTab extends ConsumerStatefulWidget {
 class _SkillsTabState extends ConsumerState<SkillsTab> {
   String? queryString;
   bool isSearchEnabled = true;
+  FilterState filter = const FilterState();
 
   Future _onRefresh() async {
-    final value = await ref.read(skillsControllerProvider).filter(queryString);
+    final value = await ref.read(skillsControllerProvider).filter(queryString, allowedStates: filter.states);
     setState(() => isSearchEnabled = !value.hasError);
 
     if (!mounted) return;
@@ -85,6 +87,8 @@ class _SkillsTabState extends ConsumerState<SkillsTab> {
     return SearchableList(
       state,
       onRefresh: _onRefresh,
+      filter: filter,
+      onFilterChanged: (state) => setState(() => filter = state),
       itemBuilder: (context, index) => ListItem(
         state![index],
         onPress: _editSkill,

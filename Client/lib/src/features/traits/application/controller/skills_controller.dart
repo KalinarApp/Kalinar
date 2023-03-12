@@ -21,9 +21,9 @@ class SkillsController implements TraitsController {
   }
 
   @override
-  Future<AsyncValue> filter(String? query) async {
+  Future<AsyncValue> filter(String? query, {List<SuggestionState>? allowedStates}) async {
     return AsyncValue.guard(() async {
-      final skills = await repo.filter(query: query);
+      final skills = await repo.filter(query: query, allowedStates: allowedStates?.map((e) => e.index.toString()).toList());
       notifier.refresh(skills);
     });
   }

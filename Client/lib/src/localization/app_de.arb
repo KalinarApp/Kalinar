@@ -43,8 +43,14 @@
   "search": "Suchen",
   "settings": "Einstellungen",
 
+  "pending": "Ausstehend",
+  "approved": "Genehmigt",
+  "rejected": "Abgelehnt",
   "reject": "Ablehnen",
   "rejectReason": "Grund der Ablehnung",
+
+  "filter": "Filter",
+  "filterState": "Status auswählen",
 
   "workInProgress": "Diese Seite ist noch in Arbeit!",
 
