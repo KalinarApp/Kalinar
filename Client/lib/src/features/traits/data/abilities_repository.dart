@@ -19,8 +19,17 @@ class AbilitiesRepository extends HeroBaseRepository {
     );
   }
 
+  Future<List<String>> getAllAvailableTags(String? query) async {
+    return await heroGet("/api/abilities/tags", (response) => (response as List<dynamic>).cast<String>(), query: {"query": query});
+  }
+
   Future<Ability> createAbility(Map<String, dynamic> data) async {
     return await heroPost("/api/abilities", data, (response) => Ability.fromJson(response));
+  }
+
+  Future updateAbilityTags(String id, List<String> tags) async {
+    // final tagsList = jsonEncode(tags);
+    await heroPost("/api/abilities/$id/tags", tags, (response) => true);
   }
 
   Future<void> reject(String id, String reason) async {

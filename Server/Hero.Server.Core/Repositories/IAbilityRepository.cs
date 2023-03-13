@@ -10,7 +10,7 @@ namespace Hero.Server.Core.Repositories
         Task<Ability> TryUpdateAbilityAsync(Guid id, string userId, Ability updated, CancellationToken cancellationToken = default);
         Task TryDeleteAbilityAsync(Guid id, string userId, CancellationToken cancellationToken = default);
         Task RejectAbility(Guid id, string reason, CancellationToken cancellationToken = default);
-        Task<List<string>> GetAllTagsAsync(CancellationToken cancellationToken = default);
+        Task<List<string>> FilterTagsAsync(string? query, CancellationToken cancellationToken = default);
         Task UpdateAbilityTagsAsync(Guid id, List<string> tags, CancellationToken cancellationToken = default);
     }
 }

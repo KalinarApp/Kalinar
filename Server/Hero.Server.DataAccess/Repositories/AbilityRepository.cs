@@ -52,11 +52,20 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<List<string>> GetAllTagsAsync(CancellationToken cancellationToken = default)
+        public async Task<List<string>> FilterTagsAsync(string? query, CancellationToken cancellationToken = default)
         {
             try
             {
-                return await this.context.Abilities.SelectMany(item => item.Tags).Distinct().ToListAsync(cancellationToken);
+                List<Ability> queryable = await this.context.Abilities.Where(item => item.Tags != null).ToListAsync(cancellationToken);
+
+                IEnumerable<string> tags = queryable.SelectMany(item => item.Tags);
+
+                if (!String.IsNullOrEmpty(query))
+                {
+                    tags = tags.Where(item => item.ToLower().Contains(query.ToLower()));
+                }
+
+                return tags.Distinct().ToList();
             }
             catch (Exception ex)
             {

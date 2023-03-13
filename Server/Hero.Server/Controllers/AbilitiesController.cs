@@ -52,6 +52,12 @@ namespace Hero.Server.Controllers
             return abilities.Select(ability => this.mapper.Map<AbilityResponse>(ability)).ToList();
         }
 
+        [HttpGet("tags"), IsGroupMember]
+        public async Task<List<string>> FilterAvailableTagsAsync([FromQuery] string? query, CancellationToken cancellationToken)
+        {
+            return await this.repository.FilterTagsAsync(query, cancellationToken);
+        }
+
         [HttpDelete("{id}"), IsGroupMember]
         public async Task DeleteAbilityAsync(Guid id, CancellationToken token)
         {

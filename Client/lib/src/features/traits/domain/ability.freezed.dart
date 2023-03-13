@@ -24,6 +24,7 @@ mixin _$Ability {
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   bool get isPassive => throw _privateConstructorUsedError;
+  List<String> get tags => throw _privateConstructorUsedError;
   User? get creator => throw _privateConstructorUsedError;
   SuggestionState get state => throw _privateConstructorUsedError;
   String? get rejectionReason => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $AbilityCopyWith<$Res> {
       String name,
       String? description,
       bool isPassive,
+      List<String> tags,
       User? creator,
       SuggestionState state,
       String? rejectionReason,
@@ -75,6 +77,7 @@ class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
     Object? name = null,
     Object? description = freezed,
     Object? isPassive = null,
+    Object? tags = null,
     Object? creator = freezed,
     Object? state = null,
     Object? rejectionReason = freezed,
@@ -100,6 +103,10 @@ class _$AbilityCopyWithImpl<$Res, $Val extends Ability>
           ? _value.isPassive
           : isPassive // ignore: cast_nullable_to_non_nullable
               as bool,
+      tags: null == tags
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       creator: freezed == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
@@ -156,6 +163,7 @@ abstract class _$$_AbilityCopyWith<$Res> implements $AbilityCopyWith<$Res> {
       String name,
       String? description,
       bool isPassive,
+      List<String> tags,
       User? creator,
       SuggestionState state,
       String? rejectionReason,
@@ -182,6 +190,7 @@ class __$$_AbilityCopyWithImpl<$Res>
     Object? name = null,
     Object? description = freezed,
     Object? isPassive = null,
+    Object? tags = null,
     Object? creator = freezed,
     Object? state = null,
     Object? rejectionReason = freezed,
@@ -207,6 +216,10 @@ class __$$_AbilityCopyWithImpl<$Res>
           ? _value.isPassive
           : isPassive // ignore: cast_nullable_to_non_nullable
               as bool,
+      tags: null == tags
+          ? _value._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       creator: freezed == creator
           ? _value.creator
           : creator // ignore: cast_nullable_to_non_nullable
@@ -247,13 +260,15 @@ class _$_Ability implements _Ability {
       required this.name,
       this.description,
       required this.isPassive,
+      final List<String> tags = const [],
       required this.creator,
       required this.state,
       this.rejectionReason,
       required this.createdAt,
       this.lastUpdatedAt,
       this.approvedAt,
-      this.rejectedAt});
+      this.rejectedAt})
+      : _tags = tags;
 
   factory _$_Ability.fromJson(Map<String, dynamic> json) =>
       _$$_AbilityFromJson(json);
@@ -266,6 +281,15 @@ class _$_Ability implements _Ability {
   final String? description;
   @override
   final bool isPassive;
+  final List<String> _tags;
+  @override
+  @JsonKey()
+  List<String> get tags {
+    if (_tags is EqualUnmodifiableListView) return _tags;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tags);
+  }
+
   @override
   final User? creator;
   @override
@@ -283,7 +307,7 @@ class _$_Ability implements _Ability {
 
   @override
   String toString() {
-    return 'Ability(id: $id, name: $name, description: $description, isPassive: $isPassive, creator: $creator, state: $state, rejectionReason: $rejectionReason, createdAt: $createdAt, lastUpdatedAt: $lastUpdatedAt, approvedAt: $approvedAt, rejectedAt: $rejectedAt)';
+    return 'Ability(id: $id, name: $name, description: $description, isPassive: $isPassive, tags: $tags, creator: $creator, state: $state, rejectionReason: $rejectionReason, createdAt: $createdAt, lastUpdatedAt: $lastUpdatedAt, approvedAt: $approvedAt, rejectedAt: $rejectedAt)';
   }
 
   @override
@@ -297,6 +321,7 @@ class _$_Ability implements _Ability {
                 other.description == description) &&
             (identical(other.isPassive, isPassive) ||
                 other.isPassive == isPassive) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
             (identical(other.creator, creator) || other.creator == creator) &&
             (identical(other.state, state) || other.state == state) &&
             (identical(other.rejectionReason, rejectionReason) ||
@@ -319,6 +344,7 @@ class _$_Ability implements _Ability {
       name,
       description,
       isPassive,
+      const DeepCollectionEquality().hash(_tags),
       creator,
       state,
       rejectionReason,
@@ -347,6 +373,7 @@ abstract class _Ability implements Ability {
       required final String name,
       final String? description,
       required final bool isPassive,
+      final List<String> tags,
       required final User? creator,
       required final SuggestionState state,
       final String? rejectionReason,
@@ -365,6 +392,8 @@ abstract class _Ability implements Ability {
   String? get description;
   @override
   bool get isPassive;
+  @override
+  List<String> get tags;
   @override
   User? get creator;
   @override

@@ -11,6 +11,9 @@ _$_Ability _$$_AbilityFromJson(Map<String, dynamic> json) => _$_Ability(
       name: json['name'] as String,
       description: json['description'] as String?,
       isPassive: json['isPassive'] as bool,
+      tags:
+          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
       creator: json['creator'] == null
           ? null
           : User.fromJson(json['creator'] as Map<String, dynamic>),
@@ -34,6 +37,7 @@ Map<String, dynamic> _$$_AbilityToJson(_$_Ability instance) =>
       'name': instance.name,
       'description': instance.description,
       'isPassive': instance.isPassive,
+      'tags': instance.tags,
       'creator': instance.creator,
       'state': _$SuggestionStateEnumMap[instance.state]!,
       'rejectionReason': instance.rejectionReason,

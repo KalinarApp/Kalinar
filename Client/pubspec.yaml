@@ -87,6 +87,7 @@ dependencies:
   readmore: ^2.2.0
   timeago_flutter: ^3.4.0
   multiselect: ^0.1.0
+  flutter_tagging_plus: ^4.0.1
 
 dependency_overrides:
   intl: ^0.18.0
