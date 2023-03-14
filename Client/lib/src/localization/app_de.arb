@@ -121,6 +121,10 @@
   "searchForAbility": "Talent suchen",
   "newAbility": "Neues Talent",
   "loadAbilityFailed": "Fehler beim Abrufen des gewünschten Talents.",
+  "abilityTags": "Tags hinzufügen",
+  "abilityAddTag": "Tag hinzufügen",
+  "abilityTagsHelpText": "Tags werden automatisch beim hinzufügen gespeichert.",
+  "abilityFetchTagsFailed": "Fehler beim Abrufen der Tags",
 
   "skillName": "Name des Skills",
   "skillDescription": "Beschreibung des Skills",

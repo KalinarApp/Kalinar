@@ -28,6 +28,10 @@ class AbilitiesController implements TraitsController {
     });
   }
 
+  Future<List<String>> filterTags(String? query) async {
+    return await repo.getAllAvailableTags(query);
+  }
+
   Future<List<Ability>> search({String? query, List<SuggestionState>? allowedStates}) async {
     final states = allowedStates?.map((e) => e.index.toString()).toList();
     return await repo.filter(query: query, allowedStates: states);
@@ -39,6 +43,10 @@ class AbilitiesController implements TraitsController {
       final ability = await repo.createAbility(data);
       notifier.add(ability);
     });
+  }
+
+  Future<AsyncValue> updateTags(String id, List<String> tags) async {
+    return await AsyncValue.guard(() async => await repo.updateAbilityTags(id, tags));
   }
 
   @override
