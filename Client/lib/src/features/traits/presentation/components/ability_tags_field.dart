@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_tagging_plus/flutter_tagging_plus.dart';
 
 class Tag extends Taggable {
@@ -51,21 +52,22 @@ class _AbilityTagsFieldState extends State<AbilityTagsField> {
         additionCallback: (tag) => Tag(tag),
         errorBuilder: (ctx, error) => SizedBox(
           height: 50,
-          child: Center(child: Text("Fehler beim Abrufen der Tags", style: TextStyle(color: Theme.of(context).colorScheme.error))),
+          child:
+              Center(child: Text(AppLocalizations.of(context)!.abilityFetchTagsFailed, style: TextStyle(color: Theme.of(context).colorScheme.error))),
         ),
         configureSuggestion: (p0) => SuggestionConfiguration(
           title: Text(p0.tag),
           additionWidget: Chip(
             avatar: const Icon(Icons.add_circle),
-            label: const Text('Tag hinzufügen'),
+            label: Text(AppLocalizations.of(context)!.abilityAddTag),
             labelStyle: const TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.w300),
             backgroundColor: Theme.of(context).colorScheme.primary,
           ),
         ),
-        textFieldConfiguration: const TextFieldConfiguration(
-            scrollPadding: EdgeInsets.only(bottom: 200),
-            
-            decoration: InputDecoration(hintText: "Tags hinzufügen", helperText: "Tags werden automatisch beim hinzufügen gespeichert.")),
+        textFieldConfiguration: TextFieldConfiguration(
+            scrollPadding: const EdgeInsets.only(bottom: 200),
+            decoration:
+                InputDecoration(hintText: AppLocalizations.of(context)!.abilityTags, helperText: AppLocalizations.of(context)!.abilityTagsHelpText)),
         onChanged: () => field.didChange(tags.map((e) => e.tag).toList()),
         configureChip: (p0) => ChipConfiguration(label: Text(p0.tag)),
       ),
