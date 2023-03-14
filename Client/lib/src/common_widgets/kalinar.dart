@@ -43,6 +43,10 @@ class _KalinarState extends ConsumerState<Kalinar> {
     _checkForUpdate();
 
     return MaterialApp.router(
+        builder: (context, child) => MediaQuery(
+            // Temporary fix for https://github.com/AbdulRahmanAlHamali/flutter_typeahead/issues/463
+            data: MediaQuery.of(context).copyWith(accessibleNavigation: false),
+            child: child!),
         onGenerateTitle: (ctx) => AppLocalizations.of(ctx)!.applicationTitle,
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
