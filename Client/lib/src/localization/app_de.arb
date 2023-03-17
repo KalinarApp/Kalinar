@@ -125,6 +125,16 @@
   "abilityAddTag": "Tag hinzufügen",
   "abilityTagsHelpText": "Tags werden automatisch beim hinzufügen gespeichert.",
   "abilityFetchTagsFailed": "Fehler beim Abrufen der Tags",
+  "otherAbilities": "Weitere",
+  "abilitesCountInTag": "{count, plural, =0{0 Elemente} =1{1 Element} other{{count} Elemente}}",
+  "@abilitesCountInTag": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
 
   "skillName": "Name des Skills",
   "skillDescription": "Beschreibung des Skills",

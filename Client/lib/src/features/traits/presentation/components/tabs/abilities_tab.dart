@@ -91,7 +91,27 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
       filter: filter,
       onFilterChanged: (state) => setState(() => filter = state),
       isSearchEnabled: isSearchEnabled,
-      itemBuilder: (context, index) => ListItem(state![index], onPress: _editAbility, onLongPress: _showActionDialog),
+      itemBuilder: (context, index) => ListItem(
+        state![index],
+        onPress: _editAbility,
+        onLongPress: _showActionDialog,
+        subtitle: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final tag in state[index].tags.take(3))
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                child: Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Theme.of(context).colorScheme.background),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 8.0),
+                    child: Text(tag, style: Theme.of(context).textTheme.labelMedium),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
       onSearchChanged: (query) {
         setState(() => queryString = query);
         _onRefresh();
