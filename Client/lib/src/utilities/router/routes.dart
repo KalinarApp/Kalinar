@@ -1,9 +1,10 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kalinar/src/features/story/presentation/story_screen.dart';
 import 'package:kalinar/src/features/traits/presentation/traits_overview_screen.dart';
@@ -37,7 +38,8 @@ final routeProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
     initialLocation: "/",
-    debugLogDiagnostics: true,
+    debugLogDiagnostics: kDebugMode,
+    observers: [FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)],
     navigatorKey: rootNavigatorKey,
     redirect: (context, state) {
       if (authState.isLoading || authState.hasError) return null;
@@ -84,27 +86,32 @@ final routeProvider = Provider<GoRouter>((ref) {
           return ScaffoldWithBottomNavbar(
             tabs: [
               ScaffoldWithNavbarItem(
+                context,
                 initialLocation: HomeScreen.route,
                 icon: const Icon(Icons.home),
                 label: (AppLocalizations.of(context)!.home),
               ),
               ScaffoldWithNavbarItem(
+                context,
                 initialLocation: "/characters",
                 icon: const Icon(Icons.man),
                 label: (AppLocalizations.of(context)!.characters),
               ),
               ScaffoldWithNavbarItem(
+                context,
                 initialLocation: StoryScreen.route,
-                icon: const Icon(Icons.book),
+                imagePath: "assets/images/history.png",
                 label: (AppLocalizations.of(context)!.story),
               ),
               ScaffoldWithNavbarItem(
+                context,
                 initialLocation: TraitsOverviewScreen.route,
-                icon: const FaIcon(FontAwesomeIcons.bookSkull),
+                imagePath: "assets/images/traits.png",
                 label: AppLocalizations.of(context)!.traits,
               ),
               if (isAdmin)
                 ScaffoldWithNavbarItem(
+                  context,
                   initialLocation: AdminMenuScreen.route,
                   icon: const Icon(Icons.coffee),
                   label: (AppLocalizations.of(context)!.admin),

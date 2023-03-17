@@ -93,6 +93,8 @@
     "abilityAddTag",
     "abilityTagsHelpText",
     "abilityFetchTagsFailed",
+    "otherAbilities",
+    "abilitesCountInTag",
     "skillName",
     "skillDescription",
     "selectASkill",

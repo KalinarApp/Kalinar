@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gravatar/flutter_gravatar.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:readmore/readmore.dart';
 import 'package:timeago_flutter/timeago_flutter.dart';
 
@@ -11,10 +14,11 @@ import '../../domain/suggestion_state.dart';
 class ListItem<T extends Suggestable> extends StatelessWidget {
   final T item;
   final Widget? leading;
+  final Widget? subtitle;
   final Function(T item)? onLongPress;
   final Function(T item)? onPress;
 
-  const ListItem(this.item, {this.leading, this.onLongPress, this.onPress, super.key});
+  const ListItem(this.item, {this.leading, this.subtitle, this.onLongPress, this.onPress, super.key});
 
   Widget _getStateIcon(BuildContext context) {
     Widget widget;
@@ -79,8 +83,15 @@ class ListItem<T extends Suggestable> extends StatelessWidget {
                         const SizedBox(height: 5),
                         Row(
                           children: [
-                            if (null != gravatar) CircleAvatar(radius: 10, backgroundImage: CachedNetworkImageProvider(gravatar.imageUrl())),
+                            if (null != gravatar)
+                              JustTheTooltip(
+                                isModal: !Platform.isWindows,
+                                triggerMode: TooltipTriggerMode.tap,
+                                content: Padding(padding: const EdgeInsets.all(8.0), child: Text(item.creator?.username ?? "")),
+                                child: CircleAvatar(radius: 10, backgroundImage: CachedNetworkImageProvider(gravatar.imageUrl())),
+                              ),
                             if (null != gravatar) const SizedBox(width: 12),
+                            if (null != subtitle) subtitle!,
                           ],
                         )
                       ],

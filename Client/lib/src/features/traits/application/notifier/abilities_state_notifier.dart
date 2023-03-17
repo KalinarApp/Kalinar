@@ -46,6 +46,16 @@ class AbilitiesStateNotifier extends StateNotifier<List<Ability>?> {
       refresh([...list, ability]);
     }
   }
+
+  void updateTags(String id, List<String> tags) {
+    final index = state?.indexWhere((element) => element.id == id);
+    if (null != index) {
+      final list = [...state ?? []];
+      list[index] = list[index].copyWith(tags: tags);
+
+      refresh([...list]);
+    }
+  }
 }
 
 final abilitiesStateNotifierProvider = StateNotifierProvider<AbilitiesStateNotifier, List<Ability>?>((ref) {

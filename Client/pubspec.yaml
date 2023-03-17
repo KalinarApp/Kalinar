@@ -18,6 +18,10 @@ dependencies:
   store_checker: ^1.1.0
 
   firebase_core: ^2.7.1
+  firebase_analytics: ^10.1.6
+  firebase_crashlytics: ^3.0.17
+  firebase_performance: ^0.9.0+16
+
   firebase_auth: ^4.2.10
   firebase_ui_auth: ^1.1.16
   firebase_ui_oauth_google: ^1.0.23
@@ -55,6 +59,8 @@ dependencies:
   flutter_typeahead: ^4.1.1
   cross_file: ^0.3.3+2
   flutter_spinbox: ^0.13.0
+  expandable_group: ^0.0.8
+  filter_list: ^1.0.2
 
   flutter_iconpicker: #^3.2.2
     git: 
@@ -110,6 +116,7 @@ flutter:
   generate: true
   assets:
     - assets/app_icon/icon.png
+    - assets/images/
 
 # flutter pub run msix:create
 msix_config:

@@ -11,9 +11,9 @@ class ValueRangeField extends StatelessWidget {
   final double step;
   final String name;
   final NumberFormat? format;
-  dynamic Function(double?)? valueTransform;
+  final dynamic Function(double?)? valueTransform;
 
-  ValueRangeField(
+  const ValueRangeField(
       {required this.name,
       required this.label,
       required this.initialValue,
