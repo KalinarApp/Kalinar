@@ -5,10 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/traits/application/controller/skills_controller.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 
+import '../../../../../traits/application/controller/skills_controller.dart';
 import '../../../../../traits/domain/skill.dart';
+import '../../../../../traits/domain/suggestion_state.dart';
 import '../../../../../traits/presentation/edit_skill_screen.dart';
 
 class SkillSelectionField extends ConsumerWidget {

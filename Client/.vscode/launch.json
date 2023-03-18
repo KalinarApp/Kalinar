@@ -13,7 +13,7 @@
         },
         {
             "name": "DEVELOPMENT",
-            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "program": "${workspaceFolder}/lib/main.dart",
             "args": ["--flavor=dev"],
             "request": "launch",
             "type": "dart",

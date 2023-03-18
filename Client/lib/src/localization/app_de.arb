@@ -256,5 +256,14 @@
   "storyLoading": "Geschichte wird geladen...",
   "storyLoadingFailed": "Fehler beim laden der Geschichte!",
   "storyEmpty": "Ganz schön leer hier :(",
-  "timeline": "Eine Zeitreise durch die Geschichte"
+  "timeline": "Eine Zeitreise durch die Geschichte",
+
+  "welcomeMessage": "Hallo {user}, Herzlich Willkommen in Kalinar.",
+  "@welcomeMessage": {
+    "placeholders": {
+      "user": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -32,6 +32,7 @@
     <ProjectReference Include="..\Hero.Server.Core\Hero.Server.Core.csproj" />
     <ProjectReference Include="..\Hero.Server.DataAccess\Hero.Server.DataAccess.csproj" />
     <ProjectReference Include="..\Hero.Server.Identity\Hero.Server.Identity.csproj" />
+    <ProjectReference Include="..\Hero.Server.Messaging\Hero.Server.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

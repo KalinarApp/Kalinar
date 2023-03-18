@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 
 import '../../domain/ability.dart';
+import '../../domain/suggestion_state.dart';
 
 class AbilitiesStateNotifier extends StateNotifier<List<Ability>?> {
   AbilitiesStateNotifier() : super(null);

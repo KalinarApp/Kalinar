@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:kalinar/src/features/characters/domain/character.dart';
+import '../../../domain/character.dart';
 
 class CharacterConfiguration extends ConsumerWidget {
   final Character character;

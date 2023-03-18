@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/admin/storyline/application/story_entries_controller.dart';
-import 'package:kalinar/src/features/admin/storyline/presentation/components/book_details.dart';
-import 'package:kalinar/src/features/admin/storyline/presentation/components/entry_details.dart';
 
+import '../application/story_entries_controller.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_type.dart';
+import 'components/book_details.dart';
+import 'components/entry_details.dart';
 import 'components/image_details.dart';
 import 'page_editor_screen.dart';
 import 'storyline_edit_screen.dart';

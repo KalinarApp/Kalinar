@@ -3,6 +3,8 @@ using Hero.Server.Core.Configuration;
 using Hero.Server.DataAccess.Extensions;
 using Hero.Server.Extensions;
 using Hero.Server.Identity;
+using Hero.Server.Messaging;
+using Hero.Server.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddSwaggerForAuthentication();
+
+builder.Services.AddTransient<IMessagingService, FirebaseMessagingService>();
+builder.Services.AddSingleton<Notifications>();
 
 WebApplication app = builder.Build();
 

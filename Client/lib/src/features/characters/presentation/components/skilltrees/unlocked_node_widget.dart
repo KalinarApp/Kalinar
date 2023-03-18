@@ -1,11 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 import '../../../../admin/skilltrees/domain/node.dart';
-
 import 'node_tooltip.dart';
 
 class UnlockedNodeWidget extends StatefulWidget {

@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/book_page.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry.dart';
+
+import '../domain/book_page.dart';
+import '../domain/story_entry.dart';
 
 class BookStateNotifier extends StateNotifier<StoryEntry?> {
   BookStateNotifier() : super(null);

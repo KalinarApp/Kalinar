@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/traits/application/controller/traits_controller.dart';
-import 'package:kalinar/src/features/traits/application/notifier/abilities_state_notifier.dart';
-import 'package:kalinar/src/features/traits/application/notifier/ability_state_notifier.dart';
-import 'package:kalinar/src/features/traits/data/abilities_repository.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 
+import '../../data/abilities_repository.dart';
 import '../../domain/ability.dart';
+import '../../domain/suggestion_state.dart';
+import '../notifier/abilities_state_notifier.dart';
+import '../notifier/ability_state_notifier.dart';
+import 'traits_controller.dart';
 
 class AbilitiesController implements TraitsController {
   final AbilitiesRepository repo;

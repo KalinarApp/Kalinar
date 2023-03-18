@@ -96,5 +96,42 @@ namespace Hero.Server.DataAccess.Repositories
                 throw new HeroException("An error occured while getting a list of users.");
             }
         }
+
+        public async Task<List<string>> GetDeviceIdsForUser(string userId, CancellationToken cancellationToken = default)
+        {
+            User? user = await this.GetUserByIdAsync(userId, cancellationToken);
+
+            if (null == user)
+            {
+                throw new HeroException("User not found.");
+            }
+            return user.DeviceIds ?? new();
+        }
+
+        public async Task AddDeviceIdToUser(string userId, string deviceId, CancellationToken cancellationToken = default)
+        {
+            User? user = await this.GetUserByIdAsync(userId, cancellationToken);
+            if (null == user)
+            {
+                throw new HeroException("User not found.");
+            }
+
+            try
+            {
+                if (user.DeviceIds == null)
+                {
+                    user.DeviceIds = new();
+                }
+                user.DeviceIds.Add(deviceId); 
+
+                this.context.Users.Update(user);
+                await this.context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error occured while adding a device id to users.");
+            }
+        }
     }
 }

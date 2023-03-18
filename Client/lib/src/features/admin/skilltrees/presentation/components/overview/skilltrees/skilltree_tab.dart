@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +12,6 @@ import '../../../../application/skilltree_list_controller.dart';
 import '../../../../domain/skilltree_overview.dart';
 import '../../../skilltree_builder_screen.dart';
 import '../../modals/blueprint_modal.dart';
-
 import 'skilltree_character_item.dart';
 import 'skilltree_item.dart';
 

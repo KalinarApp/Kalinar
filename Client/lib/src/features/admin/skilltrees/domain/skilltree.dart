@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../characters/domain/character_overview.dart';
-
 import 'node.dart';
 
 part 'skilltree.freezed.dart';

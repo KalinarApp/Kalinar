@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hero.Server.Identity", "Her
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E819F360-E86C-4210-B5ED-38C6A7BCE8A5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hero.Server.Messaging", "Hero.Server.Messaging\Hero.Server.Messaging.csproj", "{7314E99F-A7FF-470E-B9AE-B06FF931E511}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E819F360-E86C-4210-B5ED-38C6A7BCE8A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E819F360-E86C-4210-B5ED-38C6A7BCE8A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E819F360-E86C-4210-B5ED-38C6A7BCE8A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7314E99F-A7FF-470E-B9AE-B06FF931E511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7314E99F-A7FF-470E-B9AE-B06FF931E511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7314E99F-A7FF-470E-B9AE-B06FF931E511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7314E99F-A7FF-470E-B9AE-B06FF931E511}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

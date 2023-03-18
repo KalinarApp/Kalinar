@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry_overview.dart';
+
+import '../domain/story_entry_overview.dart';
 
 class StoryEntriesStateNotifier extends StateNotifier<List<StoryEntryOverview>?> {
   StoryEntriesStateNotifier() : super(null);

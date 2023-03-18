@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/admin/storyline/presentation/storyline_detail_screen.dart';
 
 import '../../domain/story_entry_overview.dart';
+import '../storyline_detail_screen.dart';
 
 class StoryListEntry extends StatelessWidget {
   final StoryEntryOverview item;

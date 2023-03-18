@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/book_page.dart';
 
 import '../../../../utilities/base_repository.dart';
 import '../../../group_management/application/group_notifier.dart';
+import '../domain/book_page.dart';
 
 class StoryBookRepository extends HeroBaseRepository {
   StoryBookRepository({super.group});

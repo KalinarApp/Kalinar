@@ -6,10 +6,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 
 import '../../application/controller/abilities_controller.dart';
 import '../../domain/ability.dart';
+import '../../domain/suggestion_state.dart';
 import '../edit_ability_screen.dart';
 
 class AbilitySelectionField extends ConsumerWidget {
