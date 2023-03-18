@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kalinar/src/features/traits/application/state/filter_state.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 import 'package:multiselect/multiselect.dart';
 
 import '../../../../common_widgets/custom_image_button.dart';
 import '../../../../common_widgets/debounced_text_field.dart';
 import '../../../../common_widgets/loading_indicator.dart';
+import '../../application/state/filter_state.dart';
+import '../../domain/suggestion_state.dart';
 
 class SuggestionStateSelection {
   final SuggestionState state;

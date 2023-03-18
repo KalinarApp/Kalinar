@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +17,6 @@ import '../../../common_widgets/save_button.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../application/character_controller.dart';
 import '../domain/character.dart';
-
 import 'components/race_selection.dart';
 
 class CharacterEditorScreen extends ConsumerStatefulWidget {

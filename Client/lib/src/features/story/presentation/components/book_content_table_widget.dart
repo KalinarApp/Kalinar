@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/book_page.dart';
+
+import '../../../admin/storyline/domain/book_page.dart';
 
 class BookContentTableWidget extends StatelessWidget {
   final List<BookPage> pages;

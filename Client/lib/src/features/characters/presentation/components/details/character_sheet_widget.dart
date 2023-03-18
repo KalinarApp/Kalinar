@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/character.dart';
-
 import 'character_attributes.dart';
 import 'character_information.dart';
 

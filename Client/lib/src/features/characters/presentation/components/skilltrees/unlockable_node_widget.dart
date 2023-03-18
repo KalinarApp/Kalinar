@@ -1,13 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:square_progress_bar/square_progress_bar.dart';
 
 import '../../../../../common_widgets/custom_long_press.dart';
 import '../../../../admin/skilltrees/domain/node.dart';
-
 import 'node_tooltip.dart';
 
 class UnlockableNodeWidget extends StatefulWidget {

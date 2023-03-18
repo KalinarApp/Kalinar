@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kalinar/src/features/characters/presentation/components/details/character_configuration.dart';
-import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
-import 'package:kalinar/src/utilities/async_value_extension.dart';
 
 import '../../../common_widgets/loading_indicator.dart';
+import '../../../utilities/async_value_extension.dart';
+import '../../group_management/application/group_notifier.dart';
 import '../application/character_controller.dart';
 import '../domain/character.dart';
 import 'components/details/auto_saving_text_field.dart';
 import 'components/details/character_abilities.dart';
+import 'components/details/character_configuration.dart';
 import 'components/details/character_sheet_widget.dart';
 import 'components/details/character_skilltree_list.dart';
 import 'components/details/character_tab.dart';

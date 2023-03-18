@@ -669,6 +669,9 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<List<string>>("DeviceIds")
+                        .HasColumnType("text[]");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)

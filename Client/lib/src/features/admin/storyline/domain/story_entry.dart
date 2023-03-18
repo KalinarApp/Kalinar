@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/book_page.dart';
+
+import 'book_page.dart';
 
 part 'story_entry.freezed.dart';
 part 'story_entry.g.dart';

@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry.dart';
 import 'package:photo_view/photo_view.dart';
+
+import '../../domain/story_entry.dart';
 
 class ImageDetails extends StatelessWidget {
   final StoryEntry item;

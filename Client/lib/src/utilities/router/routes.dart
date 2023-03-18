@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/story/presentation/story_screen.dart';
-import 'package:kalinar/src/features/traits/presentation/traits_overview_screen.dart';
-import 'package:kalinar/src/utilities/router/traits_routes.dart';
 
 import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
@@ -20,8 +17,11 @@ import '../../features/group_management/presentation/group_screen.dart';
 import '../../features/group_management/presentation/user_invite_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/home/presentation/welcome_screen.dart';
+import '../../features/story/presentation/story_screen.dart';
+import '../../features/traits/presentation/traits_overview_screen.dart';
 import 'admin_routes.dart';
 import 'character_routes.dart';
+import 'traits_routes.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();

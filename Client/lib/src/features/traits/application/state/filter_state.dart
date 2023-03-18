@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
+
+import '../../domain/suggestion_state.dart';
 
 part 'filter_state.freezed.dart';
 part 'filter_state.g.dart';

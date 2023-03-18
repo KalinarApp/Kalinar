@@ -197,6 +197,7 @@
     "storyLoading",
     "storyLoadingFailed",
     "storyEmpty",
-    "timeline"
+    "timeline",
+    "welcomeMessage"
   ]
 }

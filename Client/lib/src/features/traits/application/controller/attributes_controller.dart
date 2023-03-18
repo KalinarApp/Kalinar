@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/traits/application/controller/traits_controller.dart';
 
 import '../../data/attributes_repository.dart';
 import '../../domain/attribute.dart';
 import '../../domain/suggestion_state.dart';
 import '../notifier/attribute_state_notifier.dart';
 import '../notifier/attributes_state_notifier.dart';
+import 'traits_controller.dart';
 
 class AttributesController implements TraitsController {
   final AttributesRepository repo;

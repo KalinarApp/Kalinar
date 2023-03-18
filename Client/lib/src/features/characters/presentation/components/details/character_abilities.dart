@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kalinar/src/features/traits/application/controller/abilities_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../traits/application/controller/abilities_controller.dart';
 import '../../../../traits/domain/ability.dart';
 import '../../../domain/character.dart';
 

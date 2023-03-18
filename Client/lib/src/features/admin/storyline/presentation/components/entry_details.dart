@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry.dart';
+
+import '../../domain/story_entry.dart';
 
 class EntryDetails extends StatelessWidget {
   final StoryEntry item;

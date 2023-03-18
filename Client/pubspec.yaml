@@ -2,7 +2,7 @@ name: kalinar
 description: A new Flutter project.
 publish_to: "none"
 
-version: 0.5.4+1
+version: 0.5.7+1
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -16,8 +16,10 @@ dependencies:
 
   in_app_update: ^4.0.1
   store_checker: ^1.1.0
+  overlay_support: ^2.1.0
 
   firebase_core: ^2.7.1
+  firebase_messaging: ^14.3.0
   firebase_analytics: ^10.1.6
   firebase_crashlytics: ^3.0.17
   firebase_performance: ^0.9.0+16

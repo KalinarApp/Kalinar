@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/admin/storyline/application/story_entries_controller.dart';
-import 'package:kalinar/src/features/admin/storyline/presentation/components/book_edit.dart';
-import 'package:kalinar/src/features/admin/storyline/presentation/components/entry_edit.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/save_button.dart';
 import '../../../../utilities/async_value_extension.dart';
+import '../application/story_entries_controller.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_type.dart';
+import 'components/book_edit.dart';
+import 'components/entry_edit.dart';
 import 'components/image_edit.dart';
 
 class StorylineEditScreen extends ConsumerStatefulWidget {

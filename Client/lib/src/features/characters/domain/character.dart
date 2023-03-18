@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../traits/domain/race.dart';
 import '../../admin/skilltrees/domain/skilltree_overview.dart';
 import '../../traits/domain/ability.dart';
 import '../../traits/domain/attribute_value.dart';
+import '../../traits/domain/race.dart';
 
 part 'character.freezed.dart';
 part 'character.g.dart';

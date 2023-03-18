@@ -3,7 +3,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/traits/presentation/edit_race_screen.dart';
 
 import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/user_menu.dart';
@@ -13,6 +12,7 @@ import 'components/tabs/races_tab.dart';
 import 'components/tabs/skills_tab.dart';
 import 'edit_ability_screen.dart';
 import 'edit_attribute_screen.dart';
+import 'edit_race_screen.dart';
 import 'edit_skill_screen.dart';
 
 class TraitsOverviewScreen extends ConsumerStatefulWidget {
