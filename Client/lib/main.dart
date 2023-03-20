@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_size/window_size.dart';
 
 import 'src/common_widgets/kalinar.dart';
-import 'src/firebase_initialization.dart';
+import 'firebase_initialization.dart';
 
 class DevHttpOverrides extends HttpOverrides {
   @override

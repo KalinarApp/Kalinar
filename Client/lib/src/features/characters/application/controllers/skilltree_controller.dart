@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../admin/skilltrees/data/skilltrees_repository.dart';
-import '../../admin/skilltrees/domain/edge.dart';
-import '../../admin/skilltrees/domain/skilltree.dart';
+import '../../../admin/skilltrees/data/skilltrees_repository.dart';
+import '../../../admin/skilltrees/domain/edge.dart';
+import '../../../admin/skilltrees/domain/skilltree.dart';
 import 'skillpoint_controller.dart';
 
 class SkilltreeController extends StateNotifier<AsyncValue<Skilltree>> {

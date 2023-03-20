@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-import '../../admin/skilltrees/data/skilltrees_repository.dart';
-import '../../admin/skilltrees/domain/skillpoints.dart';
+import '../../../admin/skilltrees/data/skilltrees_repository.dart';
+import '../../../admin/skilltrees/domain/skillpoints.dart';
 
 class SkillpointController extends StateNotifier<Skillpoints> {
   final SkilltreesRepository repo;

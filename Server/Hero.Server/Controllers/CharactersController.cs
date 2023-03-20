@@ -50,19 +50,19 @@ namespace Hero.Server.Controllers
         }
 
         [HttpGet, IsGroupMember]
-        public async Task<IActionResult> GetCharacterOverviewsAsync(CancellationToken token)
+        public async Task<List<CharacterOverviewResponse>> GetCharacterOverviewsAsync([FromQuery] bool? isOwner, CancellationToken token)
         {
             List<Character> characters;
-            if (await this.userRepository.IsOwner(this.HttpContext.User.GetUserId()))
+            if (await this.userRepository.IsOwner(this.HttpContext.User.GetUserId(), token))
             {
-                characters = await this.repository.GetCharactersAsync(null, token);
+                characters = await this.repository.GetCharactersAsync(null, isOwner, token);
             }
             else
             {
-                characters = await this.repository.GetCharactersAsync(this.HttpContext.User.GetUserId(), token);
+                characters = await this.repository.GetCharactersAsync(this.HttpContext.User.GetUserId(), isOwner, token);
             }
 
-            return this.Ok(characters.Select(character => this.mapper.Map<CharacterOverviewResponse>(character)).ToList());
+            return characters.Select(character => this.mapper.Map<CharacterOverviewResponse>(character)).ToList();
         }
 
         [HttpDelete("{id}"), IsGroupMember]
@@ -86,13 +86,13 @@ namespace Hero.Server.Controllers
         }
 
         [HttpPost, IsGroupMember]
-        public async Task<IActionResult> CreateCharacterAsync([FromBody] CharacterRequest request, CancellationToken token)
+        public async Task<CharacterOverviewResponse> CreateCharacterAsync([FromBody] CharacterRequest request, CancellationToken token)
         {
             Character character = this.mapper.Map<Character>(request);
 
             await this.repository.CreateCharacterAsync(character, this.HttpContext.User.GetUserId(), token);
 
-            return this.Ok(this.mapper.Map<CreateCharacterResponse>(character));
+            return this.mapper.Map<CharacterOverviewResponse>(character);
         }
 
         [HttpPatch("{id}"), IsGroupMember]

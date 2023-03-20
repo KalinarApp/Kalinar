@@ -46,7 +46,7 @@ class _UnlockableNodeWidgetState extends State<UnlockableNodeWidget> {
                         strokeWidth: 5,
                         animationDuration: const Duration(milliseconds: 1500),
                         emptyBarColor: Colors.transparent,
-                        solidBarColor: Colors.white70),
+                        solidBarColor: Theme.of(context).colorScheme.background),
                   ),
                 ),
               SizedBox(
