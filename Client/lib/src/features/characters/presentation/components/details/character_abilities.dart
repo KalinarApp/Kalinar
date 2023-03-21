@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kalinar/src/features/characters/presentation/components/details/ability_filter_dialog.dart';
+import 'package:kalinar/src/features/characters/presentation/components/details/ability_list_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../common_widgets/action_menu.dart';
 import '../../../../traits/application/controller/abilities_controller.dart';
 import '../../../../traits/domain/ability.dart';
+import '../../../../traits/presentation/edit_ability_screen.dart';
 import '../../../domain/character.dart';
 
 class CharacterAbilities extends ConsumerStatefulWidget {
@@ -44,20 +48,25 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
       ..sortBy((element) => removeDiacritics(element.name.toLowerCase()));
   }
 
-  ListTile _getListItem(Ability item) {
-    return ListTile(
-      minLeadingWidth: 0,
-      contentPadding: EdgeInsets.zero,
-      title: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(item.name),
-          const SizedBox(width: 5),
-          Text(item.isPassive ? "Passiv" : "", style: Theme.of(context).textTheme.bodySmall),
-        ],
-      ),
-      subtitle: null != item.description && item.description!.isNotEmpty ? Text(item.description!) : null,
-      trailing: item.isPassive ? null : const IconButton(icon: FaIcon(FontAwesomeIcons.diceD20), onPressed: null),
+  ListTile _getListItem(Ability item, {bool showTags = false}) {
+    return AbilityListTile(
+      item,
+      context,
+      showTags: true,
+      onLongPress: () async {
+        final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.cancel]);
+        if (null == action || !mounted) return;
+
+        switch (action) {
+          case DialogAction.edit:
+            ref.read(abilitiesControllerProvider).getById(item.id);
+            GoRouter.of(context).pushNamed(EditAbilityScreen.name, queryParams: {"id": item.id});
+            break;
+          case DialogAction.delete:
+          default:
+            break;
+        }
+      },
     );
   }
 
@@ -132,10 +141,12 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
         if (abilities.isNotEmpty && groups.isNotEmpty)
           SliverToBoxAdapter(
             child: ExpandableGroup(
-                header: _getGroupTitle(AppLocalizations.of(context)!.otherAbilities, abilities.length), items: abilities.map(_getListItem).toList()),
+                header: _getGroupTitle(AppLocalizations.of(context)!.otherAbilities, abilities.length),
+                items: abilities.map((item) => _getListItem(item, showTags: true)).toList()),
           ),
         if (groups.isEmpty)
-          SliverList(delegate: SliverChildBuilderDelegate((context, index) => _getListItem(abilities[index]), childCount: abilities.length))
+          SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) => _getListItem(abilities[index], showTags: true), childCount: abilities.length))
       ],
     );
   }
