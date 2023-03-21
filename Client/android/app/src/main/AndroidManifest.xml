@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dev.curth.hero">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="dev.curth.hero">
+   <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
    <application
         android:label="@string/app_name"
         android:name="${applicationName}"
