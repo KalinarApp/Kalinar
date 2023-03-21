@@ -52,7 +52,7 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
     return AbilityListTile(
       item,
       context,
-      showTags: true,
+      showTags: showTags,
       onLongPress: () async {
         final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.cancel]);
         if (null == action || !mounted) return;
