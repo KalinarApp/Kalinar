@@ -1,10 +1,11 @@
 import 'package:collection/collection.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:expandable_group/expandable_group_widget.dart';
-import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kalinar/src/features/characters/presentation/components/details/ability_filter_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../traits/application/controller/abilities_controller.dart';
@@ -21,9 +22,10 @@ class CharacterAbilities extends ConsumerStatefulWidget {
 
 class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
   List<String> availableTags = [];
-  List<String>? selectedTags = [];
+  List<String>? selectedTags;
 
   Map<String, List<Ability>> _getGroupedAbilities() {
+    availableTags.sortBy((element) => removeDiacritics(element.toLowerCase()));
     final map = {
       for (var element in availableTags.where((element) => null != selectedTags ? selectedTags!.contains(element) : true))
         element: List<Ability>.empty()
@@ -33,22 +35,13 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
     }
 
     return map;
-
-    // final groupedObjects = groupBy(
-    //         widget.character.unlockedAbilities
-    //             .expand((obj) => obj.tags.where((tag) => null == selectedTags ? true : selectedTags!.contains(tag)).map((tag) => MapEntry(tag, obj))),
-    //         (entry) => entry.key)
-    //     .entries
-    //     .map((entry) => MapEntry(entry.key, entry.value.map((value) => value.value).toList()..sortBy((element) => element.name)));
-
-    // return Map.fromEntries(groupedObjects.toList()..sort((x, y) => x.key.compareTo(y.key)));
   }
 
   List<Ability> _getAbilitiesNotInSelectedTags() {
     return widget.character.unlockedAbilities
-        .where((item) => item.tags.isEmpty || !item.tags.any((tag) => selectedTags?.contains(tag) ?? false))
+        .where((item) => item.tags.isEmpty || !item.tags.any((tag) => selectedTags?.contains(tag) ?? true))
         .toList()
-      ..sortBy((element) => element.name);
+      ..sortBy((element) => removeDiacritics(element.name.toLowerCase()));
   }
 
   ListTile _getListItem(Ability item) {
@@ -69,41 +62,10 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
   }
 
   void _openFilterDialog() async {
-    if (!mounted) return;
-    await FilterListDialog.display<String>(
-      context,
-      listData: availableTags,
-      hideHeader: true,
-      height: MediaQuery.of(context).size.height / .5,
-      selectedListData: selectedTags ?? [],
-      choiceChipLabel: (tag) => tag,
-      validateSelectedItem: (list, val) => list?.contains(val) ?? false,
-      useRootNavigator: false,
-      themeData: FilterListThemeData(
-        context,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        controlButtonBarTheme: ControlButtonBarThemeData(
-          context,
-          backgroundColor: Theme.of(context).canvasColor,
-          controlButtonTheme: ControlButtonThemeData(
-            textStyle: Theme.of(context).textTheme.bodyLarge,
-            primaryButtonBackgroundColor: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        choiceChipTheme: ChoiceChipThemeData(
-          backgroundColor: Theme.of(context).chipTheme.backgroundColor,
-          selectedBackgroundColor: Theme.of(context).colorScheme.primary,
-        ),
-      ),
-      onItemSearch: (tag, query) => tag.toLowerCase().contains(query.toLowerCase()),
-      onApplyButtonClick: (list) {
-        setState(() {
-          selectedTags = List.from(list!);
-        });
-        _saveSelectedTags();
-        Navigator.pop(context);
-      },
-    );
+    await showAbilityFilterDialog(context, availableTags, selectedTags, (selectedTags) {
+      setState(() => this.selectedTags = selectedTags);
+      _saveSelectedTags();
+    });
   }
 
   void _saveSelectedTags() async {

@@ -7,7 +7,7 @@
         {
             "name": "PRODUCTION",
             "program": "${workspaceFolder}/lib/main.dart",
-            "args": ["--flavor=prod"],
+            "args": ["--flavor=prod", "--release" ],
             "request": "launch",
             "type": "dart"
         },
