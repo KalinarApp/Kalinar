@@ -97,6 +97,7 @@
     "otherAbilities",
     "selectedTags",
     "abilitesCountInTag",
+    "passive",
     "skillName",
     "skillDescription",
     "selectASkill",

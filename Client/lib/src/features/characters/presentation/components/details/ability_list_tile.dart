@@ -10,7 +10,14 @@ class AbilityListTile extends ListTile {
             minLeadingWidth: 0,
             onLongPress: onLongPress,
             contentPadding: EdgeInsets.zero,
-            title: Text(item.name),
+            title: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(item.name),
+                const SizedBox(width: 5),
+                Text(item.isPassive ? AppLocalizations.of(context)!.passive : "", style: Theme.of(context).textTheme.bodySmall),
+              ],
+            ),
             subtitle: (null == item.description || item.description!.isEmpty)
                 ? null
                 : Padding(
