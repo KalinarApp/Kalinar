@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/race.dart';
@@ -7,15 +9,7 @@ class RacesStateNotifier extends StateNotifier<List<Race>?> {
   RacesStateNotifier() : super(null);
 
   void refresh(List<Race>? list) {
-    list?.sort((a, b) {
-      int dateComparison = a.createdAt.compareTo(b.createdAt);
-      if (dateComparison != 0) {
-        return dateComparison;
-      } else {
-        return a.name.compareTo(b.name);
-      }
-    });
-    state = list;
+    state = list?.sortedBy((element) => removeDiacritics(element.name.toLowerCase()));
   }
 
   void add(Race race) {

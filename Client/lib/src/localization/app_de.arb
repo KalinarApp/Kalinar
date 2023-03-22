@@ -137,6 +137,8 @@
       }
     }
   },
+  
+  "passive": "Passiv",
 
   "skillName": "Name des Skills",
   "skillDescription": "Beschreibung des Skills",
