@@ -34,6 +34,7 @@
   "actionDialogTitle": "Aktionen",
   "showMore": "Weiter lesen",
   "showLess": " Weniger",
+  "all": "Alle",
 
   "save": "Speichern",
   "saveApprove": "Speichern & Genehmigen",
@@ -126,6 +127,7 @@
   "abilityTagsHelpText": "Tags werden automatisch beim hinzufügen gespeichert.",
   "abilityFetchTagsFailed": "Fehler beim Abrufen der Tags",
   "otherAbilities": "Weitere",
+  "selectedTags": "ausgewählte Tags",
   "abilitesCountInTag": "{count, plural, =0{0 Elemente} =1{1 Element} other{{count} Elemente}}",
   "@abilitesCountInTag": {
     "placeholders": {
@@ -135,6 +137,8 @@
       }
     }
   },
+  
+  "passive": "Passiv",
 
   "skillName": "Name des Skills",
   "skillDescription": "Beschreibung des Skills",
