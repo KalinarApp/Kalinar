@@ -50,19 +50,19 @@ namespace Hero.Server.Controllers
         }
 
         [HttpGet, IsGroupMember]
-        public async Task<IActionResult> GetCharacterOverviewsAsync(CancellationToken token)
+        public async Task<List<CharacterOverviewResponse>> GetCharacterOverviewsAsync([FromQuery] bool? isOwner, CancellationToken token)
         {
             List<Character> characters;
-            if (await this.userRepository.IsOwner(this.HttpContext.User.GetUserId()))
+            if (await this.userRepository.IsOwner(this.HttpContext.User.GetUserId(), token))
             {
-                characters = await this.repository.GetCharactersAsync(null, token);
+                characters = await this.repository.GetCharactersAsync(null, isOwner, token);
             }
             else
             {
-                characters = await this.repository.GetCharactersAsync(this.HttpContext.User.GetUserId(), token);
+                characters = await this.repository.GetCharactersAsync(this.HttpContext.User.GetUserId(), isOwner, token);
             }
 
-            return this.Ok(characters.Select(character => this.mapper.Map<CharacterOverviewResponse>(character)).ToList());
+            return characters.Select(character => this.mapper.Map<CharacterOverviewResponse>(character)).ToList();
         }
 
         [HttpDelete("{id}"), IsGroupMember]
@@ -75,28 +75,28 @@ namespace Hero.Server.Controllers
         }
 
         [HttpPut("{id}"), IsGroupMember]
-        public async Task<IActionResult> UpdateCharacterAsync(Guid id, [FromBody] CharacterRequest request, CancellationToken token)
+        public async Task<CharacterDetailResponse> UpdateCharacterAsync(Guid id, [FromBody] CharacterRequest request, CancellationToken token)
         {
             Character character = this.mapper.Map<Character>(request);
 
             await this.repository.EnsureIsOwner(id, this.HttpContext.User.GetUserId());
-            await this.repository.UpdateCharacterAsync(id, character, token);
+            character = await this.repository.UpdateCharacterAsync(id, character, token);
 
-            return this.Ok();
+            return this.mapper.Map<CharacterDetailResponse>(character);
         }
 
         [HttpPost, IsGroupMember]
-        public async Task<IActionResult> CreateCharacterAsync([FromBody] CharacterRequest request, CancellationToken token)
+        public async Task<CharacterOverviewResponse> CreateCharacterAsync([FromBody] CharacterRequest request, CancellationToken token)
         {
             Character character = this.mapper.Map<Character>(request);
 
             await this.repository.CreateCharacterAsync(character, this.HttpContext.User.GetUserId(), token);
 
-            return this.Ok(this.mapper.Map<CreateCharacterResponse>(character));
+            return this.mapper.Map<CharacterOverviewResponse>(character);
         }
 
         [HttpPatch("{id}"), IsGroupMember]
-        public async Task<IActionResult> UpdateInventoryAsync(Guid id, [FromBody] CharacterUpdateRequest request, CancellationToken token)
+        public async Task<CharacterDetailResponse> UpdateInventoryAsync(Guid id, [FromBody] CharacterUpdateRequest request, CancellationToken token)
         {
             await this.repository.EnsureIsOwner(id, this.HttpContext.User.GetUserId());
 
@@ -125,9 +125,9 @@ namespace Hero.Server.Controllers
             character.ShareNotes = request.ShareNotes ?? character.ShareNotes;
             character.ShareInventory = request.ShareInventory ?? character.ShareInventory;
 
-            await this.repository.UpdateCharacterAsync(id, character, token);
+            character = await this.repository.UpdateCharacterAsync(id, character, token);
 
-            return this.Ok(this.mapper.Map<CreateCharacterResponse>(character));
+            return this.mapper.Map<CharacterDetailResponse>(character);
         }
     }
 }

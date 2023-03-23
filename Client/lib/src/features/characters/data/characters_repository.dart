@@ -12,16 +12,20 @@ class CharactersRepository extends HeroBaseRepository {
     return await heroGet("/api/characters/$id", (response) => Character.fromJson(response));
   }
 
-  Future<List<CharacterOverview>> getAll() async {
-    return await heroGet("/api/characters", (response) => List<CharacterOverview>.from(response.map((model) => CharacterOverview.fromJson(model))));
+  Future<List<CharacterOverview>> getAll({bool? isOwner}) async {
+    return await heroGet(
+      "/api/characters",
+      (response) => List<CharacterOverview>.from(response.map((model) => CharacterOverview.fromJson(model))),
+      query: {"isOwner": isOwner?.toString()},
+    );
   }
 
-  Future<void> createCharacter(Map<String, dynamic> data) async {
-    return await heroPost("/api/characters", data, (response) => true);
+  Future<CharacterOverview> createCharacter(Map<String, dynamic> data) async {
+    return await heroPost("/api/characters", data, (response) => CharacterOverview.fromJson(response));
   }
 
-  Future<void> updateCharacter(String id, Map<String, dynamic> data) async {
-    return await heroPatch("/api/characters/$id", data, (response) => true);
+  Future<Character> updateCharacter(String id, Map<String, dynamic> data) async {
+    return await heroPatch("/api/characters/$id", data, (response) => Character.fromJson(response));
   }
 
   Future<void> deleteCharacter(String id) async {

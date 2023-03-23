@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../domain/skilltree_overview.dart';
 
-class SkilltreeItem extends StatefulWidget {
+class SkilltreeItem extends StatelessWidget {
   final SkilltreeOverview item;
   final Function(SkilltreeOverview item)? onLongPress;
   final Function(SkilltreeOverview item)? onPress;
@@ -14,26 +14,13 @@ class SkilltreeItem extends StatefulWidget {
   const SkilltreeItem(this.item, {this.onLongPress, this.onPress, this.onChangeActiveState, super.key});
 
   @override
-  State<SkilltreeItem> createState() => _SkilltreeItemState();
-}
-
-class _SkilltreeItemState extends State<SkilltreeItem> {
-  late SkilltreeOverview item;
-
-  @override
-  void initState() {
-    item = widget.item;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
-        onTap: null != widget.onPress ? () => widget.onPress!(item) : null,
-        onLongPress: null != widget.onLongPress ? () => widget.onLongPress!(item) : null,
+        onTap: null != onPress ? () => onPress!(item) : null,
+        onLongPress: null != onLongPress ? () => onLongPress!(item) : null,
         title: Text(item.name, maxLines: 2, overflow: TextOverflow.ellipsis),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -64,14 +51,7 @@ class _SkilltreeItemState extends State<SkilltreeItem> {
         trailing: null != item.character
             ? InkWell(
                 borderRadius: BorderRadius.circular(20),
-                onTap: null == widget.onChangeActiveState
-                    ? null
-                    : () {
-                        widget.onChangeActiveState!(item, !item.isActiveTree);
-                        setState(() {
-                          item = item.copyWith(isActiveTree: !item.isActiveTree);
-                        });
-                      },
+                onTap: null == onChangeActiveState ? null : () => onChangeActiveState!(item, !item.isActiveTree),
                 child: Icon(
                   item.isActiveTree ? Icons.check_circle_outline_outlined : Icons.circle_outlined,
                   size: 32,

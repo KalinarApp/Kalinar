@@ -8,8 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common_widgets/action_menu.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
-import '../application/skillpoint_controller.dart';
-import '../application/skilltree_controller.dart';
+import '../application/controllers/character_controller.dart';
+import '../application/controllers/skillpoint_controller.dart';
+import '../application/controllers/skilltree_controller.dart';
 import 'components/skilltrees/skillpoints_widget.dart';
 import 'components/skilltrees/skilltree_stack.dart';
 import 'components/skilltrees/statistics_widget.dart';
@@ -133,38 +134,44 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
     final user = FirebaseAuth.instance.currentUser;
     final skillpoints = ref.watch(skillpointControllerProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          SkillpointsWidget(skillpoints),
-          const SizedBox(width: 10),
-          if (state.hasValue) StatisticsWidget(state.value!),
-          const SizedBox(width: 12),
-        ],
-      ),
-      body: InteractiveViewer(
-        transformationController: controller,
-        constrained: false,
-        boundaryMargin: const EdgeInsets.all(10.0),
-        minScale: 0.01,
-        maxScale: 5.6,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SizedBox(
-            width: 2000,
-            height: 2000,
-            child: state.maybeWhen(
-              data: (data) {
-                final isEditable = null != user?.uid && user!.uid == data.character!.userId;
-                return SkilltreeStack(
-                  nodes: data.nodes,
-                  currentSkillpoints: skillpoints.currentSkillpoints,
-                  edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
-                  unlockNode: !isEditable ? null : (node) => _unlockNode(data.id, node.id),
-                  onUnlockedLongPress: !isEditable ? null : _showActionDialog,
-                );
-              },
-              orElse: () => Container(),
+    return WillPopScope(
+      onWillPop: () async {
+        final value = await ref.read(characterControllerProvider).get(state.value!.character!.id);
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            SkillpointsWidget(skillpoints),
+            const SizedBox(width: 10),
+            if (state.hasValue) StatisticsWidget(state.value!),
+            const SizedBox(width: 12),
+          ],
+        ),
+        body: InteractiveViewer(
+          transformationController: controller,
+          constrained: false,
+          boundaryMargin: const EdgeInsets.all(10.0),
+          minScale: 0.01,
+          maxScale: 5.6,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: SizedBox(
+              width: 2000,
+              height: 2000,
+              child: state.maybeWhen(
+                data: (data) {
+                  final isEditable = null != user?.uid && user!.uid == data.character!.userId;
+                  return SkilltreeStack(
+                    nodes: data.nodes,
+                    currentSkillpoints: skillpoints.currentSkillpoints,
+                    edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
+                    unlockNode: !isEditable ? null : (node) => _unlockNode(data.id, node.id),
+                    onUnlockedLongPress: !isEditable ? null : _showActionDialog,
+                  );
+                },
+                orElse: () => Container(),
+              ),
             ),
           ),
         ),

@@ -2,14 +2,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/characters/presentation/character_detail_screen.dart';
 import '../../features/characters/presentation/character_editor_screen.dart';
-import '../../features/characters/presentation/character_list_screen.dart';
+import '../../features/characters/presentation/character_overview_screen.dart';
 import '../../features/characters/presentation/skilltree_screen.dart';
 
 final characterRoutes = GoRoute(
-  name: CharacterListScreen.name,
-  path: CharacterListScreen.route,
-  pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const CharacterListScreen()),
-  // redirect: (context, state) => "/characters/${CharacterEditorScreen.route}",
+  name: CharacterOverviewScreen.name,
+  path: CharacterOverviewScreen.route,
+  pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const CharacterOverviewScreen()),
   routes: [
     GoRoute(
       name: CharacterEditorScreen.name,

@@ -7,9 +7,11 @@ class AutoSavingTextField extends StatefulWidget {
   final String title;
   final String? initialValue;
   final Duration duration;
-  final int minLines;
-  final int maxLines;
+  final int? minLines;
+  final int? maxLines;
   final bool enabled;
+  final bool expands;
+  final InputBorder? border;
 
   const AutoSavingTextField({
     required this.onSaving,
@@ -19,6 +21,8 @@ class AutoSavingTextField extends StatefulWidget {
     this.maxLines = 10,
     required this.title,
     this.enabled = true,
+    this.expands = false,
+    this.border,
     super.key,
   });
 
@@ -50,6 +54,8 @@ class _AutoSavingTextFieldState extends State<AutoSavingTextField> {
       minLines: widget.minLines,
       maxLines: widget.maxLines,
       enabled: widget.enabled,
+      expands: widget.expands,
+      textAlignVertical: TextAlignVertical.top,
       onChanged: (value) {
         if (_timer?.isActive ?? false) _timer!.cancel();
         _timer = Timer(widget.duration, () async {
@@ -59,6 +65,7 @@ class _AutoSavingTextFieldState extends State<AutoSavingTextField> {
         });
       },
       decoration: InputDecoration(
+        border: widget.border,
         label: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

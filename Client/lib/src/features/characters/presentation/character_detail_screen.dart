@@ -4,17 +4,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/loading_indicator.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../group_management/application/group_notifier.dart';
-import '../application/character_controller.dart';
+import '../application/controllers/character_controller.dart';
+import '../application/notifier/character_state_notifier.dart';
 import '../domain/character.dart';
 import 'components/details/auto_saving_text_field.dart';
 import 'components/details/character_abilities.dart';
 import 'components/details/character_configuration.dart';
 import 'components/details/character_sheet_widget.dart';
 import 'components/details/character_skilltree_list.dart';
-import 'components/details/character_tab.dart';
 
 class CharacterDetailScreen extends ConsumerStatefulWidget {
   static const String name = "CharacterDetail";
@@ -38,115 +39,109 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
   }
 
   Future _saveField(String fieldName, dynamic value) async {
-    final state = await ref.read(characterControllerProvider.notifier).update(widget.id, {fieldName: value});
+    final state = await ref.read(characterControllerProvider).update(widget.id, {fieldName: value});
     if (!mounted) return;
     state.showSnackbarOnError(context);
   }
 
-  @override
-  void initState() {
-    Future.delayed(Duration.zero, () async => await ref.read(characterControllerProvider.notifier).getById(widget.id));
-    super.initState();
+  _refreshCharacter() async {
+    final value = await ref.read(characterControllerProvider).get(widget.id);
+    if (!mounted) return;
+    value.showSnackbarOnError(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(characterControllerProvider);
-    ref.listen(characterControllerProvider, (previous, next) => next.showSnackbarOnError(context));
+    final state = ref.watch(characterStateProvider);
 
-    return state.when(
-        data: (data) {
-          final List<CharacterTab> tabs = [
-            CharacterTab(
-              icon: const FaIcon(FontAwesomeIcons.person),
-              text: AppLocalizations.of(context)!.characteristics,
-              tab: CharacterSheetWidget(data),
-            ),
-            if (_isOwnerOrAdmin(data) || (data.shareAbilities ?? false))
-              CharacterTab(
-                icon: const FaIcon(FontAwesomeIcons.award),
-                text: AppLocalizations.of(context)!.abilities,
-                tab: CharacterAbilities(data),
-              ),
-            if (_isOwnerOrAdmin(data) || (data.shareSkilltree ?? false))
-              CharacterTab(
-                icon: const FaIcon(FontAwesomeIcons.circleNodes),
-                text: AppLocalizations.of(context)!.skilltrees,
-                tab: CharacterSkilltreeList(data),
-              ),
-            if (_isOwnerOrAdmin(data) || (data.shareInventory ?? false))
-              CharacterTab(
-                icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
-                text: AppLocalizations.of(context)!.characterInventory,
-                tab: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-                  child: Column(
-                    children: [
-                      AutoSavingTextField(
-                        title: AppLocalizations.of(context)!.characterInventory,
-                        initialValue: data.inventory,
-                        minLines: 1,
-                        maxLines: 2000000000,
-                        enabled: _isOwner(data),
-                        onSaving: (currentText) async => await _saveField("inventory", currentText),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            if (_isOwnerOrAdmin(data) || (data.shareNotes ?? false))
-              CharacterTab(
-                icon: const FaIcon(FontAwesomeIcons.noteSticky),
-                text: AppLocalizations.of(context)!.characterNotes,
-                tab: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        AutoSavingTextField(
-                          title: AppLocalizations.of(context)!.characterNotes,
-                          initialValue: data.notes,
-                          minLines: 1,
-                          maxLines: 2000000000,
-                          enabled: _isOwner(data),
-                          onSaving: (currentText) async => await _saveField("notes", currentText),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            if (_isOwner(data))
-              CharacterTab(
-                icon: const FaIcon(Icons.settings),
-                text: AppLocalizations.of(context)!.settings,
-                tab: CharacterConfiguration(data, save: _saveField),
-              )
-          ];
+    if (null == state) {
+      return LoadingIndicator(AppLocalizations.of(context)!.fetchCharacter);
+    }
 
-          return DefaultTabController(
-            length: tabs.length,
-            initialIndex: 0,
-            child: Scaffold(
-              appBar: AppBar(
-                bottom: 1 < tabs.length ? TabBar(tabs: tabs, isScrollable: true) : null,
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: 1 < tabs.length
-                    ? TabBarView(
-                        children: [...tabs.map((e) => e.tab)],
-                      )
-                    : tabs.first.tab,
-              ),
+    final List<ContentTab> tabs = [
+      ContentTab(
+        icon: const FaIcon(FontAwesomeIcons.person),
+        text: AppLocalizations.of(context)!.characteristics,
+        content: CharacterSheetWidget(state),
+      ),
+      if (_isOwnerOrAdmin(state) || (state.shareAbilities ?? false))
+        ContentTab(
+          icon: const FaIcon(FontAwesomeIcons.award),
+          text: AppLocalizations.of(context)!.abilities,
+          content: CharacterAbilities(state),
+        ),
+      if (_isOwnerOrAdmin(state) || (state.shareSkilltree ?? false))
+        ContentTab(
+          icon: const FaIcon(FontAwesomeIcons.circleNodes),
+          text: AppLocalizations.of(context)!.skilltrees,
+          content: CharacterSkilltreeList(state),
+        ),
+      if (_isOwnerOrAdmin(state) || (state.shareInventory ?? false))
+        ContentTab(
+          icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
+          text: AppLocalizations.of(context)!.characterInventory,
+          content: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: AutoSavingTextField(
+              title: AppLocalizations.of(context)!.characterInventory,
+              initialValue: state.inventory,
+              minLines: null,
+              maxLines: null,
+              expands: true,
+              enabled: _isOwner(state),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              onSaving: (currentText) async => await _saveField("inventory", currentText),
             ),
-          );
-        },
-        loading: () => LoadingIndicator(AppLocalizations.of(context)!.fetchCharacter),
-        error: (error, stacktrace) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Text(AppLocalizations.of(context)!.fetchCharactersFailed)],
-            ));
+          ),
+        ),
+      if (_isOwnerOrAdmin(state) || (state.shareNotes ?? false))
+        ContentTab(
+          icon: const FaIcon(FontAwesomeIcons.noteSticky),
+          text: AppLocalizations.of(context)!.characterNotes,
+          content: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: AutoSavingTextField(
+              title: AppLocalizations.of(context)!.characterNotes,
+              initialValue: state.notes,
+              minLines: null,
+              maxLines: null,
+              expands: true,
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              enabled: _isOwner(state),
+              onSaving: (currentText) async => await _saveField("notes", currentText),
+            ),
+          ),
+        ),
+      if (_isOwner(state))
+        ContentTab(
+          icon: const FaIcon(Icons.settings),
+          text: AppLocalizations.of(context)!.settings,
+          content: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: CharacterConfiguration(state, save: _saveField),
+          ),
+        )
+    ];
+
+    return DefaultTabController(
+      length: tabs.length,
+      initialIndex: 0,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(icon: const Icon(Icons.refresh), onPressed: _refreshCharacter),
+          ],
+          bottom: 1 < tabs.length ? TabBar(tabs: tabs, isScrollable: true) : null,
+        ),
+        body: 1 < tabs.length
+            ? NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (OverscrollIndicatorNotification overScroll) {
+                  overScroll.disallowIndicator();
+                  return false;
+                },
+                child: TabBarView(children: [...tabs.map((e) => e.content)]))
+            : tabs.first.content,
+      ),
+    );
   }
 }

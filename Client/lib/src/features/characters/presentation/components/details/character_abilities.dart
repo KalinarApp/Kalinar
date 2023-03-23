@@ -6,8 +6,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/characters/presentation/components/details/ability_filter_dialog.dart';
-import 'package:kalinar/src/features/characters/presentation/components/details/ability_list_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
@@ -15,6 +13,8 @@ import '../../../../traits/application/controller/abilities_controller.dart';
 import '../../../../traits/domain/ability.dart';
 import '../../../../traits/presentation/edit_ability_screen.dart';
 import '../../../domain/character.dart';
+import 'ability_filter_dialog.dart';
+import 'ability_list_tile.dart';
 
 class CharacterAbilities extends ConsumerStatefulWidget {
   final Character character;
@@ -25,6 +25,7 @@ class CharacterAbilities extends ConsumerStatefulWidget {
 }
 
 class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
+  bool isLoading = true;
   List<String> availableTags = [];
   List<String>? selectedTags;
 
@@ -86,6 +87,7 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       selectedTags = prefs.getStringList("UserSelectedAbilityTags");
+      isLoading = false;
     });
   }
 
@@ -120,34 +122,45 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
     final groups = _getGroupedAbilities();
     final abilities = _getAbilitiesNotInSelectedTags();
 
-    return CustomScrollView(
-      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      slivers: [
-        SliverToBoxAdapter(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [IconButton(icon: const FaIcon(FontAwesomeIcons.filter), onPressed: _openFilterDialog)],
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => ExpandableGroup(
-              header: _getGroupTitle(groups.keys.elementAt(index), groups.values.elementAt(index).length),
-              items: groups.values.elementAt(index).map(_getListItem).toList(),
-            ),
-            childCount: groups.length,
-          ),
-        ),
-        if (abilities.isNotEmpty && groups.isNotEmpty)
-          SliverToBoxAdapter(
-            child: ExpandableGroup(
-                header: _getGroupTitle(AppLocalizations.of(context)!.otherAbilities, abilities.length),
-                items: abilities.map((item) => _getListItem(item, showTags: true)).toList()),
-          ),
-        if (groups.isEmpty)
-          SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) => _getListItem(abilities[index], showTags: true), childCount: abilities.length))
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (OverscrollIndicatorNotification overScroll) {
+          overScroll.disallowIndicator();
+          return false;
+        },
+        child: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [IconButton(icon: const FaIcon(FontAwesomeIcons.filter), onPressed: _openFilterDialog)],
+                    ),
+                  ),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => ExpandableGroup(
+                        header: _getGroupTitle(groups.keys.elementAt(index), groups.values.elementAt(index).length),
+                        items: groups.values.elementAt(index).map(_getListItem).toList(),
+                      ),
+                      childCount: groups.length,
+                    ),
+                  ),
+                  if (abilities.isNotEmpty && groups.isNotEmpty)
+                    SliverToBoxAdapter(
+                      child: ExpandableGroup(
+                          header: _getGroupTitle(AppLocalizations.of(context)!.otherAbilities, abilities.length),
+                          items: abilities.map((item) => _getListItem(item, showTags: true)).toList()),
+                    ),
+                  if (groups.isEmpty)
+                    SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) => _getListItem(abilities[index], showTags: true),
+                            childCount: abilities.length))
+                ],
+              ),
+      ),
     );
   }
 }

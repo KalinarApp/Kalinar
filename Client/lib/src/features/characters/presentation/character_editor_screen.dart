@@ -15,7 +15,7 @@ import '../../../common_widgets/form_fields/image_selector.dart';
 import '../../../common_widgets/form_fields/multiline_text_field.dart';
 import '../../../common_widgets/save_button.dart';
 import '../../../utilities/async_value_extension.dart';
-import '../application/character_controller.dart';
+import '../application/controllers/character_controller.dart';
 import '../domain/character.dart';
 import 'components/race_selection.dart';
 
@@ -40,7 +40,7 @@ class _CharacterEditorScreenState extends ConsumerState<CharacterEditorScreen> {
 
   @override
   void initState() {
-    controller = ref.read(characterControllerProvider.notifier);
+    controller = ref.read(characterControllerProvider);
     super.initState();
   }
 
