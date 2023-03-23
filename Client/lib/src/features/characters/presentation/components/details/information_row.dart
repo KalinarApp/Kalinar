@@ -10,11 +10,7 @@ class InformationRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        Text("$title:", style: Theme.of(context).textTheme.bodyLarge),
-        const SizedBox(width: 5),
-        Text(value ?? "-"),
-      ],
+      children: [Text("$title:", style: Theme.of(context).textTheme.bodyLarge), const SizedBox(width: 5), Text(value ?? "-")],
     );
   }
 }

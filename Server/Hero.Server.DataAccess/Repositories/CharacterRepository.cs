@@ -127,11 +127,11 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task UpdateCharacterAsync(Guid id, Character updatedCharacter, CancellationToken cancellationToken = default)
+        public async Task<Character> UpdateCharacterAsync(Guid id, Character updatedCharacter, CancellationToken cancellationToken = default)
         {
             try
             {
-                Character? existing = await this.GetCharacterByIdAsync(id, cancellationToken);
+                Character? existing = await this.GetCharacterWithNestedByIdAsync(id, cancellationToken);
 
                 if (null == existing)
                 {
@@ -142,6 +142,8 @@ namespace Hero.Server.DataAccess.Repositories
 
                 this.context.Characters.Update(existing);
                 await this.context.SaveChangesAsync(cancellationToken);
+
+                return existing;
             }
             catch (HeroException ex)
             {

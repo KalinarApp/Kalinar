@@ -172,6 +172,12 @@
   "characteristics": "Steckbrief",
   "ownCharacters": "Eigene Charaktere",
   "otherCharacters": "Weitere Charaktere",
+  "shareCharacter": "Charakter mit Gruppenmitgliedern teilen",
+  "shareCharacterSkilltrees": "Andere dürfen Skillbäume sehen",
+  "shareCharacterNotes": "Andere dürfen Notizen sehen",
+  "shareCharacterInventory": "Andere dürfen Inventar sehen",
+  "shareCharacterAbilities": "Andere dürfen Talente sehen",
+  "shareCharacterAttributes": "Andere dürfen Statistik sehen",
 
   "manageGroup": "Gruppe verwalten",
   "manageCharacteristics": "Eigenschaften verwalten",

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -17,11 +18,18 @@ class CharacterSkilltreeList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView.builder(
-      itemCount: character.skilltrees.length,
-      itemBuilder: (context, index) => SkilltreeItem(
-        character.skilltrees[index],
-        onPress: (item) => _openSkilltree(item, context),
+    final items = [...character.skilltrees]..sortBy((element) => element.name);
+    return NotificationListener<OverscrollIndicatorNotification>(
+      onNotification: (OverscrollIndicatorNotification overScroll) {
+        overScroll.disallowIndicator();
+        return false;
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, index) => SkilltreeItem(items[index], onPress: (item) => _openSkilltree(item, context)),
+        ),
       ),
     );
   }

@@ -24,8 +24,8 @@ class CharactersRepository extends HeroBaseRepository {
     return await heroPost("/api/characters", data, (response) => CharacterOverview.fromJson(response));
   }
 
-  Future<void> updateCharacter(String id, Map<String, dynamic> data) async {
-    return await heroPatch("/api/characters/$id", data, (response) => true);
+  Future<Character> updateCharacter(String id, Map<String, dynamic> data) async {
+    return await heroPatch("/api/characters/$id", data, (response) => Character.fromJson(response));
   }
 
   Future<void> deleteCharacter(String id) async {
