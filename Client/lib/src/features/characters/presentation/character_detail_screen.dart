@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/loading_indicator.dart';
@@ -123,24 +124,35 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
         )
     ];
 
-    return DefaultTabController(
-      length: tabs.length,
-      initialIndex: 0,
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(icon: const Icon(Icons.refresh), onPressed: _refreshCharacter),
-          ],
-          bottom: 1 < tabs.length ? TabBar(tabs: tabs, isScrollable: true) : null,
+    return KeyboardDismisser(
+      child: DefaultTabController(
+        length: tabs.length,
+        initialIndex: 0,
+        child: Builder(
+          builder: (ctx) {
+            final controller = DefaultTabController.of(ctx);
+            controller.addListener(() {
+              FocusManager.instance.primaryFocus?.unfocus();
+            });
+
+            return Scaffold(
+              appBar: AppBar(
+                actions: [
+                  IconButton(icon: const Icon(Icons.refresh), onPressed: _refreshCharacter),
+                ],
+                bottom: 1 < tabs.length ? TabBar(tabs: tabs, isScrollable: true) : null,
+              ),
+              body: 1 < tabs.length
+                  ? NotificationListener<OverscrollIndicatorNotification>(
+                      onNotification: (OverscrollIndicatorNotification overScroll) {
+                        overScroll.disallowIndicator();
+                        return false;
+                      },
+                      child: TabBarView(children: [...tabs.map((e) => e.content)]))
+                  : tabs.first.content,
+            );
+          },
         ),
-        body: 1 < tabs.length
-            ? NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (OverscrollIndicatorNotification overScroll) {
-                  overScroll.disallowIndicator();
-                  return false;
-                },
-                child: TabBarView(children: [...tabs.map((e) => e.content)]))
-            : tabs.first.content,
       ),
     );
   }
