@@ -66,8 +66,10 @@ class _AutoSavingTextFieldState extends State<AutoSavingTextField> {
       },
       decoration: InputDecoration(
         border: widget.border,
+        alignLabelWithHint: true,
         label: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(widget.title),
             const SizedBox(width: 4),
