@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_size/window_size.dart';
 
-import 'src/common_widgets/kalinar.dart';
 import 'firebase_initialization.dart';
+import 'src/common_widgets/kalinar.dart';
 
 class DevHttpOverrides extends HttpOverrides {
   @override
@@ -38,10 +38,19 @@ void main() async {
 
     _loadFlavors();
     await initializeFirebase();
-    await initializeMessaging();
 
-    runApp(const ProviderScope(child: Kalinar()));
-  }, (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack);
+    if (!Platform.isWindows) {
+      await initializeMessaging();
+    }
+
+    await SentryFlutter.init(
+      (options) {
+        options.dsn = const String.fromEnvironment("SENTRY_DSN");
+        options.tracesSampleRate = 1.0;
+      },
+      appRunner: () => runApp(const ProviderScope(child: Kalinar())),
+    );
+  }, (error, stack) async {
+    await Sentry.captureException(error, stackTrace: stack);
   });
 }
