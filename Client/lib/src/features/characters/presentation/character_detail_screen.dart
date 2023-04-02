@@ -9,6 +9,7 @@ import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/loading_indicator.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../group_management/application/group_notifier.dart';
+import '../../inventory/presentation/inventory_list.dart';
 import '../application/controllers/character_controller.dart';
 import '../application/notifier/character_state_notifier.dart';
 import '../domain/character.dart';
@@ -81,19 +82,20 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
         ContentTab(
           icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
           text: AppLocalizations.of(context)!.characterInventory,
-          content: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: AutoSavingTextField(
-              title: AppLocalizations.of(context)!.characterInventory,
-              initialValue: state.inventory,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              enabled: _isOwner(state),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-              onSaving: (currentText) async => await _saveField("inventory", currentText),
-            ),
-          ),
+          content: const InventoryList(),
+          // content: Padding(
+          //   padding: const EdgeInsets.all(12.0),
+          //   child: AutoSavingTextField(
+          //     title: AppLocalizations.of(context)!.characterInventory,
+          //     initialValue: state.inventory,
+          //     minLines: null,
+          //     maxLines: null,
+          //     expands: true,
+          //     enabled: _isOwner(state),
+          //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          //     onSaving: (currentText) async => await _saveField("inventory", currentText),
+          //   ),
+          // ),
         ),
       if (_isOwnerOrAdmin(state) || (state.shareNotes ?? false))
         ContentTab(
