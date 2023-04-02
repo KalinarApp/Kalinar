@@ -47,16 +47,11 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Character>> GetCharactersAsync(string? userId, bool? isOwner, CancellationToken cancellationToken = default)
+        public async Task<List<Character>> GetCharactersAsync(string userId, bool isAdmin, bool? isOwner, CancellationToken cancellationToken = default)
         {
             try
             {
-                IQueryable<Character> query = this.context.Characters;
-
-                if (null != userId)
-                {
-                    query = query.Where(c => c.UserId == userId || c.IsPublic);
-                }
+                IQueryable<Character> query = this.context.Characters.Where(c => c.UserId == userId || c.IsPublic || isAdmin);
 
                 if (null != isOwner)
                 {

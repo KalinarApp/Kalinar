@@ -53,14 +53,10 @@ namespace Hero.Server.Controllers
         public async Task<List<CharacterOverviewResponse>> GetCharacterOverviewsAsync([FromQuery] bool? isOwner, CancellationToken token)
         {
             List<Character> characters;
-            if (await this.userRepository.IsOwner(this.HttpContext.User.GetUserId(), token))
-            {
-                characters = await this.repository.GetCharactersAsync(null, isOwner, token);
-            }
-            else
-            {
-                characters = await this.repository.GetCharactersAsync(this.HttpContext.User.GetUserId(), isOwner, token);
-            }
+            string userId = this.HttpContext.User.GetUserId();
+
+
+            characters = await this.repository.GetCharactersAsync(userId, await this.userRepository.IsOwner(userId, token), isOwner, token);
 
             return characters.Select(character => this.mapper.Map<CharacterOverviewResponse>(character)).ToList();
         }
