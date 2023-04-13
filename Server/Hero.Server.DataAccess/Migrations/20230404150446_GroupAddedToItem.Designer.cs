@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Hero.Server.DataAccess.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hero.Server.DataAccess.Migrations
 {
     [DbContext(typeof(HeroDbContext))]
-    partial class HeroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230404150446_GroupAddedToItem")]
+    partial class GroupAddedToItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -394,13 +396,6 @@ namespace Hero.Server.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("CreatorId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Description")
                         .HasMaxLength(2048)
                         .HasColumnType("character varying(2048)");
@@ -411,12 +406,6 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsSingle")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -426,12 +415,7 @@ namespace Hero.Server.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
 
                     b.HasIndex("GroupId");
 
@@ -929,7 +913,7 @@ namespace Hero.Server.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Hero.Server.Core.Models.Inventory.Item", "Item")
-                        .WithMany("Characters")
+                        .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -941,19 +925,11 @@ namespace Hero.Server.DataAccess.Migrations
 
             modelBuilder.Entity("Hero.Server.Core.Models.Inventory.Item", b =>
                 {
-                    b.HasOne("Hero.Server.Core.Models.User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Hero.Server.Core.Models.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Creator");
 
                     b.Navigation("Group");
                 });
@@ -1099,11 +1075,6 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Navigation("Skilltrees");
 
                     b.Navigation("StoryEntries");
-                });
-
-            modelBuilder.Entity("Hero.Server.Core.Models.Inventory.Item", b =>
-                {
-                    b.Navigation("Characters");
                 });
 
             modelBuilder.Entity("Hero.Server.Core.Models.Race", b =>

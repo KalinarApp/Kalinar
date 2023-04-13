@@ -1,4 +1,5 @@
 ﻿using Hero.Server.Core.Models;
+using Hero.Server.Core.Models.Inventory;
 using Hero.Server.Core.Models.Storyline;
 
 using Microsoft.EntityFrameworkCore;
@@ -20,18 +21,17 @@ namespace Hero.Server.DataAccess.Database
         public DbSet<Character> Characters { get; set; }
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<Skill> Skills { get; set; }
-        public DbSet<BlueprintNode> BlueprintNodes { get; set; }
-        public DbSet<SkilltreeNode> SkilltreeNodes { get; set; }
         public DbSet<Skilltree> Skilltrees { get; set; }
         public DbSet<Blueprint> Blueprints { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Attribute> Attributes { get; set; }
         public DbSet<Race> Races { get; set; }
-        public DbSet<AttributeRace> AttributeRaces { get; set; }
-        public DbSet<AttributeSkill> AttributeSkills { get; set; }
 
         public DbSet<StoryEntry> StoryEntries { get; set; }
         public DbSet<StoryBookPage> StoryBookPages { get; set; }
+
+        public DbSet<CharacterItem> CharacterItems { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -48,6 +48,9 @@ namespace Hero.Server.DataAccess.Database
             builder.Entity<Blueprint>().HasQueryFilter(b => b.GroupId == this.CurrentGroup.Id);
             builder.Entity<StoryBookPage>().HasQueryFilter(b => b.GroupId == this.CurrentGroup.Id);
             builder.Entity<StoryEntry>().HasQueryFilter(b => b.GroupId == this.CurrentGroup.Id);
+
+            builder.Entity<Item>().HasQueryFilter(i => i.GroupId == this.CurrentGroup.Id);
+            builder.Entity<CharacterItem>().HasQueryFilter(i => i.Item.GroupId == this.CurrentGroup.Id);
         }
     }
 }

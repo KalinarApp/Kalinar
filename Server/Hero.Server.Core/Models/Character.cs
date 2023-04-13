@@ -1,4 +1,6 @@
-﻿namespace Hero.Server.Core.Models
+﻿using Hero.Server.Core.Models.Inventory;
+
+namespace Hero.Server.Core.Models
 {
     public class Character
     {
@@ -7,16 +9,17 @@
         public Guid GroupId { get; set; }
         public string? IconUrl { get; set; }
         public int? Age { get; set; }
-        public string? Inventory { get; set; }
         public string? Religion { get; set; }
         public string? Relationship { get; set; }
         public string? Notes { get; set; }
+        public string? Inventory { get; set; }
         public string? Profession { get; set; }
         public List<Skilltree> Skilltrees { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
         public Race Race { get; set; }
         public Guid? RaceId { get; set; }
+        public List<CharacterItem> Items { get; set; }
 
         public bool IsPublic { get; set; }
         public bool? ShareSkilltree { get; set; }
@@ -32,12 +35,12 @@
             this.Skilltrees = character.Skilltrees;
             this.RaceId = character.RaceId;
             this.Age = character.Age;
-            this.Inventory = character.Inventory;
             this.Religion = character.Religion;
             this.Relationship = character.Relationship;
             this.Notes = character.Notes;
             this.Profession = character.Profession;
             this.IconUrl = character.IconUrl;
+            this.Inventory = character.Inventory;
         }
     }
 }

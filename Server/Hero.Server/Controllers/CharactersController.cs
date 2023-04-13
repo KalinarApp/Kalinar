@@ -2,6 +2,7 @@
 
 using Hero.Server.Core.Exceptions;
 using Hero.Server.Core.Models;
+using Hero.Server.Core.Models.Inventory;
 using Hero.Server.Core.Repositories;
 using Hero.Server.Identity;
 using Hero.Server.Identity.Attributes;
@@ -17,13 +18,15 @@ namespace Hero.Server.Controllers
     public class CharactersController : HeroControllerBase
     {
         private readonly ICharacterRepository repository;
+        private readonly IItemRepository itemRepository;
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
 
-        public CharactersController(ICharacterRepository repository, IUserRepository userRepository, IMapper mapper, ILogger<CharactersController> logger)
+        public CharactersController(ICharacterRepository repository, IItemRepository itemRepository, IUserRepository userRepository, IMapper mapper, ILogger<CharactersController> logger)
             : base(logger)
         {
             this.repository = repository;
+            this.itemRepository = itemRepository;
             this.userRepository = userRepository;
             this.mapper = mapper;
         }
@@ -59,6 +62,22 @@ namespace Hero.Server.Controllers
             characters = await this.repository.GetCharactersAsync(userId, await this.userRepository.IsOwner(userId, token), isOwner, token);
 
             return characters.Select(character => this.mapper.Map<CharacterOverviewResponse>(character)).ToList();
+        }
+
+        [HttpGet("{id}/inventory"), IsGroupMember] 
+        public async Task<List<CharacterItemResponse>> GetInventoryAsync(Guid id, CancellationToken cancellationToken)
+        {
+            string userId = this.HttpContext.User.GetUserId();
+            Character? character = await this.repository.GetCharacterByIdAsync(id, cancellationToken);
+
+            if (null == character || userId != character.UserId || await this.userRepository.IsOwner(userId, cancellationToken) || !character.IsPublic || character.ShareInventory == false)
+            {
+                throw new ObjectNotFoundException("The inventory for this character could not be found.");
+            }
+
+            List<CharacterItem> inventory = await this.itemRepository.GetInventoryByCharacterIdAsync(id, cancellationToken);
+
+            return inventory.Select(item => this.mapper.Map<CharacterItemResponse>(item)).ToList();
         }
 
         [HttpDelete("{id}"), IsGroupMember]

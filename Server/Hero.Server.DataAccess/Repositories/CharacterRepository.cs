@@ -75,6 +75,7 @@ namespace Hero.Server.DataAccess.Repositories
                     .Include(c => c.Skilltrees).ThenInclude(c => c.Nodes).ThenInclude(n => n.Skill).ThenInclude(s => s.Ability)
                     .Include(c => c.Skilltrees).ThenInclude(s => s.Nodes).ThenInclude(n => n.Skill).ThenInclude(s => s.Attributes).ThenInclude(a => a.Attribute)
                     .Include(c => c.Race).ThenInclude(r => r.Attributes).ThenInclude(ar => ar.Attribute)
+                    .Include(c => c.Items).ThenInclude(i => i.Item)
                     .FirstOrDefaultAsync(c => c.Id == id);
             }
             catch (Exception ex)

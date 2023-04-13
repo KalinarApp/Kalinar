@@ -32,6 +32,8 @@ namespace Hero.Server.DataAccess.Extensions
             services.AddTransient<IStoryEntryRepository, StoryEntryRepository>();
             services.AddTransient<IStoryBookPageRepository, StoryBookPageRepository>();
 
+            services.AddTransient<IItemRepository, ItemRepository>();
+
             return services;
         }
     }
