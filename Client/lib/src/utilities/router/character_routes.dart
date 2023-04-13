@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/inventory/presentation/items_list_screen.dart';
 
 import '../../features/characters/presentation/character_detail_screen.dart';
 import '../../features/characters/presentation/character_editor_screen.dart';
@@ -10,6 +11,11 @@ final characterRoutes = GoRoute(
   path: CharacterOverviewScreen.route,
   pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const CharacterOverviewScreen()),
   routes: [
+    GoRoute(
+      name: ItemsListScreen.name,
+      path: ItemsListScreen.route,
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const ItemsListScreen()),
+    ),
     GoRoute(
       name: CharacterEditorScreen.name,
       path: CharacterEditorScreen.route,
