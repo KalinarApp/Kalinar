@@ -56,7 +56,7 @@ class _UserListState extends ConsumerState<UserList> {
               child: state.when(
                 data: (data) => ListView.builder(
                   itemCount: data.length,
-                  itemBuilder: (_, index) => UserListItem(data[index]),
+                  itemBuilder: (_, index) => data[index].email.isEmpty ? Container() : UserListItem(data[index]),
                 ),
                 error: (error, _) => Center(child: Text(AppLocalizations.of(context)!.fetchMembersFailed)),
                 loading: () => LoadingIndicator(AppLocalizations.of(context)!.fetchMembers),

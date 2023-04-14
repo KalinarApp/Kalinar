@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_size/window_size.dart';
 
-import 'src/common_widgets/kalinar.dart';
 import 'firebase_initialization.dart';
+import 'src/common_widgets/kalinar.dart';
 
 class DevHttpOverrides extends HttpOverrides {
   @override
@@ -21,7 +21,7 @@ class DevHttpOverrides extends HttpOverrides {
 void _loadFlavors() {
   if (kDebugMode) {
     HttpOverrides.global = DevHttpOverrides();
-    FlavorConfig(name: "DEV", variables: {"baseUrl": Platform.isAndroid ? "10.0.2.2" : "localhost"});
+    FlavorConfig(name: "DEV", variables: {"baseUrl": !kIsWeb && Platform.isAndroid ? "10.0.2.2" : "localhost"});
   } else {
     FlavorConfig(variables: {"baseUrl": "api.kalinar.app"});
   }
@@ -31,17 +31,23 @@ void main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
       setWindowTitle('Hero App');
       setWindowMinSize(const Size(500, 800));
     }
 
     _loadFlavors();
     await initializeFirebase();
-    await initializeMessaging();
+    if (!kIsWeb && Platform.isWindows) await initializeMessaging();
 
-    runApp(const ProviderScope(child: Kalinar()));
-  }, (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack);
+    await SentryFlutter.init(
+      (options) {
+        options.dsn = const String.fromEnvironment("SENTRY_DSN");
+        options.tracesSampleRate = 1.0;
+      },
+      appRunner: () => runApp(const ProviderScope(child: Kalinar())),
+    );
+  }, (error, stack) async {
+    await Sentry.captureException(error, stackTrace: stack);
   });
 }

@@ -4,10 +4,14 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/action_menu.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
+import '../../group_management/application/group_notifier.dart';
+import '../../traits/application/controller/skills_controller.dart';
+import '../../traits/presentation/edit_skill_screen.dart';
 import '../application/controllers/character_controller.dart';
 import '../application/controllers/skillpoint_controller.dart';
 import '../application/controllers/skilltree_controller.dart';
@@ -76,8 +80,11 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
   }
 
   Future<void> _showActionDialog(Node item) async {
+    final isAdmin = ref.read(groupNotifierProvider).group?.ownerId == FirebaseAuth.instance.currentUser?.uid;
+
     final action = await showActionsModal(context, actions: [
-      item.isResettable() ? DialogAction.reset : DialogAction.resetDisabled,
+      if (isAdmin) DialogAction.edit,
+      item.isResettable() && !isAdmin ? DialogAction.reset : DialogAction.resetDisabled,
       DialogAction.cancel,
     ]);
     if (null == action || !mounted) return;
@@ -88,8 +95,11 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
         if (!mounted) return;
         value.showSnackbarOnError(context);
         break;
-      case DialogAction.delete:
       case DialogAction.edit:
+        ref.read(skillsControllerProvider).getById(item.skillId);
+        GoRouter.of(context).pushNamed(EditSkillScreen.name, queryParams: {"id": item.skillId});
+        break;
+      case DialogAction.delete:
       case DialogAction.loadAsNewSkilltree:
       case DialogAction.saveAsBlueprint:
       case DialogAction.resetDisabled:
@@ -167,7 +177,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
                     currentSkillpoints: skillpoints.currentSkillpoints,
                     edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
                     unlockNode: !isEditable ? null : (node) => _unlockNode(data.id, node.id),
-                    onUnlockedLongPress: !isEditable ? null : _showActionDialog,
+                    onOpenContextMenu: _showActionDialog,
                   );
                 },
                 orElse: () => Container(),

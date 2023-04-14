@@ -79,7 +79,7 @@ class NodeModal extends ConsumerWidget {
                 initialValue: item?.cost.toDouble() ?? 0,
                 valueTransform: (value) => value?.toInt() ?? 0,
                 min: 0,
-                max: 10,
+                max: 10000,
                 step: 1,
               ),
               const SizedBox(height: 10),
