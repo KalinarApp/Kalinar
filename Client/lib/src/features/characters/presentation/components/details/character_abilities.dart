@@ -36,7 +36,8 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
         element: List<Ability>.empty()
     };
     for (final key in map.keys) {
-      map[key] = widget.character.unlockedAbilities.where((item) => item.tags.contains(key)).toList();
+      map[key] = widget.character.unlockedAbilities.where((item) => item.tags.contains(key)).toList()
+        ..sortBy((element) => removeDiacritics(element.name.toLowerCase()));
     }
 
     return map;

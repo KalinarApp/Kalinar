@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../kalinar_icons.dart';
 import '../../../../common_widgets/user_menu.dart';
 import '../../skilltrees/presentation/skilltree_list_screen.dart';
 import '../../storyline/presentation/storyline_overview_screen.dart';
@@ -50,17 +50,17 @@ class AdminMenuScreen extends StatelessWidget {
               child: Column(
                 children: [
                   AdminMenuItem(
-                    icon: Icons.mail,
+                    icon: Kalinar.group,
                     title: AppLocalizations.of(context)!.manageGroup,
                     onTab: () => GoRouter.of(context).goNamed(ManageGroupScreen.name),
                   ),
                   AdminMenuItem(
-                    icon: FontAwesomeIcons.bookJournalWhills,
+                    icon: Kalinar.timeline,
                     title: AppLocalizations.of(context)!.manageStoryline,
                     onTab: () => GoRouter.of(context).goNamed(StorylineOverviewScreen.name),
                   ),
                   AdminMenuItem(
-                    icon: FontAwesomeIcons.circleNodes,
+                    icon: Kalinar.node,
                     title: AppLocalizations.of(context)!.manageSkilltrees,
                     onTab: () => GoRouter.of(context).pushNamed(SkilltreeListScreen.name),
                   ),

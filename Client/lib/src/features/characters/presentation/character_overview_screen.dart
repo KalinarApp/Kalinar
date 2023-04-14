@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/content_tab.dart';
-import '../../../common_widgets/user_menu.dart';
 import '../application/controllers/character_overview_controller.dart';
 import '../application/notifier/character_overview_state_notifier.dart';
 import 'character_editor_screen.dart';
@@ -55,7 +54,12 @@ class _CharacterOverviewScreenState extends ConsumerState<CharacterOverviewScree
           ? FloatingActionButton(onPressed: () => GoRouter.of(context).pushNamed(CharacterEditorScreen.name), child: const Icon(Icons.add))
           : null,
       appBar: AppBar(
-        actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())],
+        actions: [
+          // IconButton(
+          //   icon: const Icon(Kalinar.sword, size: 32),
+          //   onPressed: () => GoRouter.of(context).pushNamed(ItemsListScreen.name),
+          // )
+        ],
         bottom: TabBar(tabs: tabs, controller: _controller),
       ),
       body: Padding(

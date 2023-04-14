@@ -11,8 +11,9 @@ import 'node_tooltip.dart';
 class UnlockableNodeWidget extends StatefulWidget {
   final Node item;
   final Function(Node item)? onUnlock;
+  final Function(Node item)? onLongPress;
 
-  const UnlockableNodeWidget(this.item, {required this.onUnlock, super.key});
+  const UnlockableNodeWidget(this.item, {required this.onUnlock, this.onLongPress, super.key});
 
   @override
   State<UnlockableNodeWidget> createState() => _UnlockableNodeWidgetState();
@@ -21,6 +22,32 @@ class UnlockableNodeWidget extends StatefulWidget {
 class _UnlockableNodeWidgetState extends State<UnlockableNodeWidget> {
   final controller = JustTheController();
   bool isLoading = false;
+
+  Widget _buildNote() {
+    return Stack(
+      children: [
+        Positioned.fill(child: Container(color: Colors.black54)),
+        Transform.rotate(
+          angle: -pi / 4,
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: null != widget.item.skill.iconUrl
+                    ? Ink.image(
+                        image: NetworkImage(widget.item.skill.iconUrl!),
+                        fit: BoxFit.fill,
+                        width: 32,
+                        height: 32,
+                      )
+                    : const SizedBox(width: 32, height: 32),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,35 +82,19 @@ class _UnlockableNodeWidgetState extends State<UnlockableNodeWidget> {
                 child: Card(
                   clipBehavior: Clip.hardEdge,
                   color: Color(int.parse(widget.item.color)),
-                  child: CustomLongPress(
-                    onTap: () => controller.showTooltip(),
-                    duration: const Duration(milliseconds: 1500),
-                    onLongPress: null == widget.onUnlock ? null : () => widget.onUnlock!(widget.item),
-                    onStateChanged: (state) => setState(() => isLoading = state),
-                    child: Stack(
-                      children: [
-                        Positioned.fill(child: Container(color: Colors.black54)),
-                        Transform.rotate(
-                          angle: -pi / 4,
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: null != widget.item.skill.iconUrl
-                                    ? Ink.image(
-                                        image: NetworkImage(widget.item.skill.iconUrl!),
-                                        fit: BoxFit.fill,
-                                        width: 32,
-                                        height: 32,
-                                      )
-                                    : const SizedBox(width: 32, height: 32),
-                              ),
-                            ],
-                          ),
+                  child: null != widget.onUnlock
+                      ? CustomLongPress(
+                          onTap: () => controller.showTooltip(),
+                          duration: const Duration(milliseconds: 1500),
+                          onLongPress: () => widget.onUnlock!(widget.item),
+                          onStateChanged: (state) => setState(() => isLoading = state),
+                          child: _buildNote(),
+                        )
+                      : GestureDetector(
+                          onTap: controller.showTooltip,
+                          onLongPress: null != widget.onLongPress ? () => widget.onLongPress!(widget.item) : null,
+                          child: _buildNote(),
                         ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
             ],

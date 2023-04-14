@@ -1,4 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../kalinar_icons.dart';
 import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
@@ -39,7 +39,6 @@ final routeProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: "/",
     debugLogDiagnostics: kDebugMode,
-    observers: [FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance)],
     navigatorKey: rootNavigatorKey,
     redirect: (context, state) {
       if (authState.isLoading || authState.hasError) return null;
@@ -94,26 +93,26 @@ final routeProvider = Provider<GoRouter>((ref) {
               ScaffoldWithNavbarItem(
                 context,
                 initialLocation: "/characters",
-                icon: const Icon(Icons.man),
+                icon: const Icon(Kalinar.kali),
                 label: (AppLocalizations.of(context)!.characters),
               ),
               ScaffoldWithNavbarItem(
                 context,
                 initialLocation: StoryScreen.route,
-                imagePath: "assets/images/history.png",
+                icon: const Icon(Kalinar.timeline),
                 label: (AppLocalizations.of(context)!.story),
               ),
               ScaffoldWithNavbarItem(
                 context,
                 initialLocation: TraitsOverviewScreen.route,
-                imagePath: "assets/images/traits.png",
+                icon: const Icon(Kalinar.jigsaw),
                 label: AppLocalizations.of(context)!.traits,
               ),
               if (isAdmin)
                 ScaffoldWithNavbarItem(
                   context,
                   initialLocation: AdminMenuScreen.route,
-                  icon: const Icon(Icons.coffee),
+                  icon: const Icon(Kalinar.coffee),
                   label: (AppLocalizations.of(context)!.admin),
                 ),
             ],

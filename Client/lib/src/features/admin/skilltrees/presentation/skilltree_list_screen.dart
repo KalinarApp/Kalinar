@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../kalinar_icons.dart';
 import '../../../../common_widgets/user_menu.dart';
 import 'components/overview/blueprints/blueprint_tab.dart';
 import 'components/overview/skilltrees/skilltree_tab.dart';
@@ -35,8 +36,8 @@ class SkilltreeListScreenState extends ConsumerState<SkilltreeListScreen> {
           ],
           bottom: const TabBar(
             tabs: [
-              Tab(icon: FaIcon(FontAwesomeIcons.circleNodes)),
-              Tab(icon: FaIcon(FontAwesomeIcons.map)),
+              Tab(icon: FaIcon(Kalinar.node)),
+              Tab(icon: FaIcon(Kalinar.blueprint)),
             ],
           ),
         ),
