@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kalinar/src/features/traits/domain/suggestable.dart';
 
 import '../../group_management/domain/user.dart';
 import 'ability.dart';
 import 'attribute_value.dart';
+import 'suggestable.dart';
 import 'suggestion_state.dart';
 
 part 'skill.freezed.dart';

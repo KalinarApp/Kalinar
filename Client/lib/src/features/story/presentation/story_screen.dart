@@ -59,7 +59,7 @@ class _StoryScreenState extends ConsumerState<StoryScreen> {
                   child: data.books.isEmpty && data.images.isEmpty && data.history.isEmpty
                       ? Center(child: Text(AppLocalizations.of(context)!.storyEmpty))
                       : CustomScrollView(
-                          physics: const BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                           slivers: [
                             if (data.images.isNotEmpty) ImageCarousel(data.images, controller: carouselController),
                             if (data.books.isNotEmpty) BookStack(data.books),

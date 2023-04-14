@@ -34,6 +34,7 @@
   "actionDialogTitle": "Aktionen",
   "showMore": "Weiter lesen",
   "showLess": " Weniger",
+  "all": "Alle",
 
   "save": "Speichern",
   "saveApprove": "Speichern & Genehmigen",
@@ -43,8 +44,14 @@
   "search": "Suchen",
   "settings": "Einstellungen",
 
+  "pending": "Ausstehend",
+  "approved": "Genehmigt",
+  "rejected": "Abgelehnt",
   "reject": "Ablehnen",
   "rejectReason": "Grund der Ablehnung",
+
+  "filter": "Filter",
+  "filterState": "Status auswählen",
 
   "workInProgress": "Diese Seite ist noch in Arbeit!",
 
@@ -115,6 +122,23 @@
   "searchForAbility": "Talent suchen",
   "newAbility": "Neues Talent",
   "loadAbilityFailed": "Fehler beim Abrufen des gewünschten Talents.",
+  "abilityTags": "Tags hinzufügen",
+  "abilityAddTag": "Tag hinzufügen",
+  "abilityTagsHelpText": "Tags werden automatisch beim hinzufügen gespeichert.",
+  "abilityFetchTagsFailed": "Fehler beim Abrufen der Tags",
+  "otherAbilities": "Weitere",
+  "selectedTags": "ausgewählte Tags",
+  "abilitesCountInTag": "{count, plural, =0{0 Elemente} =1{1 Element} other{{count} Elemente}}",
+  "@abilitesCountInTag": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  
+  "passive": "Passiv",
 
   "skillName": "Name des Skills",
   "skillDescription": "Beschreibung des Skills",
@@ -148,6 +172,12 @@
   "characteristics": "Steckbrief",
   "ownCharacters": "Eigene Charaktere",
   "otherCharacters": "Weitere Charaktere",
+  "shareCharacter": "Charakter mit Gruppenmitgliedern teilen",
+  "shareCharacterSkilltrees": "Andere dürfen Skillbäume sehen",
+  "shareCharacterNotes": "Andere dürfen Notizen sehen",
+  "shareCharacterInventory": "Andere dürfen Inventar sehen",
+  "shareCharacterAbilities": "Andere dürfen Talente sehen",
+  "shareCharacterAttributes": "Andere dürfen Statistik sehen",
 
   "manageGroup": "Gruppe verwalten",
   "manageCharacteristics": "Eigenschaften verwalten",
@@ -236,5 +266,14 @@
   "storyLoading": "Geschichte wird geladen...",
   "storyLoadingFailed": "Fehler beim laden der Geschichte!",
   "storyEmpty": "Ganz schön leer hier :(",
-  "timeline": "Eine Zeitreise durch die Geschichte"
+  "timeline": "Eine Zeitreise durch die Geschichte",
+
+  "welcomeMessage": "Hallo {user}, Herzlich Willkommen in Kalinar.",
+  "@welcomeMessage": {
+    "placeholders": {
+      "user": {
+        "type": "String"
+      }
+    }
+  }
 }

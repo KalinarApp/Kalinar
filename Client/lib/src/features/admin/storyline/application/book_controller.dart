@@ -1,9 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/admin/storyline/application/book_state_notifier.dart';
-import 'package:kalinar/src/features/admin/storyline/data/story_book_repository.dart';
-import 'package:kalinar/src/features/admin/storyline/data/story_entry_repository.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/book_page.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry.dart';
+
+import '../data/story_book_repository.dart';
+import '../data/story_entry_repository.dart';
+import '../domain/book_page.dart';
+import '../domain/story_entry.dart';
+import 'book_state_notifier.dart';
 
 class BookPageController {
   final StoryEntryRepository entryRepo;

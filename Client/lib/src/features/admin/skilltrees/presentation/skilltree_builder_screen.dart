@@ -1,14 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/modal.dart';
 import '../application/skilltree_controller.dart';
 import '../domain/node.dart';
-
 import 'components/builder/skilltree_stack.dart';
 import 'components/menu/save_menu.dart';
 import 'components/modals/node_modal.dart';

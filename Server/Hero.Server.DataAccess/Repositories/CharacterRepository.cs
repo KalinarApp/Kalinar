@@ -47,19 +47,18 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Character>> GetCharactersAsync(string? userId, CancellationToken cancellationToken = default)
+        public async Task<List<Character>> GetCharactersAsync(string userId, bool isAdmin, bool? isOwner, CancellationToken cancellationToken = default)
         {
             try
             {
-                if (null == userId)
+                IQueryable<Character> query = this.context.Characters.Where(c => c.UserId == userId || c.IsPublic || isAdmin);
+
+                if (null != isOwner)
                 {
-                    return await this.context.Characters.ToListAsync(cancellationToken);
+                    query = query.Where(item => true == isOwner ? item.UserId == userId : item.UserId != userId);
                 }
 
-                return await this.context
-                    .Characters
-                    .Where(c => c.UserId == userId || c.IsPublic)
-                    .ToListAsync(cancellationToken);
+                return await query.ToListAsync(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -123,11 +122,11 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task UpdateCharacterAsync(Guid id, Character updatedCharacter, CancellationToken cancellationToken = default)
+        public async Task<Character> UpdateCharacterAsync(Guid id, Character updatedCharacter, CancellationToken cancellationToken = default)
         {
             try
             {
-                Character? existing = await this.GetCharacterByIdAsync(id, cancellationToken);
+                Character? existing = await this.GetCharacterWithNestedByIdAsync(id, cancellationToken);
 
                 if (null == existing)
                 {
@@ -138,6 +137,8 @@ namespace Hero.Server.DataAccess.Repositories
 
                 this.context.Characters.Update(existing);
                 await this.context.SaveChangesAsync(cancellationToken);
+
+                return existing;
             }
             catch (HeroException ex)
             {

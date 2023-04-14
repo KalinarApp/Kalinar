@@ -10,9 +10,9 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/common_widgets/content_tab.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../../../common_widgets/content_tab.dart';
 import '../../../../common_widgets/save_button.dart';
 import '../../../../utilities/async_value_extension.dart';
 import '../application/book_controller.dart';

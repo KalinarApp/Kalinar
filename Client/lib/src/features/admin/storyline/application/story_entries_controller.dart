@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/admin/storyline/application/story_entries_state_notifier.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry_overview.dart';
 
 import '../data/story_entry_repository.dart';
+import '../domain/story_entry.dart';
+import '../domain/story_entry_overview.dart';
+import 'story_entries_state_notifier.dart';
 
 class StoryEntriesController {
   final StoryEntryRepository repo;

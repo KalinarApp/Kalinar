@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:kalinar/src/features/group_management/domain/group.dart';
+import '../domain/group.dart';
 
 class GroupNotifier extends ChangeNotifier {
   Group? group;

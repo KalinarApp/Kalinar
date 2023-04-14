@@ -3,8 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/traits/presentation/edit_race_screen.dart';
 
+import '../../../../kalinar_icons.dart';
 import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/user_menu.dart';
 import 'components/tabs/abilities_tab.dart';
@@ -13,6 +13,7 @@ import 'components/tabs/races_tab.dart';
 import 'components/tabs/skills_tab.dart';
 import 'edit_ability_screen.dart';
 import 'edit_attribute_screen.dart';
+import 'edit_race_screen.dart';
 import 'edit_skill_screen.dart';
 
 class TraitsOverviewScreen extends ConsumerStatefulWidget {
@@ -55,7 +56,7 @@ class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> wit
   Widget build(BuildContext context) {
     final tabs = [
       ContentTab(
-        icon: const FaIcon(FontAwesomeIcons.award),
+        icon: const FaIcon(Kalinar.star),
         text: AppLocalizations.of(context)!.abilities,
         content: const AbilitiesTab(),
       ),
@@ -65,7 +66,7 @@ class _TraitsOverviewScreenState extends ConsumerState<TraitsOverviewScreen> wit
         content: const AttributesTab(),
       ),
       ContentTab(
-        icon: const FaIcon(FontAwesomeIcons.lightbulb),
+        icon: const FaIcon(Kalinar.skill),
         text: AppLocalizations.of(context)!.skills,
         content: const SkillsTab(),
       ),

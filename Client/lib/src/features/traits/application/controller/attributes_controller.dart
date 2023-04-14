@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/traits/application/controller/traits_controller.dart';
 
 import '../../data/attributes_repository.dart';
 import '../../domain/attribute.dart';
 import '../../domain/suggestion_state.dart';
 import '../notifier/attribute_state_notifier.dart';
 import '../notifier/attributes_state_notifier.dart';
+import 'traits_controller.dart';
 
 class AttributesController implements TraitsController {
   final AttributesRepository repo;
@@ -21,8 +21,9 @@ class AttributesController implements TraitsController {
   }
 
   @override
-  Future<AsyncValue> filter(String? query) async {
-    return AsyncValue.guard(() async => notifier.refresh(await repo.filter(query: query)));
+  Future<AsyncValue> filter(String? query, {List<SuggestionState>? allowedStates}) async {
+    return AsyncValue.guard(
+        () async => notifier.refresh(await repo.filter(query: query, allowedStates: allowedStates?.map((e) => e.index.toString()).toList())));
   }
 
   Future<List<String>> getCategories(String? query) async {

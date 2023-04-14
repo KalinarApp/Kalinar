@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/admin/storyline/application/story_entries_state_notifier.dart';
-import 'package:kalinar/src/features/admin/storyline/presentation/components/reorderable_entry_list.dart';
-import 'package:kalinar/src/features/admin/storyline/presentation/storyline_edit_screen.dart';
 
 import '../../../../common_widgets/user_menu.dart';
 import '../../../../utilities/async_value_extension.dart';
 import '../application/story_entries_controller.dart';
+import '../application/story_entries_state_notifier.dart';
+import 'components/reorderable_entry_list.dart';
+import 'storyline_edit_screen.dart';
 
 class StorylineOverviewScreen extends ConsumerStatefulWidget {
   static const String name = "storylineList";

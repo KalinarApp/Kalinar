@@ -52,6 +52,28 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
+        public async Task<List<string>> FilterTagsAsync(string? query, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                List<Ability> queryable = await this.context.Abilities.Where(item => item.Tags != null).ToListAsync(cancellationToken);
+
+                IEnumerable<string> tags = queryable.SelectMany(item => item.Tags);
+
+                if (!String.IsNullOrEmpty(query))
+                {
+                    tags = tags.Where(item => item.ToLower().Contains(query.ToLower()));
+                }
+
+                return tags.Distinct().ToList();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error occured while fetching tags");
+            }
+        }
+
         public async Task<List<Ability>> FilterAbilitiesAsync(string? query, SuggestionState[] allowedStates, CancellationToken cancellationToken = default)
         {
             try
@@ -114,6 +136,29 @@ namespace Hero.Server.DataAccess.Repositories
             {
                 this.logger.LogUnknownErrorOccured(ex);
                 throw new HeroException("An error occured while updating the ability.");
+            }
+        }
+
+        public async Task UpdateAbilityTagsAsync(Guid id, List<string> tags, CancellationToken cancellationToken = default)
+        {
+            Ability? existing = await this.GetAbilityByIdAsync(id, cancellationToken);
+
+            if (null == existing)
+            {
+                throw new ObjectNotFoundException("Ability not found.");
+            }
+
+            try
+            {
+                existing.Tags = tags;
+
+                this.context.Abilities.Update(existing);
+                await this.context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException($"An error occured while updating tags for ability {id}.");
             }
         }
 

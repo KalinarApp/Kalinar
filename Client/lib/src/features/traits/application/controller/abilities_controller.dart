@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/traits/application/controller/traits_controller.dart';
-import 'package:kalinar/src/features/traits/application/notifier/abilities_state_notifier.dart';
-import 'package:kalinar/src/features/traits/application/notifier/ability_state_notifier.dart';
-import 'package:kalinar/src/features/traits/data/abilities_repository.dart';
-import 'package:kalinar/src/features/traits/domain/suggestion_state.dart';
 
+import '../../data/abilities_repository.dart';
 import '../../domain/ability.dart';
+import '../../domain/suggestion_state.dart';
+import '../notifier/abilities_state_notifier.dart';
+import '../notifier/ability_state_notifier.dart';
+import 'traits_controller.dart';
 
 class AbilitiesController implements TraitsController {
   final AbilitiesRepository repo;
@@ -21,11 +21,15 @@ class AbilitiesController implements TraitsController {
   }
 
   @override
-  Future<AsyncValue> filter(String? query) async {
+  Future<AsyncValue> filter(String? query, {List<SuggestionState>? allowedStates}) async {
     return AsyncValue.guard(() async {
-      final abilities = await repo.filter(query: query);
+      final abilities = await repo.filter(query: query, allowedStates: allowedStates?.map((e) => e.index.toString()).toList());
       notifier.refresh(abilities);
     });
+  }
+
+  Future<List<String>> filterTags(String? query) async {
+    return await repo.getAllAvailableTags(query);
   }
 
   Future<List<Ability>> search({String? query, List<SuggestionState>? allowedStates}) async {
@@ -38,6 +42,13 @@ class AbilitiesController implements TraitsController {
     return await AsyncValue.guard(() async {
       final ability = await repo.createAbility(data);
       notifier.add(ability);
+    });
+  }
+
+  Future<AsyncValue> updateTags(String id, List<String> tags) async {
+    return await AsyncValue.guard(() async {
+      await repo.updateAbilityTags(id, tags);
+      notifier.updateTags(id, tags);
     });
   }
 
@@ -68,5 +79,8 @@ class AbilitiesController implements TraitsController {
 
 final abilitiesControllerProvider = Provider<AbilitiesController>((ref) {
   return AbilitiesController(
-      ref.watch(abilitiesRepositoryProvider), ref.watch(abilitiesStateNotifierProvider.notifier), ref.watch(abilityStateNotifierProvider.notifier));
+    ref.watch(abilitiesRepositoryProvider),
+    ref.watch(abilitiesStateNotifierProvider.notifier),
+    ref.watch(abilityStateNotifierProvider.notifier),
+  );
 });

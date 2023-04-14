@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/story/presentation/story_screen.dart';
-import 'package:kalinar/src/features/traits/presentation/traits_overview_screen.dart';
-import 'package:kalinar/src/utilities/router/traits_routes.dart';
 
+import '../../../kalinar_icons.dart';
 import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
 import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
@@ -19,8 +17,11 @@ import '../../features/group_management/presentation/group_screen.dart';
 import '../../features/group_management/presentation/user_invite_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/home/presentation/welcome_screen.dart';
+import '../../features/story/presentation/story_screen.dart';
+import '../../features/traits/presentation/traits_overview_screen.dart';
 import 'admin_routes.dart';
 import 'character_routes.dart';
+import 'traits_routes.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -37,7 +38,7 @@ final routeProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
     initialLocation: "/",
-    debugLogDiagnostics: true,
+    debugLogDiagnostics: kDebugMode,
     navigatorKey: rootNavigatorKey,
     redirect: (context, state) {
       if (authState.isLoading || authState.hasError) return null;
@@ -84,29 +85,34 @@ final routeProvider = Provider<GoRouter>((ref) {
           return ScaffoldWithBottomNavbar(
             tabs: [
               ScaffoldWithNavbarItem(
+                context,
                 initialLocation: HomeScreen.route,
                 icon: const Icon(Icons.home),
                 label: (AppLocalizations.of(context)!.home),
               ),
               ScaffoldWithNavbarItem(
+                context,
                 initialLocation: "/characters",
-                icon: const Icon(Icons.man),
+                icon: const Icon(Kalinar.kali),
                 label: (AppLocalizations.of(context)!.characters),
               ),
               ScaffoldWithNavbarItem(
+                context,
                 initialLocation: StoryScreen.route,
-                icon: const Icon(Icons.book),
+                icon: const Icon(Kalinar.timeline),
                 label: (AppLocalizations.of(context)!.story),
               ),
               ScaffoldWithNavbarItem(
+                context,
                 initialLocation: TraitsOverviewScreen.route,
-                icon: const FaIcon(FontAwesomeIcons.bookSkull),
+                icon: const Icon(Kalinar.jigsaw),
                 label: AppLocalizations.of(context)!.traits,
               ),
               if (isAdmin)
                 ScaffoldWithNavbarItem(
+                  context,
                   initialLocation: AdminMenuScreen.route,
-                  icon: const Icon(Icons.coffee),
+                  icon: const Icon(Kalinar.coffee),
                   label: (AppLocalizations.of(context)!.admin),
                 ),
             ],

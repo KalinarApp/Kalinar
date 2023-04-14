@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/character.dart';
-
 import 'character_attributes.dart';
 import 'character_information.dart';
 
@@ -24,14 +22,20 @@ class _CharacterSheetWidgetState extends ConsumerState<CharacterSheetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        CharacterInformation(widget.character),
-        Padding(
-          padding: const EdgeInsets.all(4),
-          child: CharacterAttributes(widget.character),
+    return NotificationListener<OverscrollIndicatorNotification>(
+      onNotification: (OverscrollIndicatorNotification overScroll) {
+        overScroll.disallowIndicator();
+        return false;
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ListView(
+          children: [
+            CharacterInformation(widget.character),
+            Padding(padding: const EdgeInsets.all(4), child: CharacterAttributes(widget.character)),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

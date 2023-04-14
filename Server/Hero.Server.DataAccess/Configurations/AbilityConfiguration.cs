@@ -15,6 +15,8 @@ namespace Hero.Server.DataAccess.Configurations
             builder.Property(x => x.Name).IsRequired();
             builder.Property(c => c.Name).HasMaxLength(100);
 
+            builder.Property(a => a.Description).HasMaxLength(2048);
+
             builder.Property(c => c.IsPassive).IsRequired();
         }
     }

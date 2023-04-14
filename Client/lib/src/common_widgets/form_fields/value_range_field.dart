@@ -11,6 +11,7 @@ class ValueRangeField extends StatelessWidget {
   final double step;
   final String name;
   final NumberFormat? format;
+  final dynamic Function(double?)? valueTransform;
 
   const ValueRangeField(
       {required this.name,
@@ -20,6 +21,7 @@ class ValueRangeField extends StatelessWidget {
       required this.max,
       required this.step,
       this.format,
+      this.valueTransform,
       super.key});
 
   bool _isInteger(num value) => value is int || value == value.roundToDouble();
@@ -29,6 +31,7 @@ class ValueRangeField extends StatelessWidget {
     return FormBuilderField(
       name: name,
       initialValue: initialValue,
+      valueTransformer: valueTransform,
       builder: (field) => SpinBox(
         min: min,
         max: max,

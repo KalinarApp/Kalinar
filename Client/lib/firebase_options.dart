@@ -26,12 +26,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        return web;
+        return windows;
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return linux;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -63,6 +60,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '718959006853',
     projectId: 'kalinar-app',
     storageBucket: 'kalinar-app.appspot.com',
+    androidClientId: '718959006853-2juf1tljngqr7pk1ca7u2u11oscufnan.apps.googleusercontent.com',
     iosClientId: '718959006853-svbkm1a0imbm0qajbnjo4a11c772f5sl.apps.googleusercontent.com',
     iosBundleId: 'com.example.hero',
   );
@@ -73,7 +71,28 @@ class DefaultFirebaseOptions {
     messagingSenderId: '718959006853',
     projectId: 'kalinar-app',
     storageBucket: 'kalinar-app.appspot.com',
+    androidClientId: '718959006853-2juf1tljngqr7pk1ca7u2u11oscufnan.apps.googleusercontent.com',
     iosClientId: '718959006853-svbkm1a0imbm0qajbnjo4a11c772f5sl.apps.googleusercontent.com',
     iosBundleId: 'com.example.hero',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDu3iRfvSdv6ZVx_Ml5ynF572cXtlbeWGQ',
+    appId: '1:718959006853:web:677406e81e8005ad1185ec',
+    messagingSenderId: '718959006853',
+    projectId: 'kalinar-app',
+    authDomain: 'kalinar-app.firebaseapp.com',
+    storageBucket: 'kalinar-app.appspot.com',
+    measurementId: 'G-4W3J2PBL2P',
+  );
+
+  static const FirebaseOptions linux = FirebaseOptions(
+    apiKey: 'AIzaSyDu3iRfvSdv6ZVx_Ml5ynF572cXtlbeWGQ',
+    appId: '1:718959006853:web:adfa80b47005fbcb1185ec',
+    messagingSenderId: '718959006853',
+    projectId: 'kalinar-app',
+    authDomain: 'kalinar-app.firebaseapp.com',
+    storageBucket: 'kalinar-app.appspot.com',
+    measurementId: 'G-7JWWHSDR78',
   );
 }

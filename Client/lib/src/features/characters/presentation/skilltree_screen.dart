@@ -4,12 +4,17 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/action_menu.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
-import '../application/skillpoint_controller.dart';
-import '../application/skilltree_controller.dart';
+import '../../group_management/application/group_notifier.dart';
+import '../../traits/application/controller/skills_controller.dart';
+import '../../traits/presentation/edit_skill_screen.dart';
+import '../application/controllers/character_controller.dart';
+import '../application/controllers/skillpoint_controller.dart';
+import '../application/controllers/skilltree_controller.dart';
 import 'components/skilltrees/skillpoints_widget.dart';
 import 'components/skilltrees/skilltree_stack.dart';
 import 'components/skilltrees/statistics_widget.dart';
@@ -75,8 +80,11 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
   }
 
   Future<void> _showActionDialog(Node item) async {
+    final isAdmin = ref.read(groupNotifierProvider).group?.ownerId == FirebaseAuth.instance.currentUser?.uid;
+
     final action = await showActionsModal(context, actions: [
-      item.isResettable() ? DialogAction.reset : DialogAction.resetDisabled,
+      if (isAdmin) DialogAction.edit,
+      item.isResettable() && !isAdmin ? DialogAction.reset : DialogAction.resetDisabled,
       DialogAction.cancel,
     ]);
     if (null == action || !mounted) return;
@@ -87,8 +95,11 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
         if (!mounted) return;
         value.showSnackbarOnError(context);
         break;
-      case DialogAction.delete:
       case DialogAction.edit:
+        ref.read(skillsControllerProvider).getById(item.skillId);
+        GoRouter.of(context).pushNamed(EditSkillScreen.name, queryParams: {"id": item.skillId});
+        break;
+      case DialogAction.delete:
       case DialogAction.loadAsNewSkilltree:
       case DialogAction.saveAsBlueprint:
       case DialogAction.resetDisabled:
@@ -133,38 +144,44 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
     final user = FirebaseAuth.instance.currentUser;
     final skillpoints = ref.watch(skillpointControllerProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          SkillpointsWidget(skillpoints),
-          const SizedBox(width: 10),
-          if (state.hasValue) StatisticsWidget(state.value!),
-          const SizedBox(width: 12),
-        ],
-      ),
-      body: InteractiveViewer(
-        transformationController: controller,
-        constrained: false,
-        boundaryMargin: const EdgeInsets.all(10.0),
-        minScale: 0.01,
-        maxScale: 5.6,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SizedBox(
-            width: 2000,
-            height: 2000,
-            child: state.maybeWhen(
-              data: (data) {
-                final isEditable = null != user?.uid && user!.uid == data.character!.userId;
-                return SkilltreeStack(
-                  nodes: data.nodes,
-                  currentSkillpoints: skillpoints.currentSkillpoints,
-                  edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
-                  unlockNode: !isEditable ? null : (node) => _unlockNode(data.id, node.id),
-                  onUnlockedLongPress: !isEditable ? null : _showActionDialog,
-                );
-              },
-              orElse: () => Container(),
+    return WillPopScope(
+      onWillPop: () async {
+        final value = await ref.read(characterControllerProvider).get(state.value!.character!.id);
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            SkillpointsWidget(skillpoints),
+            const SizedBox(width: 10),
+            if (state.hasValue) StatisticsWidget(state.value!),
+            const SizedBox(width: 12),
+          ],
+        ),
+        body: InteractiveViewer(
+          transformationController: controller,
+          constrained: false,
+          boundaryMargin: const EdgeInsets.all(10.0),
+          minScale: 0.01,
+          maxScale: 5.6,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: SizedBox(
+              width: 2000,
+              height: 2000,
+              child: state.maybeWhen(
+                data: (data) {
+                  final isEditable = null != user?.uid && user!.uid == data.character!.userId;
+                  return SkilltreeStack(
+                    nodes: data.nodes,
+                    currentSkillpoints: skillpoints.currentSkillpoints,
+                    edges: ref.read(skilltreeControllerProvider.notifier).getAllEdges(),
+                    unlockNode: !isEditable ? null : (node) => _unlockNode(data.id, node.id),
+                    onOpenContextMenu: _showActionDialog,
+                  );
+                },
+                orElse: () => Container(),
+              ),
             ),
           ),
         ),

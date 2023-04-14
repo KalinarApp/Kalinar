@@ -7,13 +7,13 @@
         {
             "name": "PRODUCTION",
             "program": "${workspaceFolder}/lib/main.dart",
-            "args": ["--flavor=prod"],
+            "args": ["--flavor=prod", "--release" ],
             "request": "launch",
             "type": "dart"
         },
         {
             "name": "DEVELOPMENT",
-            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "program": "${workspaceFolder}/lib/main.dart",
             "args": ["--flavor=dev"],
             "request": "launch",
             "type": "dart",

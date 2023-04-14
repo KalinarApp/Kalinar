@@ -8,6 +8,7 @@ import '../../../../../utilities/async_value_extension.dart';
 import '../../../../group_management/application/group_notifier.dart';
 import '../../../application/controller/races_controller.dart';
 import '../../../application/notifier/races_state_notifier.dart';
+import '../../../application/state/filter_state.dart';
 import '../../../domain/race.dart';
 import '../../../domain/suggestion_state.dart';
 import '../../edit_race_screen.dart';
@@ -24,9 +25,10 @@ class RacesTab extends ConsumerStatefulWidget {
 class RacesTabState extends ConsumerState<RacesTab> {
   String? queryString;
   bool isSearchEnabled = true;
+  FilterState filter = const FilterState();
 
   Future _onRefresh() async {
-    final value = await ref.read(racesControllerProvider).filter(queryString);
+    final value = await ref.read(racesControllerProvider).filter(queryString, allowedStates: filter.states);
     setState(() => isSearchEnabled = !value.hasError);
 
     if (!mounted) return;
@@ -84,6 +86,8 @@ class RacesTabState extends ConsumerState<RacesTab> {
     return SearchableList(
       state,
       onRefresh: _onRefresh,
+      filter: filter,
+      onFilterChanged: (state) => setState(() => filter = state),
       isSearchEnabled: isSearchEnabled,
       itemBuilder: (context, index) => ListItem(
         state![index],

@@ -8,11 +8,13 @@ import '../../../common_widgets/form_fields/bool_field.dart';
 import '../../../common_widgets/form_fields/description_field.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
+import '../../../utilities/async_value_extension.dart';
 import '../../group_management/application/group_notifier.dart';
 import '../application/controller/abilities_controller.dart';
 import '../application/notifier/ability_state_notifier.dart';
 import '../domain/ability.dart';
 import '../domain/suggestion_state.dart';
+import 'components/ability_tags_field.dart';
 import 'components/edit_view.dart';
 
 class EditAbilityScreen extends ConsumerStatefulWidget {
@@ -28,6 +30,8 @@ class EditAbilityScreen extends ConsumerStatefulWidget {
 }
 
 class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
+  bool loadingFinished = false;
+
   static final _formKey = GlobalKey<FormBuilderState>();
 
   bool _isCreatorOrAdminOrNew(Ability? item) {
@@ -40,8 +44,24 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
     return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
   }
 
+  Future _updateTags(List<String>? tags) async {
+    if (null != widget.abilityId && loadingFinished) {
+      final value = await ref.read(abilitiesControllerProvider).updateTags(widget.abilityId!, tags ?? []);
+      if (!mounted) return;
+
+      value.showSnackbarOnError(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.listen(abilityStateNotifierProvider, (previous, next) {
+      if (null == previous || previous.isLoading) {
+        _formKey.currentState?.fields["tags"]?.didChange(next.valueOrNull?.tags);
+      }
+      setState(() => loadingFinished = true);
+    });
+
     final state = null == widget.abilityId ? null : ref.watch(abilityStateNotifierProvider);
 
     return EditView(
@@ -70,6 +90,7 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
           initialValue: state?.valueOrNull?.description,
           readOnly: !_isCreatorOrAdminOrNew(state?.valueOrNull),
         ),
+        AbilityTagsField(findSuggestion: ref.read(abilitiesControllerProvider).filterTags, onChanged: (tags) => _updateTags(tags)),
       ],
     );
   }

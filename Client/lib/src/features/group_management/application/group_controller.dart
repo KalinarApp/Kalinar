@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/group_management/data/user_repository.dart';
 
 import '../data/group_repository.dart';
+import '../data/user_repository.dart';
 import '../domain/user.dart';
 import 'group_notifier.dart';
 

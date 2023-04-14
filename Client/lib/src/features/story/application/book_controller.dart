@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/admin/storyline/data/story_entry_repository.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry.dart';
+
+import '../../admin/storyline/data/story_entry_repository.dart';
+import '../../admin/storyline/domain/story_entry.dart';
 
 class BookController extends StateNotifier<AsyncValue<StoryEntry>> {
   final StoryEntryRepository repo;

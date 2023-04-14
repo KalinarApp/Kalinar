@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
+
+import '../../kalinar_icons.dart';
 
 class IconPicker extends StatefulWidget {
   final Color? iconColor;
@@ -26,6 +27,7 @@ class _IconPickerState extends State<IconPicker> {
       title: Text(AppLocalizations.of(context)!.pickAnIcon),
       searchHintText: AppLocalizations.of(context)!.searchIcon,
       iconPackModes: IconPack.values,
+      customIconPack: Kalinar.values,
       noResultsText: AppLocalizations.of(context)!.noIconSearchResults,
       closeChild: Text(AppLocalizations.of(context)!.cancel, textScaleFactor: 1.25),
     );

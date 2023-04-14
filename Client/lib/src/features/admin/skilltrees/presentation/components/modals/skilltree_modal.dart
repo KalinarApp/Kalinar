@@ -3,9 +3,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:kalinar/src/common_widgets/form_fields/bool_field.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../../../../../common_widgets/form_fields/bool_field.dart';
 import '../../../../../../common_widgets/form_fields/content_field.dart';
 import '../../../../../../common_widgets/form_fields/value_range_field.dart';
 import '../../../../../../common_widgets/save_button.dart';

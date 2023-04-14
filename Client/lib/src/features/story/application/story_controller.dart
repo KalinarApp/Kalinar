@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/admin/storyline/data/story_entry_repository.dart';
-import 'package:kalinar/src/features/admin/storyline/domain/story_entry_type.dart';
 
+import '../../admin/storyline/data/story_entry_repository.dart';
+import '../../admin/storyline/domain/story_entry_type.dart';
 import '../domain/story_state.dart';
 
 class StoryController extends StateNotifier<AsyncValue<StoryState>> {

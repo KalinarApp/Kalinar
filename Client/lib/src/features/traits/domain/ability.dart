@@ -14,6 +14,7 @@ class Ability with _$Ability implements Suggestable {
     required String name,
     String? description,
     required bool isPassive,
+    @Default([]) List<String> tags,
     required User? creator,
     required SuggestionState state,
     String? rejectionReason,

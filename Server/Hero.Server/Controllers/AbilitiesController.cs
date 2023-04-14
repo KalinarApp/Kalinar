@@ -20,7 +20,7 @@ namespace Hero.Server.Controllers
         private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
 
-        public AbilitiesController(IAbilityRepository repository, IUserRepository userRepository, IMapper mapper, ILogger<AbilitiesController> logger) 
+        public AbilitiesController(IAbilityRepository repository, IUserRepository userRepository, IMapper mapper, ILogger<AbilitiesController> logger)
             : base(logger)
         {
             this.repository = repository;
@@ -52,6 +52,12 @@ namespace Hero.Server.Controllers
             return abilities.Select(ability => this.mapper.Map<AbilityResponse>(ability)).ToList();
         }
 
+        [HttpGet("tags"), IsGroupMember]
+        public async Task<List<string>> FilterAvailableTagsAsync([FromQuery] string? query, CancellationToken cancellationToken)
+        {
+            return await this.repository.FilterTagsAsync(query, cancellationToken);
+        }
+
         [HttpDelete("{id}"), IsGroupMember]
         public async Task DeleteAbilityAsync(Guid id, CancellationToken token)
         {
@@ -67,6 +73,12 @@ namespace Hero.Server.Controllers
             updated = await this.repository.TryUpdateAbilityAsync(id, userId, updated, token);
 
             return this.mapper.Map<AbilityResponse>(updated);
+        }
+
+        [HttpPost("{id}/tags"), IsGroupMember]
+        public async Task UpdateAbilityTagsAsync(Guid id, [FromBody] List<string> tags, CancellationToken token)
+        {
+            await this.repository.UpdateAbilityTagsAsync(id, tags, token);
         }
 
         [HttpPost, IsGroupMember]

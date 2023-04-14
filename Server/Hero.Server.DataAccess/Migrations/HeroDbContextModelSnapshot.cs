@@ -45,7 +45,8 @@ namespace Hero.Server.DataAccess.Migrations
                         .HasDefaultValue("qmMgPtrCXXgvpT6oYYxZE8IA1Aw1");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
 
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uuid");
@@ -71,6 +72,9 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<List<string>>("Tags")
+                        .HasColumnType("text[]");
 
                     b.HasKey("Id");
 
@@ -664,6 +668,9 @@ namespace Hero.Server.DataAccess.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
+
+                    b.Property<List<string>>("DeviceIds")
+                        .HasColumnType("text[]");
 
                     b.Property<string>("Email")
                         .IsRequired()
