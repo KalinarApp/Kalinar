@@ -95,6 +95,7 @@ dependencies:
   multiselect: ^0.1.0
   flutter_tagging_plus: ^4.0.1
   keyboard_dismisser: ^3.0.0
+  side_navigation: ^1.0.4
 
 dependency_overrides:
   intl: ^0.18.0

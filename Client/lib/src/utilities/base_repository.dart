@@ -41,6 +41,7 @@ class BaseRepository {
     return {
       "Authorization": "Bearer $idToken",
       "content-type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     };
   }
 

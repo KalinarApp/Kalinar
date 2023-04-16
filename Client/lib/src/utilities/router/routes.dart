@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/common_widgets/navigation/navigation_item.dart';
+import 'package:kalinar/src/features/characters/presentation/character_overview_screen.dart';
 
 import '../../../kalinar_icons.dart';
-import '../../common_widgets/navigation/scaffold_with_bottom_navbar.dart';
-import '../../common_widgets/navigation/scaffold_with_navbar_item.dart';
+import '../../common_widgets/navigation/scaffold_with_navbar.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/authentication/presentation/auth_screen.dart';
 import '../../features/group_management/application/group_controller.dart';
@@ -23,10 +24,10 @@ import 'admin_routes.dart';
 import 'character_routes.dart';
 import 'traits_routes.dart';
 
-final rootNavigatorKey = GlobalKey<NavigatorState>();
-final shellNavigatorKey = GlobalKey<NavigatorState>();
-
 final routeProvider = Provider<GoRouter>((ref) {
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
+  final shellNavigatorKey = GlobalKey<NavigatorState>();
+
   ref.listen(firebaseAuthProvider, (previous, next) {
     if (next.valueOrNull != null) {
       ref.read(groupControllerProvider).check();
@@ -82,39 +83,13 @@ final routeProvider = Provider<GoRouter>((ref) {
         navigatorKey: shellNavigatorKey,
         builder: (context, state, child) {
           final isAdmin = FirebaseAuth.instance.currentUser?.uid == groupState.group?.ownerId;
-          return ScaffoldWithBottomNavbar(
+          return ScaffoldWithNavbar(
             tabs: [
-              ScaffoldWithNavbarItem(
-                context,
-                initialLocation: HomeScreen.route,
-                icon: const Icon(Icons.home),
-                label: (AppLocalizations.of(context)!.home),
-              ),
-              ScaffoldWithNavbarItem(
-                context,
-                initialLocation: "/characters",
-                icon: const Icon(Kalinar.kali),
-                label: (AppLocalizations.of(context)!.characters),
-              ),
-              ScaffoldWithNavbarItem(
-                context,
-                initialLocation: StoryScreen.route,
-                icon: const Icon(Kalinar.timeline),
-                label: (AppLocalizations.of(context)!.story),
-              ),
-              ScaffoldWithNavbarItem(
-                context,
-                initialLocation: TraitsOverviewScreen.route,
-                icon: const Icon(Kalinar.jigsaw),
-                label: AppLocalizations.of(context)!.traits,
-              ),
-              if (isAdmin)
-                ScaffoldWithNavbarItem(
-                  context,
-                  initialLocation: AdminMenuScreen.route,
-                  icon: const Icon(Kalinar.coffee),
-                  label: (AppLocalizations.of(context)!.admin),
-                ),
+              NavigationItem(route: HomeScreen.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
+              NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
+              NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
+              NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
+              if (isAdmin) NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin)),
             ],
             child: child,
           );
