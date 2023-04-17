@@ -75,13 +75,13 @@ class _EditRaceScreenState extends ConsumerState<EditRaceScreen> {
       children: [
         const InvisibleField(name: "id"),
         NameField(
-          label: AppLocalizations.of(context)!.abilityName,
+          label: AppLocalizations.of(context)!.raceName,
           isLoading: state?.isLoading ?? false,
           initialValue: state?.valueOrNull?.name,
           readOnly: !_isCreatorOrAdminOrNew(state?.valueOrNull),
         ),
         DescriptionField(
-          label: AppLocalizations.of(context)!.abilityDescription,
+          label: AppLocalizations.of(context)!.raceDescription,
           isLoading: state?.isLoading ?? false,
           initialValue: state?.valueOrNull?.description,
           readOnly: !_isCreatorOrAdminOrNew(state?.valueOrNull),
