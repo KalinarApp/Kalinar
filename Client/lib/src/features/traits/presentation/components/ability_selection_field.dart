@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../kalinar_icons.dart';
 import '../../application/controller/abilities_controller.dart';
 import '../../domain/ability.dart';
 import '../../domain/suggestion_state.dart';
@@ -14,8 +15,9 @@ import '../edit_ability_screen.dart';
 
 class AbilitySelectionField extends ConsumerWidget {
   final Ability? initialValue;
+  final Function(Ability? item)? onSelectionChanged;
 
-  const AbilitySelectionField({this.initialValue, super.key});
+  const AbilitySelectionField({this.initialValue, this.onSelectionChanged, super.key});
 
   Future<void> _showAbilityScreen(BuildContext context) async {
     GoRouter.of(context).pushNamed(EditAbilityScreen.name);
@@ -30,7 +32,7 @@ class AbilitySelectionField extends ConsumerWidget {
             name: "abilityId",
             valueTransformer: (value) => value?.id,
             initialValue: initialValue,
-            decoration: InputDecoration(labelText: AppLocalizations.of(context)!.selectAnAbility, prefixIcon: const Icon(Icons.handyman)),
+            decoration: InputDecoration(labelText: AppLocalizations.of(context)!.selectAnAbility, prefixIcon: const Icon(Kalinar.star)),
             asyncItems: (text) async {
               final all =
                   await ref.read(abilitiesControllerProvider).search(query: text, allowedStates: [SuggestionState.approved, SuggestionState.pending]);
@@ -50,6 +52,7 @@ class AbilitySelectionField extends ConsumerWidget {
                 decoration: InputDecoration(border: const UnderlineInputBorder(), labelText: AppLocalizations.of(context)!.searchForAbility),
               ),
             ),
+            onChanged: onSelectionChanged,
           ),
         ),
         IconButton(
