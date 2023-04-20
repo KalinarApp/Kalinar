@@ -22,7 +22,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget _buildHomeScreen() {
-    return Center(child: Image.asset("assets/images/kali/hello.gif", width: MediaQuery.of(context).size.width));
+    return const Center(child: Text("Hier könnte Ihre Werbung stehen!"));
   }
 
   @override

@@ -121,5 +121,13 @@ namespace Hero.Server.Controllers
 
             return this.Ok(new { CurrentSkillpoints = currentSkillpoints, MaxSkillpoints = skilltree!.Points });
         }
+
+        [HttpPost("{id}/skillpoints"), IsGroupAdmin]
+        public async Task<IActionResult> UpdateSkillpointsBySkilltreeIdAsync(Guid id, [FromBody] UpdateSkillpointRequest request, CancellationToken token)
+        {
+            await this.repository.UpdateSkilltreeSkillpointsAsync(id, request.Points, token);
+
+            return this.Ok();
+        }
     }
 }

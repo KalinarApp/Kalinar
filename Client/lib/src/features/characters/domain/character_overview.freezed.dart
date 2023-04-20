@@ -24,6 +24,7 @@ mixin _$CharacterOverview {
   String get name => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String? get iconUrl => throw _privateConstructorUsedError;
+  List<SkilltreeOverview> get skilltrees => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,12 @@ abstract class $CharacterOverviewCopyWith<$Res> {
           CharacterOverview value, $Res Function(CharacterOverview) then) =
       _$CharacterOverviewCopyWithImpl<$Res, CharacterOverview>;
   @useResult
-  $Res call({String id, String name, String userId, String? iconUrl});
+  $Res call(
+      {String id,
+      String name,
+      String userId,
+      String? iconUrl,
+      List<SkilltreeOverview> skilltrees});
 }
 
 /// @nodoc
@@ -57,6 +63,7 @@ class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview>
     Object? name = null,
     Object? userId = null,
     Object? iconUrl = freezed,
+    Object? skilltrees = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,6 +82,10 @@ class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      skilltrees: null == skilltrees
+          ? _value.skilltrees
+          : skilltrees // ignore: cast_nullable_to_non_nullable
+              as List<SkilltreeOverview>,
     ) as $Val);
   }
 }
@@ -87,7 +98,12 @@ abstract class _$$_CharacterOverviewCopyWith<$Res>
       __$$_CharacterOverviewCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String userId, String? iconUrl});
+  $Res call(
+      {String id,
+      String name,
+      String userId,
+      String? iconUrl,
+      List<SkilltreeOverview> skilltrees});
 }
 
 /// @nodoc
@@ -105,6 +121,7 @@ class __$$_CharacterOverviewCopyWithImpl<$Res>
     Object? name = null,
     Object? userId = null,
     Object? iconUrl = freezed,
+    Object? skilltrees = null,
   }) {
     return _then(_$_CharacterOverview(
       id: null == id
@@ -123,6 +140,10 @@ class __$$_CharacterOverviewCopyWithImpl<$Res>
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      skilltrees: null == skilltrees
+          ? _value._skilltrees
+          : skilltrees // ignore: cast_nullable_to_non_nullable
+              as List<SkilltreeOverview>,
     ));
   }
 }
@@ -134,7 +155,9 @@ class _$_CharacterOverview implements _CharacterOverview {
       {required this.id,
       required this.name,
       required this.userId,
-      this.iconUrl});
+      this.iconUrl,
+      final List<SkilltreeOverview> skilltrees = const []})
+      : _skilltrees = skilltrees;
 
   factory _$_CharacterOverview.fromJson(Map<String, dynamic> json) =>
       _$$_CharacterOverviewFromJson(json);
@@ -147,10 +170,18 @@ class _$_CharacterOverview implements _CharacterOverview {
   final String userId;
   @override
   final String? iconUrl;
+  final List<SkilltreeOverview> _skilltrees;
+  @override
+  @JsonKey()
+  List<SkilltreeOverview> get skilltrees {
+    if (_skilltrees is EqualUnmodifiableListView) return _skilltrees;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_skilltrees);
+  }
 
   @override
   String toString() {
-    return 'CharacterOverview(id: $id, name: $name, userId: $userId, iconUrl: $iconUrl)';
+    return 'CharacterOverview(id: $id, name: $name, userId: $userId, iconUrl: $iconUrl, skilltrees: $skilltrees)';
   }
 
   @override
@@ -161,12 +192,15 @@ class _$_CharacterOverview implements _CharacterOverview {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl));
+            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._skilltrees, _skilltrees));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, userId, iconUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, userId, iconUrl,
+      const DeepCollectionEquality().hash(_skilltrees));
 
   @JsonKey(ignore: true)
   @override
@@ -188,7 +222,8 @@ abstract class _CharacterOverview implements CharacterOverview {
       {required final String id,
       required final String name,
       required final String userId,
-      final String? iconUrl}) = _$_CharacterOverview;
+      final String? iconUrl,
+      final List<SkilltreeOverview> skilltrees}) = _$_CharacterOverview;
 
   factory _CharacterOverview.fromJson(Map<String, dynamic> json) =
       _$_CharacterOverview.fromJson;
@@ -201,6 +236,8 @@ abstract class _CharacterOverview implements CharacterOverview {
   String get userId;
   @override
   String? get iconUrl;
+  @override
+  List<SkilltreeOverview> get skilltrees;
   @override
   @JsonKey(ignore: true)
   _$$_CharacterOverviewCopyWith<_$_CharacterOverview> get copyWith =>

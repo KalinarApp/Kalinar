@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../group_management/data/group_repository.dart';

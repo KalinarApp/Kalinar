@@ -29,20 +29,29 @@ mixin _$Skilltree {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SkilltreeCopyWith<Skilltree> get copyWith => throw _privateConstructorUsedError;
+  $SkilltreeCopyWith<Skilltree> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SkilltreeCopyWith<$Res> {
-  factory $SkilltreeCopyWith(Skilltree value, $Res Function(Skilltree) then) = _$SkilltreeCopyWithImpl<$Res, Skilltree>;
+  factory $SkilltreeCopyWith(Skilltree value, $Res Function(Skilltree) then) =
+      _$SkilltreeCopyWithImpl<$Res, Skilltree>;
   @useResult
-  $Res call({String id, String name, CharacterOverview? character, int points, bool isActiveTree, List<Node> nodes});
+  $Res call(
+      {String id,
+      String name,
+      CharacterOverview? character,
+      int points,
+      bool isActiveTree,
+      List<Node> nodes});
 
   $CharacterOverviewCopyWith<$Res>? get character;
 }
 
 /// @nodoc
-class _$SkilltreeCopyWithImpl<$Res, $Val extends Skilltree> implements $SkilltreeCopyWith<$Res> {
+class _$SkilltreeCopyWithImpl<$Res, $Val extends Skilltree>
+    implements $SkilltreeCopyWith<$Res> {
   _$SkilltreeCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -103,18 +112,30 @@ class _$SkilltreeCopyWithImpl<$Res, $Val extends Skilltree> implements $Skilltre
 
 /// @nodoc
 abstract class _$$_SkilltreeCopyWith<$Res> implements $SkilltreeCopyWith<$Res> {
-  factory _$$_SkilltreeCopyWith(_$_Skilltree value, $Res Function(_$_Skilltree) then) = __$$_SkilltreeCopyWithImpl<$Res>;
+  factory _$$_SkilltreeCopyWith(
+          _$_Skilltree value, $Res Function(_$_Skilltree) then) =
+      __$$_SkilltreeCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, CharacterOverview? character, int points, bool isActiveTree, List<Node> nodes});
+  $Res call(
+      {String id,
+      String name,
+      CharacterOverview? character,
+      int points,
+      bool isActiveTree,
+      List<Node> nodes});
 
   @override
   $CharacterOverviewCopyWith<$Res>? get character;
 }
 
 /// @nodoc
-class __$$_SkilltreeCopyWithImpl<$Res> extends _$SkilltreeCopyWithImpl<$Res, _$_Skilltree> implements _$$_SkilltreeCopyWith<$Res> {
-  __$$_SkilltreeCopyWithImpl(_$_Skilltree _value, $Res Function(_$_Skilltree) _then) : super(_value, _then);
+class __$$_SkilltreeCopyWithImpl<$Res>
+    extends _$SkilltreeCopyWithImpl<$Res, _$_Skilltree>
+    implements _$$_SkilltreeCopyWith<$Res> {
+  __$$_SkilltreeCopyWithImpl(
+      _$_Skilltree _value, $Res Function(_$_Skilltree) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -158,10 +179,17 @@ class __$$_SkilltreeCopyWithImpl<$Res> extends _$SkilltreeCopyWithImpl<$Res, _$_
 /// @nodoc
 @JsonSerializable()
 class _$_Skilltree implements _Skilltree {
-  const _$_Skilltree({this.id = "", this.name = "", this.character, this.points = 0, this.isActiveTree = true, final List<Node> nodes = const []})
+  const _$_Skilltree(
+      {this.id = "",
+      this.name = "",
+      this.character,
+      this.points = 0,
+      this.isActiveTree = true,
+      final List<Node> nodes = const []})
       : _nodes = nodes;
 
-  factory _$_Skilltree.fromJson(Map<String, dynamic> json) => _$$_SkilltreeFromJson(json);
+  factory _$_Skilltree.fromJson(Map<String, dynamic> json) =>
+      _$$_SkilltreeFromJson(json);
 
   @override
   @JsonKey()
@@ -198,20 +226,24 @@ class _$_Skilltree implements _Skilltree {
             other is _$_Skilltree &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.character, character) || other.character == character) &&
+            (identical(other.character, character) ||
+                other.character == character) &&
             (identical(other.points, points) || other.points == points) &&
-            (identical(other.isActiveTree, isActiveTree) || other.isActiveTree == isActiveTree) &&
+            (identical(other.isActiveTree, isActiveTree) ||
+                other.isActiveTree == isActiveTree) &&
             const DeepCollectionEquality().equals(other._nodes, _nodes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, character, points, isActiveTree, const DeepCollectionEquality().hash(_nodes));
+  int get hashCode => Object.hash(runtimeType, id, name, character, points,
+      isActiveTree, const DeepCollectionEquality().hash(_nodes));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SkilltreeCopyWith<_$_Skilltree> get copyWith => __$$_SkilltreeCopyWithImpl<_$_Skilltree>(this, _$identity);
+  _$$_SkilltreeCopyWith<_$_Skilltree> get copyWith =>
+      __$$_SkilltreeCopyWithImpl<_$_Skilltree>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -230,7 +262,8 @@ abstract class _Skilltree implements Skilltree {
       final bool isActiveTree,
       final List<Node> nodes}) = _$_Skilltree;
 
-  factory _Skilltree.fromJson(Map<String, dynamic> json) = _$_Skilltree.fromJson;
+  factory _Skilltree.fromJson(Map<String, dynamic> json) =
+      _$_Skilltree.fromJson;
 
   @override
   String get id;
@@ -246,5 +279,6 @@ abstract class _Skilltree implements Skilltree {
   List<Node> get nodes;
   @override
   @JsonKey(ignore: true)
-  _$$_SkilltreeCopyWith<_$_Skilltree> get copyWith => throw _privateConstructorUsedError;
+  _$$_SkilltreeCopyWith<_$_Skilltree> get copyWith =>
+      throw _privateConstructorUsedError;
 }

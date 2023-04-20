@@ -80,6 +80,7 @@
     "skilltreeIsActive",
     "fetchSkilltrees",
     "fetchSkilltreesFailed",
+    "distributeSkillpoints",
     "deleteChanges",
     "saveAsBlueprint",
     "loadAsNewSkilltree",
