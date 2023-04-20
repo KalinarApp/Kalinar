@@ -120,7 +120,7 @@ flutter:
   assets:
     - assets/app_icon/icon.png
     - assets/images/
-    - assets/images/kali/
+    # - assets/images/kali/
 
   fonts:
     - family:  Kalinar
