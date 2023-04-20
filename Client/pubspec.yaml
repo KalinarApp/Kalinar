@@ -119,7 +119,7 @@ flutter:
   generate: true
   assets:
     - assets/app_icon/icon.png
-    - assets/images/
+    # - assets/images/
     # - assets/images/kali/
 
   fonts:
