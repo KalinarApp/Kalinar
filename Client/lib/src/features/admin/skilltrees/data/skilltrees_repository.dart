@@ -47,6 +47,10 @@ class SkilltreesRepository extends HeroBaseRepository {
     return await heroGet("/api/skilltrees/$id/skillpoints", (response) => Skillpoints.fromJson(response));
   }
 
+  Future updateSkillpoints(String id, int points) async {
+    await heroPost("/api/skilltrees/$id/skillpoints", {"points": points}, (response) => true);
+  }
+
   Future<void> createOnServer(Map<String, dynamic> data) async {
     await heroPost("/api/skilltrees", data, (response) => true);
   }

@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/admin/common/presentation/manage_group_screen.dart';
+import '../../features/admin/skillpoints/presentation/skillpoints_screen.dart';
 import '../../features/admin/skilltrees/presentation/skilltree_builder_screen.dart';
 import '../../features/admin/skilltrees/presentation/skilltree_list_screen.dart';
 import '../../features/admin/storyline/presentation/page_editor_screen.dart';
@@ -17,6 +18,11 @@ final adminRoutes = GoRoute(
       name: ManageGroupScreen.name,
       path: ManageGroupScreen.route,
       pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const ManageGroupScreen()),
+    ),
+    GoRoute(
+      name: SkillpointsScreen.name,
+      path: SkillpointsScreen.route,
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const SkillpointsScreen()),
     ),
     adminSkilltreeRoutes,
     adminStorylineRoutes,

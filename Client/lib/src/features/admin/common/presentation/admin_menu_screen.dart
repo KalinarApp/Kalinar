@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../kalinar_icons.dart';
 import '../../../../common_widgets/user_menu.dart';
+import '../../skillpoints/presentation/skillpoints_screen.dart';
 import '../../skilltrees/presentation/skilltree_list_screen.dart';
 import '../../storyline/presentation/storyline_overview_screen.dart';
 import 'admin_menu_item.dart';
@@ -63,6 +64,11 @@ class AdminMenuScreen extends StatelessWidget {
                     icon: Kalinar.node,
                     title: AppLocalizations.of(context)!.manageSkilltrees,
                     onTab: () => GoRouter.of(context).pushNamed(SkilltreeListScreen.name),
+                  ),
+                  AdminMenuItem(
+                    icon: Kalinar.skill,
+                    title: AppLocalizations.of(context)!.distributeSkillpoints,
+                    onTab: () => GoRouter.of(context).pushNamed(SkillpointsScreen.name),
                   ),
                 ],
               ),
