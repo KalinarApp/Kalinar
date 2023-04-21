@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/kalinar_icons.dart';
 import 'package:side_navigation/side_navigation.dart';
 
+import '../../../kalinar_icons.dart';
 import 'navigation_item.dart';
 
 class ScaffoldWithNavbar extends StatefulWidget {
@@ -16,7 +17,9 @@ class ScaffoldWithNavbar extends StatefulWidget {
   State<ScaffoldWithNavbar> createState() => _ScaffoldWithNavbarState();
 }
 
-class _ScaffoldWithNavbarState extends State<ScaffoldWithNavbar> {
+class _ScaffoldWithNavbarState extends State<ScaffoldWithNavbar> with TickerProviderStateMixin {
+  late final controller;
+
   int get _currentIndex => _locationToTabIndex(GoRouter.of(context).location);
 
   int _locationToTabIndex(String location) {
@@ -32,6 +35,7 @@ class _ScaffoldWithNavbarState extends State<ScaffoldWithNavbar> {
 
   @override
   void initState() {
+    controller = TabController(length: widget.tabs.length, vsync: this);
     super.initState();
   }
 
@@ -63,12 +67,12 @@ class _ScaffoldWithNavbarState extends State<ScaffoldWithNavbar> {
                       dividerTheme: SideNavigationBarDividerTheme.standard(),
                       itemTheme: SideNavigationBarItemTheme.standard(),
                       togglerTheme: SideNavigationBarTogglerTheme.standard(),
-                      backgroundColor: null,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                     header: SideNavigationBarHeader(
-                      image: const Icon(Kalinar.kali, size: 32),
-                      title: Text("Kalinar", style: Theme.of(context).textTheme.titleLarge),
-                      subtitle: Container(),
+                      image: const Icon(Kalinar.kali, size: 42),
+                      title: Text(AppLocalizations.of(context)!.applicationTitle, style: Theme.of(context).textTheme.titleLarge),
+                      subtitle: Text(AppLocalizations.of(context)!.applicationSubtitle, style: Theme.of(context).textTheme.titleSmall),
                     ),
                     items: widget.tabs.map((e) => SideNavigationBarItem(icon: e.icon, label: e.title)).toList(),
                     onTap: (value) => _onItemTapped(context, value),
