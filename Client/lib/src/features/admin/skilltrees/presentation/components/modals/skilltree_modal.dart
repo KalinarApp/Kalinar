@@ -90,6 +90,7 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
                 min: 0,
                 max: 10000,
                 step: 1,
+                valueTransform: (value) => value?.round() ?? 0,
               ),
               if (hasCharacter || null != state.skilltree.character)
                 BoolField(

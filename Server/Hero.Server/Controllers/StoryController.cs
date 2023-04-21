@@ -98,13 +98,14 @@ namespace Hero.Server.Controllers
         }
 
         [HttpPut("{id}"), IsGroupAdmin]
-        public async Task<IActionResult> UpdateStoryEntryAsync(Guid id, [FromBody] StoryEntryRequest request, CancellationToken cancellationToken = default)
+        public async Task<StoryEntryOverviewResponse> UpdateStoryEntryAsync(Guid id, [FromBody] StoryEntryRequest request, CancellationToken cancellationToken = default)
         {
             StoryEntry entry = this.ConvertEntry(request);
 
             await this.storyEntryRepository.UpdateAsync(id, entry, cancellationToken);
+            entry = await this.storyEntryRepository.GetByIdAsync(id, cancellationToken: cancellationToken);
 
-            return this.Ok(this.mapper.Map<StoryEntryOverviewResponse>(entry));
+            return this.mapper.Map<StoryEntryOverviewResponse>(entry);
         }
 
         [HttpDelete("{id}"), IsGroupAdmin]

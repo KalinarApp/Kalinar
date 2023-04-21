@@ -47,11 +47,15 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
-        public async Task<List<Character>> GetCharactersAsync(string userId, bool isAdmin, bool? isOwner, CancellationToken cancellationToken = default)
+        public async Task<List<Character>> GetCharactersAsync(string userId, bool isAdmin, bool? isOwner, bool? includeSkilltrees, CancellationToken cancellationToken = default)
         {
             try
             {
-                IQueryable<Character> query = this.context.Characters.Where(c => c.UserId == userId || c.IsPublic || isAdmin);
+                IQueryable<Character> query = includeSkilltrees != true 
+                    ? this.context.Characters 
+                    : this.context.Characters.Include(c => c.Skilltrees);
+
+                query = query.Where(c => c.UserId == userId || c.IsPublic || isAdmin);
 
                 if (null != isOwner)
                 {

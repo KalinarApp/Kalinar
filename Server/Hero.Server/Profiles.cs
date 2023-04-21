@@ -17,6 +17,7 @@ namespace Hero.Server
             this.CreateMap<CharacterRequest, Character>();
             this.CreateMap<Character, CreateCharacterResponse>();
             this.CreateMap<Character, CharacterOverviewResponse>();
+            this.CreateMap<Character, ExtendedCharacterOverviewResponse>();
 
             this.CreateMap<Character, CharacterDetailResponse>()
                 .ForMember(dst => dst.FullSkilltrees, src => src.MapFrom(character => character.Skilltrees));

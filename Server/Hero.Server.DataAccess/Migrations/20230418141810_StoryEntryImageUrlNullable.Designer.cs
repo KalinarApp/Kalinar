@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Hero.Server.DataAccess.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hero.Server.DataAccess.Migrations
 {
     [DbContext(typeof(HeroDbContext))]
-    partial class HeroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230418141810_StoryEntryImageUrlNullable")]
+    partial class StoryEntryImageUrlNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -368,78 +370,6 @@ namespace Hero.Server.DataAccess.Migrations
                     b.ToTable("Groups", "Hero");
                 });
 
-            modelBuilder.Entity("Hero.Server.Core.Models.Inventory.CharacterItem", b =>
-                {
-                    b.Property<Guid>("CharacterId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Count")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(1);
-
-                    b.HasKey("CharacterId", "ItemId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("CharacterItems", "Hero");
-                });
-
-            modelBuilder.Entity("Hero.Server.Core.Models.Inventory.Item", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("CreatorId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(2048)
-                        .HasColumnType("character varying(2048)");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsSingle")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("Items", "Hero");
-
-                    b.HasDiscriminator<string>("Type").HasValue("Item");
-                });
-
             modelBuilder.Entity("Hero.Server.Core.Models.Race", b =>
                 {
                     b.Property<Guid>("Id")
@@ -763,22 +693,6 @@ namespace Hero.Server.DataAccess.Migrations
                     b.ToTable("Users", "Hero");
                 });
 
-            modelBuilder.Entity("Hero.Server.Core.Models.Inventory.Weapon", b =>
-                {
-                    b.HasBaseType("Hero.Server.Core.Models.Inventory.Item");
-
-                    b.Property<int>("Bonus")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Dice")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DiceCount")
-                        .HasColumnType("integer");
-
-                    b.HasDiscriminator().HasValue("Weapon");
-                });
-
             modelBuilder.Entity("Hero.Server.Core.Models.Storyline.StoryBook", b =>
                 {
                     b.HasBaseType("Hero.Server.Core.Models.Storyline.StoryEntry");
@@ -919,44 +833,6 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Hero.Server.Core.Models.Inventory.CharacterItem", b =>
-                {
-                    b.HasOne("Hero.Server.Core.Models.Character", "Character")
-                        .WithMany("Items")
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hero.Server.Core.Models.Inventory.Item", "Item")
-                        .WithMany("Characters")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
-
-                    b.Navigation("Item");
-                });
-
-            modelBuilder.Entity("Hero.Server.Core.Models.Inventory.Item", b =>
-                {
-                    b.HasOne("Hero.Server.Core.Models.User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hero.Server.Core.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
-
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("Hero.Server.Core.Models.Race", b =>
                 {
                     b.HasOne("Hero.Server.Core.Models.User", "Creator")
@@ -1084,8 +960,6 @@ namespace Hero.Server.DataAccess.Migrations
 
             modelBuilder.Entity("Hero.Server.Core.Models.Character", b =>
                 {
-                    b.Navigation("Items");
-
                     b.Navigation("Skilltrees");
                 });
 
@@ -1098,11 +972,6 @@ namespace Hero.Server.DataAccess.Migrations
                     b.Navigation("Skilltrees");
 
                     b.Navigation("StoryEntries");
-                });
-
-            modelBuilder.Entity("Hero.Server.Core.Models.Inventory.Item", b =>
-                {
-                    b.Navigation("Characters");
                 });
 
             modelBuilder.Entity("Hero.Server.Core.Models.Race", b =>

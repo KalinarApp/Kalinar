@@ -48,6 +48,7 @@ class _EditAttributeScreenState extends ConsumerState<EditAttributeScreen> {
     ref.listen(attributeStateNotifierProvider, (previous, next) {
       if (null == previous || previous.isLoading) {
         categoriesController.text = next.valueOrNull?.category ?? "";
+        _formKey.currentState?.fields["category"]?.didChange(categoriesController.text);
       }
     });
 

@@ -58,10 +58,22 @@ namespace Hero.Server.Controllers
             List<Character> characters;
             string userId = this.HttpContext.User.GetUserId();
 
+            characters = await this.repository.GetCharactersAsync(userId, await this.userRepository.IsOwner(userId, token), isOwner, false, token);
 
-            characters = await this.repository.GetCharactersAsync(userId, await this.userRepository.IsOwner(userId, token), isOwner, token);
+            return characters.Select(c => this.mapper.Map<CharacterOverviewResponse>(c)).ToList();
+        }
 
-            return characters.Select(character => this.mapper.Map<CharacterOverviewResponse>(character)).ToList();
+        [HttpGet("extended"), IsGroupMember]
+        public async Task<List<ExtendedCharacterOverviewResponse>> GetExtendedCharacterOverviewsAsync([FromQuery] bool? isOwner, CancellationToken token)
+        {
+            List<Character> characters;
+            string userId = this.HttpContext.User.GetUserId();
+
+            characters = await this.repository.GetCharactersAsync(userId, await this.userRepository.IsOwner(userId, token), isOwner, true, token);
+
+            characters.ForEach(c => c.Skilltrees.ForEach(s => s.Character = null));
+
+            return characters.Select(c => this.mapper.Map<ExtendedCharacterOverviewResponse>(c)).ToList();
         }
 
         [HttpGet("{id}/inventory"), IsGroupMember] 
@@ -83,7 +95,7 @@ namespace Hero.Server.Controllers
         [HttpDelete("{id}"), IsGroupMember]
         public async Task<IActionResult> DeleteCharacterAsync(Guid id, CancellationToken token)
         {
-            await this.repository.EnsureIsOwner(id, this.HttpContext.User.GetUserId());
+            await this.repository.EnsureIsOwner(id, this.HttpContext.User.GetUserId(), token);
             await this.repository.DeleteCharacterAsync(id, token);
 
             return this.Ok();

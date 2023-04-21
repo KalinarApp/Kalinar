@@ -34,6 +34,7 @@ class _StorylineEditScreenState extends ConsumerState<StorylineEditScreen> {
   Future<StoryEntry?> _loadItem() async {
     if (null != widget.id) {
       final result = await ref.read(storyEntriesControllerProvider).getById(widget.id!);
+      if (!mounted) return null;
       setState(() {
         selectedType = StoryEntryType.values.byName(result.type);
       });

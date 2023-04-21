@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/characters/domain/character_overview.dart';
 
 import '../../data/characters_repository.dart';
+import '../../domain/character_overview.dart';
 import '../notifier/character_overview_state_notifier.dart';
 import '../notifier/character_state_notifier.dart';
 

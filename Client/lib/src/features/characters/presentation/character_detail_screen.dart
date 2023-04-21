@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
+import '../../../../kalinar_icons.dart';
 import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/loading_indicator.dart';
 import '../../../utilities/async_value_extension.dart';
@@ -62,25 +63,25 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
 
     final List<ContentTab> tabs = [
       ContentTab(
-        icon: const FaIcon(FontAwesomeIcons.person),
+        icon: const Icon(Kalinar.characteristics),
         text: AppLocalizations.of(context)!.characteristics,
         content: CharacterSheetWidget(state),
       ),
       if (_isOwnerOrAdmin(state) || (state.shareAbilities ?? false))
         ContentTab(
-          icon: const FaIcon(FontAwesomeIcons.award),
+          icon: const Icon(Kalinar.star),
           text: AppLocalizations.of(context)!.abilities,
           content: CharacterAbilities(state),
         ),
       if (_isOwnerOrAdmin(state) || (state.shareSkilltree ?? false))
         ContentTab(
-          icon: const FaIcon(FontAwesomeIcons.circleNodes),
+          icon: const Icon(Kalinar.node),
           text: AppLocalizations.of(context)!.skilltrees,
           content: CharacterSkilltreeList(state),
         ),
       if (_isOwnerOrAdmin(state) || (state.shareInventory ?? false))
         ContentTab(
-          icon: const FaIcon(FontAwesomeIcons.clipboardCheck),
+          icon: const Icon(Kalinar.backpack),
           text: AppLocalizations.of(context)!.characterInventory,
           content: const InventoryList(),
           // content: Padding(
@@ -99,7 +100,7 @@ class _CharacterDetailScreenState extends ConsumerState<CharacterDetailScreen> {
         ),
       if (_isOwnerOrAdmin(state) || (state.shareNotes ?? false))
         ContentTab(
-          icon: const FaIcon(FontAwesomeIcons.noteSticky),
+          icon: const Icon(Kalinar.note),
           text: AppLocalizations.of(context)!.characterNotes,
           content: Padding(
             padding: const EdgeInsets.all(12.0),

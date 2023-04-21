@@ -21,7 +21,7 @@ class DevHttpOverrides extends HttpOverrides {
 void _loadFlavors() {
   if (kDebugMode) {
     HttpOverrides.global = DevHttpOverrides();
-    FlavorConfig(name: "DEV", variables: {"baseUrl": Platform.isAndroid ? "10.0.2.2" : "localhost"});
+    FlavorConfig(name: "DEV", variables: {"baseUrl": !kIsWeb && Platform.isAndroid ? "10.0.2.2" : "localhost"});
   } else {
     FlavorConfig(variables: {"baseUrl": "api.kalinar.app"});
   }
@@ -31,17 +31,14 @@ void main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
       setWindowTitle('Hero App');
       setWindowMinSize(const Size(500, 800));
     }
 
     _loadFlavors();
     await initializeFirebase();
-
-    if (!Platform.isWindows) {
-      await initializeMessaging();
-    }
+    if (!kIsWeb && Platform.isWindows) await initializeMessaging();
 
     await SentryFlutter.init(
       (options) {
