@@ -56,6 +56,9 @@ class Kalinar {
   static const IconData check = IconData(0xe92f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData throwing = IconData(0xe930, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData chemie = IconData(0xe931, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cave = IconData(0xe932, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData anvil = IconData(0xe933, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData pickaxe = IconData(0xe934, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 
   static const values = {
     "kalinar_timeline": timeline,
@@ -108,5 +111,8 @@ class Kalinar {
     "kalinar_check": check,
     "kalinar_throwing": throwing,
     "kalinar_chemie": chemie,
+    "kalinar_cave": cave,
+    "kalinar_anvil": anvil,
+    "kalinar_pickaxe": pickaxe,
   };
 }
