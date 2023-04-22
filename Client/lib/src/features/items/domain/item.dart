@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kalinar/src/features/inventory/domain/weapon.dart';
+import 'package:kalinar/src/features/items/domain/weapon.dart';
 
 part 'item.freezed.dart';
 part 'item.g.dart';

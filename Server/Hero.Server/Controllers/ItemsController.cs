@@ -39,7 +39,7 @@ namespace Hero.Server.Controllers
         }
 
         [HttpGet, IsGroupMember]
-        public async Task<List<ItemResponse>> GetFilteredItemsAsync([FromQuery] string query, [FromQuery] bool? isLocked)
+        public async Task<List<ItemResponse>> GetFilteredItemsAsync([FromQuery] string? query, [FromQuery] bool? isLocked)
         {
             List<Item> items =  await this.repository.GetFilteredItemsAsync(query, isLocked);
 

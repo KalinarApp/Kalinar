@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/inventory/data/items_repository.dart';
 
+import '../data/items_repository.dart';
 import '../domain/item.dart';
 
 class ItemsController extends StateNotifier<List<Item>> {

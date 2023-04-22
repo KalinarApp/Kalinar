@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kalinar/src/features/inventory/domain/weapon.dart';
+import 'package:kalinar/src/features/items/domain/weapon.dart';
 
 class StrengthWidget extends StatelessWidget {
   final Weapon item;

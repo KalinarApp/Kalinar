@@ -209,6 +209,11 @@
     "storyLoadingFailed",
     "storyEmpty",
     "timeline",
-    "welcomeMessage"
+    "welcomeMessage",
+    "name",
+    "description",
+    "item",
+    "weapon",
+    "itemTypeSelection"
   ]
 }

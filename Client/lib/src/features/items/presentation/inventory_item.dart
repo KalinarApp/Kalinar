@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:kalinar/src/features/inventory/domain/item.dart';
-import 'package:kalinar/src/features/inventory/domain/weapon.dart';
-import 'package:kalinar/src/features/inventory/presentation/strength_widget.dart';
+import 'package:kalinar/src/features/items/domain/item.dart';
+import 'package:kalinar/src/features/items/domain/weapon.dart';
+import 'package:kalinar/src/features/items/presentation/strength_widget.dart';
 
 class InventoryItem extends StatelessWidget {
   final Item item;

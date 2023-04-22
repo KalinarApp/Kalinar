@@ -277,5 +277,12 @@
         "type": "String"
       }
     }
-  }
+  },
+
+  "name": "Name",
+  "description": "Beschreibung",
+  
+  "item": "Item",
+  "weapon": "Waffe",
+  "itemTypeSelection": "Art des Items auswählen"
 }

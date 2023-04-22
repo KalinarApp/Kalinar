@@ -10,7 +10,7 @@ import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/loading_indicator.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../../group_management/application/group_notifier.dart';
-import '../../inventory/presentation/inventory_list.dart';
+import '../../items/presentation/inventory_list.dart';
 import '../application/controllers/character_controller.dart';
 import '../application/notifier/character_state_notifier.dart';
 import '../domain/character.dart';
