@@ -8,7 +8,7 @@ import '../../application/controllers/character_controller.dart';
 import '../../application/controllers/character_overview_controller.dart';
 import '../../domain/character_overview.dart';
 import '../character_detail_screen.dart';
-import 'character_list_item.dart';
+import 'character_grid_item.dart';
 
 class CharacterOverviewTab extends ConsumerStatefulWidget {
   final CharacterOverviewController controller;
@@ -74,7 +74,7 @@ class _CharacterOverviewTabState extends ConsumerState<CharacterOverviewTab> {
         physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, crossAxisSpacing: 10, mainAxisSpacing: 10),
         itemCount: widget.items?.length ?? 0,
-        itemBuilder: (context, index) => CharacterListItem(
+        itemBuilder: (context, index) => CharacterGridItem(
           widget.items![index],
           onTap: _openCharacterSheet,
           onLongPress: widget.canInteract ? _showActionDialog : null,

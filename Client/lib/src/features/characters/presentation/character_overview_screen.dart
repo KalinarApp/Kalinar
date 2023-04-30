@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/common_widgets/layout/responsive_layout.dart';
+import 'package:kalinar/src/common_widgets/loading_indicator.dart';
 
 import '../../../common_widgets/content_tab.dart';
 import '../application/controllers/character_overview_controller.dart';
@@ -49,22 +51,19 @@ class _CharacterOverviewScreenState extends ConsumerState<CharacterOverviewScree
       ),
     ];
 
-    return Scaffold(
-      floatingActionButton: canAdd
-          ? FloatingActionButton(onPressed: () => GoRouter.of(context).pushNamed(CharacterEditorScreen.name), child: const Icon(Icons.add))
-          : null,
-      appBar: AppBar(
-        actions: [
-          // IconButton(
-          //   icon: const Icon(Kalinar.sword, size: 32),
-          //   onPressed: () => GoRouter.of(context).pushNamed(ItemsListScreen.name),
-          // )
-        ],
-        bottom: TabBar(tabs: tabs, controller: _controller),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: TabBarView(controller: _controller, children: tabs.map((e) => e.content).toList()),
+    return ResponsiveLayout(
+      desktop: const Scaffold(body: LoadingIndicator("")),
+      mobile: Scaffold(
+        floatingActionButton: canAdd
+            ? FloatingActionButton(onPressed: () => GoRouter.of(context).pushNamed(CharacterEditorScreen.name), child: const Icon(Icons.add))
+            : null,
+        appBar: AppBar(
+          bottom: TabBar(tabs: tabs, controller: _controller),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: TabBarView(controller: _controller, children: tabs.map((e) => e.content).toList()),
+        ),
       ),
     );
   }

@@ -10,6 +10,7 @@ import '../../features/admin/storyline/presentation/storyline_edit_screen.dart';
 import '../../features/admin/storyline/presentation/storyline_overview_screen.dart';
 
 final adminRoutes = GoRoute(
+  name: AdminMenuScreen.name,
   path: AdminMenuScreen.route,
   pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const AdminMenuScreen()),
   routes: [

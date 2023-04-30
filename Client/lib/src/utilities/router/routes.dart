@@ -106,7 +106,7 @@ final routeProvider = Provider<GoRouter>((ref) {
             pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const ProfileScreen()),
           ),
           adminRoutes,
-          characterRoutes,
+          getCharacterRoutes(ref),
           traitsRoutes,
           GoRoute(
             name: StoryScreen.name,
