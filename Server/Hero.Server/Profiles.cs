@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
 using Hero.Server.Core.Models;
+using Hero.Server.Core.Models.Inventory;
 using Hero.Server.Core.Models.Storyline;
 using Hero.Server.Messages.Requests;
 using Hero.Server.Messages.Responses;
@@ -89,6 +90,13 @@ namespace Hero.Server
             this.CreateMap<StoryImage, StoryImageResponse>();
             this.CreateMap<StoryBook, StoryBookResponse>();
             this.CreateMap<StoryBookPage, StoryBookPageResponse>();
+
+            this.CreateMap<ItemRequest, Item>();
+
+            this.CreateMap<Item, ItemResponse>().IncludeAllDerived();
+            this.CreateMap<Weapon, WeaponResponse>();
+
+            this.CreateMap<CharacterItem, CharacterItemResponse>();
         }
     }
 }

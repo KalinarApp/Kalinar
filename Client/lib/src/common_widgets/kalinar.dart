@@ -45,30 +45,33 @@ class _KalinarState extends ConsumerState<Kalinar> {
 
   @override
   void initState() {
-    FirebaseMessaging.onMessage.listen((message) {
-      if (null == message.notification) {
-        if (message.data.containsKey("type")) {
-          Widget widget;
-          MessageType type = MessageType.values.byName(message.data["type"]);
+    if (!Platform.isWindows) {
+      FirebaseMessaging.onMessage.listen((message) {
+        if (null == message.notification) {
+          if (message.data.containsKey("type")) {
+            Widget widget;
+            MessageType type = MessageType.values.byName(message.data["type"]);
 
-          switch (type) {
-            case MessageType.welcome:
-              widget = WelcomeMessage(username: message.data["user"]);
-              break;
+            switch (type) {
+              case MessageType.welcome:
+                widget = WelcomeMessage(username: message.data["user"]);
+                break;
+            }
+
+            showOverlayNotification((context) => widget, duration: const Duration(seconds: 5));
           }
-
-          showOverlayNotification((context) => widget, duration: const Duration(seconds: 5));
         }
-      }
-    });
+      });
 
-    Future.delayed(Duration.zero, () async {
-      String? token = await FirebaseMessaging.instance.getToken();
+      Future.delayed(Duration.zero, () async {
+        String? token = await FirebaseMessaging.instance.getToken();
 
-      if (null != token) {
-        ref.read(userRepositoryProvider).updateDeviceId(token);
-      }
-    });
+        if (null != token) {
+          ref.read(userRepositoryProvider).updateDeviceId(token);
+        }
+      });
+    }
+
     super.initState();
   }
 

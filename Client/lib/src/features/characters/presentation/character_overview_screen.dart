@@ -3,7 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../kalinar_icons.dart';
 import '../../../common_widgets/content_tab.dart';
+import '../../items/presentation/items_list_screen.dart';
 import '../application/controllers/character_overview_controller.dart';
 import '../application/notifier/character_overview_state_notifier.dart';
 import 'character_editor_screen.dart';
@@ -55,10 +57,13 @@ class _CharacterOverviewScreenState extends ConsumerState<CharacterOverviewScree
           : null,
       appBar: AppBar(
         actions: [
-          // IconButton(
-          //   icon: const Icon(Kalinar.sword, size: 32),
-          //   onPressed: () => GoRouter.of(context).pushNamed(ItemsListScreen.name),
-          // )
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: IconButton(
+              icon: const Icon(Kalinar.sword, size: 32),
+              onPressed: () => GoRouter.of(context).pushNamed(ItemsListScreen.name),
+            ),
+          )
         ],
         bottom: TabBar(tabs: tabs, controller: _controller),
       ),

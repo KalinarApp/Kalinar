@@ -146,7 +146,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
 
     return WillPopScope(
       onWillPop: () async {
-        final value = await ref.read(characterControllerProvider).get(state.value!.character!.id);
+        await ref.read(characterControllerProvider).get(state.value!.character!.id);
         return true;
       },
       child: Scaffold(
