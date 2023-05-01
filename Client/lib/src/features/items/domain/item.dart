@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kalinar/src/features/items/domain/weapon.dart';
 
+import '../../group_management/domain/user.dart';
+
 part 'item.freezed.dart';
 part 'item.g.dart';
 
@@ -10,6 +12,7 @@ class Item with _$Item {
   const factory Item({
     required String id,
     required String title,
+    required User creator,
     String? description,
     String? imageUrl,
   }) = _Item;
@@ -19,6 +22,7 @@ class Item with _$Item {
   const factory Item.weapon({
     required String id,
     required String title,
+    required User creator,
     String? description,
     String? imageUrl,
     required int dice,
@@ -28,4 +32,3 @@ class Item with _$Item {
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 }
-

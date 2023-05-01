@@ -6,20 +6,22 @@ import '../shimmer_widget.dart';
 
 class NameField extends StatelessWidget {
   final bool readOnly;
+  final String name;
   final String? label;
   final String? initialValue;
   final Widget? icon;
   final bool isLoading;
   final void Function(String? value)? onChanged;
 
-  const NameField({this.label, this.icon, this.initialValue, this.isLoading = false, this.readOnly = false, this.onChanged, super.key});
+  const NameField(
+      {this.name = "name", this.label, this.icon, this.initialValue, this.isLoading = false, this.readOnly = false, this.onChanged, super.key});
 
   @override
   Widget build(BuildContext context) {
     return isLoading
         ? const ShimmerWidget.rectangular(height: 102)
         : FormBuilderTextField(
-            name: "name",
+            name: name,
             maxLines: 2,
             maxLength: 100,
             onChanged: onChanged,

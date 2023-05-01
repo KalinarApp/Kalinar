@@ -9,6 +9,7 @@
         public string? ImageUrl { get; set; }
         public bool IsLocked { get; set; }
         public bool IsSingle { get; set; }
+        public UserResponse Creator { get; set; }
     }
 
     public class WeaponResponse : ItemResponse

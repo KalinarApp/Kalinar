@@ -1,18 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kalinar/src/common_widgets/form_fields/invisible_field.dart';
-import 'package:kalinar/src/features/items/domain/item_type.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/default_scroll_view.dart';
 import '../../../common_widgets/form_fields/description_field.dart';
 import '../../../common_widgets/form_fields/image_picker_field.dart';
+import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
 import '../../../common_widgets/loading_indicator.dart';
+import '../../../utilities/async_value_extension.dart';
+import '../../group_management/application/group_notifier.dart';
 import '../../traits/domain/attribute.dart';
+import '../application/items_controller.dart';
+import '../domain/item.dart';
+import '../domain/item_type.dart';
 
 class ItemEditorScreen extends ConsumerStatefulWidget {
   static const name = "ItemEditor";
@@ -29,6 +35,31 @@ class ItemEditorScreen extends ConsumerStatefulWidget {
 
 class _ItemEditorScreenState extends ConsumerState<ItemEditorScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
+
+  late final ItemsController controller;
+
+  Future<void> _save() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      final data = _formKey.currentState?.value;
+      if (null != data) {
+        final value = null == widget.id ? await controller.create(data) : await controller.update(widget.id, data);
+        if (!mounted) return;
+        value.showSnackbarOnError(context);
+        if (!value.hasError) {
+          GoRouter.of(context).pop();
+        }
+      }
+    }
+  }
+
+  bool _isCreatorOrAdminOrNew(Item? item) {
+    return widget.id == null || _isAdmin() || (null != item && item.creator.id == FirebaseAuth.instance.currentUser?.uid);
+  }
+
+  bool _isAdmin() {
+    return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+  }
 
   Widget _buildImagePicker(Image? image, bool isLoading, BuildContext context) {
     Image? fittedImage = image;
@@ -67,6 +98,12 @@ class _ItemEditorScreenState extends ConsumerState<ItemEditorScreen> {
   }
 
   @override
+  void initState() {
+    controller = ref.read(itemsNotifierProvider.notifier);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
@@ -75,9 +112,9 @@ class _ItemEditorScreenState extends ConsumerState<ItemEditorScreen> {
         child: DefaultScrollView(
           children: [
             InvisibleField(name: "type", initialValue: widget.type),
-            ImagePickerField(builder: (image, isLoading) => _buildImagePicker(image, isLoading, context)),
+            ImagePickerField(name: "imageUrl", builder: (image, isLoading) => _buildImagePicker(image, isLoading, context)),
             const SizedBox(height: 8.0),
-            NameField(label: AppLocalizations.of(context)!.name),
+            NameField(name: "title", label: AppLocalizations.of(context)!.name),
             DescriptionField(label: AppLocalizations.of(context)!.description),
             const SizedBox(height: 8.0),
             // FormBuilderDropdown<ItemType>(
@@ -91,7 +128,7 @@ class _ItemEditorScreenState extends ConsumerState<ItemEditorScreen> {
             //   items: ItemType.values.map((e) => DropdownMenuItem<ItemType>(value: e, child: Text(e.getTitle(context)))).toList(),
             // ),
 
-            if (widget.type == ItemType.weapon)
+            if (widget.type == ItemType.Weapon)
               Column(children: [
                 FormBuilderDropdown<Attribute>(
                   name: "attributeId",
@@ -148,7 +185,7 @@ class _ItemEditorScreenState extends ConsumerState<ItemEditorScreen> {
               ]),
             const SizedBox(height: 50),
             ElevatedButton(
-              onPressed: null,
+              onPressed: _save,
               child: SizedBox(
                 width: double.infinity,
                 child: Center(child: Text(AppLocalizations.of(context)!.save, style: Theme.of(context).textTheme.titleLarge)),

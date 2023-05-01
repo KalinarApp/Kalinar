@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../domain/item.dart';
-import '../presentation/inventory_dummy.dart';
 
 class InventoryController extends StateNotifier<List<Item>> {
   final String characterId;
@@ -11,7 +10,7 @@ class InventoryController extends StateNotifier<List<Item>> {
 
   Future<AsyncValue> refresh() async {
     return await AsyncValue.guard(() async {
-      state = items;
+      // state = items;
     });
   }
 

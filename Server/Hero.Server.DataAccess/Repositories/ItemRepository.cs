@@ -39,7 +39,7 @@ namespace Hero.Server.DataAccess.Repositories
         {
             return await this.ExecuteAsync(async () => 
             {
-                IQueryable<Item> query = this.context.Items;
+                IQueryable<Item> query = this.context.Items.Include(i => i.Creator);
 
                 if (null != isLocked)
                 {

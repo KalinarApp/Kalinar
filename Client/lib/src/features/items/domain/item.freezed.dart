@@ -31,34 +31,49 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
 mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  User get creator => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(
-            String id, String title, String? description, String? imageUrl)
+    TResult Function(String id, String title, User creator, String? description,
+            String? imageUrl)
         $default, {
-    required TResult Function(String id, String title, String? description,
-            String? imageUrl, int dice, int diceCount, int bonus)
+    required TResult Function(
+            String id,
+            String title,
+            User creator,
+            String? description,
+            String? imageUrl,
+            int dice,
+            int diceCount,
+            int bonus)
         weapon,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String id, String title, String? description, String? imageUrl)?
+    TResult? Function(String id, String title, User creator,
+            String? description, String? imageUrl)?
         $default, {
-    TResult? Function(String id, String title, String? description,
-            String? imageUrl, int dice, int diceCount, int bonus)?
+    TResult? Function(
+            String id,
+            String title,
+            User creator,
+            String? description,
+            String? imageUrl,
+            int dice,
+            int diceCount,
+            int bonus)?
         weapon,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String id, String title, String? description, String? imageUrl)?
+    TResult Function(String id, String title, User creator, String? description,
+            String? imageUrl)?
         $default, {
-    TResult Function(String id, String title, String? description,
+    TResult Function(String id, String title, User creator, String? description,
             String? imageUrl, int dice, int diceCount, int bonus)?
         weapon,
     required TResult orElse(),
@@ -93,7 +108,14 @@ abstract class $ItemCopyWith<$Res> {
   factory $ItemCopyWith(Item value, $Res Function(Item) then) =
       _$ItemCopyWithImpl<$Res, Item>;
   @useResult
-  $Res call({String id, String title, String? description, String? imageUrl});
+  $Res call(
+      {String id,
+      String title,
+      User creator,
+      String? description,
+      String? imageUrl});
+
+  $UserCopyWith<$Res> get creator;
 }
 
 /// @nodoc
@@ -111,6 +133,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? creator = null,
     Object? description = freezed,
     Object? imageUrl = freezed,
   }) {
@@ -123,6 +146,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -133,6 +160,14 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
               as String?,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get creator {
+    return $UserCopyWith<$Res>(_value.creator, (value) {
+      return _then(_value.copyWith(creator: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -141,7 +176,15 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       __$$_ItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, String? description, String? imageUrl});
+  $Res call(
+      {String id,
+      String title,
+      User creator,
+      String? description,
+      String? imageUrl});
+
+  @override
+  $UserCopyWith<$Res> get creator;
 }
 
 /// @nodoc
@@ -155,6 +198,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? creator = null,
     Object? description = freezed,
     Object? imageUrl = freezed,
   }) {
@@ -167,6 +211,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -185,6 +233,7 @@ class _$_Item implements _Item {
   const _$_Item(
       {required this.id,
       required this.title,
+      required this.creator,
       this.description,
       this.imageUrl,
       final String? $type})
@@ -197,6 +246,8 @@ class _$_Item implements _Item {
   @override
   final String title;
   @override
+  final User creator;
+  @override
   final String? description;
   @override
   final String? imageUrl;
@@ -206,7 +257,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, title: $title, description: $description, imageUrl: $imageUrl)';
+    return 'Item(id: $id, title: $title, creator: $creator, description: $description, imageUrl: $imageUrl)';
   }
 
   @override
@@ -216,6 +267,7 @@ class _$_Item implements _Item {
             other is _$_Item &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.creator, creator) || other.creator == creator) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.imageUrl, imageUrl) ||
@@ -225,7 +277,7 @@ class _$_Item implements _Item {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, title, description, imageUrl);
+      Object.hash(runtimeType, id, title, creator, description, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -236,42 +288,56 @@ class _$_Item implements _Item {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(
-            String id, String title, String? description, String? imageUrl)
+    TResult Function(String id, String title, User creator, String? description,
+            String? imageUrl)
         $default, {
-    required TResult Function(String id, String title, String? description,
-            String? imageUrl, int dice, int diceCount, int bonus)
+    required TResult Function(
+            String id,
+            String title,
+            User creator,
+            String? description,
+            String? imageUrl,
+            int dice,
+            int diceCount,
+            int bonus)
         weapon,
   }) {
-    return $default(id, title, description, imageUrl);
+    return $default(id, title, creator, description, imageUrl);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String id, String title, String? description, String? imageUrl)?
+    TResult? Function(String id, String title, User creator,
+            String? description, String? imageUrl)?
         $default, {
-    TResult? Function(String id, String title, String? description,
-            String? imageUrl, int dice, int diceCount, int bonus)?
+    TResult? Function(
+            String id,
+            String title,
+            User creator,
+            String? description,
+            String? imageUrl,
+            int dice,
+            int diceCount,
+            int bonus)?
         weapon,
   }) {
-    return $default?.call(id, title, description, imageUrl);
+    return $default?.call(id, title, creator, description, imageUrl);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String id, String title, String? description, String? imageUrl)?
+    TResult Function(String id, String title, User creator, String? description,
+            String? imageUrl)?
         $default, {
-    TResult Function(String id, String title, String? description,
+    TResult Function(String id, String title, User creator, String? description,
             String? imageUrl, int dice, int diceCount, int bonus)?
         weapon,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(id, title, description, imageUrl);
+      return $default(id, title, creator, description, imageUrl);
     }
     return orElse();
   }
@@ -319,6 +385,7 @@ abstract class _Item implements Item {
   const factory _Item(
       {required final String id,
       required final String title,
+      required final User creator,
       final String? description,
       final String? imageUrl}) = _$_Item;
 
@@ -328,6 +395,8 @@ abstract class _Item implements Item {
   String get id;
   @override
   String get title;
+  @override
+  User get creator;
   @override
   String? get description;
   @override
@@ -346,11 +415,15 @@ abstract class _$$_WeaponCopyWith<$Res> implements $ItemCopyWith<$Res> {
   $Res call(
       {String id,
       String title,
+      User creator,
       String? description,
       String? imageUrl,
       int dice,
       int diceCount,
       int bonus});
+
+  @override
+  $UserCopyWith<$Res> get creator;
 }
 
 /// @nodoc
@@ -364,6 +437,7 @@ class __$$_WeaponCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Weapon>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? creator = null,
     Object? description = freezed,
     Object? imageUrl = freezed,
     Object? dice = null,
@@ -379,6 +453,10 @@ class __$$_WeaponCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Weapon>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      creator: null == creator
+          ? _value.creator
+          : creator // ignore: cast_nullable_to_non_nullable
+              as User,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -409,6 +487,7 @@ class _$_Weapon implements _Weapon {
   const _$_Weapon(
       {required this.id,
       required this.title,
+      required this.creator,
       this.description,
       this.imageUrl,
       required this.dice,
@@ -424,6 +503,8 @@ class _$_Weapon implements _Weapon {
   final String id;
   @override
   final String title;
+  @override
+  final User creator;
   @override
   final String? description;
   @override
@@ -442,7 +523,7 @@ class _$_Weapon implements _Weapon {
 
   @override
   String toString() {
-    return 'Item.weapon(id: $id, title: $title, description: $description, imageUrl: $imageUrl, dice: $dice, diceCount: $diceCount, bonus: $bonus)';
+    return 'Item.weapon(id: $id, title: $title, creator: $creator, description: $description, imageUrl: $imageUrl, dice: $dice, diceCount: $diceCount, bonus: $bonus)';
   }
 
   @override
@@ -452,6 +533,7 @@ class _$_Weapon implements _Weapon {
             other is _$_Weapon &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.creator, creator) || other.creator == creator) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.imageUrl, imageUrl) ||
@@ -464,8 +546,8 @@ class _$_Weapon implements _Weapon {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, title, description, imageUrl, dice, diceCount, bonus);
+  int get hashCode => Object.hash(runtimeType, id, title, creator, description,
+      imageUrl, dice, diceCount, bonus);
 
   @JsonKey(ignore: true)
   @override
@@ -476,43 +558,59 @@ class _$_Weapon implements _Weapon {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(
-            String id, String title, String? description, String? imageUrl)
+    TResult Function(String id, String title, User creator, String? description,
+            String? imageUrl)
         $default, {
-    required TResult Function(String id, String title, String? description,
-            String? imageUrl, int dice, int diceCount, int bonus)
+    required TResult Function(
+            String id,
+            String title,
+            User creator,
+            String? description,
+            String? imageUrl,
+            int dice,
+            int diceCount,
+            int bonus)
         weapon,
   }) {
-    return weapon(id, title, description, imageUrl, dice, diceCount, bonus);
+    return weapon(
+        id, title, creator, description, imageUrl, dice, diceCount, bonus);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String id, String title, String? description, String? imageUrl)?
+    TResult? Function(String id, String title, User creator,
+            String? description, String? imageUrl)?
         $default, {
-    TResult? Function(String id, String title, String? description,
-            String? imageUrl, int dice, int diceCount, int bonus)?
+    TResult? Function(
+            String id,
+            String title,
+            User creator,
+            String? description,
+            String? imageUrl,
+            int dice,
+            int diceCount,
+            int bonus)?
         weapon,
   }) {
     return weapon?.call(
-        id, title, description, imageUrl, dice, diceCount, bonus);
+        id, title, creator, description, imageUrl, dice, diceCount, bonus);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String id, String title, String? description, String? imageUrl)?
+    TResult Function(String id, String title, User creator, String? description,
+            String? imageUrl)?
         $default, {
-    TResult Function(String id, String title, String? description,
+    TResult Function(String id, String title, User creator, String? description,
             String? imageUrl, int dice, int diceCount, int bonus)?
         weapon,
     required TResult orElse(),
   }) {
     if (weapon != null) {
-      return weapon(id, title, description, imageUrl, dice, diceCount, bonus);
+      return weapon(
+          id, title, creator, description, imageUrl, dice, diceCount, bonus);
     }
     return orElse();
   }
@@ -560,6 +658,7 @@ abstract class _Weapon implements Item, Weapon {
   const factory _Weapon(
       {required final String id,
       required final String title,
+      required final User creator,
       final String? description,
       final String? imageUrl,
       required final int dice,
@@ -572,6 +671,8 @@ abstract class _Weapon implements Item, Weapon {
   String get id;
   @override
   String get title;
+  @override
+  User get creator;
   @override
   String? get description;
   @override

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:kalinar/src/common_widgets/custom_image_button.dart';
 
-import 'inventory_dummy.dart';
 import 'inventory_item.dart';
 
 class InventoryList extends ConsumerStatefulWidget {
@@ -39,8 +38,8 @@ class _InventoryListState extends ConsumerState<InventoryList> {
             crossAxisCount: 2,
             mainAxisSpacing: 12,
             shrinkWrap: true,
-            itemCount: items.length,
-            itemBuilder: (context, index) => InventoryItem(items[index]),
+            itemCount: [].length,
+            itemBuilder: (context, index) => InventoryItem([][index]),
           ),
         ),
       ],

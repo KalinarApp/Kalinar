@@ -9,6 +9,7 @@ part of 'item.dart';
 _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       id: json['id'] as String,
       title: json['title'] as String,
+      creator: User.fromJson(json['creator'] as Map<String, dynamic>),
       description: json['description'] as String?,
       imageUrl: json['imageUrl'] as String?,
       $type: json['type'] as String?,
@@ -17,6 +18,7 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
 Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
+      'creator': instance.creator,
       'description': instance.description,
       'imageUrl': instance.imageUrl,
       'type': instance.$type,
@@ -25,6 +27,7 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
 _$_Weapon _$$_WeaponFromJson(Map<String, dynamic> json) => _$_Weapon(
       id: json['id'] as String,
       title: json['title'] as String,
+      creator: User.fromJson(json['creator'] as Map<String, dynamic>),
       description: json['description'] as String?,
       imageUrl: json['imageUrl'] as String?,
       dice: json['dice'] as int,
@@ -36,6 +39,7 @@ _$_Weapon _$$_WeaponFromJson(Map<String, dynamic> json) => _$_Weapon(
 Map<String, dynamic> _$$_WeaponToJson(_$_Weapon instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
+      'creator': instance.creator,
       'description': instance.description,
       'imageUrl': instance.imageUrl,
       'dice': instance.dice,

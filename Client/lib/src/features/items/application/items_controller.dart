@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kalinar/src/common_widgets/list_extension.dart';
 
 import '../data/items_repository.dart';
 import '../domain/item.dart';
@@ -16,10 +17,17 @@ class ItemsController extends StateNotifier<List<Item>> {
     });
   }
 
-  Future<AsyncValue> add(Map<String, dynamic> data) async {
+  Future<AsyncValue> create(Map<String, dynamic> data) async {
+    return await AsyncValue.guard(() async {
+      final item = await repo.create(data);
+      state = [...state, item];
+    });
+  }
+
+  Future<AsyncValue> update(String? id, Map<String, dynamic> data) async {
     return await AsyncValue.guard(() async {
       final item = Item.fromJson(data);
-      state = [...state, item];
+      state = state..updateItem(state.indexWhere((element) => element.id == id), item);
     });
   }
 
