@@ -33,7 +33,7 @@ class _DesktopCharacterScreenState extends ConsumerState<DesktopCharacterScreen>
     return Row(
       children: [
         CharacterList(selectedId: widget.id, onSelectionChanged: (id) {}),
-        null != character ? CharacterSheet(character) : const LoadingIndicator(""),
+        null != character ? Expanded(child: CharacterSheet(character)) : const LoadingIndicator(""),
       ],
     );
   }

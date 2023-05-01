@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kalinar/src/features/characters/domain/character.dart';
+import 'package:kalinar/src/features/characters/presentation/desktop/big_character_sheet.dart';
+import 'package:kalinar/src/features/characters/presentation/desktop/medium_character_sheet.dart';
+import 'package:kalinar/src/features/characters/presentation/desktop/small_character_sheet.dart';
+
+import '../../../../common_widgets/layout/responsive_layout.dart';
 
 class CharacterSheet extends StatelessWidget {
   final Character character;
@@ -8,6 +13,10 @@ class CharacterSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text(character.name));
+    return ResponsiveLayout(
+      mobile: SmallCharacterSheet(character),
+      tablet: MediumCharacterSheet(character),
+      desktop: BigCharacterSheet(character),
+    );
   }
 }
