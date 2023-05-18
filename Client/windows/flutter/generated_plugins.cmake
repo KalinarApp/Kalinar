@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   desktop_drop
   desktop_webview_auth
+  firebase_core
   pasteboard
   sentry_flutter
   url_launcher_windows

@@ -6,10 +6,9 @@ import '../notifier/character_overview_state_notifier.dart';
 class CharacterOverviewController {
   final CharacterOverviewStateNotifier notifier;
   final CharactersRepository repo;
-  final bool isOwner;
+  final bool? isOwner;
 
-  CharacterOverviewController.owner(this.repo, this.notifier) : isOwner = true;
-  CharacterOverviewController.foreign(this.repo, this.notifier) : isOwner = false;
+  CharacterOverviewController(this.repo, this.notifier, this.isOwner);
 
   Future<AsyncValue> getAll() async => AsyncValue.guard(() async => notifier.refresh(await repo.getAll(isOwner: isOwner)));
 
@@ -21,10 +20,14 @@ class CharacterOverviewController {
   }
 }
 
+final charactersProvider = Provider<CharacterOverviewController>((ref) {
+  return CharacterOverviewController(ref.watch(charactersRepositoryProvider), ref.watch(charactersStateProvider.notifier), null);
+});
+
 final ownedCharactersProvider = Provider<CharacterOverviewController>((ref) {
-  return CharacterOverviewController.owner(ref.watch(charactersRepositoryProvider), ref.watch(ownedCharactersStateProvider.notifier));
+  return CharacterOverviewController(ref.watch(charactersRepositoryProvider), ref.watch(ownedCharactersStateProvider.notifier), true);
 });
 
 final foreignCharactersProvider = Provider<CharacterOverviewController>((ref) {
-  return CharacterOverviewController.foreign(ref.watch(charactersRepositoryProvider), ref.watch(foreignCharactersStateProvider.notifier));
+  return CharacterOverviewController(ref.watch(charactersRepositoryProvider), ref.watch(foreignCharactersStateProvider.notifier), false);
 });

@@ -28,7 +28,7 @@ class _BookDetailsState extends ConsumerState<BookDetails> {
   }
 
   void _editPage(String bookId, String pageId) {
-    GoRouter.of(context).pushNamed(PageEditorScreen.name, params: {"id": bookId}, queryParams: {"id": pageId});
+    GoRouter.of(context).pushNamed(PageEditorScreen.name, pathParameters: {"id": bookId}, queryParameters: {"id": pageId});
   }
 
   void _reorder(String bookId, String pageId, int oldIndex, int newIndex) {

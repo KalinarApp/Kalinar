@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kalinar/src/common_widgets/user_menu.dart';
+import 'package:kalinar/src/features/characters/presentation/components/character_list.dart';
 
 import '../navigation/navigation_item.dart';
 
@@ -17,6 +18,8 @@ class DesktopNavigation extends StatefulWidget {
 
 class _DesktopNavigationState extends State<DesktopNavigation> with TickerProviderStateMixin {
   late final TabController controller;
+
+  String? _currentCharacterId;
 
   int get _currentIndex => _locationToTabIndex(GoRouter.of(context).location);
 
@@ -40,27 +43,39 @@ class _DesktopNavigationState extends State<DesktopNavigation> with TickerProvid
 
   @override
   Widget build(BuildContext context) {
-    final tab = AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).canvasColor,
-        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-      ),
-      child: TabBar(
-        controller: controller,
-        isScrollable: true,
-        onTap: _onItemTapped,
-        tabs: widget.tabs.map((e) => Tab(icon: Icon(e.icon))).toList(),
-      ),
-    );
-
     return Scaffold(
-      appBar: AppBar(
-        title: tab,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())],
+      body: Row(
+        children: [
+          SideMenu(
+            hasResizer: false,
+            mode: SideMenuMode.compact,
+            hasResizerToggle: false,
+            builder: (data) {
+              return SideMenuData(
+                  header: const Padding(
+                    padding: EdgeInsets.only(bottom: 20, top: 8),
+                    child: UserMenu(),
+                  ),
+                  items: widget.tabs
+                      .map(
+                        (e) => SideMenuItemDataTile(
+                          icon: Icon(e.icon),
+                          title: e.title,
+                          isSelected: widget.tabs.indexOf(e) == _currentIndex,
+                          onTap: () {
+                            _onItemTapped(widget.tabs.indexOf(e));
+                            setState(() => _currentCharacterId = null);
+                          },
+                          hasSelectedLine: false,
+                        ),
+                      )
+                      .toList());
+            },
+          ),
+          CharacterList(selectedId: _currentCharacterId, onSelectionChanged: (id) => setState(() => _currentCharacterId = id)),
+          Expanded(child: widget.child),
+        ],
       ),
-      body: widget.child,
     );
   }
 }

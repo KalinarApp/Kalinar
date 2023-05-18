@@ -8,9 +8,18 @@ class InformationRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [Text("$title:", style: Theme.of(context).textTheme.bodyLarge), const SizedBox(width: 5), Text(value ?? "-")],
+    return RichText(
+      text: TextSpan(
+        children: [
+          WidgetSpan(
+            child: Text(
+              "$title: ",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Theme.of(context).colorScheme.primary),
+            ),
+          ),
+          WidgetSpan(child: SelectableText(value ?? "-", style: Theme.of(context).textTheme.bodyMedium)),
+        ],
+      ),
     );
   }
 }

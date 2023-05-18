@@ -34,7 +34,7 @@ class _SkilltreeTabState extends ConsumerState<SkilltreeTab> {
   }
 
   void _openBuilder(SkilltreeOverview item) {
-    GoRouter.of(context).goNamed(SkilltreeBuilderScreen.name, queryParams: {"skilltreeId": item.id});
+    GoRouter.of(context).goNamed(SkilltreeBuilderScreen.name, queryParameters: {"skilltreeId": item.id});
   }
 
   Future<void> _showActionDialog(SkilltreeOverview item) async {

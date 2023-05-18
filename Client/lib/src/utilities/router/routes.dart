@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../kalinar_icons.dart';
 import '../../common_widgets/layout/navigation.dart';
+import '../../common_widgets/layout/size.dart';
 import '../../common_widgets/navigation/navigation_item.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/authentication/presentation/auth_screen.dart';
@@ -77,7 +78,7 @@ final routeProvider = Provider<GoRouter>((ref) {
       GoRoute(
         name: UserInviteScreen.name,
         path: UserInviteScreen.route,
-        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: UserInviteScreen(state.queryParams["code"])),
+        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: UserInviteScreen(state.queryParameters["code"])),
       ),
       ShellRoute(
         navigatorKey: shellNavigatorKey,
@@ -86,7 +87,8 @@ final routeProvider = Provider<GoRouter>((ref) {
           return Navigation(
             tabs: [
               NavigationItem(route: HomeScreen.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
-              NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
+              if (MediaQuery.of(context).size.width <= mobileMaxWidth)
+                NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
               NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
               NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
               if (isAdmin) NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin)),

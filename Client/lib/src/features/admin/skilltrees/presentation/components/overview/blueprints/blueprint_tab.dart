@@ -30,7 +30,7 @@ class _BlueprintTabState extends ConsumerState<BlueprintTab> {
   }
 
   void _openBuilder(BlueprintOverview item, {bool asNew = false}) {
-    GoRouter.of(context).goNamed(SkilltreeBuilderScreen.name, queryParams: asNew ? {"blueprintId": item.id, "asNew": ""} : {"blueprintId": item.id});
+    GoRouter.of(context).goNamed(SkilltreeBuilderScreen.name, queryParameters: asNew ? {"blueprintId": item.id, "asNew": ""} : {"blueprintId": item.id});
   }
 
   Future<void> _showBlueprintActionDialog(BlueprintOverview item) async {

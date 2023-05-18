@@ -39,7 +39,7 @@ class _CharacterOverviewTabState extends ConsumerState<CharacterOverviewTab> {
     if (!mounted) return;
 
     value.showSnackbarOnError(context);
-    GoRouter.of(context).pushNamed(CharacterDetailScreen.name, params: {"id": item.id});
+    GoRouter.of(context).pushNamed(CharacterDetailScreen.name, pathParameters: {"id": item.id});
   }
 
   Future _showActionDialog(CharacterOverview item) async {

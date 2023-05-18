@@ -62,7 +62,7 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
         switch (action) {
           case DialogAction.edit:
             ref.read(abilitiesControllerProvider).getById(item.id);
-            GoRouter.of(context).pushNamed(EditAbilityScreen.name, queryParams: {"id": item.id});
+            GoRouter.of(context).pushNamed(EditAbilityScreen.name, queryParameters: {"id": item.id});
             break;
           case DialogAction.delete:
           default:

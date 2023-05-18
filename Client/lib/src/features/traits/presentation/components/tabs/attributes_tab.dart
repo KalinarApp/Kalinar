@@ -41,7 +41,7 @@ class _AttributesTabState extends ConsumerState<AttributesTab> {
 
   void _editAbility(Attribute attribute) {
     ref.read(attributesControllerProvider).getById(attribute.id);
-    GoRouter.of(context).goNamed(EditAttributeScreen.name, queryParams: {"id": attribute.id});
+    GoRouter.of(context).goNamed(EditAttributeScreen.name, queryParameters: {"id": attribute.id});
   }
 
   Future<void> _deleteAbility(Attribute attribute) async {

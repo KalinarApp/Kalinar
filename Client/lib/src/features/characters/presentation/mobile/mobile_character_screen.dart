@@ -11,7 +11,6 @@ import '../../../../common_widgets/loading_indicator.dart';
 import '../../../../utilities/async_value_extension.dart';
 import '../../../group_management/application/group_notifier.dart';
 import '../../application/controllers/character_controller.dart';
-import '../../application/notifier/character_state_notifier.dart';
 import '../../domain/character.dart';
 import '../components/details/auto_saving_text_field.dart';
 import '../components/details/character_abilities.dart';
@@ -20,9 +19,9 @@ import '../components/details/character_sheet_widget.dart';
 import '../components/details/character_skilltree_list.dart';
 
 class MobileCharacterScreen extends ConsumerStatefulWidget {
-  final String id;
+  final Character? item;
 
-  const MobileCharacterScreen(this.id, {super.key});
+  const MobileCharacterScreen(this.item, {super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MobileCharacterScreenState();
@@ -38,44 +37,44 @@ class _MobileCharacterScreenState extends ConsumerState<MobileCharacterScreen> {
   }
 
   Future _saveField(String fieldName, dynamic value) async {
-    final state = await ref.read(characterControllerProvider).update(widget.id, {fieldName: value});
+    final state = await ref.read(characterControllerProvider).update(widget.item!.id, {fieldName: value});
     if (!mounted) return;
     state.showSnackbarOnError(context);
   }
 
   _refreshCharacter() async {
-    final value = await ref.read(characterControllerProvider).get(widget.id);
+    final value = await ref.read(characterControllerProvider).get(widget.item!.id);
     if (!mounted) return;
     value.showSnackbarOnError(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(characterStateProvider);
-
-    if (null == state) {
+    if (null == widget.item) {
       return LoadingIndicator(AppLocalizations.of(context)!.fetchCharacter);
     }
+
+    final item = widget.item!;
 
     final List<ContentTab> tabs = [
       ContentTab(
         icon: const Icon(Kalinar.characteristics),
         text: AppLocalizations.of(context)!.characteristics,
-        content: CharacterSheetWidget(state),
+        content: CharacterSheetWidget(item),
       ),
-      if (_isOwnerOrAdmin(state) || (state.shareAbilities ?? false))
+      if (_isOwnerOrAdmin(item) || (item.shareAbilities ?? false))
         ContentTab(
           icon: const Icon(Kalinar.star),
           text: AppLocalizations.of(context)!.abilities,
-          content: CharacterAbilities(state),
+          content: CharacterAbilities(item),
         ),
-      if (_isOwnerOrAdmin(state) || (state.shareSkilltree ?? false))
+      if (_isOwnerOrAdmin(item) || (item.shareSkilltree ?? false))
         ContentTab(
           icon: const Icon(Kalinar.node),
           text: AppLocalizations.of(context)!.skilltrees,
-          content: CharacterSkilltreeList(state),
+          content: CharacterSkilltreeList(item),
         ),
-      if (_isOwnerOrAdmin(state) || (state.shareInventory ?? false))
+      if (_isOwnerOrAdmin(item) || (item.shareInventory ?? false))
         ContentTab(
           icon: const Icon(Kalinar.backpack),
           text: AppLocalizations.of(context)!.characterInventory,
@@ -83,17 +82,17 @@ class _MobileCharacterScreenState extends ConsumerState<MobileCharacterScreen> {
             padding: const EdgeInsets.all(12.0),
             child: AutoSavingTextField(
               title: AppLocalizations.of(context)!.characterInventory,
-              initialValue: state.inventory,
+              initialValue: item.inventory,
               minLines: null,
               maxLines: null,
               expands: true,
-              enabled: _isOwner(state),
+              enabled: _isOwner(item),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               onSaving: (currentText) async => await _saveField("inventory", currentText),
             ),
           ),
         ),
-      if (_isOwnerOrAdmin(state) || (state.shareNotes ?? false))
+      if (_isOwnerOrAdmin(item) || (item.shareNotes ?? false))
         ContentTab(
           icon: const Icon(Kalinar.note),
           text: AppLocalizations.of(context)!.characterNotes,
@@ -101,23 +100,23 @@ class _MobileCharacterScreenState extends ConsumerState<MobileCharacterScreen> {
             padding: const EdgeInsets.all(12.0),
             child: AutoSavingTextField(
               title: AppLocalizations.of(context)!.characterNotes,
-              initialValue: state.notes,
+              initialValue: item.notes,
               minLines: null,
               maxLines: null,
               expands: true,
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-              enabled: _isOwner(state),
+              enabled: _isOwner(item),
               onSaving: (currentText) async => await _saveField("notes", currentText),
             ),
           ),
         ),
-      if (_isOwner(state))
+      if (_isOwner(item))
         ContentTab(
           icon: const FaIcon(Icons.settings),
           text: AppLocalizations.of(context)!.settings,
           content: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: CharacterConfiguration(state, save: _saveField),
+            child: CharacterConfiguration(item, save: _saveField),
           ),
         )
     ];

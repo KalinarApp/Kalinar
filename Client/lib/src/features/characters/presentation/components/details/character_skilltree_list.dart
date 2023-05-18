@@ -10,10 +10,11 @@ import '../../skilltree_screen.dart';
 
 class CharacterSkilltreeList extends ConsumerWidget {
   final Character character;
+  final bool fillContent;
 
-  const CharacterSkilltreeList(this.character, {super.key});
+  const CharacterSkilltreeList(this.character, {this.fillContent = false, super.key});
   _openSkilltree(SkilltreeOverview item, BuildContext context) {
-    GoRouter.of(context).pushNamed(SkilltreeScreen.name, params: {"id": item.id});
+    GoRouter.of(context).pushNamed(SkilltreeScreen.name, pathParameters: {"id": item.id});
   }
 
   @override
@@ -28,6 +29,7 @@ class CharacterSkilltreeList extends ConsumerWidget {
         padding: const EdgeInsets.all(12.0),
         child: ListView.builder(
           itemCount: items.length,
+          shrinkWrap: fillContent,
           itemBuilder: (context, index) => SkilltreeItem(items[index], onPress: (item) => _openSkilltree(item, context)),
         ),
       ),
