@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
-import '../navigation/navigation_item.dart';
+import 'navigation_item.dart';
 
 class MobileNavigation extends StatefulWidget {
   final Widget child;

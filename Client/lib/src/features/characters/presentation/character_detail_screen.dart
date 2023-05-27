@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common_widgets/layout/responsive_layout.dart';
 import '../application/notifier/character_state_notifier.dart';
-import 'desktop/desktop_characters_screen.dart';
-import 'mobile/mobile_character_screen.dart';
+import 'desktop/character_screen.dart' as desktop;
+import 'mobile/character_screen.dart' as mobile;
 
 class CharacterDetailScreen extends ConsumerWidget {
   static const String name = "CharacterDetail";
@@ -19,8 +19,8 @@ class CharacterDetailScreen extends ConsumerWidget {
     final item = ref.watch(characterStateProvider);
 
     return ResponsiveLayout(
-      mobile: MobileCharacterScreen(item),
-      desktop: DesktopCharacterScreen(item),
+      mobile: mobile.CharacterScreen(item),
+      desktop: desktop.CharacterScreen(item),
     );
   }
 }

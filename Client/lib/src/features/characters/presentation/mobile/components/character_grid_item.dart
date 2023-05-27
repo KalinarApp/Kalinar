@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/character_overview.dart';
+import '../../../domain/character_overview.dart';
 
 class CharacterGridItem extends StatelessWidget {
   final CharacterOverview item;

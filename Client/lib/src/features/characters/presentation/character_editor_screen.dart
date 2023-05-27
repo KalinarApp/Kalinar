@@ -17,7 +17,7 @@ import '../../../common_widgets/save_button.dart';
 import '../../../utilities/async_value_extension.dart';
 import '../application/controllers/character_controller.dart';
 import '../domain/character.dart';
-import 'components/race_selection.dart';
+import 'shared/race_selection.dart';
 
 class CharacterEditorScreen extends ConsumerStatefulWidget {
   static const name = "CharacterEditor";

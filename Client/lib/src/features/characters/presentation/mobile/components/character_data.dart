@@ -5,16 +5,16 @@ import '../../../domain/character.dart';
 import 'character_attributes.dart';
 import 'character_information.dart';
 
-class CharacterSheetWidget extends ConsumerStatefulWidget {
+class CharacterData extends ConsumerStatefulWidget {
   final Character character;
 
-  const CharacterSheetWidget(this.character, {super.key});
+  const CharacterData(this.character, {super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _CharacterSheetWidgetState();
 }
 
-class _CharacterSheetWidgetState extends ConsumerState<CharacterSheetWidget> {
+class _CharacterSheetWidgetState extends ConsumerState<CharacterData> {
   @override
   void initState() {
     super.initState();

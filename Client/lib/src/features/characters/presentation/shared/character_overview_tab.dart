@@ -8,7 +8,7 @@ import '../../application/controllers/character_controller.dart';
 import '../../application/controllers/character_overview_controller.dart';
 import '../../domain/character_overview.dart';
 import '../character_detail_screen.dart';
-import 'character_grid_item.dart';
+import '../mobile/components/character_grid_item.dart';
 
 class CharacterOverviewTab extends ConsumerStatefulWidget {
   final CharacterOverviewController controller;

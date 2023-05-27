@@ -9,7 +9,7 @@ import '../../../common_widgets/content_tab.dart';
 import '../application/controllers/character_overview_controller.dart';
 import '../application/notifier/character_overview_state_notifier.dart';
 import 'character_editor_screen.dart';
-import 'components/character_overview_tab.dart';
+import 'shared/character_overview_tab.dart';
 
 class CharacterOverviewScreen extends ConsumerStatefulWidget {
   static const String name = "CharacterOverview";

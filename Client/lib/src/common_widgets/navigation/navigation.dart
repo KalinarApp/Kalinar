@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kalinar/src/common_widgets/layout/mobile_navigation.dart';
-import 'package:kalinar/src/common_widgets/layout/responsive_layout.dart';
 
-import '../navigation/navigation_item.dart';
 import 'desktop_navigation.dart';
+import 'mobile_navigation.dart';
+import '../layout/responsive_layout.dart';
+import 'navigation_item.dart';
 
 class Navigation extends StatelessWidget {
   final Widget child;

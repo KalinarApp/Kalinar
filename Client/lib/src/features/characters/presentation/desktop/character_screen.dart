@@ -6,18 +6,18 @@ import '../../../../common_widgets/layout/size.dart';
 import '../../../../common_widgets/loading_indicator.dart';
 import '../../domain/character.dart';
 import 'big_character_sheet.dart';
-import 'medium_character_sheet.dart';
+import 'small_character_sheet.dart';
 
-class DesktopCharacterScreen extends ConsumerStatefulWidget {
+class CharacterScreen extends ConsumerStatefulWidget {
   final Character? item;
 
-  const DesktopCharacterScreen(this.item, {super.key});
+  const CharacterScreen(this.item, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _DesktopCharacterScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CharacterScreenState();
 }
 
-class _DesktopCharacterScreenState extends ConsumerState<DesktopCharacterScreen> {
+class _CharacterScreenState extends ConsumerState<CharacterScreen> {
   @override
   Widget build(BuildContext context) {
     if (null == widget.item) {
@@ -27,8 +27,8 @@ class _DesktopCharacterScreenState extends ConsumerState<DesktopCharacterScreen>
     final item = widget.item!;
 
     return LayoutBuilder(builder: (ctx, constraints) {
-      if (constraints.maxWidth < mobileMaxWidth) {
-        return MediumCharacterSheet(item);
+      if (constraints.maxWidth < tabletMaxWidth) {
+        return SmallCharacterSheet(item);
       } else {
         return BigCharacterSheet(item);
       }

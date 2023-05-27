@@ -5,11 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common_widgets/custom_icon_button.dart';
-import '../../application/controllers/character_controller.dart';
-import '../../application/controllers/character_overview_controller.dart';
-import '../../application/notifier/character_overview_state_notifier.dart';
-import '../character_detail_screen.dart';
+import '../../../../../common_widgets/custom_icon_button.dart';
+import '../../../application/controllers/character_controller.dart';
+import '../../../application/controllers/character_overview_controller.dart';
+import '../../../application/notifier/character_overview_state_notifier.dart';
+import '../../character_detail_screen.dart';
+import '../../character_editor_screen.dart';
 
 class CharacterList extends ConsumerStatefulWidget {
   final String? selectedId;
@@ -46,7 +47,13 @@ class _CharacterListState extends ConsumerState<CharacterList> {
       hasResizerToggle: false,
       builder: (data) {
         return SideMenuData(
-            header: const Padding(padding: EdgeInsets.only(top: 8.0, bottom: 20), child: CircleAvatar(backgroundColor: Colors.transparent)),
+            header: Align(
+              alignment: data.isOpen ? Alignment.centerRight : Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 20),
+                child: CustomIconButton(onTap: () => context.pushNamed(CharacterEditorScreen.name), icon: Icons.add),
+              ),
+            ),
             items: filteredItems
                 .map(
                   (e) => SideMenuItemDataTile(

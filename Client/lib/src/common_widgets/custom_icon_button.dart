@@ -10,7 +10,13 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: CircleAvatar(backgroundColor: Colors.transparent, child: Icon(icon, color: Theme.of(context).colorScheme.onSurface)),
+      child: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        child: Icon(
+          icon,
+          color: onTap == null ? Theme.of(context).disabledColor : Theme.of(context).iconTheme.color,
+        ),
+      ),
     );
   }
 }

@@ -15,9 +15,9 @@ import '../../traits/presentation/edit_skill_screen.dart';
 import '../application/controllers/character_controller.dart';
 import '../application/controllers/skillpoint_controller.dart';
 import '../application/controllers/skilltree_controller.dart';
-import 'components/skilltrees/skillpoints_widget.dart';
-import 'components/skilltrees/skilltree_stack.dart';
-import 'components/skilltrees/statistics_widget.dart';
+import 'shared/skilltrees/skillpoints_widget.dart';
+import 'shared/skilltrees/skilltree_stack.dart';
+import 'shared/skilltrees/statistics_widget.dart';
 
 class SkilltreeScreen extends ConsumerStatefulWidget {
   static const String name = "Skilltree";

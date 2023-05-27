@@ -26,8 +26,8 @@ class SkilltreeItem extends StatelessWidget {
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: Row(children: [
-            SizedBox(
-              width: 100,
+            Expanded(
+              flex: 1,
               child: Row(
                 children: [
                   const FaIcon(Kalinar.skill, size: 18),
@@ -37,8 +37,8 @@ class SkilltreeItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 20),
-            SizedBox(
-              width: 100,
+            Expanded(
+              flex: 1,
               child: Row(
                 children: [
                   Transform.rotate(angle: pi / 4, child: FaIcon(FontAwesomeIcons.square, color: Theme.of(context).colorScheme.secondary, size: 18)),

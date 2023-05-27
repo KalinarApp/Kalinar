@@ -12,22 +12,22 @@ import '../../../../utilities/async_value_extension.dart';
 import '../../../group_management/application/group_notifier.dart';
 import '../../application/controllers/character_controller.dart';
 import '../../domain/character.dart';
-import '../components/details/auto_saving_text_field.dart';
-import '../components/details/character_abilities.dart';
-import '../components/details/character_configuration.dart';
-import '../components/details/character_sheet_widget.dart';
-import '../components/details/character_skilltree_list.dart';
+import '../shared/details/auto_saving_text_field.dart';
+import '../shared/details/character_abilities.dart';
+import '../shared/details/character_configuration.dart';
+import '../shared/details/character_skilltree_list.dart';
+import 'components/character_data.dart';
 
-class MobileCharacterScreen extends ConsumerStatefulWidget {
+class CharacterScreen extends ConsumerStatefulWidget {
   final Character? item;
 
-  const MobileCharacterScreen(this.item, {super.key});
+  const CharacterScreen(this.item, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _MobileCharacterScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CharacterScreenState();
 }
 
-class _MobileCharacterScreenState extends ConsumerState<MobileCharacterScreen> {
+class _CharacterScreenState extends ConsumerState<CharacterScreen> {
   bool _isOwner(Character character) {
     return FirebaseAuth.instance.currentUser?.uid == character.userId;
   }
@@ -60,7 +60,7 @@ class _MobileCharacterScreenState extends ConsumerState<MobileCharacterScreen> {
       ContentTab(
         icon: const Icon(Kalinar.characteristics),
         text: AppLocalizations.of(context)!.characteristics,
-        content: CharacterSheetWidget(item),
+        content: CharacterData(item),
       ),
       if (_isOwnerOrAdmin(item) || (item.shareAbilities ?? false))
         ContentTab(

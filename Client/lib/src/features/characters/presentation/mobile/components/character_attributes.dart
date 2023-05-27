@@ -1,11 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../../../utilities/global_attributes.dart';
-import '../../../traits/domain/attribute_value.dart';
-import '../../domain/character.dart';
-import '../components/attribute_value_widget.dart';
+import '../../../../../utilities/global_attributes.dart';
+import '../../../../traits/domain/attribute_value.dart';
+import '../../../domain/character.dart';
+import '../../shared/attribute_value_widget.dart';
 
 class CharacterAttributes extends StatelessWidget {
   final Character character;
@@ -34,26 +35,29 @@ class CharacterAttributes extends StatelessWidget {
     for (final key in keys) {
       final list = grouped[key]!;
       list.sortBy((element) => element.attribute.name);
-      groups.add(_buildGroup(key ?? "", list.map((e) => AttributeValueWidget(e, showTitle: true)).toList(), context));
+      groups.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("${key ?? AppLocalizations.of(context)!.attributesMore}:"),
+              const SizedBox(height: 4),
+              StaggeredGrid.extent(
+                maxCrossAxisExtent: 200,
+                mainAxisSpacing: 4,
+                crossAxisSpacing: 10,
+                children: list.map((e) => AttributeValueWidget(e, showTitle: true)).toList(),
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
+        ),
+      );
     }
 
     return groups;
-  }
-
-  Widget _buildGroup(String title, List<Widget> children, BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 4.0),
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
-          ),
-        ),
-        for (Widget child in children) Padding(padding: const EdgeInsets.only(bottom: 4.0), child: child),
-      ],
-    );
   }
 
   @override
@@ -68,21 +72,14 @@ class CharacterAttributes extends StatelessWidget {
 
     final others = character.attributes.where((x) => !globalAttributes.any((y) => x.attributeId == y.value.attributeId)).toList();
 
-    return LayoutBuilder(
-      builder: (ctx, constraints) {
-        final columnCount = (constraints.maxWidth / 200).floor();
-        final items = [_buildGroup("Grundwerte", globalAttributes, context), ..._getGroupedAttributes(others, context)];
-        return Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: AlignedGridView.count(
-            crossAxisCount: columnCount,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 20,
-            itemCount: items.length,
-            itemBuilder: (context, index) => items[index],
-          ),
-        );
-      },
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        StaggeredGrid.extent(maxCrossAxisExtent: 200, mainAxisSpacing: 4, crossAxisSpacing: 10, children: globalAttributes),
+        const SizedBox(height: 20),
+        ..._getGroupedAttributes(others, context),
+      ],
     );
   }
 }

@@ -25,6 +25,8 @@ class CharacterAbilities extends ConsumerStatefulWidget {
 }
 
 class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
+  final controller = ScrollController();
+
   bool isLoading = true;
   List<String> availableTags = [];
   List<String>? selectedTags;
@@ -124,7 +126,7 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
     final abilities = _getAbilitiesNotInSelectedTags();
 
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.only(left: 12.0, top: 12.0, bottom: 12.0),
       child: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (OverscrollIndicatorNotification overScroll) {
           overScroll.disallowIndicator();
@@ -132,34 +134,39 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
         },
         child: isLoading
             ? const Center(child: CircularProgressIndicator())
-            : CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [IconButton(icon: const FaIcon(FontAwesomeIcons.filter), onPressed: _openFilterDialog)],
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => ExpandableGroup(
-                        header: _getGroupTitle(groups.keys.elementAt(index), groups.values.elementAt(index).length),
-                        items: groups.values.elementAt(index).map(_getListItem).toList(),
-                      ),
-                      childCount: groups.length,
-                    ),
-                  ),
-                  if (abilities.isNotEmpty && groups.isNotEmpty)
+            : Scrollbar(
+                controller: controller,
+                thumbVisibility: true,
+                child: CustomScrollView(
+                  controller: controller,
+                  slivers: [
                     SliverToBoxAdapter(
-                      child: ExpandableGroup(
-                          header: _getGroupTitle(AppLocalizations.of(context)!.otherAbilities, abilities.length),
-                          items: abilities.map((item) => _getListItem(item, showTags: true)).toList()),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [IconButton(icon: const FaIcon(FontAwesomeIcons.filter), onPressed: _openFilterDialog), const SizedBox(width: 12)],
+                      ),
                     ),
-                  if (groups.isEmpty)
                     SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) => _getListItem(abilities[index], showTags: true),
-                            childCount: abilities.length))
-                ],
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => ExpandableGroup(
+                          header: _getGroupTitle(groups.keys.elementAt(index), groups.values.elementAt(index).length),
+                          items: groups.values.elementAt(index).map(_getListItem).toList(),
+                        ),
+                        childCount: groups.length,
+                      ),
+                    ),
+                    if (abilities.isNotEmpty && groups.isNotEmpty)
+                      SliverToBoxAdapter(
+                        child: ExpandableGroup(
+                            header: _getGroupTitle(AppLocalizations.of(context)!.otherAbilities, abilities.length),
+                            items: abilities.map((item) => _getListItem(item, showTags: true)).toList()),
+                      ),
+                    if (groups.isEmpty)
+                      SliverList(
+                          delegate: SliverChildBuilderDelegate((context, index) => _getListItem(abilities[index], showTags: true),
+                              childCount: abilities.length))
+                  ],
+                ),
               ),
       ),
     );

@@ -7,8 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../kalinar_icons.dart';
-import '../../common_widgets/layout/navigation.dart';
 import '../../common_widgets/layout/size.dart';
+import '../../common_widgets/navigation/navigation.dart';
 import '../../common_widgets/navigation/navigation_item.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/authentication/presentation/auth_screen.dart';
@@ -89,9 +89,10 @@ final routeProvider = Provider<GoRouter>((ref) {
               NavigationItem(route: HomeScreen.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
               if (MediaQuery.of(context).size.width <= mobileMaxWidth)
                 NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
-              NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
-              NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
-              if (isAdmin) NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin)),
+              if (!kIsWeb) NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
+              if (!kIsWeb) NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
+              if (isAdmin && !kIsWeb)
+                NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin)),
             ],
             child: child,
           );

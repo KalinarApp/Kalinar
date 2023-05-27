@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/common_widgets/user_menu.dart';
-import 'package:kalinar/src/features/characters/presentation/components/character_list.dart';
 
-import '../navigation/navigation_item.dart';
+import '../../features/characters/presentation/desktop/components/character_list.dart';
+import '../user_menu.dart';
+import 'navigation_item.dart';
 
 class DesktopNavigation extends StatefulWidget {
   final Widget child;

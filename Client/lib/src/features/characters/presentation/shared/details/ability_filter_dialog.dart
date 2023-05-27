@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:filter_list/filter_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,7 +13,7 @@ Future showAbilityFilterDialog(
   return await FilterListDialog.display<String>(
     context,
     listData: availableTags,
-    height: MediaQuery.of(context).size.height / .5,
+    width: kIsWeb ? min(500, MediaQuery.of(context).size.width / 3) : null,
     selectedListData: selectedTags ?? [],
     choiceChipLabel: (tag) => tag,
     hideSearchField: true,
