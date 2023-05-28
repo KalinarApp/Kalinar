@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kalinar/src/features/characters/presentation/shared/details/notes_text_field.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import '../../../../../kalinar_icons.dart';
@@ -12,10 +13,10 @@ import '../../../../utilities/async_value_extension.dart';
 import '../../../group_management/application/group_notifier.dart';
 import '../../application/controllers/character_controller.dart';
 import '../../domain/character.dart';
-import '../shared/details/auto_saving_text_field.dart';
 import '../shared/details/character_abilities.dart';
 import '../shared/details/character_configuration.dart';
 import '../shared/details/character_skilltree_list.dart';
+import '../shared/details/inventory_text_field.dart';
 import 'components/character_data.dart';
 
 class CharacterScreen extends ConsumerStatefulWidget {
@@ -78,37 +79,13 @@ class _CharacterScreenState extends ConsumerState<CharacterScreen> {
         ContentTab(
           icon: const Icon(Kalinar.backpack),
           text: AppLocalizations.of(context)!.characterInventory,
-          content: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: AutoSavingTextField(
-              title: AppLocalizations.of(context)!.characterInventory,
-              initialValue: item.inventory,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              enabled: _isOwner(item),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-              onSaving: (currentText) async => await _saveField("inventory", currentText),
-            ),
-          ),
+          content: Padding(padding: const EdgeInsets.all(12.0), child: InventoryTextField(item)),
         ),
       if (_isOwnerOrAdmin(item) || (item.shareNotes ?? false))
         ContentTab(
           icon: const Icon(Kalinar.note),
           text: AppLocalizations.of(context)!.characterNotes,
-          content: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: AutoSavingTextField(
-              title: AppLocalizations.of(context)!.characterNotes,
-              initialValue: item.notes,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-              enabled: _isOwner(item),
-              onSaving: (currentText) async => await _saveField("notes", currentText),
-            ),
-          ),
+          content: Padding(padding: const EdgeInsets.all(12.0), child: NotesTextField(item)),
         ),
       if (_isOwner(item))
         ContentTab(
