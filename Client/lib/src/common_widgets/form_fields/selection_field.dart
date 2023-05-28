@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
@@ -34,6 +35,21 @@ class SelectionField<T> extends ConsumerWidget {
       this.validator,
       super.key});
 
+  PopupProps<T> _buildPopup(BuildContext context) {
+    final searchField = TextFieldProps(decoration: InputDecoration(border: const UnderlineInputBorder(), labelText: searchLabel));
+    return kIsWeb
+        ? PopupProps.dialog(
+            showSearchBox: true,
+            searchFieldProps: searchField,
+            dialogProps: DialogProps(elevation: 16, backgroundColor: Theme.of(context).dialogBackgroundColor),
+          )
+        : PopupProps.modalBottomSheet(
+            modalBottomSheetProps: ModalBottomSheetProps(elevation: 16, backgroundColor: Theme.of(context).dialogBackgroundColor),
+            showSearchBox: true,
+            searchFieldProps: searchField,
+          );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
@@ -51,13 +67,7 @@ class SelectionField<T> extends ConsumerWidget {
             itemAsString: asString,
             clearButtonProps: const ClearButtonProps(isVisible: true),
             dropdownSearchDecoration: InputDecoration(hintText: searchHint),
-            popupProps: PopupProps.modalBottomSheet(
-              modalBottomSheetProps: ModalBottomSheetProps(elevation: 16, backgroundColor: Theme.of(context).dialogBackgroundColor),
-              showSearchBox: true,
-              searchFieldProps: TextFieldProps(
-                decoration: InputDecoration(border: const UnderlineInputBorder(), labelText: searchLabel),
-              ),
-            ),
+            popupProps: _buildPopup(context),
           ),
         ),
         if (null != onAddPressed)

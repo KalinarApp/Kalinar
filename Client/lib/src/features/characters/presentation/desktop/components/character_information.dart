@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../domain/character.dart';
 import '../../shared/details/information_row.dart';
+import 'custom_card.dart';
 
 class CharacterInformation extends StatelessWidget {
   final Character character;
@@ -15,11 +16,7 @@ class CharacterInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (ctx, constraints) {
-        return Card(
-          elevation: 26,
-          clipBehavior: Clip.hardEdge,
-          margin: const EdgeInsets.all(10),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        return CustomCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

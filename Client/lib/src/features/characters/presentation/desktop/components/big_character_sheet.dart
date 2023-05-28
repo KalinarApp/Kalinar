@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../domain/character.dart';
-import '../shared/details/auto_saving_text_field.dart';
-import '../shared/details/character_abilities.dart';
-import '../shared/details/character_skilltree_list.dart';
-import 'components/character_attributes.dart';
-import 'components/character_information.dart';
+import '../../../domain/character.dart';
+import '../../shared/details/auto_saving_text_field.dart';
+import '../../shared/details/character_abilities.dart';
+import '../../shared/details/character_skilltree_list.dart';
+import 'character_attributes.dart';
+import 'character_information.dart';
+import 'custom_card.dart';
 
 class BigCharacterSheet extends StatelessWidget {
   final Character character;
@@ -28,13 +29,7 @@ class BigCharacterSheet extends StatelessWidget {
                   CharacterInformation(character: character, maxHeight: constraints.maxHeight / 2),
                   Expanded(
                     flex: 1,
-                    child: Card(
-                      margin: const EdgeInsets.all(10),
-                      elevation: 26,
-                      clipBehavior: Clip.hardEdge,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-                      child: Expanded(child: CharacterSkilltreeList(character, fillContent: true)),
-                    ),
+                    child: CustomCard(child: Expanded(child: CharacterSkilltreeList(character, fillContent: true))),
                   ),
                 ],
               ),
@@ -45,20 +40,10 @@ class BigCharacterSheet extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 300,
-                    child: Card(
-                      margin: const EdgeInsets.all(10),
-                      elevation: 26,
-                      clipBehavior: Clip.hardEdge,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-                      child: CharacterAttributes(character),
-                    ),
+                    child: CustomCard(child: CharacterAttributes(character)),
                   ),
                   Expanded(
-                    child: Card(
-                      margin: const EdgeInsets.all(10),
-                      elevation: 26,
-                      clipBehavior: Clip.hardEdge,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+                    child: CustomCard(
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
@@ -102,13 +87,7 @@ class BigCharacterSheet extends StatelessWidget {
               flex: 1,
               child: SizedBox(
                 width: constraints.maxWidth / 3,
-                child: Card(
-                  margin: const EdgeInsets.all(10),
-                  elevation: 26,
-                  clipBehavior: Clip.hardEdge,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-                  child: CharacterAbilities(character),
-                ),
+                child: CustomCard(child: CharacterAbilities(character)),
               ),
             ),
           ],

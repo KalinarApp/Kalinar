@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../common_widgets/layout/size.dart';
 import '../../../../common_widgets/loading_indicator.dart';
 import '../../domain/character.dart';
-import 'big_character_sheet.dart';
-import 'small_character_sheet.dart';
+import 'components/big_character_sheet.dart';
+import 'components/small_character_sheet.dart';
 
 class CharacterScreen extends ConsumerStatefulWidget {
   final Character? item;
