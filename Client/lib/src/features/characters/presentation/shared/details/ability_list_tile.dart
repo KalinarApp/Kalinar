@@ -5,7 +5,8 @@ import 'package:readmore/readmore.dart';
 import '../../../../traits/domain/ability.dart';
 
 class AbilityListTile extends ListTile {
-  AbilityListTile(Ability item, BuildContext context, {Function()? onLongPress, bool showTags = false, super.key})
+  AbilityListTile(Ability item, BuildContext context,
+      {Function()? onLongPress, required Widget? Function() contextBuilder, bool showTags = false, super.key})
       : super(
             minLeadingWidth: 0,
             onLongPress: onLongPress,
@@ -18,6 +19,7 @@ class AbilityListTile extends ListTile {
                 Text(item.isPassive ? AppLocalizations.of(context)!.passive : "", style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
+            trailing: contextBuilder(),
             subtitle: (null == item.description || item.description!.isEmpty)
                 ? null
                 : Padding(

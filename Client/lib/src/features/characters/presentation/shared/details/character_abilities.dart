@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:expandable_group/expandable_group_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,26 +53,44 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
       ..sortBy((element) => removeDiacritics(element.name.toLowerCase()));
   }
 
+  Future _onEdit(Ability item) async {
+    ref.read(abilitiesControllerProvider).getById(item.id);
+    GoRouter.of(context).pushNamed(EditAbilityScreen.name, queryParameters: {"id": item.id});
+  }
+
   ListTile _getListItem(Ability item, {bool showTags = false}) {
     return AbilityListTile(
       item,
       context,
       showTags: showTags,
+      contextBuilder: () => _buildContextMenuForWeb(item),
       onLongPress: () async {
         final action = await showActionsModal(context, actions: [DialogAction.edit, DialogAction.cancel]);
         if (null == action || !mounted) return;
 
         switch (action) {
           case DialogAction.edit:
-            ref.read(abilitiesControllerProvider).getById(item.id);
-            GoRouter.of(context).pushNamed(EditAbilityScreen.name, queryParameters: {"id": item.id});
-            break;
+
           case DialogAction.delete:
           default:
             break;
         }
       },
     );
+  }
+
+  Widget? _buildContextMenuForWeb(Ability item) {
+    return !kIsWeb
+        ? null
+        : PopupMenuButton<DialogAction>(itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                value: DialogAction.edit,
+                onTap: () => _onEdit(item),
+                child: ListTile(leading: DialogAction.edit.getIcon(), title: Text(DialogAction.edit.getTitle(context))),
+              ),
+            ];
+          });
   }
 
   void _openFilterDialog() async {

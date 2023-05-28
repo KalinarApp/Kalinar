@@ -89,10 +89,9 @@ final routeProvider = Provider<GoRouter>((ref) {
               NavigationItem(route: HomeScreen.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
               if (MediaQuery.of(context).size.width <= mobileMaxWidth)
                 NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
-              if (!kIsWeb) NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
-              if (!kIsWeb) NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
-              if (isAdmin && !kIsWeb)
-                NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin)),
+              NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
+              NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
+              if (isAdmin) NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin)),
             ],
             child: child,
           );
