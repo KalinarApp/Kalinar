@@ -20,6 +20,14 @@ class CharactersRepository extends HeroBaseRepository {
     );
   }
 
+  Future<List<CharacterOverview>> getAllExtended({bool? isOwner}) async {
+    return await heroGet(
+      "/api/characters/extended",
+      (response) => List<CharacterOverview>.from(response.map((model) => CharacterOverview.fromJson(model))),
+      query: {"isOwner": isOwner?.toString()},
+    );
+  }
+
   Future<CharacterOverview> createCharacter(Map<String, dynamic> data) async {
     return await heroPost("/api/characters", data, (response) => CharacterOverview.fromJson(response));
   }

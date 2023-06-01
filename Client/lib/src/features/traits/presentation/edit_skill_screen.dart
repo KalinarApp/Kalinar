@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/form_fields/description_field.dart';
 import '../../../common_widgets/form_fields/image_picker_field.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
 import '../../group_management/application/group_notifier.dart';
+import '../application/controller/abilities_controller.dart';
 import '../application/controller/skills_controller.dart';
 import '../application/notifier/skill_state_notifier.dart';
 import '../domain/skill.dart';
@@ -16,6 +18,7 @@ import '../domain/suggestion_state.dart';
 import 'components/ability_selection_field.dart';
 import 'components/attributes_field.dart';
 import 'components/edit_view.dart';
+import 'edit_ability_screen.dart';
 
 class EditSkillScreen extends ConsumerStatefulWidget {
   static const String name = "EditSkill";
@@ -31,6 +34,8 @@ class EditSkillScreen extends ConsumerStatefulWidget {
 
 class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
   static final _formKey = GlobalKey<FormBuilderState>();
+
+  String? selectedAbilityId;
 
   bool _isCreatorOrAdminOrNew(Skill? item) {
     return widget.skillId == null ||
@@ -73,7 +78,18 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
             isLoading: state?.isLoading ?? false,
             initialValue: state?.valueOrNull?.description,
             readOnly: !_isCreatorOrAdminOrNew(state?.valueOrNull)),
-        AbilitySelectionField(initialValue: state?.valueOrNull?.ability),
+        AbilitySelectionField(initialValue: state?.valueOrNull?.ability, onSelectionChanged: (item) => setState(() => selectedAbilityId = item?.id)),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+              onPressed: null != selectedAbilityId
+                  ? () {
+                      ref.read(abilitiesControllerProvider).getById(selectedAbilityId!);
+                      GoRouter.of(context).pushNamed(EditAbilityScreen.name, queryParams: {"id": selectedAbilityId});
+                    }
+                  : null,
+              child: Text(AppLocalizations.of(context)!.viewSelectedAbility)),
+        ),
         const SizedBox(height: 30),
         AttributesField(initialValue: state?.valueOrNull?.attributes),
       ],

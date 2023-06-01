@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../admin/skilltrees/domain/skilltree_overview.dart';
+
 part 'character_overview.freezed.dart';
 part 'character_overview.g.dart';
 
@@ -11,6 +13,7 @@ class CharacterOverview with _$CharacterOverview {
     required String userId,
     String? description,
     String? iconUrl,
+    @Default([]) List<SkilltreeOverview> skilltrees,
   }) = _CharacterOverview;
 
   factory CharacterOverview.fromJson(Map<String, dynamic> json) => _$CharacterOverviewFromJson(json);

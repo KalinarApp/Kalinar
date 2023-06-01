@@ -28,7 +28,6 @@ namespace Hero.Server.DataAccess.Configurations
             builder.Property(image => image.UpdatedAt)
                 .HasDefaultValueSql("now()");
 
-
             builder.Property(image => image.Order);
         }
     }
@@ -36,9 +35,7 @@ namespace Hero.Server.DataAccess.Configurations
     public class StoryImageModelConfiguration : IEntityTypeConfiguration<StoryImage>
     {
         public void Configure(EntityTypeBuilder<StoryImage> builder)
-        {
-            builder.Property(image => image.ImageUrl).IsRequired();
-        }
+        { }
     }
 
     public class StoryBookModelConfiguration : IEntityTypeConfiguration<StoryBook>

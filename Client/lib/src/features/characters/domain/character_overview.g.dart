@@ -13,6 +13,11 @@ _$_CharacterOverview _$$_CharacterOverviewFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String,
       description: json['description'] as String?,
       iconUrl: json['iconUrl'] as String?,
+      skilltrees: (json['skilltrees'] as List<dynamic>?)
+              ?.map(
+                  (e) => SkilltreeOverview.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$_CharacterOverviewToJson(
@@ -23,4 +28,5 @@ Map<String, dynamic> _$$_CharacterOverviewToJson(
       'userId': instance.userId,
       'description': instance.description,
       'iconUrl': instance.iconUrl,
+      'skilltrees': instance.skilltrees,
     };

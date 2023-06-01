@@ -1,6 +1,4 @@
-﻿using Hero.Server.Core.Models;
-
-namespace Hero.Server.Messages.Responses
+﻿namespace Hero.Server.Messages.Responses
 {
     public class SkilltreeOverviewResponse
     {

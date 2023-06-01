@@ -27,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return LayoutBuilder(
       builder: (ctx, constraints) => Scaffold(
         appBar: isMobile(constraints) ? AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())]) : null,
-        body: Center(child: Image.asset("assets/images/kali/hello.gif", width: MediaQuery.of(context).size.width)),
+        body: const Center(child: Text("Hier könnte Ihre Werbung stehen!")),
       ),
     );
   }

@@ -7,4 +7,9 @@
         public string? IconUrl { get; set; }
         public string UserId { get; set; }
     }
+
+    public class ExtendedCharacterOverviewResponse : CharacterOverviewResponse
+    {
+        public List<SkilltreeOverviewResponse> Skilltrees { get; set; }
+    }
 }

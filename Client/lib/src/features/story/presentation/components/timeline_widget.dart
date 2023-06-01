@@ -34,7 +34,7 @@ class _TimelineWidgetState extends State<TimelineWidget> {
   @override
   Widget build(BuildContext context) {
     List<StoryEntryOverview> items = [...widget.entries];
-    items.sort((a, b) => a.order.compareTo(b.order));
+    items.sort((a, b) => b.order.compareTo(a.order));
 
     return SliverPadding(
       padding: const EdgeInsets.only(left: 12, top: 20, right: 12, bottom: 10),
@@ -64,7 +64,9 @@ class _TimelineWidgetState extends State<TimelineWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(1),
-                          child: Center(child: AutoSizeText(items[i].date!, maxLines: 2, textAlign: TextAlign.center, minFontSize: 8)),
+                          child: null != items[i].date
+                              ? Center(child: AutoSizeText(items[i].date!, maxLines: 2, textAlign: TextAlign.center, minFontSize: 8))
+                              : null,
                         ),
                       ),
                     ),
