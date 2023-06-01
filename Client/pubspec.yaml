@@ -52,6 +52,7 @@ dependencies:
   form_builder_image_picker: ^3.1.0
   form_builder_validators: ^8.1.1
   form_builder_extra_fields: ^8.3.0
+
   desktop_drop: ^0.4.0
   mime: ^1.0.2
   file_picker:
@@ -80,7 +81,7 @@ dependencies:
   custom_pop_up_menu: ^1.2.4
   font_awesome_flutter: ^10.2.1
   url_launcher: ^6.1.6
-  flutter_speed_dial: ^6.2.0
+  flutter_speed_dial: ^7.0.0
   flutter_layout_grid: ^2.0.3
   just_the_tooltip:
   square_progress_bar:
@@ -102,6 +103,8 @@ dependencies:
 
 dependency_overrides:
   intl: ^0.18.0
+  flutter_chips_input: 
+     git: https://github.com/bradintheusa/flutter_chips_input
 
 dev_dependencies:
   flutter_test:
