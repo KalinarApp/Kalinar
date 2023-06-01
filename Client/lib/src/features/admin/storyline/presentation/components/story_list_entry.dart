@@ -15,7 +15,7 @@ class StoryListEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       key: key,
-      onTap: () => GoRouter.of(context).pushNamed(StorylineDetailScreen.name, params: {"id": item.id}),
+      onTap: () => GoRouter.of(context).pushNamed(StorylineDetailScreen.name, pathParameters: {"id": item.id}),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Material(

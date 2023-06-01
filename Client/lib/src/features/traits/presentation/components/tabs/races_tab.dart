@@ -37,7 +37,7 @@ class RacesTabState extends ConsumerState<RacesTab> {
 
   void _editRace(Race item) {
     ref.read(racesControllerProvider).getById(item.id);
-    GoRouter.of(context).goNamed(EditRaceScreen.name, queryParams: {"id": item.id});
+    GoRouter.of(context).goNamed(EditRaceScreen.name, queryParameters: {"id": item.id});
   }
 
   Future<void> _deleteRace(Race item) async {

@@ -11,6 +11,7 @@ import 'admin_menu_item.dart';
 import 'manage_group_screen.dart';
 
 class AdminMenuScreen extends StatelessWidget {
+  static const String name = "Admin";
   static const String route = "/admin";
 
   const AdminMenuScreen({super.key});

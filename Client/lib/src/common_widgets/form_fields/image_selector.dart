@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -27,24 +25,15 @@ class ImageSelector extends ConsumerWidget {
 
   const ImageSelector({this.value, this.type = ImageType.skill, this.builder, this.onChanged, super.key});
 
-  String? _toBase64(XFile? file) {
-    String? base64;
-    if (null != file) {
-      final bytes = File(file.path).readAsBytesSync();
-      base64 = base64Encode(bytes);
-    }
-    return base64;
-  }
-
   Future<void> _openFilePicker(WidgetRef ref) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: false,
       type: FileType.image,
     );
 
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      _uploadImage(_toBase64(XFile(file.path)), ref);
+    if (result != null && (result.files.single.bytes?.isNotEmpty ?? false)) {
+      final bytes = result.files.single.bytes!;
+      _uploadImage(base64Encode(bytes), ref);
     }
   }
 
@@ -128,9 +117,9 @@ class ImageSelector extends ConsumerWidget {
     return GestureDetector(
       onTap: () => _openFilePicker(ref),
       child: DropTarget(
-        onDragDone: (details) {
+        onDragDone: (details) async {
           if (lookupMimeType(details.files.first.name)?.startsWith("image/") ?? false) {
-            final value = _toBase64(details.files.first);
+            final value = base64Encode(await details.files.first.readAsBytes());
             _uploadImage(value, ref);
           }
         },

@@ -85,7 +85,7 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
               onPressed: null != selectedAbilityId
                   ? () {
                       ref.read(abilitiesControllerProvider).getById(selectedAbilityId!);
-                      GoRouter.of(context).pushNamed(EditAbilityScreen.name, queryParams: {"id": selectedAbilityId});
+                      GoRouter.of(context).pushNamed(EditAbilityScreen.name, queryParameters: {"id": selectedAbilityId});
                     }
                   : null,
               child: Text(AppLocalizations.of(context)!.viewSelectedAbility)),

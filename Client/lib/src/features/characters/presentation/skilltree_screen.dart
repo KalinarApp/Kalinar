@@ -15,9 +15,9 @@ import '../../traits/presentation/edit_skill_screen.dart';
 import '../application/controllers/character_controller.dart';
 import '../application/controllers/skillpoint_controller.dart';
 import '../application/controllers/skilltree_controller.dart';
-import 'components/skilltrees/skillpoints_widget.dart';
-import 'components/skilltrees/skilltree_stack.dart';
-import 'components/skilltrees/statistics_widget.dart';
+import 'shared/skilltrees/skillpoints_widget.dart';
+import 'shared/skilltrees/skilltree_stack.dart';
+import 'shared/skilltrees/statistics_widget.dart';
 
 class SkilltreeScreen extends ConsumerStatefulWidget {
   static const String name = "Skilltree";
@@ -97,7 +97,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
         break;
       case DialogAction.edit:
         ref.read(skillsControllerProvider).getById(item.skillId);
-        GoRouter.of(context).pushNamed(EditSkillScreen.name, queryParams: {"id": item.skillId});
+        GoRouter.of(context).pushNamed(EditSkillScreen.name, queryParameters: {"id": item.skillId});
         break;
       case DialogAction.delete:
       case DialogAction.loadAsNewSkilltree:
@@ -146,7 +146,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
 
     return WillPopScope(
       onWillPop: () async {
-        final value = await ref.read(characterControllerProvider).get(state.value!.character!.id);
+        await ref.read(characterControllerProvider).get(state.value!.character!.id);
         return true;
       },
       child: Scaffold(

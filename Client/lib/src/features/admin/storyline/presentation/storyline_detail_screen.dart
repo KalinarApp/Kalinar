@@ -76,7 +76,7 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
     return Scaffold(
       floatingActionButton: null != item && StoryEntryType.StoryBook == StoryEntryType.values.byName(item!.type)
           ? FloatingActionButton(
-              onPressed: () => GoRouter.of(context).pushNamed(PageEditorScreen.name, params: {"id": widget.id}),
+              onPressed: () => GoRouter.of(context).pushNamed(PageEditorScreen.name, pathParameters: {"id": widget.id}),
               child: const Icon(Icons.add),
             )
           : null,
@@ -85,7 +85,7 @@ class _StoryImageDetailScreenState extends ConsumerState<StorylineDetailScreen> 
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: null == item ? null : () => GoRouter.of(context).pushNamed(StorylineEditScreen.name, queryParams: {"id": item!.id}),
+            onPressed: null == item ? null : () => GoRouter.of(context).pushNamed(StorylineEditScreen.name, queryParameters: {"id": item!.id}),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),

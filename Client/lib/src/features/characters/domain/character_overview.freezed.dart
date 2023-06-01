@@ -23,6 +23,7 @@ mixin _$CharacterOverview {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   String? get iconUrl => throw _privateConstructorUsedError;
   List<SkilltreeOverview> get skilltrees => throw _privateConstructorUsedError;
 
@@ -42,6 +43,7 @@ abstract class $CharacterOverviewCopyWith<$Res> {
       {String id,
       String name,
       String userId,
+      String? description,
       String? iconUrl,
       List<SkilltreeOverview> skilltrees});
 }
@@ -62,6 +64,7 @@ class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview>
     Object? id = null,
     Object? name = null,
     Object? userId = null,
+    Object? description = freezed,
     Object? iconUrl = freezed,
     Object? skilltrees = null,
   }) {
@@ -78,6 +81,10 @@ class _$CharacterOverviewCopyWithImpl<$Res, $Val extends CharacterOverview>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       iconUrl: freezed == iconUrl
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
@@ -102,6 +109,7 @@ abstract class _$$_CharacterOverviewCopyWith<$Res>
       {String id,
       String name,
       String userId,
+      String? description,
       String? iconUrl,
       List<SkilltreeOverview> skilltrees});
 }
@@ -120,6 +128,7 @@ class __$$_CharacterOverviewCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? userId = null,
+    Object? description = freezed,
     Object? iconUrl = freezed,
     Object? skilltrees = null,
   }) {
@@ -136,6 +145,10 @@ class __$$_CharacterOverviewCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       iconUrl: freezed == iconUrl
           ? _value.iconUrl
           : iconUrl // ignore: cast_nullable_to_non_nullable
@@ -155,6 +168,7 @@ class _$_CharacterOverview implements _CharacterOverview {
       {required this.id,
       required this.name,
       required this.userId,
+      this.description,
       this.iconUrl,
       final List<SkilltreeOverview> skilltrees = const []})
       : _skilltrees = skilltrees;
@@ -169,6 +183,8 @@ class _$_CharacterOverview implements _CharacterOverview {
   @override
   final String userId;
   @override
+  final String? description;
+  @override
   final String? iconUrl;
   final List<SkilltreeOverview> _skilltrees;
   @override
@@ -181,7 +197,7 @@ class _$_CharacterOverview implements _CharacterOverview {
 
   @override
   String toString() {
-    return 'CharacterOverview(id: $id, name: $name, userId: $userId, iconUrl: $iconUrl, skilltrees: $skilltrees)';
+    return 'CharacterOverview(id: $id, name: $name, userId: $userId, description: $description, iconUrl: $iconUrl, skilltrees: $skilltrees)';
   }
 
   @override
@@ -192,6 +208,8 @@ class _$_CharacterOverview implements _CharacterOverview {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
             const DeepCollectionEquality()
                 .equals(other._skilltrees, _skilltrees));
@@ -199,8 +217,8 @@ class _$_CharacterOverview implements _CharacterOverview {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, userId, iconUrl,
-      const DeepCollectionEquality().hash(_skilltrees));
+  int get hashCode => Object.hash(runtimeType, id, name, userId, description,
+      iconUrl, const DeepCollectionEquality().hash(_skilltrees));
 
   @JsonKey(ignore: true)
   @override
@@ -222,6 +240,7 @@ abstract class _CharacterOverview implements CharacterOverview {
       {required final String id,
       required final String name,
       required final String userId,
+      final String? description,
       final String? iconUrl,
       final List<SkilltreeOverview> skilltrees}) = _$_CharacterOverview;
 
@@ -234,6 +253,8 @@ abstract class _CharacterOverview implements CharacterOverview {
   String get name;
   @override
   String get userId;
+  @override
+  String? get description;
   @override
   String? get iconUrl;
   @override

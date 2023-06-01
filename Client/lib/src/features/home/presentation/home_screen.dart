@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../common_widgets/layout/size.dart';
 import '../../../common_widgets/user_menu.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -21,20 +22,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.initState();
   }
 
-  Widget _buildHomeScreen() {
-    return const Center(child: Text("Hier könnte Ihre Werbung stehen!"));
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(actions: const [
-        Padding(
-          padding: EdgeInsets.only(right: 12.0),
-          child: UserMenu(),
-        ),
-      ]),
-      body: _buildHomeScreen(),
+    return LayoutBuilder(
+      builder: (ctx, constraints) => Scaffold(
+        appBar: isMobile(constraints) ? AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())]) : null,
+        body: const Center(child: Text("Hier könnte Ihre Werbung stehen!")),
+      ),
     );
   }
 }

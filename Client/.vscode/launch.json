@@ -21,7 +21,7 @@
         {
             "name": "PRODUCTION RELEASE",
             "program": "${workspaceFolder}/lib/main.dart",
-            "args": ["--flavor=dev"],
+            "args": ["--flavor=dev --web-browser-flag \"--disable-web-security\""],
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

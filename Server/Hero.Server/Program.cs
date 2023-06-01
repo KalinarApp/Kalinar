@@ -20,6 +20,8 @@ builder.Services.AddSwaggerForAuthentication();
 builder.Services.AddTransient<IMessagingService, FirebaseMessagingService>();
 builder.Services.AddSingleton<Notifications>();
 
+builder.Services.AddCors();
+
 WebApplication app = builder.Build();
 
 app.UseSwagger();
@@ -37,6 +39,18 @@ await app.MigrateDatabaseAsync();
 await app.EnsureGlobalAttributesExists();
 
 app.UseExceptionHandler("/error");
+
+app.UseCors(options =>
+{
+    if (app.Environment.IsDevelopment())
+    {
+        options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    }
+    else
+    {
+        options.WithOrigins("https://kalinar.app").AllowAnyHeader().AllowAnyMethod();
+    }
+});
 
 app.InitializeFirebase();
 app.Run();

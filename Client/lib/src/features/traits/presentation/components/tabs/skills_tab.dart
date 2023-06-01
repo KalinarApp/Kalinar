@@ -39,7 +39,7 @@ class _SkillsTabState extends ConsumerState<SkillsTab> {
 
   void _editSkill(Skill skill) {
     ref.read(skillsControllerProvider).getById(skill.id);
-    GoRouter.of(context).goNamed(EditSkillScreen.name, queryParams: {"id": skill.id});
+    GoRouter.of(context).goNamed(EditSkillScreen.name, queryParameters: {"id": skill.id});
   }
 
   Future<void> _deleteSkill(Skill skill) async {

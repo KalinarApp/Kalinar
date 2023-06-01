@@ -5,6 +5,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - Services__S3__TenantId=0f525689d3a34d1ba92ab80eb86dc72f
+      - Services__S3__AccessKey=56ecdc5e896a40b788a5777fc23717bd
+      - Services__S3__SecretKey=cb78c0b59b567e3870358004097a11d8
+      - Services__S3__Bucket=kalinar
     ports:
       - "80"
       - "443"

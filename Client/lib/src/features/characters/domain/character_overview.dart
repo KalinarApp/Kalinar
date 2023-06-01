@@ -11,6 +11,7 @@ class CharacterOverview with _$CharacterOverview {
     required String id,
     required String name,
     required String userId,
+    String? description,
     String? iconUrl,
     @Default([]) List<SkilltreeOverview> skilltrees,
   }) = _CharacterOverview;

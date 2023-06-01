@@ -39,7 +39,7 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
 
   void _editAbility(Ability ability) {
     ref.read(abilitiesControllerProvider).getById(ability.id);
-    GoRouter.of(context).goNamed(EditAbilityScreen.name, queryParams: {"id": ability.id});
+    GoRouter.of(context).goNamed(EditAbilityScreen.name, queryParameters: {"id": ability.id});
   }
 
   Future<void> _deleteAbility(Ability ability) async {

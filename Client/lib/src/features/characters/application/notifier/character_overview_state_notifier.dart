@@ -19,6 +19,10 @@ class CharacterOverviewStateNotifier extends StateNotifier<List<CharacterOvervie
   }
 }
 
+final charactersStateProvider = StateNotifierProvider<CharacterOverviewStateNotifier, List<CharacterOverview>?>((ref) {
+  return CharacterOverviewStateNotifier();
+});
+
 final ownedCharactersStateProvider = StateNotifierProvider<CharacterOverviewStateNotifier, List<CharacterOverview>?>((ref) {
   return CharacterOverviewStateNotifier();
 });
