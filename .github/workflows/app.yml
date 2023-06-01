@@ -1,4 +1,4 @@
-name: Build Client for Android and publish to Play Store
+name: Build Client for Android and web and publish to Play Store
 
 on: 
   push:
