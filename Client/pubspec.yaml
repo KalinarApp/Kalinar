@@ -26,8 +26,6 @@ dependencies:
   firebase_ui_oauth_google: ^1.0.23
   google_sign_in: ^6.0.2
   firebase_ui_localizations: ^1.2.0
-  firebase_auth_desktop: ^1.0.2
-  firebase_core_desktop: ^1.0.2
 
   http: ^0.13.5
   intl: ^0.18.0
@@ -104,10 +102,6 @@ dependencies:
 
 dependency_overrides:
   intl: ^0.18.0
-  firebase_core: ^2.13.0
-  firebase_auth: ^4.6.1
-  flutter_chips_input: 
-     git: https://github.com/bradintheusa/flutter_chips_input
 
 dev_dependencies:
   flutter_test:
