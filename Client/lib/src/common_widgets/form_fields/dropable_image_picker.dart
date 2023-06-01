@@ -12,9 +12,10 @@ import '../../utilities/image_repository.dart';
 class DropableImagePicker extends ConsumerWidget {
   final String name;
   final String? initialValue;
+  final bool enabled;
   final Widget Function(String? imageUrl, bool isLoading) builder;
 
-  const DropableImagePicker({this.name = "iconUrl", this.initialValue, required this.builder, super.key});
+  const DropableImagePicker({this.name = "iconUrl", this.initialValue, this.enabled = true, required this.builder, super.key});
 
   Future<void> _openFilePicker(WidgetRef ref, Function(String?) onChanged) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: false, type: FileType.image);
@@ -37,16 +38,19 @@ class DropableImagePicker extends ConsumerWidget {
     return FormBuilderField<String?>(
       name: name,
       initialValue: initialValue,
+      enabled: enabled,
       builder: (field) {
         return GestureDetector(
-          onTap: () => _openFilePicker(ref, field.didChange),
+          onTap: enabled ? () => _openFilePicker(ref, field.didChange) : null,
           child: DropTarget(
-            onDragDone: (details) async {
-              if (lookupMimeType(details.files.first.name)?.startsWith("image/") ?? false) {
-                final value = base64Encode(await details.files.first.readAsBytes());
-                await _uploadImage(value, ref, field.didChange);
-              }
-            },
+            onDragDone: enabled
+                ? (details) async {
+                    if (lookupMimeType(details.files.first.name)?.startsWith("image/") ?? false) {
+                      final value = base64Encode(await details.files.first.readAsBytes());
+                      await _uploadImage(value, ref, field.didChange);
+                    }
+                  }
+                : null,
             child: Padding(
               padding: const EdgeInsets.only(top: 12.0),
               child: Stack(

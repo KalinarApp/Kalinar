@@ -40,6 +40,7 @@ class CharacterEditor extends ConsumerWidget {
               Expanded(
                 child: DropableImagePicker(
                   initialValue: character?.iconUrl,
+                  
                   builder: (image, isLoading) => LayoutBuilder(
                     builder: (ctx, constraints) {
                       if (isLoading || image == null) {

@@ -47,7 +47,6 @@ class _CharacterEditorScreenState extends ConsumerState<CharacterEditorScreen> {
         value.showSnackbarOnError(context);
         if (value.hasError) {
           _btnController.error();
-          Future.delayed(const Duration(seconds: 3), _btnController.reset);
         } else {
           _btnController.success();
 
@@ -56,11 +55,9 @@ class _CharacterEditorScreenState extends ConsumerState<CharacterEditorScreen> {
         }
       } else {
         _btnController.error();
-        Future.delayed(const Duration(seconds: 3), _btnController.reset);
       }
     } else {
       _btnController.error();
-      Future.delayed(const Duration(seconds: 3), _btnController.reset);
     }
   }
 

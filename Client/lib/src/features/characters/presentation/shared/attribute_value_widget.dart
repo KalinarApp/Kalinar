@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ class AttributeValueWidget extends StatelessWidget {
     final translatedAttribute = value.attribute.translate(context);
     return JustTheTooltip(
       triggerMode: TooltipTriggerMode.tap,
-      isModal: kIsWeb || !Platform.isWindows,
+      isModal: !kIsWeb,
       content: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
