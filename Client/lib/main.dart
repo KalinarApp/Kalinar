@@ -21,9 +21,9 @@ class DevHttpOverrides extends HttpOverrides {
 void _loadFlavors() {
   if (kDebugMode) {
     HttpOverrides.global = DevHttpOverrides();
-    FlavorConfig(name: "DEV", variables: {"baseUrl": !kIsWeb && Platform.isAndroid ? "10.0.2.2" : "localhost"});
+    FlavorConfig(name: "DEV", variables: {"baseUrl": !kIsWeb && Platform.isAndroid ? "10.0.2.2" : "localhost:7272"});
   } else {
-    FlavorConfig(variables: {"baseUrl": "api.kalinar.app"});
+    FlavorConfig(variables: {"baseUrl": "localhost:7272"});
   }
 }
 

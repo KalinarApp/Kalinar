@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +17,6 @@ import '../../features/group_management/application/group_notifier.dart';
 import '../../features/group_management/presentation/group_screen.dart';
 import '../../features/group_management/presentation/user_invite_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
-import '../../features/home/presentation/welcome_screen.dart';
 import '../../features/story/presentation/story_screen.dart';
 import '../../features/traits/presentation/traits_overview_screen.dart';
 import 'admin_routes.dart';
@@ -36,34 +34,34 @@ final routeProvider = Provider<GoRouter>((ref) {
   });
 
   final authState = ref.watch(firebaseAuthProvider);
-  final groupState = ref.watch(groupNotifierProvider);
+  // final groupState = ref.watch(groupNotifierProvider);
 
   return GoRouter(
-    initialLocation: "/",
-    debugLogDiagnostics: kDebugMode,
+    initialLocation: HomeScreen.route,
+    debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     redirect: (context, state) {
       if (authState.isLoading || authState.hasError) return null;
 
       final isAuthenticated = authState.valueOrNull != null;
 
-      if (state.location == "/") {
-        return isAuthenticated ? GroupScreen.route : AuthScreen.route;
-      }
+      final onLoginPage = state.location == AuthScreen.route;
 
-      final isLoggedIn = state.location == AuthScreen.route;
+      if (!isAuthenticated && !onLoginPage) return AuthScreen.route;
+      if (isAuthenticated && onLoginPage) return state.fullPath ?? HomeScreen.route;
+      return null;
 
-      if (isLoggedIn) {
-        return isAuthenticated ? GroupScreen.route : null;
-      }
+      // if (state.location == "/") {
+      //   return isAuthenticated ? HomeScreen.route : AuthScreen.route;
+      // }
 
-      return isAuthenticated ? null : "/";
+      // if (onLoginPage) {
+      //   return isAuthenticated ? GroupScreen.route : null;
+      // }
+
+      // return null;
     },
     routes: [
-      GoRoute(
-        path: "/",
-        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const WelcomeScreen()),
-      ),
       GoRoute(
         name: AuthScreen.name,
         path: AuthScreen.route,
@@ -72,7 +70,7 @@ final routeProvider = Provider<GoRouter>((ref) {
       GoRoute(
         name: GroupScreen.name,
         path: GroupScreen.route,
-        redirect: (context, state) async => groupState.hasGroup ?? true ? HomeScreen.route : null,
+        // redirect: (context, state) async => groupState.hasGroup ?? true ? HomeScreen.route : null,
         pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const GroupScreen()),
       ),
       GoRoute(
@@ -83,7 +81,7 @@ final routeProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         navigatorKey: shellNavigatorKey,
         builder: (context, state, child) {
-          final isAdmin = FirebaseAuth.instance.currentUser?.uid == groupState.group?.ownerId;
+          final isAdmin = FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
           return Navigation(
             tabs: [
               NavigationItem(route: HomeScreen.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
