@@ -5,7 +5,7 @@ import '../../../group_management/application/group_notifier.dart';
 import '../domain/book_page.dart';
 
 class StoryBookRepository extends HeroBaseRepository {
-  StoryBookRepository({super.group});
+  StoryBookRepository({super.notifier});
 
   // Future<List<BookPage>> getAllPages(String bookId) async {
   //   return await heroGet("/api/story/book/$bookId", (response) => List<BookPage>.from(response.map((model) => BookPage.fromJson(model))));
@@ -49,5 +49,5 @@ class StoryBookRepository extends HeroBaseRepository {
 }
 
 final storyBookRepositoryProvider = Provider<StoryBookRepository>((ref) {
-  return StoryBookRepository(group: ref.watch(groupNotifierProvider).group);
+  return StoryBookRepository(notifier: ref.watch(groupNotifierProvider));
 });

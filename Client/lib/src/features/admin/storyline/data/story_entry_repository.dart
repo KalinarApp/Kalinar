@@ -6,7 +6,7 @@ import '../domain/story_entry.dart';
 import '../domain/story_entry_overview.dart';
 
 class StoryEntryRepository extends HeroBaseRepository {
-  StoryEntryRepository({super.group});
+  StoryEntryRepository({super.notifier});
 
   Future<List<StoryEntryOverview>> getAll({bool unlockedOnly = false}) async {
     return await heroGet(
@@ -42,5 +42,5 @@ class StoryEntryRepository extends HeroBaseRepository {
 }
 
 final storyEntryRepositoryProvider = Provider<StoryEntryRepository>((ref) {
-  return StoryEntryRepository(group: ref.watch(groupNotifierProvider).group);
+  return StoryEntryRepository(notifier: ref.watch(groupNotifierProvider));
 });

@@ -6,7 +6,7 @@ import '../domain/character.dart';
 import '../domain/character_overview.dart';
 
 class CharactersRepository extends HeroBaseRepository {
-  CharactersRepository({super.group});
+  CharactersRepository({super.notifier});
 
   Future<Character> getById(String id) async {
     return await heroGet("/api/characters/$id", (response) => Character.fromJson(response));
@@ -42,5 +42,5 @@ class CharactersRepository extends HeroBaseRepository {
 }
 
 final charactersRepositoryProvider = Provider<CharactersRepository>((ref) {
-  return CharactersRepository(group: ref.watch(groupNotifierProvider).group);
+  return CharactersRepository(notifier: ref.read(groupNotifierProvider));
 });

@@ -13,7 +13,7 @@ import '../domain/skilltree_overview.dart';
 class SkilltreesRepository extends HeroBaseRepository {
   static const String nodesKey = "currentNodes";
 
-  SkilltreesRepository({super.group});
+  SkilltreesRepository({super.notifier});
 
   Future<List<Node>> loadLocal() async {
     final prefs = await SharedPreferences.getInstance();
@@ -81,5 +81,5 @@ class SkilltreesRepository extends HeroBaseRepository {
 }
 
 final skilltreesRepositoryProvider = Provider<SkilltreesRepository>((ref) {
-  return SkilltreesRepository(group: ref.watch(groupNotifierProvider).group);
+  return SkilltreesRepository(notifier: ref.watch(groupNotifierProvider));
 });

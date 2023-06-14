@@ -37,10 +37,10 @@ final routeProvider = Provider<GoRouter>((ref) {
   // final groupState = ref.watch(groupNotifierProvider);
 
   return GoRouter(
-    initialLocation: HomeScreen.route,
+    initialLocation: AuthScreen.route,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
-    redirect: (context, state) {
+    redirect: (context, state) async {
       if (authState.isLoading || authState.hasError) return null;
 
       final isAuthenticated = authState.valueOrNull != null;
@@ -48,18 +48,9 @@ final routeProvider = Provider<GoRouter>((ref) {
       final onLoginPage = state.location == AuthScreen.route;
 
       if (!isAuthenticated && !onLoginPage) return AuthScreen.route;
-      if (isAuthenticated && onLoginPage) return state.fullPath ?? HomeScreen.route;
+
+      if (isAuthenticated && onLoginPage) return HomeScreen.route;
       return null;
-
-      // if (state.location == "/") {
-      //   return isAuthenticated ? HomeScreen.route : AuthScreen.route;
-      // }
-
-      // if (onLoginPage) {
-      //   return isAuthenticated ? GroupScreen.route : null;
-      // }
-
-      // return null;
     },
     routes: [
       GoRoute(
