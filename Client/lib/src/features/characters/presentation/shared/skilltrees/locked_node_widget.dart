@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../admin/skilltrees/domain/node.dart';
@@ -42,7 +43,7 @@ class _LockedNodeWidgetState extends State<LockedNodeWidget> {
                         Padding(
                           padding: const EdgeInsets.all(6.0),
                           child: null != widget.item.skill.iconUrl
-                              ? Ink.image(image: NetworkImage(widget.item.skill.iconUrl!), fit: BoxFit.fill, width: 32, height: 32)
+                              ? Ink.image(image: CachedNetworkImageProvider(widget.item.skill.iconUrl!), fit: BoxFit.fill, width: 32, height: 32)
                               : const SizedBox(width: 32, height: 32),
                         ),
                       ],

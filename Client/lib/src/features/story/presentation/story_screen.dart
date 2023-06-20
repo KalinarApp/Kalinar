@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -71,8 +69,7 @@ class _StoryScreenState extends ConsumerState<StoryScreen> {
               },
             ),
           ),
-          if (!kIsWeb && Platform.isWindows)
-            Positioned(top: 3, right: 3, child: CustomImageButton(icon: const FaIcon(FontAwesomeIcons.arrowsRotate), onPressed: _refresh)),
+          if (!kIsWeb) Positioned(top: 3, right: 3, child: CustomImageButton(icon: const FaIcon(FontAwesomeIcons.arrowsRotate), onPressed: _refresh)),
         ],
       ),
     );

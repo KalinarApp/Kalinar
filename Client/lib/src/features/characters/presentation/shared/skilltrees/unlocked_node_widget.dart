@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
@@ -35,27 +36,14 @@ class _UnlockedNodeWidgetState extends State<UnlockedNodeWidget> {
             child: InkWell(
               onLongPress: null != widget.onLongPress ? () => widget.onLongPress!(widget.item) : null,
               onTap: () => controller.showTooltip(),
-              child: Stack(
-                children: [
-                  Transform.rotate(
-                    angle: -pi / 4,
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: null != widget.item.skill.iconUrl
-                              ? Ink.image(
-                                  image: NetworkImage(widget.item.skill.iconUrl!),
-                                  fit: BoxFit.fill,
-                                  width: 32,
-                                  height: 32,
-                                )
-                              : const SizedBox(width: 32, height: 32),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              child: Transform.rotate(
+                angle: -pi / 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: null != widget.item.skill.iconUrl
+                      ? Ink.image(image: CachedNetworkImageProvider(widget.item.skill.iconUrl!), width: 32, height: 32)
+                      : const SizedBox(width: 32, height: 32),
+                ),
               ),
             ),
           ),

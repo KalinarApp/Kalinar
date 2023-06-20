@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
@@ -62,7 +60,7 @@ class NodeTooltip extends StatelessWidget {
   Widget build(BuildContext context) {
     return JustTheTooltip(
       controller: controller,
-      isModal: !Platform.isWindows,
+      isModal: true,
       triggerMode: TooltipTriggerMode.tap,
       elevation: 4,
       offset: 5,

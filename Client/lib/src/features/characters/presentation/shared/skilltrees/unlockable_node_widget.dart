@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:square_progress_bar/square_progress_bar.dart';
@@ -34,12 +35,7 @@ class _UnlockableNodeWidgetState extends State<UnlockableNodeWidget> {
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: null != widget.item.skill.iconUrl
-                    ? Ink.image(
-                        image: NetworkImage(widget.item.skill.iconUrl!),
-                        fit: BoxFit.fill,
-                        width: 32,
-                        height: 32,
-                      )
+                    ? Ink.image(image: CachedNetworkImageProvider(widget.item.skill.iconUrl!), fit: BoxFit.fill, width: 32, height: 32)
                     : const SizedBox(width: 32, height: 32),
               ),
             ],
@@ -80,22 +76,15 @@ class _UnlockableNodeWidgetState extends State<UnlockableNodeWidget> {
                 width: 52,
                 height: 52,
                 child: Card(
-                  clipBehavior: Clip.hardEdge,
-                  color: Color(int.parse(widget.item.color)),
-                  child: null != widget.onUnlock
-                      ? CustomLongPress(
-                          onTap: () => controller.showTooltip(),
-                          duration: const Duration(milliseconds: 1500),
-                          onLongPress: () => widget.onUnlock!(widget.item),
-                          onStateChanged: (state) => setState(() => isLoading = state),
-                          child: _buildNote(),
-                        )
-                      : GestureDetector(
-                          onTap: controller.showTooltip,
-                          onLongPress: null != widget.onLongPress ? () => widget.onLongPress!(widget.item) : null,
-                          child: _buildNote(),
-                        ),
-                ),
+                    clipBehavior: Clip.hardEdge,
+                    color: Color(int.parse(widget.item.color)),
+                    child: CustomLongPress(
+                      onTap: () => controller.showTooltip(),
+                      duration: const Duration(milliseconds: 1500),
+                      onLongPress: null != widget.onUnlock ? () => widget.onUnlock!(widget.item) : null,
+                      onStateChanged: (state) => setState(() => isLoading = state),
+                      child: _buildNote(),
+                    )),
               ),
             ],
           ),
