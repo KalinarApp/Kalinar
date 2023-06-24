@@ -9,26 +9,25 @@ class GroupNotifier extends ChangeNotifier {
 
   Group? group;
   String? groupId;
+  bool isInitialized = false;
 
-  GroupNotifier() {
-    _init();
-  }
-
-  void _init() async {
+  Future init() async {
     final prefs = await SharedPreferences.getInstance();
     final currentGroup = prefs.getString(groupKey);
     groupId = currentGroup;
+    isInitialized = true;
     notifyListeners();
   }
 
   Future<void> updateGroup(String? value) async {
     groupId = value;
-    notifyListeners();
 
     if (null != value) {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(groupKey, value);
     }
+
+    notifyListeners();
   }
 }
 

@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../utilities/base_repository.dart';
-import '../application/group_notifier.dart';
 import '../domain/user.dart';
 
 class UserRepository extends HeroBaseRepository {
-  UserRepository({super.notifier});
+  UserRepository();
 
   Future<User> getUser() async {
     return await heroGet("/api/users", (response) => User.fromJson(response));
@@ -17,5 +16,5 @@ class UserRepository extends HeroBaseRepository {
 }
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
-  return UserRepository(notifier: ref.watch(groupNotifierProvider));
+  return UserRepository();
 });

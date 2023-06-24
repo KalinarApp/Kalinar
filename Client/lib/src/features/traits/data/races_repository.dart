@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../utilities/base_repository.dart';
-import '../../group_management/application/group_notifier.dart';
 import '../domain/race.dart';
 
 class RacesRepository extends HeroBaseRepository {
-  RacesRepository({super.notifier});
+  RacesRepository();
 
   Future<Race> getById(String id) async {
     return await heroGet("/api/races/$id", (response) => Race.fromJson(response));
@@ -36,4 +35,4 @@ class RacesRepository extends HeroBaseRepository {
   }
 }
 
-final racesRepositoryProvider = Provider<RacesRepository>((ref) => RacesRepository(notifier: ref.watch(groupNotifierProvider)));
+final racesRepositoryProvider = Provider<RacesRepository>((ref) => RacesRepository());

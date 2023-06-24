@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utilities/base_repository.dart';
-import '../../../group_management/application/group_notifier.dart';
 import '../domain/node.dart';
 import '../domain/skillpoints.dart';
 import '../domain/skilltree.dart';
@@ -13,7 +12,7 @@ import '../domain/skilltree_overview.dart';
 class SkilltreesRepository extends HeroBaseRepository {
   static const String nodesKey = "currentNodes";
 
-  SkilltreesRepository({super.notifier});
+  SkilltreesRepository();
 
   Future<List<Node>> loadLocal() async {
     final prefs = await SharedPreferences.getInstance();
@@ -81,5 +80,5 @@ class SkilltreesRepository extends HeroBaseRepository {
 }
 
 final skilltreesRepositoryProvider = Provider<SkilltreesRepository>((ref) {
-  return SkilltreesRepository(notifier: ref.watch(groupNotifierProvider));
+  return SkilltreesRepository();
 });

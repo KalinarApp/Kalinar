@@ -1,12 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/base_repository.dart';
-import '../../../group_management/application/group_notifier.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_overview.dart';
 
 class StoryEntryRepository extends HeroBaseRepository {
-  StoryEntryRepository({super.notifier});
+  StoryEntryRepository();
 
   Future<List<StoryEntryOverview>> getAll({bool unlockedOnly = false}) async {
     return await heroGet(
@@ -42,5 +41,5 @@ class StoryEntryRepository extends HeroBaseRepository {
 }
 
 final storyEntryRepositoryProvider = Provider<StoryEntryRepository>((ref) {
-  return StoryEntryRepository(notifier: ref.watch(groupNotifierProvider));
+  return StoryEntryRepository();
 });

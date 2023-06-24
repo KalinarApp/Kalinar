@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/base_repository.dart';
-import '../../../group_management/application/group_notifier.dart';
 import '../domain/book_page.dart';
 
 class StoryBookRepository extends HeroBaseRepository {
-  StoryBookRepository({super.notifier});
+  StoryBookRepository();
 
   // Future<List<BookPage>> getAllPages(String bookId) async {
   //   return await heroGet("/api/story/book/$bookId", (response) => List<BookPage>.from(response.map((model) => BookPage.fromJson(model))));
@@ -49,5 +48,5 @@ class StoryBookRepository extends HeroBaseRepository {
 }
 
 final storyBookRepositoryProvider = Provider<StoryBookRepository>((ref) {
-  return StoryBookRepository(notifier: ref.watch(groupNotifierProvider));
+  return StoryBookRepository();
 });

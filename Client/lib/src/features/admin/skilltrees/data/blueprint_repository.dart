@@ -1,14 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/base_repository.dart';
-import '../../../group_management/application/group_notifier.dart';
 import '../domain/blueprint.dart';
 import '../domain/blueprint_overview.dart';
 
 class BlueprintRepository extends HeroBaseRepository {
   static const String nodesKey = "currentNodes";
 
-  BlueprintRepository({super.notifier});
+  BlueprintRepository();
 
   Future<List<BlueprintOverview>> getAll() async {
     return await heroGet("/api/blueprints", (response) => List<BlueprintOverview>.from(response.map((model) => BlueprintOverview.fromJson(model))));
@@ -36,5 +35,5 @@ class BlueprintRepository extends HeroBaseRepository {
 }
 
 final blueprintRepositoryProvider = Provider<BlueprintRepository>((ref) {
-  return BlueprintRepository(notifier: ref.watch(groupNotifierProvider));
+  return BlueprintRepository();
 });

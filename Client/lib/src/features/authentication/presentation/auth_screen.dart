@@ -18,8 +18,8 @@ class AuthScreen extends ConsumerWidget {
       if (next.hasValue) {
         final token = await next.value!.getIdTokenResult();
         if (token.claims?.containsKey("groups") ?? false) {
-          List<String> groups = token.claims!["groups"];
-          ref.read(groupNotifierProvider).updateGroup(groups.first);
+          List<Object?> groups = token.claims!["groups"];
+          ref.read(groupNotifierProvider).updateGroup(groups.first.toString());
         } else {
           ref.read(groupControllerProvider).check();
         }

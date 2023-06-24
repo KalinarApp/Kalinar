@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
-import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'api_error.dart';
 
@@ -78,31 +78,47 @@ class BaseRepository {
 }
 
 class HeroBaseRepository extends BaseRepository {
-  Map<String, String>? headers;
-  late final String baseUrl;
+  static const groupKey = "currentGroup";
+  
+  final String baseUrl;
 
-  HeroBaseRepository({GroupNotifier? notifier}) {
-    baseUrl = FlavorConfig.instance.variables["baseUrl"];
-    headers = null != notifier?.groupId ? headers = {"x-kalinar-group": notifier!.groupId!} : headers = {};
+  String? currentGroup;
+
+  HeroBaseRepository() : baseUrl = FlavorConfig.instance.variables["baseUrl"];
+
+  Future<Map<String, String>> getHeaders() async {
+    if (currentGroup != null) return {"x-kalinar-group": currentGroup!};
+
+    final prefs = await SharedPreferences.getInstance();
+    currentGroup = prefs.getString(groupKey);
+
+    if (currentGroup == null) return {};
+
+    return {"x-kalinar-group": currentGroup!};
   }
 
   Future<T> heroGet<T>(String url, T Function(dynamic response) builder, {Map<String, dynamic>? query}) async {
+    Map<String, String> headers = await getHeaders();
     return await super.get(Uri.https(baseUrl, url, query), builder, headers: headers);
   }
 
   Future<T> heroPost<T>(String url, dynamic data, T Function(dynamic response) builder) async {
+    Map<String, String> headers = await getHeaders();
     return await super.post(Uri.https(baseUrl, url), data, builder, headers: headers);
   }
 
   Future<T> heroUpdate<T>(String url, dynamic data, T Function(dynamic response) builder) async {
+    Map<String, String> headers = await getHeaders();
     return await super.update(Uri.https(baseUrl, url), data, builder, headers: headers);
   }
 
   Future<T> heroPatch<T>(String url, dynamic data, T Function(dynamic response) builder) async {
+    Map<String, String> headers = await getHeaders();
     return await super.patch(Uri.https(baseUrl, url), data, builder, headers: headers);
   }
 
   Future<void> heroDelete(String url) async {
+    Map<String, String> headers = await getHeaders();
     return await super.delete(Uri.https(baseUrl, url), headers: headers);
   }
 }

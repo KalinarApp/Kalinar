@@ -21,7 +21,7 @@ class CharacterDetailScreen extends HookConsumerWidget {
     useEffect(() {
       ref.read(characterControllerProvider).get(id);
       return;
-    });
+    }, [ValueKey(id)]);
 
     final item = ref.watch(characterStateProvider);
 

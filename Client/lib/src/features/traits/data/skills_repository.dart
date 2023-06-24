@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../utilities/base_repository.dart';
-import '../../group_management/application/group_notifier.dart';
 import '../domain/skill.dart';
 
 class SkillsRepository extends HeroBaseRepository {
-  SkillsRepository({super.notifier});
+  SkillsRepository();
 
   Future<Skill> getById(String id) async {
     return await heroGet("/api/skills/$id", (response) => Skill.fromJson(response));
@@ -36,4 +35,4 @@ class SkillsRepository extends HeroBaseRepository {
   }
 }
 
-final skillsRepositoryProvider = Provider<SkillsRepository>((ref) => SkillsRepository(notifier: ref.watch(groupNotifierProvider)));
+final skillsRepositoryProvider = Provider<SkillsRepository>((ref) => SkillsRepository());
