@@ -8,7 +8,7 @@ import '../domain/blueprint_overview.dart';
 class BlueprintRepository extends HeroBaseRepository {
   static const String nodesKey = "currentNodes";
 
-  BlueprintRepository({super.group});
+  BlueprintRepository({super.notifier});
 
   Future<List<BlueprintOverview>> getAll() async {
     return await heroGet("/api/blueprints", (response) => List<BlueprintOverview>.from(response.map((model) => BlueprintOverview.fromJson(model))));
@@ -36,5 +36,5 @@ class BlueprintRepository extends HeroBaseRepository {
 }
 
 final blueprintRepositoryProvider = Provider<BlueprintRepository>((ref) {
-  return BlueprintRepository(group: ref.watch(groupNotifierProvider).group);
+  return BlueprintRepository(notifier: ref.watch(groupNotifierProvider));
 });

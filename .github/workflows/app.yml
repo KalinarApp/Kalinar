@@ -50,7 +50,7 @@ jobs:
 
     - name: Build for Web
       working-directory: ./Client
-      run: flutter build web --dart-define=SENTRY_DSN=${{ vars.SENTRY_DNS }} --release --no-tree-shake-icons
+      run: flutter build web --dart-define=SENTRY_DSN=${{ vars.SENTRY_DNS }}
     
     - name: Build and push Docker images
       uses: docker/build-push-action@v3

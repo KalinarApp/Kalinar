@@ -49,14 +49,14 @@ namespace Hero.Server.Controllers
         [HttpGet("users"), IsGroupAdmin]
         public async Task<List<UserResponse>> GetAllUsersInGroup(CancellationToken token)
         {
-            Group? group = await this.repository.GetGroupByOwnerId(this.HttpContext.User.GetUserId());
+            Group? group = await this.repository.GetGroupByOwnerId(this.HttpContext.User.GetUserId(), token);
             return group.Members.Select(item => this.mapper.Map<UserResponse>(item)).ToList();
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateGroup([FromBody]GroupRequest request, CancellationToken token)
         {
-                string code = await this.repository.CreateGroup(request.Name, request.Description, this.HttpContext.User.GetUserId(), token);
+                await this.repository.CreateGroup(request.Name, request.Description, this.HttpContext.User.GetUserId(), token);
                 this.logger.LogGroupCreatedSuccessfully(request.Name);
 
                 return this.Ok();
@@ -68,6 +68,16 @@ namespace Hero.Server.Controllers
         {
             await this.repository.JoinGroup(id, this.HttpContext.User.GetUserId(), code, token);
 
+            UserRecord user = await FirebaseAuth.DefaultInstance.GetUserAsync(this.User.GetUserId(), token);
+            Dictionary<string, object> claims = new(user.CustomClaims);
+
+            List<Guid> groups = user.CustomClaims.GetValueOrDefault("groups") as List<Guid> ?? new List<Guid>();
+            groups.Add(id);
+
+            claims["groups"] = groups.Distinct();
+
+            await FirebaseAuth.DefaultInstance.SetCustomUserClaimsAsync(this.User.GetUserId(), claims, token);
+
             return this.Ok();
         }
 
@@ -75,6 +85,16 @@ namespace Hero.Server.Controllers
         public async Task<IActionResult> LeaveGroup(CancellationToken token)
         {
             await this.repository.LeaveGroup(this.HttpContext.User.GetUserId(), token);
+
+            UserRecord user = await FirebaseAuth.DefaultInstance.GetUserAsync(this.User.GetUserId(), token);
+            Dictionary<string, object> claims = new(user.CustomClaims);
+
+            List<Guid> groups = user.CustomClaims.GetValueOrDefault("groups") as List<Guid> ?? new List<Guid>();
+            groups.Remove(groups.First());
+
+            claims["groups"] = groups.Distinct();
+
+            await FirebaseAuth.DefaultInstance.SetCustomUserClaimsAsync(this.User.GetUserId(), claims, token);
 
             return this.Ok(); 
         }

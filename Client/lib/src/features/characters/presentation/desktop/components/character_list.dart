@@ -6,7 +6,6 @@ import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/custom_icon_button.dart';
-import '../../../application/controllers/character_controller.dart';
 import '../../../application/controllers/character_overview_controller.dart';
 import '../../../application/notifier/character_overview_state_notifier.dart';
 import '../../character_detail_screen.dart';
@@ -29,7 +28,7 @@ class _CharacterListState extends ConsumerState<CharacterList> {
 
   @override
   void initState() {
-    ref.read(charactersProvider).getAll();
+    Future.delayed(Duration.zero, ref.read(charactersProvider).getAll);
     super.initState();
   }
 
@@ -68,7 +67,6 @@ class _CharacterListState extends ConsumerState<CharacterList> {
                       onTap: () {
                         final item = filteredItems[filteredItems.indexOf(e)];
                         widget.onSelectionChanged?.call(item.id);
-                        ref.read(characterControllerProvider).get(item.id);
 
                         GoRouter.of(context).goNamed(CharacterDetailScreen.name, pathParameters: {"id": item.id});
                       }),

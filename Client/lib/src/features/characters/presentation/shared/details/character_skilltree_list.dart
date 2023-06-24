@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -32,7 +31,7 @@ class CharacterSkilltreeList extends ConsumerWidget {
         child: ListView.builder(
           itemCount: items.length,
           shrinkWrap: fillContent,
-          itemBuilder: (context, index) => SkilltreeItem(items[index], onPress: kIsWeb ? null : (item) => _openSkilltree(item, context)),
+          itemBuilder: (context, index) => SkilltreeItem(items[index], onPress: (item) => _openSkilltree(item, context)),
         ),
       ),
     );

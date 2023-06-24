@@ -18,7 +18,7 @@ class SmallCharacterSheet extends StatelessWidget {
 
   Widget _buildSkilltrees() {
     return isOwnerOrAdmin() || (character.shareSkilltree ?? false)
-        ? Expanded(flex: 1, child: CustomCard(child: Expanded(child: CharacterSkilltreeList(character, fillContent: true))))
+        ? Expanded(flex: 1, child: CustomCard(child: CharacterSkilltreeList(character, fillContent: true)))
         : Container();
   }
 

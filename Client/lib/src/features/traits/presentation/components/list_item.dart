@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gravatar/flutter_gravatar.dart';
@@ -85,7 +84,7 @@ class ListItem<T extends Suggestable> extends StatelessWidget {
                           children: [
                             if (null != gravatar)
                               JustTheTooltip(
-                                isModal: !Platform.isWindows,
+                                isModal: !kIsWeb,
                                 triggerMode: TooltipTriggerMode.tap,
                                 content: Padding(padding: const EdgeInsets.all(8.0), child: Text(item.creator?.username ?? "")),
                                 child: CircleAvatar(radius: 10, backgroundImage: CachedNetworkImageProvider(gravatar.imageUrl())),

@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:http/http.dart' as http;
+import 'package:kalinar/src/features/group_management/application/group_notifier.dart';
 
-import '../features/group_management/domain/group.dart';
 import 'api_error.dart';
 
 class BaseRepository {
@@ -81,9 +81,9 @@ class HeroBaseRepository extends BaseRepository {
   Map<String, String>? headers;
   late final String baseUrl;
 
-  HeroBaseRepository({Group? group}) {
+  HeroBaseRepository({GroupNotifier? notifier}) {
     baseUrl = FlavorConfig.instance.variables["baseUrl"];
-    headers = null != group ? headers = {"x-kalinar-group": group.id} : headers = {};
+    headers = null != notifier?.groupId ? headers = {"x-kalinar-group": notifier!.groupId!} : headers = {};
   }
 
   Future<T> heroGet<T>(String url, T Function(dynamic response) builder, {Map<String, dynamic>? query}) async {

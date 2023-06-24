@@ -5,7 +5,7 @@ import '../../group_management/application/group_notifier.dart';
 import '../domain/attribute.dart';
 
 class AttributesRepository extends HeroBaseRepository {
-  AttributesRepository({super.group});
+  AttributesRepository({super.notifier});
 
   Future<Attribute> getById(String id) async {
     return await heroGet("/api/attributes/$id", (response) => Attribute.fromJson(response));
@@ -44,4 +44,4 @@ class AttributesRepository extends HeroBaseRepository {
   }
 }
 
-final attributesRepositoryProvider = Provider<AttributesRepository>((ref) => AttributesRepository(group: ref.watch(groupNotifierProvider).group));
+final attributesRepositoryProvider = Provider<AttributesRepository>((ref) => AttributesRepository(notifier: ref.watch(groupNotifierProvider)));

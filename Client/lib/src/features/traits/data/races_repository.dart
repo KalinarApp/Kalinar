@@ -5,7 +5,7 @@ import '../../group_management/application/group_notifier.dart';
 import '../domain/race.dart';
 
 class RacesRepository extends HeroBaseRepository {
-  RacesRepository({super.group});
+  RacesRepository({super.notifier});
 
   Future<Race> getById(String id) async {
     return await heroGet("/api/races/$id", (response) => Race.fromJson(response));
@@ -36,4 +36,4 @@ class RacesRepository extends HeroBaseRepository {
   }
 }
 
-final racesRepositoryProvider = Provider<RacesRepository>((ref) => RacesRepository(group: ref.watch(groupNotifierProvider).group));
+final racesRepositoryProvider = Provider<RacesRepository>((ref) => RacesRepository(notifier: ref.watch(groupNotifierProvider)));

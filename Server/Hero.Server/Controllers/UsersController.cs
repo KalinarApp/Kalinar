@@ -6,7 +6,6 @@ using FirebaseAdmin.Auth;
 using Hero.Server.Core.Models;
 using Hero.Server.Core.Repositories;
 using Hero.Server.Identity;
-using Hero.Server.Identity.Attributes;
 using Hero.Server.Messages.Requests;
 using Hero.Server.Messages.Responses;
 using Hero.Server.Services;
@@ -54,6 +53,12 @@ namespace Hero.Server.Controllers
         {
             UserInfo userInfo = await this.GetUserInfoByIdAsync(this.HttpContext.User.GetUserId(), cancellationToken); 
             User user = await this.repository.UpdateUserAsync(userInfo.Id, userInfo.Email, userInfo.Username, cancellationToken);
+            UserRecord firebaseUser = await FirebaseAuth.DefaultInstance.GetUserAsync(this.User.GetUserId(), cancellationToken);
+
+            Dictionary<string, object> claims = new(firebaseUser.CustomClaims);
+
+            claims["groups"] = new List<Guid>{ user.GroupId.Value };
+            await FirebaseAuth.DefaultInstance.SetCustomUserClaimsAsync(this.User.GetUserId(), claims, cancellationToken);
 
             return this.mapper.Map<UserResponse>(user); 
         }
