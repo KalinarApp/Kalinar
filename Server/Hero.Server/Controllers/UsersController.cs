@@ -57,7 +57,14 @@ namespace Hero.Server.Controllers
 
             Dictionary<string, object> claims = new(firebaseUser.CustomClaims);
 
-            claims["groups"] = new List<Guid>{ user.GroupId.Value };
+            if (user.GroupId.HasValue)
+            {
+                claims["groups"] = new List<Guid>{ user.GroupId.Value };
+            }
+            else if (user.OwnedGroup != null)
+            {
+                claims["groups"] = new List<Guid> { user.OwnedGroup.Id };
+            }
             await FirebaseAuth.DefaultInstance.SetCustomUserClaimsAsync(this.User.GetUserId(), claims, cancellationToken);
 
             return this.mapper.Map<UserResponse>(user); 
