@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'api_error.dart';
+import 'constants.dart';
 
 class BaseRepository {
   Future<T> _handleResponse<T>(Future<http.Response> Function() action, T Function(dynamic response) responseBuilder) async {
@@ -78,8 +79,6 @@ class BaseRepository {
 }
 
 class HeroBaseRepository extends BaseRepository {
-  static const groupKey = "currentGroup";
-  
   final String baseUrl;
 
   String? currentGroup;
@@ -90,7 +89,7 @@ class HeroBaseRepository extends BaseRepository {
     if (currentGroup != null) return {"x-kalinar-group": currentGroup!};
 
     final prefs = await SharedPreferences.getInstance();
-    currentGroup = prefs.getString(groupKey);
+    currentGroup = prefs.getString(Constants.currentGroupKey);
 
     if (currentGroup == null) return {};
 

@@ -10,4 +10,6 @@ class Constants {
 
   static const String imgurApiUrl = "api.imgur.com";
   static const String imgurClientId = "97d61fef00e44b6";
+
+  static const String currentGroupKey = "currentGroup";
 }
