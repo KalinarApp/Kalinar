@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class AutoSavingTextField extends StatefulWidget {
+class AutoSavingTextField extends HookWidget {
   final FutureOr<void> Function(String? currentText) onSaving;
   final String title;
   final String? initialValue;
@@ -27,53 +28,36 @@ class AutoSavingTextField extends StatefulWidget {
   });
 
   @override
-  State<AutoSavingTextField> createState() => _AutoSavingTextFieldState();
-}
-
-class _AutoSavingTextFieldState extends State<AutoSavingTextField> {
-  late final TextEditingController controller;
-  Timer? _timer;
-  bool isLoading = false;
-
-  @override
-  void initState() {
-    controller = TextEditingController(text: widget.initialValue);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final controller = useTextEditingController(text: initialValue, keys: [initialValue]);
+    final isLoading = useState(false);
+    final ValueNotifier<Timer?> timer = useState(null);
+
     return TextField(
       controller: controller,
-      minLines: widget.minLines,
-      maxLines: widget.maxLines,
-      enabled: widget.enabled,
-      expands: widget.expands,
+      minLines: minLines,
+      maxLines: maxLines,
+      enabled: enabled,
+      expands: expands,
       textAlignVertical: TextAlignVertical.top,
       onChanged: (value) {
-        if (_timer?.isActive ?? false) _timer!.cancel();
-        _timer = Timer(widget.duration, () async {
-          setState(() => isLoading = true);
-          await widget.onSaving(controller.text);
-          setState(() => isLoading = false);
+        if (timer.value?.isActive ?? false) timer.value!.cancel();
+        timer.value = Timer(duration, () async {
+          isLoading.value = true;
+          await onSaving(controller.text);
+          isLoading.value = false;
         });
       },
       decoration: InputDecoration(
-        border: widget.border,
+        border: border,
         alignLabelWithHint: true,
         label: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.title),
+            Text(title),
             const SizedBox(width: 4),
-            if (isLoading)
+            if (isLoading.value)
               const Center(
                 child: SizedBox(
                   width: 12,
