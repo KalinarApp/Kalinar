@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/characters/presentation/character_detail_screen.dart';
-import 'package:kalinar/src/features/characters/presentation/character_overview_screen.dart';
 
 import '../../features/characters/application/controllers/character_overview_controller.dart';
 import '../../features/characters/application/notifier/character_overview_state_notifier.dart';
+import '../../features/characters/presentation/character_detail_screen.dart';
+import '../../features/characters/presentation/character_overview_screen.dart';
 import '../user_menu.dart';
+import 'desktop_navigation_item.dart';
 import 'navigation_item.dart';
 
 class DesktopNavigation extends ConsumerStatefulWidget {
@@ -35,42 +36,45 @@ class _DesktopNavigationState extends ConsumerState<DesktopNavigation> with Tick
     final items = ref.watch(charactersStateProvider) ?? [];
     items.sortBy((e) => e.name);
 
+    final itemWidgets = [
+      ...items.map(
+        (e) => DesktopNavigationItem(
+          isSelected: GoRouter.of(context).location == "${CharacterOverviewScreen.route}/${e.id}",
+          image: null != e.iconUrl ? CachedNetworkImageProvider(e.iconUrl!) : null,
+          onTap: () => context.goNamed(CharacterDetailScreen.name, pathParameters: {"id": e.id}),
+        ),
+      )
+    ];
+
     return Scaffold(
       body: Row(
         children: [
           SideMenu(
+            minWidth: 60,
             hasResizer: false,
             mode: SideMenuMode.compact,
             hasResizerToggle: false,
             builder: (data) {
               return SideMenuData(
-                header: const SizedBox(height: 12),
-                items: [
-                  ...widget.tabs
-                      .map(
-                        (e) => SideMenuItemDataTile(
-                          icon: Icon(e.icon),
-                          title: e.title,
-                          isSelected: GoRouter.of(context).location == e.route,
-                          onTap: () => context.go(e.route),
-                          hasSelectedLine: false,
-                        ),
-                      )
-                      .toList(),
-                  const SideMenuItemDataDivider(divider: Divider()),
-                  ...items.map(
-                    (e) => SideMenuItemDataTile(
-                      isSelected: GoRouter.of(context).location == "${CharacterOverviewScreen.route}/${e.id}",
-                      icon: null != e.iconUrl
-                          ? Padding(
-                              padding: data.isOpen ? const EdgeInsets.only(right: 8.0) : EdgeInsets.zero,
-                              child: CircleAvatar(backgroundImage: CachedNetworkImageProvider(e.iconUrl!)))
-                          : null,
-                      onTap: () => context.goNamed(CharacterDetailScreen.name, pathParameters: {"id": e.id}),
-                      hasSelectedLine: false,
-                    ),
-                  )
-                ],
+                header: Column(
+                  children: [
+                    ...widget.tabs
+                        .map(
+                          (e) => DesktopNavigationItem(
+                            icon: Icon(e.icon),
+                            isSelected: GoRouter.of(context).location == e.route,
+                            onTap: () => context.go(e.route),
+                          ),
+                        )
+                        .toList(),
+                    const Divider(),
+                  ],
+                ),
+                customChild: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: itemWidgets.length,
+                  itemBuilder: (context, index) => itemWidgets[index],
+                ),
                 footer: Column(
                   children: const [
                     UserMenu(),
@@ -80,7 +84,6 @@ class _DesktopNavigationState extends ConsumerState<DesktopNavigation> with Tick
               );
             },
           ),
-          // CharacterList(selectedId: _currentCharacterId, onSelectionChanged: (id) => setState(() => _currentCharacterId = id)),
           Expanded(child: widget.child),
         ],
       ),

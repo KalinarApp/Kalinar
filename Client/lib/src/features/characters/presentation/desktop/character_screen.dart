@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common_widgets/layout/size.dart';
 import '../../../../common_widgets/loading_indicator.dart';
-import '../../../group_management/application/group_notifier.dart';
+import '../../../authentication/application/user_notifier.dart';
 import '../../domain/character.dart';
 import 'components/big_character_sheet.dart';
 import 'components/small_character_sheet.dart';
@@ -25,7 +25,7 @@ class _CharacterScreenState extends ConsumerState<CharacterScreen> {
   }
 
   bool _isOwnerOrAdmin(Character character) {
-    return _isOwner(character) || ref.read(groupNotifierProvider).group?.ownerId == FirebaseAuth.instance.currentUser?.uid;
+    return _isOwner(character) || ref.read(userNotifierProvider).user?.ownedGroup?.ownerId == FirebaseAuth.instance.currentUser?.uid;
   }
 
   @override
