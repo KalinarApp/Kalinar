@@ -9,7 +9,9 @@ import 'package:kalinar/src/features/characters/application/notifier/ordered_cha
 
 import '../../features/characters/application/controllers/character_overview_controller.dart';
 import '../../features/characters/application/notifier/character_overview_state_notifier.dart';
+import '../../features/characters/domain/character_overview.dart';
 import '../../features/characters/presentation/character_detail_screen.dart';
+import '../../features/characters/presentation/character_editor_dialog.dart';
 import '../../features/characters/presentation/character_overview_screen.dart';
 import '../expandable.dart';
 import '../user_menu.dart';
@@ -21,6 +23,21 @@ class DesktopNavigation extends HookConsumerWidget {
   final List<NavigationItem> tabs;
 
   const DesktopNavigation({required this.child, required this.tabs, super.key});
+
+  Future _showCharacterContextMenu(BuildContext context, CharacterOverview character, Offset position) async {
+    final left = position.dx;
+    final top = position.dy;
+
+    await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromDirectional(textDirection: Directionality.of(context), start: left, top: top, end: left + 2, bottom: top + 2),
+      items: const [
+        PopupMenuItem<String>(value: "Settings", child: Text("Einstellungen")),
+        PopupMenuDivider(),
+        PopupMenuItem<String>(value: "Settings", child: Text("Löschen")),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,6 +73,7 @@ class DesktopNavigation extends HookConsumerWidget {
                       firstChild: SizedBox(
                         height: 60,
                         child: DesktopNavigationItem(
+                            title: selectedOrFirst.title,
                             icon: Icon(selectedOrFirst.icon),
                             isSelected: GoRouter.of(context).location == selectedOrFirst.route,
                             onTap: () => context.go(selectedOrFirst.route)),
@@ -65,6 +83,7 @@ class DesktopNavigation extends HookConsumerWidget {
                             .whereNot((element) => element == selectedOrFirst)
                             .map(
                               (e) => DesktopNavigationItem(
+                                title: e.title,
                                 icon: Icon(e.icon),
                                 isSelected: GoRouter.of(context).location == e.route,
                                 onTap: () => context.go(e.route),
@@ -81,13 +100,21 @@ class DesktopNavigation extends HookConsumerWidget {
                   shrinkWrap: true,
                   itemCount: characters.length,
                   onReorder: ref.read(orderedCharactersStateProvider.notifier).reorder,
+                  footer: DesktopNavigationItem(
+                    isSelected: false,
+                    title: "Charakter erstellen",
+                    icon: const Icon(Icons.add),
+                    onTap: () => showCharacterEditorDialog(context),
+                  ),
                   itemBuilder: (context, index) => ReorderableDragStartListener(
                     key: ValueKey(characters[index]),
                     index: index,
                     child: DesktopNavigationItem(
+                      title: characters[index].name,
                       isSelected: GoRouter.of(context).location == "${CharacterOverviewScreen.route}/${characters[index].id}",
                       image: null != characters[index].iconUrl ? CachedNetworkImageProvider(characters[index].iconUrl!) : null,
                       onTap: () => context.goNamed(CharacterDetailScreen.name, pathParameters: {"id": characters[index].id}),
+                      // onSecondaryTap: (details) => _showCharacterContextMenu(context, characters[index], details.globalPosition),
                     ),
                   ),
                 ),

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class DesktopNavigationItem extends HookWidget {
   final Widget? icon;
   final ImageProvider? image;
   final bool isSelected;
   final Function()? onTap;
+  final Function(TapDownDetails details)? onSecondaryTap;
+  final String title;
 
-  const DesktopNavigationItem({this.icon, this.isSelected = false, this.image, this.onTap, super.key}) : assert(icon == null || image == null);
+  const DesktopNavigationItem({this.icon, required this.title, this.isSelected = false, this.image, this.onTap, this.onSecondaryTap, super.key})
+      : assert(icon == null || image == null);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +19,7 @@ class DesktopNavigationItem extends HookWidget {
 
     return GestureDetector(
       onTap: onTap,
+      onSecondaryTapDown: onSecondaryTap,
       child: MouseRegion(
         onEnter: (event) => isMouseOver.value = true,
         onExit: (event) => isMouseOver.value = false,
@@ -36,13 +41,23 @@ class DesktopNavigationItem extends HookWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(isSelected || isMouseOver.value ? 12 : 100),
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    color: Theme.of(context).colorScheme.background,
-                    child: image == null ? icon : Image(image: image!, fit: BoxFit.cover),
+                child: JustTheTooltip(
+                  content: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(title, style: Theme.of(context).textTheme.titleMedium),
+                  ),
+                  tailBaseWidth: 15,
+                  tailLength: 5,
+                  offset: 8,
+                  preferredDirection: AxisDirection.right,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(isSelected || isMouseOver.value ? 12 : 100),
+                    child: Container(
+                      width: 48,
+                      height: 48,
+                      color: Theme.of(context).colorScheme.background,
+                      child: image == null ? icon : Image(image: image!, fit: BoxFit.cover),
+                    ),
                   ),
                 ),
               ),

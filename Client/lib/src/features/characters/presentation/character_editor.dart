@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -7,14 +8,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../../../common_widgets/form_fields/custom_text_field.dart';
-import '../../../../common_widgets/form_fields/description_field.dart';
-import '../../../../common_widgets/form_fields/image_picker_field.dart';
-import '../../../../common_widgets/form_fields/image_selector.dart';
-import '../../../../common_widgets/form_fields/multiline_text_field.dart';
-import '../../../../common_widgets/save_button.dart';
-import '../../domain/character.dart';
-import '../shared/race_selection.dart';
+import '../../../common_widgets/form_fields/custom_text_field.dart';
+import '../../../common_widgets/form_fields/description_field.dart';
+import '../../../common_widgets/form_fields/dropable_image_picker.dart';
+import '../../../common_widgets/form_fields/multiline_text_field.dart';
+import '../domain/character.dart';
+import 'shared/race_selection.dart';
+import 'desktop/components/custom_card.dart';
 
 class CharacterEditor extends ConsumerWidget {
   final Character? character;
@@ -23,29 +23,60 @@ class CharacterEditor extends ConsumerWidget {
 
   const CharacterEditor(this.character, {required this.onSave, required this.buttonController, super.key});
 
+  Widget _buildCard(Widget child) {
+    return AspectRatio(aspectRatio: 1, child: child);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: SaveButton(controller: buttonController, onSave: onSave),
-          ),
-        ],
-      ),
-      body: FocusTraversalGroup(
-        policy: ReadingOrderTraversalPolicy(),
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
+    return FocusTraversalGroup(
+      policy: ReadingOrderTraversalPolicy(),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (OverscrollIndicatorNotification overScroll) {
+            overScroll.disallowIndicator();
+            return false;
+          },
+          child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: ImagePickerField(initialValue: character?.iconUrl, type: ImageType.characterImage),
+                Text("Charakter erstellen", style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 32)),
+                DropableImagePicker(
+                  initialValue: character?.iconUrl,
+                  builder: (image, isLoading) => LayoutBuilder(
+                    builder: (ctx, constraints) {
+                      if (isLoading || image == null) {
+                        return Center(
+                          child: SizedBox(
+                            width: constraints.maxWidth / 2,
+                            child: CustomCard(
+                              child: _buildCard(
+                                isLoading
+                                    ? const Center(child: CircularProgressIndicator())
+                                    : Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                        const Icon(Icons.camera_alt),
+                                        const SizedBox(height: 10),
+                                        Text(AppLocalizations.of(context)!.imageSelectionDescription, textAlign: TextAlign.center),
+                                      ]),
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return Center(
+                        child: CustomCard(
+                          child: CachedNetworkImage(
+                            imageUrl: image,
+                            placeholder: (context, url) => SizedBox(width: 100, child: _buildCard(const Center(child: CircularProgressIndicator()))),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Row(
                   children: [
@@ -113,6 +144,18 @@ class CharacterEditor extends ConsumerWidget {
                   maxLines: 3,
                   label: AppLocalizations.of(context)!.characterNotes,
                   icon: FontAwesomeIcons.noteSticky,
+                ),
+                const SizedBox(height: 50),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: RoundedLoadingButton(
+                    borderRadius: 8,
+                    resetAfterDuration: true,
+                    resetDuration: const Duration(seconds: 3),
+                    controller: buttonController,
+                    onPressed: onSave,
+                    child: Text(AppLocalizations.of(context)!.save, style: Theme.of(context).textTheme.titleLarge),
+                  ),
                 ),
               ],
             ),

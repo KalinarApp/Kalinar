@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:kalinar/src/common_widgets/layout/responsive_layout.dart';
 import 'package:kalinar/src/common_widgets/loading_indicator.dart';
 
 import '../../../common_widgets/content_tab.dart';
 import '../application/controllers/character_overview_controller.dart';
 import '../application/notifier/character_overview_state_notifier.dart';
-import 'character_editor_screen.dart';
+import 'character_editor_dialog.dart';
 import 'shared/character_overview_tab.dart';
 
 class CharacterOverviewScreen extends ConsumerStatefulWidget {
@@ -54,9 +53,7 @@ class _CharacterOverviewScreenState extends ConsumerState<CharacterOverviewScree
     return ResponsiveLayout(
       desktop: const Scaffold(body: LoadingIndicator("")),
       mobile: Scaffold(
-        floatingActionButton: canAdd
-            ? FloatingActionButton(onPressed: () => GoRouter.of(context).pushNamed(CharacterEditorScreen.name), child: const Icon(Icons.add))
-            : null,
+        floatingActionButton: canAdd ? FloatingActionButton(onPressed: () => showCharacterEditorDialog(context), child: const Icon(Icons.add)) : null,
         appBar: AppBar(
           bottom: TabBar(tabs: tabs, controller: _controller),
         ),
