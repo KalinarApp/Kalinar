@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../utilities/async_value_extension.dart';
-import '../../../group_management/application/group_notifier.dart';
+import '../../../authentication/application/user_notifier.dart';
 import '../../application/controller/traits_controller.dart';
 import '../../domain/suggestable.dart';
 import '../../domain/suggestion_state.dart';
@@ -49,7 +49,7 @@ class _EditViewState extends ConsumerState<EditView> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    return FirebaseAuth.instance.currentUser?.uid == ref.read(userNotifierProvider).user?.ownedGroup?.ownerId;
   }
 
   String _getSaveButtonTitle(Suggestable? item) {

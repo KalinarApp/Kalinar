@@ -9,7 +9,7 @@ import '../../../common_widgets/form_fields/description_field.dart';
 import '../../../common_widgets/form_fields/image_picker_field.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
-import '../../group_management/application/group_notifier.dart';
+import '../../authentication/application/user_notifier.dart';
 import '../application/controller/abilities_controller.dart';
 import '../application/controller/skills_controller.dart';
 import '../application/notifier/skill_state_notifier.dart';
@@ -44,7 +44,7 @@ class _EditSkillScreenState extends ConsumerState<EditSkillScreen> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    return FirebaseAuth.instance.currentUser?.uid == ref.read(userNotifierProvider).user?.ownedGroup?.ownerId;
   }
 
   @override

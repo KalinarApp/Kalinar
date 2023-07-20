@@ -24,7 +24,7 @@ class BigCharacterSheet extends StatelessWidget {
 
   Widget _buildAttributes() {
     return isOwnerOrAdmin() || (character.shareAttributes ?? false)
-        ? Expanded(flex: 1, child: CustomCard(child: CharacterAttributes(character)))
+        ? Expanded(flex: 2, child: CustomCard(child: CharacterAttributes(character)))
         : Container();
   }
 
@@ -39,7 +39,7 @@ class BigCharacterSheet extends StatelessWidget {
   Widget _buildAbilities(BoxConstraints constraints) {
     return isOwnerOrAdmin() || (character.shareAbilities ?? false)
         ? Expanded(
-            flex: 1,
+            flex: 2,
             child: SizedBox(
               width: constraints.maxWidth / 3,
               child: CustomCard(child: CharacterAbilities(character)),
@@ -56,7 +56,7 @@ class BigCharacterSheet extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,7 +68,7 @@ class BigCharacterSheet extends StatelessWidget {
             if (isOwnerOrAdmin() ||
                 ((character.shareAttributes ?? false) || ((character.shareInventory ?? false) || (character.shareNotes ?? false))))
               Expanded(
-                flex: 3,
+                flex: 5,
                 child: Column(
                   children: [
                     _buildAttributes(),
