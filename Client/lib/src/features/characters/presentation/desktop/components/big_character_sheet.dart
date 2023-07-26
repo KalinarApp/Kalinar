@@ -11,10 +11,12 @@ import 'custom_card.dart';
 
 class BigCharacterSheet extends StatelessWidget {
   final Character character;
+  final String? abilityQuery;
+  final String? abilityCategory;
   final bool Function() isOwner;
   final bool Function() isOwnerOrAdmin;
 
-  const BigCharacterSheet(this.character, {required this.isOwner, required this.isOwnerOrAdmin, super.key});
+  const BigCharacterSheet(this.character, {this.abilityCategory, this.abilityQuery, required this.isOwner, required this.isOwnerOrAdmin, super.key});
 
   Widget _buildSkilltrees() {
     return isOwnerOrAdmin() || (character.shareSkilltree ?? false)
