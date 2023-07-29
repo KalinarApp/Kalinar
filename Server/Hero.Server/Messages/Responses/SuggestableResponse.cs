@@ -7,7 +7,7 @@ namespace Hero.Server.Messages.Responses
 {
 	public class SuggestableResponse
 	{
-        public UserResponse Creator { get; set; }
+        public required UserResponse Creator { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SuggestionState State { get; set; }

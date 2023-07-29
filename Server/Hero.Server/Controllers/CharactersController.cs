@@ -18,13 +18,15 @@ namespace Hero.Server.Controllers
     {
         private readonly ICharacterRepository repository;
         private readonly IUserRepository userRepository;
+        private readonly ISkilltreeRepository skilltreeRepository;
         private readonly IMapper mapper;
 
-        public CharactersController(ICharacterRepository repository, IUserRepository userRepository, IMapper mapper, ILogger<CharactersController> logger)
+        public CharactersController(ICharacterRepository repository, IUserRepository userRepository, ISkilltreeRepository skilltreeRepository, IMapper mapper, ILogger<CharactersController> logger)
             : base(logger)
         {
             this.repository = repository;
             this.userRepository = userRepository;
+            this.skilltreeRepository = skilltreeRepository;
             this.mapper = mapper;
         }
 
@@ -136,6 +138,34 @@ namespace Hero.Server.Controllers
             character = await this.repository.UpdateCharacterAsync(id, character, token);
 
             return this.mapper.Map<CharacterDetailResponse>(character);
+        }
+
+        [HttpGet("{id}/skills"), IsGroupMember]
+        public async Task<ActionResult<IEnumerable<CharacterSkillResponse>>> ListCharacterSkillsAsync(Guid id, [FromQuery] bool? isUnlocked, CancellationToken cancellationToken = default) 
+        {
+            Character? character = await this.repository.GetCharacterWithNestedByIdAsync(id, cancellationToken);
+
+            if (character is null) return this.NotFound();
+
+            IEnumerable<SkilltreeNode> nodes = character.Skilltrees.Where(s => s.IsActiveTree).SelectMany(tree => tree.Nodes.Where(node => node.Skill is not null).Where(node => isUnlocked is null || node.IsUnlocked == isUnlocked));
+
+            return this.Ok(nodes.Select(item => (CharacterSkillResponse)item));
+        }
+
+        [HttpPost("{characterId}/skills/{skillId}"), IsGroupMember]
+        public async Task<ActionResult<CharacterSkillResponse>> MarkCharacterSkillAsFavoriteAsync(Guid characterId, Guid skillId, [FromBody] FavorizeRequest request, CancellationToken cancellationToken = default)
+        {
+            Character? character = await this.repository.GetCharacterWithNestedByIdAsync(characterId, cancellationToken);
+
+            if (character is null) return this.NotFound();
+
+            SkilltreeNode? node = character.Skilltrees.Where(s => s.IsActiveTree).SelectMany(tree => tree.Nodes.Where(node => node.SkillId == skillId)).FirstOrDefault();
+
+            if (node is null) return this.NotFound();
+
+            node = await this.skilltreeRepository.MarkNodeAsFavoriteAsync(node.Id, request.IsFavorite, cancellationToken);
+
+            return this.Ok((CharacterSkillResponse)node);
         }
     }
 }
