@@ -1,0 +1,77 @@
+﻿using Kalinar.Options;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
+namespace Kalinar.Application.Extensions
+{
+    public static class IServiceCollectionExtensions
+    {
+        public static void AddFirebaseAuthentication(this IServiceCollection services, Action<JwtBearerOptions>? configureOptions = default)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.Authority = "https://securetoken.google.com/kalinar-app";
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = "https://securetoken.google.com/kalinar-app",
+                    ValidateAudience = true,
+                    ValidAudience = "kalinar-app",
+                    ValidateLifetime = true,
+                };
+                configureOptions?.Invoke(options);
+            });
+
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = JwtBearerDefaults.AuthenticationScheme,
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                    
+                });
+            });
+        }
+
+        public static void AddAndConfigureVersioning(this IServiceCollection services, IErrorResponseProvider provider)
+        {
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = ApiVersion.Default;
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
+                options.ErrorResponses = provider;
+            });
+
+            services.AddVersionedApiExplorer(setup =>
+            {
+                setup.GroupNameFormat = "'v'VVV";
+                setup.SubstituteApiVersionInUrl = true;
+            });
+
+            services.ConfigureOptions<ApiVersioningSwaggerOptions>();
+        }
+    }
+}
