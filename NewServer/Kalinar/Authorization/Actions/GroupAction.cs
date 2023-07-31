@@ -1,6 +1,6 @@
 ﻿namespace Kalinar.Authorization.Actions
 {
-    public enum UserAction
+    public enum GroupAction
     {
         List,
         Read,

@@ -16,6 +16,11 @@ namespace Kalinar.Authorization.Handlers
 
             switch (requirement.Action)
             {
+                case UserAction.Create:
+                {
+                    context.Succeed(requirement);
+                    return Task.CompletedTask;
+                }
                 case UserAction.List when context.User.IsInRole(RoleNames.Administrator):
                 case UserAction.Read when context.User.IsInRole(RoleNames.Administrator):
                 case UserAction.Update when context.User.IsInRole(RoleNames.Administrator):
