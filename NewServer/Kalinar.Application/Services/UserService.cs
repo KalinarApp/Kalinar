@@ -1,4 +1,5 @@
 ﻿using Kalinar.Application.Contracts;
+using Kalinar.Application.Messages.Requests;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
 
@@ -23,8 +24,15 @@ namespace Kalinar.Application.Services
             return await _userRepository.ListAsync(cancellationToken);
         }
 
-        public async Task<UserEntity> CreateAsync(UserEntity user, CancellationToken cancellationToken = default)
+        public async Task<UserEntity> CreateAsync(string userId, RegisterUserRequest request, CancellationToken cancellationToken = default)
         {
+            UserEntity user = new()
+            {
+                Id = userId,
+                Email = request.Email.ToLower(),
+                Username = request.Username,
+            };
+
             return await _userRepository.CreateAsync(user, cancellationToken);
         }
 

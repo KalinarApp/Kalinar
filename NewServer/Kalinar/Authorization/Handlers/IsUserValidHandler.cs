@@ -10,10 +10,10 @@ namespace Kalinar.Authorization.Handlers
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsUserValidRequirement requirement)
         {
-            string? userId = context.User.FindFirstValue(ClaimTypes.Sid);
+            string? userId = context.User.FindFirstValue("sub");
             if (userId is null)
             {
-                context.Fail(new AuthorizationFailureReason(this, $"Invalid access token - claim '{ClaimTypes.Sid}' is missing"));
+                context.Fail(new AuthorizationFailureReason(this, $"Invalid access token - claim 'sub' is missing"));
                 return Task.CompletedTask;
             }
 

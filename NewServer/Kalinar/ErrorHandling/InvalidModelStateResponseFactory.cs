@@ -1,4 +1,4 @@
-﻿using Kalinar.Messages.Responses;
+﻿using Kalinar.Application.Messages.Responses;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;

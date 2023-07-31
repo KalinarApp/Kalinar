@@ -1,4 +1,5 @@
 ﻿using Kalinar.Core.Entities;
+using Kalinar.Core.Exceptions;
 using Kalinar.Data.Database;
 
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,10 @@ namespace Kalinar.Application.Contracts
 
         public async Task<UserEntity> CreateAsync(UserEntity user, CancellationToken cancellationToken = default)
         {
+            UserEntity? existing = await context.Users.FirstOrDefaultAsync(item => item.Id == user.Id, cancellationToken);
+
+            if (existing is not null) throw new UserAlreadyExistsException(user.Id);
+
             await context.Users.AddAsync(user, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
 

@@ -1,4 +1,4 @@
-﻿using Kalinar.Messages.Responses;
+﻿using Kalinar.Application.Messages.Responses;
 
 using System.Net;
 using System.Text.Json;

@@ -1,4 +1,4 @@
-﻿namespace Kalinar.Messages.Responses
+﻿namespace Kalinar.Application.Messages.Responses
 {
     public class ErrorResponse
     {
