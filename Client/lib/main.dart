@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:window_size/window_size.dart';
 
 import 'firebase_initialization.dart';
 import 'src/common_widgets/kalinar.dart';
@@ -30,11 +29,6 @@ void _loadFlavors() {
 void main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-
-    if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-      setWindowTitle('Hero App');
-      setWindowMinSize(const Size(500, 800));
-    }
 
     _loadFlavors();
     await initializeFirebase();
