@@ -1,6 +1,11 @@
-﻿using Kalinar.Options;
+﻿using Kalinar.Authorization;
+using Kalinar.Authorization.Handlers;
+using Kalinar.Authorization.Requirements;
+using Kalinar.ErrorHandling;
+using Kalinar.Options;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
@@ -10,6 +15,16 @@ namespace Kalinar.Application.Extensions
 {
     public static class IServiceCollectionExtensions
     {
+        public static void AddApplicationPolicies(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSingleton<IAuthorizationHandler, IsUserValidHandler>();
+            serviceCollection.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
+            serviceCollection.AddAuthorization(options =>
+            {
+                options.AddPolicy(PolicyNames.IsValidUser, policy => policy.AddRequirements(new IsUserValidRequirement()));
+            });
+        }
+
         public static void AddFirebaseAuthentication(this IServiceCollection services, Action<JwtBearerOptions>? configureOptions = default)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

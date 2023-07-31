@@ -13,9 +13,9 @@ namespace Kalinar.Application.Services
             this.groupRepository = groupRepository;
         }
 
-        public async Task<GroupEntity> GetByIdAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public async Task<GroupEntity> GetByIdAsync(Guid groupId, bool includeMembers = false, CancellationToken cancellationToken = default)
         {
-            return await this.groupRepository.FindByIdAsync(groupId, cancellationToken) ?? throw new GroupNotFoundException(groupId);
+            return await this.groupRepository.FindByIdAsync(groupId, includeMembers, cancellationToken) ?? throw new GroupNotFoundException(groupId);
         }
 
         public Task<IEnumerable<GroupEntity>> ListAsync(CancellationToken cancellationToken = default)

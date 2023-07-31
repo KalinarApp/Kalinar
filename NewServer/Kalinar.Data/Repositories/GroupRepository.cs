@@ -15,9 +15,11 @@ namespace Kalinar.Data.Repositories
             this.context = context;
         }
 
-        public async Task<GroupEntity?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<GroupEntity?> FindByIdAsync(Guid id, bool includeMembers, CancellationToken cancellationToken = default)
         {
-            return await context.Groups.FirstOrDefaultAsync(g => g.Id == id, cancellationToken);
+            return includeMembers 
+                ? await context.Groups.Include(group => group.Members).FirstOrDefaultAsync(g => g.Id == id, cancellationToken) 
+                : await context.Groups.FirstOrDefaultAsync(g => g.Id == id, cancellationToken);
         }
 
         public async Task<IEnumerable<GroupEntity>> ListAsync(CancellationToken cancellationToken = default)

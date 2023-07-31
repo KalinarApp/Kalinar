@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddAndConfigureVersioning(new ApiVersioningErrorResponseProvider());
 
+builder.Services.AddApplicationPolicies();
 builder.Services.AddFirebaseAuthentication();
 builder.Services.AddApplicationLayer();
 builder.Services.AddDataLayer(builder.Configuration.GetConnectionString("Database")!);
