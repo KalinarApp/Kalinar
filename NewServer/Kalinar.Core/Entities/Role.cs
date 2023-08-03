@@ -1,6 +1,6 @@
 ﻿namespace Kalinar.Core.Entities
 {
-    public enum RoleEntity
+    public enum Role
     {
         Owner,
         Administrator,

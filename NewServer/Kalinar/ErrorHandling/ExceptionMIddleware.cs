@@ -1,4 +1,5 @@
 ﻿using Kalinar.Application.Messages.Responses;
+using Kalinar.Core.Exceptions;
 
 using System.Net;
 using System.Text.Json;
@@ -34,6 +35,9 @@ namespace Kalinar.ErrorHandling
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = ex switch
             {
+                GroupNotFoundException => (int)HttpStatusCode.NotFound,
+                UserNotFoundException => (int)HttpStatusCode.NotFound,
+                UserAlreadyExistsException => (int)HttpStatusCode.BadRequest,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

@@ -31,6 +31,8 @@ namespace Kalinar.Application.Services
                 Id = userId,
                 Email = request.Email.ToLower(),
                 Username = request.Username,
+                DeviceIds = new(),
+                Groups = new(),
             };
 
             return await _userRepository.CreateAsync(user, cancellationToken);
@@ -46,7 +48,7 @@ namespace Kalinar.Application.Services
             await _userRepository.DeleteAsync(user, cancellationToken);
         }
 
-        public async Task JoinGroupAsync(string userId, Guid groupId, RoleEntity role, CancellationToken cancellationToken = default)
+        public async Task JoinGroupAsync(string userId, Guid groupId, Role role, CancellationToken cancellationToken = default)
         {
             await _userRepository.JoinGroupAsync(userId, groupId, role, cancellationToken);
         }

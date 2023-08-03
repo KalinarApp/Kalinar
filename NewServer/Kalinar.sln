@@ -5,11 +5,11 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kalinar", "Kalinar\Kalinar.csproj", "{558A5F3D-6C97-4C70-AAB9-4410DB8736B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kalinar.Data", "Kalinar.Data\Kalinar.Data.csproj", "{58FFC7CE-9B89-4583-87F6-DC024E35823F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kalinar.Data", "Kalinar.Data\Kalinar.Data.csproj", "{58FFC7CE-9B89-4583-87F6-DC024E35823F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kalinar.Application", "Kalinar.Application\Kalinar.Application.csproj", "{475152EA-D49C-448A-966B-BF62834CACB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kalinar.Application", "Kalinar.Application\Kalinar.Application.csproj", "{475152EA-D49C-448A-966B-BF62834CACB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kalinar.Core", "Kalinar.Core\Kalinar.Core.csproj", "{D4D19D08-F1D1-4D71-8828-6DDF3FDC8D83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kalinar.Core", "Kalinar.Core\Kalinar.Core.csproj", "{D4D19D08-F1D1-4D71-8828-6DDF3FDC8D83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

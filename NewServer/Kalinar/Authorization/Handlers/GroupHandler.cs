@@ -36,8 +36,8 @@ namespace Kalinar.Authorization.Handlers
                     context.Succeed(requirement);
                     return Task.CompletedTask;
                 }
-                case GroupAction.Update when group.IsMemberWithAnyRole(userId, new[] { RoleEntity.Owner, RoleEntity.Administrator }):
-                case GroupAction.Delete when group.IsMemberWithAnyRole(userId, new[] { RoleEntity.Owner, RoleEntity.Administrator }):
+                case GroupAction.Update when group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }):
+                case GroupAction.Delete when group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }):
                 {
                     context.Succeed(requirement);
                     return Task.CompletedTask;

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Kalinar.Data.Configuration
 {
-    public class UserEntityConfiguration : IEntityTypeConfiguration<UserEntity>
+    public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
     {
         public void Configure(EntityTypeBuilder<UserEntity> builder)
         {

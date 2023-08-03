@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kalinar.Data.Repositories
 {
-    public class GroupRepository : IGroupRepository
+    internal class GroupRepository : IGroupRepository
     {
         private readonly Context context;
 

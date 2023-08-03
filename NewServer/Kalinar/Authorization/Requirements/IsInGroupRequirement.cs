@@ -7,9 +7,9 @@ namespace Kalinar.Authorization.Requirements
 {
     public class IsInGroupRequirement : IAuthorizationRequirement
     {
-        public RoleEntity[] NeededRoles { get; }
+        public Role[] NeededRoles { get; }
 
-        public IsInGroupRequirement(RoleEntity[] neededRoles)
+        public IsInGroupRequirement(Role[] neededRoles)
         {
             this.NeededRoles = neededRoles;
         }

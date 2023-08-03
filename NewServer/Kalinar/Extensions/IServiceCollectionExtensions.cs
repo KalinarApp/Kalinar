@@ -29,8 +29,8 @@ namespace Kalinar.Application.Extensions
             {
                 options.AddPolicy(PolicyNames.IsValidUser, policy => policy.AddRequirements(new IsUserValidRequirement()));
 
-                options.AddPolicy(PolicyNames.IsAdminInGroup, policy => policy.AddRequirements(new IsInGroupRequirement(new[] { RoleEntity.Owner, RoleEntity.Administrator })));
-                options.AddPolicy(PolicyNames.IsMemberInGroup, policy => policy.AddRequirements(new IsInGroupRequirement(new[] { RoleEntity.Member })));
+                options.AddPolicy(PolicyNames.IsAdminInGroup, policy => policy.AddRequirements(new IsInGroupRequirement(new[] { Role.Owner, Role.Administrator })));
+                options.AddPolicy(PolicyNames.IsMemberInGroup, policy => policy.AddRequirements(new IsInGroupRequirement(new[] { Role.Member })));
 
                 options.AddPolicy(PolicyNames.CanListUsers, policy => policy.AddRequirements(new UserRequirement(UserAction.List)));
                 options.AddPolicy(PolicyNames.CanReadUsers, policy => policy.AddRequirements(new UserRequirement(UserAction.Read)));

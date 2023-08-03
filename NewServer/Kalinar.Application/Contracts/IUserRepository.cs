@@ -9,7 +9,7 @@ namespace Kalinar.Application.Contracts
         Task<UserEntity> CreateAsync(UserEntity user, CancellationToken cancellationToken = default);
         Task<UserEntity> UpdateAsync(UserEntity user, CancellationToken cancellationToken = default);
         Task DeleteAsync(UserEntity user, CancellationToken cancellationToken = default);
-        Task JoinGroupAsync(string userId, Guid groupId, RoleEntity role, CancellationToken cancellationToken = default);
+        Task JoinGroupAsync(string userId, Guid groupId, Role role, CancellationToken cancellationToken = default);
         Task LeaveGroupAsync(string userId, Guid groupId, CancellationToken cancellationToken = default);
     }
 }

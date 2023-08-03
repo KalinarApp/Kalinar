@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Kalinar.Data.Configuration
 {
-    public class GroupEntityConfiguration : IEntityTypeConfiguration<GroupEntity>
+    public class GroupConfiguration : IEntityTypeConfiguration<GroupEntity>
     {
         public void Configure(EntityTypeBuilder<GroupEntity> builder)
         {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kalinar.Application.Contracts
 {
-    public class UserRepository : IUserRepository
+    internal class UserRepository : IUserRepository
     {
         private readonly Context context;
 
@@ -51,27 +51,27 @@ namespace Kalinar.Application.Contracts
             await context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task JoinGroupAsync(string userId, Guid groupId, RoleEntity role, CancellationToken cancellationToken = default)
+        public async Task JoinGroupAsync(string userId, Guid groupId, Role role, CancellationToken cancellationToken = default)
         {
-            UserGroupEntity UserGroupEntity = new()
+            GroupUsersEntity UserGroupEntity = new()
             {
                 UserId = userId,
                 GroupId = groupId,
                 Role = role
             };
 
-            await context.UserGroups.AddAsync(UserGroupEntity, cancellationToken);
+            await context.GroupUsers.AddAsync(UserGroupEntity, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task LeaveGroupAsync(string userId, Guid groupId, CancellationToken cancellationToken = default)
         {
-            UserGroupEntity? UserGroup = await context.UserGroups
+            GroupUsersEntity? UserGroup = await context.GroupUsers
                 .FirstOrDefaultAsync(ug => ug.UserId == userId && ug.GroupId == groupId, cancellationToken);
 
             if (UserGroup != null)
             {
-                context.UserGroups.Remove(UserGroup);
+                context.GroupUsers.Remove(UserGroup);
                 await context.SaveChangesAsync(cancellationToken);
             }
         }
