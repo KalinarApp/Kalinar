@@ -36,8 +36,15 @@ namespace Kalinar.ErrorHandling
             context.Response.StatusCode = ex switch
             {
                 GroupNotFoundException => (int)HttpStatusCode.NotFound,
+                GroupMemberNotFoundException => (int)HttpStatusCode.NotFound, 
                 UserNotFoundException => (int)HttpStatusCode.NotFound,
-                UserAlreadyExistsException => (int)HttpStatusCode.BadRequest,
+                UserAlreadyExistsException => (int)HttpStatusCode.Conflict,
+                DeviceIdNotFoundException => (int)HttpStatusCode.NotFound,
+                DeviceIdAlreadyRegisteredException => (int)HttpStatusCode.Conflict,
+                AbilityNotFoundException => (int)HttpStatusCode.NotFound,
+                ForbiddenAccessException => (int)HttpStatusCode.Forbidden,
+                AttributeNotFoundException => (int)HttpStatusCode.NotFound,
+                SkillNotFoundException => (int)HttpStatusCode.NotFound,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

@@ -1,6 +1,7 @@
 ﻿using Kalinar.Authorization.Actions;
 using Kalinar.Authorization.Requirements;
 using Kalinar.Core.Entities;
+using Kalinar.Core.Extensions;
 using Kalinar.Extensions;
 
 using Microsoft.AspNetCore.Authorization;
