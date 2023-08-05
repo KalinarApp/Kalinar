@@ -2,6 +2,7 @@
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
 using Kalinar.Data.Database;
+using Kalinar.Data.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 

@@ -1,9 +1,7 @@
 ﻿namespace Kalinar.Core.Entities
 {
-    public class SkilltreeEntity
+    public class SkilltreeEntity : BaseEntityWithGroup
     {
-        public required Guid Id { get; init; }
-        public required Guid GroupId { get; init; }
         public required string Name { get; set; }
         public required bool IsActive { get; set; }
         public required int Points { get; set; }
@@ -12,6 +10,5 @@
 
         public Guid? CharacterId { get; set; }
         public CharacterEntity? Character { get; set; }
-
     }
 }

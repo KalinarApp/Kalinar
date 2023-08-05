@@ -156,6 +156,9 @@ namespace Kalinar.Data.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("integer");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -166,7 +169,8 @@ namespace Kalinar.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Inventory")
-                        .HasColumnType("text");
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -174,7 +178,8 @@ namespace Kalinar.Data.Migrations
                         .HasColumnType("character varying(128)");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("text");
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
 
                     b.Property<string>("Profession")
                         .HasMaxLength(128)
@@ -196,6 +201,8 @@ namespace Kalinar.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.HasIndex("RaceId");
 
@@ -222,7 +229,7 @@ namespace Kalinar.Data.Migrations
                     b.ToTable("Groups", "Kalinar");
                 });
 
-            modelBuilder.Entity("Kalinar.Core.Entities.GroupUsersEntity", b =>
+            modelBuilder.Entity("Kalinar.Core.Entities.GroupMemberEntity", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("text");
@@ -238,7 +245,7 @@ namespace Kalinar.Data.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("GroupUsers", "Kalinar");
+                    b.ToTable("GroupMembers", "Kalinar");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Entities.RaceAttributeEntity", b =>
@@ -424,6 +431,9 @@ namespace Kalinar.Data.Migrations
                     b.Property<Guid?>("CharacterId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uuid");
 
@@ -441,6 +451,8 @@ namespace Kalinar.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CharacterId");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Skilltrees", "Kalinar");
                 });
@@ -466,7 +478,7 @@ namespace Kalinar.Data.Migrations
                     b.Property<bool>("IsUnlocked")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid?>("SkillId")
+                    b.Property<Guid>("SkillId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("SkilltreeId")
@@ -487,6 +499,150 @@ namespace Kalinar.Data.Migrations
                     b.ToTable("SkilltreeNodes", "Kalinar");
                 });
 
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryBookEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsUnlocked")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId", "Order")
+                        .IsUnique();
+
+                    b.ToTable("StoryBooks", "Kalinar");
+                });
+
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryBookPageEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsUnlocked")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("PageNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId", "PageNumber")
+                        .IsUnique();
+
+                    b.ToTable("StoryBookPages", "Kalinar");
+                });
+
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryEventEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Date")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsUnlocked")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId", "Order")
+                        .IsUnique();
+
+                    b.ToTable("StoryEvents", "Kalinar");
+                });
+
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryImageEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsUnlocked")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId", "Order")
+                        .IsUnique();
+
+                    b.ToTable("StoryImages", "Kalinar");
+                });
+
             modelBuilder.Entity("Kalinar.Core.Entities.UserEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -495,11 +651,6 @@ namespace Kalinar.Data.Migrations
                     b.Property<List<string>>("DeviceIds")
                         .IsRequired()
                         .HasColumnType("text[]");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(320)
-                        .HasColumnType("character varying(320)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -551,16 +702,24 @@ namespace Kalinar.Data.Migrations
 
             modelBuilder.Entity("Kalinar.Core.Entities.CharacterEntity", b =>
                 {
+                    b.HasOne("Kalinar.Core.Entities.GroupEntity", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Kalinar.Core.Entities.RaceEntity", "Race")
                         .WithMany()
                         .HasForeignKey("RaceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Group");
+
                     b.Navigation("Race");
                 });
 
-            modelBuilder.Entity("Kalinar.Core.Entities.GroupUsersEntity", b =>
+            modelBuilder.Entity("Kalinar.Core.Entities.GroupMemberEntity", b =>
                 {
                     b.HasOne("Kalinar.Core.Entities.GroupEntity", "Group")
                         .WithMany("Members")
@@ -704,7 +863,15 @@ namespace Kalinar.Data.Migrations
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("Kalinar.Core.Entities.GroupEntity", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Character");
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Entities.SkilltreeNodeEntity", b =>
@@ -712,7 +879,8 @@ namespace Kalinar.Data.Migrations
                     b.HasOne("Kalinar.Core.Entities.SkillEntity", "Skill")
                         .WithMany()
                         .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Kalinar.Core.Entities.SkilltreeEntity", "Skilltree")
                         .WithMany("Nodes")
@@ -723,6 +891,48 @@ namespace Kalinar.Data.Migrations
                     b.Navigation("Skill");
 
                     b.Navigation("Skilltree");
+                });
+
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryBookEntity", b =>
+                {
+                    b.HasOne("Kalinar.Core.Entities.GroupEntity", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryBookPageEntity", b =>
+                {
+                    b.HasOne("Kalinar.Core.Entities.StoryBookEntity", null)
+                        .WithMany("Pages")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryEventEntity", b =>
+                {
+                    b.HasOne("Kalinar.Core.Entities.GroupEntity", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryImageEntity", b =>
+                {
+                    b.HasOne("Kalinar.Core.Entities.GroupEntity", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Entities.CharacterEntity", b =>
@@ -750,6 +960,11 @@ namespace Kalinar.Data.Migrations
                     b.Navigation("Edges");
 
                     b.Navigation("Nodes");
+                });
+
+            modelBuilder.Entity("Kalinar.Core.Entities.StoryBookEntity", b =>
+                {
+                    b.Navigation("Pages");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Entities.UserEntity", b =>

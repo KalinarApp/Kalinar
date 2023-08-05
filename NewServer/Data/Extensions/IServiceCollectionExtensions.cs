@@ -19,6 +19,12 @@ namespace Kalinar.Data.Extensions
             services.AddScoped<IAbilityRepository, AbilityRepository>();
             services.AddScoped<IAttributeRepository, AttributeRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
+            services.AddScoped<IRaceRepository, RaceRepository>();
+            services.AddScoped<ICharacterRepository, CharacterRepository>();
+            services.AddScoped<ISkilltreeRepository, SkilltreeRepository>();
+            services.AddScoped<IStoryBookRepository, StoryBookRepository>();
+            services.AddScoped<IStoryImageRepository, StoryImageRepository>();
+            services.AddScoped<IStoryEventRepository, StoryEventRepository>();
         }
     }
 }

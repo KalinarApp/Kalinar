@@ -41,7 +41,7 @@ namespace Kalinar.Authorization.Handlers
                     }
                     if (user.Id != userId)
                     {
-                        context.Fail(new AuthorizationFailureReason(this, $"User is not allowed to execute '{requirement.Action}' action for user '{user.Email}'"));
+                        context.Fail(new AuthorizationFailureReason(this, $"User is not allowed to execute '{requirement.Action}' action for user '{user.Username}'"));
                         return Task.CompletedTask;
                     }
 

@@ -31,7 +31,7 @@ namespace Kalinar.Application.Services
 
         public async Task<RaceEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await this.raceRepository.FindByIdAsync(id, cancellationToken) ?? throw new SkillNotFoundException(id);
+            return await this.raceRepository.FindByIdAsync(id, cancellationToken) ?? throw new RaceNotFoundException(id);
         }
 
         public async Task<RaceEntity> CreateAsync(string userId, RaceCreateRequest request, CancellationToken cancellationToken = default)

@@ -21,6 +21,10 @@ namespace Kalinar.Data.Database
         public DbSet<SkilltreeEdgeEntity> SkilltreeEdges { get; set; }
         public DbSet<SkilltreeNodeEntity> SkilltreeNodes { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<StoryBookEntity> StoryBooks { get; set; }
+        public DbSet<StoryBookPageEntity> StoryBookPages { get; set; }
+        public DbSet<StoryEventEntity> StoryEvents { get; set; }
+        public DbSet<StoryImageEntity> StoryImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

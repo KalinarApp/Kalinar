@@ -45,6 +45,15 @@ namespace Kalinar.ErrorHandling
                 ForbiddenAccessException => (int)HttpStatusCode.Forbidden,
                 AttributeNotFoundException => (int)HttpStatusCode.NotFound,
                 SkillNotFoundException => (int)HttpStatusCode.NotFound,
+                RaceNotFoundException => (int)HttpStatusCode.NotFound,
+                CharacterNotFoundException => (int)HttpStatusCode.NotFound,
+                SkilltreeNotFoundException => (int)HttpStatusCode.NotFound,
+                SkilltreeNodeNotFoundException => (int)HttpStatusCode.NotFound,
+                SkilltreeEdgeNotFoundException => (int)HttpStatusCode.NotFound,
+                StoryBookNotFoundException => (int)HttpStatusCode.NotFound,
+                StoryBookPageNotFoundException => (int)HttpStatusCode.NotFound,
+                StoryEventNotFoundException => (int)HttpStatusCode.NotFound,
+                StoryImageNotFoundException => (int)HttpStatusCode.NotFound,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

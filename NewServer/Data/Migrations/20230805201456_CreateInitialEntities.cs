@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Kalinar.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateCharacterRelatedModels : Migration
+    public partial class CreateInitialEntities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,13 +35,89 @@ namespace Kalinar.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "character varying(320)", maxLength: 320, nullable: false),
                     Username = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     DeviceIds = table.Column<List<string>>(type: "text[]", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StoryBooks",
+                schema: "Kalinar",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    ImageUrl = table.Column<string>(type: "text", nullable: false),
+                    IsUnlocked = table.Column<bool>(type: "boolean", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StoryBooks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StoryBooks_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalSchema: "Kalinar",
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StoryEvents",
+                schema: "Kalinar",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Description = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
+                    IsUnlocked = table.Column<bool>(type: "boolean", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false),
+                    Date = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StoryEvents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StoryEvents_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalSchema: "Kalinar",
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StoryImages",
+                schema: "Kalinar",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: false),
+                    IsUnlocked = table.Column<bool>(type: "boolean", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StoryImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StoryImages_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalSchema: "Kalinar",
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,11 +130,11 @@ namespace Kalinar.Data.Migrations
                     IsPassive = table.Column<bool>(type: "boolean", nullable: false),
                     Description = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
                     Tags = table.Column<List<string>>(type: "text[]", nullable: false),
-                    CreatorId = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatorId = table.Column<string>(type: "text", nullable: false),
                     State = table.Column<string>(type: "text", nullable: false),
                     RejectionReason = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     ApprovedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     RejectedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -95,11 +171,11 @@ namespace Kalinar.Data.Migrations
                     StepSize = table.Column<double>(type: "double precision", nullable: false),
                     MinValue = table.Column<double>(type: "double precision", nullable: false),
                     MaxValue = table.Column<double>(type: "double precision", nullable: false),
-                    CreatorId = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatorId = table.Column<string>(type: "text", nullable: false),
                     State = table.Column<string>(type: "text", nullable: false),
                     RejectionReason = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     ApprovedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     RejectedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -124,7 +200,7 @@ namespace Kalinar.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GroupUsers",
+                name: "GroupMembers",
                 schema: "Kalinar",
                 columns: table => new
                 {
@@ -134,16 +210,16 @@ namespace Kalinar.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupUsers", x => new { x.UserId, x.GroupId });
+                    table.PrimaryKey("PK_GroupMembers", x => new { x.UserId, x.GroupId });
                     table.ForeignKey(
-                        name: "FK_GroupUsers_Groups_GroupId",
+                        name: "FK_GroupMembers_Groups_GroupId",
                         column: x => x.GroupId,
                         principalSchema: "Kalinar",
                         principalTable: "Groups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GroupUsers_Users_UserId",
+                        name: "FK_GroupMembers_Users_UserId",
                         column: x => x.UserId,
                         principalSchema: "Kalinar",
                         principalTable: "Users",
@@ -159,11 +235,11 @@ namespace Kalinar.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    CreatorId = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatorId = table.Column<string>(type: "text", nullable: false),
                     State = table.Column<string>(type: "text", nullable: false),
                     RejectionReason = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     ApprovedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     RejectedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -188,6 +264,30 @@ namespace Kalinar.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StoryBookPages",
+                schema: "Kalinar",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PageNumber = table.Column<int>(type: "integer", nullable: false),
+                    Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    IsUnlocked = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StoryBookPages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StoryBookPages_StoryBooks_BookId",
+                        column: x => x.BookId,
+                        principalSchema: "Kalinar",
+                        principalTable: "StoryBooks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Skills",
                 schema: "Kalinar",
                 columns: table => new
@@ -197,11 +297,11 @@ namespace Kalinar.Data.Migrations
                     IconUrl = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     AbilityId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatorId = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatorId = table.Column<string>(type: "text", nullable: false),
                     State = table.Column<string>(type: "text", nullable: false),
                     RejectionReason = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     ApprovedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     RejectedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -238,22 +338,30 @@ namespace Kalinar.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    GroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     RaceId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     IconUrl = table.Column<string>(type: "text", nullable: true),
                     Age = table.Column<int>(type: "integer", nullable: true),
-                    Inventory = table.Column<string>(type: "text", nullable: true),
+                    Inventory = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
                     Religion = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
                     Relationship = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
-                    Notes = table.Column<string>(type: "text", nullable: true),
-                    Profession = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true)
+                    Notes = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
+                    Profession = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Characters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Characters_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalSchema: "Kalinar",
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Characters_Races_RaceId",
                         column: x => x.RaceId,
@@ -339,11 +447,12 @@ namespace Kalinar.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    GroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     Points = table.Column<int>(type: "integer", nullable: false),
-                    CharacterId = table.Column<Guid>(type: "uuid", nullable: true)
+                    CharacterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -355,6 +464,13 @@ namespace Kalinar.Data.Migrations
                         principalTable: "Characters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_Skilltrees_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalSchema: "Kalinar",
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -371,7 +487,7 @@ namespace Kalinar.Data.Migrations
                     Color = table.Column<string>(type: "text", nullable: false),
                     IsEasyReachable = table.Column<bool>(type: "boolean", nullable: false),
                     IsUnlocked = table.Column<bool>(type: "boolean", nullable: false),
-                    SkillId = table.Column<Guid>(type: "uuid", nullable: true)
+                    SkillId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -452,15 +568,21 @@ namespace Kalinar.Data.Migrations
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Characters_GroupId",
+                schema: "Kalinar",
+                table: "Characters",
+                column: "GroupId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Characters_RaceId",
                 schema: "Kalinar",
                 table: "Characters",
                 column: "RaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupUsers_GroupId",
+                name: "IX_GroupMembers_GroupId",
                 schema: "Kalinar",
-                table: "GroupUsers",
+                table: "GroupMembers",
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
@@ -546,13 +668,47 @@ namespace Kalinar.Data.Migrations
                 schema: "Kalinar",
                 table: "Skilltrees",
                 column: "CharacterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Skilltrees_GroupId",
+                schema: "Kalinar",
+                table: "Skilltrees",
+                column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StoryBookPages_BookId_PageNumber",
+                schema: "Kalinar",
+                table: "StoryBookPages",
+                columns: new[] { "BookId", "PageNumber" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StoryBooks_GroupId_Order",
+                schema: "Kalinar",
+                table: "StoryBooks",
+                columns: new[] { "GroupId", "Order" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StoryEvents_GroupId_Order",
+                schema: "Kalinar",
+                table: "StoryEvents",
+                columns: new[] { "GroupId", "Order" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StoryImages_GroupId_Order",
+                schema: "Kalinar",
+                table: "StoryImages",
+                columns: new[] { "GroupId", "Order" },
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GroupUsers",
+                name: "GroupMembers",
                 schema: "Kalinar");
 
             migrationBuilder.DropTable(
@@ -568,11 +724,27 @@ namespace Kalinar.Data.Migrations
                 schema: "Kalinar");
 
             migrationBuilder.DropTable(
+                name: "StoryBookPages",
+                schema: "Kalinar");
+
+            migrationBuilder.DropTable(
+                name: "StoryEvents",
+                schema: "Kalinar");
+
+            migrationBuilder.DropTable(
+                name: "StoryImages",
+                schema: "Kalinar");
+
+            migrationBuilder.DropTable(
                 name: "Attributes",
                 schema: "Kalinar");
 
             migrationBuilder.DropTable(
                 name: "SkilltreeNodes",
+                schema: "Kalinar");
+
+            migrationBuilder.DropTable(
+                name: "StoryBooks",
                 schema: "Kalinar");
 
             migrationBuilder.DropTable(

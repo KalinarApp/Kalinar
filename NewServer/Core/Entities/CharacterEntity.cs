@@ -1,9 +1,7 @@
 ﻿namespace Kalinar.Core.Entities
 {
-    public class CharacterEntity
+    public class CharacterEntity : BaseEntityWithGroup
     {
-        public required Guid Id { get; init; }
-        public required Guid GroupId { get; init; }
         public required Guid RaceId { get; init; }
         public required string UserId { get; init; }
         public required string Name { get; set; }

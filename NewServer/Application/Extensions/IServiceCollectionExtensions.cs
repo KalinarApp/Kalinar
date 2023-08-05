@@ -15,6 +15,8 @@ namespace Kalinar.Application.Extensions
             services.AddScoped<IAbilityService, AbilityService>();
             services.AddScoped<IAttributeService, AttributeService>();
             services.AddScoped<ISkillService, SkillService>();
+            services.AddScoped<IRaceService, RaceService>();
+            services.AddScoped<ICharacterService, CharacterService>();
         }
     }
 }
