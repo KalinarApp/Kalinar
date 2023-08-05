@@ -1,7 +1,7 @@
 ﻿using Kalinar.Application.Contracts;
-using Kalinar.Application.Messages.Requests;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
+using Kalinar.Messages.Requests;
 
 namespace Kalinar.Application.Services
 {
@@ -14,17 +14,22 @@ namespace Kalinar.Application.Services
             this.userRepository = userRepository;
         }
 
-        public async Task<UserEntity> GetByIdAsync(string userId, CancellationToken cancellationToken = default)
-        {
-            return await userRepository.FindByIdAsync(userId, cancellationToken) ?? throw new UserNotFoundException(userId);
-        }
-
         public async Task<IEnumerable<UserEntity>> ListAsync(CancellationToken cancellationToken = default)
         {
             return await userRepository.ListAsync(cancellationToken);
         }
 
-        public async Task<UserEntity> CreateAsync(string userId, RegisterUserRequest request, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<UserEntity>> ListByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default)
+        {
+            return await userRepository.ListByGroupIdAsync(groupId, cancellationToken);
+        }
+
+        public async Task<UserEntity> GetByIdAsync(string userId, CancellationToken cancellationToken = default)
+        {
+            return await userRepository.FindByIdAsync(userId, cancellationToken) ?? throw new UserNotFoundException(userId);
+        }
+
+        public async Task<UserEntity> CreateAsync(string userId, UserCreateRequest request, CancellationToken cancellationToken = default)
         {
             UserEntity? existing = await this.userRepository.FindByIdAsync(userId, cancellationToken);
 
@@ -72,8 +77,9 @@ namespace Kalinar.Application.Services
             await userRepository.UpdateAsync(user, cancellationToken);
         }
 
-        public async Task DeleteAsync(UserEntity user, CancellationToken cancellationToken = default)
+        public async Task DeleteAsync(string id, CancellationToken cancellationToken = default)
         {
+            UserEntity user = await this.GetByIdAsync(id, cancellationToken);
             await userRepository.DeleteAsync(user, cancellationToken);
         }
     }

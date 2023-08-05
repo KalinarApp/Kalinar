@@ -8,9 +8,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Kalinar/Kalinar.csproj", "Kalinar/"]
-COPY ["Kalinar.Application/Kalinar.Application.csproj", "Kalinar.Application/"]
-COPY ["Kalinar.Core/Kalinar.Core.csproj", "Kalinar.Core/"]
-COPY ["Kalinar.Data/Kalinar.Data.csproj", "Kalinar.Data/"]
+COPY ["Application/Kalinar.Application.csproj", "Application/"]
+COPY ["Core/Kalinar.Core.csproj", "Core/"]
+COPY ["Messages/Kalinar.Messages.csproj", "Messages/"]
+COPY ["Data/Kalinar.Data.csproj", "Data/"]
 RUN dotnet restore "Kalinar/Kalinar.csproj"
 COPY . .
 WORKDIR "/src/Kalinar"

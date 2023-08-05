@@ -1,8 +1,5 @@
-﻿using Kalinar.Application.Messages.Requests;
-using Kalinar.Core.Entities;
-using Kalinar.Core.Exceptions;
+﻿using Kalinar.Core.Entities;
 using Kalinar.Data.Database;
-using Kalinar.Data.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +17,11 @@ namespace Kalinar.Application.Contracts
         public async Task<IEnumerable<UserEntity>> ListAsync(CancellationToken cancellationToken = default)
         {
             return await context.Users.ToListAsync(cancellationToken);
+        }
+
+        public async Task<IEnumerable<UserEntity>> ListByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default)
+        {
+            return await context.Users.Where(user => user.Groups.Any(group => group.GroupId == groupId)).ToListAsync(cancellationToken);
         }
 
         public async Task<UserEntity?> FindByIdAsync(string id, CancellationToken cancellationToken = default)

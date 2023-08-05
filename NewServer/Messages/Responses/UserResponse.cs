@@ -1,6 +1,6 @@
 ﻿using Kalinar.Core.Entities;
 
-namespace Kalinar.Application.Messages.Responses
+namespace Kalinar.Messages.Responses
 {
     public class UserResponse
     {

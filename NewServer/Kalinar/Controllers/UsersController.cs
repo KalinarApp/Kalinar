@@ -1,19 +1,17 @@
 ﻿using Kalinar.Application.Contracts;
-using Kalinar.Application.Messages.Requests;
-using Kalinar.Application.Messages.Responses;
 using Kalinar.Authorization;
 using Kalinar.Core.Entities;
 using Kalinar.Extensions;
+using Kalinar.Messages.Requests;
+using Kalinar.Messages.Responses;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Kalinar.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = PolicyNames.IsValidUser)]
     [Route("api/v{version:apiVersion}/users"), ApiVersion("1.0")]
     public class UsersController : ControllerBase
     {
@@ -24,18 +22,6 @@ namespace Kalinar.Controllers
         {
             this.userService = userService;
             this.authorizationService = authorizationService;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserResponse>>> ListAsync([FromQuery] Guid? groupId = default, CancellationToken cancellationToken = default)
-        {
-            UserEntity loggedInUser = await this.userService.GetByIdAsync(this.User.GetId(), cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, loggedInUser, PolicyNames.CanListUsers);
-
-            IEnumerable<UserEntity> users = await this.userService.ListAsync(cancellationToken);
-
-            return this.Ok(users.Select(item => (UserResponse)item));
         }
 
         [HttpGet("{id}")]
@@ -51,11 +37,50 @@ namespace Kalinar.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserResponse>> RegisterAsync([FromBody] RegisterUserRequest request, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponse>> RegisterAsync([FromBody] UserCreateRequest request, CancellationToken cancellationToken = default)
         {
-            UserEntity user = await this.userService.CreateAsync(this.User.GetId(), request, cancellationToken);
+            UserResponse response = await this.userService.CreateAsync(this.User.GetId(), request, cancellationToken);
 
-            return this.Ok((UserResponse)user);
+            return this.CreatedAtAction("get", new { response.Id }, response);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserResponse>> UpdateAsync(string id, [FromBody] UserUpdateRequest request, CancellationToken cancellationToken = default)
+        {
+            UserEntity user = await this.userService.GetByIdAsync(this.User.GetId(), cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, user, PolicyNames.CanUpdateUsers);
+
+            return this.Ok((UserResponse)await this.userService.UpdateAsync(id, request, cancellationToken));
+        }
+
+        [HttpPost("{id}/devices")]
+        public async Task<ActionResult> AddDeviceIdAsync(string id, [FromBody] UserDeviceIdRequest request, CancellationToken cancellationToken = default)
+        {
+            UserEntity user = await this.userService.GetByIdAsync(this.User.GetId(), cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, user, PolicyNames.CanUpdateUsers);
+            await this.userService.AddDeviceIdAsync(id, request.DeviceId, cancellationToken);
+
+            return this.Ok();
+        }
+
+        [HttpDelete("{id}/devices/{deviceId}")]
+        public async Task<ActionResult> RemoveDeviceIdAsync(string id, string deviceId, CancellationToken cancellationToken = default)
+        {
+            UserEntity user = await this.userService.GetByIdAsync(this.User.GetId(), cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, user, PolicyNames.CanUpdateUsers);
+            await this.userService.RemoveDeviceIdAsync(id, deviceId, cancellationToken);
+
+            return this.NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsync(string id, CancellationToken cancellationToken = default)
+        {
+            UserEntity user = await this.userService.GetByIdAsync(id, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, user, PolicyNames.CanDeleteUsers);
+            await this.userService.DeleteAsync(id, cancellationToken);
+
+            return this.NoContent();
         }
     }
 }

@@ -21,14 +21,6 @@ namespace Kalinar.Authorization.Handlers
                     context.Succeed(requirement);
                     return Task.CompletedTask;
                 }
-                case UserAction.List when context.User.IsInRole(RoleNames.Administrator):
-                case UserAction.Read when context.User.IsInRole(RoleNames.Administrator):
-                case UserAction.Update when context.User.IsInRole(RoleNames.Administrator):
-                case UserAction.Delete when context.User.IsInRole(RoleNames.Administrator):
-                {
-                    context.Succeed(requirement);
-                    return Task.CompletedTask;
-                }
                 case UserAction.List:
                 case UserAction.Read:
                 case UserAction.Update:
