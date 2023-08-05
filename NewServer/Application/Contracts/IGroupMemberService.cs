@@ -3,7 +3,7 @@ using Kalinar.Messages.Requests;
 
 namespace Kalinar.Application.Contracts
 {
-    internal interface IGroupMemberService
+    public interface IGroupMemberService
     {
         Task<IEnumerable<GroupMemberEntity>> ListByUserIdAsync(string userId, CancellationToken cancellationToken = default);
         Task<GroupMemberEntity> GetByUserAndGroupIdAsync(string userId, Guid groupId, CancellationToken cancellationToken = default);
