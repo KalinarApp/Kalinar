@@ -93,7 +93,7 @@ namespace Kalinar.Application.Services
             return skill;
         }
 
-        public async Task<SkillEntity> UpdateAsync(string userId, Guid id, SkillUpdateRequest request, CancellationToken cancellationToken = default)
+        public async Task<SkillEntity> UpdateAsync(Guid id, SkillUpdateRequest request, CancellationToken cancellationToken = default)
         {
             SkillEntity skill = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
 

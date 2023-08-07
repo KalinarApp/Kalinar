@@ -9,7 +9,7 @@ namespace Kalinar.Application.Contracts
         Task<IEnumerable<RaceAttributeEntity>> ListAttributesAsync(Guid skillId, CancellationToken cancellationToken = default);
         Task<RaceEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<RaceEntity> CreateAsync(string userId, RaceCreateRequest request, CancellationToken cancellationToken = default);
-        Task<RaceEntity> UpdateAsync(string userId, Guid id, RaceUpdateRequest request, CancellationToken cancellationToken = default);
+        Task<RaceEntity> UpdateAsync(Guid id, RaceUpdateRequest request, CancellationToken cancellationToken = default);
         Task<RaceEntity> SetAttributesAsync(Guid raceId, List<RaceAttributeRequest> request, CancellationToken cancellationToken = default);
         Task<RaceEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default);
         Task<RaceEntity> RejectAsync(Guid id, RejectRequest request, CancellationToken cancellationToken = default);

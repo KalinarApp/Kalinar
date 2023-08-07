@@ -60,7 +60,7 @@ namespace Kalinar.Application.Services
             return await this.attributeRepository.CreateAsync(attribute, cancellationToken);
         }
 
-        public async Task<AttributeEntity> UpdateAsync(string userId, Guid id, AttributeUpdateRequest request, CancellationToken cancellationToken = default)
+        public async Task<AttributeEntity> UpdateAsync(Guid id, AttributeUpdateRequest request, CancellationToken cancellationToken = default)
         {
             AttributeEntity attribute = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
 

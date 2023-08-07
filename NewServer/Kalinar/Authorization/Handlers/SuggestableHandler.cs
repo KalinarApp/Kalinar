@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace Kalinar.Authorization.Handlers
 {
-    public class SuggestableHandler : AuthorizationHandlerThatSupportsNullableResourceBase<SuggestableRequirement, SuggestableEntity>
+    public class SuggestableHandler : AuthorizationHandler<SuggestableRequirement, SuggestableEntity>
     {
         private readonly IServiceProvider serviceProvider;
 
@@ -18,15 +18,9 @@ namespace Kalinar.Authorization.Handlers
             this.serviceProvider = serviceProvider;
         }
 
-        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, SuggestableRequirement requirement, SuggestableEntity? resource)
+        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, SuggestableRequirement requirement, SuggestableEntity resource)
         {
             string userId = context.User.FindFirstValue(ClaimTypes.Sid)!;
-
-            if (resource is null)
-            {
-                context.Fail(new AuthorizationFailureReason(this, $"User is not allowed to execute '{requirement.Action}' action"));
-                return;
-            }
 
             using AsyncServiceScope scope = this.serviceProvider.CreateAsyncScope();
             IGroupService groupService = scope.ServiceProvider.GetRequiredService<IGroupService>();
@@ -34,11 +28,14 @@ namespace Kalinar.Authorization.Handlers
 
             switch (requirement.Action) 
             {
-                case Actions.SuggestableAction.List:
                 case Actions.SuggestableAction.Read:
                 case Actions.SuggestableAction.Create:
                 {
-                    if ()
+                    if (!group.IsMember(userId))
+                    {
+                        context.Fail(new AuthorizationFailureReason(this, $"User is not allowed to execute '{requirement.Action}' action"));
+                        return;
+                    }
 
                     context.Succeed(requirement);
                     return;

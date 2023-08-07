@@ -85,7 +85,7 @@ namespace Kalinar.Application.Services
             return race;
         }
 
-        public async Task<RaceEntity> UpdateAsync(string userId, Guid id, RaceUpdateRequest request, CancellationToken cancellationToken = default)
+        public async Task<RaceEntity> UpdateAsync(Guid id, RaceUpdateRequest request, CancellationToken cancellationToken = default)
         {
             RaceEntity race = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
 

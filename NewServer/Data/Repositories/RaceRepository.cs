@@ -12,7 +12,7 @@ namespace Kalinar.Data.Repositories
 
         public async Task<IEnumerable<RaceAttributeEntity>> ListAttributesAsync(Guid raceId, CancellationToken cancellationToken = default)
         {
-            return await this.context.RaceAttributes.Where(item => item.RaceId == raceId).ToListAsync(cancellationToken: cancellationToken);
+            return await this.context.RaceAttributes.Include(item => item.Attribute).Where(item => item.RaceId == raceId).ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

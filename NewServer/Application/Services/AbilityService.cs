@@ -57,7 +57,7 @@ namespace Kalinar.Application.Services
             return await this.abilityRepository.CreateAsync(ability, cancellationToken);
         }
 
-        public async Task<AbilityEntity> UpdateAsync(string userId, Guid id, AbilityUpdateRequest request, CancellationToken cancellationToken = default)
+        public async Task<AbilityEntity> UpdateAsync(Guid id, AbilityUpdateRequest request, CancellationToken cancellationToken = default)
         {
             AbilityEntity ability = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
 
