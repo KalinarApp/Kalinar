@@ -17,5 +17,12 @@
         public const string CanCreateGroups = "CanCreateGroupsPolicy";
         public const string CanUpdateGroups = "CanUpdateGroupsPolicy";
         public const string CanDeleteGroups = "CanDeleteGroupsPolicy";
+
+        public const string CanListSuggestables = "CanListSuggestablesPolicy";
+        public const string CanReadSuggestable = "CanReadSuggestablePolicy";
+        public const string CanCreateSuggestable = "CanCreateSuggestablePolicy";
+        public const string CanUpdateSuggestable = "CanUpdateSuggestablePolicy";
+        public const string CanApproveSuggestable = "CanApproveSuggestablePolicy";
+        public const string CanDeleteSuggestable = "CanDeleteSuggestablePolicy";
     }
 }

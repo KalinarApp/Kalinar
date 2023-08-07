@@ -10,6 +10,7 @@ namespace Kalinar.Application.Contracts
         Task<AttributeEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<AttributeEntity> CreateAsync(string userId, AttributeCreateRequest request, CancellationToken cancellationToken = default);
         Task<AttributeEntity> UpdateAsync(string userId, Guid id, AttributeUpdateRequest request, CancellationToken cancellationToken = default);
+        Task<AttributeEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default);
         Task<AttributeEntity> RejectAsync(Guid id, RejectRequest request, CancellationToken cancellationToken = default);
         Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
     }

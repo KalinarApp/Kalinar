@@ -101,8 +101,15 @@ namespace Kalinar.Application.Services
             skill.Description = request.Description;
             skill.IconUrl = request.IconUrl;
             skill.AbilityId = request.AbilityId;
-            
-            await this.UpdateSuggestableAsync(userId, skill, cancellationToken);
+
+            return await this.skillRepository.UpdateAsync(skill, cancellationToken);
+        }
+
+        public async Task<SkillEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            SkillEntity skill = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+
+            this.ApproveSuggestable(skill);
 
             return await this.skillRepository.UpdateAsync(skill, cancellationToken);
         }

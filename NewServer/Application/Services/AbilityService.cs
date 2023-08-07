@@ -65,9 +65,16 @@ namespace Kalinar.Application.Services
             ability.Description = request.Description;
             ability.IsPassive = request.IsPassive;
             ability.Tags = request.Tags ?? new();
+                        
+            return await this.abilityRepository.UpdateAsync(ability, cancellationToken);
+        }
 
-            await this.UpdateSuggestableAsync(userId, ability, cancellationToken);
-            
+        public async Task<AbilityEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            AbilityEntity ability = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+
+            this.ApproveSuggestable(ability);
+
             return await this.abilityRepository.UpdateAsync(ability, cancellationToken);
         }
 

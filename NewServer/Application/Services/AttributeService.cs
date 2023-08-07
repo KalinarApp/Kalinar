@@ -72,7 +72,14 @@ namespace Kalinar.Application.Services
             attribute.MinValue = request.MinValue;
             attribute.StepSize = request.StepSize;
 
-            await this.UpdateSuggestableAsync(userId, attribute, cancellationToken);
+            return await this.attributeRepository.UpdateAsync(attribute, cancellationToken);
+        }
+
+        public async Task<AttributeEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            AttributeEntity attribute = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+
+            this.ApproveSuggestable(attribute);
 
             return await this.attributeRepository.UpdateAsync(attribute, cancellationToken);
         }

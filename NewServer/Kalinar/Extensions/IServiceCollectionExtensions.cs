@@ -23,6 +23,7 @@ namespace Kalinar.Application.Extensions
             serviceCollection.AddSingleton<IAuthorizationHandler, IsInGroupHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, UserHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, GroupHandler>();
+            serviceCollection.AddSingleton<IAuthorizationHandler, SuggestableHandler>();
 
             serviceCollection.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
             serviceCollection.AddAuthorization(options =>
@@ -43,6 +44,13 @@ namespace Kalinar.Application.Extensions
                 options.AddPolicy(PolicyNames.CanCreateGroups, policy => policy.AddRequirements(new GroupRequirement(GroupAction.Create)));
                 options.AddPolicy(PolicyNames.CanUpdateGroups, policy => policy.AddRequirements(new GroupRequirement(GroupAction.Update)));
                 options.AddPolicy(PolicyNames.CanDeleteGroups, policy => policy.AddRequirements(new GroupRequirement(GroupAction.Delete)));
+
+                options.AddPolicy(PolicyNames.CanListSuggestables, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.List)));
+                options.AddPolicy(PolicyNames.CanReadSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Read)));
+                options.AddPolicy(PolicyNames.CanCreateSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Create)));
+                options.AddPolicy(PolicyNames.CanUpdateSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Update)));
+                options.AddPolicy(PolicyNames.CanApproveSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Approve)));
+                options.AddPolicy(PolicyNames.CanDeleteSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Delete)));
             });
         }
 

@@ -22,17 +22,10 @@ namespace Kalinar.Application.Services
             entity.State = isAdmin ? SuggestionState.Approved : SuggestionState.Pending;
         } 
 
-        protected async Task UpdateSuggestableAsync(string userId, SuggestableEntity entity, CancellationToken cancellationToken = default)
+        protected void ApproveSuggestable(SuggestableEntity entity)
         {
-            GroupEntity group = await this.groupService.GetByIdAsync(entity.GroupId, true, cancellationToken);
-
-            bool isAdmin = group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator });
-
-            if (isAdmin && entity.State == SuggestionState.Pending)
-            {
-                entity.State = SuggestionState.Approved;
-                entity.ApprovedAt = DateTime.UtcNow;
-            }
+            entity.State = SuggestionState.Approved;
+            entity.ApprovedAt = DateTimeOffset.UtcNow;
         }
 
         protected void RejectSuggestable(SuggestableEntity entity, string rejectionReason)

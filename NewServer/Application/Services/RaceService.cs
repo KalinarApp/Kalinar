@@ -92,7 +92,14 @@ namespace Kalinar.Application.Services
             race.Name = request.Name;
             race.Description = request.Description;
 
-            await this.UpdateSuggestableAsync(userId, race, cancellationToken);
+            return await this.raceRepository.UpdateAsync(race, cancellationToken);
+        }
+
+        public async Task<RaceEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            RaceEntity race = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+
+            this.ApproveSuggestable(race);
 
             return await this.raceRepository.UpdateAsync(race, cancellationToken);
         }
