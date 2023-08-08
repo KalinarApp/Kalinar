@@ -33,17 +33,16 @@ namespace Kalinar.Controllers
         {
             // ToDo: Implement an overall administrator role which than can view all abilities.
             if (groupId is null) throw new ForbiddenAccessException("User is not allowed to view this resource");
-
             GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
-            if (!group.IsMember(this.User.GetId())) throw new ForbiddenAccessException("User is not allowed to view this resource");
-            
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSuggestables);
+
             IEnumerable<AbilityEntity> abilities = await this.abilityService.ListAsync(groupId.Value, cancellationToken);
 
             return this.Ok(abilities.Select(item => (AbilityResponse)item));
         }
 
         [HttpGet("{abilityId}")]
-        public async Task<ActionResult<AbilityResponse>> GetByIdAsync(Guid abilityId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<AbilityResponse>> GetAsync(Guid abilityId, CancellationToken cancellationToken = default)
         {
             AbilityEntity ability = await this.abilityService.GetByIdAsync(abilityId, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, ability, PolicyNames.CanReadSuggestable);
@@ -60,7 +59,7 @@ namespace Kalinar.Controllers
             GroupEntity group = await this.groupService.GetByIdAsync(request.GroupId, true, cancellationToken);
             if (!group.IsMember(userId)) throw new ForbiddenAccessException("User is not allowed to view this resource");
 
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, PolicyNames.CanCreateSuggestable);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSuggestable);
 
             AbilityResponse response = await this.abilityService.CreateAsync(userId, request, cancellationToken);
 

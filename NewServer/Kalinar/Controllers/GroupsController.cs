@@ -29,7 +29,7 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GroupResponse>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<GroupResponse>> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
             GroupEntity group = await this.groupService.GetByIdAsync(id, true, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadGroups);
@@ -56,7 +56,7 @@ namespace Kalinar.Controllers
             GroupResponse response = await this.groupService.CreateAsync(request, cancellationToken);
             await this.memberService.CreateAsync(this.User.GetId(), response.Id, Role.Owner, cancellationToken);
 
-            return this.CreatedAtAction("get", new { response.Id }, response);
+            return this.CreatedAtAction("Get", new { response.Id }, response);
         }
 
         [HttpPost("{groupId}/join")]

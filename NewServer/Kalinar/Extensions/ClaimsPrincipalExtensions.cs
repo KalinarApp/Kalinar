@@ -6,7 +6,7 @@ namespace Kalinar.Extensions
     {
         public static string GetId(this ClaimsPrincipal principal)
         {
-            Claim? userIdClaim = principal.FindFirst(c => c.Type == "sub");
+            Claim? userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim is not null && !String.IsNullOrEmpty(userIdClaim.Value))
             {
                 return new(userIdClaim.Value);

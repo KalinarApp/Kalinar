@@ -1,10 +1,9 @@
 ﻿using Kalinar.Authorization.Actions;
 using Kalinar.Authorization.Requirements;
 using Kalinar.Core.Entities;
+using Kalinar.Extensions;
 
 using Microsoft.AspNetCore.Authorization;
-
-using System.Security.Claims;
 
 namespace Kalinar.Authorization.Handlers
 {
@@ -12,7 +11,7 @@ namespace Kalinar.Authorization.Handlers
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UserRequirement requirement, UserEntity user)
         {
-            string? userId = context.User.FindFirstValue(ClaimTypes.Sid);
+            string userId = context.User.GetId();
 
             switch (requirement.Action)
             {

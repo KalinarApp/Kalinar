@@ -35,7 +35,7 @@ namespace Kalinar.Controllers
             if (groupId is null) throw new ForbiddenAccessException("User is not allowed to view this resource");
 
             GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
-            if (!group.IsMember(this.User.GetId())) throw new ForbiddenAccessException("User is not allowed to view this resource");
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSuggestables);
 
             IEnumerable<RaceEntity> races = await this.raceService.ListAsync(groupId.Value, cancellationToken);
 
@@ -43,7 +43,7 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet("{raceId}")]
-        public async Task<ActionResult<RaceResponse>> GetByIdAsync(Guid raceId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<RaceResponse>> GetAsync(Guid raceId, CancellationToken cancellationToken = default)
         {
             RaceEntity race = await this.raceService.GetByIdAsync(raceId, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, race, PolicyNames.CanReadSuggestable);
@@ -69,9 +69,7 @@ namespace Kalinar.Controllers
         {
             string userId = this.User.GetId();
             GroupEntity group = await this.groupService.GetByIdAsync(request.GroupId, true, cancellationToken);
-            if (!group.IsMember(userId)) throw new ForbiddenAccessException("User is not allowed to view this resource");
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, PolicyNames.CanCreateSuggestable);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSuggestable);
 
             RaceResponse response = await this.raceService.CreateAsync(userId, request, cancellationToken);
 

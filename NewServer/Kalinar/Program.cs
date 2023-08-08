@@ -3,32 +3,38 @@ using Kalinar.Data.Extensions;
 using Kalinar.ErrorHandling;
 using Kalinar.Extensions;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+public class Program
+{
+    private static async Task Main(string[] args)
+    {
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddAndConfigureVersioning(new ApiVersioningErrorResponseProvider());
+        builder.Services.AddAndConfigureVersioning(new ApiVersioningErrorResponseProvider());
 
-builder.Services.AddApplicationPolicies();
-builder.Services.AddFirebaseAuthentication();
-builder.Services.AddApplicationLayer();
-builder.Services.AddDataLayer(builder.Configuration.GetConnectionString("Database")!);
+        builder.Services.AddApplicationPolicies();
+        builder.Services.AddFirebaseAuthentication();
+        builder.Services.AddApplicationLayer();
+        builder.Services.AddDataLayer(builder.Configuration.GetConnectionString("Database")!);
 
-WebApplication app = builder.Build();
+        WebApplication app = builder.Build();
 
-app.UseMiddleware<ExceptionMIddleware>();
-app.UseMiddleware<AuthenticationMiddleware>();
+        app.UseMiddleware<ExceptionMIddleware>();
+        app.UseMiddleware<AuthenticationMiddleware>();
 
-app.UseSwagger();
-app.UseSwaggerUIWithVersioning();
+        app.UseSwagger();
+        app.UseSwaggerUIWithVersioning();
 
-app.UseHttpsRedirection();
+        app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
-app.MapControllers();
+        app.MapControllers();
 
-await app.UseDatabaseMigrations();
-await app.RunAsync();
+        await app.UseDatabaseMigrations();
+        await app.RunAsync();
+    }
+}

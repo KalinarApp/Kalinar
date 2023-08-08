@@ -2,9 +2,7 @@
 {
     public enum SuggestableAction
     {
-        List,
         Read,
-        Create,
         Update,
         Approve,
         Delete,
