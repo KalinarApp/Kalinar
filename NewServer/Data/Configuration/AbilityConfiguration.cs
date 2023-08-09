@@ -14,6 +14,8 @@ namespace Kalinar.Data.Configuration
             builder.Property(x => x.Name).HasMaxLength(128).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(2048);
             builder.Property(x => x.IsPassive).IsRequired();
+
+            builder.HasMany(x => x.Tags).WithOne().HasForeignKey(tag => tag.AbilityId).OnDelete(DeleteBehavior.Cascade);
             
             base.Configure(builder);
         }

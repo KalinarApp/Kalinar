@@ -25,7 +25,7 @@ namespace Kalinar.Extensions
             {
                 Context context = serviceScope.ServiceProvider.GetRequiredService<Context>();
 
-                await context.Database.MigrateAsync();
+                if (context.Database.IsRelational()) await context.Database.MigrateAsync();
             }
         }
     }

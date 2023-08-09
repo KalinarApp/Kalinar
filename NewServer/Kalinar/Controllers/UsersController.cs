@@ -16,11 +16,13 @@ namespace Kalinar.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
+        private readonly IGroupMemberService groupMemberService;
         private readonly IAuthorizationService authorizationService;
 
-        public UsersController(IUserService userService, IAuthorizationService authorizationService)
+        public UsersController(IUserService userService, IGroupMemberService groupMemberService, IAuthorizationService authorizationService)
         {
             this.userService = userService;
+            this.groupMemberService = groupMemberService;
             this.authorizationService = authorizationService;
         }
 
@@ -34,6 +36,18 @@ namespace Kalinar.Controllers
             UserEntity user = await this.userService.GetByIdAsync(id, cancellationToken);
 
             return this.Ok((UserResponse)user);
+        }
+
+        [HttpGet("{id}/groups")]
+        public async Task<ActionResult<IEnumerable<UserMemberResponse>>> GetGroupsAsync(string id, CancellationToken cancellationToken = default)
+        {
+            UserEntity loggedInUser = await this.userService.GetByIdAsync(this.User.GetId(), cancellationToken);
+
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, loggedInUser, PolicyNames.CanListUsers);
+
+            IEnumerable<GroupMemberEntity> groups = await this.groupMemberService.ListByUserIdAsync(id, cancellationToken);
+
+            return this.Ok(groups.Select(item => (UserMemberResponse)item));
         }
 
         [HttpPost("register")]

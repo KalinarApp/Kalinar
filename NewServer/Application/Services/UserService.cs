@@ -39,7 +39,7 @@ namespace Kalinar.Application.Services
             {
                 Id = userId,
                 Username = request.Username,
-                DeviceIds = new(),
+                Devices = new(),
                 Groups = new(),
             };
 
@@ -59,9 +59,9 @@ namespace Kalinar.Application.Services
         {
             UserEntity user = await this.GetByIdAsync(userId, cancellationToken);
 
-            if (user.DeviceIds.Contains(deviceId)) throw new DeviceIdAlreadyRegisteredException(user.Username, deviceId);
+            if (user.Devices.Any(device => device.Id == deviceId)) throw new DeviceIdAlreadyRegisteredException(user.Username, deviceId);
 
-            user.DeviceIds.Add(deviceId);
+            user.Devices.Add(new() { Id = deviceId, UserId = userId});
 
             await userRepository.UpdateAsync(user, cancellationToken);
         }
@@ -70,9 +70,9 @@ namespace Kalinar.Application.Services
         {
             UserEntity user = await this.GetByIdAsync(userId, cancellationToken);
 
-            if (!user.DeviceIds.Contains(deviceId)) throw new DeviceIdNotFoundException(user.Username, deviceId);
+            if(!user.Devices.Any(device => device.Id == deviceId)) throw new DeviceIdNotFoundException(user.Username, deviceId);
 
-            user.DeviceIds.Remove(deviceId);
+            user.Devices.Remove(user.Devices.First(device => device.Id == deviceId));
 
             await userRepository.UpdateAsync(user, cancellationToken);
         }

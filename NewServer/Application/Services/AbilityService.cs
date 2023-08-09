@@ -27,7 +27,7 @@ namespace Kalinar.Application.Services
             return this.abilityRepository.ListByGroupIdAsync(groupId, cancellationToken);
         }
 
-        public async Task<IEnumerable<string>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<AbilityTagEntity>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default)
         {
             return await this.abilityRepository.ListTagsAsync(groupId, cancellationToken);
         }
@@ -37,9 +37,10 @@ namespace Kalinar.Application.Services
             UserEntity user = await this.userService.GetByIdAsync(userId, cancellationToken);
             GroupEntity group = await this.groupService.GetByIdAsync(request.GroupId, true, cancellationToken);
 
+            Guid abilityId = Guid.NewGuid();
             AbilityEntity ability = new()
             {
-                Id = Guid.NewGuid(),
+                Id = abilityId,
                 Name = request.Name,
                 Description = request.Description,
                 GroupId = request.GroupId,
@@ -48,7 +49,7 @@ namespace Kalinar.Application.Services
                 CreatorId = userId,
                 IsPassive = request.IsPassive,
                 State = SuggestionState.Pending,
-                Tags = request.Tags ?? new(),
+                Tags = request.Tags?.Select(tag => new AbilityTagEntity() { Tag = tag, AbilityId = abilityId }) ?? new List<AbilityTagEntity>(),
                 CreatedAt = DateTime.UtcNow,
             };
 
@@ -64,7 +65,7 @@ namespace Kalinar.Application.Services
             ability.Name = request.Name;
             ability.Description = request.Description;
             ability.IsPassive = request.IsPassive;
-            ability.Tags = request.Tags ?? new();
+            ability.Tags = request.Tags?.Select(tag => new AbilityTagEntity() { Tag = tag, AbilityId = id }) ?? new List<AbilityTagEntity>();
                         
             return await this.abilityRepository.UpdateAsync(ability, cancellationToken);
         }

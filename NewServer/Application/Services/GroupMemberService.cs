@@ -33,6 +33,8 @@ namespace Kalinar.Application.Services
             UserEntity user = await this.userService.GetByIdAsync(userId, cancellationToken);
             GroupEntity group = await this.groupService.GetByIdAsync(groupId, cancellationToken: cancellationToken);
 
+            if (await this.groupMemberRepository.FindByUserAndGroupIdAsync(userId, groupId, cancellationToken) != null) throw new UserAlreadyInGroupException(userId, groupId);
+
             GroupMemberEntity member = new()
             {
                 UserId = userId,

@@ -17,7 +17,7 @@ namespace Kalinar.Data.Repositories
 
         public async Task<IEnumerable<GroupMemberEntity>> ListByUserIdAsync(string userId, CancellationToken cancellationToken = default)
         {
-            return await this.context.GroupMembers.Where(member => member.UserId == userId).ToListAsync(cancellationToken);
+            return await this.context.GroupMembers.Include(item => item.Group).Include(item => item.User).Where(member => member.UserId == userId).ToListAsync(cancellationToken);
         }
 
         public async Task<GroupMemberEntity?> FindByUserAndGroupIdAsync(string userId, Guid groupId, CancellationToken cancellationToken = default)

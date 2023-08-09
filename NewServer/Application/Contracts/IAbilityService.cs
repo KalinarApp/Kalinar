@@ -6,7 +6,7 @@ namespace Kalinar.Application.Contracts
     public interface IAbilityService
     {
         Task<IEnumerable<AbilityEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default);
-        Task<IEnumerable<string>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<AbilityTagEntity>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default);
         Task<AbilityEntity> GetByIdAsync(Guid abilityId, CancellationToken cancellationToken = default);
         Task<AbilityEntity> CreateAsync(string userId, AbilityCreateRequest request, CancellationToken cancellationToken = default);
         Task<AbilityEntity> UpdateAsync(Guid id, AbilityUpdateRequest request, CancellationToken cancellationToken = default);

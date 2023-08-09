@@ -25,11 +25,6 @@ namespace Kalinar.Authorization.Handlers
                 case UserAction.Update:
                 case UserAction.Delete:
                 {
-                    if (userId is null)
-                    {
-                        context.Fail(new AuthorizationFailureReason(this, "Invalid access token - user id not found"));
-                        return Task.CompletedTask;
-                    }
                     if (user.Id != userId)
                     {
                         context.Fail(new AuthorizationFailureReason(this, $"User is not allowed to execute '{requirement.Action}' action for user '{user.Username}'"));

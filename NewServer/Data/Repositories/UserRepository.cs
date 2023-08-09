@@ -16,17 +16,17 @@ namespace Kalinar.Application.Contracts
 
         public async Task<IEnumerable<UserEntity>> ListAsync(CancellationToken cancellationToken = default)
         {
-            return await context.Users.ToListAsync(cancellationToken);
+            return await context.Users.Include(user => user.Devices).ToListAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<UserEntity>> ListByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default)
         {
-            return await context.Users.Where(user => user.Groups.Any(group => group.GroupId == groupId)).ToListAsync(cancellationToken);
+            return await context.Users.Include(user => user.Devices).Where(user => user.Groups.Any(group => group.GroupId == groupId)).ToListAsync(cancellationToken);
         }
 
         public async Task<UserEntity?> FindByIdAsync(string id, CancellationToken cancellationToken = default)
         {
-            return await context.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+            return await context.Users.Include(user => user.Devices).FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
 
         public async Task<UserEntity> CreateAsync(UserEntity user, CancellationToken cancellationToken = default)

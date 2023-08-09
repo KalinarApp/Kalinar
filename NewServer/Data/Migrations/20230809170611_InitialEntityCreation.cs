@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Kalinar.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateInitialEntities : Migration
+    public partial class InitialEntityCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,8 +34,7 @@ namespace Kalinar.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Username = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
-                    DeviceIds = table.Column<List<string>>(type: "text[]", nullable: false)
+                    Username = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,7 +127,6 @@ namespace Kalinar.Data.Migrations
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     IsPassive = table.Column<bool>(type: "boolean", nullable: false),
                     Description = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
-                    Tags = table.Column<List<string>>(type: "text[]", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: false),
@@ -193,6 +190,26 @@ namespace Kalinar.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Attributes_Users_CreatorId",
                         column: x => x.CreatorId,
+                        principalSchema: "Kalinar",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Devices",
+                schema: "Kalinar",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Devices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Devices_Users_UserId",
+                        column: x => x.UserId,
                         principalSchema: "Kalinar",
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -283,6 +300,26 @@ namespace Kalinar.Data.Migrations
                         column: x => x.BookId,
                         principalSchema: "Kalinar",
                         principalTable: "StoryBooks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AbilityTags",
+                schema: "Kalinar",
+                columns: table => new
+                {
+                    Tag = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    AbilityId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AbilityTags", x => new { x.Tag, x.AbilityId });
+                    table.ForeignKey(
+                        name: "FK_AbilityTags_Abilities_AbilityId",
+                        column: x => x.AbilityId,
+                        principalSchema: "Kalinar",
+                        principalTable: "Abilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -556,6 +593,12 @@ namespace Kalinar.Data.Migrations
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AbilityTags_AbilityId",
+                schema: "Kalinar",
+                table: "AbilityTags",
+                column: "AbilityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Attributes_CreatorId",
                 schema: "Kalinar",
                 table: "Attributes",
@@ -578,6 +621,12 @@ namespace Kalinar.Data.Migrations
                 schema: "Kalinar",
                 table: "Characters",
                 column: "RaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Devices_UserId",
+                schema: "Kalinar",
+                table: "Devices",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GroupMembers_GroupId",
@@ -707,6 +756,14 @@ namespace Kalinar.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AbilityTags",
+                schema: "Kalinar");
+
+            migrationBuilder.DropTable(
+                name: "Devices",
+                schema: "Kalinar");
+
             migrationBuilder.DropTable(
                 name: "GroupMembers",
                 schema: "Kalinar");

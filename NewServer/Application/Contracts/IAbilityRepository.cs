@@ -4,6 +4,6 @@ namespace Kalinar.Application.Contracts
 {
     public interface IAbilityRepository : IBaseRepository<AbilityEntity>
     {
-        Task<IEnumerable<string>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<AbilityTagEntity>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default);
     }
 }

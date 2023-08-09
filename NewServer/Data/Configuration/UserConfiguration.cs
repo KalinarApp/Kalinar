@@ -13,6 +13,7 @@ namespace Kalinar.Data.Configuration
             builder.HasKey(user => user.Id);
 
             builder.Property(user => user.Username).HasMaxLength(256).IsRequired();
+            builder.HasMany(user => user.Devices).WithOne().HasForeignKey(device => device.UserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

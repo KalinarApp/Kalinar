@@ -10,9 +10,25 @@ namespace Kalinar.Data.Repositories
     {
         public AbilityRepository(Context context) : base(context) { }
 
-        public async Task<IEnumerable<string>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<AbilityEntity>> ListAsync(CancellationToken cancellationToken = default)
+        {
+            return await context.Abilities.Include(item => item.Tags).ToListAsync(cancellationToken);
+        }
+
+        public override async Task<IEnumerable<AbilityEntity>> ListByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.Abilities.Include(item => item.Tags).Where(item => item.GroupId == groupId).ToListAsync(cancellationToken);
+        }
+
+        public override async Task<AbilityEntity?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await context.Abilities.Include(item => item.Tags).FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
+        }
+
+        public async Task<IEnumerable<AbilityTagEntity>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default)
         {
             return await context.Abilities
+                .Include(item => item.Tags)
                 .Where(item => item.GroupId == groupId)
                 .SelectMany(item => item.Tags)
                 .Distinct()

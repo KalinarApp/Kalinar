@@ -7,7 +7,7 @@ namespace Kalinar.Messages.Responses
         public required string Name { get; init; }
         public required bool IsPassive { get; init; }
         public string? Description { get; init; }
-        public required List<string> Tags { get; init; }
+        public required IEnumerable<string> Tags { get; init; }
 
         public static implicit operator AbilityResponse(AbilityEntity ability)
         {
@@ -19,7 +19,7 @@ namespace Kalinar.Messages.Responses
                 Name = ability.Name,
                 Description = ability.Description,
                 IsPassive = ability.IsPassive,
-                Tags = ability.Tags,
+                Tags = ability.Tags.Select(tag => tag.Tag),
                 State = ability.State.ToString(),
                 ApprovedAt = ability.ApprovedAt,
                 ModifiedAt = ability.ModifiedAt,

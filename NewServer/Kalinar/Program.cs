@@ -35,6 +35,7 @@ public class Program
         app.MapControllers();
 
         await app.UseDatabaseMigrations();
+
         await app.RunAsync();
     }
 }
