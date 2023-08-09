@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kalinar.Messages", "Message
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{41BCA023-B1FC-42D3-98E5-686306B1AF6B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kalinar.Test", "Test\Kalinar.Test.csproj", "{F6EB7CA0-5F29-439A-AE42-757E70975296}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{41BCA023-B1FC-42D3-98E5-686306B1AF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41BCA023-B1FC-42D3-98E5-686306B1AF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41BCA023-B1FC-42D3-98E5-686306B1AF6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6EB7CA0-5F29-439A-AE42-757E70975296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6EB7CA0-5F29-439A-AE42-757E70975296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6EB7CA0-5F29-439A-AE42-757E70975296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6EB7CA0-5F29-439A-AE42-757E70975296}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
