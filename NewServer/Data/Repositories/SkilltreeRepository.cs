@@ -1,8 +1,11 @@
 ﻿using Kalinar.Application.Contracts;
 using Kalinar.Core.Entities;
+using Kalinar.Core.Exceptions;
 using Kalinar.Data.Database;
+using Kalinar.Data.Extensions;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Kalinar.Data.Repositories
 {
@@ -50,6 +53,20 @@ namespace Kalinar.Data.Repositories
             this.context.SkilltreeNodes.Update(node);
             await this.context.SaveChangesAsync(cancellationToken);
             return node;
+        }
+
+        public async Task<SkilltreeEntity> CopyByIdAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
+        {
+            SkilltreeEntity skilltree = await this.context.Skilltrees.Include(item => item.Nodes).Include(item => item.Edges).FirstOrDefaultAsync(item => item.Id == skilltreeId, cancellationToken) ?? throw new SkilltreeNotFoundException(skilltreeId);
+
+            this.context.Entry(skilltree).State = EntityState.Detached;
+
+            SkilltreeEntity newSkilltree = skilltree.Copy();
+
+            await this.context.Skilltrees.AddAsync(newSkilltree, cancellationToken);
+            await this.context.SaveChangesAsync(cancellationToken);
+
+            return newSkilltree;
         }
 
         public async Task DeleteNodeAsync(SkilltreeNodeEntity node, CancellationToken cancellationToken = default)
