@@ -2,10 +2,9 @@
 using Kalinar.Authorization.Requirements;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Extensions;
+using Kalinar.Extensions;
 
 using Microsoft.AspNetCore.Authorization;
-
-using System.Security.Claims;
 
 namespace Kalinar.Authorization.Handlers
 {
@@ -20,7 +19,7 @@ namespace Kalinar.Authorization.Handlers
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, SuggestableRequirement requirement, SuggestableEntity resource)
         {
-            string userId = context.User.FindFirstValue(ClaimTypes.Sid)!;
+            string userId = context.User.GetId();
 
             using AsyncServiceScope scope = this.serviceProvider.CreateAsyncScope();
             IGroupService groupService = scope.ServiceProvider.GetRequiredService<IGroupService>();
@@ -29,7 +28,6 @@ namespace Kalinar.Authorization.Handlers
             switch (requirement.Action) 
             {
                 case Actions.SuggestableAction.Read:
-                case Actions.SuggestableAction.Create:
                 {
                     if (!group.IsMember(userId))
                     {

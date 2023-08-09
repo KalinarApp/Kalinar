@@ -25,7 +25,7 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserResponse>> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponse>> GetAsync(string id, CancellationToken cancellationToken = default)
         {
             UserEntity loggedInUser = await this.userService.GetByIdAsync(this.User.GetId(), cancellationToken);
 
@@ -41,7 +41,7 @@ namespace Kalinar.Controllers
         {
             UserResponse response = await this.userService.CreateAsync(this.User.GetId(), request, cancellationToken);
 
-            return this.CreatedAtAction("get", new { response.Id }, response);
+            return this.CreatedAtAction("Get", new { id = response.Id }, response);
         }
 
         [HttpPut("{id}")]

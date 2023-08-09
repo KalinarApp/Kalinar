@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  kalinar:
+    image: ${DOCKER_REGISTRY-}kalinar
+    ports:
+      - 443:443
+      - 80:80
+    build:
+      context: .
+      dockerfile: Kalinar/Dockerfile
+    environment:
+      - ConnectionStrings__Database=${ConnectionStrings__Database}

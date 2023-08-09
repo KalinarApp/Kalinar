@@ -30,9 +30,6 @@ namespace Kalinar.Application.Extensions
             {
                 options.AddPolicy(PolicyNames.IsValidUser, policy => policy.AddRequirements(new IsUserValidRequirement()));
 
-                options.AddPolicy(PolicyNames.IsAdminInGroup, policy => policy.AddRequirements(new IsInGroupRequirement(new[] { Role.Owner, Role.Administrator })));
-                options.AddPolicy(PolicyNames.IsMemberInGroup, policy => policy.AddRequirements(new IsInGroupRequirement(new[] { Role.Member })));
-
                 options.AddPolicy(PolicyNames.CanListUsers, policy => policy.AddRequirements(new UserRequirement(UserAction.List)));
                 options.AddPolicy(PolicyNames.CanReadUsers, policy => policy.AddRequirements(new UserRequirement(UserAction.Read)));
                 options.AddPolicy(PolicyNames.CanCreateUsers, policy => policy.AddRequirements(new UserRequirement(UserAction.Create)));
@@ -45,9 +42,9 @@ namespace Kalinar.Application.Extensions
                 options.AddPolicy(PolicyNames.CanUpdateGroups, policy => policy.AddRequirements(new GroupRequirement(GroupAction.Update)));
                 options.AddPolicy(PolicyNames.CanDeleteGroups, policy => policy.AddRequirements(new GroupRequirement(GroupAction.Delete)));
 
-                options.AddPolicy(PolicyNames.CanListSuggestables, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.List)));
+                options.AddPolicy(PolicyNames.CanListSuggestables, policy => policy.AddRequirements(new IsInGroupRequirement()));
                 options.AddPolicy(PolicyNames.CanReadSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Read)));
-                options.AddPolicy(PolicyNames.CanCreateSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Create)));
+                options.AddPolicy(PolicyNames.CanCreateSuggestable, policy => policy.AddRequirements(new IsInGroupRequirement()));
                 options.AddPolicy(PolicyNames.CanUpdateSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Update)));
                 options.AddPolicy(PolicyNames.CanApproveSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Approve)));
                 options.AddPolicy(PolicyNames.CanDeleteSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Delete)));

@@ -1,12 +1,9 @@
-﻿using Kalinar.Authorization.Actions;
-using Kalinar.Authorization.Requirements;
+﻿using Kalinar.Authorization.Requirements;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Extensions;
 using Kalinar.Extensions;
 
 using Microsoft.AspNetCore.Authorization;
-
-using System.Security.Claims;
 
 namespace Kalinar.Authorization.Handlers
 {
@@ -14,13 +11,9 @@ namespace Kalinar.Authorization.Handlers
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsInGroupRequirement requirement, GroupEntity group)
         {
-            string? userId = context.User.FindFirstValue(ClaimTypes.Sid);
+            string userId = context.User.GetId();
 
-            if (userId is null)
-            {
-                context.Fail(new AuthorizationFailureReason(this, "Invalid access token - user id not found"));
-            }
-            else if (group.IsMemberWithAnyRole(userId, requirement.NeededRoles))
+            if (group.IsMember(userId))
             {
                 context.Succeed(requirement);
             }
