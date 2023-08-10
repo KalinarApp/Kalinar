@@ -10,7 +10,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUserLifecycle()
         {
-            this.Initialize();
+            //this.Initialize();
 
             string userId = Guid.NewGuid().ToString();
             string accessToken = this.GetToken(userId)!;

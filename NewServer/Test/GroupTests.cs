@@ -15,8 +15,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestCreateGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
             GroupResponse? groupResponse = await this.PostAsync<GroupRequest, GroupResponse>($"/api/{ApiVersion}/groups", new() { Name = "Test", Description = "Testgroup" }, accessToken);
 
@@ -27,8 +25,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestOwnerUpdatesGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
             GroupResponse? groupResponse = await this.PutAsync<GroupRequest, GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", new() { Name = "Test2", Description = "Testgroup2" }, accessToken);
 
@@ -40,8 +36,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestMemberShouldNotUpdateGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             GroupResponse? groupResponse = default;
@@ -55,8 +49,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestOwnerDeleteGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
             await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken);
             GroupResponse? groupResponse = default;
@@ -70,8 +62,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestMemberDeleteGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
             Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
 
@@ -83,8 +73,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUserCanJoinGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
 
             await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/join", accessToken: accessToken);
@@ -98,8 +86,6 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember1UserId)]
         public async Task TestUserCanNotJoinGroup(string userId)
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(userId)!;
 
             Exception? ex = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/join", accessToken: accessToken));
@@ -116,8 +102,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUserCanLeaveGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/leave", accessToken: accessToken);
@@ -129,8 +113,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUserCanNotLeaveGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
 
             Exception? ex = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/leave", accessToken: accessToken));
@@ -147,8 +129,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestOwnerCanDeleteGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
             await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken);
@@ -162,8 +142,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestMemberCanNotDeleteGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
@@ -180,8 +158,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestNonMemberCanNotDeleteGroup()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
 
             Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));

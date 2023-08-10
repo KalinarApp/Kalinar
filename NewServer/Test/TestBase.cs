@@ -15,7 +15,7 @@ namespace Kalinar.Test
         private HttpClient client;
 
         // This is a hack to get around the fact that the test server is not disposed of after each test
-        public void Initialize()
+        public TestBase()
         {
             this.factory = new KalinarWebApplicationFactory<Program>();
             this.client = this.factory.CreateClient();

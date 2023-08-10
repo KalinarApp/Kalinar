@@ -15,8 +15,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestOwnerCreateApprovedAbility()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
             AbilityCreateRequest request = new()
@@ -37,8 +35,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestMemberCreatePendingAbility()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             AbilityCreateRequest request = new()
@@ -59,8 +55,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUpdateApprovedAbilityAsGroupAdmin()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
             AbilityUpdateRequest request = new()
@@ -80,8 +74,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUpdateApprovedAbilityAsCreator()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             AbilityUpdateRequest request = new()
@@ -103,8 +95,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUpdateApprovedAbilityAsGroupMember()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
 
             AbilityUpdateRequest request = new()
@@ -126,8 +116,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUpdatePendingAbilityAsGroupAdmin()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
             AbilityUpdateRequest request = new()
@@ -147,8 +135,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUpdatePendingAbilityAsCreator()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             AbilityUpdateRequest request = new()
@@ -168,8 +154,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestUpdatePendingAbilityAsGroupMember()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
 
             AbilityUpdateRequest request = new()
@@ -191,8 +175,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestApproveAbilityAsGroupAdmin()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
             AbilityResponse? response = await this.PostAsync<object, AbilityResponse>($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}/approve", new(), accessToken);
@@ -204,8 +186,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestApproveAbilityAsCreator()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             AbilityResponse? response = default;
@@ -220,8 +200,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestApproveAbilityAsGroupMember()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
 
             AbilityResponse? response = default;
@@ -236,8 +214,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestRejectAbilityAsGroupAdmin()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
             RejectRequest request = new() { Reason = "Reason" };
@@ -253,8 +229,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestRejectAbilityAsCreator()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             RejectRequest request = new() { Reason = "Reason" };
@@ -271,8 +245,6 @@ namespace Kalinar.Test
         [Fact]
         public async Task TestRejectAbilityAsGroupMember()
         {
-            this.Initialize();
-
             string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
 
             RejectRequest request = new() { Reason = "Reason" };
