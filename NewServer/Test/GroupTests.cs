@@ -1,7 +1,6 @@
 ﻿using Kalinar.Core.Exceptions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
-using Kalinar.Test.Factories;
 using Kalinar.Test.Seeding;
 
 using System.Net;
