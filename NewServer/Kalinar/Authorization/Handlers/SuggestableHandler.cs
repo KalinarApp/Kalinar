@@ -39,11 +39,19 @@ namespace Kalinar.Authorization.Handlers
                     return;
                 }
                 case Actions.SuggestableAction.Approve:
+                {
+                    if (group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }))
+                    {
+                        context.Succeed(requirement);
+                        return;
+                    }
+
+                    context.Fail(new AuthorizationFailureReason(this, $"User is not allowed to execute '{requirement.Action}' action"));
+                    return;
+                }
                 case Actions.SuggestableAction.Update:
                 case Actions.SuggestableAction.Delete:
                 {
-                    
-
                     if (group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }))
                     {
                         context.Succeed(requirement);

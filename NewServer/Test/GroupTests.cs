@@ -42,7 +42,7 @@ namespace Kalinar.Test
         {
             this.Initialize();
 
-            string accessToken = this.GetToken(Utilities.GroupMemberUserId)!;
+            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             GroupResponse? groupResponse = default;
             Exception? ex = await Record.ExceptionAsync(async () => groupResponse = await this.PutAsync<GroupRequest, GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", new() { Name = "Test2", Description = "Testgroup2" }, accessToken));
@@ -72,7 +72,7 @@ namespace Kalinar.Test
         {
             this.Initialize();
 
-            string accessToken = this.GetToken(Utilities.GroupMemberUserId)!;
+            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
             Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
 
             Assert.IsType<HttpErrorException>(ex);
@@ -95,7 +95,7 @@ namespace Kalinar.Test
 
         [Theory]
         [InlineData(Utilities.GroupOwnerUserId)]
-        [InlineData(Utilities.GroupMemberUserId)]
+        [InlineData(Utilities.GroupMember1UserId)]
         public async Task TestUserCanNotJoinGroup(string userId)
         {
             this.Initialize();
@@ -118,7 +118,7 @@ namespace Kalinar.Test
         {
             this.Initialize();
 
-            string accessToken = this.GetToken(Utilities.GroupMemberUserId)!;
+            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/leave", accessToken: accessToken);
             IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{Utilities.GrouplessUserId}/groups", accessToken: accessToken);
@@ -164,7 +164,7 @@ namespace Kalinar.Test
         {
             this.Initialize();
 
-            string accessToken = this.GetToken(Utilities.GroupMemberUserId)!;
+            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
             Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
 
