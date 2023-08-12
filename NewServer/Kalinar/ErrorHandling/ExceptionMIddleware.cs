@@ -55,6 +55,8 @@ namespace Kalinar.ErrorHandling
                 StoryEventNotFoundException => (int)HttpStatusCode.NotFound,
                 StoryImageNotFoundException => (int)HttpStatusCode.NotFound,
                 UserAlreadyInGroupException => (int)HttpStatusCode.Conflict,
+                AbilityNotApprovedException => (int)HttpStatusCode.Conflict,
+                AttributeNotApprovedException => (int)HttpStatusCode.Conflict,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

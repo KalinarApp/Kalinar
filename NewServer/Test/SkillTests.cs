@@ -173,6 +173,26 @@ namespace Kalinar.Test
             Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
         }
 
+        [Fact, Category("Update")]
+        public async Task CanNotUpdateApprovedSkillIfAbilityIsPending()
+        {
+            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+
+            SkillUpdateRequest request = new()
+            {
+                Name = "Updated TestSkill",
+                AbilityId = new Guid(Utilities.PendingAbilityId),
+            };
+
+            SkillResponse? response = default;
+            Exception? ex = await Record.ExceptionAsync(async () => response = await this.PutAsync<SkillUpdateRequest, SkillResponse>($"/api/{ApiVersion}/skills/{Utilities.ApprovedSkillId}", request, accessToken));
+
+            Assert.Null(response);
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.Conflict, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(AbilityNotApprovedException), ((HttpErrorException)ex!).Type);
+        }
+
         [Fact, Category("GetAttributes")]
         public async Task CanGetAbilityTags()
         {
@@ -192,7 +212,7 @@ namespace Kalinar.Test
             {
                 new SkillAttributeRequest()
                 {
-                    AttributeId = new Guid(Utilities.PendingAttributeId),
+                    AttributeId = new Guid(Utilities.ApprovedAttribute2Id),
                     Value = 1,
                 },
             };
@@ -205,6 +225,27 @@ namespace Kalinar.Test
 
             Assert.NotNull(response);
             Assert.Contains(response, item => item.AttributeId == data.First().AttributeId);
+        }
+
+        [Fact, Category("SetAttributes")]
+        public async Task CanNotSetSkillAttributeIfSkillIsApprovedButAttributeIsPending()
+        {
+            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            List<SkillAttributeRequest> data = new()
+            {
+                new SkillAttributeRequest()
+                {
+                    AttributeId = new Guid(Utilities.PendingAttributeId),
+                    Value = 1,
+                },
+            };
+
+            Exception? ex = await Record.ExceptionAsync(async () => await this.PostAsync($"/api/{ApiVersion}/skills/{Utilities.ApprovedSkillId}/attributes", data, accessToken: accessToken));
+
+            Assert.NotNull(ex);
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.Conflict, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(AttributeNotApprovedException), ((HttpErrorException)ex!).Type);
         }
 
         [Fact, Category("Approve")]

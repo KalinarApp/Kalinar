@@ -70,11 +70,16 @@ namespace Kalinar.Application.Services
         {
             SkillEntity skill = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
 
+            if (request.AbilityId.HasValue)
+            {
+                AbilityEntity ability = await this.abilityService.GetByIdAsync(request.AbilityId.Value, cancellationToken);
+                if ((skill.State == SuggestionState.Approved && ability.State == SuggestionState.Pending) || ability.State == SuggestionState.Rejected) throw new AbilityNotApprovedException(ability.Name);
+            }
+
             skill.Name = request.Name;
             skill.Description = request.Description;
             skill.IconUrl = request.IconUrl;
             skill.AbilityId = request.AbilityId;
-
             return await this.skillRepository.UpdateAsync(skill, cancellationToken);
         }
 
@@ -90,6 +95,9 @@ namespace Kalinar.Application.Services
             foreach (SkillAttributeRequest requestItem in request)
             {
                 AttributeEntity attribute = await this.attributeService.GetByIdAsync(requestItem.AttributeId, cancellationToken);
+ 
+                if ((skill.State == SuggestionState.Approved && attribute.State == SuggestionState.Pending) || attribute.State == SuggestionState.Rejected) throw new AttributeNotApprovedException(attribute.Name);
+
                 SkillAttributeEntity skillAttribute = new()
                 {
                     AttributeId = requestItem.AttributeId,

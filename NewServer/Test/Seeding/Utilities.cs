@@ -15,7 +15,8 @@ namespace Kalinar.Test.Seeding
         public const string PendingAbilityId = "9504a1b5-bcc6-41f2-a776-c5b8c2505538";
         public static readonly List<string> ApprovedAbilityTags = new() { "Test"};
 
-        public const string ApprovedAttributeId = "9504a1b5-bcc6-41f2-a776-c5b8c2505539";
+        public const string ApprovedAttribute1Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505539";
+        public const string ApprovedAttribute2Id = "9514a1b5-bcc6-41f2-a776-c5b8c2505539";
         public const string PendingAttributeId = "9504a1b5-bcc6-41f2-a776-c5b8c2505540";
 
         public const string ApprovedSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505541";
@@ -53,9 +54,11 @@ namespace Kalinar.Test.Seeding
             context.Abilities.Add(pendingAbility);
 
             //Attributes
-            AttributeEntity approvedAttribute = new() { Id = new Guid(ApprovedAttributeId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Approved, MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
+            AttributeEntity approved1Attribute = new() { Id = new Guid(ApprovedAttribute1Id), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Approved, MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
+            AttributeEntity approved2Attribute = new() { Id = new Guid(ApprovedAttribute2Id), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Approved, MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
             AttributeEntity pendingAttribute = new() { Id = new Guid(PendingAttributeId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Pending, MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
-            context.Attributes.Add(approvedAttribute);
+            context.Attributes.Add(approved1Attribute);
+            context.Attributes.Add(approved2Attribute);
             context.Attributes.Add(pendingAttribute);
 
             //Skills
@@ -65,7 +68,7 @@ namespace Kalinar.Test.Seeding
             context.Skills.Add(pendingSkill);
 
             //SkillAttributes
-            SkillAttributeEntity approvedSkillAttribute = new() { SkillId = approvedSkill.Id, Skill = approvedSkill, AttributeId = approvedAttribute.Id, Attribute = approvedAttribute, Value = 1 };
+            SkillAttributeEntity approvedSkillAttribute = new() { SkillId = approvedSkill.Id, Skill = approvedSkill, AttributeId = approved1Attribute.Id, Attribute = approved1Attribute, Value = 1 };
             context.SkillAttributes.Add(approvedSkillAttribute);
 
             context.SaveChanges();
