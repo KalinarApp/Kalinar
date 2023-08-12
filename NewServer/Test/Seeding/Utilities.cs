@@ -13,6 +13,7 @@ namespace Kalinar.Test.Seeding
 
         public const string ApprovedAbilityId = "9504a1b5-bcc6-41f2-a776-c5b8c2505537";
         public const string PendingAbilityId = "9504a1b5-bcc6-41f2-a776-c5b8c2505538";
+        public const string RejectedAbilityId = "9505a1b5-bcc6-41f2-a776-c5b8c2505538";
         public static readonly List<string> ApprovedAbilityTags = new() { "Test"};
 
         public const string ApprovedAttribute1Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505539";
@@ -21,6 +22,7 @@ namespace Kalinar.Test.Seeding
 
         public const string ApprovedSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505541";
         public const string PendingSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505542";
+        public const string RejectedSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505543";
 
         public static void SeedDatabase(Context context)
         {
@@ -50,8 +52,10 @@ namespace Kalinar.Test.Seeding
             // Abilities
             AbilityEntity approvedAbility = new() { Id = new Guid(ApprovedAbilityId), CreatorId = groupMember1.Id, Creator = groupMember1, GroupId = group.Id, Group = group, CreatedAt = DateTimeOffset.UtcNow, IsPassive = false, Name = "Testability", State = SuggestionState.Approved, Tags = ApprovedAbilityTags.Select(tag => new AbilityTagEntity() { Tag = tag, AbilityId = new Guid(ApprovedAbilityId) }).ToList() };
             AbilityEntity pendingAbility = new() { Id = new Guid(PendingAbilityId), CreatorId = groupMember1.Id, Creator = groupMember1, GroupId = group.Id, Group = group, CreatedAt = DateTimeOffset.UtcNow, IsPassive = false, Name = "Testability", State = SuggestionState.Pending, Tags = new List<AbilityTagEntity>() };
+            AbilityEntity rejectedAbility = new() { Id = new Guid(RejectedAbilityId), CreatorId = groupMember1.Id, Creator = groupMember1, GroupId = group.Id, Group = group, CreatedAt = DateTimeOffset.UtcNow, IsPassive = false, Name = "Testability", State = SuggestionState.Rejected, RejectedAt = DateTimeOffset.UtcNow, RejectionReason = "", Tags = new List<AbilityTagEntity>() };
             context.Abilities.Add(approvedAbility);
             context.Abilities.Add(pendingAbility);
+            context.Abilities.Add(rejectedAbility);
 
             //Attributes
             AttributeEntity approved1Attribute = new() { Id = new Guid(ApprovedAttribute1Id), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Approved, MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
@@ -64,8 +68,10 @@ namespace Kalinar.Test.Seeding
             //Skills
             SkillEntity approvedSkill = new() { Id = new Guid(ApprovedSkillId), CreatorId = groupMember1.Id, Creator = groupMember1, AbilityId = approvedAbility.Id, Ability = approvedAbility, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, IconUrl = "", Name = "Testskill", State = SuggestionState.Approved, Attributes = new List<SkillAttributeEntity>() };
             SkillEntity pendingSkill = new() { Id = new Guid(PendingSkillId), CreatorId = groupMember1.Id, Creator = groupMember1, AbilityId = pendingAbility.Id, Ability = pendingAbility, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, IconUrl = "", Name = "Testskill", State = SuggestionState.Pending, Attributes = new List<SkillAttributeEntity>() };
+            SkillEntity rejectedSkill = new() { Id = new Guid(RejectedSkillId), CreatorId = groupMember1.Id, Creator = groupMember1, AbilityId = approvedAbility.Id, Ability = approvedAbility, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, IconUrl = "", Name = "Testskill", State = SuggestionState.Rejected, RejectedAt = DateTimeOffset.UtcNow, RejectionReason = "", Attributes = new List<SkillAttributeEntity>() };
             context.Skills.Add(approvedSkill);
             context.Skills.Add(pendingSkill);
+            context.Skills.Add(rejectedSkill);
 
             //SkillAttributes
             SkillAttributeEntity approvedSkillAttribute = new() { SkillId = approvedSkill.Id, Skill = approvedSkill, AttributeId = approved1Attribute.Id, Attribute = approved1Attribute, Value = 1 };

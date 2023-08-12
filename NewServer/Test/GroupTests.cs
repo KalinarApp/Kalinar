@@ -12,7 +12,7 @@ namespace Kalinar.Test
     public class GroupTests : TestBase
     {
         [Fact]
-        public async Task TestCreateGroup()
+        public async Task CanCreateGroup()
         {
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
             GroupResponse? groupResponse = await this.PostAsync<GroupRequest, GroupResponse>($"/api/{ApiVersion}/groups", new() { Name = "Test", Description = "Testgroup" }, accessToken);
@@ -21,154 +21,130 @@ namespace Kalinar.Test
             Assert.Equal("Test", groupResponse!.Name);
         }
 
-        [Fact]
-        public async Task TestOwnerUpdatesGroup()
+        [Theory]
+        [InlineData(Utilities.GroupOwnerUserId, true)]
+        [InlineData(Utilities.GroupMember1UserId, false)]
+        [InlineData(Utilities.GroupMember2UserId, false)]
+        [InlineData(Utilities.GrouplessUserId, false)]
+        public async Task CanUpdatesGroup(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
-            GroupResponse? groupResponse = await this.PutAsync<GroupRequest, GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", new() { Name = "Test2", Description = "Testgroup2" }, accessToken);
-
-            Assert.NotNull(groupResponse);
-            Assert.Equal("Test2", groupResponse!.Name);
-            Assert.Equal("Testgroup2", groupResponse!.Description);
-        }
-
-        [Fact]
-        public async Task TestMemberShouldNotUpdateGroup()
-        {
-            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
-
+            string accessToken = this.GetToken(userId)!;
             GroupResponse? groupResponse = default;
             Exception? ex = await Record.ExceptionAsync(async () => groupResponse = await this.PutAsync<GroupRequest, GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", new() { Name = "Test2", Description = "Testgroup2" }, accessToken));
 
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
+            if (hasPermissions)
+            {
+                Assert.NotNull(groupResponse);
+                Assert.Equal("Test2", groupResponse!.Name);
+                Assert.Equal("Testgroup2", groupResponse!.Description);
+            }
+            else
+            {
+                Assert.IsType<HttpErrorException>(ex);
+                Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
+                Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
+            }
         }
 
-        [Fact]
-        public async Task TestOwnerDeleteGroup()
-        {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
-            await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken);
-            GroupResponse? groupResponse = default;
-            Exception? ex = await Record.ExceptionAsync(async () => groupResponse = await this.GetAsync<GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
-
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.NotFound, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(GroupNotFoundException), ((HttpErrorException)ex!).Type);
-        }
-
-        [Fact]
-        public async Task TestMemberDeleteGroup()
-        {
-            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
-            Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
-
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
-        }
-
-        [Fact]
-        public async Task TestUserCanJoinGroup()
-        {
-            string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
-
-            await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/join", accessToken: accessToken);
-            IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{Utilities.GrouplessUserId}/groups", accessToken: accessToken);
-
-            Assert.Collection(groups, item => Assert.Equal(new Guid(Utilities.GroupId), item.Group.Id));
-        }
 
         [Theory]
-        [InlineData(Utilities.GroupOwnerUserId)]
-        [InlineData(Utilities.GroupMember1UserId)]
-        public async Task TestUserCanNotJoinGroup(string userId)
+        [InlineData(Utilities.GroupOwnerUserId, true)]
+        [InlineData(Utilities.GroupMember1UserId, false)]
+        [InlineData(Utilities.GroupMember2UserId, false)]
+        [InlineData(Utilities.GrouplessUserId, false)]
+        public async Task CanDeleteGroup(string userId, bool hasPermissions)
         {
             string accessToken = this.GetToken(userId)!;
 
-            Exception? ex = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/join", accessToken: accessToken));
+            GroupResponse? groupResponse = default;
+            Exception? deleteException = await Record.ExceptionAsync(async ()  => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
+            Exception? getException = await Record.ExceptionAsync(async () => groupResponse = await this.GetAsync<GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
 
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.Conflict, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(UserAlreadyInGroupException), ((HttpErrorException)ex!).Type);
+            if (hasPermissions)
+            {
+                Assert.IsType<HttpErrorException>(getException);
+                Assert.Equal(HttpStatusCode.NotFound, ((HttpErrorException)getException!).StatusCode);
+                Assert.Equal(nameof(GroupNotFoundException), ((HttpErrorException)getException!).Type);
+            }
+            else
+            {
+                Assert.IsType<HttpErrorException>(deleteException);
+                Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)deleteException!).StatusCode);
+                Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)deleteException!).Type);
+            }
+        }
 
+
+        [Theory]
+        [InlineData(Utilities.GroupOwnerUserId, false)]
+        [InlineData(Utilities.GroupMember1UserId, false)]
+        [InlineData(Utilities.GroupMember2UserId, false)]
+        [InlineData(Utilities.GrouplessUserId, true)]
+        public async Task CanJoinGroup(string userId, bool canJoin)
+        {
+            string accessToken = this.GetToken(userId)!;
+
+            Exception? joinException = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/join", accessToken: accessToken));
             IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{userId}/groups", accessToken: accessToken);
+
+            if (!canJoin)
+            {
+                Assert.IsType<HttpErrorException>(joinException);
+                Assert.Equal(HttpStatusCode.Conflict, ((HttpErrorException)joinException!).StatusCode);
+                Assert.Equal(nameof(UserAlreadyInGroupException), ((HttpErrorException)joinException!).Type);
+                Assert.Collection(groups, item => Assert.Equal(new Guid(Utilities.GroupId), item.Group.Id));
+            }
 
             Assert.Collection(groups, item => Assert.Equal(new Guid(Utilities.GroupId), item.Group.Id));
         }
 
-        [Fact]
-        public async Task TestUserCanLeaveGroup()
-        {
-            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
-            await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/leave", accessToken: accessToken);
-            IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{Utilities.GrouplessUserId}/groups", accessToken: accessToken);
+        [Theory]
+        [InlineData(Utilities.GroupOwnerUserId, true)]
+        [InlineData(Utilities.GroupMember1UserId, true)]
+        [InlineData(Utilities.GroupMember2UserId, true)]
+        [InlineData(Utilities.GrouplessUserId, false)]
+        public async Task CanLeaveGroup(string userId, bool canLeave)
+        {
+            string accessToken = this.GetToken(userId)!;
+
+            Exception? leaveException = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/leave", accessToken: accessToken));
+            IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{userId}/groups", accessToken: accessToken);
+
+            if (!canLeave)
+            {
+                Assert.IsType<HttpErrorException>(leaveException);
+                Assert.Equal(HttpStatusCode.NotFound, ((HttpErrorException)leaveException!).StatusCode);
+                Assert.Equal(nameof(GroupMemberNotFoundException), ((HttpErrorException)leaveException!).Type);
+            }
 
             Assert.Empty(groups);
         }
 
-        [Fact]
-        public async Task TestUserCanNotLeaveGroup()
+        [Theory]
+        [InlineData(Utilities.GroupOwnerUserId, true)]
+        [InlineData(Utilities.GroupMember1UserId, false)]
+        [InlineData(Utilities.GroupMember2UserId, false)]
+        [InlineData(Utilities.GrouplessUserId, false)]
+        public async Task TestOwnerCanDeleteGroup(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
+            string accessToken = this.GetToken(userId)!;
 
-            Exception? ex = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/leave", accessToken: accessToken));
+            Exception? deleteException = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
+            Exception? getException = await Record.ExceptionAsync(async () => await this.GetAsync<GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
 
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.NotFound, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(GroupMemberNotFoundException), ((HttpErrorException)ex!).Type);
-
-            IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{Utilities.GrouplessUserId}/groups", accessToken: accessToken);
-
-            Assert.Empty(groups);
-        }
-
-        [Fact]
-        public async Task TestOwnerCanDeleteGroup()
-        {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
-
-            await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken);
-            Exception? ex = await Record.ExceptionAsync(async () => await this.GetAsync<GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
-
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.NotFound, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(GroupNotFoundException), ((HttpErrorException)ex!).Type);
-        }
-
-        [Fact]
-        public async Task TestMemberCanNotDeleteGroup()
-        {
-            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
-
-            Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
-
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
-
-            ex = await Record.ExceptionAsync(async () => await this.GetAsync<GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken: accessToken));
-
-            Assert.Null(ex);
-        }
-
-        [Fact]
-        public async Task TestNonMemberCanNotDeleteGroup()
-        {
-            string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
-
-            Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
-
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
-
-            accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
-            ex = await Record.ExceptionAsync(async () => await this.GetAsync<GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken: accessToken));
-
-            Assert.Null(ex);
+            if (hasPermissions)
+            {
+                Assert.IsType<HttpErrorException>(getException);
+                Assert.Equal(HttpStatusCode.NotFound, ((HttpErrorException)getException!).StatusCode);
+                Assert.Equal(nameof(GroupNotFoundException), ((HttpErrorException)getException!).Type);
+            }
+            else
+            {
+                Assert.IsType<HttpErrorException>(deleteException);
+                Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)deleteException!).StatusCode);
+                Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)deleteException!).Type);
+            }
         }
     }
 }
