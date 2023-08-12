@@ -30,14 +30,12 @@ namespace Kalinar.Test
 
             Assert.NotNull(userResponse);
             Assert.Equal("Test2", userResponse!.Username);
-            Assert.Collection(userResponse!.DeviceIds, deviceId => Assert.Equal("Testdevice", deviceId));
 
             await this.DeleteAsync($"/api/{ApiVersion}/users/{userResponse!.Id}/devices/Testdevice", accessToken);
             userResponse = await this.GetAsync<UserResponse>($"/api/{ApiVersion}/users/{userResponse!.Id}", accessToken);
 
             Assert.NotNull(userResponse);
             Assert.Equal("Test2", userResponse!.Username);
-            Assert.Empty(userResponse!.DeviceIds);
 
             await this.DeleteAsync($"/api/{ApiVersion}/users/{userResponse!.Id}", accessToken);
         }

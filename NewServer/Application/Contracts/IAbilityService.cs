@@ -13,5 +13,7 @@ namespace Kalinar.Application.Contracts
         Task<AbilityEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default);
         Task<AbilityEntity> RejectAsync(Guid id, RejectRequest request, CancellationToken cancellationToken = default);
         Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<AbilityTagEntity>> ListTagsByAbilityIdAsync(Guid abilityId, CancellationToken cancellationToken = default);
+        Task SetTagsAsync(Guid id, IEnumerable<string> tags, CancellationToken cancellationToken = default);
     }
 }

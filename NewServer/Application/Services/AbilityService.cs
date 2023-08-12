@@ -17,10 +17,7 @@ namespace Kalinar.Application.Services
             this.userService = userService;
         }
 
-        public async Task<AbilityEntity> GetByIdAsync(Guid abilityId, CancellationToken cancellationToken = default)
-        {
-            return await this.abilityRepository.FindByIdAsync(abilityId, cancellationToken) ?? throw new AbilityNotFoundException(abilityId);
-        }
+        
 
         public Task<IEnumerable<AbilityEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default)
         {
@@ -30,6 +27,17 @@ namespace Kalinar.Application.Services
         public async Task<IEnumerable<AbilityTagEntity>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default)
         {
             return await this.abilityRepository.ListTagsAsync(groupId, cancellationToken);
+        }
+
+        public async Task<IEnumerable<AbilityTagEntity>> ListTagsByAbilityIdAsync(Guid abilityId, CancellationToken cancellationToken = default)
+        {
+            AbilityEntity ability = await this.GetByIdAsync(abilityId, cancellationToken);
+            return ability.Tags;
+        }
+
+        public async Task<AbilityEntity> GetByIdAsync(Guid abilityId, CancellationToken cancellationToken = default)
+        {
+            return await this.abilityRepository.FindByIdAsync(abilityId, cancellationToken) ?? throw new AbilityNotFoundException(abilityId);
         }
 
         public async Task<AbilityEntity> CreateAsync(string userId, AbilityCreateRequest request, CancellationToken cancellationToken = default)
@@ -49,8 +57,8 @@ namespace Kalinar.Application.Services
                 CreatorId = userId,
                 IsPassive = request.IsPassive,
                 State = SuggestionState.Pending,
-                Tags = request.Tags?.Select(tag => new AbilityTagEntity() { Tag = tag, AbilityId = abilityId }) ?? new List<AbilityTagEntity>(),
                 CreatedAt = DateTime.UtcNow,
+                Tags = new List<AbilityTagEntity>(),
             };
 
             await this.CreateSuggestableAsync(userId, ability, cancellationToken);
@@ -65,9 +73,15 @@ namespace Kalinar.Application.Services
             ability.Name = request.Name;
             ability.Description = request.Description;
             ability.IsPassive = request.IsPassive;
-            ability.Tags = request.Tags?.Select(tag => new AbilityTagEntity() { Tag = tag, AbilityId = id }) ?? new List<AbilityTagEntity>();
                         
             return await this.abilityRepository.UpdateAsync(ability, cancellationToken);
+        }
+
+        public async Task SetTagsAsync(Guid id, IEnumerable<string> tags, CancellationToken cancellationToken = default)
+        {
+            AbilityEntity ability = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+
+            await this.abilityRepository.SetTagsAsync(ability, tags, cancellationToken);
         }
 
         public async Task<AbilityEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default)

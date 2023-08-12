@@ -34,5 +34,15 @@ namespace Kalinar.Data.Repositories
                 .Distinct()
                 .ToListAsync(cancellationToken);
         }
+
+        public async Task SetTagsAsync(AbilityEntity ability, IEnumerable<string> tags, CancellationToken cancellationToken = default)
+        {
+            IEnumerable<AbilityTagEntity> tagEntities = tags.Select(item => new AbilityTagEntity { AbilityId = ability.Id, Tag = item });
+
+            this.context.Set<AbilityTagEntity>().RemoveRange(ability.Tags);
+            await this.context.Set<AbilityTagEntity>().AddRangeAsync(tagEntities, cancellationToken);
+
+            await this.context.SaveChangesAsync(cancellationToken);
+        }
     }
 }

@@ -4,16 +4,18 @@ using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
 using Kalinar.Test.Seeding;
 
+using System.ComponentModel;
 using System.Net;
 
 using Xunit;
 
 namespace Kalinar.Test
 {
+    [Category("Ability")]
     public class AbilityTests : TestBase
     {
-        [Fact]
-        public async Task TestOwnerCreateApprovedAbility()
+        [Fact, Category("Create")]
+        public async Task OwnerCanCreateApprovedAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
@@ -22,7 +24,6 @@ namespace Kalinar.Test
                 GroupId = new Guid(Utilities.GroupId),
                 Name = "Testability",
                 IsPassive = true,
-                Tags = new(),
             };
 
             AbilityResponse? response = await this.PostAsync<AbilityCreateRequest, AbilityResponse>($"/api/{ApiVersion}/abilities", request, accessToken);
@@ -32,8 +33,8 @@ namespace Kalinar.Test
             Assert.Equal(SuggestionState.Approved.ToString(), response.State);
         }
 
-        [Fact]
-        public async Task TestMemberCreatePendingAbility()
+        [Fact, Category("Create")]
+        public async Task MemberCanCreatePendingAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
@@ -42,7 +43,6 @@ namespace Kalinar.Test
                 GroupId = new Guid(Utilities.GroupId),
                 Name = "Testability",
                 IsPassive = true,
-                Tags = new(),
             };
 
             AbilityResponse? response = await this.PostAsync<AbilityCreateRequest, AbilityResponse>($"/api/{ApiVersion}/abilities", request, accessToken);
@@ -52,8 +52,8 @@ namespace Kalinar.Test
             Assert.Equal(SuggestionState.Pending.ToString(), response.State);
         }
 
-        [Fact]
-        public async Task TestUpdateApprovedAbilityAsGroupAdmin()
+        [Fact, Category("Update")]
+        public async Task GroupAdminCanUpdateApprovedAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
@@ -61,7 +61,6 @@ namespace Kalinar.Test
             {
                 Name = "Updated Testability",
                 IsPassive = true,
-                Tags = new(),
             };
 
             AbilityResponse? response = await this.PutAsync<AbilityUpdateRequest, AbilityResponse>($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}", request, accessToken);
@@ -71,8 +70,8 @@ namespace Kalinar.Test
             Assert.Equal(SuggestionState.Approved.ToString(), response.State);
         }
 
-        [Fact]
-        public async Task TestUpdateApprovedAbilityAsCreator()
+        [Fact, Category("Update")]
+        public async Task CreatorCanNotUpdateApprovedAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
@@ -80,7 +79,6 @@ namespace Kalinar.Test
             {
                 Name = "Updated Testability",
                 IsPassive = true,
-                Tags = new(),
             };
 
             AbilityResponse? response = default;
@@ -92,8 +90,8 @@ namespace Kalinar.Test
             Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
         }
 
-        [Fact]
-        public async Task TestUpdateApprovedAbilityAsGroupMember()
+        [Fact, Category("Update")]
+        public async Task GroupMemberCanNotUpdateApprovedAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
 
@@ -101,7 +99,6 @@ namespace Kalinar.Test
             {
                 Name = "Updated Testability",
                 IsPassive = true,
-                Tags = new(),
             };
 
             AbilityResponse? response = default;
@@ -113,8 +110,8 @@ namespace Kalinar.Test
             Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
         }
 
-        [Fact]
-        public async Task TestUpdatePendingAbilityAsGroupAdmin()
+        [Fact, Category("Update")]
+        public async Task GroupAdminCanUpdatePendingAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
@@ -122,7 +119,6 @@ namespace Kalinar.Test
             {
                 Name = "Updated Testability",
                 IsPassive = true,
-                Tags = new(),
             };
 
             AbilityResponse? response = await this.PutAsync<AbilityUpdateRequest, AbilityResponse>($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}", request, accessToken);
@@ -132,8 +128,8 @@ namespace Kalinar.Test
             Assert.Equal(SuggestionState.Pending.ToString(), response.State);
         }
 
-        [Fact]
-        public async Task TestUpdatePendingAbilityAsCreator()
+        [Fact, Category("Update")]
+        public async Task CreatorCanUpdatePendingAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
@@ -141,7 +137,6 @@ namespace Kalinar.Test
             {
                 Name = "Updated Testability",
                 IsPassive = true,
-                Tags = new(),
             };
 
             AbilityResponse? response = await this.PutAsync<AbilityUpdateRequest, AbilityResponse>($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}", request, accessToken);
@@ -151,8 +146,8 @@ namespace Kalinar.Test
             Assert.Equal(SuggestionState.Pending.ToString(), response.State);
         }
 
-        [Fact]
-        public async Task TestUpdatePendingAbilityAsGroupMember()
+        [Fact, Category("Update")]
+        public async Task GroupMemberCanNotUpdatePendingAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
 
@@ -160,7 +155,6 @@ namespace Kalinar.Test
             {
                 Name = "Updated Testability",
                 IsPassive = true,
-                Tags = new(),
             };
 
             AbilityResponse? response = default;
@@ -172,8 +166,33 @@ namespace Kalinar.Test
             Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
         }
 
-        [Fact]
-        public async Task TestApproveAbilityAsGroupAdmin()
+        [Fact, Category("GetTags")]
+        public async Task CanGetAbilityTags()
+        {
+            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+
+            List<string>? response = await this.GetAsync<List<string>>($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}/tags", accessToken);
+
+            Assert.NotNull(response);
+            Assert.Contains(response, tag => tag == Utilities.ApprovedAbilityTags.First());
+        }
+
+        [Fact, Category("SetTags")]
+        public async Task CanSetAbilityTags()
+        {
+            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+                List<string> data = new List<string> { "Test", "Tag" };
+
+            Exception? ex = await Record.ExceptionAsync(async () => await this.PostAsync<List<string>>($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}/tags", data, accessToken: accessToken));
+            List<string>? response = await this.GetAsync<List<string>>($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}/tags", accessToken);
+
+            Assert.NotNull(response);
+
+            Assert.Equal(data, response);
+        }
+
+        [Fact, Category("Approve")]
+        public async Task GroupAdminCanApproveAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
@@ -183,8 +202,8 @@ namespace Kalinar.Test
             Assert.Equal(SuggestionState.Approved.ToString(), response.State);
         }
 
-        [Fact]
-        public async Task TestApproveAbilityAsCreator()
+        [Fact, Category("Approve")]
+        public async Task CreatorCanNotApproveAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
@@ -197,8 +216,8 @@ namespace Kalinar.Test
             Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
         }
 
-        [Fact]
-        public async Task TestApproveAbilityAsGroupMember()
+        [Fact, Category("Approve")]
+        public async Task GroupMemberCanNotApproveAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
 
@@ -211,8 +230,8 @@ namespace Kalinar.Test
             Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
         }
 
-        [Fact]
-        public async Task TestRejectAbilityAsGroupAdmin()
+        [Fact, Category("Reject")]
+        public async Task GroupAdminCanRejectAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
 
@@ -226,8 +245,8 @@ namespace Kalinar.Test
             Assert.Equal(SuggestionState.Rejected.ToString(), response.State);
         }
 
-        [Fact]
-        public async Task TestRejectAbilityAsCreator()
+        [Fact, Category("Reject")]
+        public async Task CreatorCanNotRejectAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
 
@@ -242,8 +261,8 @@ namespace Kalinar.Test
             Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
         }
 
-        [Fact]
-        public async Task TestRejectAbilityAsGroupMember()
+        [Fact, Category("Reject")]
+        public async Task GroupMemberCanNotRejectAbility()
         {
             string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
 
@@ -253,6 +272,64 @@ namespace Kalinar.Test
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<object, AbilityResponse>($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}/reject", request, accessToken));
 
             Assert.Null(response);
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
+        }
+
+        [Fact, Category("Delete")]
+        public async Task GroupAdminCanDeleteAbility()
+        {
+            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+
+            RejectRequest request = new() { Reason = "Reason" };
+
+            await this.DeleteAsync($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}", accessToken);
+            Exception? ex = await Record.ExceptionAsync(async () => await this.GetAsync<AbilityResponse>($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}", accessToken));
+
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.NotFound, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(AbilityNotFoundException), ((HttpErrorException)ex!).Type);
+        }
+
+        [Fact, Category("Delete")]
+        public async Task OwnerCanDeletePendingAbility()
+        {
+            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
+
+            RejectRequest request = new() { Reason = "Reason" };
+
+            await this.DeleteAsync($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}", accessToken);
+            Exception? ex = await Record.ExceptionAsync(async () => await this.GetAsync<AbilityResponse>($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}", accessToken));
+
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.NotFound, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(AbilityNotFoundException), ((HttpErrorException)ex!).Type);
+        }
+
+        [Fact, Category("Delete")]
+        public async Task OwnerCanNotDeleteApprovedAbility()
+        {
+            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
+
+            RejectRequest request = new() { Reason = "Reason" };
+
+            Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}", accessToken));
+
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
+        }
+
+        [Fact, Category("Delete")]
+        public async Task GroupMemberCanNotDeleteAbility()
+        {
+            string accessToken = this.GetToken(Utilities.GroupMember2UserId)!;
+
+            RejectRequest request = new() { Reason = "Reason" };
+
+            Exception? ex = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}", accessToken));
+
             Assert.IsType<HttpErrorException>(ex);
             Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
             Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);

@@ -52,7 +52,7 @@ namespace Kalinar.Application.Services
                 IconUrl = request.IconUrl,
                 AbilityId = request.AbilityId,
                 Ability = ability,
-                Attributes = new(),
+                Attributes = new List<SkillAttributeEntity>(),
                 GroupId = group.Id,
                 Group = group,
                 CreatedAt = DateTime.UtcNow,
@@ -64,33 +64,6 @@ namespace Kalinar.Application.Services
             await this.CreateSuggestableAsync(userId, skill, cancellationToken);
 
             return await this.skillRepository.CreateAsync(skill, cancellationToken);
-        }
-
-        public async Task<SkillEntity> SetAttributesAsync(Guid skillId, List<SkillAttributeRequest> request, CancellationToken cancellationToken = default)
-        {
-            List<SkillAttributeEntity> attributes = new();
-            SkillEntity skill = await this.GetByIdAsync(skillId, cancellationToken);
-
-            foreach (SkillAttributeRequest requestAttribute in request)
-            {
-                AttributeEntity attribute = await this.attributeService.GetByIdAsync(requestAttribute.AttributeId, cancellationToken);
-                SkillAttributeEntity skillAttribute = new()
-                {
-                    AttributeId = requestAttribute.AttributeId,
-                    Attribute = attribute,
-                    SkillId = skillId,
-                    Skill = skill,
-                    Value = requestAttribute.Value,
-                };
-
-                attributes.Add(skillAttribute);
-            }
-
-            skill.Attributes.AddRange(attributes);
-
-            await this.skillRepository.UpdateAsync(skill, cancellationToken);
-
-            return skill;
         }
 
         public async Task<SkillEntity> UpdateAsync(Guid id, SkillUpdateRequest request, CancellationToken cancellationToken = default)
@@ -105,11 +78,44 @@ namespace Kalinar.Application.Services
             return await this.skillRepository.UpdateAsync(skill, cancellationToken);
         }
 
+        public async Task SetAttributesAsync(Guid id, IEnumerable<SkillAttributeRequest> request, CancellationToken cancellationToken = default)
+        {
+            SkillEntity skill = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+            IEnumerable<SkillAttributeEntity> existingSkillAttributes = await this.ListAttributesAsync(id, cancellationToken);
+
+            skill.Attributes = existingSkillAttributes;
+
+            List<SkillAttributeEntity> skillAttributes = new();
+
+            foreach (SkillAttributeRequest requestItem in request)
+            {
+                AttributeEntity attribute = await this.attributeService.GetByIdAsync(requestItem.AttributeId, cancellationToken);
+                SkillAttributeEntity skillAttribute = new()
+                {
+                    AttributeId = requestItem.AttributeId,
+                    Attribute = attribute,
+                    SkillId = id,
+                    Skill = skill,
+                    Value = requestItem.Value,
+                };
+
+                skillAttributes.Add(skillAttribute);
+            }
+
+            await this.skillRepository.SetAttributesAsync(skill, skillAttributes, cancellationToken);
+        }   
+
         public async Task<SkillEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default)
         {
             SkillEntity skill = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
 
             this.ApproveSuggestable(skill);
+
+            if(skill.Ability is not null && skill.Ability.State == SuggestionState.Pending)
+            {
+                skill.Ability.State = SuggestionState.Approved;
+                skill.Ability.ApprovedAt = DateTime.UtcNow;
+            }
 
             return await this.skillRepository.UpdateAsync(skill, cancellationToken);
         }

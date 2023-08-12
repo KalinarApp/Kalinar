@@ -24,5 +24,9 @@
         public const string CanUpdateSuggestable = "CanUpdateSuggestablePolicy";
         public const string CanApproveSuggestable = "CanApproveSuggestablePolicy";
         public const string CanDeleteSuggestable = "CanDeleteSuggestablePolicy";
+
+        public const string CanSetAbilityTags = "CanSetAbilityTagsPolicy";
+        public const string CanSetSkillAttributes = "CanSetSkillAttributesPolicy";
+        public const string CanSetRaceAttributes = "CanSetRaceAttributesPolicy";
     }
 }

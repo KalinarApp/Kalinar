@@ -13,5 +13,6 @@ namespace Kalinar.Application.Contracts
         Task<SkillEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default);
         Task<SkillEntity> RejectAsync(Guid id, RejectRequest request, CancellationToken cancellationToken = default);
         Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+        Task SetAttributesAsync(Guid id, IEnumerable<SkillAttributeRequest> request, CancellationToken cancellationToken = default);
     }
 }

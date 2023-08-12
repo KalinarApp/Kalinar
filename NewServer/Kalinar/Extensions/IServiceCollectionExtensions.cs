@@ -24,6 +24,8 @@ namespace Kalinar.Application.Extensions
             serviceCollection.AddSingleton<IAuthorizationHandler, UserHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, GroupHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, SuggestableHandler>();
+            serviceCollection.AddSingleton<IAuthorizationHandler, AbilityHandler>();
+            serviceCollection.AddSingleton<IAuthorizationHandler, SkillHandler>();
 
             serviceCollection.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
             serviceCollection.AddAuthorization(options =>
@@ -48,6 +50,9 @@ namespace Kalinar.Application.Extensions
                 options.AddPolicy(PolicyNames.CanUpdateSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Update)));
                 options.AddPolicy(PolicyNames.CanApproveSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Approve)));
                 options.AddPolicy(PolicyNames.CanDeleteSuggestable, policy => policy.AddRequirements(new SuggestableRequirement(SuggestableAction.Delete)));
+
+                options.AddPolicy(PolicyNames.CanSetAbilityTags, policy => policy.AddRequirements(new AbilityRequirement(AbilityAction.SetTags)));
+                options.AddPolicy(PolicyNames.CanSetSkillAttributes, policy => policy.AddRequirements(new SkillRequirement(SkillAction.SetAttributes)));
             });
         }
 

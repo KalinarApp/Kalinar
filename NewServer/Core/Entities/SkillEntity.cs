@@ -7,6 +7,6 @@
         public string? Description { get; set; }
         public Guid? AbilityId { get; set; }
         public AbilityEntity? Ability { get; set; }
-        public required List<SkillAttributeEntity> Attributes { get; init; }
+        public required IEnumerable<SkillAttributeEntity> Attributes { get; set; }
     }
 }

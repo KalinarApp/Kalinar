@@ -24,5 +24,13 @@ namespace Kalinar.Data.Repositories
         {
             return await this.context.SkillAttributes.Include(item => item.Attribute).Where(item => item.SkillId == skillId).ToListAsync(cancellationToken: cancellationToken);
         }
+
+        public async Task SetAttributesAsync(SkillEntity skill, IEnumerable<SkillAttributeEntity> attributes, CancellationToken cancellationToken = default)
+        {
+            this.context.Set<SkillAttributeEntity>().RemoveRange(skill.Attributes);
+            await this.context.Set<SkillAttributeEntity>().AddRangeAsync(attributes, cancellationToken);
+
+            await this.context.SaveChangesAsync(cancellationToken);
+        }
     }
 }

@@ -86,6 +86,16 @@ namespace Kalinar.Controllers
             return this.Ok(response);
         }
 
+        [HttpPost("{skillId}/attributes")]
+        public async Task<ActionResult> SetAttributesAsync(Guid skillId, [FromBody] IEnumerable<SkillAttributeRequest> request, CancellationToken cancellationToken = default)
+        {
+            SkillEntity skill = await this.skillsService.GetByIdAsync(skillId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skill, PolicyNames.CanSetSkillAttributes);
+
+            await this.skillsService.SetAttributesAsync(skillId, request, cancellationToken);
+            return this.Ok();
+        }
+
         [HttpPost("{skillId}/approve")]
         public async Task<ActionResult<AttributeResponse>> ApproveAsync(Guid skillId, CancellationToken cancellationToken = default)
         {

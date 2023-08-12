@@ -41,6 +41,17 @@ namespace Kalinar.Controllers
             return this.Ok(abilities.Select(item => (AbilityResponse)item));
         }
 
+        [HttpGet("{abilityId}/tags")]
+        public async Task<ActionResult<IEnumerable<string>>> ListTagsAsync(Guid abilityId, CancellationToken cancellationToken = default) 
+        { 
+            AbilityEntity ability = await this.abilityService.GetByIdAsync(abilityId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, ability, PolicyNames.CanReadSuggestable);
+        
+            IEnumerable<AbilityTagEntity> tags = await this.abilityService.ListTagsByAbilityIdAsync(abilityId, cancellationToken);
+        
+            return this.Ok(tags.Select(tag => tag.Tag));
+        }
+
         [HttpGet("{abilityId}")]
         public async Task<ActionResult<AbilityResponse>> GetAsync(Guid abilityId, CancellationToken cancellationToken = default)
         {
@@ -74,6 +85,16 @@ namespace Kalinar.Controllers
 
             AbilityResponse response = await this.abilityService.UpdateAsync(abilityId, request, cancellationToken);
             return this.Ok(response);
+        }
+
+        [HttpPost("{abilityId}/tags")]
+        public async Task<ActionResult> SetTagsAsync(Guid abilityId, [FromBody] IEnumerable<string> tags, CancellationToken cancellationToken = default)
+        {
+            AbilityEntity ability = await this.abilityService.GetByIdAsync(abilityId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, ability, PolicyNames.CanSetAbilityTags);
+
+            await this.abilityService.SetTagsAsync(abilityId, tags, cancellationToken);
+            return this.Ok();
         }
 
         [HttpPost("{abilityId}/approve")]

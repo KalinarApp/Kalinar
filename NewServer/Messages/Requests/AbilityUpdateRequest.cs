@@ -10,8 +10,6 @@ namespace Kalinar.Messages.Requests
         [MaxLength(2048, ErrorMessage = $"{nameof(Description)} cannot be longer than 2048 characters")]
         public string? Description { get; init; }
 
-        public required List<string>? Tags { get; init; }
-
         [Required]
         public required bool IsPassive { get; init; }
     }
