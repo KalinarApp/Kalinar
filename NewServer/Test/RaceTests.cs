@@ -190,11 +190,13 @@ namespace Kalinar.Test
 
             RaceResponse? response = default;
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<object, RaceResponse>($"/api/{ApiVersion}/races/{Utilities.PendingRaceId}/approve", new(), accessToken));
+            List<AttributeValueResponse>? attributesResponse = await this.GetAsync<List<AttributeValueResponse>>($"/api/{ApiVersion}/races/{Utilities.PendingRaceId}/attributes", accessToken);
 
             if (hasPermissions)
             {
                 Assert.NotNull(response);
                 Assert.Equal(SuggestionState.Approved.ToString(), response.State);
+                Assert.Collection(attributesResponse, item => Assert.Equal(SuggestionState.Approved.ToString(), item.Attribute.State));
             }
             else
             {

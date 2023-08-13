@@ -100,9 +100,16 @@ namespace Kalinar.Application.Services
 
         public async Task<RaceEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            RaceEntity race = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+            RaceEntity race = await this.GetByIdAsync(id, cancellationToken: cancellationToken); 
+            IEnumerable<RaceAttributeEntity> raceAttributes = await this.ListAttributesAsync(id, cancellationToken);
+
 
             this.ApproveSuggestable(race);
+
+            foreach (RaceAttributeEntity item in raceAttributes)
+            {
+                if (item.Attribute.State == SuggestionState.Pending) await this.attributeService.ApproveAsync(item.AttributeId, cancellationToken);
+            }
 
             return await this.raceRepository.UpdateAsync(race, cancellationToken);
         }

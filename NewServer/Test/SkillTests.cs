@@ -216,12 +216,14 @@ namespace Kalinar.Test
 
             SkillResponse? response = default;
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<object, SkillResponse>($"/api/{ApiVersion}/skills/{Utilities.PendingSkillId}/approve", new(), accessToken));
+            List<AttributeValueResponse>? attributesResponse = await this.GetAsync<List<AttributeValueResponse>>($"/api/{ApiVersion}/skills/{Utilities.PendingSkillId}/attributes", accessToken);
 
             if (hasPermissions)
             {
                 Assert.NotNull(response);
                 Assert.Equal(SuggestionState.Approved.ToString(), response.State);
                 Assert.Equal(SuggestionState.Approved.ToString(), response.Ability!.State);
+                Assert.Collection(attributesResponse, item => Assert.Equal(SuggestionState.Approved.ToString(), item.Attribute.State));
             }
             else
             {

@@ -88,11 +88,15 @@ namespace Kalinar.Test.Seeding
 
             //SkillAttributes
             SkillAttributeEntity approvedSkillAttribute = new() { SkillId = approvedSkill.Id, Skill = approvedSkill, AttributeId = approved1Attribute.Id, Attribute = approved1Attribute, Value = 1 };
+            SkillAttributeEntity pendingSkillAttribute = new() { SkillId = pendingSkill.Id, Skill = pendingSkill, AttributeId = pendingAttribute.Id, Attribute = pendingAttribute, Value = 1 };
             context.SkillAttributes.Add(approvedSkillAttribute);
+            context.SkillAttributes.Add(pendingSkillAttribute);
 
             //RaceAttributes
             RaceAttributeEntity approvedRaceAttribute = new() { RaceId = approvedRace.Id, Race = approvedRace, AttributeId = approved1Attribute.Id, Attribute = approved1Attribute, Value = 1 };
+            RaceAttributeEntity pendingRaceAttribute = new() { RaceId = pendingRace.Id, Race = pendingRace, AttributeId = pendingAttribute.Id, Attribute = pendingAttribute, Value = 1 };
             context.RaceAttributes.Add(approvedRaceAttribute);
+            context.RaceAttributes.Add(pendingRaceAttribute);
 
             context.SaveChanges();
         }

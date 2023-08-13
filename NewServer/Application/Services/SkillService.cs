@@ -116,6 +116,7 @@ namespace Kalinar.Application.Services
         public async Task<SkillEntity> ApproveAsync(Guid id, CancellationToken cancellationToken = default)
         {
             SkillEntity skill = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+            IEnumerable<SkillAttributeEntity> skillAttributes = await this.ListAttributesAsync(id, cancellationToken);
 
             this.ApproveSuggestable(skill);
 
@@ -123,6 +124,11 @@ namespace Kalinar.Application.Services
             {
                 skill.Ability.State = SuggestionState.Approved;
                 skill.Ability.ApprovedAt = DateTime.UtcNow;
+            }
+
+            foreach (SkillAttributeEntity item in skillAttributes)
+            {
+                if(item.Attribute.State == SuggestionState.Pending) await this.attributeService.ApproveAsync(item.AttributeId, cancellationToken);
             }
 
             return await this.skillRepository.UpdateAsync(skill, cancellationToken);
