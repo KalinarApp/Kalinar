@@ -19,6 +19,7 @@ namespace Kalinar.Test.Seeding
         public const string ApprovedAttribute1Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505539";
         public const string ApprovedAttribute2Id = "9514a1b5-bcc6-41f2-a776-c5b8c2505539";
         public const string PendingAttributeId = "9504a1b5-bcc6-41f2-a776-c5b8c2505540";
+        public const string RejectedAttributeId = "9514a1b5-bcc6-41f2-a776-c5b8c2505540";
 
         public const string ApprovedSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505541";
         public const string PendingSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505542";
@@ -65,9 +66,11 @@ namespace Kalinar.Test.Seeding
             AttributeEntity approved1Attribute = new() { Id = new Guid(ApprovedAttribute1Id), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Approved, MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
             AttributeEntity approved2Attribute = new() { Id = new Guid(ApprovedAttribute2Id), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Approved, MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
             AttributeEntity pendingAttribute = new() { Id = new Guid(PendingAttributeId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Pending, MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
+            AttributeEntity rejectedAttribute = new() { Id = new Guid(RejectedAttributeId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testattribute", State = SuggestionState.Rejected, RejectedAt = DateTimeOffset.UtcNow, RejectionReason = "", MinValue = 0, MaxValue = Int32.MaxValue, StepSize = 1 };
             context.Attributes.Add(approved1Attribute);
             context.Attributes.Add(approved2Attribute);
             context.Attributes.Add(pendingAttribute);
+            context.Attributes.Add(rejectedAttribute);
 
             //Skills
             SkillEntity approvedSkill = new() { Id = new Guid(ApprovedSkillId), CreatorId = groupMember1.Id, Creator = groupMember1, AbilityId = approvedAbility.Id, Ability = approvedAbility, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, IconUrl = "", Name = "Testskill", State = SuggestionState.Approved, Attributes = new List<SkillAttributeEntity>() };
