@@ -2,13 +2,13 @@
 using Kalinar.Core.Exceptions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
-using Kalinar.Test.Seeding;
+using Kalinar.Test.Integration.Seeding;
 
 using System.Net;
 
 using Xunit;
 
-namespace Kalinar.Test
+namespace Kalinar.Test.Integration
 {
     public class AttributeTests : TestBase
     {
@@ -18,7 +18,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, SuggestionState.Pending)]
         public async Task CanCreateAttributeWithCorrectSuggestionState(string userId, SuggestionState expectedState)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             AttributeCreateRequest request = new()
             {
@@ -39,7 +39,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task UserNotInGroupCannotCreateAttribute()
         {
-            string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
+            string accessToken = GetToken(Utilities.GrouplessUserId)!;
 
             AttributeCreateRequest request = new()
             {
@@ -65,7 +65,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanUpdateApprovedAttribute(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             AttributeUpdateRequest request = new()
             {
@@ -99,7 +99,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task GroupAdminCanUpdatePendingAttribute(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             AttributeUpdateRequest request = new()
             {
@@ -133,7 +133,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanApproveAttribute(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             AttributeResponse? response = default;
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<object, AttributeResponse>($"/api/{ApiVersion}/attributes/{Utilities.PendingAttributeId}/approve", new(), accessToken));
@@ -158,7 +158,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanRejectAttribute(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             RejectRequest request = new() { Reason = "Reason" };
 
@@ -195,7 +195,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, SuggestionState.Rejected, false)]
         public async Task CanDeleteAttribute(string userId, SuggestionState state, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             string AttributeId = state switch
             {

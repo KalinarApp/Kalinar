@@ -1,7 +1,7 @@
 ﻿using Kalinar.Core.Entities;
 using Kalinar.Data.Database;
 
-namespace Kalinar.Test.Seeding
+namespace Kalinar.Test.Integration.Seeding
 {
     internal class Utilities
     {
@@ -14,7 +14,7 @@ namespace Kalinar.Test.Seeding
         public const string ApprovedAbilityId = "9504a1b5-bcc6-41f2-a776-c5b8c2505537";
         public const string PendingAbilityId = "9504a1b5-bcc6-41f2-a776-c5b8c2505538";
         public const string RejectedAbilityId = "9505a1b5-bcc6-41f2-a776-c5b8c2505538";
-        public static readonly List<string> ApprovedAbilityTags = new() { "Test"};
+        public static readonly List<string> ApprovedAbilityTags = new() { "Test" };
 
         public const string ApprovedAttribute1Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505539";
         public const string ApprovedAttribute2Id = "9514a1b5-bcc6-41f2-a776-c5b8c2505539";
@@ -31,6 +31,8 @@ namespace Kalinar.Test.Seeding
 
         public const string CharacterId = "9504a1b5-bcc6-41f2-a776-c5b8c2505547";
 
+        public const string SkilltreeId = "9504a1b5-bcc6-41f2-a776-c5b8c2505548";
+
         public static void SeedDatabase(Context context)
         {
             // Groups
@@ -40,9 +42,9 @@ namespace Kalinar.Test.Seeding
             // Users
 
             UserEntity groupOwner = new() { Id = GroupOwnerUserId, Username = "Owner", Devices = new(), Groups = new() };
-            UserEntity groupMember1 = new() { Id = GroupMember1UserId, Username = "Member", Devices = new(), Groups = new() };         
-            UserEntity groupMember2 = new() { Id = GroupMember2UserId, Username = "Member", Devices = new(), Groups = new() };         
-            UserEntity grouplessUser = new() { Id = GrouplessUserId, Username = "Groupless", Devices = new(), Groups = new() };         
+            UserEntity groupMember1 = new() { Id = GroupMember1UserId, Username = "Member", Devices = new(), Groups = new() };
+            UserEntity groupMember2 = new() { Id = GroupMember2UserId, Username = "Member", Devices = new(), Groups = new() };
+            UserEntity grouplessUser = new() { Id = GrouplessUserId, Username = "Groupless", Devices = new(), Groups = new() };
             context.Users.Add(groupOwner);
             context.Users.Add(groupMember1);
             context.Users.Add(groupMember2);
@@ -106,6 +108,9 @@ namespace Kalinar.Test.Seeding
             //Characters
             CharacterEntity character = new() { Id = new Guid(CharacterId), Name = "Testcharacter", GroupId = group.Id, Group = group, UserId = groupMember1.Id, RaceId = approvedRace.Id, Race = approvedRace, CreatedAt = DateTimeOffset.UtcNow, Skilltrees = new List<SkilltreeEntity>() };
             context.Characters.Add(character);
+
+            SkilltreeEntity skilltree = new() { Id = new Guid(SkilltreeId), CharacterId = character.Id, Character = character, CreatedAt = DateTimeOffset.UtcNow, Points = 0, Name = "Testskilltree", GroupId = group.Id, Group = group, IsActive = true, Edges = new List<SkilltreeEdgeEntity>(), Nodes = new List<SkilltreeNodeEntity>() };
+            context.Skilltrees.Add(skilltree);
 
             context.SaveChanges();
         }

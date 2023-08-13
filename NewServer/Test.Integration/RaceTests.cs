@@ -2,14 +2,13 @@
 using Kalinar.Core.Exceptions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
-using Kalinar.Test.Seeding;
+using Kalinar.Test.Integration.Seeding;
 
-using System.ComponentModel;
 using System.Net;
 
 using Xunit;
 
-namespace Kalinar.Test
+namespace Kalinar.Test.Integration
 {
     public class RaceTests : TestBase
     {
@@ -18,7 +17,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember1UserId, SuggestionState.Pending)]
         public async Task CanCreateRaceWithCorrectSuggestionState(string userId, SuggestionState expectedSuggestionState)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             RaceCreateRequest request = new()
             {
@@ -36,7 +35,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task UserNotInGroupCannotCreateRace()
         {
-            string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
+            string accessToken = GetToken(Utilities.GrouplessUserId)!;
 
             RaceCreateRequest request = new()
             {
@@ -59,7 +58,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanUpdateApprovedRace(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             RaceResponse? response = await this.GetAsync<RaceResponse>($"/api/{ApiVersion}/races/{Utilities.ApprovedRaceId}", accessToken);
 
@@ -95,7 +94,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanUpdatePendingRace(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             RaceResponse? response = await this.GetAsync<RaceResponse>($"/api/{ApiVersion}/races/{Utilities.PendingRaceId}", accessToken);
 
@@ -128,7 +127,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanGetRaceAttributes()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
 
             List<AttributeValueResponse>? response = await this.GetAsync<List<AttributeValueResponse>>($"/api/{ApiVersion}/races/{Utilities.ApprovedRaceId}/attributes", accessToken);
 
@@ -139,7 +138,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanSetRaceAttributes()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
             List<RaceAttributeRequest> data = new()
             {
                 new RaceAttributeRequest()
@@ -162,7 +161,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanNotSetRaceAttributeIfRaceIsApprovedButAttributeIsPending()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
             List<RaceAttributeRequest> data = new()
             {
                 new RaceAttributeRequest()
@@ -186,7 +185,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanApproveRace(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             RaceResponse? response = default;
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<object, RaceResponse>($"/api/{ApiVersion}/races/{Utilities.PendingRaceId}/approve", new(), accessToken));
@@ -213,7 +212,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanRejectRace(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             RejectRequest request = new() { Reason = "Reason" };
 
@@ -250,7 +249,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, SuggestionState.Rejected, false)]
         public async Task CanDeleteRace(string userId, SuggestionState state, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
             string RaceId = state switch
             {
                 SuggestionState.Pending => Utilities.PendingRaceId,

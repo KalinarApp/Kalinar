@@ -5,7 +5,6 @@ using Kalinar.Data.Database;
 using Kalinar.Data.Extensions;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Kalinar.Data.Repositories
 {
@@ -15,7 +14,7 @@ namespace Kalinar.Data.Repositories
 
         public async Task<IEnumerable<SkilltreeNodeEntity>> ListNodesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
-            return await this.context.SkilltreeNodes.Where(item => item.SkilltreeId == skilltreeId).ToListAsync(cancellationToken);
+            return await this.context.SkilltreeNodes.Include(item => item.Skill).Where(item => item.SkilltreeId == skilltreeId).ToListAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<SkilltreeEdgeEntity>> ListEdgesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
@@ -25,7 +24,7 @@ namespace Kalinar.Data.Repositories
 
         public async Task<SkilltreeNodeEntity?> FindNodeByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await this.context.SkilltreeNodes.FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
+            return await this.context.SkilltreeNodes.Include(item => item.Skill).FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
         }
 
         public async Task<SkilltreeEdgeEntity?> FindEdgeByStartAndEndIdAsync(Guid startId, Guid endId, CancellationToken cancellationToken = default)

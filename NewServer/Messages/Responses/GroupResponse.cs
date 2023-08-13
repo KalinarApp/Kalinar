@@ -1,7 +1,5 @@
 ﻿using Kalinar.Core.Entities;
 
-using System.Runtime.CompilerServices;
-
 namespace Kalinar.Messages.Responses
 {
     public class GroupResponse

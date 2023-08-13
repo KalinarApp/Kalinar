@@ -1,13 +1,13 @@
 ﻿using Kalinar.Core.Exceptions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
-using Kalinar.Test.Seeding;
+using Kalinar.Test.Integration.Seeding;
 
 using System.Net;
 
 using Xunit;
 
-namespace Kalinar.Test
+namespace Kalinar.Test.Integration
 {
     public class CharacterTests : TestBase
     {
@@ -17,7 +17,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId)]
         public async Task CanCreateCharacter(string userId)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             CharacterCreateRequest request = new()
             {
@@ -36,7 +36,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CannotCreateCharacterWithPendingRace()
         {
-            string accessToken = this.GetToken(Utilities.GroupMember1UserId)!;
+            string accessToken = GetToken(Utilities.GroupMember1UserId)!;
 
             CharacterCreateRequest request = new()
             {
@@ -60,7 +60,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanUpdateCharacter(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             CharacterResponse? response = await this.GetAsync<CharacterResponse>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}", accessToken);
 
@@ -96,7 +96,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanDeleteCharacter(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             CharacterResponse? response = default;
             Exception? deleteException = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/characters/{Utilities.CharacterId}", accessToken));

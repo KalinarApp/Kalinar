@@ -8,7 +8,6 @@ using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kalinar.Controllers

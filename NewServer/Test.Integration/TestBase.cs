@@ -3,25 +3,25 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Kalinar.Test.Factories;
 using Kalinar.Application.Messages.Responses;
+using Kalinar.Test.Integration.Factories;
 
-namespace Kalinar.Test
+namespace Kalinar.Test.Integration
 {
     public class TestBase : IClassFixture<KalinarWebApplicationFactory<Program>>, IDisposable
     {
         protected const string ApiVersion = "v1";
-        private KalinarWebApplicationFactory<Program> factory;
-        private HttpClient client;
+        private readonly KalinarWebApplicationFactory<Program> factory;
+        private readonly HttpClient client;
 
         // This is a hack to get around the fact that the test server is not disposed of after each test
         public TestBase()
         {
             this.factory = new KalinarWebApplicationFactory<Program>();
             this.client = this.factory.CreateClient();
-        } 
+        }
 
-        public string? GetToken(string userId)
+        public static string? GetToken(string userId)
         {
             return JwtTokenProvider.JwtSecurityTokenHandler.WriteToken(new JwtSecurityToken(
                 JwtTokenProvider.Issuer,
@@ -36,9 +36,7 @@ namespace Kalinar.Test
             where T : class
         {
             if (accessToken is not null)
-            {
                 this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            }
 
             HttpResponseMessage response = await this.client.GetAsync(endpoint);
 
@@ -59,9 +57,7 @@ namespace Kalinar.Test
             where TResponse : class
         {
             if (accessToken is not null)
-            {
                 this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            }
 
             HttpResponseMessage response = await this.client.PostAsJsonAsync(endpoint, data);
 
@@ -81,9 +77,7 @@ namespace Kalinar.Test
             where TRequest : class
         {
             if (accessToken is not null)
-            {
                 this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            }
 
             HttpResponseMessage response = await this.client.PostAsJsonAsync(endpoint, data);
 
@@ -99,9 +93,7 @@ namespace Kalinar.Test
             where TResponse : class
         {
             if (accessToken is not null)
-            {
                 this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            }
 
             HttpResponseMessage response = await this.client.PutAsJsonAsync(endpoint, data);
 
@@ -120,9 +112,7 @@ namespace Kalinar.Test
         public async Task DeleteAsync(string endpoint, string? accessToken = default)
         {
             if (accessToken is not null)
-            {
                 this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            }
 
             HttpResponseMessage response = await this.client.DeleteAsync(endpoint);
 

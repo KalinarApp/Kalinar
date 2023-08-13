@@ -2,7 +2,6 @@
 using Kalinar.Authorization;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
-using Kalinar.Core.Extensions;
 using Kalinar.Extensions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;

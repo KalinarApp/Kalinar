@@ -1,6 +1,4 @@
-﻿using Kalinar.Core.Entities;
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Kalinar.Messages.Requests
 {

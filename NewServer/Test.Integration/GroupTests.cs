@@ -1,20 +1,20 @@
 ﻿using Kalinar.Core.Exceptions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
-using Kalinar.Test.Seeding;
+using Kalinar.Test.Integration.Seeding;
 
 using System.Net;
 
 using Xunit;
 
-namespace Kalinar.Test
+namespace Kalinar.Test.Integration
 {
     public class GroupTests : TestBase
     {
         [Fact]
         public async Task CanCreateGroup()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
             GroupResponse? groupResponse = await this.PostAsync<GroupRequest, GroupResponse>($"/api/{ApiVersion}/groups", new() { Name = "Test", Description = "Testgroup" }, accessToken);
 
             Assert.NotNull(groupResponse);
@@ -28,7 +28,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GrouplessUserId, false)]
         public async Task CanUpdatesGroup(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
             GroupResponse? groupResponse = default;
             Exception? ex = await Record.ExceptionAsync(async () => groupResponse = await this.PutAsync<GroupRequest, GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", new() { Name = "Test2", Description = "Testgroup2" }, accessToken));
 
@@ -54,10 +54,10 @@ namespace Kalinar.Test
         [InlineData(Utilities.GrouplessUserId, false)]
         public async Task CanDeleteGroup(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             GroupResponse? groupResponse = default;
-            Exception? deleteException = await Record.ExceptionAsync(async ()  => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
+            Exception? deleteException = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
             Exception? getException = await Record.ExceptionAsync(async () => groupResponse = await this.GetAsync<GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
 
             if (hasPermissions)
@@ -82,7 +82,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GrouplessUserId, true)]
         public async Task CanJoinGroup(string userId, bool canJoin)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             Exception? joinException = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/join", accessToken: accessToken));
             IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{userId}/groups", accessToken: accessToken);
@@ -106,7 +106,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GrouplessUserId, false)]
         public async Task CanLeaveGroup(string userId, bool canLeave)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             Exception? leaveException = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/leave", accessToken: accessToken));
             IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{userId}/groups", accessToken: accessToken);
@@ -128,7 +128,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GrouplessUserId, false)]
         public async Task TestOwnerCanDeleteGroup(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             Exception? deleteException = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));
             Exception? getException = await Record.ExceptionAsync(async () => await this.GetAsync<GroupResponse>($"/api/{ApiVersion}/groups/{Utilities.GroupId}", accessToken));

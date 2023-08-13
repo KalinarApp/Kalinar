@@ -3,17 +3,15 @@ using Kalinar.Messages.Responses;
 
 using Xunit;
 
-namespace Kalinar.Test
+namespace Kalinar.Test.Integration
 {
     public class UserTests : TestBase
     {
         [Fact]
         public async Task TestUserLifecycle()
         {
-            //this.Initialize();
-
             string userId = Guid.NewGuid().ToString();
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             UserResponse? userResponse = await this.PostAsync<UserCreateRequest, UserResponse>($"/api/{ApiVersion}/users/register", new() { Username = "Test" }, accessToken);
 

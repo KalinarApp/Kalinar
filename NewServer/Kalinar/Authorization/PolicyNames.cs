@@ -34,5 +34,11 @@
         public const string CanCreateCharacter = "CanCreateCharacterPolicy";
         public const string CanUpdateCharacter = "CanUpdateCharacterPolicy";
         public const string CanDeleteCharacter = "CanDeleteCharacterPolicy";
+
+        public const string CanListSkilltrees = "CanListSkilltreesPolicy";
+        public const string CanReadSkilltree = "CanReadSkilltreePolicy";
+        public const string CanCreateSkilltree = "CanCreateSkilltreePolicy";
+        public const string CanUpdateSkilltree = "CanUpdateSkilltreePolicy";
+        public const string CanDeleteSkilltree = "CanDeleteSkilltreePolicy";
     }
 }

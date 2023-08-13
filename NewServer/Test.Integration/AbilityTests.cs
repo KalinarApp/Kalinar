@@ -2,14 +2,13 @@
 using Kalinar.Core.Exceptions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
-using Kalinar.Test.Seeding;
+using Kalinar.Test.Integration.Seeding;
 
-using System.ComponentModel;
 using System.Net;
 
 using Xunit;
 
-namespace Kalinar.Test
+namespace Kalinar.Test.Integration
 {
     public class AbilityTests : TestBase
     {
@@ -19,7 +18,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, SuggestionState.Pending)]
         public async Task CanCreateAbilityWithCorrectSuggestionState(string userId, SuggestionState expectedState)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             AbilityCreateRequest request = new()
             {
@@ -38,7 +37,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task UserNotInGroupCannotCreateAbility()
         {
-            string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
+            string accessToken = GetToken(Utilities.GrouplessUserId)!;
 
             AbilityCreateRequest request = new()
             {
@@ -62,7 +61,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanUpdateApprovedAbility(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             AbilityUpdateRequest request = new()
             {
@@ -94,7 +93,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task GroupAdminCanUpdatePendingAbility(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             AbilityUpdateRequest request = new()
             {
@@ -122,7 +121,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanGetAbilityTags()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
 
             List<string>? response = await this.GetAsync<List<string>>($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}/tags", accessToken);
 
@@ -133,10 +132,10 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanSetAbilityTags()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
-                List<string> data = new List<string> { "Test", "Tag" };
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
+            List<string> data = new() { "Test", "Tag" };
 
-            Exception? ex = await Record.ExceptionAsync(async () => await this.PostAsync<List<string>>($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}/tags", data, accessToken: accessToken));
+            Exception? ex = await Record.ExceptionAsync(async () => await this.PostAsync($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}/tags", data, accessToken: accessToken));
             List<string>? response = await this.GetAsync<List<string>>($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}/tags", accessToken);
 
             Assert.NotNull(response);
@@ -150,7 +149,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanApproveAbility(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             AbilityResponse? response = default;
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<object, AbilityResponse>($"/api/{ApiVersion}/abilities/{Utilities.PendingAbilityId}/approve", new(), accessToken));
@@ -175,7 +174,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanRejectAbility(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             RejectRequest request = new() { Reason = "Reason" };
 
@@ -212,7 +211,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, SuggestionState.Rejected, false)]
         public async Task CanDeleteAbility(string userId, SuggestionState state, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             string abilityId = state switch
             {

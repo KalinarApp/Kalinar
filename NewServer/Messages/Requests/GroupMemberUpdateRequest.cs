@@ -1,5 +1,4 @@
-﻿using Kalinar.Core.Entities;
-using Kalinar.Messages.Attributes;
+﻿using Kalinar.Messages.Attributes;
 
 using System.ComponentModel.DataAnnotations;
 

@@ -2,7 +2,7 @@
 
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Kalinar.Test.Factories
+namespace Kalinar.Test.Integration.Factories
 {
     internal class JwtTokenProvider
     {

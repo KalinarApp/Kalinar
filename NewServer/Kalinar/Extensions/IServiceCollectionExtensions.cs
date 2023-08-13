@@ -2,7 +2,6 @@
 using Kalinar.Authorization.Actions;
 using Kalinar.Authorization.Handlers;
 using Kalinar.Authorization.Requirements;
-using Kalinar.Core.Entities;
 using Kalinar.ErrorHandling;
 using Kalinar.Options;
 
@@ -28,6 +27,7 @@ namespace Kalinar.Application.Extensions
             serviceCollection.AddSingleton<IAuthorizationHandler, SkillHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, RaceHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, CharacterHandler>();
+            serviceCollection.AddSingleton<IAuthorizationHandler, SkilltreeHandler>();
 
             serviceCollection.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
             serviceCollection.AddAuthorization(options =>
@@ -62,6 +62,12 @@ namespace Kalinar.Application.Extensions
                 options.AddPolicy(PolicyNames.CanReadCharacter, policy => policy.AddRequirements(new CharacterRequirement(CharacterAction.Read)));
                 options.AddPolicy(PolicyNames.CanUpdateCharacter, policy => policy.AddRequirements(new CharacterRequirement(CharacterAction.Update)));
                 options.AddPolicy(PolicyNames.CanDeleteCharacter, policy => policy.AddRequirements(new CharacterRequirement(CharacterAction.Delete)));
+
+                options.AddPolicy(PolicyNames.CanListSkilltrees, policy => policy.AddRequirements(new SkilltreeRequirement(SkilltreeAction.List)));
+                options.AddPolicy(PolicyNames.CanReadSkilltree, policy => policy.AddRequirements(new SkilltreeRequirement(SkilltreeAction.Read)));
+                options.AddPolicy(PolicyNames.CanCreateSkilltree, policy => policy.AddRequirements(new SkilltreeRequirement(SkilltreeAction.Create)));
+                options.AddPolicy(PolicyNames.CanUpdateSkilltree, policy => policy.AddRequirements(new SkilltreeRequirement(SkilltreeAction.Update)));
+                options.AddPolicy(PolicyNames.CanDeleteSkilltree, policy => policy.AddRequirements(new SkilltreeRequirement(SkilltreeAction.Delete)));
             });
         }
 

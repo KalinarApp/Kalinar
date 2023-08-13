@@ -2,14 +2,13 @@
 using Kalinar.Core.Exceptions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
-using Kalinar.Test.Seeding;
+using Kalinar.Test.Integration.Seeding;
 
-using System.ComponentModel;
 using System.Net;
 
 using Xunit;
 
-namespace Kalinar.Test
+namespace Kalinar.Test.Integration
 {
     public class SkillTests : TestBase
     {
@@ -18,7 +17,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember1UserId, SuggestionState.Pending)]
         public async Task CanCreateSkillWithCorrectSuggestionState(string userId, SuggestionState expectedSuggestionState)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             SkillCreateRequest request = new()
             {
@@ -36,7 +35,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task UserNotInGroupCannotCreateSkill()
         {
-            string accessToken = this.GetToken(Utilities.GrouplessUserId)!;
+            string accessToken = GetToken(Utilities.GrouplessUserId)!;
 
             SkillCreateRequest request = new()
             {
@@ -59,7 +58,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanUpdateApprovedSkill(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             SkillResponse? response = await this.GetAsync<SkillResponse>($"/api/{ApiVersion}/skills/{Utilities.ApprovedSkillId}", accessToken);
 
@@ -98,7 +97,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanUpdatePendingSkill(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             SkillResponse? response = await this.GetAsync<SkillResponse>($"/api/{ApiVersion}/skills/{Utilities.PendingSkillId}", accessToken);
 
@@ -134,7 +133,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanNotUpdateApprovedSkillIfAbilityIsPending()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
 
             SkillUpdateRequest request = new()
             {
@@ -154,7 +153,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanGetSkillAttributes()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
 
             List<AttributeValueResponse>? response = await this.GetAsync<List<AttributeValueResponse>>($"/api/{ApiVersion}/skills/{Utilities.ApprovedSkillId}/attributes", accessToken);
 
@@ -165,7 +164,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanSetSkillAttributes()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
             List<SkillAttributeRequest> data = new()
             {
                 new SkillAttributeRequest()
@@ -188,7 +187,7 @@ namespace Kalinar.Test
         [Fact]
         public async Task CanNotSetSkillAttributeIfSkillIsApprovedButAttributeIsPending()
         {
-            string accessToken = this.GetToken(Utilities.GroupOwnerUserId)!;
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
             List<SkillAttributeRequest> data = new()
             {
                 new SkillAttributeRequest()
@@ -212,7 +211,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanApproveSkill(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             SkillResponse? response = default;
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<object, SkillResponse>($"/api/{ApiVersion}/skills/{Utilities.PendingSkillId}/approve", new(), accessToken));
@@ -240,7 +239,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, false)]
         public async Task CanRejectSkill(string userId, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
 
             RejectRequest request = new() { Reason = "Reason" };
 
@@ -277,7 +276,7 @@ namespace Kalinar.Test
         [InlineData(Utilities.GroupMember2UserId, SuggestionState.Rejected, false)]
         public async Task CanDeleteSkill(string userId, SuggestionState state, bool hasPermissions)
         {
-            string accessToken = this.GetToken(userId)!;
+            string accessToken = GetToken(userId)!;
             string skillId = state switch
             {
                 SuggestionState.Pending => Utilities.PendingSkillId,
