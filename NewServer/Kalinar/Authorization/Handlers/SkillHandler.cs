@@ -30,7 +30,7 @@ namespace Kalinar.Authorization.Handlers
             {
                 case SkillAction.SetAttributes:
                 {
-                    if (group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }))
+                    if (group.HasMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }))
                     {
                         context.Succeed(requirement);
                         return;

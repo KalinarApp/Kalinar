@@ -28,5 +28,11 @@
         public const string CanSetAbilityTags = "CanSetAbilityTagsPolicy";
         public const string CanSetSkillAttributes = "CanSetSkillAttributesPolicy";
         public const string CanSetRaceAttributes = "CanSetRaceAttributesPolicy";
+
+        public const string CanListCharacters = "CanListCharactersPolicy";
+        public const string CanReadCharacter = "CanReadCharacterPolicy";
+        public const string CanCreateCharacter = "CanCreateCharacterPolicy";
+        public const string CanUpdateCharacter = "CanUpdateCharacterPolicy";
+        public const string CanDeleteCharacter = "CanDeleteCharacterPolicy";
     }
 }

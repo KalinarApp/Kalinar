@@ -2,7 +2,6 @@
 using Kalinar.Authorization;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
-using Kalinar.Core.Extensions;
 using Kalinar.Extensions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
@@ -29,7 +28,7 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SkillResponse>>> ListAsync([FromQuery] Guid? groupId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<SkillResponse>>> ListAsync([FromQuery] Guid? groupId, [FromQuery] bool? approved = default, CancellationToken cancellationToken = default)
         {
             // ToDo: Implement an overall administrator role which than can view all skill.
             if (groupId is null) throw new ForbiddenAccessException("User is not allowed to view this resource");
@@ -37,7 +36,7 @@ namespace Kalinar.Controllers
             GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSuggestables);
 
-            IEnumerable<SkillEntity> skills = await this.skillsService.ListAsync(groupId.Value, cancellationToken);
+            IEnumerable<SkillEntity> skills = await this.skillsService.ListAsync(groupId.Value, approved, cancellationToken);
 
             return this.Ok(skills.Select(item => (SkillResponse)item));
         }

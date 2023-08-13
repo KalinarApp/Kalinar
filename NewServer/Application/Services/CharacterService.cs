@@ -33,6 +33,8 @@ namespace Kalinar.Application.Services
             GroupEntity group = await this.groupService.GetByIdAsync(request.GroupId, true, cancellationToken);
             RaceEntity race = await this.raceService.GetByIdAsync(request.RaceId, cancellationToken);
 
+            if (race.State != SuggestionState.Approved) throw new RaceNotApprovedException(race.Name);
+
             CharacterEntity character = new()
             {
                 Id = Guid.NewGuid(),
@@ -50,7 +52,7 @@ namespace Kalinar.Application.Services
                 Relationship = request.Relationship,
                 Notes = request.Notes,
                 Profession = request.Profession,
-                Skilltrees = new(),
+                Skilltrees = new List<SkilltreeEntity>(),
                 CreatedAt = DateTime.UtcNow,
             };
 

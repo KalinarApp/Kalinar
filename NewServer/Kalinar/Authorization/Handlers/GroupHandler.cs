@@ -21,14 +21,14 @@ namespace Kalinar.Authorization.Handlers
                     context.Succeed(requirement);
                     return Task.CompletedTask;
                 }
-                case GroupAction.Update when group is not null && group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }):
-                case GroupAction.Delete when group is not null && group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }):
+                case GroupAction.Update when group is not null && group.HasMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }):
+                case GroupAction.Delete when group is not null && group.HasMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator }):
                 {
                     context.Succeed(requirement);
                     return Task.CompletedTask;
                 }
-                case GroupAction.List when group is not null && group.IsMember(userId):
-                case GroupAction.Read when group is not null && group.IsMember(userId):
+                case GroupAction.List when group is not null && group.HasMember(userId):
+                case GroupAction.Read when group is not null && group.HasMember(userId):
                 {
                     context.Succeed(requirement);
                     return Task.CompletedTask;

@@ -16,6 +16,6 @@
         public string? Profession { get; set; }
 
         public required RaceEntity Race { get; set; }
-        public required List<SkilltreeEntity> Skilltrees { get; init; }
+        public required IEnumerable<SkilltreeEntity> Skilltrees { get; init; }
     }
 }

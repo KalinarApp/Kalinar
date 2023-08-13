@@ -29,14 +29,14 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AbilityResponse>>> ListAsync([FromQuery]Guid? groupId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<AbilityResponse>>> ListAsync([FromQuery]Guid? groupId, [FromQuery] bool? approved = default, CancellationToken cancellationToken = default)
         {
             // ToDo: Implement an overall administrator role which than can view all abilities.
             if (groupId is null) throw new ForbiddenAccessException("User is not allowed to view this resource");
             GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSuggestables);
 
-            IEnumerable<AbilityEntity> abilities = await this.abilityService.ListAsync(groupId.Value, cancellationToken);
+            IEnumerable<AbilityEntity> abilities = await this.abilityService.ListAsync(groupId.Value, approved, cancellationToken);
 
             return this.Ok(abilities.Select(item => (AbilityResponse)item));
         }
@@ -58,9 +58,7 @@ namespace Kalinar.Controllers
             AbilityEntity ability = await this.abilityService.GetByIdAsync(abilityId, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, ability, PolicyNames.CanReadSuggestable);
 
-            AbilityResponse response = await this.abilityService.GetByIdAsync(abilityId, cancellationToken);
-
-            return this.Ok(response);
+            return this.Ok((AbilityResponse)ability);
         }
 
         [HttpPost]
@@ -68,8 +66,6 @@ namespace Kalinar.Controllers
         {
             string userId = this.User.GetId();
             GroupEntity group = await this.groupService.GetByIdAsync(request.GroupId, true, cancellationToken);
-            if (!group.IsMember(userId)) throw new ForbiddenAccessException("User is not allowed to view this resource");
-
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSuggestable);
 
             AbilityResponse response = await this.abilityService.CreateAsync(userId, request, cancellationToken);

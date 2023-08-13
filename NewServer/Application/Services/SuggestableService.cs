@@ -17,7 +17,7 @@ namespace Kalinar.Application.Services
         {
             GroupEntity group = await this.groupService.GetByIdAsync(entity.GroupId, true, cancellationToken);
 
-            bool isAdmin = group.IsMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator });
+            bool isAdmin = group.HasMemberWithAnyRole(userId, new[] { Role.Owner, Role.Administrator });
 
             entity.State = isAdmin ? SuggestionState.Approved : SuggestionState.Pending;
         } 

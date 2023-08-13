@@ -5,7 +5,7 @@ namespace Kalinar.Application.Contracts
 {
     public interface IRaceService
     {
-        Task<IEnumerable<RaceEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<RaceEntity>> ListAsync(Guid groupId, bool? approved = default, CancellationToken cancellationToken = default);
         Task<IEnumerable<RaceAttributeEntity>> ListAttributesAsync(Guid skillId, CancellationToken cancellationToken = default);
         Task<RaceEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<RaceEntity> CreateAsync(string userId, RaceCreateRequest request, CancellationToken cancellationToken = default);

@@ -17,11 +17,10 @@ namespace Kalinar.Application.Services
             this.userService = userService;
         }
 
-        
-
-        public Task<IEnumerable<AbilityEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<AbilityEntity>> ListAsync(Guid groupId, bool? approved = default, CancellationToken cancellationToken = default)
         {
-            return this.abilityRepository.ListByGroupIdAsync(groupId, cancellationToken);
+            IEnumerable<AbilityEntity> items = await this.abilityRepository.ListByGroupIdAsync(groupId, cancellationToken);
+            return items.Where(item => approved is null || (item.State == SuggestionState.Approved) == approved);
         }
 
         public async Task<IEnumerable<AbilityTagEntity>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default)

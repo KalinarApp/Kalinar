@@ -13,7 +13,7 @@ namespace Kalinar.Authorization.Handlers
         {
             string userId = context.User.GetId();
 
-            if (group.IsMember(userId))
+            if (group.HasMember(userId))
             {
                 context.Succeed(requirement);
             }

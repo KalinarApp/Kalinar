@@ -29,6 +29,8 @@ namespace Kalinar.Test.Seeding
         public const string PendingRaceId = "9504a1b5-bcc6-41f2-a776-c5b8c2505545";
         public const string RejectedRaceId = "9504a1b5-bcc6-41f2-a776-c5b8c2505546";
 
+        public const string CharacterId = "9504a1b5-bcc6-41f2-a776-c5b8c2505547";
+
         public static void SeedDatabase(Context context)
         {
             // Groups
@@ -100,6 +102,10 @@ namespace Kalinar.Test.Seeding
             RaceAttributeEntity pendingRaceAttribute = new() { RaceId = pendingRace.Id, Race = pendingRace, AttributeId = pendingAttribute.Id, Attribute = pendingAttribute, Value = 1 };
             context.RaceAttributes.Add(approvedRaceAttribute);
             context.RaceAttributes.Add(pendingRaceAttribute);
+
+            //Characters
+            CharacterEntity character = new() { Id = new Guid(CharacterId), Name = "Testcharacter", GroupId = group.Id, Group = group, UserId = groupMember1.Id, RaceId = approvedRace.Id, Race = approvedRace, CreatedAt = DateTimeOffset.UtcNow, Skilltrees = new List<SkilltreeEntity>() };
+            context.Characters.Add(character);
 
             context.SaveChanges();
         }

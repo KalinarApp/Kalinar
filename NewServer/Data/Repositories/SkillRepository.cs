@@ -15,6 +15,11 @@ namespace Kalinar.Data.Repositories
             return await context.Skills.Include(item => item.Ability).ToListAsync(cancellationToken);
         }
 
+        public override async Task<IEnumerable<SkillEntity>> ListByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.Skills.Where(item => item.GroupId == groupId).Include(item => item.Ability).ToListAsync(cancellationToken);
+        }
+
         public override async Task<SkillEntity?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await context.Skills.Include(item => item.Ability).FirstOrDefaultAsync(item => item.Id == id, cancellationToken);

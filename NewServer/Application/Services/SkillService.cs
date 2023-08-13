@@ -21,9 +21,10 @@ namespace Kalinar.Application.Services
             this.userService = userService;
         }
 
-        public async Task<IEnumerable<SkillEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<SkillEntity>> ListAsync(Guid groupId, bool? approved = default, CancellationToken cancellationToken = default)
         {
-            return await this.skillRepository.ListByGroupIdAsync(groupId, cancellationToken);
+            IEnumerable<SkillEntity> items = await this.skillRepository.ListByGroupIdAsync(groupId, cancellationToken);
+            return items.Where(item => approved is null ||(item.State == SuggestionState.Approved) == approved);
         }
 
         public async Task<IEnumerable<SkillAttributeEntity>> ListAttributesAsync(Guid skillId, CancellationToken cancellationToken = default)

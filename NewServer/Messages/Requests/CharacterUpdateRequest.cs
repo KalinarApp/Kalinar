@@ -1,13 +1,9 @@
-﻿using Kalinar.Core.Entities;
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Kalinar.Messages.Requests
 {
     public class CharacterUpdateRequest
     {
-        [Required]
-        public required Guid RaceId { get; init; }
         [Required]
         [MaxLength(128, ErrorMessage = $"{nameof(Name)} cannot be longer than 128 characters")]
         public required string Name { get; set; }

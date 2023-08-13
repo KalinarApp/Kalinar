@@ -19,9 +19,10 @@ namespace Kalinar.Application.Services
             this.attributeService = attributeService;
         }
 
-        public async Task<IEnumerable<RaceEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<RaceEntity>> ListAsync(Guid groupId, bool? approved = default, CancellationToken cancellationToken = default)
         {
-            return await this.raceRepository.ListByGroupIdAsync(groupId, cancellationToken);
+            IEnumerable<RaceEntity> items = await this.raceRepository.ListByGroupIdAsync(groupId, cancellationToken);
+            return items.Where(item => approved is null ||(item.State == SuggestionState.Approved) == approved);
         }
 
         public async Task<IEnumerable<RaceAttributeEntity>> ListAttributesAsync(Guid skillId, CancellationToken cancellationToken = default)

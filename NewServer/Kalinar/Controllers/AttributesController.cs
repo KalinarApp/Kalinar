@@ -30,14 +30,14 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AttributeResponse>>> ListAsync([FromQuery] Guid? groupId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<AttributeResponse>>> ListAsync([FromQuery] Guid? groupId, [FromQuery] bool? approved = default, CancellationToken cancellationToken = default)
         {
             // ToDo: Implement an overall administrator role which than can view all attributes.
             if (groupId is null) throw new ForbiddenAccessException("User is not allowed to view this resource");
             GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSuggestables);
 
-            IEnumerable<AttributeEntity> abilities = await this.attributesService.ListAsync(groupId.Value, cancellationToken);
+            IEnumerable<AttributeEntity> abilities = await this.attributesService.ListAsync(groupId.Value, approved, cancellationToken);
 
             return this.Ok(abilities.Select(item => (AttributeResponse)item));
         }
@@ -58,7 +58,7 @@ namespace Kalinar.Controllers
         {
             string userId = this.User.GetId();
             GroupEntity group = await this.groupService.GetByIdAsync(request.GroupId, true, cancellationToken);
-            if (!group.IsMember(userId)) throw new ForbiddenAccessException("User is not allowed to view this resource");
+            if (!group.HasMember(userId)) throw new ForbiddenAccessException("User is not allowed to view this resource");
 
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSuggestable);
 

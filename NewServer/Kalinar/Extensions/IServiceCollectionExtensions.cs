@@ -27,6 +27,7 @@ namespace Kalinar.Application.Extensions
             serviceCollection.AddSingleton<IAuthorizationHandler, AbilityHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, SkillHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, RaceHandler>();
+            serviceCollection.AddSingleton<IAuthorizationHandler, CharacterHandler>();
 
             serviceCollection.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
             serviceCollection.AddAuthorization(options =>
@@ -55,6 +56,12 @@ namespace Kalinar.Application.Extensions
                 options.AddPolicy(PolicyNames.CanSetAbilityTags, policy => policy.AddRequirements(new AbilityRequirement(AbilityAction.SetTags)));
                 options.AddPolicy(PolicyNames.CanSetSkillAttributes, policy => policy.AddRequirements(new SkillRequirement(SkillAction.SetAttributes)));
                 options.AddPolicy(PolicyNames.CanSetRaceAttributes, policy => policy.AddRequirements(new RaceRequirement(RaceAction.SetAttributes)));
+
+                options.AddPolicy(PolicyNames.CanListCharacters, policy => policy.AddRequirements(new IsInGroupRequirement()));
+                options.AddPolicy(PolicyNames.CanCreateCharacter, policy => policy.AddRequirements(new IsInGroupRequirement()));
+                options.AddPolicy(PolicyNames.CanReadCharacter, policy => policy.AddRequirements(new CharacterRequirement(CharacterAction.Read)));
+                options.AddPolicy(PolicyNames.CanUpdateCharacter, policy => policy.AddRequirements(new CharacterRequirement(CharacterAction.Update)));
+                options.AddPolicy(PolicyNames.CanDeleteCharacter, policy => policy.AddRequirements(new CharacterRequirement(CharacterAction.Delete)));
             });
         }
 

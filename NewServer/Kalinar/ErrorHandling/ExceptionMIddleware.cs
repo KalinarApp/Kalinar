@@ -57,6 +57,7 @@ namespace Kalinar.ErrorHandling
                 UserAlreadyInGroupException => (int)HttpStatusCode.Conflict,
                 AbilityNotApprovedException => (int)HttpStatusCode.Conflict,
                 AttributeNotApprovedException => (int)HttpStatusCode.Conflict,
+                RaceNotApprovedException => (int)HttpStatusCode.Conflict,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

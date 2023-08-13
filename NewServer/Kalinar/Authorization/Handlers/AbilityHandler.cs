@@ -30,7 +30,7 @@ namespace Kalinar.Authorization.Handlers
             {
                 case AbilityAction.SetTags:
                 {
-                    if (group.IsMember(userId))
+                    if (group.HasMember(userId))
                     {
                         context.Succeed(requirement);
                         return;
