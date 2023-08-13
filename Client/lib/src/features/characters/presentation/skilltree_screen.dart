@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/action_menu.dart';
-import '../../../utilities/async_value_extension.dart';
+import '../../../utils/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
 import '../../group_management/application/group_notifier.dart';
 import '../../traits/application/controller/skills_controller.dart';

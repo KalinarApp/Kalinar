@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common_widgets/action_menu.dart';
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/async_value_extension.dart';
 import '../../application/controllers/character_controller.dart';
 import '../../application/controllers/character_overview_controller.dart';
 import '../../domain/character_overview.dart';

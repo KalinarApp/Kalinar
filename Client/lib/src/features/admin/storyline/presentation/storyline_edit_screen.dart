@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/save_button.dart';
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/async_value_extension.dart';
 import '../application/story_entries_controller.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_type.dart';

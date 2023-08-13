@@ -14,22 +14,22 @@ final traitsRoutes = GoRoute(
     GoRoute(
       name: EditAbilityScreen.name,
       path: EditAbilityScreen.route,
-      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditAbilityScreen(state.queryParameters["id"])),
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditAbilityScreen(state.uri.queryParameters["id"])),
     ),
     GoRoute(
       name: EditAttributeScreen.name,
       path: EditAttributeScreen.route,
-      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditAttributeScreen(state.queryParameters["id"])),
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditAttributeScreen(state.uri.queryParameters["id"])),
     ),
     GoRoute(
       name: EditSkillScreen.name,
       path: EditSkillScreen.route,
-      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditSkillScreen(state.queryParameters["id"])),
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditSkillScreen(state.uri.queryParameters["id"])),
     ),
     GoRoute(
       name: EditRaceScreen.name,
       path: EditRaceScreen.route,
-      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditRaceScreen(state.queryParameters["id"])),
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: EditRaceScreen(state.uri.queryParameters["id"])),
     ),
   ],
 );

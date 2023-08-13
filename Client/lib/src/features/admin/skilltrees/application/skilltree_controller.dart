@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -41,8 +42,12 @@ class SkilltreeController extends StateNotifier<SkilltreeState> {
     List<Edge> edges = [];
     for (final node in state.skilltree.nodes) {
       for (final id in node.successors) {
-        final edge = Edge(start: node, end: state.skilltree.nodes.firstWhere((element) => element.id == id));
-        edges.add(edge);
+        final end = state.skilltree.nodes.firstWhereOrNull((element) => element.id == id);
+
+        if (end != null) {
+          final edge = Edge(start: node, end: end);
+          edges.add(edge);
+        }
       }
     }
 

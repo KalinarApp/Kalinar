@@ -7,7 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mime/mime.dart';
 
-import '../../utilities/image_repository.dart';
+import '../../utils/image_repository.dart';
 
 class DropableImagePicker extends ConsumerWidget {
   final String name;

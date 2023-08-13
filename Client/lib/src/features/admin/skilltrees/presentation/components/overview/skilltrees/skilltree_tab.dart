@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../../../common_widgets/action_menu.dart';
 import '../../../../../../../common_widgets/loading_indicator.dart';
 import '../../../../../../../common_widgets/modal.dart';
-import '../../../../../../../utilities/async_value_extension.dart';
+import '../../../../../../../utils/async_value_extension.dart';
 import '../../../../application/skilltree_controller.dart';
 import '../../../../application/skilltree_list_controller.dart';
 import '../../../../domain/skilltree_overview.dart';

@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kalinar/src/utilities/hooks/rounded_loading_button_controller_hook.dart';
+import 'package:kalinar/src/utils/hooks/rounded_loading_button_controller_hook.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-import '../../../utilities/async_value_extension.dart';
+import '../../../utils/async_value_extension.dart';
 import '../application/controllers/character_controller.dart';
 import '../domain/character.dart';
 import 'character_detail_screen.dart';

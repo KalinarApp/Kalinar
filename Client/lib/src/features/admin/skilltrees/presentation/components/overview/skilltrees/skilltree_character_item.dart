@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../../../utilities/async_value_extension.dart';
+import '../../../../../../../utils/async_value_extension.dart';
 import '../../../../../../characters/domain/character_overview.dart';
 import '../../../../application/skilltree_controller.dart';
 import '../../../../domain/skilltree_overview.dart';

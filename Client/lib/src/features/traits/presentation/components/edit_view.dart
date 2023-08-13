@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/async_value_extension.dart';
 import '../../../authentication/application/user_notifier.dart';
 import '../../application/controller/traits_controller.dart';
 import '../../domain/suggestable.dart';

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../common_widgets/user_menu.dart';
-import '../../../utilities/async_value_extension.dart';
-import '../../home/presentation/home_screen.dart';
+import '../../../utils/async_value_extension.dart';
 import '../application/invite_controller.dart';
 
 class UserInviteScreen extends ConsumerStatefulWidget {
@@ -37,7 +35,7 @@ class _UserInviteScreenState extends ConsumerState<UserInviteScreen> {
         btnController.error();
         Future.delayed(const Duration(seconds: 3), () => btnController.reset());
       } else {
-        GoRouter.of(context).goNamed(HomeScreen.name);
+        GoRouter.of(context).goNamed('/home');
       }
     });
   }

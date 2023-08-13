@@ -5,17 +5,17 @@ import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:kalinar/src/routing/app_router.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:store_checker/store_checker.dart';
 
-import '../features/group_management/data/user_repository.dart';
-import '../utilities/router/routes.dart';
-import 'messages/message_type.dart';
-import 'messages/welcome_message.dart';
+import 'common_widgets/messages/message_type.dart';
+import 'common_widgets/messages/welcome_message.dart';
+import 'features/group_management/data/user_repository.dart';
 
 class Kalinar extends ConsumerStatefulWidget {
   const Kalinar({super.key});
@@ -76,24 +76,26 @@ class _KalinarState extends ConsumerState<Kalinar> {
   Widget build(BuildContext context) {
     _checkForUpdate();
 
+    final router = ref.watch(goRouterProvider);
     return OverlaySupport.global(
       child: MaterialApp.router(
-          builder: (context, child) => MediaQuery(
-              // Temporary fix for https://github.com/AbdulRahmanAlHamali/flutter_typeahead/issues/463
-              data: MediaQuery.of(context).copyWith(accessibleNavigation: false),
-              child: child!),
-          onGenerateTitle: (ctx) => AppLocalizations.of(ctx)!.applicationTitle,
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
-          debugShowCheckedModeBanner: false,
-          supportedLocales: const [Locale("de"), Locale("en")],
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            FormBuilderLocalizations.delegate,
-            FirebaseUILocalizations.delegate,
-            ...GlobalMaterialLocalizations.delegates,
-          ],
-          routerConfig: ref.watch(routeProvider)),
+        routerConfig: router,
+        builder: (context, child) => MediaQuery(
+            // Temporary fix for https://github.com/AbdulRahmanAlHamali/flutter_typeahead/issues/463
+            data: MediaQuery.of(context).copyWith(accessibleNavigation: false),
+            child: child!),
+        onGenerateTitle: (ctx) => AppLocalizations.of(ctx)!.applicationTitle,
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+        supportedLocales: const [Locale("de"), Locale("en")],
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          FormBuilderLocalizations.delegate,
+          FirebaseUILocalizations.delegate,
+          ...GlobalMaterialLocalizations.delegates,
+        ],
+      ),
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
 import '../../../../../common_widgets/node_tile.dart';
-import '../../../../../utilities/async_value_extension.dart';
+import '../../../../../utils/async_value_extension.dart';
 import '../../../../group_management/application/group_notifier.dart';
 import '../../../application/controller/skills_controller.dart';
 import '../../../application/notifier/skills_state_notifier.dart';

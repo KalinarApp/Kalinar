@@ -43,7 +43,7 @@ class DesktopNavigation extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final characters = ref.watch(orderedCharactersStateProvider);
 
-    final selectedOrFirst = tabs.where((element) => GoRouter.of(context).location == element.route).firstOrNull ?? tabs.first;
+    final selectedOrFirst = tabs.where((element) => GoRouterState.of(context).uri.toString() == element.route).firstOrNull ?? tabs.first;
 
     ref.listen(charactersStateProvider, (_, characters) {
       ref.read(orderedCharactersStateProvider.notifier).load(characters);
@@ -75,7 +75,7 @@ class DesktopNavigation extends HookConsumerWidget {
                         child: DesktopNavigationItem(
                             title: selectedOrFirst.title,
                             icon: Icon(selectedOrFirst.icon),
-                            isSelected: GoRouter.of(context).location == selectedOrFirst.route,
+                            isSelected: GoRouterState.of(context).uri.toString() == selectedOrFirst.route,
                             onTap: () => context.go(selectedOrFirst.route)),
                       ),
                       secondChild: Column(
@@ -85,7 +85,7 @@ class DesktopNavigation extends HookConsumerWidget {
                               (e) => DesktopNavigationItem(
                                 title: e.title,
                                 icon: Icon(e.icon),
-                                isSelected: GoRouter.of(context).location == e.route,
+                                isSelected: GoRouterState.of(context).uri.toString() == e.route,
                                 onTap: () => context.go(e.route),
                               ),
                             )
@@ -111,7 +111,7 @@ class DesktopNavigation extends HookConsumerWidget {
                     index: index,
                     child: DesktopNavigationItem(
                       title: characters[index].name,
-                      isSelected: GoRouter.of(context).location == "${CharacterOverviewScreen.route}/${characters[index].id}",
+                      isSelected: GoRouterState.of(context).uri.toString() == "${CharacterOverviewScreen.route}/${characters[index].id}",
                       image: null != characters[index].iconUrl ? CachedNetworkImageProvider(characters[index].iconUrl!) : null,
                       onTap: () => context.goNamed(CharacterDetailScreen.name, pathParameters: {"id": characters[index].id}),
                       // onSecondaryTap: (details) => _showCharacterContextMenu(context, characters[index], details.globalPosition),

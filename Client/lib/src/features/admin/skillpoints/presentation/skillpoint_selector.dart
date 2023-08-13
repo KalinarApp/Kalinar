@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/async_value_extension.dart';
 import '../../skilltrees/domain/skilltree_overview.dart';
 import '../application/characters_controller.dart';
 

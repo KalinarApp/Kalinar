@@ -8,6 +8,7 @@
 
 #include <desktop_drop/desktop_drop_plugin.h>
 #include <desktop_webview_auth/desktop_webview_auth_plugin.h>
+#include <file_selector_windows/file_selector_windows.h>
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <pasteboard/pasteboard_plugin.h>
 #include <sentry_flutter/sentry_flutter_plugin.h>
@@ -18,6 +19,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("DesktopDropPlugin"));
   DesktopWebviewAuthPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("DesktopWebviewAuthPlugin"));
+  FileSelectorWindowsRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FileSelectorWindows"));
   FirebaseCorePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
   PasteboardPluginRegisterWithRegistrar(

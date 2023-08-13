@@ -2,11 +2,6 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kalinar/src/features/authentication/application/user_controller.dart';
-import 'package:kalinar/src/features/authentication/application/user_notifier.dart';
-import 'package:kalinar/src/utilities/constants.dart';
-import 'package:kalinar/src/utilities/router/routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthScreen extends ConsumerWidget {
   static const String name = "Login";
@@ -16,25 +11,25 @@ class AuthScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(firebaseAuthProvider, (previous, next) async {
-      if (next.hasValue) {
-        final token = await next.value!.getIdTokenResult();
-        String? groupId;
+    // ref.listen(firebaseAuthProvider, (previous, next) async {
+    //   if (next.hasValue) {
+    //     final token = await next.value!.getIdTokenResult();
+    //     String? groupId;
 
-        if (!(token.claims?.containsKey("groups") ?? false)) {
-          ref.read(userControllerProvider).getCurrentUser();
-          final user = ref.read(userNotifierProvider).user;
-          groupId = user?.ownedGroup?.id ?? user?.group?.id;
-        } else {
-          groupId = token.claims!["groups"].first.toString();
-        }
+    //     if (!(token.claims?.containsKey("groups") ?? false)) {
+    //       ref.read(userControllerProvider).getCurrentUser();
+    //       final user = ref.read(userNotifierProvider).user;
+    //       groupId = user?.ownedGroup?.id ?? user?.group?.id;
+    //     } else {
+    //       groupId = token.claims!["groups"].first.toString();
+    //     }
 
-        if (null != groupId) {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.setString(Constants.currentGroupKey, groupId);
-        }
-      }
-    });
+    //     if (null != groupId) {
+    //       final prefs = await SharedPreferences.getInstance();
+    //       prefs.setString(Constants.currentGroupKey, groupId);
+    //     }
+    //   }
+    // });
 
     return SignInScreen(
       providers: [

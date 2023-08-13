@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common_widgets/user_menu.dart';
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/async_value_extension.dart';
 import '../application/story_entries_controller.dart';
 import '../application/story_entries_state_notifier.dart';
 import 'components/reorderable_entry_list.dart';

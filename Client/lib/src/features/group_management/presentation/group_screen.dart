@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../common_widgets/user_menu.dart';
-import '../../../utilities/async_value_extension.dart';
+import '../../../utils/async_value_extension.dart';
 import '../../admin/common/application/group_info_controller.dart';
 import 'create_group.dart';
 import 'user_invite_screen.dart';

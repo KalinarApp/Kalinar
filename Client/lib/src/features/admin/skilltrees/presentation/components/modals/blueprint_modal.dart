@@ -7,7 +7,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../../../common_widgets/form_fields/content_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
-import '../../../../../../utilities/async_value_extension.dart';
+import '../../../../../../utils/async_value_extension.dart';
 import '../../../application/skilltree_controller.dart';
 
 class BlueprintModal extends ConsumerStatefulWidget {

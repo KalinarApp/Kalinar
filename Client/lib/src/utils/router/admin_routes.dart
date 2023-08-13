@@ -41,9 +41,9 @@ final adminSkilltreeRoutes = GoRoute(
         pageBuilder: (context, state) => NoTransitionPage(
             key: state.pageKey,
             child: SkilltreeBuilderScreen(
-              skilltreeId: state.queryParameters["skilltreeId"],
-              blueprintId: state.queryParameters["blueprintId"],
-              blueprintAsNew: state.queryParameters.containsKey("asNew"),
+              skilltreeId: state.uri.queryParameters["skilltreeId"],
+              blueprintId: state.uri.queryParameters["blueprintId"],
+              blueprintAsNew: state.uri.queryParameters.containsKey("asNew"),
             )),
       ),
     ]);
@@ -56,7 +56,7 @@ final adminStorylineRoutes = GoRoute(
     GoRoute(
       name: StorylineEditScreen.name,
       path: StorylineEditScreen.route,
-      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: StorylineEditScreen(state.queryParameters["id"])),
+      pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: StorylineEditScreen(state.uri.queryParameters["id"])),
     ),
     GoRoute(
         name: StorylineDetailScreen.name,
@@ -68,7 +68,7 @@ final adminStorylineRoutes = GoRoute(
             path: PageEditorScreen.route,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: PageEditorScreen(state.queryParameters["id"], state.pathParameters["id"]),
+              child: PageEditorScreen(state.uri.queryParameters["id"], state.pathParameters["id"]),
             ),
           )
         ])

@@ -7,7 +7,6 @@ import '../../../kalinar_icons.dart';
 import '../../features/admin/common/presentation/admin_menu_screen.dart';
 import '../../features/authentication/application/user_notifier.dart';
 import '../../features/characters/presentation/character_overview_screen.dart';
-import '../../features/home/presentation/home_screen.dart';
 import '../../features/story/presentation/story_screen.dart';
 import '../../features/traits/presentation/traits_overview_screen.dart';
 import '../layout/responsive_layout.dart';
@@ -27,7 +26,7 @@ class Navigation extends ConsumerWidget {
     final isAdmin = FirebaseAuth.instance.currentUser?.uid == user?.ownedGroup?.ownerId;
 
     final tabs = [
-      NavigationItem(route: HomeScreen.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
+      NavigationItem(route: '/home', icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
       if (MediaQuery.of(context).size.width <= mobileMaxWidth)
         NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
       NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),

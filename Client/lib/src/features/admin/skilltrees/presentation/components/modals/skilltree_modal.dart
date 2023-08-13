@@ -9,7 +9,7 @@ import '../../../../../../common_widgets/form_fields/bool_field.dart';
 import '../../../../../../common_widgets/form_fields/content_field.dart';
 import '../../../../../../common_widgets/form_fields/value_range_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
-import '../../../../../../utilities/async_value_extension.dart';
+import '../../../../../../utils/async_value_extension.dart';
 import '../../../application/skilltree_controller.dart';
 import '../builder/character_selection_field.dart';
 

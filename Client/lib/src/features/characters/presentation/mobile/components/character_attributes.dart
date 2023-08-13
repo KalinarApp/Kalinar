@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../../../../utilities/global_attributes.dart';
+import '../../../../../utils/global_attributes.dart';
 import '../../../../traits/domain/attribute_value.dart';
 import '../../../domain/character.dart';
 import '../../shared/attribute_value_widget.dart';

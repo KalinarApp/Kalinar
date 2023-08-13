@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
-import '../../../../../utilities/async_value_extension.dart';
+import '../../../../../utils/async_value_extension.dart';
 import '../../../../group_management/application/group_notifier.dart';
 import '../../../application/controller/abilities_controller.dart';
 import '../../../application/notifier/abilities_state_notifier.dart';

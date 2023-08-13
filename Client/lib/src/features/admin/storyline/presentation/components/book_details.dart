@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../common_widgets/action_menu.dart';
 import '../../../../../common_widgets/custom_image_button.dart';
 import '../../../../../common_widgets/loading_indicator.dart';
-import '../../../../../utilities/async_value_extension.dart';
+import '../../../../../utils/async_value_extension.dart';
 import '../../application/book_controller.dart';
 import '../../application/book_state_notifier.dart';
 import '../../domain/book_page.dart';

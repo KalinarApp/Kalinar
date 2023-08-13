@@ -17,7 +17,7 @@ class MobileNavigation extends StatefulWidget {
 class _MobileNavigationState extends State<MobileNavigation> with TickerProviderStateMixin {
   late final TabController controller;
 
-  int get _currentIndex => _locationToTabIndex(GoRouter.of(context).location);
+  int get _currentIndex => _locationToTabIndex(GoRouterState.of(context).uri.toString());
 
   int _locationToTabIndex(String location) {
     final index = widget.tabs.indexWhere((t) => location.startsWith(t.route));

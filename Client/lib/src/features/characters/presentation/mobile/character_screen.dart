@@ -9,7 +9,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import '../../../../../kalinar_icons.dart';
 import '../../../../common_widgets/content_tab.dart';
 import '../../../../common_widgets/loading_indicator.dart';
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/async_value_extension.dart';
 import '../../../group_management/application/group_notifier.dart';
 import '../../application/controllers/character_controller.dart';
 import '../../domain/character.dart';

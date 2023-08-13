@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../admin/skilltrees/data/skilltrees_repository.dart';
@@ -27,8 +28,12 @@ class SkilltreeController extends StateNotifier<AsyncValue<Skilltree>> {
     if (state.hasValue) {
       for (final node in state.value!.nodes) {
         for (final id in node.successors) {
-          final edge = Edge(start: node, end: state.value!.nodes.firstWhere((element) => element.id == id));
-          edges.add(edge);
+          final end = state.value!.nodes.firstWhereOrNull((element) => element.id == id);
+
+          if (end != null) {
+            final edge = Edge(start: node, end: end);
+            edges.add(edge);
+          }
         }
       }
     }

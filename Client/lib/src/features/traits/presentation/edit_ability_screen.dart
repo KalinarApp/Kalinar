@@ -8,7 +8,7 @@ import '../../../common_widgets/form_fields/bool_field.dart';
 import '../../../common_widgets/form_fields/description_field.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
-import '../../../utilities/async_value_extension.dart';
+import '../../../utils/async_value_extension.dart';
 import '../../authentication/application/user_notifier.dart';
 import '../application/controller/abilities_controller.dart';
 import '../application/notifier/ability_state_notifier.dart';

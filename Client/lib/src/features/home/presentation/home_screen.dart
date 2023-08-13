@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kalinar/src/routing/app_route.dart';
 
 import '../../../common_widgets/layout/size.dart';
 import '../../../common_widgets/user_menu.dart';
+import '../../../utils/http/error_response.dart';
+import '../../authentication/data/firebase_auth_repository.dart';
+import '../../user_management/data/user_repository.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
-  static const String name = "Home";
-  static const String route = "/home";
-
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
+    final user = ref.watch(getUserByIdProvider(userId));
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  late final bool hasGroup;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    ref.listen(getUserByIdProvider(userId), (_, user) {
+      if (user.hasError && user.error is ErrorResponse && (user.error as ErrorResponse).type == userNotFoundException) {
+        context.pushNamed(AppRoute.createProfile.name);
+      }
+    });
+    print(user);
     return LayoutBuilder(
       builder: (ctx, constraints) => Scaffold(
         appBar: isMobile(constraints) ? AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())]) : null,
-        body: const Center(child: Text("Hier könnte Ihre Werbung stehen!")),
+        body: Center(child: Text("Hallo ${user.hasValue ? user.value!.username : "Nutzer"}, hier könnte deine Werbung stehen!")),
       ),
     );
   }
