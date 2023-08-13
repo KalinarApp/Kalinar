@@ -27,8 +27,8 @@ namespace Kalinar.Data.Repositories
 
         public async Task SetAttributesAsync(SkillEntity skill, IEnumerable<SkillAttributeEntity> attributes, CancellationToken cancellationToken = default)
         {
-            this.context.Set<SkillAttributeEntity>().RemoveRange(skill.Attributes);
-            await this.context.Set<SkillAttributeEntity>().AddRangeAsync(attributes, cancellationToken);
+            this.context.SkillAttributes.RemoveRange(skill.Attributes);
+            await this.context.SkillAttributes.AddRangeAsync(attributes, cancellationToken);
 
             await this.context.SaveChangesAsync(cancellationToken);
         }

@@ -24,6 +24,10 @@ namespace Kalinar.Test.Seeding
         public const string PendingSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505542";
         public const string RejectedSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505543";
 
+        public const string ApprovedRaceId = "9504a1b5-bcc6-41f2-a776-c5b8c2505544";
+        public const string PendingRaceId = "9504a1b5-bcc6-41f2-a776-c5b8c2505545";
+        public const string RejectedRaceId = "9504a1b5-bcc6-41f2-a776-c5b8c2505546";
+
         public static void SeedDatabase(Context context)
         {
             // Groups
@@ -73,9 +77,22 @@ namespace Kalinar.Test.Seeding
             context.Skills.Add(pendingSkill);
             context.Skills.Add(rejectedSkill);
 
+            //Races
+            //Create approved, pending and rejected race objects here.
+            RaceEntity approvedRace = new() { Id = new Guid(ApprovedRaceId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testrace", State = SuggestionState.Approved, Attributes = new List<RaceAttributeEntity>() };
+            RaceEntity pendingRace = new() { Id = new Guid(PendingRaceId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testrace", State = SuggestionState.Pending, Attributes = new List<RaceAttributeEntity>() };
+            RaceEntity rejectedRace = new() { Id = new Guid(RejectedRaceId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testrace", State = SuggestionState.Rejected, RejectedAt = DateTimeOffset.UtcNow, RejectionReason = "", Attributes = new List<RaceAttributeEntity>() };
+            context.Races.Add(approvedRace);
+            context.Races.Add(pendingRace);
+            context.Races.Add(rejectedRace);
+
             //SkillAttributes
             SkillAttributeEntity approvedSkillAttribute = new() { SkillId = approvedSkill.Id, Skill = approvedSkill, AttributeId = approved1Attribute.Id, Attribute = approved1Attribute, Value = 1 };
             context.SkillAttributes.Add(approvedSkillAttribute);
+
+            //RaceAttributes
+            RaceAttributeEntity approvedRaceAttribute = new() { RaceId = approvedRace.Id, Race = approvedRace, AttributeId = approved1Attribute.Id, Attribute = approved1Attribute, Value = 1 };
+            context.RaceAttributes.Add(approvedRaceAttribute);
 
             context.SaveChanges();
         }

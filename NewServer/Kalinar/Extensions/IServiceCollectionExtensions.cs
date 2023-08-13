@@ -26,6 +26,7 @@ namespace Kalinar.Application.Extensions
             serviceCollection.AddSingleton<IAuthorizationHandler, SuggestableHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, AbilityHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, SkillHandler>();
+            serviceCollection.AddSingleton<IAuthorizationHandler, RaceHandler>();
 
             serviceCollection.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
             serviceCollection.AddAuthorization(options =>
@@ -53,6 +54,7 @@ namespace Kalinar.Application.Extensions
 
                 options.AddPolicy(PolicyNames.CanSetAbilityTags, policy => policy.AddRequirements(new AbilityRequirement(AbilityAction.SetTags)));
                 options.AddPolicy(PolicyNames.CanSetSkillAttributes, policy => policy.AddRequirements(new SkillRequirement(SkillAction.SetAttributes)));
+                options.AddPolicy(PolicyNames.CanSetRaceAttributes, policy => policy.AddRequirements(new RaceRequirement(RaceAction.SetAttributes)));
             });
         }
 

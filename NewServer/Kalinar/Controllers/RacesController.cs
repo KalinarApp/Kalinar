@@ -73,7 +73,7 @@ namespace Kalinar.Controllers
 
             RaceResponse response = await this.raceService.CreateAsync(userId, request, cancellationToken);
 
-            return this.CreatedAtAction("Get", new { skillId = response.Id }, response);
+            return this.CreatedAtAction("Get", new { raceId = response.Id }, response);
         }
 
         [HttpPut("{raceId}")]
@@ -84,6 +84,16 @@ namespace Kalinar.Controllers
 
             RaceResponse response = await this.raceService.UpdateAsync(raceId, request, cancellationToken);
             return this.Ok(response);
+        }
+
+        [HttpPost("{raceId}/attributes")]
+        public async Task<ActionResult> SetAttributesAsync(Guid raceId, [FromBody] IEnumerable<RaceAttributeRequest> request, CancellationToken cancellationToken = default)
+        {
+            RaceEntity race = await this.raceService.GetByIdAsync(raceId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, race, PolicyNames.CanSetRaceAttributes);
+
+            await this.raceService.SetAttributesAsync(raceId, request, cancellationToken);
+            return this.Ok();
         }
 
         [HttpPost("{raceId}/approve")]

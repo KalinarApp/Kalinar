@@ -50,7 +50,7 @@ namespace Kalinar.Application.Services
                 CreatorId = userId,
                 Creator = user,
                 State = SuggestionState.Pending,
-                Attributes = new(),
+                Attributes = new List<RaceAttributeEntity>(),
             };
 
             await this.CreateSuggestableAsync(userId, race, cancellationToken);
@@ -58,31 +58,34 @@ namespace Kalinar.Application.Services
             return await this.raceRepository.CreateAsync(race, cancellationToken);
         }
 
-        public async Task<RaceEntity> SetAttributesAsync(Guid raceId, List<RaceAttributeRequest> request, CancellationToken cancellationToken = default)
+        public async Task SetAttributesAsync(Guid raceId, IEnumerable<RaceAttributeRequest> request, CancellationToken cancellationToken = default)
         {
-            List<RaceAttributeEntity> attributes = new();
-            RaceEntity race = await this.GetByIdAsync(raceId, cancellationToken);
+            RaceEntity race = await this.GetByIdAsync(raceId, cancellationToken: cancellationToken);
+            IEnumerable<RaceAttributeEntity> existingRaceAttributes = await this.ListAttributesAsync(raceId, cancellationToken);
 
-            foreach (RaceAttributeRequest requestAttribute in request)
+            race.Attributes = existingRaceAttributes;
+
+            List<RaceAttributeEntity> raceAttributes = new();
+
+            foreach (RaceAttributeRequest requestItem in request)
             {
-                AttributeEntity attribute = await this.attributeService.GetByIdAsync(requestAttribute.AttributeId, cancellationToken);
+                AttributeEntity attribute = await this.attributeService.GetByIdAsync(requestItem.AttributeId, cancellationToken);
+
+                if ((race.State == SuggestionState.Approved && attribute.State == SuggestionState.Pending) || attribute.State == SuggestionState.Rejected) throw new AttributeNotApprovedException(attribute.Name);
+
                 RaceAttributeEntity raceAttribute = new()
                 {
-                    AttributeId = requestAttribute.AttributeId,
+                    AttributeId = requestItem.AttributeId,
                     Attribute = attribute,
                     RaceId = raceId,
                     Race = race,
-                    Value = requestAttribute.Value,
+                    Value = requestItem.Value,
                 };
 
-                attributes.Add(raceAttribute);
+                raceAttributes.Add(raceAttribute);
             }
 
-            race.Attributes.AddRange(attributes);
-
-            await this.raceRepository.UpdateAsync(race, cancellationToken);
-
-            return race;
+            await this.raceRepository.SetAttributesAsync(race, raceAttributes, cancellationToken);
         }
 
         public async Task<RaceEntity> UpdateAsync(Guid id, RaceUpdateRequest request, CancellationToken cancellationToken = default)

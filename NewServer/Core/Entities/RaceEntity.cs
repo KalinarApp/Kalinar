@@ -4,6 +4,6 @@
     {
         public required string Name { get; set; }
         public string? Description { get; set; }
-        public required List<RaceAttributeEntity> Attributes { get; init; }
+        public required IEnumerable<RaceAttributeEntity> Attributes { get; set; }
     }
 }
