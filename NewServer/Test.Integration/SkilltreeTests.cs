@@ -148,6 +148,8 @@ namespace Kalinar.Test.Integration
             Assert.Equal(nameof(ValidationException), ((HttpErrorException)ex!).Type);
         }
 
+        // ToDo: Add tests for copy and unlock
+
         [Theory]
         [InlineData(Utilities.GroupOwnerUserId, true)]
         [InlineData(Utilities.GroupMember1UserId, false)]

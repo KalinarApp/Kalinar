@@ -36,9 +36,22 @@ namespace Kalinar.Controllers
             GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSuggestables);
 
-            IEnumerable<AttributeEntity> abilities = await this.attributesService.ListAsync(groupId.Value, approved, cancellationToken);
+            IEnumerable<AttributeEntity> attributes = await this.attributesService.ListAsync(groupId.Value, approved, cancellationToken);
 
-            return this.Ok(abilities.Select(item => (AttributeResponse)item));
+            return this.Ok(attributes.Select(item => (AttributeResponse)item));
+        }
+
+        [HttpGet("categories")]
+        public async Task<ActionResult<IEnumerable<string>>> ListCategoriesByGroupIdAsync([FromQuery] Guid? groupId, CancellationToken cancellationToken = default)
+        {
+            // ToDo: Implement an overall administrator role which than can view all attributes.
+            if (groupId is null) throw new ForbiddenAccessException("User is not allowed to view this resource");
+            GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSuggestables);
+
+            IEnumerable<string> categories = await this.attributesService.ListCategoriesAsync(groupId.Value, cancellationToken);
+
+            return this.Ok(categories);
         }
 
         [HttpGet("{abilityId}")]

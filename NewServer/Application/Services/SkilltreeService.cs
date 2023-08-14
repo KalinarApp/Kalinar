@@ -125,6 +125,12 @@ namespace Kalinar.Application.Services
             return await this.skillreeRepository.CreateEdgeAsync(edge, cancellationToken);
         }
 
+        public async Task<SkilltreeEntity> CopyAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
+        {
+            await this.GetByIdAsync(skilltreeId, cancellationToken);
+            return await this.skillreeRepository.CopyByIdAsync(skilltreeId, cancellationToken);
+        }
+
         public async Task<SkilltreeEntity> UpdateAsync(Guid id, SkilltreeUpdateRequest request, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.GetByIdAsync(id, cancellationToken: cancellationToken);

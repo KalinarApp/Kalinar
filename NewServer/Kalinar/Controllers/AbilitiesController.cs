@@ -40,8 +40,21 @@ namespace Kalinar.Controllers
             return this.Ok(abilities.Select(item => (AbilityResponse)item));
         }
 
+        [HttpGet("tags")]
+        public async Task<ActionResult<IEnumerable<string>>> ListTagsByGroupIdAsync([FromQuery]Guid? groupId, CancellationToken cancellationToken = default)
+        {
+            // ToDo: Implement an overall administrator role which than can view all ability tags.
+            if (groupId is null) throw new ForbiddenAccessException("User is not allowed to view this resource");
+            GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSuggestables);
+
+            IEnumerable<AbilityTagEntity> tags = await this.abilityService.ListTagsAsync(groupId.Value, cancellationToken);
+
+            return this.Ok(tags.Select(tag => tag.Tag));
+        }
+
         [HttpGet("{abilityId}/tags")]
-        public async Task<ActionResult<IEnumerable<string>>> ListTagsAsync(Guid abilityId, CancellationToken cancellationToken = default) 
+        public async Task<ActionResult<IEnumerable<string>>> ListTagsByAbilityIdAsync(Guid abilityId, CancellationToken cancellationToken = default) 
         { 
             AbilityEntity ability = await this.abilityService.GetByIdAsync(abilityId, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, ability, PolicyNames.CanReadSuggestable);

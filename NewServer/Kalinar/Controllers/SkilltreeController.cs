@@ -132,6 +132,32 @@ namespace Kalinar.Controllers
             return this.CreatedAtAction("GetEdge", new { skilltreeId = skilltree.Id, startId = response.StartId, endId = response.EndId }, response);
         }
 
+        [HttpPost("{skilltreeId}/copy")]
+        public async Task<ActionResult<SkilltreeResponse>> CopyAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
+        {
+            SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
+            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSkilltree);
+
+            SkilltreeResponse response = await this.skilltreeService.CopyAsync(skilltreeId, cancellationToken);
+
+            return this.Ok(response);
+        }
+
+
+        [HttpPost("{skilltreeId}/nodes/{nodeId}/unlock")]
+        public async Task<ActionResult<SkilltreeNodeResponse>> UnlockNodeAsync(Guid skilltreeId, Guid nodeId, CancellationToken cancellationToken = default)
+        {
+            SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
+
+            if (this.User.GetId() != skilltree.Character?.UserId) throw new ForbiddenAccessException("User cannot unlock node");
+
+            SkilltreeNodeResponse response = await this.skilltreeService.UnlockNodeAsync(nodeId, true, cancellationToken);
+            return this.Ok(response);
+        }
+
+        // ToDo: Add reset endpoint
+
         [HttpPut("{skilltreeId}")]
         public async Task<ActionResult<SkilltreeResponse>> UpdateAsync(Guid skilltreeId, [FromBody] SkilltreeUpdateRequest request, CancellationToken cancellationToken = default)
         {

@@ -28,7 +28,7 @@ namespace Kalinar.Application.Services
             return await this.attributeRepository.FindByIdAsync(id, cancellationToken) ?? throw new AttributeNotFoundException(id);
         }
 
-        public async Task<IEnumerable<string>> ListTagsAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<string>> ListCategoriesAsync(Guid groupId, CancellationToken cancellationToken = default)
         {
             return await this.attributeRepository.ListCategoriesAsync(groupId, cancellationToken);
         }
