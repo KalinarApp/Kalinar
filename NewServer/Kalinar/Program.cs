@@ -3,6 +3,8 @@ using Kalinar.Data.Extensions;
 using Kalinar.ErrorHandling;
 using Kalinar.Extensions;
 
+using Microsoft.AspNetCore.Mvc;
+
 public class Program
 {
     private static async Task Main(string[] args)
@@ -11,6 +13,8 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
+
+        builder.Services.Configure<ApiBehaviorOptions>(options => options.InvalidModelStateResponseFactory = InvalidModelStateResponseFactory.GenerateErrorResponse);
 
         builder.Services.AddAndConfigureVersioning(new ApiVersioningErrorResponseProvider());
 

@@ -79,6 +79,8 @@ namespace Kalinar.Application.Services
             SkilltreeEntity skilltree = await this.GetByIdAsync(request.SkilltreeId, cancellation);
             SkillEntity skill = await this.skillService.GetByIdAsync(request.SkillId, cancellation);
 
+            if (skill.State != SuggestionState.Approved) throw new SkillNotApprovedException(skill.Name);
+
             SkilltreeNodeEntity node = new()
             {
                 Id = Guid.NewGuid(),
@@ -98,15 +100,21 @@ namespace Kalinar.Application.Services
             return await this.skillreeRepository.CreateNodeAsync(node, cancellation);
         }
 
-        public async Task<SkilltreeEdgeEntity> CreateEdgeAsync(SkilltreeEdgeRequest request, CancellationToken cancellationToken = default)
+        public async Task<SkilltreeEdgeEntity> CreateEdgeAsync(Guid skilltreeId, SkilltreeEdgeRequest request, CancellationToken cancellationToken = default)
         {
-            SkilltreeEntity skilltree = await this.GetByIdAsync(request.SkilltreeId, cancellationToken);
+            SkilltreeEntity skilltree = await this.GetByIdAsync(skilltreeId, cancellationToken);
             SkilltreeNodeEntity start = await this.GetNodeByIdAsync(request.StartId, cancellationToken);
             SkilltreeNodeEntity end = await this.GetNodeByIdAsync(request.EndId, cancellationToken);
 
+            SkilltreeEdgeEntity? existingEdge = await this.skillreeRepository.FindEdgeByStartAndEndIdAsync(request.StartId, request.EndId, cancellationToken);
+            if (existingEdge is not null) throw new SkilltreeEdgeAlreadyExistsException(request.StartId, request.EndId);
+
+            SkilltreeEdgeEntity? invertedExistingEdge = await this.skillreeRepository.FindEdgeByStartAndEndIdAsync(request.EndId, request.StartId, cancellationToken);
+            if (invertedExistingEdge is not null) throw new SkilltreeEdgeAlreadyExistsException(request.StartId, request.EndId);
+
             SkilltreeEdgeEntity edge = new()
             {
-                SkilltreeId = request.SkilltreeId,
+                SkilltreeId = skilltreeId,
                 StartId = request.StartId,
                 EndId = request.EndId,
                 Skilltree = skilltree,
@@ -136,6 +144,9 @@ namespace Kalinar.Application.Services
         public async Task<SkilltreeNodeEntity> UpdateNodeAsync(Guid id, SkilltreeNodeUpdateRequest request, CancellationToken cancellationToken = default)
         {
             SkilltreeNodeEntity node = await this.GetNodeByIdAsync(id, cancellationToken);
+            SkillEntity skill = await this.skillService.GetByIdAsync(request.SkillId, cancellationToken);
+
+            if (skill.State != SuggestionState.Approved) throw new SkillNotApprovedException(skill.Name);
 
             node.XPos = request.XPos;
             node.YPos = request.YPos;
@@ -143,6 +154,8 @@ namespace Kalinar.Application.Services
             node.Cost = request.Cost;
             node.Importance = request.Importance;
             node.IsEasyReachable = request.IsEasyReachable;
+            node.SkillId = request.SkillId;
+            node.Skill = skill; 
 
             return await this.skillreeRepository.UpdateNodeAsync(node, cancellationToken);
         }
@@ -184,9 +197,9 @@ namespace Kalinar.Application.Services
             await this.skillreeRepository.DeleteNodeAsync(node, cancellationToken);
         }
 
-        public async Task DeleteEdgeAsync(SkilltreeEdgeRequest request, CancellationToken cancellationToken = default)
+        public async Task DeleteEdgeAsync(Guid startId, Guid endId, CancellationToken cancellationToken = default)
         {
-            SkilltreeEdgeEntity edge = await this.GetEdgeByStartAndEndIdAsync(request.StartId, request.EndId, cancellationToken);
+            SkilltreeEdgeEntity edge = await this.GetEdgeByStartAndEndIdAsync(startId, endId, cancellationToken);
             await this.skillreeRepository.DeleteEdgeAsync(edge, cancellationToken); 
         }
     }

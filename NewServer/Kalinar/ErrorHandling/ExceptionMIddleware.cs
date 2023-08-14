@@ -1,6 +1,7 @@
 ﻿using Kalinar.Application.Messages.Responses;
 using Kalinar.Core.Exceptions;
 
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.Json;
 
@@ -58,6 +59,8 @@ namespace Kalinar.ErrorHandling
                 AbilityNotApprovedException => (int)HttpStatusCode.Conflict,
                 AttributeNotApprovedException => (int)HttpStatusCode.Conflict,
                 RaceNotApprovedException => (int)HttpStatusCode.Conflict,
+                SkillNotApprovedException => (int)HttpStatusCode.Conflict,
+                SkilltreeEdgeAlreadyExistsException => (int)HttpStatusCode.Conflict,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

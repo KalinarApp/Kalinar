@@ -128,7 +128,7 @@ namespace Kalinar.Controllers
 
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSkilltree);
 
-            SkilltreeEdgeResponse response = await this.skilltreeService.CreateEdgeAsync(request, cancellationToken);
+            SkilltreeEdgeResponse response = await this.skilltreeService.CreateEdgeAsync(skilltreeId, request, cancellationToken);
             return this.CreatedAtAction("GetEdge", new { skilltreeId = skilltree.Id, startId = response.StartId, endId = response.EndId }, response);
         }
 
@@ -188,7 +188,7 @@ namespace Kalinar.Controllers
 
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanDeleteSkilltree);
 
-            await this.skilltreeService.DeleteEdgeAsync(new() { SkilltreeId = skilltreeId, StartId = startId, EndId = endId }, cancellationToken);
+            await this.skilltreeService.DeleteEdgeAsync(startId, endId, cancellationToken);
 
             return this.NoContent();
         }

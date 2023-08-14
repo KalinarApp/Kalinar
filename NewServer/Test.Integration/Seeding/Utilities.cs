@@ -32,6 +32,9 @@ namespace Kalinar.Test.Integration.Seeding
         public const string CharacterId = "9504a1b5-bcc6-41f2-a776-c5b8c2505547";
 
         public const string SkilltreeId = "9504a1b5-bcc6-41f2-a776-c5b8c2505548";
+        public const string SkilltreeNode1Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505549";
+        public const string SkilltreeNode2Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505550";
+        public const string SkilltreeNode3Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505551";
 
         public static void SeedDatabase(Context context)
         {
@@ -111,6 +114,16 @@ namespace Kalinar.Test.Integration.Seeding
 
             SkilltreeEntity skilltree = new() { Id = new Guid(SkilltreeId), CharacterId = character.Id, Character = character, CreatedAt = DateTimeOffset.UtcNow, Points = 0, Name = "Testskilltree", GroupId = group.Id, Group = group, IsActive = true, Edges = new List<SkilltreeEdgeEntity>(), Nodes = new List<SkilltreeNodeEntity>() };
             context.Skilltrees.Add(skilltree);
+
+            SkilltreeNodeEntity node1 = new() { Id = new Guid(SkilltreeNode1Id), SkilltreeId = skilltree.Id, Skilltree = skilltree, SkillId = approvedSkill.Id, Skill = approvedSkill, XPos = 0, YPos = 0, IsUnlocked = false, Color = "#000000", Cost = 0, Importance = 1, IsEasyReachable = false };
+            SkilltreeNodeEntity node2 = new() { Id = new Guid(SkilltreeNode2Id), SkilltreeId = skilltree.Id, Skilltree = skilltree, SkillId = approvedSkill.Id, Skill = approvedSkill, XPos = 0, YPos = 0, IsUnlocked = false, Color = "#000000", Cost = 0, Importance = 1, IsEasyReachable = false };
+            SkilltreeNodeEntity node3 = new() { Id = new Guid(SkilltreeNode3Id), SkilltreeId = skilltree.Id, Skilltree = skilltree, SkillId = approvedSkill.Id, Skill = approvedSkill, XPos = 0, YPos = 0, IsUnlocked = false, Color = "#000000", Cost = 0, Importance = 1, IsEasyReachable = false };
+            context.SkilltreeNodes.Add(node1);
+            context.SkilltreeNodes.Add(node2);
+            context.SkilltreeNodes.Add(node3);
+
+            SkilltreeEdgeEntity skilltreeEdgeEntity = new() { SkilltreeId = skilltree.Id, Skilltree = skilltree, StartId = node1.Id, Start= node1, EndId = node2.Id, End = node2 };
+            context.SkilltreeEdges.Add(skilltreeEdgeEntity);
 
             context.SaveChanges();
         }

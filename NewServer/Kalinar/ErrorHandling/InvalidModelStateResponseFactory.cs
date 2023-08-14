@@ -3,6 +3,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Kalinar.ErrorHandling
 {
     public class InvalidModelStateResponseFactory
@@ -18,7 +20,7 @@ namespace Kalinar.ErrorHandling
                 }
             }
 
-            ErrorResponse response = new() { Type = "ValidationError", Errors = errors };
+            ErrorResponse response = new() { Type = nameof(ValidationException), Errors = errors };
             return new BadRequestObjectResult(response);
         }
     }
