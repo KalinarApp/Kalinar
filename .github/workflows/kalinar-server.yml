@@ -26,11 +26,11 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Restore dependencies
-      run: dotnet restore "NewServer/Kalinar/Kalinar.csproj"
+      run: dotnet restore "NewServer/Kalinar.sln"
     - name: Build
       run: dotnet build "NewServer/Kalinar.sln" --no-restore
     - name: Test
-      run: dotnet test "Kalinar.sln" --no-build --verbosity normal
+      run: dotnet test "NewServer/Kalinar.sln" --no-build --verbosity normal
 
   publish:
     runs-on: ubuntu-latest
