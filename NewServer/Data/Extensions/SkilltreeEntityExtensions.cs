@@ -10,7 +10,7 @@ namespace Kalinar.Data.Extensions
 
             SkilltreeEntity newSkilltree = new()
             {
-                Id = skilltree.Id,
+                Id = Guid.NewGuid(),
                 CharacterId = null,
                 Character = null,
                 GroupId = skilltree.GroupId,
@@ -27,7 +27,7 @@ namespace Kalinar.Data.Extensions
             {
                 SkilltreeNodeEntity newNode = new()
                 {
-                    Id = node.Id,
+                    Id = Guid.NewGuid(),
                     Color = node.Color,
                     Cost = node.Cost,
                     Importance = node.Importance,

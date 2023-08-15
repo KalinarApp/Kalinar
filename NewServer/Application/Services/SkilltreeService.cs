@@ -181,6 +181,8 @@ namespace Kalinar.Application.Services
         {
             SkilltreeNodeEntity node = await this.GetNodeByIdAsync(id, cancellationToken);
 
+            // ToDo: Create a view to get the remaining skillpoints for a skilltree to check if a node is unlockable or not
+
             node.IsUnlocked = state;
 
             return await this.skillreeRepository.UpdateNodeAsync(node, cancellationToken);

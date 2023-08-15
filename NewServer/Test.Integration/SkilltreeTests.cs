@@ -147,8 +147,24 @@ namespace Kalinar.Test.Integration
             Assert.Equal(HttpStatusCode.BadRequest, ((HttpErrorException)ex!).StatusCode);
             Assert.Equal(nameof(ValidationException), ((HttpErrorException)ex!).Type);
         }
+        [Fact]
+        public async Task CanCopySkilltree()
+        {
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
 
-        // ToDo: Add tests for copy and unlock
+            SkilltreeResponse? response = await this.PostAsync<object, SkilltreeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/copy", new {}, accessToken);
+            List<SkilltreeNodeResponse> nodes = await this.GetAsync<List<SkilltreeNodeResponse>>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes", accessToken);
+
+            Assert.NotNull(response);
+            Assert.NotEqual(Utilities.SkilltreeId, response.Id.ToString());
+            Assert.Null(response.CharacterId);
+            Assert.NotNull(nodes);
+            Assert.NotEmpty(nodes);
+            Assert.Equal(3, nodes.Count);
+        }
+
+
+        // ToDo: Add tests to unlock nodes
 
         [Theory]
         [InlineData(Utilities.GroupOwnerUserId, true)]

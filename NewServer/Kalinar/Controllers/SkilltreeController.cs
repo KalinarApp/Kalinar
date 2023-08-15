@@ -156,7 +156,7 @@ namespace Kalinar.Controllers
             return this.Ok(response);
         }
 
-        // ToDo: Add reset endpoint
+        // ToDo: Add reset endpoints for nodes and skilltrees
 
         [HttpPut("{skilltreeId}")]
         public async Task<ActionResult<SkilltreeResponse>> UpdateAsync(Guid skilltreeId, [FromBody] SkilltreeUpdateRequest request, CancellationToken cancellationToken = default)
