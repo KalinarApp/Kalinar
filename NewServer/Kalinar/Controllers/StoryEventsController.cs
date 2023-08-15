@@ -3,6 +3,7 @@ using Kalinar.Authorization;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
 using Kalinar.Extensions;
+using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
 
 using Microsoft.AspNetCore.Authorization;
@@ -26,24 +27,53 @@ namespace Kalinar.Controllers
             this.authorizationService = authorizationService;
         }
 
-        public async Task<IEnumerable<StoryEventResponse>> ListAsync([FromQuery] Guid? groupId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<StoryEventResponse>>> ListAsync([FromQuery] Guid? groupId, [FromQuery] bool? unlockedOnly, CancellationToken cancellationToken = default)
         {
             // ToDo: Implement an overall administrator role which than can view all story events.
             if (groupId is null) throw new ForbiddenAccessException("User is not allowed to view this resource");
-            GroupEntity group = await this.groupService.GetByIdAsync(groupId.Value, true, cancellationToken);
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanListSkilltrees);
+            IEnumerable<StoryEventEntity> storyEvents = await this.storyEventService.ListAsync(groupId.Value, unlockedOnly, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, storyEvents, PolicyNames.CanListSkilltrees);
 
-            IEnumerable<StoryEventEntity> storyEvents = await this.storyEventService.ListAsync(groupId.Value, cancellationToken);
-            return storyEvents.Select(item => (StoryEventResponse)item);
+            return this.Ok(storyEvents.Select(item => (StoryEventResponse)item));
         }
 
         [HttpGet("{eventId}")]
-        public async Task<StoryEventResponse> GetAsync(Guid eventId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<StoryEventResponse>> GetAsync(Guid eventId, CancellationToken cancellationToken = default)
         {
             StoryEventEntity storyEvent = await this.storyEventService.GetByIdAsync(eventId, cancellationToken);
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, storyEvent.Group, PolicyNames.CanReadStoryItem);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, new List<StoryEntity> { storyEvent }, PolicyNames.CanReadStoryItem);
 
-            return (StoryEventResponse)storyEvent;
+            return this.Ok((StoryEventResponse)storyEvent);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<StoryEventResponse>> CreateAsync([FromBody] StoryEventCreateRequest request, CancellationToken cancellationToken = default)
+        {
+            GroupEntity group = await this.groupService.GetByIdAsync(request.GroupId, true, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateStoryItem);
+
+            StoryEventResponse response = await this.storyEventService.CreateAsync(request, cancellationToken);
+            return this.CreatedAtAction("Get", new { eventId = response.Id}, response);
+        }
+
+        [HttpPut("{eventId}")]
+        public async Task<ActionResult<StoryEventResponse>> UpdateAsync(Guid eventId, [FromBody] StoryEventUpdateRequest request, CancellationToken cancellationToken = default)
+        {
+            StoryEventEntity storyEvent = await this.storyEventService.GetByIdAsync(eventId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, storyEvent.Group, PolicyNames.CanUpdateStoryItem);
+
+            StoryEventResponse response = await this.storyEventService.UpdateAsync(eventId, request, cancellationToken);
+            return this.Ok(response);
+        }
+
+        [HttpDelete("{eventId}")]
+        public async Task<ActionResult> DeleteAsync(Guid eventId, CancellationToken cancellationToken = default)
+        {
+            StoryEventEntity storyEvent = await this.storyEventService.GetByIdAsync(eventId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, storyEvent.Group, PolicyNames.CanDeleteStoryItem);
+
+            await this.storyEventService.DeleteAsync(eventId, cancellationToken);
+            return this.NoContent();
         }
     }
 }

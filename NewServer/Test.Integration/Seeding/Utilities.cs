@@ -36,6 +36,10 @@ namespace Kalinar.Test.Integration.Seeding
         public const string SkilltreeNode2Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505550";
         public const string SkilltreeNode3Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505551";
 
+        public const string StoryEventId = "9504a1b5-bcc6-41f2-a776-c5b8c2505552";
+        public const string StoryImageId = "9504a1b5-bcc6-41f2-a776-c5b8c2505553";
+        public const string StoryBookId = "9504a1b5-bcc6-41f2-a776-c5b8c2505554";
+
         public static void SeedDatabase(Context context)
         {
             // Groups
@@ -112,6 +116,7 @@ namespace Kalinar.Test.Integration.Seeding
             CharacterEntity character = new() { Id = new Guid(CharacterId), Name = "Testcharacter", GroupId = group.Id, Group = group, UserId = groupMember1.Id, RaceId = approvedRace.Id, Race = approvedRace, CreatedAt = DateTimeOffset.UtcNow, Skilltrees = new List<SkilltreeEntity>() };
             context.Characters.Add(character);
 
+            //Skilltrees
             SkilltreeEntity skilltree = new() { Id = new Guid(SkilltreeId), CharacterId = character.Id, Character = character, CreatedAt = DateTimeOffset.UtcNow, Points = 0, Name = "Testskilltree", GroupId = group.Id, Group = group, IsActive = true, Edges = new List<SkilltreeEdgeEntity>(), Nodes = new List<SkilltreeNodeEntity>() };
             context.Skilltrees.Add(skilltree);
 
@@ -124,6 +129,10 @@ namespace Kalinar.Test.Integration.Seeding
 
             SkilltreeEdgeEntity skilltreeEdgeEntity = new() { SkilltreeId = skilltree.Id, Skilltree = skilltree, StartId = node1.Id, Start= node1, EndId = node2.Id, End = node2 };
             context.SkilltreeEdges.Add(skilltreeEdgeEntity);
+
+            //Story
+            StoryEventEntity storyEvent = new() { Id = new Guid(StoryEventId), GroupId = group.Id, Group = group, Title = "Event", CreatedAt = DateTimeOffset.UtcNow, Order = 0, IsUnlocked = true };
+            context.StoryEvents.Add(storyEvent);
 
             context.SaveChanges();
         }
