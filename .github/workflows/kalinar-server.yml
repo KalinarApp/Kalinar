@@ -30,7 +30,7 @@ jobs:
     - name: Build
       run: dotnet build "NewServer/Kalinar.sln" --no-restore
     - name: Test
-      run: dotnet test "Kalinar.sln" --verbosity normal
+      run: dotnet test "Kalinar.sln" --no-build --verbosity normal
 
   publish:
     runs-on: ubuntu-latest
