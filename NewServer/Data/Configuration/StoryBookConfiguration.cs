@@ -13,7 +13,6 @@ namespace Kalinar.Data.Configuration
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Title).HasMaxLength(128).IsRequired();
-            builder.Property(x => x.ImageUrl).IsRequired();
             builder.Property(x => x.IsUnlocked).IsRequired();
             builder.Property(x => x.Order).IsRequired();
             builder.Property(x => x.CreatedAt).IsRequired();

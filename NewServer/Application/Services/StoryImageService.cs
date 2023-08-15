@@ -16,9 +16,11 @@ namespace Kalinar.Application.Services
             this.groupService = groupService;
         }
 
-        public async Task<IEnumerable<StoryImageEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StoryImageEntity>> ListAsync(Guid groupId, bool? unlockedOnly, CancellationToken cancellationToken = default)
         {
-            return await this.imageRepository.ListByGroupIdAsync(groupId, cancellationToken);
+            return unlockedOnly.HasValue && unlockedOnly.Value 
+                ? await this.imageRepository.ListUnlockedByGroupIdAsync(groupId, cancellationToken) 
+                : await this.imageRepository.ListByGroupIdAsync(groupId, cancellationToken);
         }
 
         public async Task<StoryImageEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)

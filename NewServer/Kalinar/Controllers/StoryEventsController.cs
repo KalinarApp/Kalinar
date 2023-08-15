@@ -27,6 +27,7 @@ namespace Kalinar.Controllers
             this.authorizationService = authorizationService;
         }
 
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<StoryEventResponse>>> ListAsync([FromQuery] Guid? groupId, [FromQuery] bool? unlockedOnly, CancellationToken cancellationToken = default)
         {
             // ToDo: Implement an overall administrator role which than can view all story events.

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kalinar.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230809170611_InitialEntityCreation")]
-    partial class InitialEntityCreation
+    [Migration("20230815203610_CreateInitialEntities")]
+    partial class CreateInitialEntities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -545,7 +545,6 @@ namespace Kalinar.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsUnlocked")

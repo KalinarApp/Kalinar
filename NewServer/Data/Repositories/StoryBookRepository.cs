@@ -10,6 +10,14 @@ namespace Kalinar.Data.Repositories
     {
         public StoryBookRepository(Context context) : base(context)  { }
 
+        public async Task<IEnumerable<StoryBookEntity>> ListUnlockedByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.StoryBooks
+                .Where(e => e.GroupId == groupId)
+                .Where(e => e.IsUnlocked)
+                .ToListAsync(cancellationToken);
+        }
+
         public async Task<IEnumerable<StoryBookPageEntity>> ListPagesAsync(Guid bookId, CancellationToken cancellationToken = default)
         {
             return await this.context.StoryBookPages.Where(item => item.BookId == bookId).ToListAsync(cancellationToken);

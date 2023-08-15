@@ -5,7 +5,7 @@ namespace Kalinar.Application.Contracts
 {
     public interface IStoryBookService
     {
-        Task<IEnumerable<StoryBookEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<StoryBookEntity>> ListAsync(Guid groupId, bool? unlockedOnly, CancellationToken cancellationToken = default);
         Task<IEnumerable<StoryBookPageEntity>> ListPagesAsync(Guid bookId, CancellationToken cancellationToken = default);
         Task<StoryBookEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<StoryBookPageEntity> GetPageByIdAsync(Guid id, CancellationToken cancellationToken = default);

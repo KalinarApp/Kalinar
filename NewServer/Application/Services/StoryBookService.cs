@@ -16,9 +16,11 @@ namespace Kalinar.Application.Services
             this.groupService = groupService;
         }
 
-        public async Task<IEnumerable<StoryBookEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<StoryBookEntity>> ListAsync(Guid groupId, bool? unlockedOnly, CancellationToken cancellationToken = default)
         {
-            return await this.bookRepository.ListByGroupIdAsync(groupId, cancellationToken);
+            return unlockedOnly.HasValue && unlockedOnly.Value 
+                ? await this.bookRepository.ListUnlockedByGroupIdAsync(groupId, cancellationToken) 
+                : await this.bookRepository.ListByGroupIdAsync(groupId, cancellationToken);
         }
 
         public async Task<IEnumerable<StoryBookPageEntity>> ListPagesAsync(Guid bookId, CancellationToken cancellationToken = default)
@@ -51,7 +53,7 @@ namespace Kalinar.Application.Services
                 Description = request.Description,
                 Order = request.Order,
                 IsUnlocked = request.IsUnlocked,
-                Pages = new(),
+                Pages = new List<StoryBookPageEntity>(),
             };
 
             return await this.bookRepository.CreateAsync(book, cancellationToken);
@@ -60,6 +62,9 @@ namespace Kalinar.Application.Services
         public async Task<StoryBookPageEntity> CreatePageAsync(StoryBookPageCreateRequest request, CancellationToken cancellationToken = default)
         {
             await this.GetByIdAsync(request.BookId, cancellationToken: cancellationToken);
+
+            IEnumerable<StoryBookPageEntity> pages = await this.ListPagesAsync(request.BookId, cancellationToken);
+            if (pages.Any(page => page.PageNumber == request.PageNumber)) throw new StoryBookPageNumberAlreadyExistsException(request.BookId, request.PageNumber);
 
             StoryBookPageEntity page = new()
             {
