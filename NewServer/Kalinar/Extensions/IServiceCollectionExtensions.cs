@@ -28,6 +28,7 @@ namespace Kalinar.Application.Extensions
             serviceCollection.AddSingleton<IAuthorizationHandler, RaceHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, CharacterHandler>();
             serviceCollection.AddSingleton<IAuthorizationHandler, SkilltreeHandler>();
+            serviceCollection.AddSingleton<IAuthorizationHandler, StoryHandler>();
 
             serviceCollection.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
             serviceCollection.AddAuthorization(options =>
@@ -68,6 +69,12 @@ namespace Kalinar.Application.Extensions
                 options.AddPolicy(PolicyNames.CanCreateSkilltree, policy => policy.AddRequirements(new SkilltreeRequirement(SkilltreeAction.Create)));
                 options.AddPolicy(PolicyNames.CanUpdateSkilltree, policy => policy.AddRequirements(new SkilltreeRequirement(SkilltreeAction.Update)));
                 options.AddPolicy(PolicyNames.CanDeleteSkilltree, policy => policy.AddRequirements(new SkilltreeRequirement(SkilltreeAction.Delete)));
+
+                options.AddPolicy(PolicyNames.CanListStoryItems, policy => policy.AddRequirements(new StoryRequirement(StoryAction.List)));
+                options.AddPolicy(PolicyNames.CanReadStoryItem, policy => policy.AddRequirements(new StoryRequirement(StoryAction.Read)));
+                options.AddPolicy(PolicyNames.CanCreateStoryItem, policy => policy.AddRequirements(new StoryRequirement(StoryAction.Create)));
+                options.AddPolicy(PolicyNames.CanUpdateStoryItem, policy => policy.AddRequirements(new StoryRequirement(StoryAction.Update)));
+                options.AddPolicy(PolicyNames.CanDeleteStoryItem, policy => policy.AddRequirements(new StoryRequirement(StoryAction.Delete)));
             });
         }
 

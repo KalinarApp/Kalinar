@@ -43,9 +43,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<IEnumerable<SkilltreeNodeResponse>>> ListNodesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanReadSkilltree);
 
             IEnumerable<SkilltreeNodeEntity> nodes = await this.skilltreeService.ListNodesAsync(skilltreeId, cancellationToken);
             return this.Ok(nodes.Select(item => (SkilltreeNodeResponse)item));
@@ -55,9 +53,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<IEnumerable<SkilltreeEdgeResponse>>> ListEdgesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanReadSkilltree);
 
             IEnumerable<SkilltreeEdgeEntity> edges = await this.skilltreeService.ListEdgesAsync(skilltreeId, cancellationToken);
             return this.Ok(edges.Select(item => (SkilltreeEdgeResponse)item));
@@ -67,9 +63,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<SkilltreeResponse>> GetAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanReadSkilltree);
 
             return this.Ok((SkilltreeResponse)skilltree);
         }
@@ -78,9 +72,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<SkilltreeNodeResponse>> GetNodeAsync(Guid skilltreeId, Guid nodeId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanReadSkilltree);
 
             SkilltreeNodeResponse response = await this.skilltreeService.GetNodeByIdAsync(nodeId, cancellationToken);
             return this.Ok(response);
@@ -90,9 +82,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<SkilltreeEdgeResponse>> GetEdgeAsync(Guid skilltreeId, Guid startId, Guid endId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanReadSkilltree);
 
             SkilltreeEdgeResponse edge = await this.skilltreeService.GetEdgeByStartAndEndIdAsync(startId, endId, cancellationToken);
             return this.Ok(edge);
@@ -112,9 +102,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<SkilltreeNodeResponse>> CreateNodeAsync(Guid skilltreeId, [FromBody] SkilltreeNodeCreateRequest request, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanCreateSkilltree);
 
             SkilltreeNodeEntity node = await this.skilltreeService.CreateNodeAsync(request, cancellationToken);
             return this.CreatedAtAction("GetNode", new { skilltreeId = skilltree.Id, nodeId = node.Id }, (SkilltreeNodeResponse)node);
@@ -124,9 +112,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<SkilltreeEdgeResponse>> CreateEdgeAsync(Guid skilltreeId, [FromBody] SkilltreeEdgeRequest request, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanCreateSkilltree);
 
             SkilltreeEdgeResponse response = await this.skilltreeService.CreateEdgeAsync(skilltreeId, request, cancellationToken);
             return this.CreatedAtAction("GetEdge", new { skilltreeId = skilltree.Id, startId = response.StartId, endId = response.EndId }, response);
@@ -136,8 +122,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<SkilltreeResponse>> CopyAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanCreateSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanCreateSkilltree);
 
             SkilltreeResponse response = await this.skilltreeService.CopyAsync(skilltreeId, cancellationToken);
 
@@ -162,8 +147,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<SkilltreeResponse>> UpdateAsync(Guid skilltreeId, [FromBody] SkilltreeUpdateRequest request, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanUpdateSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanUpdateSkilltree);
 
             SkilltreeResponse response = await this.skilltreeService.UpdateAsync(skilltreeId, request, cancellationToken);
             return this.Ok(response);
@@ -173,8 +157,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult<SkilltreeNodeResponse>> UpdateNodeAsync(Guid skilltreeId, Guid nodeId, [FromBody] SkilltreeNodeUpdateRequest request, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanUpdateSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanUpdateSkilltree);
 
             SkilltreeNodeResponse response = await this.skilltreeService.UpdateNodeAsync(nodeId, request, cancellationToken);
             return this.Ok(response);
@@ -184,9 +167,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult> DeleteAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanDeleteSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanDeleteSkilltree);
 
             await this.skilltreeService.DeleteAsync(skilltreeId, cancellationToken);
 
@@ -199,7 +180,7 @@ namespace Kalinar.Controllers
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
             GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
 
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanDeleteSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanDeleteSkilltree);
 
             await this.skilltreeService.DeleteNodeAsync(nodeId, cancellationToken);
 
@@ -210,9 +191,7 @@ namespace Kalinar.Controllers
         public async Task<ActionResult> DeleteEdgeAsync(Guid skilltreeId, Guid startId, Guid endId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
-            await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanDeleteSkilltree);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanDeleteSkilltree);
 
             await this.skilltreeService.DeleteEdgeAsync(startId, endId, cancellationToken);
 

@@ -40,5 +40,11 @@
         public const string CanCreateSkilltree = "CanCreateSkilltreePolicy";
         public const string CanUpdateSkilltree = "CanUpdateSkilltreePolicy";
         public const string CanDeleteSkilltree = "CanDeleteSkilltreePolicy";
+
+        public const string CanListStoryItems = "CanListStoryItemsPolicy";
+        public const string CanReadStoryItem = "CanReadStoryItemPolicy";
+        public const string CanCreateStoryItem = "CanCreateStoryItemPolicy";
+        public const string CanUpdateStoryItem = "CanUpdateStoryItemPolicy";
+        public const string CanDeleteStoryItem = "CanDeleteStoryItemPolicy";
     }
 }
