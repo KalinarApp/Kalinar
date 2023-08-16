@@ -168,6 +168,7 @@ namespace Kalinar.Data.Migrations
                     StepSize = table.Column<double>(type: "double precision", nullable: false),
                     MinValue = table.Column<double>(type: "double precision", nullable: false),
                     MaxValue = table.Column<double>(type: "double precision", nullable: false),
+                    IsDefault = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: false),

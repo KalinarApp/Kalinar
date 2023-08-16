@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kalinar.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230815203610_CreateInitialEntities")]
+    [Migration("20230816110902_CreateInitialEntities")]
     partial class CreateInitialEntities
     {
         /// <inheritdoc />
@@ -124,6 +124,9 @@ namespace Kalinar.Data.Migrations
 
                     b.Property<string>("IconData")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
 
                     b.Property<double>("MaxValue")
                         .HasColumnType("double precision");

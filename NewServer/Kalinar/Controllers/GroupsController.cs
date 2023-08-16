@@ -18,13 +18,15 @@ namespace Kalinar.Controllers
         private readonly IGroupService groupService;
         private readonly IGroupMemberService memberService;
         private readonly IUserService userService;
+        private readonly IAttributeService attributeService;
         private readonly IAuthorizationService authorizationService;
 
-        public GroupsController(IGroupService groupService, IGroupMemberService memberService, IUserService userService, IAuthorizationService authorizationService)
+        public GroupsController(IGroupService groupService, IGroupMemberService memberService, IUserService userService, IAttributeService attributeService, IAuthorizationService authorizationService)
         {
             this.groupService = groupService;
             this.memberService = memberService;
             this.userService = userService;
+            this.attributeService = attributeService;
             this.authorizationService = authorizationService;
         }
 
@@ -55,6 +57,7 @@ namespace Kalinar.Controllers
 
             GroupResponse response = await this.groupService.CreateAsync(request, cancellationToken);
             await this.memberService.CreateAsync(this.User.GetId(), response.Id, Role.Owner, cancellationToken);
+            await this.attributeService.CreateDefaultAttributesAsync(this.User.GetId(), response.Id, cancellationToken);
 
             return this.CreatedAtAction("Get", new { response.Id }, response);
         }

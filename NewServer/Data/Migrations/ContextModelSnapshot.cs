@@ -122,6 +122,9 @@ namespace Kalinar.Data.Migrations
                     b.Property<string>("IconData")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
+
                     b.Property<double>("MaxValue")
                         .HasColumnType("double precision");
 

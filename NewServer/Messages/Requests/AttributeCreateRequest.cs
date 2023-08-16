@@ -14,10 +14,11 @@ namespace Kalinar.Messages.Requests
         public string? Category { get; init; }
         public string? IconData { get; init; }
         [Required]
-        public required int MinValue { get; init; }
+        public required double MinValue { get; init; }
         [Required]
-        public required int MaxValue { get; init; }
-        [Required]
-        public required int StepSize { get; init; }
+        public required double MaxValue { get; init; }
+
+        [Required, Range(0, Double.MaxValue)]
+        public required double StepSize { get; init; }
     }
 }

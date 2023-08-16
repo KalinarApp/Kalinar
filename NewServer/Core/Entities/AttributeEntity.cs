@@ -9,5 +9,6 @@
         public required double StepSize { get; set; }
         public required double MinValue { get; set; }
         public required double MaxValue { get; set; }
+        public bool IsDefault { get; init; } = false;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Kalinar.Application.Contracts;
+﻿using Kalinar.Application.Constants;
+using Kalinar.Application.Contracts;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
 using Kalinar.Messages.Requests;
@@ -59,6 +60,21 @@ namespace Kalinar.Application.Services
             await this.CreateSuggestableAsync(userId, attribute, cancellationToken);
 
             return await this.attributeRepository.CreateAsync(attribute, cancellationToken);
+        }
+
+        public async Task<IEnumerable<AttributeEntity>> CreateDefaultAttributesAsync(string userId, Guid groupId, CancellationToken cancellationToken = default)
+        {
+            UserEntity user = await this.userService.GetByIdAsync(userId, cancellationToken);
+            GroupEntity group = await this.groupService.GetByIdAsync(groupId, true, cancellationToken);
+
+            IEnumerable<AttributeEntity> defaultAttributes = DefaultAttributeEntities.Get(user, group);
+
+            foreach (AttributeEntity attribute in defaultAttributes)
+            {
+                await this.attributeRepository.CreateAsync(attribute, cancellationToken);
+            }
+
+            return defaultAttributes;
         }
 
         public async Task<AttributeEntity> UpdateAsync(Guid id, AttributeUpdateRequest request, CancellationToken cancellationToken = default)
