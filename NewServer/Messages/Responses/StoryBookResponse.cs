@@ -7,8 +7,9 @@ namespace Kalinar.Messages.Responses
         public required Guid Id { get; init; }
         public required string Title { get; init; }
         public string? ImageUrl { get; init; }
-        public required int Order { get; init; }
         public required bool IsUnlocked { get; init; }
+        public required DateTimeOffset CreatedAt { get; init; }
+        public DateTimeOffset? ModifiedAt { get; init; }
 
         public static implicit operator StoryBookResponse(StoryBookEntity storyBook)
         {
@@ -17,8 +18,9 @@ namespace Kalinar.Messages.Responses
                 Id = storyBook.Id,
                 Title = storyBook.Title,
                 ImageUrl = storyBook.ImageUrl,
-                Order = storyBook.Order,
                 IsUnlocked = storyBook.IsUnlocked,
+                CreatedAt = storyBook.CreatedAt,
+                ModifiedAt = storyBook.ModifiedAt
             };
         }
     }

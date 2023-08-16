@@ -143,6 +143,7 @@ namespace Kalinar.Application.Services
             skilltree.Character = character;
             skilltree.IsActive = request.IsActive;
             skilltree.Points = request.Points;
+            skilltree.ModifiedAt = DateTime.UtcNow;
             
             return await this.skillreeRepository.UpdateAsync(skilltree, cancellationToken);
         }

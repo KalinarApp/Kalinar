@@ -10,6 +10,8 @@ namespace Kalinar.Messages.Responses
         public bool IsUnlocked { get; init; }
         public required int Order { get; init; }
         public string? Date { get; init; }
+        public required DateTimeOffset CreatedAt { get; init; }
+        public DateTimeOffset? ModifiedAt { get; init; }
 
         public static implicit operator StoryEventResponse(StoryEventEntity storyEvent)
         {
@@ -21,6 +23,8 @@ namespace Kalinar.Messages.Responses
                 IsUnlocked = storyEvent.IsUnlocked,
                 Order = storyEvent.Order,
                 Date = storyEvent.Date,
+                CreatedAt = storyEvent.CreatedAt,
+                ModifiedAt = storyEvent.ModifiedAt
             };
         }
     }

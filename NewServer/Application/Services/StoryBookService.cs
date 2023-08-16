@@ -51,7 +51,6 @@ namespace Kalinar.Application.Services
                 Title = request.Title,
                 ImageUrl = request.ImageUrl,
                 Description = request.Description,
-                Order = request.Order,
                 IsUnlocked = request.IsUnlocked,
                 Pages = new List<StoryBookPageEntity>(),
             };
@@ -64,16 +63,16 @@ namespace Kalinar.Application.Services
             await this.GetByIdAsync(request.BookId, cancellationToken: cancellationToken);
 
             IEnumerable<StoryBookPageEntity> pages = await this.ListPagesAsync(request.BookId, cancellationToken);
-            if (pages.Any(page => page.PageNumber == request.PageNumber)) throw new StoryBookPageNumberAlreadyExistsException(request.BookId, request.PageNumber);
 
+            int pageNumber = pages.Any() ? pages.Max(page => page.PageNumber) + 1 : 1;
             StoryBookPageEntity page = new()
             {
                 Id = Guid.NewGuid(),
                 BookId = request.BookId,
                 Title = request.Title,
                 Content = request.Content,
-                PageNumber = request.PageNumber,
                 IsUnlocked = request.IsUnlocked,
+                PageNumber = pageNumber,
             };
 
             return await this.bookRepository.CreatePageAsync(page, cancellationToken);
@@ -86,7 +85,6 @@ namespace Kalinar.Application.Services
             book.Title = request.Title;
             book.Description = request.Description;
             book.ImageUrl = request.ImageUrl;
-            book.Order = request.Order;
             book.IsUnlocked = request.IsUnlocked;
 
             return await this.bookRepository.UpdateAsync(book, cancellationToken);

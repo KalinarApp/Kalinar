@@ -332,20 +332,18 @@ foreach (StoryEntry entry in await heroContext.StoryEntries.Include(item => ((St
             GroupId = migratedGroups[book.GroupId].Id,
             Title = book.Title,
             Description = book.Description,
-            Order = book.Order,
             ImageUrl = book.ImageUrl,
             IsUnlocked = book.IsUnlocked
         };
 
         StoryBookEntity migratedBook = await storyBookService.CreateAsync(request);
-        foreach (StoryBookPage page in book.Pages)
+        foreach (StoryBookPage page in book.Pages.OrderBy(item => item.PageNumber))
         {
             StoryBookPageCreateRequest pageRequest = new()
             {
                 BookId = migratedBook.Id,
                 Title = page.Title,
                 Content = page.Content,
-                PageNumber = page.PageNumber,
                 IsUnlocked = page.IsWritten,
             };
 
@@ -358,7 +356,6 @@ foreach (StoryEntry entry in await heroContext.StoryEntries.Include(item => ((St
         {
             GroupId = migratedGroups[image.GroupId].Id,
             Title = image.Title,
-            Order = image.Order,
             ImageUrl = image.ImageUrl!,
             IsUnlocked = image.IsUnlocked
         };

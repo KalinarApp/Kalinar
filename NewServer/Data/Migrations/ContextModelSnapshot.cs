@@ -186,6 +186,9 @@ namespace Kalinar.Data.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("character varying(2048)");
 
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -470,6 +473,9 @@ namespace Kalinar.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -550,8 +556,8 @@ namespace Kalinar.Data.Migrations
                     b.Property<bool>("IsUnlocked")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -560,8 +566,7 @@ namespace Kalinar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId", "Order")
-                        .IsUnique();
+                    b.HasIndex("GroupId");
 
                     b.ToTable("StoryBooks", "Kalinar");
                 });
@@ -583,7 +588,9 @@ namespace Kalinar.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<int>("PageNumber")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -621,6 +628,9 @@ namespace Kalinar.Data.Migrations
                     b.Property<bool>("IsUnlocked")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("Order")
                         .HasColumnType("integer");
 
@@ -656,8 +666,8 @@ namespace Kalinar.Data.Migrations
                     b.Property<bool>("IsUnlocked")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -666,8 +676,7 @@ namespace Kalinar.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId", "Order")
-                        .IsUnique();
+                    b.HasIndex("GroupId");
 
                     b.ToTable("StoryImages", "Kalinar");
                 });

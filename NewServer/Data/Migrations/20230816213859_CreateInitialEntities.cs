@@ -50,8 +50,8 @@ namespace Kalinar.Data.Migrations
                     Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     ImageUrl = table.Column<string>(type: "text", nullable: true),
-                    Order = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsUnlocked = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -78,6 +78,7 @@ namespace Kalinar.Data.Migrations
                     Order = table.Column<int>(type: "integer", nullable: false),
                     Date = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsUnlocked = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -101,8 +102,8 @@ namespace Kalinar.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: false),
-                    Order = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsUnlocked = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -288,7 +289,7 @@ namespace Kalinar.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     BookId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PageNumber = table.Column<int>(type: "integer", nullable: false),
+                    PageNumber = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     Title = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
                     IsUnlocked = table.Column<bool>(type: "boolean", nullable: false)
@@ -388,6 +389,7 @@ namespace Kalinar.Data.Migrations
                     Notes = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
                     Profession = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -490,6 +492,7 @@ namespace Kalinar.Data.Migrations
                     Points = table.Column<int>(type: "integer", nullable: false),
                     CharacterId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     GroupId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -733,11 +736,10 @@ namespace Kalinar.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_StoryBooks_GroupId_Order",
+                name: "IX_StoryBooks_GroupId",
                 schema: "Kalinar",
                 table: "StoryBooks",
-                columns: new[] { "GroupId", "Order" },
-                unique: true);
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StoryEvents_GroupId_Order",
@@ -747,11 +749,10 @@ namespace Kalinar.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_StoryImages_GroupId_Order",
+                name: "IX_StoryImages_GroupId",
                 schema: "Kalinar",
                 table: "StoryImages",
-                columns: new[] { "GroupId", "Order" },
-                unique: true);
+                column: "GroupId");
         }
 
         /// <inheritdoc />

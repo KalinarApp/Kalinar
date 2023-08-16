@@ -81,6 +81,8 @@ namespace Kalinar.Application.Services
             skill.Description = request.Description;
             skill.IconUrl = request.IconUrl;
             skill.AbilityId = request.AbilityId;
+            skill.ModifiedAt = DateTime.UtcNow;
+
             return await this.skillRepository.UpdateAsync(skill, cancellationToken);
         }
 

@@ -88,6 +88,7 @@ namespace Kalinar.Application.Services
             attribute.MaxValue = request.MaxValue;
             attribute.MinValue = request.MinValue;
             attribute.StepSize = request.StepSize;
+            attribute.ModifiedAt = DateTime.UtcNow;
 
             return await this.attributeRepository.UpdateAsync(attribute, cancellationToken);
         }

@@ -40,7 +40,6 @@ namespace Kalinar.Application.Services
                 Group = group,
                 Title = request.Title,
                 ImageUrl = request.ImageUrl,
-                Order = request.Order,
                 IsUnlocked = request.IsUnlocked
             };
 
@@ -53,8 +52,8 @@ namespace Kalinar.Application.Services
 
             image.Title = request.Title;
             image.ImageUrl = request.ImageUrl;
-            image.Order = request.Order;
             image.IsUnlocked = request.IsUnlocked;
+            image.ModifiedAt = DateTime.UtcNow;
 
             return await this.imageRepository.UpdateAsync(image, cancellationToken);
         }

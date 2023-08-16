@@ -72,6 +72,7 @@ namespace Kalinar.Application.Services
             character.Notes = request.Notes;
             character.Profession = request.Profession;
             character.Inventory = request.Inventory;
+            character.ModifiedAt = DateTime.UtcNow; 
 
             return await this.characterRepository.UpdateAsync(character, cancellationToken);
         }

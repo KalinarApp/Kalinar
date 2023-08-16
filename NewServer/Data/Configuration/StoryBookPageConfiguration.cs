@@ -15,6 +15,7 @@ namespace Kalinar.Data.Configuration
             builder.Property(x => x.Title).HasMaxLength(128).IsRequired();
             builder.Property(x => x.Content).IsRequired();
             builder.Property(x => x.IsUnlocked).IsRequired();
+            builder.Property(x => x.PageNumber).HasDefaultValue(0);   
 
             builder.HasIndex(x => new { x.BookId, x.PageNumber }).IsUnique();
         }

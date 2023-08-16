@@ -72,6 +72,7 @@ namespace Kalinar.Application.Services
             ability.Name = request.Name;
             ability.Description = request.Description;
             ability.IsPassive = request.IsPassive;
+            ability.ModifiedAt = DateTime.UtcNow;
                         
             return await this.abilityRepository.UpdateAsync(ability, cancellationToken);
         }

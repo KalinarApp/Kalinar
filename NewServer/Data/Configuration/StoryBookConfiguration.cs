@@ -14,10 +14,7 @@ namespace Kalinar.Data.Configuration
 
             builder.Property(x => x.Title).HasMaxLength(128).IsRequired();
             builder.Property(x => x.IsUnlocked).IsRequired();
-            builder.Property(x => x.Order).IsRequired();
             builder.Property(x => x.CreatedAt).IsRequired();
-
-            builder.HasIndex(x => new { x.GroupId, x.Order }).IsUnique();
 
             builder.HasOne(x => x.Group).WithMany().HasForeignKey(x => x.GroupId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(x => x.Pages).WithOne().HasForeignKey(x => x.BookId).OnDelete(DeleteBehavior.Cascade);

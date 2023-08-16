@@ -25,7 +25,6 @@ namespace Kalinar.Test.Integration
             {
                 GroupId = new Guid(Utilities.GroupId),
                 Title = "Test Story Book",
-                Order = 1,
             };
             StoryBookResponse? response = default;
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<StoryBookCreateRequest, StoryBookResponse>($"/api/{ApiVersion}/story-books", request, accessToken));
@@ -34,7 +33,6 @@ namespace Kalinar.Test.Integration
             {
                 Assert.NotNull(response);
                 Assert.Equal(request.Title, response.Title);
-                Assert.Equal(request.Order, response.Order);
             }
             else
             {
@@ -58,8 +56,7 @@ namespace Kalinar.Test.Integration
             {
                 BookId = new Guid(Utilities.StoryBookId),
                 Title = "Test Story Book Page",
-                Content = "Test Story Book Page Content",
-                PageNumber = 2,
+                Content = "Test Story Book Page Content"
             };
             StoryBookPageResponse? response = default;
             Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<StoryBookPageCreateRequest, StoryBookPageResponse>($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages", request, accessToken));
@@ -68,7 +65,6 @@ namespace Kalinar.Test.Integration
             {
                 Assert.NotNull(response);
                 Assert.Equal(request.Title, response.Title);
-                Assert.Equal(request.PageNumber, response.PageNumber);
             }
             else
             {
@@ -77,27 +73,6 @@ namespace Kalinar.Test.Integration
                 Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
                 Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
             }
-        }
-
-        [Fact]
-        public async Task CannotCreateStoryBookPageWithSamePageNumber()
-        {
-            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
-
-            StoryBookPageCreateRequest request = new()
-            {
-                BookId = new Guid(Utilities.StoryBookId),
-                Title = "Test Story Book Page",
-                Content = "Test Story Book Page Content",
-                PageNumber = 1,
-            };
-            StoryBookPageResponse? response = default;
-            Exception? ex = await Record.ExceptionAsync(async () => response = await this.PostAsync<StoryBookPageCreateRequest, StoryBookPageResponse>($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages", request, accessToken));
-
-            Assert.Null(response);
-            Assert.IsType<HttpErrorException>(ex);
-            Assert.Equal(HttpStatusCode.Conflict, ((HttpErrorException)ex!).StatusCode);
-            Assert.Equal(nameof(StoryBookPageNumberAlreadyExistsException), ((HttpErrorException)ex!).Type);
         }
 
         [Theory]
@@ -115,7 +90,6 @@ namespace Kalinar.Test.Integration
             StoryBookUpdateRequest request = new()
             {
                 Title = "Test Story Book",
-                Order = 2,
             };
 
             StoryBookResponse? updatedResponse = default;

@@ -95,6 +95,7 @@ namespace Kalinar.Application.Services
 
             race.Name = request.Name;
             race.Description = request.Description;
+            race.ModifiedAt = DateTime.UtcNow;
 
             return await this.raceRepository.UpdateAsync(race, cancellationToken);
         }

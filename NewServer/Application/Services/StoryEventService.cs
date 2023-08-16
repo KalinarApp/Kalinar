@@ -57,6 +57,7 @@ namespace Kalinar.Application.Services
             storyEvent.Order = request.Order;
             storyEvent.Date = request.Date;
             storyEvent.IsUnlocked = request.IsUnlocked;
+            storyEvent.ModifiedAt = DateTime.UtcNow;
 
             return await this.eventRepository.UpdateAsync(storyEvent, cancellationToken);
         }

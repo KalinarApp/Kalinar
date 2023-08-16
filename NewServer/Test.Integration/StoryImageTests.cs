@@ -25,7 +25,6 @@ namespace Kalinar.Test.Integration
             {
                 GroupId = new Guid(Utilities.GroupId),
                 Title = "Test Story Image",
-                Order = 1,
                 ImageUrl = "https://www.google.com",
             };
             StoryImageResponse? response = default;
@@ -35,7 +34,6 @@ namespace Kalinar.Test.Integration
             {
                 Assert.NotNull(response);
                 Assert.Equal(request.Title, response.Title);
-                Assert.Equal(request.Order, response.Order);
             }
             else
             {
@@ -61,7 +59,6 @@ namespace Kalinar.Test.Integration
             StoryImageUpdateRequest request = new()
             {
                 Title = "Test Story Image",
-                Order = 2,
                 ImageUrl = "https://www.google.com",
             };
 

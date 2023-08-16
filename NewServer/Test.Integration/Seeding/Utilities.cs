@@ -132,9 +132,9 @@ namespace Kalinar.Test.Integration.Seeding
             context.SkilltreeEdges.Add(skilltreeEdgeEntity);
 
             //Story
-            StoryEventEntity storyEvent = new() { Id = new Guid(StoryEventId), GroupId = group.Id, Group = group, Title = "Event", CreatedAt = DateTimeOffset.UtcNow, Order = 0, IsUnlocked = true };
-            StoryImageEntity storyImage= new() { Id = new Guid(StoryImageId), GroupId = group.Id, Group = group, Title = "Image", CreatedAt = DateTimeOffset.UtcNow, Order = 0, ImageUrl = "", IsUnlocked = true };
-            StoryBookEntity storyBook= new() { Id = new Guid(StoryBookId), GroupId = group.Id, Group = group, Title = "Book", CreatedAt = DateTimeOffset.UtcNow, Order = 0, Pages = new List<StoryBookPageEntity>(), IsUnlocked = true };
+            StoryEventEntity storyEvent = new() { Id = new Guid(StoryEventId), GroupId = group.Id, Group = group, Title = "Event", Order = 0, CreatedAt = DateTimeOffset.UtcNow, IsUnlocked = true };
+            StoryImageEntity storyImage= new() { Id = new Guid(StoryImageId), GroupId = group.Id, Group = group, Title = "Image", CreatedAt = DateTimeOffset.UtcNow, ImageUrl = "", IsUnlocked = true };
+            StoryBookEntity storyBook= new() { Id = new Guid(StoryBookId), GroupId = group.Id, Group = group, Title = "Book", CreatedAt = DateTimeOffset.UtcNow, Pages = new List<StoryBookPageEntity>(), IsUnlocked = true };
             StoryBookPageEntity storyBookPage = new() { Id = new Guid(StoryBookPageId), BookId = storyBook.Id, Title = "Page", Content = "Content", PageNumber = 1, IsUnlocked = true };
 
             context.StoryEvents.Add(storyEvent);
