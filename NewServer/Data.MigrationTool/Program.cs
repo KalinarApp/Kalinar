@@ -17,8 +17,8 @@ using Attribute = Hero.Server.Core.Models.Attribute;
 using HeroSuggestionState = Hero.Server.Core.Models.SuggestionState;
 
 const string KalinarGroup = "5e4e945c-dffd-43a2-9604-45e5f03d777f";
-const string KalinarConnectionString = "Host=db.curth.dev;Database=kalinar_dev;Port=5432;User Id=hero;Password=hero;Include Error Detail=True;";
-const string HeroConnectionString = "Host=db.curth.dev;Database=hero-prod;Port=5432;User Id=hero;Password=hero;Include Error Detail=True;";
+const string KalinarConnectionString = "";
+const string HeroConnectionString = "";
 
 ServiceCollection services = new();
 
