@@ -13,7 +13,6 @@ namespace Kalinar.Messages.Requests
 
         [Required]
         public required string Content { get; init; }
-        public string? ImageUrl { get; init; }
         [Required]
         public bool IsUnlocked { get; init; }
         [Required]

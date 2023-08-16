@@ -1,5 +1,6 @@
 ﻿using Hero.Server.Core.Database;
 using Hero.Server.Core.Models;
+using Hero.Server.Core.Models.Storyline;
 using Hero.Server.DataAccess.Database;
 using Hero.Server.DataAccess.Extensions;
 
@@ -17,8 +18,8 @@ using Attribute = Hero.Server.Core.Models.Attribute;
 using HeroSuggestionState = Hero.Server.Core.Models.SuggestionState;
 
 const string KalinarGroup = "5e4e945c-dffd-43a2-9604-45e5f03d777f";
-const string KalinarConnectionString = "";
-const string HeroConnectionString = "";
+string KalinarConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Database")!;
+string HeroConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Default__Production")!;
 
 ServiceCollection services = new();
 
@@ -156,6 +157,7 @@ foreach (Skill skill in await heroContext.Skills.Include(item => item.Attributes
     };
 
     SkillEntity migratedSkill = await skillService.CreateAsync(migratedUsers[skill.CreatorId].Id, request);
+    migratedSkills.Add(skill.Id, migratedSkill);
 
     IEnumerable<SkillAttributeRequest> skillAttributeRequests = skill.Attributes.Select(item => new SkillAttributeRequest() { AttributeId = migratedAttributes[item.AttributeId].Id, Value = item.Value });
 
@@ -192,6 +194,7 @@ foreach (Race race in await heroContext.Races.Include(item => item.Attributes).T
     RaceEntity migratedRace = await raceService.CreateAsync(migratedUsers[race.CreatorId].Id, request);
 
     IEnumerable<RaceAttributeRequest> raceAttributeRequests = race.Attributes.Select(item => new RaceAttributeRequest() { AttributeId = migratedAttributes[item.AttributeId].Id, Value = item.Value });
+    migratedRaces.Add(race.Id, migratedRace);
 
     await raceService.SetAttributesAsync(migratedRace.Id, raceAttributeRequests);
 
@@ -209,4 +212,170 @@ foreach (Race race in await heroContext.Races.Include(item => item.Attributes).T
             }
         default: break;
     };
+}
+
+// Characters
+Dictionary<Guid, CharacterEntity> migratedCharacters = new();
+ICharacterService characterService = provider.GetRequiredService<ICharacterService>();
+foreach (Character character in await heroContext.Characters.ToListAsync())
+{
+    CharacterCreateRequest request = new()
+    {
+        GroupId = migratedGroups[character.GroupId].Id,
+        Name = character.Name,
+        Description = character.Description,
+        IconUrl = character.IconUrl,
+        RaceId = migratedRaces[character.RaceId!.Value].Id,
+        Age = character.Age,
+        Inventory = character.Inventory,
+        Notes = character.Notes,
+        Profession = character.Profession,
+        Relationship = character.Relationship,
+        Religion = character.Religion,
+    };
+
+    CharacterEntity migratedCharacter = await characterService.CreateAsync(migratedUsers[character.UserId].Id, request);
+    migratedCharacters.Add(character.Id, migratedCharacter);
+}
+
+// Skilltrees
+Dictionary<Guid, SkilltreeEntity> migratedSkilltrees = new();
+ISkilltreeService skilltreeService = provider.GetRequiredService<ISkilltreeService>();
+foreach (Skilltree skilltree in await heroContext.Skilltrees.ToListAsync())
+{
+    SkilltreeCreateRequest request = new()
+    {
+        GroupId = migratedGroups[skilltree.GroupId].Id,
+        Name = skilltree.Name,
+        IsActive = skilltree.IsActiveTree,
+        Points = skilltree.Points,
+        CharacterId = skilltree.CharacterId.HasValue ? migratedCharacters[skilltree.CharacterId.Value].Id : null,
+    };
+
+    SkilltreeEntity migratedSkilltree = await skilltreeService.CreateAsync(request);
+    migratedSkilltrees.Add(skilltree.Id, migratedSkilltree);
+}
+
+// Skilltree Nodes
+Dictionary<Guid, SkilltreeNodeEntity> migratedNodes = new();
+ISkilltreeService skilltreeNodeService = provider.GetRequiredService<ISkilltreeService>();
+foreach (SkilltreeNode node in await heroContext.SkilltreeNodes.ToListAsync())
+{
+    if (!migratedSkilltrees.ContainsKey(node.ParentId!.Value)) continue;
+    SkilltreeNodeCreateRequest request = new()
+    {
+        SkilltreeId = migratedSkilltrees[node.ParentId!.Value].Id,
+        Color = node.Color,
+        Cost = node.Cost,
+        Importance = node.Importance,
+        IsEasyReachable = node.IsEasyReachable,
+        SkillId = migratedSkills[node.SkillId!.Value].Id,
+        XPos = node.XPos,
+        YPos = node.YPos
+    };
+
+    SkilltreeNodeEntity migratedSkilltreeNode = await skilltreeNodeService.CreateNodeAsync(request);
+
+    if(node.IsUnlocked) await skilltreeNodeService.UnlockNodeAsync(migratedSkilltreeNode.Id, true);
+
+    migratedNodes.Add(node.Id, migratedSkilltreeNode);
+}
+
+// Skilltree Edges
+List<SkilltreeEdgeEntity> migratedEdges = new();
+foreach (SkilltreeNode node in await heroContext.SkilltreeNodes.ToListAsync())
+{
+    if (!migratedSkilltrees.ContainsKey(node.ParentId!.Value)) continue;
+    foreach (Guid successor in node.Successors)
+    {
+        if (!migratedNodes.ContainsKey(successor)) continue;
+        SkilltreeEdgeRequest request = new()
+        {
+            StartId = migratedNodes[node.Id].Id,
+            EndId = migratedNodes[successor].Id,
+        };
+
+        if (!migratedEdges.Any(edge => edge.StartId == request.StartId && edge.EndId == request.EndId))
+        {
+            SkilltreeEdgeEntity migratedEdge = await skilltreeNodeService.CreateEdgeAsync(migratedSkilltrees[node.ParentId!.Value].Id, request);
+            migratedEdges.Add(migratedEdge);
+        }
+    }
+    foreach (Guid precessor in node.Precessors)
+    {
+
+        if (!migratedNodes.ContainsKey(precessor)) continue;
+        SkilltreeEdgeRequest request = new()
+        {
+            StartId = migratedNodes[precessor].Id,
+            EndId = migratedNodes[node.Id].Id,
+        };
+
+        if (!migratedEdges.Any(edge => edge.StartId == request.StartId && edge.EndId == request.EndId))
+        {
+            SkilltreeEdgeEntity migratedEdge = await skilltreeNodeService.CreateEdgeAsync(migratedSkilltrees[node.ParentId!.Value].Id, request);
+            migratedEdges.Add(migratedEdge);
+        }
+    }
+}
+
+// Story events
+IStoryEventService storyEventService = provider.GetRequiredService<IStoryEventService>();
+IStoryBookService storyBookService = provider.GetRequiredService<IStoryBookService>();
+IStoryImageService storyImageService = provider.GetRequiredService<IStoryImageService>();
+foreach (StoryEntry entry in await heroContext.StoryEntries.Include(item => ((StoryBook)item).Pages).ToListAsync())
+{
+    if (entry is StoryBook book)
+    {
+        StoryBookCreateRequest request = new()
+        {
+            GroupId = migratedGroups[book.GroupId].Id,
+            Title = book.Title,
+            Description = book.Description,
+            Order = book.Order,
+            ImageUrl = book.ImageUrl,
+            IsUnlocked = book.IsUnlocked
+        };
+
+        StoryBookEntity migratedBook = await storyBookService.CreateAsync(request);
+        foreach (StoryBookPage page in book.Pages)
+        {
+            StoryBookPageCreateRequest pageRequest = new()
+            {
+                BookId = migratedBook.Id,
+                Title = page.Title,
+                Content = page.Content,
+                PageNumber = page.PageNumber,
+                IsUnlocked = page.IsWritten,
+            };
+
+            await storyBookService.CreatePageAsync(pageRequest);
+        }
+    }
+    else if(entry is StoryImage image)
+    {
+        StoryImageCreateRequest request = new()
+        {
+            GroupId = migratedGroups[image.GroupId].Id,
+            Title = image.Title,
+            Order = image.Order,
+            ImageUrl = image.ImageUrl!,
+            IsUnlocked = image.IsUnlocked
+        };
+
+        await storyImageService.CreateAsync(request);
+    }
+    else
+    {
+        StoryEventCreateRequest request = new()
+        {
+            GroupId = migratedGroups[entry.GroupId].Id,
+            Title = entry.Title,
+            Description = entry.Description,
+            Order = entry.Order,
+            IsUnlocked = entry.IsUnlocked
+        };
+
+        await storyEventService.CreateAsync(request);
+    }
 }
