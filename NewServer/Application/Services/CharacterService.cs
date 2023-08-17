@@ -23,6 +23,12 @@ namespace Kalinar.Application.Services
             return this.characterRepository.ListByGroupIdAsync(groupId, cancellationToken);
         }
 
+        public async Task<IEnumerable<SkillEntity>> ListUnlockedSkillsByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        {
+            IEnumerable<CharacterSkillEntity> characterSkills = await this.characterRepository.ListCharacterSkillsByIdAsync(characterId, cancellationToken);
+            return characterSkills.Select(item => item.Skill);
+        }
+
         public async Task<CharacterEntity> GetByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
         {
             return await this.characterRepository.FindByIdAsync(characterId, cancellationToken) ?? throw new CharacterNotFoundException(characterId);

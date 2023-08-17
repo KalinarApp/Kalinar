@@ -22,6 +22,11 @@ namespace Kalinar.Data.Repositories
             return await this.context.SkilltreeEdges.Where(item => item.SkilltreeId == skilltreeId).ToListAsync(cancellationToken);
         }
 
+        public async Task<SkilltreePointEntity?> FindPointsByIdAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.SkilltreesPoints.FirstOrDefaultAsync(item => item.SkilltreeId == skilltreeId, cancellationToken);
+        }
+
         public async Task<SkilltreeNodeEntity?> FindNodeByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await this.context.SkilltreeNodes.Include(item => item.Skill).FirstOrDefaultAsync(item => item.Id == id, cancellationToken);

@@ -34,8 +34,6 @@ namespace Kalinar.Application.Services
                 Members = new(),
             };
 
-            // ToDo: Create all default attributes for this group
-
             return this.groupRepository.CreateAsync(group, cancellationToken);
         }
 

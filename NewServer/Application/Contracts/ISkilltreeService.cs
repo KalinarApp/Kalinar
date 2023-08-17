@@ -22,5 +22,6 @@ namespace Kalinar.Application.Contracts
         Task DeleteNodeAsync(Guid id, CancellationToken cancellationToken = default);
         Task DeleteEdgeAsync(Guid startId, Guid endId, CancellationToken cancellationToken = default);
         Task<SkilltreeEntity> CopyAsync(Guid skilltreeId, CancellationToken cancellationToken = default);
+        Task<SkilltreePointEntity> GetPointsByIdAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }

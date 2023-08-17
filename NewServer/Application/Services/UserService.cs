@@ -5,6 +5,7 @@ using Kalinar.Messages.Requests;
 
 namespace Kalinar.Application.Services
 {
+    // ToDo: Add endpoints so a user can order characters for themselves
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;

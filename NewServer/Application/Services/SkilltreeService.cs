@@ -40,6 +40,11 @@ namespace Kalinar.Application.Services
             return await this.skillreeRepository.FindByIdAsync(id, cancellationToken) ?? throw new SkilltreeNotFoundException(id);
         }
 
+        public async Task<SkilltreePointEntity> GetPointsByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await this.skillreeRepository.FindPointsByIdAsync(id, cancellationToken) ?? throw new SkilltreeNotFoundException(id);
+        }
+
         public async Task<SkilltreeNodeEntity> GetNodeByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await this.skillreeRepository.FindNodeByIdAsync(id, cancellationToken) ?? throw new SkilltreeNodeNotFoundException(id);
@@ -181,8 +186,9 @@ namespace Kalinar.Application.Services
         public async Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, bool state, CancellationToken cancellationToken = default)
         {
             SkilltreeNodeEntity node = await this.GetNodeByIdAsync(id, cancellationToken);
+            SkilltreePointEntity points = await this.GetPointsByIdAsync(node.SkilltreeId, cancellationToken);
 
-            // ToDo: Create a view to get the remaining skillpoints for a skilltree to check if a node is unlockable or not
+            if (points.Remaining - node.Cost < 0) throw new SkilltreeNotEnoughPointsException(node.SkilltreeId, id);
 
             node.IsUnlocked = state;
 

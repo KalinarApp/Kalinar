@@ -11,13 +11,15 @@ namespace Kalinar.Data.Database
         public DbSet<AbilityEntity> Abilities { get; set; }
         public DbSet<AttributeEntity> Attributes { get; set; }
         public DbSet<CharacterEntity> Characters { get; set; }
+        public DbSet<CharacterSkillEntity> CharacterSkills { get; set; }
         public DbSet<GroupEntity> Groups { get; set; }
         public DbSet<GroupMemberEntity> GroupMembers { get; set; }
-        public DbSet<RaceAttributeEntity> RaceAttributes { get; set; }
         public DbSet<RaceEntity> Races { get; set; }
-        public DbSet<SkillAttributeEntity> SkillAttributes { get; set; }
+        public DbSet<RaceAttributeEntity> RaceAttributes { get; set; }
         public DbSet<SkillEntity> Skills { get; set; }
-        public DbSet<SkilltreeEntity> Skilltrees{ get; set; }
+        public DbSet<SkillAttributeEntity> SkillAttributes { get; set; }
+        public DbSet<SkilltreeEntity> Skilltrees { get; set; }
+        public DbSet<SkilltreePointEntity> SkilltreesPoints { get; set; }
         public DbSet<SkilltreeEdgeEntity> SkilltreeEdges { get; set; }
         public DbSet<SkilltreeNodeEntity> SkilltreeNodes { get; set; }
         public DbSet<UserEntity> Users { get; set; }

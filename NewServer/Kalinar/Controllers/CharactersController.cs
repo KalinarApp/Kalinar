@@ -48,7 +48,18 @@ namespace Kalinar.Controllers
             return this.Ok((CharacterResponse)character);
         }
 
-        // ToDo: Add Endpoints for unlocked skills, unlocked attributes and skilltrees
+        [HttpGet("{characterId}/unlocked-skills")]
+        public async Task<ActionResult<IEnumerable<SkillResponse>>> ListUnlockedSkillsByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        {
+            CharacterEntity character = await this.characterService.GetByIdAsync(characterId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, character, PolicyNames.CanReadCharacter);
+
+            IEnumerable<SkillEntity> skills = await this.characterService.ListUnlockedSkillsByIdAsync(characterId, cancellationToken);
+            return this.Ok(skills.Select(item => (SkillResponse)item));
+        }
+
+        // ToDo: Add Endpoints character attributes/stats and skilltrees
+        // ToDo: Add endpoints so a character can favorize skills
 
         [HttpPost]
         public async Task<ActionResult<CharacterResponse>> CreateAsync([FromBody] CharacterCreateRequest request, CancellationToken cancellationToken = default)

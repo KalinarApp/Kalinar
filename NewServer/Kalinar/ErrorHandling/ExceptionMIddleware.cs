@@ -62,6 +62,7 @@ namespace Kalinar.ErrorHandling
                 SkillNotApprovedException => (int)HttpStatusCode.Conflict,
                 SkilltreeEdgeAlreadyExistsException => (int)HttpStatusCode.Conflict,
                 StoryBookPageNumberAlreadyExistsException => (int)HttpStatusCode.Conflict,
+                SkilltreeNotEnoughPointsException => (int)HttpStatusCode.Forbidden,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 

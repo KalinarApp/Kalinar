@@ -59,6 +59,16 @@ namespace Kalinar.Controllers
             return this.Ok(edges.Select(item => (SkilltreeEdgeResponse)item));
         }
 
+        [HttpGet("{skilltreeId}/points")]
+        public async Task<ActionResult<IEnumerable<SkilltreePointsResponse>>> ListPointsAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
+        {
+            SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanReadSkilltree);
+
+            SkilltreePointsResponse response = await this.skilltreeService.GetPointsByIdAsync(skilltreeId, cancellationToken);
+            return this.Ok(response);
+        }
+
         [HttpGet("{skilltreeId}")]
         public async Task<ActionResult<SkilltreeResponse>> GetAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
