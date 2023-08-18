@@ -1,4 +1,5 @@
 ﻿using Kalinar.Core.Entities;
+using Kalinar.Core.Views;
 
 namespace Kalinar.Messages.Responses
 {
@@ -28,7 +29,7 @@ namespace Kalinar.Messages.Responses
             };
         }
 
-        public static implicit operator AttributeValueResponse(CharacterAttributeEntity attribute)
+        public static implicit operator AttributeValueResponse(CharacterAttributeView attribute)
         {
             return new()
             {

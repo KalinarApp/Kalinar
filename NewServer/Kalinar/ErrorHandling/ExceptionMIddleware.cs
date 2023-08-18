@@ -27,11 +27,11 @@ namespace Kalinar.ErrorHandling
             catch (Exception ex)
             {
                 this.logger.LogError(ex, "Exception occured");
-                await this.HandleExceptionAsync(context, ex);
+                await HandleExceptionAsync(context, ex);
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = ex switch

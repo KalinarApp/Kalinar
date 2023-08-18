@@ -205,8 +205,6 @@ namespace Kalinar.Controllers
         public async Task<ActionResult> DeleteNodeAsync(Guid skilltreeId, Guid nodeId, CancellationToken cancellationToken = default)
         {
             SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-            GroupEntity group = await this.groupService.GetByIdAsync(skilltree.GroupId, true, cancellationToken);
-
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanDeleteSkilltree);
 
             await this.skilltreeService.DeleteNodeAsync(nodeId, cancellationToken);

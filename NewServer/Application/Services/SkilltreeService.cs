@@ -1,6 +1,7 @@
 ﻿using Kalinar.Application.Contracts;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
+using Kalinar.Core.Views;
 using Kalinar.Messages.Requests;
 
 namespace Kalinar.Application.Services
@@ -55,7 +56,7 @@ namespace Kalinar.Application.Services
             return await this.skillreeRepository.FindByIdAsync(id, cancellationToken) ?? throw new SkilltreeNotFoundException(id);
         }
 
-        public async Task<SkilltreePointEntity> GetPointsByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<SkilltreePointsView> GetPointsByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await this.skillreeRepository.FindPointsByIdAsync(id, cancellationToken) ?? throw new SkilltreeNotFoundException(id);
         }
@@ -201,7 +202,7 @@ namespace Kalinar.Application.Services
         public async Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, CancellationToken cancellationToken = default)
         {
             SkilltreeNodeEntity node = await this.GetNodeByIdAsync(id, cancellationToken);
-            SkilltreePointEntity points = await this.GetPointsByIdAsync(node.SkilltreeId, cancellationToken);
+            SkilltreePointsView points = await this.GetPointsByIdAsync(node.SkilltreeId, cancellationToken);
 
             if (node.IsUnlocked) throw new SkilltreeNodeAlreadyUnlockedException(node.Id);
             if (points.Remaining - node.Cost < 0) throw new SkilltreeNotEnoughPointsException(node.SkilltreeId, id);

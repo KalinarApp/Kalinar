@@ -151,7 +151,7 @@ namespace Kalinar.Test.Integration.Seeding
             context.StoryBookPages.Add(storyBookPage);
 
             context.Database.ExecuteSqlRaw(@"
-            CREATE VIEW CharacterSkills AS  
+            CREATE VIEW CharacterUnlockedSkills AS  
                 SELECT DISTINCT st.CharacterId,
                    s.Id AS SkillId
                   FROM SkilltreeNodes n

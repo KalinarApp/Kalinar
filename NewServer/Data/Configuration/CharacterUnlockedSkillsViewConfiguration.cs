@@ -1,15 +1,14 @@
-﻿using Kalinar.Core.Entities;
-
+﻿using Kalinar.Core.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Kalinar.Data.Configuration
 {
-    internal class CharacterSkillsConfiguration : IEntityTypeConfiguration<CharacterSkillEntity>
+    internal class CharacterUnlockedSkillsViewConfiguration : IEntityTypeConfiguration<CharacterUnlockedSkillView>
     {
-        public void Configure(EntityTypeBuilder<CharacterSkillEntity> builder)
+        public void Configure(EntityTypeBuilder<CharacterUnlockedSkillView> builder)
         {
-            builder.ToView("CharacterSkills");
+            builder.ToView("CharacterUnlockedSkills");
             builder.HasNoKey();
 
             builder.HasOne(x => x.Skill).WithMany().HasForeignKey(x => x.SkillId).OnDelete(DeleteBehavior.NoAction);

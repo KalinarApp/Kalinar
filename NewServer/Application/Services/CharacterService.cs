@@ -1,6 +1,7 @@
 ﻿using Kalinar.Application.Contracts;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
+using Kalinar.Core.Views;
 using Kalinar.Messages.Requests;
 
 namespace Kalinar.Application.Services
@@ -25,11 +26,11 @@ namespace Kalinar.Application.Services
 
         public async Task<IEnumerable<SkillEntity>> ListUnlockedSkillsByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
         {
-            IEnumerable<CharacterSkillEntity> characterSkills = await this.characterRepository.ListCharacterSkillsByIdAsync(characterId, cancellationToken);
+            IEnumerable<CharacterUnlockedSkillView> characterSkills = await this.characterRepository.ListUnlockedCharacterSkillsByIdAsync(characterId, cancellationToken);
             return characterSkills.Select(item => item.Skill);
         }
 
-        public async Task<IEnumerable<CharacterAttributeEntity>> ListAttributesByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<CharacterAttributeView>> ListAttributesByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
         {
             return await this.characterRepository.ListCharacterAttributesByIdAsync(characterId, cancellationToken);
         }

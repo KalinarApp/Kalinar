@@ -21,12 +21,10 @@ namespace Kalinar.Extensions
 
         public static async Task UseDatabaseMigrations(this WebApplication builder)
         {
-            using(IServiceScope serviceScope = builder.Services.CreateScope())
-            {
-                Context context = serviceScope.ServiceProvider.GetRequiredService<Context>();
+            using AsyncServiceScope serviceScope = builder.Services.CreateAsyncScope();
+            Context context = serviceScope.ServiceProvider.GetRequiredService<Context>();
 
-                if (context.Database.IsRelational() && !builder.Environment.IsStaging()) await context.Database.MigrateAsync();
-            }
+            if (context.Database.IsRelational() && !builder.Environment.IsStaging()) await context.Database.MigrateAsync();
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Kalinar.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kalinar.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230818223342_RenameCharacterSkillsViewToCharacterUnlockedSkills")]
+    partial class RenameCharacterSkillsViewToCharacterUnlockedSkills
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,26 +227,6 @@ namespace Kalinar.Data.Migrations
                     b.HasIndex("RaceId");
 
                     b.ToTable("Characters", "Kalinar");
-                });
-
-            modelBuilder.Entity("Kalinar.Core.Entities.CharacterSkillEntity", b =>
-                {
-                    b.Property<Guid>("CharacterId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("SkillId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsFavorite")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.HasKey("CharacterId", "SkillId");
-
-                    b.HasIndex("SkillId");
-
-                    b.ToTable("CharacterSkills", "Kalinar");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Entities.DeviceEntity", b =>
@@ -737,7 +720,7 @@ namespace Kalinar.Data.Migrations
                     b.ToView("CharacterAttributes", "Kalinar");
                 });
 
-            modelBuilder.Entity("Kalinar.Core.Views.CharacterUnlockedSkillView", b =>
+            modelBuilder.Entity("Kalinar.Core.Views.CharacterSkillView", b =>
                 {
                     b.Property<Guid>("CharacterId")
                         .HasColumnType("uuid");
@@ -749,7 +732,7 @@ namespace Kalinar.Data.Migrations
 
                     b.ToTable((string)null);
 
-                    b.ToView("CharacterUnlockedSkills", "Kalinar");
+                    b.ToView("CharacterSkills", "Kalinar");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Views.SkilltreePointsView", b =>
@@ -835,25 +818,6 @@ namespace Kalinar.Data.Migrations
                     b.Navigation("Group");
 
                     b.Navigation("Race");
-                });
-
-            modelBuilder.Entity("Kalinar.Core.Entities.CharacterSkillEntity", b =>
-                {
-                    b.HasOne("Kalinar.Core.Entities.CharacterEntity", "Character")
-                        .WithMany()
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Kalinar.Core.Entities.SkillEntity", "Skill")
-                        .WithMany()
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
-
-                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Entities.DeviceEntity", b =>
@@ -1092,7 +1056,7 @@ namespace Kalinar.Data.Migrations
                     b.Navigation("Attribute");
                 });
 
-            modelBuilder.Entity("Kalinar.Core.Views.CharacterUnlockedSkillView", b =>
+            modelBuilder.Entity("Kalinar.Core.Views.CharacterSkillView", b =>
                 {
                     b.HasOne("Kalinar.Core.Entities.SkillEntity", "Skill")
                         .WithMany()

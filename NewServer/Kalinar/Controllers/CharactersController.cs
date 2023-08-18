@@ -2,6 +2,7 @@
 using Kalinar.Authorization;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
+using Kalinar.Core.Views;
 using Kalinar.Extensions;
 using Kalinar.Messages.Requests;
 using Kalinar.Messages.Responses;
@@ -17,13 +18,15 @@ namespace Kalinar.Controllers
     public class CharactersController : ControllerBase
     {
         private readonly ICharacterService characterService;
+        private readonly ICharacterSkillService characterSkillService;
         private readonly ISkilltreeService skilltreeService;
         private readonly IGroupService groupService;
         private readonly IAuthorizationService authorizationService;
 
-        public CharactersController(ICharacterService characterService, ISkilltreeService skilltreeService, IGroupService groupService, IAuthorizationService authorizationService)
+        public CharactersController(ICharacterService characterService, ICharacterSkillService characterSkillService, ISkilltreeService skilltreeService, IGroupService groupService, IAuthorizationService authorizationService)
         {
             this.characterService = characterService;
+            this.characterSkillService = characterSkillService;
             this.skilltreeService = skilltreeService;
             this.groupService = groupService;
             this.authorizationService = authorizationService;
@@ -56,7 +59,7 @@ namespace Kalinar.Controllers
             CharacterEntity character = await this.characterService.GetByIdAsync(characterId, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, character, PolicyNames.CanReadCharacter);
 
-            IEnumerable<CharacterAttributeEntity> attributes = await this.characterService.ListAttributesByIdAsync(characterId, cancellationToken);
+            IEnumerable<CharacterAttributeView> attributes = await this.characterService.ListAttributesByIdAsync(characterId, cancellationToken);
             return this.Ok(attributes.Select(item => (AttributeValueResponse)item));
         }
 
@@ -71,16 +74,22 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet("{characterId}/skills")]
-        public async Task<ActionResult<IEnumerable<SkillResponse>>> ListUnlockedSkillsByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<SkillResponse>>> ListUnlockedSkillsByIdAsync(Guid characterId, [FromQuery] bool? isFavorite = default, CancellationToken cancellationToken = default)
         {
             CharacterEntity character = await this.characterService.GetByIdAsync(characterId, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, character, PolicyNames.CanReadCharacter);
 
             IEnumerable<SkillEntity> skills = await this.characterService.ListUnlockedSkillsByIdAsync(characterId, cancellationToken);
+            if (isFavorite.HasValue)
+            {
+                IEnumerable<CharacterSkillEntity> characterSkills = await this.characterSkillService.ListAsync(characterId, cancellationToken);
+                skills = isFavorite.Value 
+                    ? skills.Where(skill => characterSkills.Any(item => item.SkillId == skill.Id && item.IsFavorite))
+                    : skills.Where(skill => !characterSkills.Any(item => item.SkillId == skill.Id) || characterSkills.Any(item => item.SkillId == skill.Id && !item.IsFavorite));
+            }
+
             return this.Ok(skills.Select(item => (SkillResponse)item));
         }
-
-        // ToDo: Add endpoints so a character can favorize skills
 
         [HttpPost]
         public async Task<ActionResult<CharacterResponse>> CreateAsync([FromBody] CharacterCreateRequest request, CancellationToken cancellationToken = default)
@@ -91,6 +100,15 @@ namespace Kalinar.Controllers
 
             CharacterEntity character = await this.characterService.CreateAsync(userId, request, cancellationToken);
             return this.CreatedAtAction("Get", new { characterId = character.Id }, (CharacterResponse)character);
+        }
+
+        [HttpPost("{characterId}/skills/{skillId}")]
+        public async Task AddOrUpdateCharacterSkillAsync(Guid characterId, Guid skillId, [FromBody] CharacterSkillRequest request, CancellationToken cancellationToken = default)
+        {
+            CharacterEntity character = await this.characterService.GetByIdAsync(characterId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, character, PolicyNames.CanUpdateCharacter);
+
+            await this.characterSkillService.AddOrUpdateAsync(characterId, skillId, request, cancellationToken);    
         }
 
         [HttpPut("{characterId}")]

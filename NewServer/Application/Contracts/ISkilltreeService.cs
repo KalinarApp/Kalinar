@@ -1,4 +1,5 @@
 ﻿using Kalinar.Core.Entities;
+using Kalinar.Core.Views;
 using Kalinar.Messages.Requests;
 
 namespace Kalinar.Application.Contracts
@@ -25,6 +26,6 @@ namespace Kalinar.Application.Contracts
         Task DeleteNodeAsync(Guid id, CancellationToken cancellationToken = default);
         Task DeleteEdgeAsync(Guid startId, Guid endId, CancellationToken cancellationToken = default);
         Task<SkilltreeEntity> CopyAsync(Guid skilltreeId, CancellationToken cancellationToken = default);
-        Task<SkilltreePointEntity> GetPointsByIdAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<SkilltreePointsView> GetPointsByIdAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }

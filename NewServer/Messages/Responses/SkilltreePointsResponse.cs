@@ -1,4 +1,4 @@
-﻿using Kalinar.Core.Entities;
+﻿using Kalinar.Core.Views;
 
 namespace Kalinar.Messages.Responses
 {
@@ -9,7 +9,7 @@ namespace Kalinar.Messages.Responses
         public required int Spent { get; init; }
         public required int Remaining { get; init; }
 
-        public static implicit operator SkilltreePointsResponse(SkilltreePointEntity entity)
+        public static implicit operator SkilltreePointsResponse(SkilltreePointsView entity)
         {
             return new SkilltreePointsResponse
             {

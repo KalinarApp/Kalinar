@@ -1,6 +1,7 @@
 ﻿using Kalinar.Application.Contracts;
 using Kalinar.Core.Entities;
 using Kalinar.Core.Exceptions;
+using Kalinar.Core.Views;
 using Kalinar.Data.Database;
 using Kalinar.Data.Extensions;
 
@@ -37,9 +38,9 @@ namespace Kalinar.Data.Repositories
             return await this.context.SkilltreeEdges.Where(item => item.EndId == endId).Include(item => item.Start).Include(item => item.End).ToListAsync(cancellationToken);
         }
 
-        public async Task<SkilltreePointEntity?> FindPointsByIdAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
+        public async Task<SkilltreePointsView?> FindPointsByIdAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
-            return await this.context.SkilltreesPoints.FirstOrDefaultAsync(item => item.SkilltreeId == skilltreeId, cancellationToken);
+            return await this.context.SkilltreesPointsView.FirstOrDefaultAsync(item => item.SkilltreeId == skilltreeId, cancellationToken);
         }
 
         public async Task<SkilltreeNodeEntity?> FindNodeByIdAsync(Guid id, CancellationToken cancellationToken = default)

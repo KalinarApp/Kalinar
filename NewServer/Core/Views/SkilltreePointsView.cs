@@ -1,6 +1,6 @@
-﻿namespace Kalinar.Core.Entities
+﻿namespace Kalinar.Core.Views
 {
-    public class SkilltreePointEntity
+    public class SkilltreePointsView
     {
         public required Guid SkilltreeId { get; init; }
         public required int Available { get; init; }

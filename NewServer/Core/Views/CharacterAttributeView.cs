@@ -1,6 +1,8 @@
-﻿namespace Kalinar.Core.Entities
+﻿using Kalinar.Core.Entities;
+
+namespace Kalinar.Core.Views
 {
-    public class CharacterAttributeEntity
+    public class CharacterAttributeView
     {
         public required Guid CharacterId { get; init; }
         public required Guid AttributeId { get; init; }

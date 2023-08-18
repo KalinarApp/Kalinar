@@ -90,6 +90,28 @@ namespace Kalinar.Test.Integration
             }
         }
 
+        [Fact]
+        public async Task CanFavorizeSkills()
+        {
+            string accessToken = GetToken(Utilities.GroupMember1UserId)!;
+
+            await this.PostAsync<CharacterSkillRequest>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills/{Utilities.ApprovedSkillId}", new() { IsFavorite = true }, accessToken);
+            List<SkillResponse> favoriteSkills = await this.GetAsync<List<SkillResponse>>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills?isFavorite=true", accessToken);
+
+            Assert.Contains(favoriteSkills, s => s.Id == new Guid(Utilities.ApprovedSkillId));
+        }
+
+        [Fact]
+        public async Task CanUnFavorizeSkills()
+        {
+            string accessToken = GetToken(Utilities.GroupMember1UserId)!;
+
+            await this.PostAsync<CharacterSkillRequest>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills/{Utilities.ApprovedSkillId}", new() { IsFavorite = false }, accessToken);
+            List<SkillResponse> favoriteSkills = await this.GetAsync<List<SkillResponse>>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills?isFavorite=true", accessToken);
+
+            Assert.DoesNotContain(favoriteSkills, s => s.Id == new Guid(Utilities.ApprovedSkillId));
+        }
+
         [Theory]
         [InlineData(Utilities.GroupOwnerUserId, false)]
         [InlineData(Utilities.GroupMember1UserId, true)]

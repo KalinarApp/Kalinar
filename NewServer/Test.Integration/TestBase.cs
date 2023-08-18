@@ -128,9 +128,4 @@ namespace Kalinar.Test.Integration
             GC.SuppressFinalize(this);
         }
     }
-
-    public class FirebaseResponse
-    {
-        public required string IdToken { get; init; }
-    }
 }

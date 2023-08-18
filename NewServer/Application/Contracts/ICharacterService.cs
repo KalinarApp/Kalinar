@@ -1,4 +1,5 @@
 ﻿using Kalinar.Core.Entities;
+using Kalinar.Core.Views;
 using Kalinar.Messages.Requests;
 
 namespace Kalinar.Application.Contracts
@@ -7,7 +8,7 @@ namespace Kalinar.Application.Contracts
     {
         Task<IEnumerable<CharacterEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default);
         Task<IEnumerable<SkillEntity>> ListUnlockedSkillsByIdAsync(Guid characterId, CancellationToken cancellationToken = default);
-        Task<IEnumerable<CharacterAttributeEntity>> ListAttributesByIdAsync(Guid characterId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<CharacterAttributeView>> ListAttributesByIdAsync(Guid characterId, CancellationToken cancellationToken = default);
         Task<CharacterEntity> GetByIdAsync(Guid characterId, CancellationToken cancellationToken = default);
         Task<CharacterEntity> CreateAsync(string userId, CharacterCreateRequest request, CancellationToken cancellationToken = default);
         Task<CharacterEntity> UpdateAsync(Guid id, CharacterUpdateRequest request, CancellationToken cancellationToken = default);

@@ -226,7 +226,7 @@ namespace Kalinar.Test.Integration
         {
             string accessToken = GetToken(Utilities.GroupMember1UserId)!;
 
-            SkilltreeNodeResponse? response = await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/unlock", new { }, accessToken);
+            await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/unlock", new { }, accessToken);
             SkilltreeNodeResponse? response2 = await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/reset", new { }, accessToken);
 
             Assert.NotNull(response2);
