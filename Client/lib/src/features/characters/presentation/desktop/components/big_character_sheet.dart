@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kalinar/src/features/characters/presentation/shared/details/inventory_text_field.dart';
-import 'package:kalinar/src/features/characters/presentation/shared/details/notes_text_field.dart';
 
 import '../../../domain/character.dart';
-import '../../shared/details/character_abilities.dart';
 import '../../shared/details/character_skilltree_list.dart';
+import '../../shared/details/inventory_text_field.dart';
+import '../../shared/details/notes_text_field.dart';
 import 'character_attributes.dart';
 import 'character_information.dart';
+import 'character_skill_list.dart';
 import 'custom_card.dart';
 
 class BigCharacterSheet extends StatelessWidget {
@@ -36,13 +36,13 @@ class BigCharacterSheet extends StatelessWidget {
     return isOwnerOrAdmin() || (character.shareNotes ?? false) ? Expanded(child: NotesTextField(character)) : Container();
   }
 
-  Widget _buildAbilities(BoxConstraints constraints) {
+  Widget _buildCharacterSkills(BoxConstraints constraints, BuildContext context) {
     return isOwnerOrAdmin() || (character.shareAbilities ?? false)
         ? Expanded(
             flex: 2,
             child: SizedBox(
               width: constraints.maxWidth / 3,
-              child: CustomCard(child: CharacterAbilities(character)),
+              child: CustomCard(child: CharacterSkillList(character.id, ownerId: character.userId)),
             ),
           )
         : Container();
@@ -91,7 +91,7 @@ class BigCharacterSheet extends StatelessWidget {
                   ],
                 ),
               ),
-            _buildAbilities(constraints),
+            _buildCharacterSkills(constraints, context),
           ],
         ),
       );

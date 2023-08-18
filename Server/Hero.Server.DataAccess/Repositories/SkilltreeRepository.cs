@@ -235,6 +235,35 @@ namespace Hero.Server.DataAccess.Repositories
             }
         }
 
+        public async Task<SkilltreeNode> MarkNodeAsFavoriteAsync(Guid nodeId, bool isFavorite, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                SkilltreeNode? node = await this.context.SkilltreeNodes.FindAsync(new object[] { nodeId }, cancellationToken: cancellationToken);
+
+                if (null == node)
+                {
+                    throw new ObjectNotFoundException($"The node (id: {nodeId}) you're trying to update does not exist.");
+                }
+
+                node.IsFavorite = isFavorite;
+
+                await this.context.SaveChangesAsync(cancellationToken);
+
+                return node;
+            }
+            catch (HeroException ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogUnknownErrorOccured(ex);
+                throw new HeroException("An error occured while updating node.");
+            }
+        }
+
         public async Task ResetSkilltreeAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             try
