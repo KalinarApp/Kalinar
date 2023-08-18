@@ -239,7 +239,19 @@ namespace Kalinar.Application.Services
             SkilltreeNodeEntity node = await this.GetNodeByIdAsync(id, cancellationToken);
             IEnumerable<SkilltreeEdgeEntity> edges = await this.ListEdgesByStartIdAsync(node.Id, cancellationToken);
 
-            if (edges.Any(edge => !edge.End.IsEasyReachable || !edges.Any(edge => edge.Start.IsUnlocked && edge.StartId != node.Id))) throw new SkilltreeNodeNotResetableException(node.Id);
+            //if (edges.Any(edge => )) 
+
+            foreach (SkilltreeEdgeEntity edge in edges)
+            {
+                SkilltreeNodeEntity otherNode = edge.End;
+                if (!otherNode.IsUnlocked) continue;
+
+                IEnumerable<SkilltreeEdgeEntity> followingEdges = await this.ListEdgesByEndIdAsync(otherNode.Id, cancellationToken);
+                if(!otherNode.IsEasyReachable || !followingEdges.Any(edge => edge.Start.IsUnlocked && edge.StartId != node.Id))
+                {
+                    throw new SkilltreeNodeNotResetableException(node.Id);
+                }
+            }
 
             node.IsUnlocked = false;
             node.UnlockedAt = null;

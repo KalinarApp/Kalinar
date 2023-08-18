@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hero.Server.DataAccess", ".
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{F12CEE7A-41B8-4039-8ECF-D4A0BE16AED9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hero.Server.Core", "..\Server\Hero.Server.Core\Hero.Server.Core.csproj", "{848BF900-22C1-49FC-95D6-752B70674C2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,12 +67,17 @@ Global
 		{549D91D9-090C-4529-AD9B-0F70A5B15607}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{549D91D9-090C-4529-AD9B-0F70A5B15607}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{549D91D9-090C-4529-AD9B-0F70A5B15607}.Release|Any CPU.Build.0 = Release|Any CPU
+		{848BF900-22C1-49FC-95D6-752B70674C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{848BF900-22C1-49FC-95D6-752B70674C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{848BF900-22C1-49FC-95D6-752B70674C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{848BF900-22C1-49FC-95D6-752B70674C2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{549D91D9-090C-4529-AD9B-0F70A5B15607} = {F12CEE7A-41B8-4039-8ECF-D4A0BE16AED9}
+		{848BF900-22C1-49FC-95D6-752B70674C2E} = {F12CEE7A-41B8-4039-8ECF-D4A0BE16AED9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EDB6E69B-2C43-47F9-B419-E7440F36A81F}
