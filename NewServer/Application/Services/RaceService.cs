@@ -127,8 +127,8 @@ namespace Kalinar.Application.Services
 
         public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            RaceEntity skill = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
-            await this.raceRepository.DeleteAsync(skill, cancellationToken);
+            RaceEntity race = await this.GetByIdAsync(id, cancellationToken: cancellationToken);
+            await this.raceRepository.DeleteAsync(race, cancellationToken);
         }
     }
 }

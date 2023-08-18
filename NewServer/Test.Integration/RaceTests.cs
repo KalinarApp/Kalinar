@@ -253,7 +253,7 @@ namespace Kalinar.Test.Integration
             string RaceId = state switch
             {
                 SuggestionState.Pending => Utilities.PendingRaceId,
-                SuggestionState.Approved => Utilities.ApprovedRaceId,
+                SuggestionState.Approved => Utilities.ApprovedRaceNotInSkilltreeId,
                 SuggestionState.Rejected => Utilities.RejectedRaceId,
                 _ => throw new NotImplementedException(),
             };

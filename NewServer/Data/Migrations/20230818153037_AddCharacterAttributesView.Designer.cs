@@ -3,6 +3,7 @@ using System;
 using Kalinar.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kalinar.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230818153037_AddCharacterAttributesView")]
+    partial class AddCharacterAttributesView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,24 +162,6 @@ namespace Kalinar.Data.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Attributes", "Kalinar");
-                });
-
-            modelBuilder.Entity("Kalinar.Core.Entities.CharacterAttributeEntity", b =>
-                {
-                    b.Property<Guid>("AttributeId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CharacterId")
-                        .HasColumnType("uuid");
-
-                    b.Property<double>("Value")
-                        .HasColumnType("double precision");
-
-                    b.HasIndex("AttributeId");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("CharacterAttributes", "Kalinar");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Entities.CharacterEntity", b =>
@@ -553,9 +538,6 @@ namespace Kalinar.Data.Migrations
                     b.Property<Guid>("SkilltreeId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset?>("UnlockedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<double>("XPos")
                         .HasColumnType("double precision");
 
@@ -796,17 +778,6 @@ namespace Kalinar.Data.Migrations
                     b.Navigation("Creator");
 
                     b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("Kalinar.Core.Entities.CharacterAttributeEntity", b =>
-                {
-                    b.HasOne("Kalinar.Core.Entities.AttributeEntity", "Attribute")
-                        .WithMany()
-                        .HasForeignKey("AttributeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Attribute");
                 });
 
             modelBuilder.Entity("Kalinar.Core.Entities.CharacterEntity", b =>

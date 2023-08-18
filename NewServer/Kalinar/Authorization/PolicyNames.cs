@@ -46,5 +46,8 @@
         public const string CanCreateStoryItem = "CanCreateStoryItemPolicy";
         public const string CanUpdateStoryItem = "CanUpdateStoryItemPolicy";
         public const string CanDeleteStoryItem = "CanDeleteStoryItemPolicy";
+
+        public const string CanUnlockSkilltreeNode = "CanUnlockSkilltreeNodePolicy";
+        public const string CanResetSkilltreeNode = "CanResetSkilltreeNodePolicy";
     }
 }

@@ -6,6 +6,7 @@ namespace Kalinar.Application.Contracts
     public interface ISkilltreeService
     {
         Task<IEnumerable<SkilltreeEntity>> ListAsync(Guid groupId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<SkilltreeEntity>> ListByCharacterIdAsync(Guid characterId, CancellationToken cancellationToken = default);
         Task<IEnumerable<SkilltreeNodeEntity>> ListNodesAsync(Guid skilltreeId, CancellationToken cancellationToken = default);
         Task<IEnumerable<SkilltreeEdgeEntity>> ListEdgesAsync(Guid skilltreeId, CancellationToken cancellationToken = default);
         Task<SkilltreeEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
@@ -16,7 +17,9 @@ namespace Kalinar.Application.Contracts
         Task<SkilltreeEdgeEntity> CreateEdgeAsync(Guid skilltreeId, SkilltreeEdgeRequest request, CancellationToken cancellationToken = default);
         Task<SkilltreeEntity> UpdateAsync(Guid id, SkilltreeUpdateRequest request, CancellationToken cancellationToken = default);
         Task<SkilltreeNodeEntity> UpdateNodeAsync(Guid id, SkilltreeNodeUpdateRequest request, CancellationToken cancellationToken = default);
-        Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, bool state, CancellationToken cancellationToken = default);
+        Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, CancellationToken cancellationToken = default);
+        Task ResetAllNodesAsync(Guid skilltreeId, CancellationToken cancellationToken = default);
+        Task<SkilltreeNodeEntity> ResetNodeAsync(Guid id, CancellationToken cancellationToken = default);
         Task ResetAsync(Guid id, CancellationToken cancellationToken = default);
         Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
         Task DeleteNodeAsync(Guid id, CancellationToken cancellationToken = default);

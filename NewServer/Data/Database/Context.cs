@@ -12,6 +12,7 @@ namespace Kalinar.Data.Database
         public DbSet<AttributeEntity> Attributes { get; set; }
         public DbSet<CharacterEntity> Characters { get; set; }
         public DbSet<CharacterSkillEntity> CharacterSkills { get; set; }
+        public DbSet<CharacterAttributeEntity> CharacterAttributes{ get; set; }
         public DbSet<GroupEntity> Groups { get; set; }
         public DbSet<GroupMemberEntity> GroupMembers { get; set; }
         public DbSet<RaceEntity> Races { get; set; }

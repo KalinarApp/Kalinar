@@ -276,7 +276,7 @@ foreach (SkilltreeNode node in await heroContext.SkilltreeNodes.ToListAsync())
 
     SkilltreeNodeEntity migratedSkilltreeNode = await skilltreeNodeService.CreateNodeAsync(request);
 
-    if(node.IsUnlocked) await skilltreeNodeService.UnlockNodeAsync(migratedSkilltreeNode.Id, true);
+    if(node.IsUnlocked) await skilltreeNodeService.UnlockNodeAsync(migratedSkilltreeNode.Id);
 
     migratedNodes.Add(node.Id, migratedSkilltreeNode);
 }

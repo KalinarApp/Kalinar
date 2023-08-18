@@ -125,7 +125,6 @@ namespace Kalinar.Test.Integration
 
         public void Dispose()
         {
-            File.Delete("Testing.db");
             GC.SuppressFinalize(this);
         }
     }

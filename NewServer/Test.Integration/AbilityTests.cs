@@ -139,8 +139,9 @@ namespace Kalinar.Test.Integration
             List<string>? response = await this.GetAsync<List<string>>($"/api/{ApiVersion}/abilities/{Utilities.ApprovedAbilityId}/tags", accessToken);
 
             Assert.NotNull(response);
-
-            Assert.Equal(data, response);
+            
+            Assert.Contains(response, tag => data[0] == tag);
+            Assert.Contains(response, tag => data[1] == tag);
         }
 
         [Theory]

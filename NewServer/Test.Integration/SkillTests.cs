@@ -280,7 +280,7 @@ namespace Kalinar.Test.Integration
             string skillId = state switch
             {
                 SuggestionState.Pending => Utilities.PendingSkillId,
-                SuggestionState.Approved => Utilities.ApprovedSkillId,
+                SuggestionState.Approved => Utilities.ApprovedRaceNotInSkilltreeId,
                 SuggestionState.Rejected => Utilities.RejectedSkillId,
                 _ => throw new NotImplementedException(),
             };

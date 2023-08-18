@@ -11,6 +11,7 @@
         public required string Color { get; set; }
         public required bool IsEasyReachable { get; set; }
         public required bool IsUnlocked { get; set; }
+        public DateTimeOffset? UnlockedAt { get; set; }
         public required SkilltreeEntity Skilltree { get; init; }
 
         public required Guid SkillId { get; set; }

@@ -163,8 +163,112 @@ namespace Kalinar.Test.Integration
             Assert.Equal(3, nodes.Count);
         }
 
+        [Fact]
+        public async Task CanUnlockNode()
+        {
+            string accessToken = GetToken(Utilities.GroupMember1UserId)!;
 
-        // ToDo: Add tests to unlock nodes
+            SkilltreeNodeResponse? response = await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/unlock", new {}, accessToken);
+
+            Assert.NotNull(response);
+            Assert.True(response.IsUnlocked);
+        }
+
+        [Fact]
+        public async Task CanNotUnlockNotReachableNode()
+        {
+            string accessToken = GetToken(Utilities.GroupMember1UserId)!;
+
+            SkilltreeNodeResponse? response = default;
+            Exception? ex = await Record.ExceptionAsync(async () => response = await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode2Id}/unlock", new { }, accessToken));
+
+            Assert.Null(response);
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(SkilltreeNodeNotUnlockableException), ((HttpErrorException)ex!).Type);
+        }
+
+        [Fact]
+        public async Task CanNotUnlockNodeWithoutSkillpoints()
+        {
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
+
+            SkilltreeNodeResponse? response = default;
+            
+            response = await this.GetAsync<SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}", accessToken);
+            
+            SkilltreeNodeUpdateRequest request = new()
+            {
+                Color = response.Color,
+                Cost = response.Cost + 1,
+                Importance = response.Importance,
+                IsEasyReachable = response.IsEasyReachable,
+                SkillId = response.SkillId,
+                XPos = response.XPos,
+                YPos = response.YPos,
+            };
+
+            response = await this.PutAsync<SkilltreeNodeUpdateRequest, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}", request, accessToken);
+
+            accessToken = GetToken(Utilities.GroupMember1UserId)!;
+
+            SkilltreeNodeResponse? response2 = default;
+            Exception? ex = await Record.ExceptionAsync(async () => response2 = await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/unlock", new { }, accessToken));
+
+            Assert.Null(response2);
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(SkilltreeNotEnoughPointsException), ((HttpErrorException)ex!).Type);
+        }
+
+        [Fact]
+        public async Task CanResetNodeAfterUnlocking()
+        {
+            string accessToken = GetToken(Utilities.GroupMember1UserId)!;
+
+            SkilltreeNodeResponse? response = await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/unlock", new { }, accessToken);
+            SkilltreeNodeResponse? response2 = await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/reset", new { }, accessToken);
+
+            Assert.NotNull(response2);
+            Assert.False(response2.IsUnlocked);
+        }
+
+        [Fact]
+        public async Task CanNotResetNodeAfterNodeIsUnlockedForMoreThanFiveMinutes()
+        {
+            string accessToken = GetToken(Utilities.GroupMember1UserId)!;
+
+            Exception? ex  = await Record.ExceptionAsync(async() => await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode3Id}/reset", new { }, accessToken));
+
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.Forbidden, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(ForbiddenAccessException), ((HttpErrorException)ex!).Type);
+        }
+
+        [Fact]
+        public async Task CanNotResetNodeWithUnlockedSuccessors()
+        {
+            string accessToken = GetToken(Utilities.GroupMember1UserId)!;
+
+            await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/unlock", new { }, accessToken);
+            await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode2Id}/unlock", new { }, accessToken);
+            Exception? ex = await Record.ExceptionAsync(async () => await this.PutAsync<object, SkilltreeNodeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes/{Utilities.SkilltreeNode1Id}/reset", new { }, accessToken));
+
+            Assert.IsType<HttpErrorException>(ex);
+            Assert.Equal(HttpStatusCode.Conflict, ((HttpErrorException)ex!).StatusCode);
+            Assert.Equal(nameof(SkilltreeNodeNotResetableException), ((HttpErrorException)ex!).Type);
+        }
+
+        [Fact]
+        public async Task CanResetSkilltree()
+        {
+            string accessToken = GetToken(Utilities.GroupOwnerUserId)!;
+
+            await this.PutAsync<object, SkilltreeResponse>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/reset", new { }, accessToken);
+            List<SkilltreeNodeResponse> response = await this.GetAsync<List<SkilltreeNodeResponse>>($"/api/{ApiVersion}/skilltrees/{Utilities.SkilltreeId}/nodes", accessToken);
+
+            Assert.All(response, node => Assert.False(node.IsUnlocked));
+        }
 
         [Theory]
         [InlineData(Utilities.GroupOwnerUserId, true)]

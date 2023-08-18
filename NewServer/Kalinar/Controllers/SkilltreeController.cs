@@ -139,20 +139,6 @@ namespace Kalinar.Controllers
             return this.Ok(response);
         }
 
-
-        [HttpPost("{skilltreeId}/nodes/{nodeId}/unlock")]
-        public async Task<ActionResult<SkilltreeNodeResponse>> UnlockNodeAsync(Guid skilltreeId, Guid nodeId, CancellationToken cancellationToken = default)
-        {
-            SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
-
-            if (this.User.GetId() != skilltree.Character?.UserId) throw new ForbiddenAccessException("User cannot unlock node");
-
-            SkilltreeNodeResponse response = await this.skilltreeService.UnlockNodeAsync(nodeId, true, cancellationToken);
-            return this.Ok(response);
-        }
-
-        // ToDo: Add reset endpoints for nodes and skilltrees
-
         [HttpPut("{skilltreeId}")]
         public async Task<ActionResult<SkilltreeResponse>> UpdateAsync(Guid skilltreeId, [FromBody] SkilltreeUpdateRequest request, CancellationToken cancellationToken = default)
         {
@@ -163,6 +149,17 @@ namespace Kalinar.Controllers
             return this.Ok(response);
         }
 
+        [HttpPut("{skilltreeId}/reset")]
+        public async Task<ActionResult<SkilltreeResponse>> ResetAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
+        {
+            SkilltreeEntity skilltree = await this.skilltreeService.GetByIdAsync(skilltreeId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanUpdateSkilltree);
+
+            await this.skilltreeService.ResetAllNodesAsync(skilltreeId, cancellationToken);
+
+            return this.Ok((SkilltreeResponse)skilltree);
+        }
+
         [HttpPut("{skilltreeId}/nodes/{nodeId}")]
         public async Task<ActionResult<SkilltreeNodeResponse>> UpdateNodeAsync(Guid skilltreeId, Guid nodeId, [FromBody] SkilltreeNodeUpdateRequest request, CancellationToken cancellationToken = default)
         {
@@ -170,6 +167,26 @@ namespace Kalinar.Controllers
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, skilltree.Group, PolicyNames.CanUpdateSkilltree);
 
             SkilltreeNodeResponse response = await this.skilltreeService.UpdateNodeAsync(nodeId, request, cancellationToken);
+            return this.Ok(response);
+        }
+
+        [HttpPut("{skilltreeId}/nodes/{nodeId}/unlock")]
+        public async Task<ActionResult<SkilltreeNodeResponse>> UnlockNodeAsync(Guid skilltreeId, Guid nodeId, CancellationToken cancellationToken = default)
+        {
+            SkilltreeNodeEntity node = await this.skilltreeService.GetNodeByIdAsync(nodeId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, node, PolicyNames.CanUnlockSkilltreeNode);
+
+            SkilltreeNodeResponse response = await this.skilltreeService.UnlockNodeAsync(node.Id, cancellationToken);
+            return this.Ok(response);
+        }
+
+        [HttpPut("{skilltreeId}/nodes/{nodeId}/reset")]
+        public async Task<ActionResult<SkilltreeNodeResponse>> ResetNodeAsync(Guid skilltreeId, Guid nodeId, CancellationToken cancellationToken = default)
+        {
+            SkilltreeNodeEntity node = await this.skilltreeService.GetNodeByIdAsync(nodeId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, node, PolicyNames.CanResetSkilltreeNode);
+
+            SkilltreeNodeResponse response = await this.skilltreeService.ResetNodeAsync(node.Id, cancellationToken);
             return this.Ok(response);
         }
 

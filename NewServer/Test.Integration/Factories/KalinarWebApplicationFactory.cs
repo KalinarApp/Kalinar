@@ -19,8 +19,7 @@ namespace Kalinar.Test.Integration.Factories
             {
                 ServiceDescriptor descriptor = services.Single(d => d.ServiceType == typeof(DbContextOptions<Context>));
                 services.Remove(descriptor);
-                //services.AddDbContext<Context>(options => options.UseSqlite("DataSource=file::memory:?cache=shared"));
-                services.AddDbContext<Context>(options => options.UseInMemoryDatabase("Testing"));
+                services.AddDbContext<Context>(options => options.UseSqlite($"Data Source=Testing.db"));
 
                 services.Configure<JwtBearerOptions>(
                 JwtBearerDefaults.AuthenticationScheme,

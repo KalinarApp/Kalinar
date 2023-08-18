@@ -27,5 +27,15 @@ namespace Kalinar.Messages.Responses
                 Value = attribute.Value
             };
         }
+
+        public static implicit operator AttributeValueResponse(CharacterAttributeEntity attribute)
+        {
+            return new()
+            {
+                AttributeId = attribute.AttributeId,
+                Attribute = attribute.Attribute,
+                Value = attribute.Value
+            };
+        }
     }
 }

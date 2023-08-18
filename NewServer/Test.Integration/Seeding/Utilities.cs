@@ -1,6 +1,9 @@
 ﻿using Kalinar.Core.Entities;
 using Kalinar.Data.Database;
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+
 namespace Kalinar.Test.Integration.Seeding
 {
     internal class Utilities
@@ -22,10 +25,12 @@ namespace Kalinar.Test.Integration.Seeding
         public const string RejectedAttributeId = "9514a1b5-bcc6-41f2-a776-c5b8c2505540";
 
         public const string ApprovedSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505541";
+        public const string ApprovedSkillNotInSkilltreeId = "9514a1b5-bcc6-41f2-a776-c5b8c2505541";
         public const string PendingSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505542";
         public const string RejectedSkillId = "9504a1b5-bcc6-41f2-a776-c5b8c2505543";
 
         public const string ApprovedRaceId = "9504a1b5-bcc6-41f2-a776-c5b8c2505544";
+        public const string ApprovedRaceNotInSkilltreeId = "9514a1b5-bcc6-41f2-a776-c5b8c2505544";
         public const string PendingRaceId = "9504a1b5-bcc6-41f2-a776-c5b8c2505545";
         public const string RejectedRaceId = "9504a1b5-bcc6-41f2-a776-c5b8c2505546";
 
@@ -48,7 +53,6 @@ namespace Kalinar.Test.Integration.Seeding
             context.Groups.Add(group);
 
             // Users
-
             UserEntity groupOwner = new() { Id = GroupOwnerUserId, Username = "Owner", Devices = new(), Groups = new() };
             UserEntity groupMember1 = new() { Id = GroupMember1UserId, Username = "Member", Devices = new(), Groups = new() };
             UserEntity groupMember2 = new() { Id = GroupMember2UserId, Username = "Member", Devices = new(), Groups = new() };
@@ -86,18 +90,22 @@ namespace Kalinar.Test.Integration.Seeding
 
             //Skills
             SkillEntity approvedSkill = new() { Id = new Guid(ApprovedSkillId), CreatorId = groupMember1.Id, Creator = groupMember1, AbilityId = approvedAbility.Id, Ability = approvedAbility, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, IconUrl = "", Name = "Testskill", State = SuggestionState.Approved, Attributes = new List<SkillAttributeEntity>() };
+            SkillEntity approvedSkillNotInSkilltree = new() { Id = new Guid(ApprovedRaceNotInSkilltreeId), CreatorId = groupMember1.Id, Creator = groupMember1, AbilityId = approvedAbility.Id, Ability = approvedAbility, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, IconUrl = "", Name = "Testskill", State = SuggestionState.Approved, Attributes = new List<SkillAttributeEntity>() };
             SkillEntity pendingSkill = new() { Id = new Guid(PendingSkillId), CreatorId = groupMember1.Id, Creator = groupMember1, AbilityId = pendingAbility.Id, Ability = pendingAbility, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, IconUrl = "", Name = "Testskill", State = SuggestionState.Pending, Attributes = new List<SkillAttributeEntity>() };
             SkillEntity rejectedSkill = new() { Id = new Guid(RejectedSkillId), CreatorId = groupMember1.Id, Creator = groupMember1, AbilityId = approvedAbility.Id, Ability = approvedAbility, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, IconUrl = "", Name = "Testskill", State = SuggestionState.Rejected, RejectedAt = DateTimeOffset.UtcNow, RejectionReason = "", Attributes = new List<SkillAttributeEntity>() };
             context.Skills.Add(approvedSkill);
+            context.Skills.Add(approvedSkillNotInSkilltree);
             context.Skills.Add(pendingSkill);
             context.Skills.Add(rejectedSkill);
 
             //Races
             //Create approved, pending and rejected race objects here.
             RaceEntity approvedRace = new() { Id = new Guid(ApprovedRaceId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testrace", State = SuggestionState.Approved, Attributes = new List<RaceAttributeEntity>() };
+            RaceEntity approvedRaceNotInSkilltree = new() { Id = new Guid(ApprovedRaceNotInSkilltreeId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testrace", State = SuggestionState.Approved, Attributes = new List<RaceAttributeEntity>() };
             RaceEntity pendingRace = new() { Id = new Guid(PendingRaceId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testrace", State = SuggestionState.Pending, Attributes = new List<RaceAttributeEntity>() };
             RaceEntity rejectedRace = new() { Id = new Guid(RejectedRaceId), CreatorId = groupMember1.Id, Creator = groupMember1, CreatedAt = DateTimeOffset.UtcNow, GroupId = group.Id, Group = group, Name = "Testrace", State = SuggestionState.Rejected, RejectedAt = DateTimeOffset.UtcNow, RejectionReason = "", Attributes = new List<RaceAttributeEntity>() };
             context.Races.Add(approvedRace);
+            context.Races.Add(approvedRaceNotInSkilltree);
             context.Races.Add(pendingRace);
             context.Races.Add(rejectedRace);
 
@@ -123,7 +131,7 @@ namespace Kalinar.Test.Integration.Seeding
 
             SkilltreeNodeEntity node1 = new() { Id = new Guid(SkilltreeNode1Id), SkilltreeId = skilltree.Id, Skilltree = skilltree, SkillId = approvedSkill.Id, Skill = approvedSkill, XPos = 0, YPos = 0, IsUnlocked = false, Color = "#000000", Cost = 0, Importance = 1, IsEasyReachable = false };
             SkilltreeNodeEntity node2 = new() { Id = new Guid(SkilltreeNode2Id), SkilltreeId = skilltree.Id, Skilltree = skilltree, SkillId = approvedSkill.Id, Skill = approvedSkill, XPos = 0, YPos = 0, IsUnlocked = false, Color = "#000000", Cost = 0, Importance = 1, IsEasyReachable = false };
-            SkilltreeNodeEntity node3 = new() { Id = new Guid(SkilltreeNode3Id), SkilltreeId = skilltree.Id, Skilltree = skilltree, SkillId = approvedSkill.Id, Skill = approvedSkill, XPos = 0, YPos = 0, IsUnlocked = false, Color = "#000000", Cost = 0, Importance = 1, IsEasyReachable = false };
+            SkilltreeNodeEntity node3 = new() { Id = new Guid(SkilltreeNode3Id), SkilltreeId = skilltree.Id, Skilltree = skilltree, SkillId = approvedSkill.Id, Skill = approvedSkill, XPos = 0, YPos = 0, IsUnlocked = true, UnlockedAt = DateTimeOffset.UtcNow.AddMinutes(-6), Color = "#000000", Cost = 0, Importance = 1, IsEasyReachable = false };
             context.SkilltreeNodes.Add(node1);
             context.SkilltreeNodes.Add(node2);
             context.SkilltreeNodes.Add(node3);
@@ -141,6 +149,55 @@ namespace Kalinar.Test.Integration.Seeding
             context.StoryImages.Add(storyImage);
             context.StoryBooks.Add(storyBook);
             context.StoryBookPages.Add(storyBookPage);
+
+            context.Database.ExecuteSqlRaw(@"
+            CREATE VIEW CharacterSkills AS  
+                SELECT DISTINCT st.CharacterId,
+                   s.Id AS SkillId
+                  FROM SkilltreeNodes n
+                    JOIN Skills s ON n.SkillId = s.Id
+                    JOIN Skilltrees st ON n.SkilltreeId = st.Id
+                 WHERE n.IsUnlocked = true AND st.CharacterId IS NOT NULL;       
+            ");
+
+            context.Database.ExecuteSqlRaw(@"
+            CREATE VIEW SkilltreePoints AS 
+             SELECT st.Id as SkilltreeId,
+                st.Points AS Available,
+                COALESCE(sum(n.Cost), 0) AS Spent,
+                st.Points - COALESCE(sum(n.Cost), 0) AS Remaining
+               FROM Skilltrees st
+                 LEFT JOIN SkilltreeNodes n ON st.Id = n.SkilltreeId AND n.IsUnlocked = true
+              GROUP BY st.Id, st.Name, st.Points;
+            ");
+
+            context.Database.ExecuteSqlRaw(@"
+            CREATE VIEW CharacterAttributes AS  
+                 SELECT c.Id AS CharacterId,
+                    c.Name AS CharacterName,
+                    a.Id AS AttributeId,
+                    a.Name AS AttributeName,
+                    COALESCE(sum(
+                        CASE
+                            WHEN n.IsUnlocked THEN sa.Value
+                            ELSE 0
+                        END), 0) + COALESCE(ra.Value, 0) AS Value
+                   FROM Characters c
+                     JOIN Groups g ON c.GroupId = g.Id
+                     CROSS JOIN Attributes a
+                     LEFT JOIN RaceAttributes ra ON c.RaceId = ra.RaceId AND a.Id = ra.AttributeId
+                     LEFT JOIN Skilltrees st ON c.Id = st.CharacterId
+                     LEFT JOIN SkilltreeNodes n ON st.Id = n.SkilltreeId
+                     LEFT JOIN Skills s ON n.SkillId = s.Id
+                     LEFT JOIN SkillAttributes sa ON s.Id = sa.SkillId AND n.IsUnlocked = true AND a.Id = sa.AttributeId
+                  WHERE n.IsUnlocked OR ra.Value IS NOT NULL OR sa.Value IS NOT NULL
+                  GROUP BY c.Id, a.Id, ra.Value
+                 HAVING (COALESCE(sum(
+                        CASE
+                            WHEN n.IsUnlocked THEN sa.Value
+                            ELSE 0
+                        END), 0) + COALESCE(ra.Value, 0)) <> 0;     
+            ");
 
             context.SaveChanges();
         }

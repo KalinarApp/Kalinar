@@ -12,6 +12,11 @@ namespace Kalinar.Data.Repositories
     {
         public SkilltreeRepository(Context context) : base(context) { }
 
+        public async Task<IEnumerable<SkilltreeEntity>> ListByCharacterIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.Skilltrees.Where(item => item.CharacterId == characterId).ToListAsync(cancellationToken);
+        }
+
         public async Task<IEnumerable<SkilltreeNodeEntity>> ListNodesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             return await this.context.SkilltreeNodes.Include(item => item.Skill).Where(item => item.SkilltreeId == skilltreeId).ToListAsync(cancellationToken);
@@ -20,6 +25,16 @@ namespace Kalinar.Data.Repositories
         public async Task<IEnumerable<SkilltreeEdgeEntity>> ListEdgesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             return await this.context.SkilltreeEdges.Where(item => item.SkilltreeId == skilltreeId).ToListAsync(cancellationToken);
+        }
+
+        public async Task<IEnumerable<SkilltreeEdgeEntity>> ListEdgesByStartIdAsync(Guid startId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.SkilltreeEdges.Where(item => item.StartId == startId).Include(item => item.Start).Include(item => item.End).ToListAsync(cancellationToken);
+        }
+
+        public async Task<IEnumerable<SkilltreeEdgeEntity>> ListEdgesByEndIdAsync(Guid endId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.SkilltreeEdges.Where(item => item.EndId == endId).Include(item => item.Start).Include(item => item.End).ToListAsync(cancellationToken);
         }
 
         public async Task<SkilltreePointEntity?> FindPointsByIdAsync(Guid skilltreeId, CancellationToken cancellationToken = default)

@@ -25,6 +25,11 @@ namespace Kalinar.Data.Repositories
             return await this.context.CharacterSkills.Where(item => item.CharacterId == characterId).Include(item => item.Skill).ToListAsync(cancellationToken);
         }
 
+        public async Task<IEnumerable<CharacterAttributeEntity>> ListCharacterAttributesByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.CharacterAttributes.Where(item => item.CharacterId == characterId).Include(item => item.Attribute).ToListAsync(cancellationToken);
+        }
+
         public override async Task<CharacterEntity?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await context.Characters.Include(item => item.Race).FirstOrDefaultAsync(item => item.Id == id, cancellationToken);

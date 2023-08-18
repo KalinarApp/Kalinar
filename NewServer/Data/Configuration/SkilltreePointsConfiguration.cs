@@ -9,7 +9,7 @@ namespace Kalinar.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<SkilltreePointEntity> builder)
         {
-            builder.ToTable("SkilltreePoints");
+            builder.ToView("SkilltreePoints");
             builder.HasNoKey();
         }
     }

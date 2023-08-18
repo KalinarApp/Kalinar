@@ -25,6 +25,11 @@ namespace Kalinar.Application.Services
             return await this.skillreeRepository.ListByGroupIdAsync(groupId, cancellationToken);
         }
 
+        public async Task<IEnumerable<SkilltreeEntity>> ListByCharacterIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        {
+            return await this.skillreeRepository.ListByCharacterIdAsync(characterId, cancellationToken);
+        }
+
         public async Task<IEnumerable<SkilltreeNodeEntity>> ListNodesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
               return await this.skillreeRepository.ListNodesAsync(skilltreeId, cancellationToken);
@@ -33,6 +38,16 @@ namespace Kalinar.Application.Services
         public async Task<IEnumerable<SkilltreeEdgeEntity>> ListEdgesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
         {
             return await this.skillreeRepository.ListEdgesAsync(skilltreeId, cancellationToken);
+        }
+
+        public async Task<IEnumerable<SkilltreeEdgeEntity>> ListEdgesByStartIdAsync(Guid startId, CancellationToken cancellationToken = default)
+        {
+            return await this.skillreeRepository.ListEdgesByStartIdAsync(startId, cancellationToken);
+        }
+
+        public async Task<IEnumerable<SkilltreeEdgeEntity>> ListEdgesByEndIdAsync(Guid endId, CancellationToken cancellationToken = default)
+        {
+            return await this.skillreeRepository.ListEdgesByEndIdAsync(endId, cancellationToken);
         }
 
         public async Task<SkilltreeEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -183,14 +198,50 @@ namespace Kalinar.Application.Services
             }
         }
 
-        public async Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, bool state, CancellationToken cancellationToken = default)
+        public async Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, CancellationToken cancellationToken = default)
         {
             SkilltreeNodeEntity node = await this.GetNodeByIdAsync(id, cancellationToken);
             SkilltreePointEntity points = await this.GetPointsByIdAsync(node.SkilltreeId, cancellationToken);
 
+            if (node.IsUnlocked) throw new SkilltreeNodeAlreadyUnlockedException(node.Id);
             if (points.Remaining - node.Cost < 0) throw new SkilltreeNotEnoughPointsException(node.SkilltreeId, id);
 
-            node.IsUnlocked = state;
+            IEnumerable<SkilltreeEdgeEntity> edges = await this.ListEdgesByEndIdAsync(node.Id, cancellationToken);
+
+            bool isUnlockable = node.IsEasyReachable 
+                ? edges.Any(edge => edge.Start.IsUnlocked) 
+                : edges.All(edge => edge.Start.IsUnlocked);
+
+            if (!isUnlockable) throw new SkilltreeNodeNotUnlockableException(node.Id);
+
+            node.IsUnlocked = true;
+            node.UnlockedAt = DateTime.UtcNow;
+
+            return await this.skillreeRepository.UpdateNodeAsync(node, cancellationToken);
+        }
+
+        public async Task ResetAllNodesAsync(Guid skilltreeId, CancellationToken cancellationToken = default)
+        {
+            IEnumerable<SkilltreeNodeEntity> nodes = await this.ListNodesAsync(skilltreeId, cancellationToken);
+
+            foreach (SkilltreeNodeEntity node in nodes)
+            {
+                node.IsUnlocked = false;
+                node.UnlockedAt = null;
+
+                await this.skillreeRepository.UpdateNodeAsync(node, cancellationToken);
+            }
+        }
+
+        public async Task<SkilltreeNodeEntity> ResetNodeAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            SkilltreeNodeEntity node = await this.GetNodeByIdAsync(id, cancellationToken);
+            IEnumerable<SkilltreeEdgeEntity> edges = await this.ListEdgesByStartIdAsync(node.Id, cancellationToken);
+
+            if (edges.Any(edge => !edge.End.IsEasyReachable || !edges.Any(edge => edge.Start.IsUnlocked && edge.StartId != node.Id))) throw new SkilltreeNodeNotResetableException(node.Id);
+
+            node.IsUnlocked = false;
+            node.UnlockedAt = null;
 
             return await this.skillreeRepository.UpdateNodeAsync(node, cancellationToken);
         }

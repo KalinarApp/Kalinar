@@ -17,12 +17,14 @@ namespace Kalinar.Controllers
     public class CharactersController : ControllerBase
     {
         private readonly ICharacterService characterService;
+        private readonly ISkilltreeService skilltreeService;
         private readonly IGroupService groupService;
         private readonly IAuthorizationService authorizationService;
 
-        public CharactersController(ICharacterService characterService, IGroupService groupService, IAuthorizationService authorizationService)
+        public CharactersController(ICharacterService characterService, ISkilltreeService skilltreeService, IGroupService groupService, IAuthorizationService authorizationService)
         {
             this.characterService = characterService;
+            this.skilltreeService = skilltreeService;
             this.groupService = groupService;
             this.authorizationService = authorizationService;
         }
@@ -48,7 +50,27 @@ namespace Kalinar.Controllers
             return this.Ok((CharacterResponse)character);
         }
 
-        [HttpGet("{characterId}/unlocked-skills")]
+        [HttpGet("{characterId}/attributes")]
+        public async Task<ActionResult<IEnumerable<AttributeValueResponse>>> ListAttributesByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        {
+            CharacterEntity character = await this.characterService.GetByIdAsync(characterId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, character, PolicyNames.CanReadCharacter);
+
+            IEnumerable<CharacterAttributeEntity> attributes = await this.characterService.ListAttributesByIdAsync(characterId, cancellationToken);
+            return this.Ok(attributes.Select(item => (AttributeValueResponse)item));
+        }
+
+        [HttpGet("{characterId}/skilltrees")]
+        public async Task<ActionResult<IEnumerable<SkilltreeResponse>>> ListSkilltreesByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
+        {
+            CharacterEntity character = await this.characterService.GetByIdAsync(characterId, cancellationToken);
+            await this.authorizationService.AuthorizeOrThrowAsync(this.User, character, PolicyNames.CanReadCharacter);
+
+            IEnumerable<SkilltreeEntity> skilltrees = await this.skilltreeService.ListByCharacterIdAsync(characterId, cancellationToken);
+            return this.Ok(skilltrees.Select(item => (SkilltreeResponse)item));
+        }
+
+        [HttpGet("{characterId}/skills")]
         public async Task<ActionResult<IEnumerable<SkillResponse>>> ListUnlockedSkillsByIdAsync(Guid characterId, CancellationToken cancellationToken = default)
         {
             CharacterEntity character = await this.characterService.GetByIdAsync(characterId, cancellationToken);
@@ -58,7 +80,6 @@ namespace Kalinar.Controllers
             return this.Ok(skills.Select(item => (SkillResponse)item));
         }
 
-        // ToDo: Add Endpoints character attributes/stats and skilltrees
         // ToDo: Add endpoints so a character can favorize skills
 
         [HttpPost]
