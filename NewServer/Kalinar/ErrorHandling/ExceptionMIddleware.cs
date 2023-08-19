@@ -1,5 +1,6 @@
 ﻿using Kalinar.Application.Messages.Responses;
 using Kalinar.Core.Exceptions;
+using Kalinar.Core.Extensions;
 
 using System.ComponentModel.DataAnnotations;
 using System.Net;
@@ -66,6 +67,7 @@ namespace Kalinar.ErrorHandling
                 SkilltreeNodeNotUnlockableException => (int)HttpStatusCode.Forbidden,
                 SkilltreeNodeAlreadyUnlockedException => (int)HttpStatusCode.Conflict,
                 SkilltreeNodeNotResetableException => (int)HttpStatusCode.Conflict,
+                ImageUploadFailedException => (int)HttpStatusCode.InternalServerError,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 
