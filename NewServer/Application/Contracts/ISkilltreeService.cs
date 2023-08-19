@@ -18,7 +18,7 @@ namespace Kalinar.Application.Contracts
         Task<SkilltreeEdgeEntity> CreateEdgeAsync(Guid skilltreeId, SkilltreeEdgeRequest request, CancellationToken cancellationToken = default);
         Task<SkilltreeEntity> UpdateAsync(Guid id, SkilltreeUpdateRequest request, CancellationToken cancellationToken = default);
         Task<SkilltreeNodeEntity> UpdateNodeAsync(Guid id, SkilltreeNodeUpdateRequest request, CancellationToken cancellationToken = default);
-        Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, bool forceUnlock = false, CancellationToken cancellationToken = default);
         Task ResetAllNodesAsync(Guid skilltreeId, CancellationToken cancellationToken = default);
         Task<SkilltreeNodeEntity> ResetNodeAsync(Guid id, CancellationToken cancellationToken = default);
         Task ResetAsync(Guid id, CancellationToken cancellationToken = default);

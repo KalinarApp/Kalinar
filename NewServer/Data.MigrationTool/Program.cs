@@ -255,6 +255,20 @@ foreach (Skilltree skilltree in await heroContext.Skilltrees.ToListAsync())
     SkilltreeEntity migratedSkilltree = await skilltreeService.CreateAsync(request);
     migratedSkilltrees.Add(skilltree.Id, migratedSkilltree);
 }
+foreach (Blueprint blueprint in await heroContext.Blueprints.ToListAsync())
+{
+    SkilltreeCreateRequest request = new()
+    {
+        GroupId = migratedGroups[blueprint.GroupId].Id,
+        Name = blueprint.Name,
+        IsActive = false,
+        Points = 0,
+        CharacterId = null,
+    };
+
+    SkilltreeEntity migratedSkilltree = await skilltreeService.CreateAsync(request);
+    migratedSkilltrees.Add(blueprint.Id, migratedSkilltree);
+}
 
 // Skilltree Nodes
 Dictionary<Guid, SkilltreeNodeEntity> migratedNodes = new();
@@ -276,7 +290,26 @@ foreach (SkilltreeNode node in await heroContext.SkilltreeNodes.ToListAsync())
 
     SkilltreeNodeEntity migratedSkilltreeNode = await skilltreeNodeService.CreateNodeAsync(request);
 
-    if(node.IsUnlocked) await skilltreeNodeService.UnlockNodeAsync(migratedSkilltreeNode.Id);
+    if(node.IsUnlocked) await skilltreeNodeService.UnlockNodeAsync(migratedSkilltreeNode.Id, true);
+
+    migratedNodes.Add(node.Id, migratedSkilltreeNode);
+}
+foreach (BlueprintNode node in await heroContext.BlueprintNodes.ToListAsync())
+{
+    if (!migratedSkilltrees.ContainsKey(node.ParentId!.Value)) continue;
+    SkilltreeNodeCreateRequest request = new()
+    {
+        SkilltreeId = migratedSkilltrees[node.ParentId!.Value].Id,
+        Color = node.Color,
+        Cost = node.Cost,
+        Importance = node.Importance,
+        IsEasyReachable = node.IsEasyReachable,
+        SkillId = migratedSkills[node.SkillId!.Value].Id,
+        XPos = node.XPos,
+        YPos = node.YPos
+    };
+
+    SkilltreeNodeEntity migratedSkilltreeNode = await skilltreeNodeService.CreateNodeAsync(request);
 
     migratedNodes.Add(node.Id, migratedSkilltreeNode);
 }
@@ -284,6 +317,41 @@ foreach (SkilltreeNode node in await heroContext.SkilltreeNodes.ToListAsync())
 // Skilltree Edges
 List<SkilltreeEdgeEntity> migratedEdges = new();
 foreach (SkilltreeNode node in await heroContext.SkilltreeNodes.ToListAsync())
+{
+    if (!migratedSkilltrees.ContainsKey(node.ParentId!.Value)) continue;
+    foreach (Guid successor in node.Successors)
+    {
+        if (!migratedNodes.ContainsKey(successor)) continue;
+        SkilltreeEdgeRequest request = new()
+        {
+            StartId = migratedNodes[node.Id].Id,
+            EndId = migratedNodes[successor].Id,
+        };
+
+        if (!migratedEdges.Any(edge => edge.StartId == request.StartId && edge.EndId == request.EndId))
+        {
+            SkilltreeEdgeEntity migratedEdge = await skilltreeNodeService.CreateEdgeAsync(migratedSkilltrees[node.ParentId!.Value].Id, request);
+            migratedEdges.Add(migratedEdge);
+        }
+    }
+    foreach (Guid precessor in node.Precessors)
+    {
+
+        if (!migratedNodes.ContainsKey(precessor)) continue;
+        SkilltreeEdgeRequest request = new()
+        {
+            StartId = migratedNodes[precessor].Id,
+            EndId = migratedNodes[node.Id].Id,
+        };
+
+        if (!migratedEdges.Any(edge => edge.StartId == request.StartId && edge.EndId == request.EndId))
+        {
+            SkilltreeEdgeEntity migratedEdge = await skilltreeNodeService.CreateEdgeAsync(migratedSkilltrees[node.ParentId!.Value].Id, request);
+            migratedEdges.Add(migratedEdge);
+        }
+    }
+}
+foreach (BlueprintNode node in await heroContext.BlueprintNodes.ToListAsync())
 {
     if (!migratedSkilltrees.ContainsKey(node.ParentId!.Value)) continue;
     foreach (Guid successor in node.Successors)

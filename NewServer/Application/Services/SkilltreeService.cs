@@ -199,21 +199,24 @@ namespace Kalinar.Application.Services
             }
         }
 
-        public async Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<SkilltreeNodeEntity> UnlockNodeAsync(Guid id, bool forceUnlock = false, CancellationToken cancellationToken = default)
         {
             SkilltreeNodeEntity node = await this.GetNodeByIdAsync(id, cancellationToken);
             SkilltreePointsView points = await this.GetPointsByIdAsync(node.SkilltreeId, cancellationToken);
 
-            if (node.IsUnlocked) throw new SkilltreeNodeAlreadyUnlockedException(node.Id);
-            if (points.Remaining - node.Cost < 0) throw new SkilltreeNotEnoughPointsException(node.SkilltreeId, id);
+            if (!forceUnlock)
+            {
+                if (node.IsUnlocked) throw new SkilltreeNodeAlreadyUnlockedException(node.Id);
+                if (points.Remaining - node.Cost < 0) throw new SkilltreeNotEnoughPointsException(node.SkilltreeId, id);
 
-            IEnumerable<SkilltreeEdgeEntity> edges = await this.ListEdgesByEndIdAsync(node.Id, cancellationToken);
+                IEnumerable<SkilltreeEdgeEntity> edges = await this.ListEdgesByEndIdAsync(node.Id, cancellationToken);
 
-            bool isUnlockable = node.IsEasyReachable 
-                ? edges.Any(edge => edge.Start.IsUnlocked) 
-                : edges.All(edge => edge.Start.IsUnlocked);
+                bool isUnlockable = node.IsEasyReachable
+                    ? edges.Any(edge => edge.Start.IsUnlocked)
+                    : edges.All(edge => edge.Start.IsUnlocked);
 
-            if (!isUnlockable) throw new SkilltreeNodeNotUnlockableException(node.Id);
+                if (!isUnlockable) throw new SkilltreeNodeNotUnlockableException(node.Id);
+            }
 
             node.IsUnlocked = true;
             node.UnlockedAt = DateTime.UtcNow;
