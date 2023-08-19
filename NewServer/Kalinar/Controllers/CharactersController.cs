@@ -80,15 +80,15 @@ namespace Kalinar.Controllers
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, character, PolicyNames.CanReadCharacter);
 
             IEnumerable<SkillEntity> skills = await this.characterService.ListUnlockedSkillsByIdAsync(characterId, cancellationToken);
-            if (isFavorite.HasValue)
-            {
-                IEnumerable<CharacterSkillEntity> characterSkills = await this.characterSkillService.ListAsync(characterId, cancellationToken);
-                skills = isFavorite.Value 
-                    ? skills.Where(skill => characterSkills.Any(item => item.SkillId == skill.Id && item.IsFavorite))
-                    : skills.Where(skill => !characterSkills.Any(item => item.SkillId == skill.Id) || characterSkills.Any(item => item.SkillId == skill.Id && !item.IsFavorite));
-            }
+            IEnumerable<CharacterSkillEntity> favorites = await this.characterSkillService.ListAsync(characterId, cancellationToken);
+            IEnumerable<CharacterSkillEntity> characterSkills = 
+                isFavorite.HasValue 
+                    ? isFavorite.Value 
+                        ? favorites
+                        : skills.Where(skill => !favorites.Any(item => item.SkillId == skill.Id)).Select(skill => new CharacterSkillEntity() { CharacterId = characterId, Character = character, SkillId = skill.Id, Skill = skill, IsFavorite = false})
+                    : skills.Select(skill => new CharacterSkillEntity() { CharacterId = characterId, Character = character, SkillId = skill.Id, Skill = skill, IsFavorite = favorites.Any(item => item.SkillId == skill.Id && item.IsFavorite) });
 
-            return this.Ok(skills.Select(item => (SkillResponse)item));
+            return this.Ok(characterSkills.Select(item => (CharacterSkillResponse)item));
         }
 
         [HttpPost]
