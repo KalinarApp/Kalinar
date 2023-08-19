@@ -44,7 +44,9 @@ namespace Kalinar.Test.Integration.Seeding
         public const string StoryEventId = "9504a1b5-bcc6-41f2-a776-c5b8c2505552";
         public const string StoryImageId = "9504a1b5-bcc6-41f2-a776-c5b8c2505553";
         public const string StoryBookId = "9504a1b5-bcc6-41f2-a776-c5b8c2505554";
-        public const string StoryBookPageId = "9504a1b5-bcc6-41f2-a776-c5b8c2505555";
+        public const string StoryBookPage1Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505555";
+        public const string StoryBookPage2Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505556";
+        public const string StoryBookPage3Id = "9504a1b5-bcc6-41f2-a776-c5b8c2505557";
 
         public static void SeedDatabase(Context context)
         {
@@ -143,12 +145,17 @@ namespace Kalinar.Test.Integration.Seeding
             StoryEventEntity storyEvent = new() { Id = new Guid(StoryEventId), GroupId = group.Id, Group = group, Title = "Event", Order = 0, CreatedAt = DateTimeOffset.UtcNow, IsUnlocked = true };
             StoryImageEntity storyImage= new() { Id = new Guid(StoryImageId), GroupId = group.Id, Group = group, Title = "Image", CreatedAt = DateTimeOffset.UtcNow, ImageUrl = "", IsUnlocked = true };
             StoryBookEntity storyBook= new() { Id = new Guid(StoryBookId), GroupId = group.Id, Group = group, Title = "Book", CreatedAt = DateTimeOffset.UtcNow, Pages = new List<StoryBookPageEntity>(), IsUnlocked = true };
-            StoryBookPageEntity storyBookPage = new() { Id = new Guid(StoryBookPageId), BookId = storyBook.Id, Title = "Page", Content = "Content", PageNumber = 1, IsUnlocked = true };
+            StoryBookPageEntity storyBookPage1 = new() { Id = new Guid(StoryBookPage1Id), BookId = storyBook.Id, Title = "Page1", Content = "Content", PageNumber = 1, IsUnlocked = true };
+            StoryBookPageEntity storyBookPage2 = new() { Id = new Guid(StoryBookPage2Id), BookId = storyBook.Id, Title = "Page2", Content = "Content", PageNumber = 2, IsUnlocked = true };
+            StoryBookPageEntity storyBookPage3 = new() { Id = new Guid(StoryBookPage3Id), BookId = storyBook.Id, Title = "Page3", Content = "Content", PageNumber = 3, IsUnlocked = true };
 
             context.StoryEvents.Add(storyEvent);
             context.StoryImages.Add(storyImage);
             context.StoryBooks.Add(storyBook);
-            context.StoryBookPages.Add(storyBookPage);
+
+            context.StoryBookPages.Add(storyBookPage1);
+            context.StoryBookPages.Add(storyBookPage2);
+            context.StoryBookPages.Add(storyBookPage3);
 
             context.Database.ExecuteSqlRaw(@"
             CREATE VIEW CharacterUnlockedSkills AS  

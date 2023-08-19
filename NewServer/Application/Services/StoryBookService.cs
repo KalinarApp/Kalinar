@@ -96,7 +96,6 @@ namespace Kalinar.Application.Services
 
             page.Title = request.Title;
             page.Content = request.Content;
-            page.PageNumber = request.PageNumber;
             page.IsUnlocked = request.IsUnlocked;
 
             return await this.bookRepository.UpdatePageAsync(page, cancellationToken);
@@ -112,6 +111,13 @@ namespace Kalinar.Application.Services
         {
             StoryBookPageEntity page = await this.GetPageByIdAsync(id, cancellationToken);
             await this.bookRepository.DeletePageAsync(page, cancellationToken);
+
+            IEnumerable<StoryBookPageEntity> pages = await this.ListPagesAsync(page.BookId, cancellationToken);
+            foreach (StoryBookPageEntity p in pages.Where(p => p.PageNumber > page.PageNumber))
+            {
+                p.PageNumber--;
+                await this.bookRepository.UpdatePageAsync(p, cancellationToken);
+            }
         }
     }
 }

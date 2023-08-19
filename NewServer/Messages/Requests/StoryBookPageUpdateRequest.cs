@@ -12,8 +12,5 @@ namespace Kalinar.Messages.Requests
         public string? ImageUrl { get; init; }
         [Required]
         public bool IsUnlocked { get; init; }
-        [Required]
-        [Range(0, Int32.MaxValue)]
-        public required int PageNumber { get; init; }
     }
 }

@@ -117,7 +117,7 @@ namespace Kalinar.Test.Integration
         {
             string accessToken = GetToken(userId)!;
 
-            StoryBookPageResponse? response = await this.GetAsync<StoryBookPageResponse>($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages/{Utilities.StoryBookPageId}", accessToken);
+            StoryBookPageResponse response = await this.GetAsync<StoryBookPageResponse>($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages/{Utilities.StoryBookPage1Id}", accessToken);
 
             Assert.NotNull(response);
 
@@ -125,17 +125,15 @@ namespace Kalinar.Test.Integration
             {
                 Title = "Test Story Book",
                 Content = "Test Story Book Content",
-                PageNumber = 0,
             };
 
             StoryBookPageResponse? updatedResponse = default;
-            Exception? ex = await Record.ExceptionAsync(async () => updatedResponse = await this.PutAsync<StoryBookPageUpdateRequest, StoryBookPageResponse>($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages/{Utilities.StoryBookPageId}", request, accessToken));
+            Exception? ex = await Record.ExceptionAsync(async () => updatedResponse = await this.PutAsync<StoryBookPageUpdateRequest, StoryBookPageResponse>($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages/{Utilities.StoryBookPage1Id}", request, accessToken));
 
             if (hasPermissions)
             {
                 Assert.NotNull(updatedResponse);
                 Assert.Equal(request.Title, updatedResponse.Title);
-                Assert.Equal(request.PageNumber, updatedResponse.PageNumber);
             }
             else
             {
@@ -181,8 +179,8 @@ namespace Kalinar.Test.Integration
             string accessToken = GetToken(userId)!;
 
             StoryBookPageResponse? response = default;
-            Exception? deleteException = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages/{Utilities.StoryBookPageId}", accessToken));
-            Exception? getException = await Record.ExceptionAsync(async () => response = await this.GetAsync<StoryBookPageResponse>($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages/{Utilities.StoryBookPageId}", accessToken));
+            Exception? deleteException = await Record.ExceptionAsync(async () => await this.DeleteAsync($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages/{Utilities.StoryBookPage1Id}", accessToken));
+            Exception? getException = await Record.ExceptionAsync(async () => response = await this.GetAsync<StoryBookPageResponse>($"/api/{ApiVersion}/story-books/{Utilities.StoryBookId}/pages/{Utilities.StoryBookPage1Id}", accessToken));
 
             if (hasPermissions)
             {
