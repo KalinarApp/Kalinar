@@ -84,9 +84,9 @@ namespace Kalinar.Controllers
             IEnumerable<CharacterSkillEntity> characterSkills = 
                 isFavorite.HasValue 
                     ? isFavorite.Value 
-                        ? favorites
-                        : skills.Where(skill => !favorites.Any(item => item.SkillId == skill.Id)).Select(skill => new CharacterSkillEntity() { CharacterId = characterId, Character = character, SkillId = skill.Id, Skill = skill, IsFavorite = false})
-                    : skills.Select(skill => new CharacterSkillEntity() { CharacterId = characterId, Character = character, SkillId = skill.Id, Skill = skill, IsFavorite = favorites.Any(item => item.SkillId == skill.Id && item.IsFavorite) });
+                        ? favorites.Where(item => item.IsFavorite)
+                        : skills.Where(skill => !favorites.Any(item => item.SkillId == skill.Id) || favorites.Any(item => item.SkillId == skill.Id && !item.IsFavorite)).Select(skill => new CharacterSkillEntity() { CharacterId = characterId, Character = character, SkillId = skill.Id, Skill = skill, IsFavorite = false})
+                    : skills.Select(skill => new CharacterSkillEntity() { CharacterId = characterId, Character = character, SkillId = skill.Id, Skill = skill, IsFavorite = favorites.FirstOrDefault(item => item.SkillId == skill.Id)?.IsFavorite ?? false });
 
             return this.Ok(characterSkills.Select(item => (CharacterSkillResponse)item));
         }

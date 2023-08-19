@@ -96,9 +96,9 @@ namespace Kalinar.Test.Integration
             string accessToken = GetToken(Utilities.GroupMember1UserId)!;
 
             await this.PostAsync<CharacterSkillRequest>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills/{Utilities.ApprovedSkillId}", new() { IsFavorite = true }, accessToken);
-            List<SkillResponse> favoriteSkills = await this.GetAsync<List<SkillResponse>>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills?isFavorite=true", accessToken);
+            List<CharacterSkillResponse> favoriteSkills = await this.GetAsync<List<CharacterSkillResponse>>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills?isFavorite=true", accessToken);
 
-            Assert.Contains(favoriteSkills, s => s.Id == new Guid(Utilities.ApprovedSkillId));
+            Assert.Contains(favoriteSkills, s => s.Skill.Id == new Guid(Utilities.ApprovedSkillId));
         }
 
         [Fact]
@@ -107,9 +107,9 @@ namespace Kalinar.Test.Integration
             string accessToken = GetToken(Utilities.GroupMember1UserId)!;
 
             await this.PostAsync<CharacterSkillRequest>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills/{Utilities.ApprovedSkillId}", new() { IsFavorite = false }, accessToken);
-            List<SkillResponse> favoriteSkills = await this.GetAsync<List<SkillResponse>>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills?isFavorite=true", accessToken);
+            List<CharacterSkillResponse> favoriteSkills = await this.GetAsync<List<CharacterSkillResponse>>($"/api/{ApiVersion}/characters/{Utilities.CharacterId}/skills?isFavorite=true", accessToken);
 
-            Assert.DoesNotContain(favoriteSkills, s => s.Id == new Guid(Utilities.ApprovedSkillId));
+            Assert.DoesNotContain(favoriteSkills, s => s.Skill.Id == new Guid(Utilities.ApprovedSkillId));
         }
 
         [Theory]

@@ -176,7 +176,7 @@ namespace Kalinar.Controllers
             SkilltreeNodeEntity node = await this.skilltreeService.GetNodeByIdAsync(nodeId, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, node, PolicyNames.CanUnlockSkilltreeNode);
 
-            SkilltreeNodeResponse response = await this.skilltreeService.UnlockNodeAsync(node.Id, cancellationToken);
+            SkilltreeNodeResponse response = await this.skilltreeService.UnlockNodeAsync(node.Id, cancellationToken: cancellationToken);
             return this.Ok(response);
         }
 
