@@ -39,8 +39,8 @@ namespace Kalinar.Controllers
             return this.Ok((GroupResponse)group);
         }
 
-        [HttpGet("{id}/users")]
-        public async Task<ActionResult<IEnumerable<GroupMemberResponse>>> ListUsersAsync(Guid id, CancellationToken cancellationToken = default)
+        [HttpGet("{id}/members")]
+        public async Task<ActionResult<IEnumerable<GroupMemberResponse>>> ListMembersAsync(Guid id, CancellationToken cancellationToken = default)
         {
             GroupEntity group = await this.groupService.GetByIdAsync(id, true, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadGroups);
