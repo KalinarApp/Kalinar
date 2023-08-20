@@ -85,7 +85,7 @@ namespace Kalinar.Test.Integration
             string accessToken = GetToken(userId)!;
 
             Exception? joinException = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/join", accessToken: accessToken));
-            IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{userId}/groups", accessToken: accessToken);
+            IEnumerable<GroupMemberResponse> groups = await this.GetAsync<IEnumerable<GroupMemberResponse>>($"/api/{ApiVersion}/users/{userId}/groups", accessToken: accessToken);
 
             if (!canJoin)
             {
@@ -109,7 +109,7 @@ namespace Kalinar.Test.Integration
             string accessToken = GetToken(userId)!;
 
             Exception? leaveException = await Record.ExceptionAsync(async () => await this.PostAsync<object>($"/api/{ApiVersion}/groups/{Utilities.GroupId}/leave", accessToken: accessToken));
-            IEnumerable<UserMemberResponse> groups = await this.GetAsync<IEnumerable<UserMemberResponse>>($"/api/{ApiVersion}/users/{userId}/groups", accessToken: accessToken);
+            IEnumerable<GroupMemberResponse> groups = await this.GetAsync<IEnumerable<GroupMemberResponse>>($"/api/{ApiVersion}/users/{userId}/groups", accessToken: accessToken);
 
             if (!canLeave)
             {

@@ -23,6 +23,11 @@ namespace Kalinar.Application.Services
             return await this.groupMemberRepository.ListByUserIdAsync(userId, cancellationToken);
         }
 
+        public async Task<IEnumerable<GroupMemberEntity>> ListByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default)
+        {
+            return await this.groupMemberRepository.ListByGroupIdAsync(groupId, cancellationToken);
+        }
+
         public async Task<GroupMemberEntity> GetByUserAndGroupIdAsync(string userId, Guid groupId, CancellationToken cancellationToken = default)
         {
             return await this.groupMemberRepository.FindByUserAndGroupIdAsync(userId, groupId, cancellationToken) ?? throw new GroupMemberNotFoundException(userId, groupId);

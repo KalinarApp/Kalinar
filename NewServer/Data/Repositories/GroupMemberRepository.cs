@@ -20,6 +20,11 @@ namespace Kalinar.Data.Repositories
             return await this.context.GroupMembers.Include(item => item.Group).Include(item => item.User).Where(member => member.UserId == userId).ToListAsync(cancellationToken);
         }
 
+        public async Task<IEnumerable<GroupMemberEntity>> ListByGroupIdAsync(Guid groupId, CancellationToken cancellationToken = default)
+        {
+            return await this.context.GroupMembers.Include(item => item.Group).Include(item => item.User).Where(member => member.GroupId == groupId).ToListAsync(cancellationToken);
+        }
+
         public async Task<GroupMemberEntity?> FindByUserAndGroupIdAsync(string userId, Guid groupId, CancellationToken cancellationToken = default)
         {
             return await this.context.GroupMembers.FirstOrDefaultAsync(member => member.UserId == userId && member.GroupId == groupId, cancellationToken);

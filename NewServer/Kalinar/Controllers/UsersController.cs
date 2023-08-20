@@ -39,7 +39,7 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet("{id}/groups")]
-        public async Task<ActionResult<IEnumerable<UserMemberResponse>>> GetGroupsAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<GroupMemberResponse>>> GetGroupsAsync(string id, CancellationToken cancellationToken = default)
         {
             UserEntity loggedInUser = await this.userService.GetByIdAsync(this.User.GetId(), cancellationToken);
 
@@ -47,7 +47,7 @@ namespace Kalinar.Controllers
 
             IEnumerable<GroupMemberEntity> groups = await this.groupMemberService.ListByUserIdAsync(id, cancellationToken);
 
-            return this.Ok(groups.Select(item => (UserMemberResponse)item));
+            return this.Ok(groups.Select(item => (GroupMemberResponse)item));
         }
 
         [HttpPost("register")]

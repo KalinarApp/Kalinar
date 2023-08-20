@@ -40,14 +40,14 @@ namespace Kalinar.Controllers
         }
 
         [HttpGet("{id}/users")]
-        public async Task<ActionResult<IEnumerable<UserResponse>>> ListUsersAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<GroupMemberResponse>>> ListUsersAsync(Guid id, CancellationToken cancellationToken = default)
         {
             GroupEntity group = await this.groupService.GetByIdAsync(id, true, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadGroups);
 
-            IEnumerable<UserEntity> users = await this.userService.ListByGroupIdAsync(id, cancellationToken);
+            IEnumerable<UserEntity> users = await this.memberService.ListByUserIdAsync(id, cancellationToken);
 
-            return this.Ok(users.Select(item => (UserResponse)item));
+            return this.Ok(users.Select(item => (GroupMemberResponse)item));
         }
 
         [HttpPost]
