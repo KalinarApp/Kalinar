@@ -45,9 +45,9 @@ namespace Kalinar.Controllers
             GroupEntity group = await this.groupService.GetByIdAsync(id, true, cancellationToken);
             await this.authorizationService.AuthorizeOrThrowAsync(this.User, group, PolicyNames.CanReadGroups);
 
-            IEnumerable<UserEntity> users = await this.memberService.ListByUserIdAsync(id, cancellationToken);
+            IEnumerable<GroupMemberEntity> groupMembers = await this.memberService.ListByGroupIdAsync(id, cancellationToken);
 
-            return this.Ok(users.Select(item => (GroupMemberResponse)item));
+            return this.Ok(groupMembers.Select(item => (GroupMemberResponse)item));
         }
 
         [HttpPost]
