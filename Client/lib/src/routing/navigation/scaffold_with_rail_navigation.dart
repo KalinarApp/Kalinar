@@ -6,16 +6,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common_widgets/expandable.dart';
 import '../../common_widgets/user_menu.dart';
-import '../../features/authentication/data/firebase_auth_repository.dart';
-import '../../features/user_management/data/user_repository.dart';
+import '../../features/user_management/domain/user.dart';
 import 'navigation_item.dart';
 import 'rail_navigation_item.dart';
 
 class ScaffoldWithRailNavigation extends HookConsumerWidget {
   final Widget body;
+  final AsyncValue<User?> currentUser;
   final List<NavigationItem> tabs;
 
-  const ScaffoldWithRailNavigation({required this.body, required this.tabs, super.key});
+  const ScaffoldWithRailNavigation({required this.body, required this.tabs, required this.currentUser, super.key});
 
   // Future _showCharacterContextMenu(BuildContext context, CharacterOverview character, Offset position) async {
   //   final left = position.dx;
@@ -48,9 +48,6 @@ class ScaffoldWithRailNavigation extends HookConsumerWidget {
     // }, [const ValueKey(null)]);
 
     // TODO: implement loading characters and orders
-
-    final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
-    final user = ref.watch(getUserByIdProvider(userId));
 
     return Scaffold(
       body: Row(
@@ -118,7 +115,7 @@ class ScaffoldWithRailNavigation extends HookConsumerWidget {
                 //     ),
                 //   ),
                 // ),
-                footer: user.hasValue ? const Column(children: [UserMenu(), SizedBox(height: 20)]) : null,
+                footer: currentUser.hasValue ? const Column(children: [UserMenu(), SizedBox(height: 20)]) : null,
               );
             },
           ),

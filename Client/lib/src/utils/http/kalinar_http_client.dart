@@ -46,7 +46,10 @@ class KalinarHttpClient {
   Future<Map<String, String>> _getHeaders() async {
     final idToken = await currentUser?.getIdToken();
 
-    return {"Authorization": "Bearer $idToken"};
+    return {
+      "Authorization": "Bearer $idToken",
+      "Content-Type": "application/json",
+    };
   }
 
   Future<T> get<T>(String endpoint, T Function(dynamic response) responseBuilder) async {

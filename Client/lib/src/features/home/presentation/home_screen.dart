@@ -6,7 +6,6 @@ import '../../../common_widgets/layout/size.dart';
 import '../../../common_widgets/user_menu.dart';
 import '../../../routing/app_route.dart';
 import '../../../utils/http/error_response.dart';
-import '../../authentication/data/firebase_auth_repository.dart';
 import '../../user_management/data/user_repository.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -14,12 +13,23 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
-    final user = ref.watch(getUserByIdProvider(userId));
+    final user = ref.watch(getUserByIdProvider);
+    final groups = ref.watch(getUserGroupsByIdProvider);
 
-    ref.listen(getUserByIdProvider(userId), (_, user) {
+    ref.listen(getUserByIdProvider, (old, user) {
+      if ((old?.hasError ?? false) && user.hasError) return;
       if (user.hasError && user.error is ErrorResponse && (user.error as ErrorResponse).type == userNotFoundException) {
         context.pushNamed(AppRoute.createProfile.name);
+      }
+    });
+
+    ref.listen(getUserGroupsByIdProvider, (previous, next) {
+      if (next.hasValue && next.value!.isEmpty) {
+        // TODO: show material banner for creating or join a group
+      } else if (next.value!.length > 1) {
+        // TODO: show material banner to select a default group
+      } else if (next.value!.length == 1) {
+        // TODO: set default group
       }
     });
 

@@ -21,111 +21,21 @@ final userRepositoryProvider = Provider<UserRepository>.internal(
 );
 
 typedef UserRepositoryRef = ProviderRef<UserRepository>;
-String _$getUserByIdHash() => r'da2995d21a19c3aa9e07d8aa8c9a64448b9fac32';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-typedef GetUserByIdRef = AutoDisposeFutureProviderRef<User>;
+String _$getUserByIdHash() => r'd78d69113870f3ca3714b776a14664015a74fa11';
 
 /// See also [getUserById].
 @ProviderFor(getUserById)
-const getUserByIdProvider = GetUserByIdFamily();
+final getUserByIdProvider = AutoDisposeFutureProvider<User>.internal(
+  getUserById,
+  name: r'getUserByIdProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$getUserByIdHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// See also [getUserById].
-class GetUserByIdFamily extends Family<AsyncValue<User>> {
-  /// See also [getUserById].
-  const GetUserByIdFamily();
-
-  /// See also [getUserById].
-  GetUserByIdProvider call(
-    String userId,
-  ) {
-    return GetUserByIdProvider(
-      userId,
-    );
-  }
-
-  @override
-  GetUserByIdProvider getProviderOverride(
-    covariant GetUserByIdProvider provider,
-  ) {
-    return call(
-      provider.userId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'getUserByIdProvider';
-}
-
-/// See also [getUserById].
-class GetUserByIdProvider extends AutoDisposeFutureProvider<User> {
-  /// See also [getUserById].
-  GetUserByIdProvider(
-    this.userId,
-  ) : super.internal(
-          (ref) => getUserById(
-            ref,
-            userId,
-          ),
-          from: getUserByIdProvider,
-          name: r'getUserByIdProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$getUserByIdHash,
-          dependencies: GetUserByIdFamily._dependencies,
-          allTransitiveDependencies:
-              GetUserByIdFamily._allTransitiveDependencies,
-        );
-
-  final String userId;
-
-  @override
-  bool operator ==(Object other) {
-    return other is GetUserByIdProvider && other.userId == userId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, userId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-String _$getUserGroupsByIdHash() => r'7a7f392cbc898ff70d332313d125d6a1abffa453';
+typedef GetUserByIdRef = AutoDisposeFutureProviderRef<User>;
+String _$getUserGroupsByIdHash() => r'4df35f4a94f13e6f79891ee7a803d145d0c6a496';
 
 /// See also [getUserGroupsById].
 @ProviderFor(getUserGroupsById)

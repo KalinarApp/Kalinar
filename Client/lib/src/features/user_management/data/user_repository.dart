@@ -15,7 +15,7 @@ class UserRepository {
   Future<User> getById(String groupId) async => client.get("$apiVersionPath/users/$groupId", (response) => User.fromJson(response));
   Future<List<GroupMember>> getGroupsById(String userId) async =>
       client.get("$apiVersionPath/users/$userId/groups", (response) => List<GroupMember>.from(response.map((model) => GroupMember.fromJson(model))));
-  Future create(User user) async => client.post("$apiVersionPath/users", user, (response) => User.fromJson(response));
+  Future create(User user) async => client.post("$apiVersionPath/users/register", user, (response) => User.fromJson(response));
   Future update(String userId, User user) async => client.put("$apiVersionPath/users/$userId", user, (response) => User.fromJson(response));
   Future delete(String userId) async => client.delete("$apiVersionPath/users/$userId");
 }
@@ -26,12 +26,13 @@ UserRepository userRepository(UserRepositoryRef ref) {
 }
 
 @riverpod
-FutureOr<User> getUserById(GetUserByIdRef ref, String userId) {
+FutureOr<User> getUserById(GetUserByIdRef ref) {
+  final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
   return ref.watch(userRepositoryProvider).getById(userId);
 }
 
 @Riverpod(keepAlive: true)
 FutureOr<List<GroupMember>> getUserGroupsById(GetUserGroupsByIdRef ref) {
-  final user = ref.watch(firebaseAuthProvider).currentUser!;
-  return ref.watch(userRepositoryProvider).getGroupsById(user.uid);
+  final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
+  return ref.watch(userRepositoryProvider).getGroupsById(userId);
 }
