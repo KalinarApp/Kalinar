@@ -31,12 +31,12 @@ class KalinarHttpClient {
   Future<T> _handleResponse<T>(Future<http.Response> Function() action, T Function(dynamic response) responseBuilder) async {
     try {
       final response = await action();
-      final Map<String, dynamic> responseData = response.body.isNotEmpty ? json.decode(response.body) : {};
+      final responseData = response.body.isNotEmpty ? jsonDecode(response.body) : {};
 
       if (response.statusCode >= 200 && response.statusCode <= 299) {
         return responseBuilder(responseData);
       } else {
-        throw ErrorResponse(responseData["type"], responseData["errors"]);
+        throw ErrorResponse.fromJson(responseData);
       }
     } on SocketException catch (_) {
       throw ErrorResponse("NoInternetConnectionException", []);

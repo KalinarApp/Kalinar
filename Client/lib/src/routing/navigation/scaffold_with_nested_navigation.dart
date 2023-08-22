@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kalinar/src/routing/navigation/scaffold_with_rail_navigation.dart';
 
 import '../../common_widgets/layout/responsive_layout.dart';
+import '../app_route.dart';
 import 'navigation_item.dart';
 import 'scaffold_with_bottom_navigation.dart';
+import 'scaffold_with_rail_navigation.dart';
 
 class ScaffoldWithNestedNavigation extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
@@ -20,7 +21,7 @@ class ScaffoldWithNestedNavigation extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tabs = [
-      NavigationItem(route: '/home', icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
+      NavigationItem(route: AppRoute.home.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
       // if (MediaQuery.of(context).size.width <= mobileMaxWidth)
       //   NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
       // NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),

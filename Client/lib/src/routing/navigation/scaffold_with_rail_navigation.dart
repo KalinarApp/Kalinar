@@ -6,6 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common_widgets/expandable.dart';
 import '../../common_widgets/user_menu.dart';
+import '../../features/authentication/data/firebase_auth_repository.dart';
+import '../../features/user_management/data/user_repository.dart';
 import 'navigation_item.dart';
 import 'rail_navigation_item.dart';
 
@@ -47,6 +49,9 @@ class ScaffoldWithRailNavigation extends HookConsumerWidget {
 
     // TODO: implement loading characters and orders
 
+    final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
+    final user = ref.watch(getUserByIdProvider(userId));
+
     return Scaffold(
       body: Row(
         children: [
@@ -69,20 +74,21 @@ class ScaffoldWithRailNavigation extends HookConsumerWidget {
                             title: selectedOrFirst.title,
                             icon: Icon(selectedOrFirst.icon),
                             isSelected: GoRouterState.of(context).uri.toString() == selectedOrFirst.route,
-                            onTap: () => context.go(selectedOrFirst.route)),
+                            onTap:
+                                GoRouterState.of(context).uri.toString() == selectedOrFirst.route ? null : () => context.go(selectedOrFirst.route)),
                       ),
                       secondChild: Column(
-                        children: tabs
-                            .whereNot((element) => element == selectedOrFirst)
-                            .map(
-                              (e) => DesktopNavigationItem(
-                                title: e.title,
-                                icon: Icon(e.icon),
-                                isSelected: GoRouterState.of(context).uri.toString() == e.route,
-                                onTap: () => context.go(e.route),
-                              ),
-                            )
-                            .toList(),
+                        children: tabs.whereNot((element) => element == selectedOrFirst).map(
+                          (e) {
+                            final isRoute = GoRouterState.of(context).uri.toString() == e.route;
+                            return DesktopNavigationItem(
+                              title: e.title,
+                              icon: Icon(e.icon),
+                              isSelected: isRoute,
+                              onTap: isRoute ? null : () => context.go(e.route),
+                            );
+                          },
+                        ).toList(),
                       ),
                     ),
                     const Divider(),
@@ -112,12 +118,7 @@ class ScaffoldWithRailNavigation extends HookConsumerWidget {
                 //     ),
                 //   ),
                 // ),
-                footer: const Column(
-                  children: [
-                    UserMenu(),
-                    SizedBox(height: 20),
-                  ],
-                ),
+                footer: user.hasValue ? const Column(children: [UserMenu(), SizedBox(height: 20)]) : null,
               );
             },
           ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DialogPage<T> extends Page<T> {
@@ -12,7 +13,7 @@ class DialogPage<T> extends Page<T> {
   const DialogPage({
     required this.builder,
     this.anchorPoint,
-    this.barrierColor = Colors.black87,
+    this.barrierColor = kCupertinoModalBarrierColor,
     this.barrierDismissible = true,
     this.barrierLabel,
     this.useSafeArea = true,

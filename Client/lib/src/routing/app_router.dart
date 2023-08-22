@@ -25,70 +25,65 @@ GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
 
   return GoRouter(
-    initialLocation: '/signIn',
+    initialLocation: AppRoute.signIn.route,
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
       final isLoggedIn = authRepository.currentUser != null;
-      final onLoginPage = state.uri.toString() == '/signIn';
+      final onLoginPage = state.uri.toString() == AppRoute.signIn.route;
 
-      if (!isLoggedIn && !onLoginPage) return '/signIn';
-      if (isLoggedIn && onLoginPage) return '/home';
+      if (!isLoggedIn && !onLoginPage) return AppRoute.signIn.route;
+      if (isLoggedIn && onLoginPage) return AppRoute.home.route;
       return null;
     },
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
       GoRoute(
-        path: '/signIn',
+        path: AppRoute.signIn.route,
         name: AppRoute.signIn.name,
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const CustomSignInScreen()),
       ),
       GoRoute(
-        path: '/profile',
+        path: AppRoute.createProfile.route,
+        name: AppRoute.createProfile.name,
+        pageBuilder: (context, state) => DialogPage(barrierDismissible: false, builder: (_) => const EditUserDialog()),
+      ),
+      GoRoute(
+        path: AppRoute.userProfile.route,
         name: AppRoute.userProfile.name,
         pageBuilder: (context, state) => DialogPage(builder: (_) => const Text("User Profile")),
-        routes: [
-          GoRoute(
-            path: 'create',
-            name: AppRoute.createProfile.name,
-            pageBuilder: (context, state) => DialogPage(builder: (_) => const EditUserDialog()),
-          ),
-        ],
+        routes: [],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) => ScaffoldWithNestedNavigation(navigationShell: navigationShell),
         branches: [
-          StatefulShellBranch(
-            navigatorKey: _homeNavigatorKey,
-            routes: [
-              GoRoute(
-                path: '/home',
+          StatefulShellBranch(navigatorKey: _homeNavigatorKey, routes: [
+            GoRoute(
+                path: AppRoute.home.route,
                 name: AppRoute.home.name,
-                pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
-              ),
-            ],
-          ),
+                pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen())),
+          ]),
           StatefulShellBranch(
             navigatorKey: _charactersNavigatorKey,
             routes: [
               GoRoute(
-                path: '/characters',
+                path: AppRoute.characterList.route,
                 name: AppRoute.characterList.name,
                 pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Text('Characters')),
                 routes: [
                   GoRoute(
-                      path: ':id',
+                      path: AppRoute.characterDetails.route,
                       name: AppRoute.characterDetails.name,
                       pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const Text('Character Details')),
                       routes: [
                         GoRoute(
-                          path: 'edit',
+                          path: AppRoute.editCharacter.route,
                           name: AppRoute.editCharacter.name,
                           pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const Text('Edit Character')),
                         )
                       ]),
                   GoRoute(
-                    path: 'add',
+                    path: AppRoute.addCharacter.route,
                     name: AppRoute.addCharacter.name,
                     pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const Text('Add Character')),
                   ),

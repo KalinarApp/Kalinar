@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kalinar/src/routing/app_route.dart';
 
 import '../../../common_widgets/layout/size.dart';
 import '../../../common_widgets/user_menu.dart';
+import '../../../routing/app_route.dart';
 import '../../../utils/http/error_response.dart';
 import '../../authentication/data/firebase_auth_repository.dart';
 import '../../user_management/data/user_repository.dart';
@@ -22,7 +22,7 @@ class HomeScreen extends ConsumerWidget {
         context.pushNamed(AppRoute.createProfile.name);
       }
     });
-    print(user);
+
     return LayoutBuilder(
       builder: (ctx, constraints) => Scaffold(
         appBar: isMobile(constraints) ? AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())]) : null,
