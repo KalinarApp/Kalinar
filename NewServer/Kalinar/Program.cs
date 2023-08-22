@@ -15,7 +15,8 @@ public class Program
         IConfigurationSection s3Config = builder.Configuration.GetSection("Services:S3");
 
         builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddEndpointsApiExplorer(); 
+        builder.Services.AddCors();
 
         builder.Services.Configure<ApiBehaviorOptions>(options => options.InvalidModelStateResponseFactory = InvalidModelStateResponseFactory.GenerateErrorResponse);
 
@@ -42,6 +43,18 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.UseCors(options =>
+        {
+            if (app.Environment.IsDevelopment())
+            {
+                options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            }
+            else
+            {
+                options.WithOrigins("https://kalinar.app").AllowAnyHeader().AllowAnyMethod();
+            }
+        });
 
         await app.UseDatabaseMigrations();
 
