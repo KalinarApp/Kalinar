@@ -27,25 +27,32 @@ extension AsyncValueUI on AsyncValue {
 
   void showNotification(BuildContext context, {String? successMessage, String? customErrorMessage}) {
     if (isLoading) return;
-    if (hasError && error is ErrorResponse) {
-      final errorResponse = error as ErrorResponse;
-      final errorMessage = customErrorMessage ?? errorResponse.getLocalizedMessage(context);
+    if (hasError) {
+      String errorMessage = "";
+      if (error is ErrorResponse) {
+        final errorResponse = error as ErrorResponse;
+        errorMessage = customErrorMessage ?? errorResponse.getLocalizedMessage(context);
+      } else {
+        errorMessage = customErrorMessage ?? AppLocalizations.of(context)!.errorUnknown;
+      }
 
       ElegantNotification.error(
         notificationPosition: kIsWeb ? NotificationPosition.bottomRight : NotificationPosition.topRight,
-        toastDuration: const Duration(seconds: 5),
+        toastDuration: const Duration(seconds: 10),
         height: min(50, MediaQuery.of(context).size.height * .12),
         width: min(500, MediaQuery.of(context).size.width * .7),
         description: Text(errorMessage),
         background: Theme.of(context).colorScheme.background,
+        progressIndicatorBackground: Theme.of(context).colorScheme.surface,
       ).show(context);
     } else if (successMessage != null && hasValue) {
       ElegantNotification.success(
         notificationPosition: kIsWeb ? NotificationPosition.bottomRight : NotificationPosition.topRight,
-        toastDuration: const Duration(seconds: 5),
+        toastDuration: const Duration(seconds: 3),
         height: min(50, MediaQuery.of(context).size.height * .12),
         width: min(500, MediaQuery.of(context).size.width * .7),
         background: Theme.of(context).colorScheme.background,
+        progressIndicatorBackground: Theme.of(context).colorScheme.surface,
         description: Text(successMessage),
       ).show(context);
     }

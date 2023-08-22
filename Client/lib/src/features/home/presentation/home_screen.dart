@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kalinar/src/common_widgets/spinner.dart';
+import 'package:kalinar/src/utils/async_value_extension.dart';
 
 import '../../../common_widgets/layout/size.dart';
 import '../../../common_widgets/user_menu.dart';
@@ -17,6 +19,7 @@ class HomeScreen extends ConsumerWidget {
     final groups = ref.watch(getUserGroupsByIdProvider);
 
     ref.listen(getUserByIdProvider, (old, user) {
+      user.showNotification(context);
       if ((old?.hasError ?? false) && user.hasError) return;
       if (user.hasError && user.error is ErrorResponse && (user.error as ErrorResponse).type == userNotFoundException) {
         context.pushNamed(AppRoute.createProfile.name);
@@ -36,7 +39,9 @@ class HomeScreen extends ConsumerWidget {
     return LayoutBuilder(
       builder: (ctx, constraints) => Scaffold(
         appBar: isMobile(constraints) ? AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())]) : null,
-        body: Center(child: Text("Hallo ${user.hasValue ? user.value!.username : "Nutzer"}, hier könnte deine Werbung stehen!")),
+        body: user.isLoading
+            ? const Spinner()
+            : Center(child: Text("Hallo ${user.hasValue ? user.value!.username : "Nutzer"}, hier könnte deine Werbung stehen!")),
       ),
     );
   }
