@@ -35,7 +35,7 @@ extension AsyncValueUI on AsyncValue {
         notificationPosition: kIsWeb ? NotificationPosition.bottomRight : NotificationPosition.topRight,
         toastDuration: const Duration(seconds: 5),
         height: min(50, MediaQuery.of(context).size.height * .12),
-        width: kIsWeb ?  min(500, MediaQuery.of(context).size.width * .7),
+        width: min(500, MediaQuery.of(context).size.width * .7),
         description: Text(errorMessage),
         background: Theme.of(context).colorScheme.background,
       ).show(context);

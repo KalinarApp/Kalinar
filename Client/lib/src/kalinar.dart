@@ -85,8 +85,8 @@ class _KalinarState extends ConsumerState<Kalinar> {
             data: MediaQuery.of(context).copyWith(accessibleNavigation: false),
             child: child!),
         onGenerateTitle: (ctx) => AppLocalizations.of(ctx)!.applicationTitle,
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: ThemeData.light(useMaterial3: false),
+        darkTheme: ThemeData.dark(useMaterial3: false),
         debugShowCheckedModeBanner: false,
         supportedLocales: const [Locale("de"), Locale("en")],
         localizationsDelegates: [
