@@ -8,3 +8,7 @@ enum Role {
   @JsonValue("Member")
   member,
 }
+
+extension RoleExtensions on Role? {
+  bool get isAdminRole => this != null && [Role.owner, Role.administrator].contains(this);
+}

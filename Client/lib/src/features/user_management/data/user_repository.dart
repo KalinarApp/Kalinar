@@ -1,8 +1,12 @@
-import 'package:kalinar/src/features/authentication/data/firebase_auth_repository.dart';
+import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../utils/http/kalinar_http_client.dart';
+import '../../../utils/local_storage/shared_preferences_helper.dart';
+import '../../../utils/local_storage/storage_key.dart';
+import '../../authentication/data/firebase_auth_repository.dart';
 import '../domain/group_member.dart';
+import '../domain/role.dart';
 import '../domain/user.dart';
 
 part 'user_repository.g.dart';
@@ -35,4 +39,22 @@ FutureOr<User> getUserById(GetUserByIdRef ref) {
 FutureOr<List<GroupMember>> getUserGroupsById(GetUserGroupsByIdRef ref) {
   final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
   return ref.watch(userRepositoryProvider).getGroupsById(userId);
+}
+
+@riverpod
+FutureOr<GroupMember?> getSelectedGroup(GetSelectedGroupRef ref) {
+  final groups = ref.watch(getUserGroupsByIdProvider);
+  if (!groups.hasValue || groups.value!.isEmpty) return null;
+
+  final groupId = ref.watch(getSharedPreferencesProvider).getString(StorageKey.defaultGroupId);
+  final selectedGroup = groupId != null ? groups.value!.firstWhereOrNull((element) => element.group.id == groupId) : null;
+  final currentGroup = selectedGroup ?? groups.value!.firstOrNull;
+
+  return currentGroup;
+}
+
+@riverpod
+bool isAdminInSelectedGroup(IsAdminInSelectedGroupRef ref) {
+  final selectedGroup = ref.watch(getSelectedGroupProvider);
+  return selectedGroup.hasValue ? selectedGroup.value!.role.isAdminRole : false;
 }

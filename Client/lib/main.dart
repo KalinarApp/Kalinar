@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_initialization.dart';
 import 'src/kalinar.dart';
+import 'src/utils/local_storage/shared_preferences_helper.dart';
 
 void _loadFlavors() {
   if (kDebugMode) {
@@ -30,7 +31,9 @@ void main() async {
     usePathUrlStrategy();
     final sharedPreferences = await SharedPreferences.getInstance();
 
-    final container = ProviderContainer(overrides: []);
+    final container = ProviderContainer(overrides: [
+      getSharedPreferencesProvider.overrideWithValue(SharedPreferencesHelper(sharedPreferences)),
+    ]);
 
     await SentryFlutter.init(
       (options) {

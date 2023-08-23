@@ -50,5 +50,37 @@ final getUserGroupsByIdProvider = FutureProvider<List<GroupMember>>.internal(
 );
 
 typedef GetUserGroupsByIdRef = FutureProviderRef<List<GroupMember>>;
+String _$getSelectedGroupHash() => r'9ce840f95da9d0d7273f01abfb2e563e6cf6a070';
+
+/// See also [getSelectedGroup].
+@ProviderFor(getSelectedGroup)
+final getSelectedGroupProvider =
+    AutoDisposeFutureProvider<GroupMember?>.internal(
+  getSelectedGroup,
+  name: r'getSelectedGroupProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getSelectedGroupHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef GetSelectedGroupRef = AutoDisposeFutureProviderRef<GroupMember?>;
+String _$isAdminInSelectedGroupHash() =>
+    r'e82308c99d2d09b035827b1503fa1a3554fd82e6';
+
+/// See also [isAdminInSelectedGroup].
+@ProviderFor(isAdminInSelectedGroup)
+final isAdminInSelectedGroupProvider = AutoDisposeProvider<bool>.internal(
+  isAdminInSelectedGroup,
+  name: r'isAdminInSelectedGroupProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$isAdminInSelectedGroupHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef IsAdminInSelectedGroupRef = AutoDisposeProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
