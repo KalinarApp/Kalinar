@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../common_widgets/spinner.dart';
 import '../../../routing/app_route.dart';
-import '../../../utils/async_value_extension.dart';
 import '../../../utils/http/error_response.dart';
 import '../../user_management/data/user_repository.dart';
 
@@ -15,10 +14,8 @@ class HomeContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(getUserByIdProvider);
-    // final group = ref.watch(getSelectedGroupProvider);
 
     ref.listen(getUserByIdProvider, (old, user) {
-      user.showNotification(context);
       if ((old?.hasError ?? false) && user.hasError) return;
       if (user.hasError && user.error is ErrorResponse && (user.error as ErrorResponse).type == userNotFoundException) {
         context.pushNamed(AppRoute.createProfile.name);
@@ -26,7 +23,7 @@ class HomeContent extends ConsumerWidget {
     });
 
     ref.listen(getSelectedGroupProvider, (_, group) {
-      if (group.hasValue) {
+      if (group.hasValue && group.value == null) {
         ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
           content: Text(AppLocalizations.of(context)!.groupNotInGroupText(user.value!.username)),
           actions: [
@@ -37,9 +34,32 @@ class HomeContent extends ConsumerWidget {
       }
     });
 
+    ref.listen(getUserGroupsByIdProvider, (_, groups) {
+      if (groups.isLoading) return;
+      if (!groups.hasValue) return;
+      if (groups.value!.isEmpty) {
+        ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+          content: Text(AppLocalizations.of(context)!.groupNotInGroupText(user.value!.username)),
+          actions: [
+            TextButton(onPressed: () {}, child: const Text("Erstellen")),
+            TextButton(onPressed: () {}, child: const Text("Beitreten")),
+          ],
+        ));
+      } else if (groups.value!.length > 1) {
+        ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+          content: const Text(
+              "Du bist Mitglied in mehreren Gruppen. Bitte wähle für die weitere Nutzung der App eine Gruppe aus.\nDiese kannst du zu jeder Zeit in deinem Benutzerprofil wechseln."),
+          actions: [
+            TextButton(onPressed: () {}, child: const Text("Gruppe auswählen")),
+          ],
+        ));
+      } else {
+        // TODO: Set group as default group.
+      }
+    });
+
     return user.isLoading
         ? const Spinner()
         : Center(child: Text("Hallo ${user.hasValue ? user.value!.username : "Nutzer"}, hier könnte deine Werbung stehen!"));
-    ;
   }
 }

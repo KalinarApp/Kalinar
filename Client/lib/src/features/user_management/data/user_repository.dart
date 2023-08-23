@@ -35,7 +35,7 @@ FutureOr<User> getUserById(GetUserByIdRef ref) {
   return ref.watch(userRepositoryProvider).getById(userId);
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 FutureOr<List<GroupMember>> getUserGroupsById(GetUserGroupsByIdRef ref) {
   final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
   return ref.watch(userRepositoryProvider).getGroupsById(userId);

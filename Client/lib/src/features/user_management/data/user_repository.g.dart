@@ -35,11 +35,12 @@ final getUserByIdProvider = AutoDisposeFutureProvider<User>.internal(
 );
 
 typedef GetUserByIdRef = AutoDisposeFutureProviderRef<User>;
-String _$getUserGroupsByIdHash() => r'4df35f4a94f13e6f79891ee7a803d145d0c6a496';
+String _$getUserGroupsByIdHash() => r'64f019e960719d72fc9d0b09b0634cc65c0e4d3d';
 
 /// See also [getUserGroupsById].
 @ProviderFor(getUserGroupsById)
-final getUserGroupsByIdProvider = FutureProvider<List<GroupMember>>.internal(
+final getUserGroupsByIdProvider =
+    AutoDisposeFutureProvider<List<GroupMember>>.internal(
   getUserGroupsById,
   name: r'getUserGroupsByIdProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -49,7 +50,7 @@ final getUserGroupsByIdProvider = FutureProvider<List<GroupMember>>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef GetUserGroupsByIdRef = FutureProviderRef<List<GroupMember>>;
+typedef GetUserGroupsByIdRef = AutoDisposeFutureProviderRef<List<GroupMember>>;
 String _$getSelectedGroupHash() => r'9ce840f95da9d0d7273f01abfb2e563e6cf6a070';
 
 /// See also [getSelectedGroup].
