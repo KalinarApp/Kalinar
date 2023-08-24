@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
-import '../../../../../utils/async_value_extension.dart';
-import '../../../../group_management/application/group_notifier.dart';
+import '../../../../../utils/http/async_value_extension.dart';
 import '../../../application/controller/races_controller.dart';
 import '../../../application/notifier/races_state_notifier.dart';
 import '../../../application/state/filter_state.dart';
@@ -32,7 +31,7 @@ class RacesTabState extends ConsumerState<RacesTab> {
     setState(() => isSearchEnabled = !value.hasError);
 
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   void _editRace(Race item) {
@@ -43,7 +42,7 @@ class RacesTabState extends ConsumerState<RacesTab> {
   Future<void> _deleteRace(Race item) async {
     final value = await ref.read(racesControllerProvider).delete(item.id);
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   Future _showActionDialog(Race item) async {
@@ -70,7 +69,8 @@ class RacesTabState extends ConsumerState<RacesTab> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    // return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    return false;
   }
 
   @override

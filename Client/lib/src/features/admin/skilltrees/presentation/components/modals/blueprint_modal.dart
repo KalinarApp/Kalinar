@@ -7,7 +7,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../../../common_widgets/form_fields/content_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
-import '../../../../../../utils/async_value_extension.dart';
+import '../../../../../../utils/http/async_value_extension.dart';
 import '../../../application/skilltree_controller.dart';
 
 class BlueprintModal extends ConsumerStatefulWidget {
@@ -30,7 +30,7 @@ class _BlueprintModalState extends ConsumerState<BlueprintModal> {
             ? await ref.read(skilltreeControllerProvider.notifier).createBlueprint(data)
             : await ref.read(skilltreeControllerProvider.notifier).updateBlueprint(id, data);
         if (!mounted) return;
-        value.showSnackbarOnError(context);
+        value.showNotification(context);
         if (value.hasError) {
           controller.error();
           Future.delayed(const Duration(seconds: 3), controller.reset);

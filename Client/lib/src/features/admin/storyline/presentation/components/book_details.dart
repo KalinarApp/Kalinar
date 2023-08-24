@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../common_widgets/action_menu.dart';
 import '../../../../../common_widgets/custom_image_button.dart';
 import '../../../../../common_widgets/loading_indicator.dart';
-import '../../../../../utils/async_value_extension.dart';
+import '../../../../../utils/http/async_value_extension.dart';
 import '../../application/book_controller.dart';
 import '../../application/book_state_notifier.dart';
 import '../../domain/book_page.dart';
@@ -34,16 +34,16 @@ class _BookDetailsState extends ConsumerState<BookDetails> {
   void _reorder(String bookId, String pageId, int oldIndex, int newIndex) {
     if (oldIndex < newIndex) newIndex -= 1;
 
-    ref.read(storyBookControllerProvider).reorder(bookId, pageId, newIndex + 1).then((value) => value.showSnackbarOnError(context));
+    ref.read(storyBookControllerProvider).reorder(bookId, pageId, newIndex + 1).then((value) => value.showNotification(context));
   }
 
   void _updateWrittenState(String bookId, String pageId, bool isWritten) {
-    ref.read(storyBookControllerProvider).updateWrittenState(bookId, pageId, isWritten).then((value) => value.showSnackbarOnError(context));
+    ref.read(storyBookControllerProvider).updateWrittenState(bookId, pageId, isWritten).then((value) => value.showNotification(context));
   }
 
   void _deletePage(String bookId, String pageId) {
     ref.read(storyBookControllerProvider).delete(bookId, pageId).then((value) {
-      value.showSnackbarOnError(context);
+      value.showNotification(context);
     });
   }
 

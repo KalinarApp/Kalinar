@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common_widgets/user_menu.dart';
-import '../../../../utils/async_value_extension.dart';
+import '../../../../utils/http/async_value_extension.dart';
 import '../application/story_entries_controller.dart';
 import '../application/story_entries_state_notifier.dart';
 import 'components/reorderable_entry_list.dart';
@@ -24,15 +24,15 @@ class _StorylineOverviewScreenState extends ConsumerState<StorylineOverviewScree
   Future _onRefresh() async {
     final value = await ref.read(storyEntriesControllerProvider).getAll();
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   void _unlock(String id, bool isUnlocked) {
-    ref.read(storyEntriesControllerProvider).unlock(id, isUnlocked).then((value) => value.showSnackbarOnError(context));
+    ref.read(storyEntriesControllerProvider).unlock(id, isUnlocked).then((value) => value.showNotification(context));
   }
 
   void _reorder(String id, int newIndex) {
-    ref.read(storyEntriesControllerProvider).reorder(id, newIndex).then((value) => value.showSnackbarOnError(context));
+    ref.read(storyEntriesControllerProvider).reorder(id, newIndex).then((value) => value.showNotification(context));
   }
 
   @override

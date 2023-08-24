@@ -6,8 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
-import '../../../../../utils/async_value_extension.dart';
-import '../../../../group_management/application/group_notifier.dart';
+import '../../../../../utils/http/async_value_extension.dart';
 import '../../../application/controller/abilities_controller.dart';
 import '../../../application/notifier/abilities_state_notifier.dart';
 import '../../../application/state/filter_state.dart';
@@ -34,7 +33,7 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
     setState(() => isSearchEnabled = !value.hasError);
 
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   void _editAbility(Ability ability) {
@@ -45,7 +44,7 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
   Future<void> _deleteAbility(Ability ability) async {
     final value = await ref.read(abilitiesControllerProvider).delete(ability.id);
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   Future _showActionDialog(Ability item) async {
@@ -72,7 +71,8 @@ class _AbilitiesTabState extends ConsumerState<AbilitiesTab> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    // return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    return false;
   }
 
   @override

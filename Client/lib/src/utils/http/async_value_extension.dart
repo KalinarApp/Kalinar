@@ -8,23 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kalinar/src/utils/http/error_response.dart';
 
-import 'api_error.dart';
-
 extension AsyncValueUI on AsyncValue {
-  void showSnackbarOnError(BuildContext context) {
-    if (!isRefreshing && hasError) {
-      String message = AppLocalizations.of(context)!.errorUnknown;
-
-      if (error is APIError) {
-        message = (error as APIError).getMessage(context);
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
-    }
-  }
-
   void showNotification(BuildContext context, {String? successMessage, String? customErrorMessage}) {
     if (isLoading) return;
     if (hasError) {

@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../../../utils/async_value_extension.dart';
+import '../../../../../../../utils/http/async_value_extension.dart';
 import '../../../../../../characters/domain/character_overview.dart';
 import '../../../../application/skilltree_controller.dart';
 import '../../../../domain/skilltree_overview.dart';
@@ -77,7 +77,7 @@ class _SkilltreeCharacterItemState extends ConsumerState<SkilltreeCharacterItem>
             onPress: widget.onTap,
             onLongPress: widget.onLongPress,
             onChangeActiveState: (item, state) {
-              ref.read(skilltreeControllerProvider.notifier).updateActiveState(item.id, state).then((value) => value.showSnackbarOnError(context));
+              ref.read(skilltreeControllerProvider.notifier).updateActiveState(item.id, state).then((value) => value.showNotification(context));
             },
           ),
         ),

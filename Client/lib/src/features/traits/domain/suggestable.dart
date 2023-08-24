@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import '../../group_management/domain/user.dart';
+import '../../user_management/domain/user.dart';
 import 'suggestion_state.dart';
 
 abstract class Suggestable {

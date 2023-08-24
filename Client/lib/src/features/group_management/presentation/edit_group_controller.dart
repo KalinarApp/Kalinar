@@ -1,4 +1,4 @@
-import 'package:kalinar/src/features/user_management/data/groups_repository.dart';
+import 'package:kalinar/src/features/group_management/data/groups_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../domain/group.dart';

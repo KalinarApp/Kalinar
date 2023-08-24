@@ -14,7 +14,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/content_tab.dart';
 import '../../../../common_widgets/save_button.dart';
-import '../../../../utils/async_value_extension.dart';
+import '../../../../utils/http/async_value_extension.dart';
 import '../application/book_controller.dart';
 import '../application/book_state_notifier.dart';
 import '../domain/book_page.dart';
@@ -56,7 +56,7 @@ class _PageEditorScreenState extends ConsumerState<PageEditorScreen> with Single
       }
 
       if (!mounted) return;
-      value.showSnackbarOnError(context);
+      value.showNotification(context);
 
       if (value.hasError) {
         controller.error();

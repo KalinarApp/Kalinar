@@ -15,7 +15,6 @@ import 'package:store_checker/store_checker.dart';
 
 import 'common_widgets/messages/message_type.dart';
 import 'common_widgets/messages/welcome_message.dart';
-import 'features/group_management/data/user_repository.dart';
 
 class Kalinar extends ConsumerStatefulWidget {
   const Kalinar({super.key});
@@ -66,7 +65,7 @@ class _KalinarState extends ConsumerState<Kalinar> {
       String? token = await FirebaseMessaging.instance.getToken();
 
       if (null != token) {
-        ref.read(userRepositoryProvider).updateDeviceId(token);
+        // ref.read(userRepositoryProvider).updateDeviceId(token);
       }
     });
     super.initState();

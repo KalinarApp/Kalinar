@@ -9,8 +9,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import '../../../../../kalinar_icons.dart';
 import '../../../../common_widgets/content_tab.dart';
 import '../../../../common_widgets/loading_indicator.dart';
-import '../../../../utils/async_value_extension.dart';
-import '../../../group_management/application/group_notifier.dart';
+import '../../../../utils/http/async_value_extension.dart';
 import '../../application/controllers/character_controller.dart';
 import '../../domain/character.dart';
 import '../shared/details/character_abilities.dart';
@@ -34,19 +33,20 @@ class _CharacterScreenState extends ConsumerState<CharacterScreen> {
   }
 
   bool _isOwnerOrAdmin(Character character) {
-    return _isOwner(character) || ref.read(groupNotifierProvider).group?.ownerId == FirebaseAuth.instance.currentUser?.uid;
+    // return _isOwner(character) || ref.read(groupNotifierProvider).group?.ownerId == FirebaseAuth.instance.currentUser?.uid;
+    return false;
   }
 
   Future _saveField(String fieldName, dynamic value) async {
     final state = await ref.read(characterControllerProvider).update(widget.item!.id, {fieldName: value});
     if (!mounted) return;
-    state.showSnackbarOnError(context);
+    state.showNotification(context);
   }
 
   _refreshCharacter() async {
     final value = await ref.read(characterControllerProvider).get(widget.item!.id);
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   @override

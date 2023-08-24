@@ -52,7 +52,7 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoute.userProfile.route,
         name: AppRoute.userProfile.name,
         pageBuilder: (context, state) => DialogPage(builder: (_) => const Text("User Profile")),
-        routes: [],
+        routes: const [],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) => ScaffoldWithNestedNavigation(navigationShell: navigationShell),

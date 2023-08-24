@@ -8,7 +8,6 @@ import '../../skillpoints/presentation/skillpoints_screen.dart';
 import '../../skilltrees/presentation/skilltree_list_screen.dart';
 import '../../storyline/presentation/storyline_overview_screen.dart';
 import 'admin_menu_item.dart';
-import 'manage_group_screen.dart';
 
 class AdminMenuScreen extends StatelessWidget {
   static const String name = "Admin";
@@ -51,11 +50,11 @@ class AdminMenuScreen extends StatelessWidget {
               flex: 3,
               child: Column(
                 children: [
-                  AdminMenuItem(
-                    icon: Kalinar.group,
-                    title: AppLocalizations.of(context)!.manageGroup,
-                    onTab: () => GoRouter.of(context).goNamed(ManageGroupScreen.name),
-                  ),
+                  // AdminMenuItem(
+                  //   icon: Kalinar.group,
+                  //   title: AppLocalizations.of(context)!.manageGroup,
+                  //   onTab: () => GoRouter.of(context).goNamed(ManageGroupScreen.name),
+                  // ),
                   AdminMenuItem(
                     icon: Kalinar.timeline,
                     title: AppLocalizations.of(context)!.manageStoryline,

@@ -10,7 +10,6 @@ import '../../../common_widgets/form_fields/icon_picker_field.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
 import '../../../common_widgets/form_fields/typeahead_text_field.dart';
-import '../../authentication/application/user_notifier.dart';
 import '../application/controller/attributes_controller.dart';
 import '../application/notifier/attribute_state_notifier.dart';
 import '../domain/attribute.dart';
@@ -40,7 +39,8 @@ class _EditAttributeScreenState extends ConsumerState<EditAttributeScreen> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(userNotifierProvider).user?.ownedGroup?.ownerId;
+    // return FirebaseAuth.instance.currentUser?.uid == ref.read(userNotifierProvider).user?.ownedGroup?.ownerId;
+    return false;
   }
 
   @override

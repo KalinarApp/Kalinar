@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../user_management/domain/user.dart';
 import 'group.dart';
 import 'role.dart';
-import 'user.dart';
 
 part 'group_member.freezed.dart';
 part 'group_member.g.dart';

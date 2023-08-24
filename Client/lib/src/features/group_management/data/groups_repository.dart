@@ -1,8 +1,8 @@
-import 'package:kalinar/src/features/user_management/domain/group.dart';
-import 'package:kalinar/src/features/user_management/domain/group_member.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../utils/http/kalinar_http_client.dart';
+import '../domain/group.dart';
+import '../domain/group_member.dart';
 
 part 'groups_repository.g.dart';
 

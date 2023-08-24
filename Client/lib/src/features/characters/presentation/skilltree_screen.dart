@@ -8,9 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common_widgets/action_menu.dart';
-import '../../../utils/async_value_extension.dart';
+import '../../../utils/http/async_value_extension.dart';
 import '../../admin/skilltrees/domain/node.dart';
-import '../../group_management/application/group_notifier.dart';
 import '../../traits/application/controller/skills_controller.dart';
 import '../../traits/presentation/edit_skill_screen.dart';
 import '../application/controllers/character_controller.dart';
@@ -75,14 +74,14 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
   Future<void> _unlockNode(String skilltreeId, String nodeId) async {
     final value = await ref.read(skilltreeControllerProvider.notifier).unlockNode(skilltreeId, nodeId);
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
 
     await ref.read(skillpointControllerProvider.notifier).getSkillpointsForSkilltree(widget.id);
   }
 
   Future<void> _showActionDialog(Node item) async {
-    final isAdmin = ref.read(groupNotifierProvider).group?.ownerId == FirebaseAuth.instance.currentUser?.uid;
-
+    // final isAdmin = ref.read(groupNotifierProvider).group?.ownerId == FirebaseAuth.instance.currentUser?.uid;
+    const isAdmin = false;
     final action = await showActionsModal(context, actions: [
       if (isAdmin) DialogAction.edit,
       item.isResettable() && !isAdmin ? DialogAction.reset : DialogAction.resetDisabled,
@@ -94,7 +93,7 @@ class _SkilltreeScreenState extends ConsumerState<SkilltreeScreen> with TickerPr
       case DialogAction.reset:
         final value = await ref.read(skilltreeControllerProvider.notifier).resetNode(widget.id, item.id);
         if (!mounted) return;
-        value.showSnackbarOnError(context);
+        value.showNotification(context);
         break;
       case DialogAction.edit:
         ref.read(skillsControllerProvider).getById(item.skillId);

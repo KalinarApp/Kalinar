@@ -8,8 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
-import '../../../../../utils/async_value_extension.dart';
-import '../../../../group_management/application/group_notifier.dart';
+import '../../../../../utils/http/async_value_extension.dart';
 import '../../../application/controller/attributes_controller.dart';
 import '../../../application/notifier/attributes_state_notifier.dart';
 import '../../../application/state/filter_state.dart';
@@ -36,7 +35,7 @@ class _AttributesTabState extends ConsumerState<AttributesTab> {
     setState(() => isSearchEnabled = !value.hasError);
 
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   void _editAbility(Attribute attribute) {
@@ -47,7 +46,7 @@ class _AttributesTabState extends ConsumerState<AttributesTab> {
   Future<void> _deleteAbility(Attribute attribute) async {
     final value = await ref.read(attributesControllerProvider).delete(attribute.id);
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   Future _showActionDialog(Attribute attribute) async {
@@ -74,7 +73,8 @@ class _AttributesTabState extends ConsumerState<AttributesTab> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    // return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    return false;
   }
 
   Widget? _getIcon(Attribute item) {

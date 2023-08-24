@@ -13,6 +13,7 @@ class HomeContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(getUserGroupsByIdProvider);
     final user = ref.watch(getUserByIdProvider);
 
     ref.listen(getUserByIdProvider, (old, user) {

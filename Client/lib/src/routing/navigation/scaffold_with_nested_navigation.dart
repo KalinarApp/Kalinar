@@ -3,7 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../kalinar_icons.dart';
 import '../../common_widgets/layout/responsive_layout.dart';
+import '../../features/traits/presentation/traits_overview_screen.dart';
 import '../../features/user_management/data/user_repository.dart';
 import '../app_route.dart';
 import 'navigation_item.dart';
@@ -29,7 +31,7 @@ class ScaffoldWithNestedNavigation extends ConsumerWidget {
             // if (MediaQuery.of(context).size.width <= mobileMaxWidth)
             //   NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
             // NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
-            // NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
+            NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
             // if (isAdmin) NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin))
           ]
         : [
@@ -44,7 +46,7 @@ class ScaffoldWithNestedNavigation extends ConsumerWidget {
         onDestinationSelected: _goBranch,
         currentUser: user.hasValue ? user.value : null,
       ),
-      desktop: ScaffoldWithRailNavigation(body: navigationShell, tabs: tabs, currentUser: user),
+      desktop: ScaffoldWithRailNavigation(body: navigationShell, tabs: tabs),
     );
   }
 }
