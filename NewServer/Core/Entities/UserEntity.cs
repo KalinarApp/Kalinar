@@ -4,6 +4,7 @@
     {
         public required string Id { get; set; }
         public required string Username { get; set; }
+        public string? ImageUrl { get; set; }
         public required List<GroupMemberEntity> Groups { get; init; }
         public required List<DeviceEntity> Devices { get; init; }
     }

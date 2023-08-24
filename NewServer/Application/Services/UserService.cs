@@ -40,6 +40,7 @@ namespace Kalinar.Application.Services
             {
                 Id = userId,
                 Username = request.Username,
+                ImageUrl = request.ImageUrl,
                 Devices = new(),
                 Groups = new(),
             };
@@ -52,6 +53,7 @@ namespace Kalinar.Application.Services
             UserEntity user = await this.GetByIdAsync(userId, cancellationToken);
 
             user.Username = request.Username;
+            user.ImageUrl = request.ImageUrl;
 
             return await userRepository.UpdateAsync(user, cancellationToken);
         }
