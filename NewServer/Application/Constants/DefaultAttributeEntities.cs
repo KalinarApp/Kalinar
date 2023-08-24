@@ -10,7 +10,7 @@ namespace Kalinar.Application.Constants
             {
                 new()
                 {
-                    Id = new Guid("9993f283-ef4f-4962-a0e5-58b47fb53342"),
+                    Id = Guid.NewGuid(),
                     GroupId = group.Id,
                     Group = group,
                     CreatorId = user.Id,
@@ -27,7 +27,7 @@ namespace Kalinar.Application.Constants
                 },
                 new()
                 {
-                     Id = new Guid("8b818921-0e01-421b-918d-6f56ebf3d75d"),
+                    Id = Guid.NewGuid(),
                     GroupId = group.Id,
                     Group = group,
                     CreatorId = user.Id,
@@ -44,7 +44,7 @@ namespace Kalinar.Application.Constants
                 },
                 new()
                 {
-                    Id = new Guid("67feb40a-63d2-481a-abe6-5ca2afb9abb7"),
+                    Id = Guid.NewGuid(),
                     GroupId = group.Id,
                     Group = group,
                     CreatorId = user.Id,
@@ -61,7 +61,7 @@ namespace Kalinar.Application.Constants
                 },
                 new()
                 {
-                    Id = new Guid("fcc65e2d-9197-4931-94eb-308c5bc4e0da"),
+                    Id = Guid.NewGuid(),
                     GroupId = group.Id,
                     Group = group,
                     CreatorId = user.Id,
@@ -78,7 +78,7 @@ namespace Kalinar.Application.Constants
                 },
                 new()
                 {
-                    Id = new Guid("7ba1a685-8a19-47df-850a-aa871a9def71"),
+                    Id = Guid.NewGuid(),
                     GroupId = group.Id,
                     Group = group,
                     CreatorId = user.Id,
