@@ -7,7 +7,7 @@ part of 'edit_user_dialog_controller.dart';
 // **************************************************************************
 
 String _$editUserDialogControllerHash() =>
-    r'388c5c50bbafdf6a5fe0d0c6e8d06e34dcd3112b';
+    r'd6dfc69839b35fb5ddaad9d5c808c791ae7564dc';
 
 /// See also [EditUserDialogController].
 @ProviderFor(EditUserDialogController)

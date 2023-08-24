@@ -2,13 +2,20 @@
   "applicationTitle": "Kalinar",
   "applicationSubtitle": "Pen & Paper auf einem neuen Level",
 
-  "userCreateTitle": "Benutzer erstellen",
-  "userCreated": "Benutzer wurde erstellt.",
-  "userAlreadyExistsException": "Der Benutzer existiert bereits.",
-  "userNotFoundException": "Der Benutzer wurde nicht gefunden.",
+  "userProfile": "Benutzerprofil",
+  "userCreateTitle": "Profil erstellen",
+  "userEditTitle": "Profil bearbeiten",
+  "userCreated": "Profil wurde erstellt.",
+  "userUpdated": "Profil wurde aktualisiert.",
+  "userAlreadyExistsException": "Das Profil existiert bereits.",
+  "userNotFoundException": "Das Profil wurde nicht gefunden.",
   "userAlreadyInGroupException": "Du bist bereits in der Gruppe.",
   
   "groupCreateTitle": "Gruppe erstellen",
+  "groupCreateAction": "Gruppe erstellen",
+  "groupJoinAction": "Gruppe beitreten",
+  "groupSelectDefaultTitle": "Du bist Mitglied in mehreren Gruppen. Bitte wähle für die weitere Nutzung der App eine Gruppe aus.\nDiese kannst du zu jeder Zeit in deinem Benutzerprofil wechseln.",
+  "groupSelectDefaultAction": "Gruppe auswählen",
   "groupCreated": "Gruppe wurde erstellt.",
   "groupNotFoundException": "Die Gruppe wurde nicht gefunden.",
   "groupMemberNotFoundException": "Der Gruppenmitglied wurde nicht gefunden.",
@@ -88,8 +95,8 @@
   "groupInstruction": "Um einer Gruppe beizutreten öffne den Einladungslink, welchen dir dein Spielleiter zugeschickt hat, du wirst nun gefragt, ob du dieser Gruppe beitreten willst. Wenn du \"Okay\" auswählst, trittst du der Gruppe bei und kannst von da an in der Gruppe agieren.",
   "groupInstructionGM": "Du kannst natürlich auch gerne selbst in die Rolle des Spielleiters schlüpfen und hier eine eigene Gruppe erstellen.",
   "groupBeAGM": "Gruppenleiter werden",
-  "groupJoinTitle": "{owner} möchte dich nach'{name}', in die Welt von Kalinar einladen, möchtest du beitreten?",
-  "@groupJoinTitle": {
+  "groupJoinTitle2": "{owner} möchte dich nach'{name}', in die Welt von Kalinar einladen, möchtest du beitreten?",
+  "@groupJoinTitle2": {
     "placeholders": {
       "owner": {
         "type": "String"

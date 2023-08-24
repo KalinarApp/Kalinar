@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kalinar/src/features/user_management/data/user_repository.dart';
+import 'package:kalinar/src/routing/app_route.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../utils/constants.dart';
@@ -39,8 +40,8 @@ class UserMenu extends ConsumerWidget {
                   child: Column(
                     children: [
                       InkWell(
-                          onTap: () => GoRouter.of(context).pushNamed("profile"),
-                          child: ListTile(title: Text(AppLocalizations.of(context)!.openProfile))),
+                          onTap: () => context.pushNamed(AppRoute.userProfile.name, extra: currentUser.value!),
+                          child: ListTile(title: Text(AppLocalizations.of(context)!.userEditTitle))),
                       InkWell(
                           onTap: () async => await _openPrivacy(context), child: ListTile(title: Text(AppLocalizations.of(context)!.privacyPolicy))),
                       const Divider(),

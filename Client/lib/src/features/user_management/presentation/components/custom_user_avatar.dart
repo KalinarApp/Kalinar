@@ -13,7 +13,6 @@ class CustomUserAvatar extends StatelessWidget {
       radius: radius,
       backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
       backgroundImage: CachedNetworkImageProvider(imageUrl),
-      child: Icon(Icons.person_4, size: 80, color: Theme.of(context).dialogBackgroundColor),
     );
   }
 }

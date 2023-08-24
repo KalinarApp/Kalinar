@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kalinar/src/utils/local_storage/shared_preferences_helper.dart';
+import 'package:kalinar/src/utils/local_storage/storage_key.dart';
 
 import '../../../common_widgets/spinner.dart';
 import '../../../routing/app_route.dart';
@@ -19,7 +21,7 @@ class HomeContent extends ConsumerWidget {
     ref.listen(getUserByIdProvider, (old, user) {
       if ((old?.hasError ?? false) && user.hasError) return;
       if (user.hasError && user.error is ErrorResponse && (user.error as ErrorResponse).type == userNotFoundException) {
-        context.pushNamed(AppRoute.userProfileCreate.name);
+        context.pushNamed(AppRoute.userProfileEdit.name);
       }
     });
 
@@ -44,23 +46,22 @@ class HomeContent extends ConsumerWidget {
           ..showMaterialBanner(MaterialBanner(
             content: Text(AppLocalizations.of(context)!.groupNotInGroupText(user.value!.username)),
             actions: [
-              TextButton(onPressed: () => context.pushNamed(AppRoute.groupCreate.name), child: const Text("Erstellen")),
-              TextButton(onPressed: () {}, child: const Text("Beitreten")),
+              TextButton(onPressed: () => context.pushNamed(AppRoute.groupCreate.name), child: Text(AppLocalizations.of(context)!.groupCreateAction)),
+              TextButton(onPressed: () {}, child: Text(AppLocalizations.of(context)!.groupJoinAction)),
             ],
           ));
       } else if (groups.value!.length > 1) {
         ScaffoldMessenger.of(context)
           ..hideCurrentMaterialBanner()
           ..showMaterialBanner(MaterialBanner(
-            content: const Text(
-                "Du bist Mitglied in mehreren Gruppen. Bitte wähle für die weitere Nutzung der App eine Gruppe aus.\nDiese kannst du zu jeder Zeit in deinem Benutzerprofil wechseln."),
+            content: Text(AppLocalizations.of(context)!.groupSelectDefaultTitle),
             actions: [
-              TextButton(onPressed: () {}, child: const Text("Gruppe auswählen")),
+              TextButton(onPressed: () {}, child: Text(AppLocalizations.of(context)!.groupSelectDefaultAction)),
             ],
           ));
       } else {
-        // TODO: Set group as default group.
         ScaffoldMessenger.of(context).clearMaterialBanners();
+        ref.read(getSharedPreferencesProvider).setString(StorageKey.defaultGroupId, groups.value!.first.group.id);
       }
     });
 

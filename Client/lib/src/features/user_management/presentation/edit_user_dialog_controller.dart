@@ -20,6 +20,7 @@ class EditUserDialogController extends _$EditUserDialogController {
       state = await AsyncValue.guard(() => repository.create(user));
     }
 
+    ref.invalidate(getUserByIdProvider);
     return !state.hasError;
   }
 }
