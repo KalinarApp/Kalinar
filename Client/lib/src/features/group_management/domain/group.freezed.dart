@@ -22,7 +22,6 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
 mixin _$Group {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get code => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +34,7 @@ abstract class $GroupCopyWith<$Res> {
   factory $GroupCopyWith(Group value, $Res Function(Group) then) =
       _$GroupCopyWithImpl<$Res, Group>;
   @useResult
-  $Res call({String id, String name, String code, String? description});
+  $Res call({String id, String name, String? description});
 }
 
 /// @nodoc
@@ -53,7 +52,6 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? code = null,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
@@ -64,10 +62,6 @@ class _$GroupCopyWithImpl<$Res, $Val extends Group>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
               as String,
       description: freezed == description
           ? _value.description
@@ -83,7 +77,7 @@ abstract class _$$_GroupCopyWith<$Res> implements $GroupCopyWith<$Res> {
       __$$_GroupCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String code, String? description});
+  $Res call({String id, String name, String? description});
 }
 
 /// @nodoc
@@ -97,7 +91,6 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? code = null,
     Object? description = freezed,
   }) {
     return _then(_$_Group(
@@ -108,10 +101,6 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
               as String,
       freezed == description
           ? _value.description
@@ -124,7 +113,7 @@ class __$$_GroupCopyWithImpl<$Res> extends _$GroupCopyWithImpl<$Res, _$_Group>
 /// @nodoc
 @JsonSerializable()
 class _$_Group implements _Group {
-  _$_Group(this.id, this.name, this.code, this.description);
+  _$_Group(this.id, this.name, this.description);
 
   factory _$_Group.fromJson(Map<String, dynamic> json) =>
       _$$_GroupFromJson(json);
@@ -134,13 +123,11 @@ class _$_Group implements _Group {
   @override
   final String name;
   @override
-  final String code;
-  @override
   final String? description;
 
   @override
   String toString() {
-    return 'Group(id: $id, name: $name, code: $code, description: $description)';
+    return 'Group(id: $id, name: $name, description: $description)';
   }
 
   @override
@@ -150,14 +137,13 @@ class _$_Group implements _Group {
             other is _$_Group &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.code, code) || other.code == code) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, code, description);
+  int get hashCode => Object.hash(runtimeType, id, name, description);
 
   @JsonKey(ignore: true)
   @override
@@ -174,8 +160,8 @@ class _$_Group implements _Group {
 }
 
 abstract class _Group implements Group {
-  factory _Group(final String id, final String name, final String code,
-      final String? description) = _$_Group;
+  factory _Group(
+      final String id, final String name, final String? description) = _$_Group;
 
   factory _Group.fromJson(Map<String, dynamic> json) = _$_Group.fromJson;
 
@@ -183,8 +169,6 @@ abstract class _Group implements Group {
   String get id;
   @override
   String get name;
-  @override
-  String get code;
   @override
   String? get description;
   @override

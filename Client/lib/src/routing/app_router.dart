@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/group_management/presentation/edit_group_dialog.dart';
 import 'package:kalinar/src/features/home/presentation/home_screen.dart';
 import 'package:kalinar/src/features/user_management/presentation/edit_user_dialog.dart';
 import 'package:kalinar/src/routing/app_route.dart';
@@ -10,6 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../features/authentication/data/firebase_auth_repository.dart';
 import '../features/authentication/presentation/custom_sign_in_screen.dart';
+import '../features/group_management/domain/group.dart';
 
 part 'app_router.g.dart';
 
@@ -44,8 +46,8 @@ GoRouter goRouter(GoRouterRef ref) {
         pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const CustomSignInScreen()),
       ),
       GoRoute(
-        path: AppRoute.createProfile.route,
-        name: AppRoute.createProfile.name,
+        path: AppRoute.userProfileCreate.route,
+        name: AppRoute.userProfileCreate.name,
         pageBuilder: (context, state) => DialogPage(barrierDismissible: false, builder: (_) => const EditUserDialog()),
       ),
       GoRoute(
@@ -53,6 +55,23 @@ GoRouter goRouter(GoRouterRef ref) {
         name: AppRoute.userProfile.name,
         pageBuilder: (context, state) => DialogPage(builder: (_) => const Text("User Profile")),
         routes: const [],
+      ),
+      GoRoute(
+        path: AppRoute.groupList.route,
+        name: AppRoute.groupList.name,
+        pageBuilder: (context, state) => DialogPage(builder: (_) => const Text("Groups")),
+        routes: [
+          GoRoute(
+            path: AppRoute.groupCreate.route,
+            name: AppRoute.groupCreate.name,
+            pageBuilder: (context, state) => DialogPage(builder: (_) => const EditGroupDialog()),
+          ),
+          GoRoute(
+            path: AppRoute.groupEdit.route,
+            name: AppRoute.groupEdit.name,
+            pageBuilder: (context, state) => DialogPage(builder: (_) => EditGroupDialog(group: state.extra! as Group)),
+          ),
+        ],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) => ScaffoldWithNestedNavigation(navigationShell: navigationShell),

@@ -8,7 +8,6 @@ class Group with _$Group {
   factory Group(
     String id,
     String name,
-    String code,
     String? description,
   ) = _Group;
 

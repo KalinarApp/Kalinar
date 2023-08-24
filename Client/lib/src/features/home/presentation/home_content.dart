@@ -19,7 +19,7 @@ class HomeContent extends ConsumerWidget {
     ref.listen(getUserByIdProvider, (old, user) {
       if ((old?.hasError ?? false) && user.hasError) return;
       if (user.hasError && user.error is ErrorResponse && (user.error as ErrorResponse).type == userNotFoundException) {
-        context.pushNamed(AppRoute.createProfile.name);
+        context.pushNamed(AppRoute.userProfileCreate.name);
       }
     });
 
@@ -39,23 +39,28 @@ class HomeContent extends ConsumerWidget {
       if (groups.isLoading) return;
       if (!groups.hasValue) return;
       if (groups.value!.isEmpty) {
-        ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
-          content: Text(AppLocalizations.of(context)!.groupNotInGroupText(user.value!.username)),
-          actions: [
-            TextButton(onPressed: () {}, child: const Text("Erstellen")),
-            TextButton(onPressed: () {}, child: const Text("Beitreten")),
-          ],
-        ));
+        ScaffoldMessenger.of(context)
+          ..hideCurrentMaterialBanner()
+          ..showMaterialBanner(MaterialBanner(
+            content: Text(AppLocalizations.of(context)!.groupNotInGroupText(user.value!.username)),
+            actions: [
+              TextButton(onPressed: () => context.pushNamed(AppRoute.groupCreate.name), child: const Text("Erstellen")),
+              TextButton(onPressed: () {}, child: const Text("Beitreten")),
+            ],
+          ));
       } else if (groups.value!.length > 1) {
-        ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
-          content: const Text(
-              "Du bist Mitglied in mehreren Gruppen. Bitte wähle für die weitere Nutzung der App eine Gruppe aus.\nDiese kannst du zu jeder Zeit in deinem Benutzerprofil wechseln."),
-          actions: [
-            TextButton(onPressed: () {}, child: const Text("Gruppe auswählen")),
-          ],
-        ));
+        ScaffoldMessenger.of(context)
+          ..hideCurrentMaterialBanner()
+          ..showMaterialBanner(MaterialBanner(
+            content: const Text(
+                "Du bist Mitglied in mehreren Gruppen. Bitte wähle für die weitere Nutzung der App eine Gruppe aus.\nDiese kannst du zu jeder Zeit in deinem Benutzerprofil wechseln."),
+            actions: [
+              TextButton(onPressed: () {}, child: const Text("Gruppe auswählen")),
+            ],
+          ));
       } else {
         // TODO: Set group as default group.
+        ScaffoldMessenger.of(context).clearMaterialBanners();
       }
     });
 

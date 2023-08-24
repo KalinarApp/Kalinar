@@ -2,7 +2,11 @@ enum AppRoute {
   signIn,
   home,
   userProfile,
-  createProfile,
+  userProfileCreate,
+  groupList,
+  groupDetails,
+  groupCreate,
+  groupEdit,
   characterList,
   characterDetails,
   addCharacter,
@@ -16,9 +20,17 @@ extension AppRouteExtension on AppRoute {
         return '/signIn';
       case AppRoute.home:
         return '/';
+      case AppRoute.groupList:
+        return '/groups';
+      case AppRoute.groupCreate:
+        return 'create';
+      case AppRoute.groupDetails:
+        return ':id';
+      case AppRoute.groupEdit:
+        return 'edit';
       case AppRoute.userProfile:
         return '/user-profile';
-      case AppRoute.createProfile:
+      case AppRoute.userProfileCreate:
         return '/create-profile';
       case AppRoute.characterList:
         return '/characters';

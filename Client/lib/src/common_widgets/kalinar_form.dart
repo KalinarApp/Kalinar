@@ -11,10 +11,11 @@ import 'elevated_loading_button.dart';
 class KalinarForm extends ConsumerStatefulWidget {
   final List<Widget> formFields;
   final bool isLoading;
+  final bool willPopOnEdit;
   final FutureOr<bool> Function(Map<String, dynamic> data) submit;
   final FutureOr<void> Function()? onSuccess;
 
-  const KalinarForm({super.key, required this.formFields, required this.isLoading, required this.submit, this.onSuccess});
+  const KalinarForm({super.key, required this.formFields, required this.isLoading, required this.submit, this.onSuccess, this.willPopOnEdit = true});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _KalinarFormState();
@@ -46,6 +47,11 @@ class _KalinarFormState extends ConsumerState<KalinarForm> {
   Widget build(BuildContext context) {
     return FormBuilder(
       key: _formKey,
+      onWillPop: () async {
+        if (widget.willPopOnEdit) return true;
+
+        return !(_formKey.currentState?.isDirty ?? false);
+      },
       clearValueOnUnregister: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(children: [

@@ -9,6 +9,7 @@ import 'package:kalinar/src/common_widgets/kalinar_form.dart';
 import 'package:kalinar/src/common_widgets/no_animation_single_child_scrollview.dart';
 import 'package:kalinar/src/utils/http/async_value_extension.dart';
 
+import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../data/user_repository.dart';
 import '../domain/user.dart';
 import 'components/user_avatar.dart';
@@ -26,16 +27,15 @@ class EditUserDialog extends ConsumerWidget {
       state.showNotification(context, successMessage: AppLocalizations.of(context)!.userCreated);
     });
 
-    onSubmit(data) => ref.read(editUserDialogControllerProvider.notifier).submit(user: User("", data["username"], ""));
+    onSubmit(data) => ref.read(editUserDialogControllerProvider.notifier).submit(user: User.fromJson(data));
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       clipBehavior: Clip.hardEdge,
-      child: NoAnimationSingleChildScrollView(
-        child: Container(
-          width: min(500, MediaQuery.of(context).size.width * 0.8),
-          height: min(600, MediaQuery.of(context).size.height * 0.9),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Theme.of(context).dialogBackgroundColor),
+      child: SizedBox(
+        width: min(500, MediaQuery.of(context).size.width * 0.8),
+        height: min(600, MediaQuery.of(context).size.height * 0.9),
+        child: NoAnimationSingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 60),
             child: KalinarForm(
@@ -46,8 +46,9 @@ class EditUserDialog extends ConsumerWidget {
                 ref.invalidate(getUserGroupsByIdProvider);
               },
               formFields: [
+                const InvisibleField(name: "id", initialValue: ""),
                 const SizedBox(height: 50),
-                FittedBox(child: Text(AppLocalizations.of(context)!.createUserTitle, style: Theme.of(context).textTheme.headlineMedium)),
+                FittedBox(child: Text(AppLocalizations.of(context)!.userCreateTitle, style: Theme.of(context).textTheme.headlineMedium)),
                 const SizedBox(height: 50),
                 const UserAvatar(imageUrl: null, radius: 80),
                 const SizedBox(height: 50),
