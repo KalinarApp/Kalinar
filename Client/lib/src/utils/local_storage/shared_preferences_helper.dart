@@ -8,7 +8,13 @@ class SharedPreferencesHelper {
   SharedPreferencesHelper(this.preferences);
 
   String? getString(String key) => preferences.getString(key);
-  void setString(String key, String value) => preferences.setString(key, value);
+  void setString(String key, String? value) {
+    if (value == null) {
+      preferences.remove(key);
+    } else {
+      preferences.setString(key, value);
+    }
+  }
 }
 
 @Riverpod(keepAlive: true)

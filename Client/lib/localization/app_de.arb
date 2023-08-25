@@ -19,6 +19,9 @@
   "groupCreated": "Gruppe wurde erstellt.",
   "groupNotFoundException": "Die Gruppe wurde nicht gefunden.",
   "groupMemberNotFoundException": "Der Gruppenmitglied wurde nicht gefunden.",
+  "roleOwner": "Gründer",
+  "roleAdministrator": "Admin",
+  "roleMember": "Mitglied",
 
   "skill": "Skill",
   "skills": "Skills",

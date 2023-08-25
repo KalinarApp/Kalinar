@@ -61,6 +61,7 @@ dependencies:
     # git: 
     #   url: https://github.com/kechankrisna/FlutterIconPicker.git
     #   ref: hotfix
+  dropdown_button2: ^2.3.8
 
   fade_shimmer: ^2.2.0
   flutter_staggered_grid_view: ^0.7.0

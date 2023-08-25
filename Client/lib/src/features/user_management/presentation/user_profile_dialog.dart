@@ -9,6 +9,7 @@ import 'package:kalinar/src/features/user_management/data/user_repository.dart';
 import 'package:kalinar/src/features/user_management/presentation/components/username_edit_widget.dart';
 
 import '../../../utils/http/async_value_extension.dart';
+import '../../group_management/presentation/components/group_selection_dropdown.dart';
 import 'components/user_avatar.dart';
 import 'edit_user_dialog_controller.dart';
 
@@ -19,6 +20,8 @@ class UserProfileDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(getUserByIdProvider);
     final state = ref.watch(editUserDialogControllerProvider);
+    final groups = ref.watch(getUserGroupsByIdProvider);
+    final selectedGroup = ref.watch(getSelectedGroupProvider);
 
     ref.listen(editUserDialogControllerProvider, (previous, state) {
       if (state == previous) return;
@@ -57,6 +60,7 @@ class UserProfileDialog extends ConsumerWidget {
                   isLoading: user.isLoading || state.isLoading,
                   onSubmit: onSubmitUsername,
                 ),
+                GroupSelectionDropdown(items: groups.valueOrNull ?? [], onChanged: (_) {}, value: selectedGroup.valueOrNull),
               ],
             ),
           ),
