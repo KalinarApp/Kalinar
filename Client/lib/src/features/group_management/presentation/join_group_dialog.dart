@@ -9,7 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../common_widgets/no_animation_single_child_scrollview.dart';
 import '../../../constants/app_sizes.dart';
 import '../../../utils/http/async_value_extension.dart';
-import 'join_group_controller.dart';
+import '../application/join_group_controller.dart';
 
 class JoinGroupDialog extends HookConsumerWidget {
   const JoinGroupDialog({super.key});

@@ -15,7 +15,7 @@ import '../../../utils/http/async_value_extension.dart';
 import '../data/user_repository.dart';
 import '../domain/user.dart';
 import 'components/user_avatar.dart';
-import 'edit_user_dialog_controller.dart';
+import '../application/edit_user_dialog_controller.dart';
 
 class EditUserDialog extends ConsumerWidget {
   final User? user;

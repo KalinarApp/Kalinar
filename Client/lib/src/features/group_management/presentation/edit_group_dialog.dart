@@ -13,7 +13,7 @@ import '../../../constants/app_sizes.dart';
 import '../../../utils/http/async_value_extension.dart';
 import '../../user_management/data/user_repository.dart';
 import '../domain/group.dart';
-import 'edit_group_controller.dart';
+import '../application/edit_group_controller.dart';
 
 class EditGroupDialog extends ConsumerWidget {
   final Group? group;

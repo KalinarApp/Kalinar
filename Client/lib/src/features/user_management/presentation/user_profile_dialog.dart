@@ -17,7 +17,7 @@ import '../../group_management/presentation/components/group_selection_dropdown.
 import '../data/user_repository.dart';
 import 'components/user_avatar.dart';
 import 'components/username_edit_widget.dart';
-import 'edit_user_dialog_controller.dart';
+import '../application/edit_user_dialog_controller.dart';
 
 class UserProfileDialog extends ConsumerWidget {
   const UserProfileDialog({super.key});
