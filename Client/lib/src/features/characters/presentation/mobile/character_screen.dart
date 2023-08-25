@@ -6,9 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kalinar/src/features/characters/presentation/shared/details/notes_text_field.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
-import '../../../../../kalinar_icons.dart';
 import '../../../../common_widgets/content_tab.dart';
 import '../../../../common_widgets/loading_indicator.dart';
+import '../../../../constants/kalinar_icons.dart';
 import '../../../../utils/http/async_value_extension.dart';
 import '../../application/controllers/character_controller.dart';
 import '../../domain/character.dart';

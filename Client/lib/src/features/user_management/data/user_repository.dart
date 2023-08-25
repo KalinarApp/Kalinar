@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../utils/http/kalinar_http_client.dart';
 import '../../../utils/local_storage/shared_preferences_helper.dart';
-import '../../../utils/local_storage/storage_key.dart';
+import '../../../constants/storage_key.dart';
 import '../../authentication/data/firebase_auth_repository.dart';
 import '../../group_management/domain/group_member.dart';
 import '../../group_management/domain/role.dart';

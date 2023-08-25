@@ -15,6 +15,8 @@ class GroupRepository {
   Future<List<GroupMember>> getMembersById(String groupId) async => client.get(
       "$apiVersionPath/groups/$groupId/members", (response) => List<GroupMember>.from(response.map((model) => GroupMember.fromJson(model))));
   Future create(Group group) async => client.post("$apiVersionPath/groups", group, (response) => Group.fromJson(response));
+  Future join(String groupId) async => client.post("$apiVersionPath/groups/$groupId/join", {}, (response) => true);
+  Future leave(String groupId) async => client.post("$apiVersionPath/groups/$groupId/leave", {}, (response) => true);
   Future update(String groupId, Group group) async => client.put("$apiVersionPath/groups/$groupId", group, (response) => Group.fromJson(response));
   Future delete(String groupId) async => client.delete("$apiVersionPath/groups/$groupId");
 }

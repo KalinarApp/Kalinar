@@ -7,6 +7,7 @@ enum AppRoute {
   groupDetails,
   groupCreate,
   groupEdit,
+  groupJoin,
   characterList,
   characterDetails,
   addCharacter,
@@ -28,6 +29,8 @@ extension AppRouteExtension on AppRoute {
         return ':id';
       case AppRoute.groupEdit:
         return 'edit';
+      case AppRoute.groupJoin:
+        return 'join';
       case AppRoute.userProfile:
         return '/user-profile';
       case AppRoute.userProfileEdit:

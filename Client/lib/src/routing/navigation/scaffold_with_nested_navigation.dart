@@ -3,8 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../kalinar_icons.dart';
 import '../../common_widgets/layout/responsive_layout.dart';
+import '../../constants/kalinar_icons.dart';
 import '../../features/traits/presentation/traits_overview_screen.dart';
 import '../../features/user_management/data/user_repository.dart';
 import '../app_route.dart';

@@ -11,7 +11,7 @@ class DefaultUserAvatar extends StatelessWidget {
       radius: radius,
       backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
       child: LayoutBuilder(
-        builder: (context, constraints) => Icon(Icons.person_4, size: constraints.maxHeight * .99, color: Theme.of(context).dialogBackgroundColor),
+        builder: (context, constraints) => Icon(Icons.person_4, size: constraints.maxHeight, color: Theme.of(context).dialogBackgroundColor),
       ),
     );
   }

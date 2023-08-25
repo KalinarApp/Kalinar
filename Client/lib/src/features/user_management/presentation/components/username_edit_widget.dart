@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:kalinar/src/common_widgets/spinner.dart';
+
+import '../../../../common_widgets/spinner.dart';
 
 class UsernameEditWidget extends HookWidget {
   final String? initialValue;
@@ -36,7 +37,7 @@ class UsernameEditWidget extends HookWidget {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const IconButton(onPressed: null, icon: SizedBox(width: 24)),
+                  SizedBox(width: Theme.of(context).iconTheme.size),
                   Text(initialValue!, style: Theme.of(context).textTheme.headlineMedium),
                   IconButton(onPressed: () => isEditing.value = true, icon: const Icon(Icons.edit)),
                 ],

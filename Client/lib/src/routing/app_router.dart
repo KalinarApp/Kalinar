@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kalinar/src/features/group_management/presentation/edit_group_dialog.dart';
-import 'package:kalinar/src/features/home/presentation/home_screen.dart';
-import 'package:kalinar/src/features/user_management/presentation/edit_user_dialog.dart';
-import 'package:kalinar/src/features/user_management/presentation/user_profile_dialog.dart';
-import 'package:kalinar/src/routing/app_route.dart';
-import 'package:kalinar/src/routing/dialog_page.dart';
-import 'package:kalinar/src/routing/go_router_refresh_stream.dart';
-import 'package:kalinar/src/routing/navigation/scaffold_with_nested_navigation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../features/authentication/data/firebase_auth_repository.dart';
 import '../features/authentication/presentation/custom_sign_in_screen.dart';
 import '../features/group_management/domain/group.dart';
+import '../features/group_management/presentation/edit_group_dialog.dart';
+import '../features/group_management/presentation/join_group_dialog.dart';
+import '../features/home/presentation/home_screen.dart';
 import '../features/user_management/domain/user.dart';
+import '../features/user_management/presentation/edit_user_dialog.dart';
+import '../features/user_management/presentation/user_profile_dialog.dart';
+import 'app_route.dart';
+import 'dialog_page.dart';
+import 'go_router_refresh_stream.dart';
+import 'navigation/scaffold_with_nested_navigation.dart';
 
 part 'app_router.g.dart';
 
@@ -71,6 +72,11 @@ GoRouter goRouter(GoRouterRef ref) {
             path: AppRoute.groupEdit.route,
             name: AppRoute.groupEdit.name,
             pageBuilder: (context, state) => DialogPage(builder: (_) => EditGroupDialog(group: state.extra! as Group)),
+          ),
+          GoRoute(
+            path: AppRoute.groupJoin.route,
+            name: AppRoute.groupJoin.name,
+            pageBuilder: (context, state) => DialogPage(builder: (_) => const JoinGroupDialog()),
           ),
         ],
       ),

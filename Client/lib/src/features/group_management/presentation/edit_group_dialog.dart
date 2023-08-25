@@ -9,6 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/kalinar_form.dart';
 import '../../../common_widgets/no_animation_single_child_scrollview.dart';
+import '../../../constants/app_sizes.dart';
 import '../../../utils/http/async_value_extension.dart';
 import '../../user_management/data/user_repository.dart';
 import '../domain/group.dart';
@@ -47,9 +48,9 @@ class EditGroupDialog extends ConsumerWidget {
               },
               formFields: [
                 InvisibleField(name: "id", initialValue: group?.id ?? ""),
-                const SizedBox(height: 50),
+                gapH32,
                 FittedBox(child: Text(AppLocalizations.of(context)!.groupCreateTitle, style: Theme.of(context).textTheme.headlineMedium)),
-                const SizedBox(height: 50),
+                gapH24,
                 FormBuilderTextField(
                   name: 'name',
                   validator: FormBuilderValidators.required(),
@@ -57,7 +58,7 @@ class EditGroupDialog extends ConsumerWidget {
                   decoration: InputDecoration(labelText: AppLocalizations.of(context)!.groupName),
                   scrollPadding: const EdgeInsets.only(bottom: 150),
                 ),
-                const SizedBox(height: 20),
+                gapH20,
                 FormBuilderTextField(
                   name: 'description',
                   maxLength: 2048,
