@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalinar/src/features/character_traits/presentation/character_traits_screen.dart';
+import 'package:kalinar/src/features/user_management/presentation/edit_user_dialog.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../features/authentication/data/firebase_auth_repository.dart';
@@ -9,7 +11,6 @@ import '../features/group_management/presentation/edit_group_dialog.dart';
 import '../features/group_management/presentation/join_group_dialog.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/user_management/domain/user.dart';
-import '../features/user_management/presentation/edit_user_dialog.dart';
 import '../features/user_management/presentation/user_profile_dialog.dart';
 import 'app_route.dart';
 import 'dialog_page.dart';
@@ -23,6 +24,9 @@ final _homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
 final _charactersNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'characters');
 final _storyNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'story');
 final _traitsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'traits');
+final _traitAbilityNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'traits-abilities');
+final _traitAttributeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'traits-attributes');
+final _traitSkillNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'traits-skills');
 final _adminNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'admin');
 
 @riverpod
@@ -83,12 +87,16 @@ GoRouter goRouter(GoRouterRef ref) {
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) => ScaffoldWithNestedNavigation(navigationShell: navigationShell),
         branches: [
-          StatefulShellBranch(navigatorKey: _homeNavigatorKey, routes: [
-            GoRoute(
+          StatefulShellBranch(
+            navigatorKey: _homeNavigatorKey,
+            routes: [
+              GoRoute(
                 path: AppRoute.home.route,
                 name: AppRoute.home.name,
-                pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen())),
-          ]),
+                pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const HomeScreen()),
+              ),
+            ],
+          ),
           StatefulShellBranch(
             navigatorKey: _charactersNavigatorKey,
             routes: [
@@ -117,6 +125,36 @@ GoRouter goRouter(GoRouterRef ref) {
               ),
             ],
           ),
+          StatefulShellBranch(
+            navigatorKey: _traitsNavigatorKey,
+            routes: [
+              StatefulShellRoute.indexedStack(
+                builder: (context, state, navigationShell) => CharacterTraitsScreen(navigationShell: navigationShell),
+                branches: [
+                  StatefulShellBranch(
+                    navigatorKey: _traitAbilityNavigatorKey,
+                    routes: [
+                      GoRoute(
+                        path: '/traits/abilties',
+                        name: 'Abilities',
+                        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Text('Abilities')),
+                      ),
+                    ],
+                  ),
+                  StatefulShellBranch(
+                    navigatorKey: _traitAttributeNavigatorKey,
+                    routes: [
+                      GoRoute(
+                        path: '/traits/attributes',
+                        name: 'Attributes',
+                        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Text('Attributes')),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          )
         ],
       ),
     ],

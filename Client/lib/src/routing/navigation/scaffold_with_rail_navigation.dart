@@ -12,8 +12,9 @@ import 'rail_navigation_item.dart';
 class ScaffoldWithRailNavigation extends HookConsumerWidget {
   final Widget body;
   final List<NavigationItem> tabs;
+  final ValueChanged<int> onDestinationSelected;
 
-  const ScaffoldWithRailNavigation({required this.body, required this.tabs, super.key});
+  const ScaffoldWithRailNavigation({required this.body, required this.tabs, required this.onDestinationSelected, super.key});
 
   // Future _showCharacterContextMenu(BuildContext context, CharacterOverview character, Offset position) async {
   //   final left = position.dx;
@@ -46,7 +47,6 @@ class ScaffoldWithRailNavigation extends HookConsumerWidget {
     // }, [const ValueKey(null)]);
 
     // TODO: implement loading characters and orders
-
     return Scaffold(
       body: Row(
         children: [
@@ -66,11 +66,11 @@ class ScaffoldWithRailNavigation extends HookConsumerWidget {
                       firstChild: SizedBox(
                         height: 60,
                         child: DesktopNavigationItem(
-                            title: selectedOrFirst.title,
-                            icon: Icon(selectedOrFirst.icon),
-                            isSelected: GoRouterState.of(context).uri.toString() == selectedOrFirst.route,
-                            onTap:
-                                GoRouterState.of(context).uri.toString() == selectedOrFirst.route ? null : () => context.go(selectedOrFirst.route)),
+                          title: selectedOrFirst.title,
+                          icon: Icon(selectedOrFirst.icon),
+                          isSelected: GoRouterState.of(context).uri.toString() == selectedOrFirst.route,
+                          onTap: () => onDestinationSelected(tabs.indexOf(selectedOrFirst)),
+                        ),
                       ),
                       secondChild: Column(
                         children: tabs.whereNot((element) => element == selectedOrFirst).map(
@@ -80,7 +80,7 @@ class ScaffoldWithRailNavigation extends HookConsumerWidget {
                               title: e.title,
                               icon: Icon(e.icon),
                               isSelected: isRoute,
-                              onTap: isRoute ? null : () => context.go(e.route),
+                              onTap: () => onDestinationSelected(tabs.indexOf(e)),
                             );
                           },
                         ).toList(),

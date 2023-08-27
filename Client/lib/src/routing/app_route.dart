@@ -12,15 +12,19 @@ enum AppRoute {
   characterDetails,
   addCharacter,
   editCharacter,
+  characterTraitsList,
+  abilityDetails,
+  abilityCreate,
+  abilityEdit,
 }
 
 extension AppRouteExtension on AppRoute {
   String get route {
     switch (this) {
-      case AppRoute.signIn:
-        return '/signIn';
       case AppRoute.home:
         return '/';
+      case AppRoute.signIn:
+        return '/signIn';
       case AppRoute.groupList:
         return '/groups';
       case AppRoute.groupCreate:
@@ -42,6 +46,14 @@ extension AppRouteExtension on AppRoute {
       case AppRoute.addCharacter:
         return 'add';
       case AppRoute.editCharacter:
+        return 'edit';
+      case AppRoute.characterTraitsList:
+        return '/traits';
+      case AppRoute.abilityCreate:
+        return 'create';
+      case AppRoute.abilityDetails:
+        return ':id';
+      case AppRoute.abilityEdit:
         return 'edit';
     }
   }

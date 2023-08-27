@@ -52,24 +52,28 @@ class KalinarHttpClient {
     };
   }
 
-  Future<T> get<T>(String endpoint, T Function(dynamic response) responseBuilder) async {
-    return await _handleResponse(() async => await http.get(Uri.https(baseUrl, endpoint), headers: await _getHeaders()), responseBuilder);
+  Future<T> get<T>(String endpoint, T Function(dynamic response) responseBuilder, {Map<String, String> queryParameters = const {}}) async {
+    final url = Uri.https(baseUrl, endpoint, queryParameters);
+    return await _handleResponse(() async => await http.get(url, headers: await _getHeaders()), responseBuilder);
   }
 
-  Future<T> post<T>(String endpoint, dynamic data, T Function(dynamic response) responseBuilder) async {
+  Future<T> post<T>(String endpoint, dynamic data, T Function(dynamic response) responseBuilder,
+      {Map<String, String> queryParameters = const {}}) async {
     var request = data != null ? json.encode(data) : null;
-    return await _handleResponse(
-        () async => await http.post(Uri.https(baseUrl, endpoint), body: request, headers: await _getHeaders()), responseBuilder);
+    final url = Uri.https(baseUrl, endpoint, queryParameters);
+    return await _handleResponse(() async => await http.post(url, body: request, headers: await _getHeaders()), responseBuilder);
   }
 
-  Future<T> put<T>(String endpoint, dynamic data, T Function(dynamic response) responseBuilder) async {
+  Future<T> put<T>(String endpoint, dynamic data, T Function(dynamic response) responseBuilder,
+      {Map<String, String> queryParameters = const {}}) async {
     var request = data != null ? json.encode(data) : null;
-    return await _handleResponse(
-        () async => await http.put(Uri.https(baseUrl, endpoint), body: request, headers: await _getHeaders()), responseBuilder);
+    final url = Uri.https(baseUrl, endpoint, queryParameters);
+    return await _handleResponse(() async => await http.put(url, body: request, headers: await _getHeaders()), responseBuilder);
   }
 
-  Future delete(String endpoint) async {
-    return await _handleResponse(() async => await http.get(Uri.https(baseUrl, endpoint), headers: await _getHeaders()), (_) => true);
+  Future delete(String endpoint, {Map<String, String> queryParameters = const {}}) async {
+    final url = Uri.https(baseUrl, endpoint, queryParameters);
+    return await _handleResponse(() async => await http.get(url, headers: await _getHeaders()), (_) => true);
   }
 }
 

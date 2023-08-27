@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:diacritic/diacritic.dart';
-import 'package:expandable_group/expandable_group_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -70,7 +69,6 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
 
         switch (action) {
           case DialogAction.edit:
-
           case DialogAction.delete:
           default:
             break;
@@ -165,21 +163,21 @@ class _CharacterAbilitiesState extends ConsumerState<CharacterAbilities> {
                         children: [IconButton(icon: const FaIcon(FontAwesomeIcons.filter), onPressed: _openFilterDialog), const SizedBox(width: 12)],
                       ),
                     ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) => ExpandableGroup(
-                          header: _getGroupTitle(groups.keys.elementAt(index), groups.values.elementAt(index).length),
-                          items: groups.values.elementAt(index).map(_getListItem).toList(),
-                        ),
-                        childCount: groups.length,
-                      ),
-                    ),
-                    if (abilities.isNotEmpty && groups.isNotEmpty)
-                      SliverToBoxAdapter(
-                        child: ExpandableGroup(
-                            header: _getGroupTitle(AppLocalizations.of(context)!.otherAbilities, abilities.length),
-                            items: abilities.map((item) => _getListItem(item, showTags: true)).toList()),
-                      ),
+                    // SliverList(
+                    //   delegate: SliverChildBuilderDelegate(
+                    //     (context, index) => ExpandableGroup(
+                    //       header: _getGroupTitle(groups.keys.elementAt(index), groups.values.elementAt(index).length),
+                    //       items: groups.values.elementAt(index).map(_getListItem).toList(),
+                    //     ),
+                    //     childCount: groups.length,
+                    //   ),
+                    // ),
+                    // if (abilities.isNotEmpty && groups.isNotEmpty)
+                    //   SliverToBoxAdapter(
+                    //     child: ExpandableGroup(
+                    //         header: _getGroupTitle(AppLocalizations.of(context)!.otherAbilities, abilities.length),
+                    //         items: abilities.map((item) => _getListItem(item, showTags: true)).toList()),
+                    //   ),
                     if (groups.isEmpty)
                       SliverList(
                           delegate: SliverChildBuilderDelegate((context, index) => _getListItem(abilities[index], showTags: true),

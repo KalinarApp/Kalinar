@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../common_widgets/layout/responsive_layout.dart';
 import '../../constants/kalinar_icons.dart';
+import '../../features/characters/presentation/character_overview_screen.dart';
 import '../../features/traits/presentation/traits_overview_screen.dart';
 import '../../features/user_management/data/user_repository.dart';
 import '../app_route.dart';
@@ -25,18 +26,13 @@ class ScaffoldWithNestedNavigation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(getUserByIdProvider);
 
-    final tabs = user.hasValue
-        ? [
-            NavigationItem(route: AppRoute.home.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
-            // if (MediaQuery.of(context).size.width <= mobileMaxWidth)
-            //   NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
-            // NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
-            NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
-            // if (isAdmin) NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin))
-          ]
-        : [
-            NavigationItem(route: AppRoute.home.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
-          ];
+    final tabs = [
+      NavigationItem(route: AppRoute.home.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),
+      NavigationItem(route: CharacterOverviewScreen.route, icon: Kalinar.kali, title: (AppLocalizations.of(context)!.characters)),
+      // NavigationItem(route: StoryScreen.route, icon: Kalinar.timeline, title: (AppLocalizations.of(context)!.story)),
+      NavigationItem(route: TraitsOverviewScreen.route, icon: Kalinar.jigsaw, title: AppLocalizations.of(context)!.traits),
+      // if (isAdmin) NavigationItem(route: AdminMenuScreen.route, icon: Kalinar.coffee, title: (AppLocalizations.of(context)!.admin))
+    ];
 
     return ResponsiveLayout(
       mobile: ScaffoldWithBottomNavigation(
@@ -46,7 +42,11 @@ class ScaffoldWithNestedNavigation extends ConsumerWidget {
         onDestinationSelected: _goBranch,
         currentUser: user.hasValue ? user.value : null,
       ),
-      desktop: ScaffoldWithRailNavigation(body: navigationShell, tabs: tabs),
+      desktop: ScaffoldWithRailNavigation(
+        body: navigationShell,
+        tabs: tabs,
+        onDestinationSelected: _goBranch,
+      ),
     );
   }
 }
