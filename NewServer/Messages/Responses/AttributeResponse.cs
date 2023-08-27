@@ -27,6 +27,7 @@ namespace Kalinar.Messages.Responses
                 MinValue = attribute.MinValue,
                 MaxValue = attribute.MaxValue,
                 State = attribute.State.ToString(),
+                CreatedAt = attribute.CreatedAt,
                 ApprovedAt = attribute.ApprovedAt,
                 ModifiedAt = attribute.ModifiedAt,
                 RejectedAt = attribute.RejectedAt,

@@ -23,6 +23,7 @@ namespace Kalinar.Messages.Responses
                 Ability = skill.Ability is not null ? (AbilityResponse)skill.Ability : null,
                 IconUrl = skill.IconUrl,
                 State = skill.State.ToString(),
+                CreatedAt = skill.CreatedAt,
                 ApprovedAt = skill.ApprovedAt,
                 ModifiedAt = skill.ModifiedAt,
                 RejectedAt = skill.RejectedAt,

@@ -19,6 +19,7 @@ namespace Kalinar.Messages.Responses
                 Description = ability.Description,
                 IsPassive = ability.IsPassive,
                 State = ability.State.ToString(),
+                CreatedAt = ability.CreatedAt,
                 ApprovedAt = ability.ApprovedAt,
                 ModifiedAt = ability.ModifiedAt,
                 RejectedAt = ability.RejectedAt,

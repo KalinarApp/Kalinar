@@ -17,6 +17,7 @@ namespace Kalinar.Messages.Responses
                 Name = race.Name,
                 Description = race.Description,
                 State = race.State.ToString(),
+                CreatedAt = race.CreatedAt,
                 ApprovedAt = race.ApprovedAt,
                 ModifiedAt = race.ModifiedAt,
                 RejectedAt = race.RejectedAt,
