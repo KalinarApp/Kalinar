@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../common_widgets/spinner.dart';
+import '../../../../utils/build_context_extensions.dart';
 
 class UsernameEditWidget extends HookWidget {
   final String? initialValue;
@@ -37,8 +38,8 @@ class UsernameEditWidget extends HookWidget {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: Theme.of(context).iconTheme.size),
-                  Text(initialValue!, style: Theme.of(context).textTheme.headlineMedium),
+                  SizedBox(width: context.theme.iconTheme.size),
+                  Text(initialValue!, style: context.textTheme.headlineMedium),
                   IconButton(onPressed: () => isEditing.value = true, icon: const Icon(Icons.edit)),
                 ],
               );

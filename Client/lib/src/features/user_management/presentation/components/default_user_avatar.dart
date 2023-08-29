@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../utils/build_context_extensions.dart';
+
 class DefaultUserAvatar extends StatelessWidget {
   final double? radius;
 
@@ -9,9 +11,9 @@ class DefaultUserAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+      backgroundColor: context.colorScheme.onSurfaceVariant,
       child: LayoutBuilder(
-        builder: (context, constraints) => Icon(Icons.person_4, size: constraints.maxHeight, color: Theme.of(context).dialogBackgroundColor),
+        builder: (context, constraints) => Icon(Icons.person_4, size: constraints.maxHeight, color: context.theme.dialogBackgroundColor),
       ),
     );
   }

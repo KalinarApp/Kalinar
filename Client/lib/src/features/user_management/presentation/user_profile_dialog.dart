@@ -10,14 +10,15 @@ import 'package:kalinar/src/common_widgets/no_animation_single_child_scrollview.
 import '../../../constants/app_sizes.dart';
 import '../../../constants/storage_key.dart';
 import '../../../routing/app_route.dart';
+import '../../../utils/build_context_extensions.dart';
 import '../../../utils/http/async_value_extension.dart';
 import '../../../utils/local_storage/shared_preferences_helper.dart';
 import '../../group_management/domain/group_member.dart';
 import '../../group_management/presentation/components/group_selection_dropdown.dart';
+import '../application/edit_user_dialog_controller.dart';
 import '../data/user_repository.dart';
 import 'components/user_avatar.dart';
 import 'components/username_edit_widget.dart';
-import '../application/edit_user_dialog_controller.dart';
 
 class UserProfileDialog extends ConsumerWidget {
   const UserProfileDialog({super.key});
@@ -57,7 +58,7 @@ class UserProfileDialog extends ConsumerWidget {
             child: Column(
               children: [
                 gapH32,
-                FittedBox(child: Text(AppLocalizations.of(context)!.userProfile, style: Theme.of(context).textTheme.headlineMedium)),
+                FittedBox(child: Text(context.localizations.userProfile, style: context.textTheme.headlineMedium)),
                 gapH24,
                 DropableImagePicker(
                   name: "imageUrl",
@@ -72,7 +73,7 @@ class UserProfileDialog extends ConsumerWidget {
                   onSubmit: onSubmitUsername,
                 ),
                 gapH32,
-                FittedBox(child: Text(AppLocalizations.of(context)!.groupManagement, style: Theme.of(context).textTheme.headlineSmall)),
+                FittedBox(child: Text(context.localizations.groupManagement, style: context.textTheme.headlineSmall)),
                 gapH16,
                 GroupSelectionDropdown(items: groups.valueOrNull ?? [], onChanged: onSubmitGroup, value: selectedGroup.valueOrNull),
                 gapH12,
