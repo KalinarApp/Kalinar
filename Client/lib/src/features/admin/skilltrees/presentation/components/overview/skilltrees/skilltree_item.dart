@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../../../../../kalinar_icons.dart';
+import '../../../../../../../constants/kalinar_icons.dart';
 import '../../../../domain/skilltree_overview.dart';
 
 class SkilltreeItem extends StatelessWidget {

@@ -9,7 +9,7 @@ import '../../../../../../common_widgets/form_fields/bool_field.dart';
 import '../../../../../../common_widgets/form_fields/content_field.dart';
 import '../../../../../../common_widgets/form_fields/value_range_field.dart';
 import '../../../../../../common_widgets/save_button.dart';
-import '../../../../../../utilities/async_value_extension.dart';
+import '../../../../../../utils/http/async_value_extension.dart';
 import '../../../application/skilltree_controller.dart';
 import '../builder/character_selection_field.dart';
 
@@ -35,7 +35,7 @@ class _SkilltreeModalState extends ConsumerState<SkilltreeModal> {
             ? await ref.read(skilltreeControllerProvider.notifier).createOnServer(data)
             : await ref.read(skilltreeControllerProvider.notifier).updateSkilltree(id, data);
         if (!mounted) return;
-        value.showSnackbarOnError(context);
+        value.showNotification(context);
         if (value.hasError) {
           controller.error();
           Future.delayed(const Duration(seconds: 3), controller.reset);

@@ -8,8 +8,7 @@ import '../../../common_widgets/form_fields/bool_field.dart';
 import '../../../common_widgets/form_fields/description_field.dart';
 import '../../../common_widgets/form_fields/invisible_field.dart';
 import '../../../common_widgets/form_fields/name_field.dart';
-import '../../../utilities/async_value_extension.dart';
-import '../../authentication/application/user_notifier.dart';
+import '../../../utils/http/async_value_extension.dart';
 import '../application/controller/abilities_controller.dart';
 import '../application/notifier/ability_state_notifier.dart';
 import '../domain/ability.dart';
@@ -41,7 +40,8 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(userNotifierProvider).user?.ownedGroup?.ownerId;
+    // return FirebaseAuth.instance.currentUser?.uid == ref.read(userNotifierProvider).user?.ownedGroup?.ownerId;
+    return false;
   }
 
   Future _updateTags(List<String>? tags) async {
@@ -49,7 +49,7 @@ class _EditAbilityScreenState extends ConsumerState<EditAbilityScreen> {
       final value = await ref.read(abilitiesControllerProvider).updateTags(widget.abilityId!, tags ?? []);
       if (!mounted) return;
 
-      value.showSnackbarOnError(context);
+      value.showNotification(context);
     }
   }
 

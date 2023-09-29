@@ -5,8 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../utilities/async_value_extension.dart';
-import '../../../authentication/application/user_notifier.dart';
+import '../../../../utils/http/async_value_extension.dart';
 import '../../application/controller/traits_controller.dart';
 import '../../domain/suggestable.dart';
 import '../../domain/suggestion_state.dart';
@@ -34,7 +33,7 @@ class _EditViewState extends ConsumerState<EditView> {
       if (null != data) {
         final value = null == widget.item ? await widget.controller.create(data) : await widget.controller.update(widget.item!.value!.id, data);
         if (!mounted) return;
-        value.showSnackbarOnError(context);
+        value.showNotification(context);
         if (!value.hasError) {
           GoRouter.of(context).pop();
         }
@@ -49,7 +48,8 @@ class _EditViewState extends ConsumerState<EditView> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(userNotifierProvider).user?.ownedGroup?.ownerId;
+    // return FirebaseAuth.instance.currentUser?.uid == ref.read(userNotifierProvider).user?.ownedGroup?.ownerId;
+    return false;
   }
 
   String _getSaveButtonTitle(Suggestable? item) {
@@ -72,7 +72,7 @@ class _EditViewState extends ConsumerState<EditView> {
     if (success ?? false) {
       final value = await widget.controller.reject(item.id, _rejectionController.text);
       if (!mounted) return;
-      value.showSnackbarOnError(context);
+      value.showNotification(context);
       if (!value.hasError) {
         GoRouter.of(context).pop();
       }

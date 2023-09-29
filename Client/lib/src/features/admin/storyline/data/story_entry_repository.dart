@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../utilities/base_repository.dart';
+import '../../../../utils/base_repository.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_overview.dart';
 

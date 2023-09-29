@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_gravatar/flutter_gravatar.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:readmore/readmore.dart';
 import 'package:timeago_flutter/timeago_flutter.dart';
@@ -38,7 +37,7 @@ class ListItem<T extends Suggestable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gravatar = null != item.creator && item.creator!.email.isNotEmpty ? Gravatar(item.creator!.email) : null;
+    // final gravatar = null != item.creator && item.creator!.email.isNotEmpty ? Gravatar(item.creator!.email) : null;
 
     return Column(
       children: [
@@ -61,7 +60,7 @@ class ListItem<T extends Suggestable> extends StatelessWidget {
               ),
             ),
             title: Text(item.name, maxLines: 2, overflow: TextOverflow.ellipsis),
-            subtitle: (null == item.description || item.description!.isEmpty) && null == gravatar
+            subtitle: (null == item.description || item.description!.isEmpty) && item.creator?.imageUrl == null
                 ? null
                 : Padding(
                     padding: const EdgeInsets.only(top: 4.0),
@@ -82,14 +81,14 @@ class ListItem<T extends Suggestable> extends StatelessWidget {
                         const SizedBox(height: 5),
                         Row(
                           children: [
-                            if (null != gravatar)
+                            if (null != item.creator?.imageUrl)
                               JustTheTooltip(
                                 isModal: !kIsWeb,
                                 triggerMode: TooltipTriggerMode.tap,
                                 content: Padding(padding: const EdgeInsets.all(8.0), child: Text(item.creator?.username ?? "")),
-                                child: CircleAvatar(radius: 10, backgroundImage: CachedNetworkImageProvider(gravatar.imageUrl())),
+                                child: CircleAvatar(radius: 10, backgroundImage: CachedNetworkImageProvider(item.creator!.imageUrl!)),
                               ),
-                            if (null != gravatar) const SizedBox(width: 12),
+                            if (null != item.creator?.imageUrl) const SizedBox(width: 12),
                             if (null != subtitle) subtitle!,
                           ],
                         )

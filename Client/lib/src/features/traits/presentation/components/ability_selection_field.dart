@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../kalinar_icons.dart';
+import '../../../../constants/kalinar_icons.dart';
 import '../../application/controller/abilities_controller.dart';
 import '../../domain/ability.dart';
 import '../../domain/suggestion_state.dart';

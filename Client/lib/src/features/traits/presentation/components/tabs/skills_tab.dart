@@ -6,8 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../common_widgets/action_menu.dart';
 import '../../../../../common_widgets/node_tile.dart';
-import '../../../../../utilities/async_value_extension.dart';
-import '../../../../group_management/application/group_notifier.dart';
+import '../../../../../utils/http/async_value_extension.dart';
 import '../../../application/controller/skills_controller.dart';
 import '../../../application/notifier/skills_state_notifier.dart';
 import '../../../application/state/filter_state.dart';
@@ -34,7 +33,7 @@ class _SkillsTabState extends ConsumerState<SkillsTab> {
     setState(() => isSearchEnabled = !value.hasError);
 
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   void _editSkill(Skill skill) {
@@ -45,7 +44,7 @@ class _SkillsTabState extends ConsumerState<SkillsTab> {
   Future<void> _deleteSkill(Skill skill) async {
     final value = await ref.read(skillsControllerProvider).delete(skill.id);
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   Future _showActionDialog(Skill skill) async {
@@ -72,7 +71,8 @@ class _SkillsTabState extends ConsumerState<SkillsTab> {
   }
 
   bool _isAdmin() {
-    return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    // return FirebaseAuth.instance.currentUser?.uid == ref.read(groupNotifierProvider).group?.ownerId;
+    return false;
   }
 
   @override

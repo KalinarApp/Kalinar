@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../kalinar_icons.dart';
 import '../../../../common_widgets/user_menu.dart';
+import '../../../../constants/kalinar_icons.dart';
 import 'components/overview/blueprints/blueprint_tab.dart';
 import 'components/overview/skilltrees/skilltree_tab.dart';
 import 'skilltree_builder_screen.dart';

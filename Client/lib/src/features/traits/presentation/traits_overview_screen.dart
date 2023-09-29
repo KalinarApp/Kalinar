@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../kalinar_icons.dart';
 import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/user_menu.dart';
+import '../../../constants/kalinar_icons.dart';
 import 'components/tabs/abilities_tab.dart';
 import 'components/tabs/attributes_tab.dart';
 import 'components/tabs/races_tab.dart';

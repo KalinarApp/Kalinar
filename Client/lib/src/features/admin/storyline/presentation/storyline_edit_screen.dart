@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../../../common_widgets/save_button.dart';
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/http/async_value_extension.dart';
 import '../application/story_entries_controller.dart';
 import '../domain/story_entry.dart';
 import '../domain/story_entry_type.dart';
@@ -52,7 +52,7 @@ class _StorylineEditScreenState extends ConsumerState<StorylineEditScreen> {
             ? await ref.read(storyEntriesControllerProvider).create(data)
             : await ref.read(storyEntriesControllerProvider).update(widget.id!, data);
         if (!mounted) return;
-        value.showSnackbarOnError(context);
+        value.showNotification(context);
         if (value.hasError) {
           controller.error();
           Future.delayed(const Duration(seconds: 3), controller.reset);

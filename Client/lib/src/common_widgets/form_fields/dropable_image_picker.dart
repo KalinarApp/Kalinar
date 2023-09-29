@@ -5,17 +5,17 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kalinar/src/features/images/data/images_repository.dart';
 import 'package:mime/mime.dart';
-
-import '../../utilities/image_repository.dart';
 
 class DropableImagePicker extends ConsumerWidget {
   final String name;
   final String? initialValue;
   final bool enabled;
   final Widget Function(String? imageUrl, bool isLoading) builder;
+  final Function(String? imageUrl)? onChanged;
 
-  const DropableImagePicker({this.name = "iconUrl", this.initialValue, this.enabled = true, required this.builder, super.key});
+  const DropableImagePicker({this.name = "iconUrl", this.initialValue, this.enabled = true, required this.builder, this.onChanged, super.key});
 
   Future<void> _openFilePicker(WidgetRef ref, Function(String?) onChanged) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: false, type: FileType.image);
@@ -28,7 +28,7 @@ class DropableImagePicker extends ConsumerWidget {
 
   Future _uploadImage(String? base64, WidgetRef ref, Function(String?) onChanged) async {
     if (null != base64) {
-      final url = await ref.read(imageRepositoryProvider).uploadImageToImgur(base64);
+      final url = await ref.read(getImagesRepositoryProvider).uploadImage(base64);
       onChanged(url);
     }
   }
@@ -39,6 +39,7 @@ class DropableImagePicker extends ConsumerWidget {
       name: name,
       initialValue: initialValue,
       enabled: enabled,
+      onChanged: onChanged,
       builder: (field) {
         return GestureDetector(
           onTap: enabled ? () => _openFilePicker(ref, field.didChange) : null,

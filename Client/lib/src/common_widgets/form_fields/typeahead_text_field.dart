@@ -312,7 +312,6 @@ class TypeAheadTextField extends FormBuilderField<String> {
           onSaved: onSaved,
           enabled: enabled,
           onReset: onReset,
-          decoration: decoration,
           focusNode: focusNode,
           builder: (FormFieldState<String?> field) {
             final state = field as TypeAheadTextFieldState;
@@ -331,7 +330,6 @@ class TypeAheadTextField extends FormBuilderField<String> {
                         color: theme.disabledColor,
                       ),
                 focusNode: state.effectiveFocusNode,
-                decoration: state.decoration,
               ),
               suggestionsCallback: suggestionsCallback,
               itemBuilder: itemBuilder,

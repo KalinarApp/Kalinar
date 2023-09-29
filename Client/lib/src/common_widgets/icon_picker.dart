@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
-import '../../kalinar_icons.dart';
+import '../constants/kalinar_icons.dart';
 
 class IconPicker extends StatefulWidget {
   final Color? iconColor;

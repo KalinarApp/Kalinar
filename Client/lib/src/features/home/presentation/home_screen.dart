@@ -1,33 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../common_widgets/layout/size.dart';
 import '../../../common_widgets/user_menu.dart';
+import '../../../constants/breakpoints.dart';
+import 'home_content.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
-  static const String name = "Home";
-  static const String route = "/home";
+class HomeScreen extends ConsumerWidget {
+  final String? inviteCode;
 
-  const HomeScreen({super.key});
-
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  late final bool hasGroup;
+  const HomeScreen({super.key, this.inviteCode});
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return LayoutBuilder(
-      builder: (ctx, constraints) => Scaffold(
-        appBar: isMobile(constraints) ? AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())]) : null,
-        body: const Center(child: Text("Hier könnte Ihre Werbung stehen!")),
+      builder: (ctx, constraints) => ScaffoldMessenger(
+        child: Scaffold(
+          appBar: constraints.maxWidth < Breakpoint.mobile
+              ? AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12.0), child: UserMenu())])
+              : null,
+          body: const HomeContent(),
+        ),
       ),
     );
   }

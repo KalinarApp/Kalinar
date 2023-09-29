@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common_widgets/action_menu.dart';
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/http/async_value_extension.dart';
 import '../../application/controllers/character_controller.dart';
 import '../../application/controllers/character_overview_controller.dart';
 import '../../domain/character_overview.dart';
@@ -25,20 +25,20 @@ class _CharacterOverviewTabState extends ConsumerState<CharacterOverviewTab> {
   Future _onRefresh() async {
     final value = await widget.controller.getAll();
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   Future _deleteCharacter(CharacterOverview item) async {
     final value = await widget.controller.delete(item.id);
     if (!mounted) return;
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
   }
 
   void _openCharacterSheet(CharacterOverview item) async {
     final value = await ref.read(characterControllerProvider).get(item.id);
     if (!mounted) return;
 
-    value.showSnackbarOnError(context);
+    value.showNotification(context);
     GoRouter.of(context).pushNamed(CharacterDetailScreen.name, pathParameters: {"id": item.id});
   }
 

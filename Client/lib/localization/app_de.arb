@@ -1,0 +1,336 @@
+{
+  "applicationTitle": "Kalinar",
+  "applicationSubtitle": "Pen & Paper auf einem neuen Level",
+
+  "userProfile": "Benutzerprofil",
+  "userCreateTitle": "Profil erstellen",
+  "userEditTitle": "Profil bearbeiten",
+  "userCreated": "Profil wurde erstellt.",
+  "userUpdated": "Profil wurde aktualisiert.",
+  "userAlreadyExistsException": "Das Profil existiert bereits.",
+  "userNotFoundException": "Das Profil wurde nicht gefunden.",
+  "userAlreadyInGroupException": "Du bist bereits in der Gruppe.",
+  
+  "groupCreateTitle": "Gruppe erstellen",
+  "groupCreateAction": "Gruppe erstellen",
+  "groupJoinTitle": "Gruppe beitreten",
+  "groupJoinText": "Wenn du einen Einladungscode erhalten hast, dann gib diesen hier an:",
+  "groupJoinAction": "Gruppe beitreten",
+  "groupSelectDefaultTitle": "Du bist Mitglied in mehreren Gruppen. Bitte wähle für die weitere Nutzung der App eine Gruppe aus.\nDiese kannst du zu jeder Zeit in deinem Benutzerprofil wechseln.",
+  "groupSelectDefaultAction": "Gruppe auswählen",
+  "groupCreated": "Gruppe wurde erstellt.",
+  "groupNotFoundException": "Die Gruppe wurde nicht gefunden.",
+  "groupMemberNotFoundException": "Der Gruppenmitglied wurde nicht gefunden.",
+  "groupManagement": "Gruppenverwaltung",
+  "roleOwner": "Gründer",
+  "roleAdministrator": "Admin",
+  "roleMember": "Mitglied",
+  "groupInvitationCode": "Einladungscode",
+  "groupJoinedMessage": "Du bist der Gruppe beigetreten.",
+
+  "ability": "Talent",
+  "abilities": "Talente",
+  "abilityPassiveToolTip": "Dieses Talent ist ein passives Talent, dass bedeutet, es muss nicht aktiviert werden, sondern ist immer aktiv.",
+
+  "skill": "Skill",
+  "skills": "Skills",
+  "attribute": "Attribut",
+  "attributes": "Attribute",
+  "skilltree": "Skillbaum",
+  "skilltrees": "Skillbäume",
+  "node": "Knoten",
+  "nodes": "Knoten",
+  "edge": "Verknüpfung",
+  "edges": "Verknüpfungen",
+  "blueprint": "Vorlage",
+  "blueprints": "Vorlagen",
+  "character": "Charakter",
+  "characters": "Charaktere",
+  "race": "Rasse",
+  "races": "Rassen",
+  "story": "Geschichte",
+  "traits": "Eigenschaften",
+
+  "home": "Startseite",
+  "admin": "Admin",
+
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "cancel": "Abbrechen",
+  "ok": "Ok",
+  "join": "Beitreten",
+  "actionDialogTitle": "Aktionen",
+  "showMore": "Weiter lesen",
+  "showLess": " Weniger",
+  "all": "Alle",
+
+  "save": "Speichern",
+  "saveApprove": "Speichern & Genehmigen",
+  "statistics": "Statistik",
+  "cost": "Kosten",
+  "reset": "Zurücksetzen",
+  "search": "Suchen",
+  "settings": "Einstellungen",
+
+  "pending": "Ausstehend",
+  "approved": "Genehmigt",
+  "rejected": "Abgelehnt",
+  "reject": "Ablehnen",
+  "rejectReason": "Grund der Ablehnung",
+
+  "filter": "Filter",
+  "filterState": "Status auswählen",
+
+  "workInProgress": "Diese Seite ist noch in Arbeit!",
+
+  "loggingIn": "Du wirst angemeldet, bitte warte noch etwas...",
+
+  "inviteCopied": "Einladungslink kopiert",
+  "inviteCopy": "Einladungscode kopieren",
+  "inviteTitle": "Mitglieder einladen",
+  "inviteDescription": "Hier kannst du neue Mitglieder in deine Gruppe einladen. Teile dazu einfach den unten stehenden Einladungslink mit deinen Freunden.",
+
+  "groupName": "Gruppenname",
+  "groupDescription": "Beschreibung",
+  "groupNotInGroupText": "Hallo {name}, es sieht so aus, als würdest du bisher noch keiner Gruppe angehören.\nSchlag doch deinem Spielleiter einmal vor, sich die Welt Kalinars anzusehen oder frag ihn nach einem Einladungslink.",
+  "@groupNotInGroupText": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "groupGotAnInviteCode": "Ich habe bereits einen Einladungscode",
+  "groupInstructionTitle": "Anleitung zum Beitreten",
+  "groupInstruction": "Um einer Gruppe beizutreten öffne den Einladungslink, welchen dir dein Spielleiter zugeschickt hat, du wirst nun gefragt, ob du dieser Gruppe beitreten willst. Wenn du \"Okay\" auswählst, trittst du der Gruppe bei und kannst von da an in der Gruppe agieren.",
+  "groupInstructionGM": "Du kannst natürlich auch gerne selbst in die Rolle des Spielleiters schlüpfen und hier eine eigene Gruppe erstellen.",
+  "groupBeAGM": "Gruppenleiter werden",
+  "groupJoinTitle2": "{owner} möchte dich nach'{name}', in die Welt von Kalinar einladen, möchtest du beitreten?",
+  "@groupJoinTitle2": {
+    "placeholders": {
+      "owner": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "groupAboutTitle": "Über die Gruppe",
+  "groupJoinFailed": "Beim abrufen der Gruppeninformationen ist ein Fehler aufgetreten.",
+
+  "username": "Benutzername",
+  "password": "Passwort",
+  "login": "Anmelden", 
+  "logout": "Abmelden",
+  "loginDescription": "Du bist bisher noch nicht angemeldet.\nMelde dich jetzt an und beginne damit deinen eigenen Character zu kreieren.",
+
+  "loadSkilltrees": "Skillbäume werden abgerufen",
+  "loadSkilltreesFailed": "Beim Laden der Skillbäume ist ein Fehler aufgetreten.",
+
+  "nodeIsEasyReachable": "Direkt Freischaltbar?",
+  "nodeCost": "Benötigte Skillpunkte",
+  "nodeImportance": "Wichtigkeit des Knoten",
+  "nodeColor": "Farbe des Knotens auswählen",
+  
+  "skilltreeName": "Name des Skillbaums",
+  "skilltreePoints": "Initiale Skillpunkt",
+  "skilltreeIsActive": "Soll der Baum bei der Attributberechnung mit einbezogen werden?",
+  "fetchSkilltrees": "Skillbäume werden abgerufen",
+  "fetchSkilltreesFailed": "Fehler beim Abrufen der Skillbäume",
+  "distributeSkillpoints": "Skillpunkte verteilen",
+
+  "deleteChanges": "Änderungen löschen",
+  "saveAsBlueprint": "Als Vorlage speichern",
+  "loadAsNewSkilltree": "Als neuen Skillbaum laden",
+  
+  "abilityName": "Name des Talents",
+  "abilityIsPasive": "Ist das Talent passiv?",
+  "abilityDescription": "Beschreibung des Talents",
+  "selectAnAbility": "Talent auswählen",
+  "searchForAbility": "Talent suchen",
+  "newAbility": "Neues Talent",
+  "loadAbilityFailed": "Fehler beim Abrufen des gewünschten Talents.",
+  "abilityTags": "Tags hinzufügen",
+  "abilityAddTag": "Tag hinzufügen",
+  "abilityTagsHelpText": "Tags werden automatisch beim hinzufügen gespeichert.",
+  "abilityFetchTagsFailed": "Fehler beim Abrufen der Tags",
+  "otherAbilities": "Weitere",
+  "selectedTags": "ausgewählte Tags",
+  "abilitesCountInTag": "{count, plural, =0{0 Elemente} =1{1 Element} other{{count} Elemente}}",
+  "@abilitesCountInTag": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact"
+      }
+    }
+  },
+  "viewSelectedAbility": "Ausgewähltes Talent ansehen.",
+  
+  "passive": "Passiv",
+
+  "skillName": "Name des Skills",
+  "skillDescription": "Beschreibung des Skills",
+  "selectASkill": "Skill auswählen",
+  "searchForSkills": "Skill suchen",
+  "skillAttributeSelection": "Attribute des Skills auswählen:",
+  "loadSkillFailed": "Fehler beim Abrufen des gewünschten Skills.",
+
+  "raceName": "Name der Rasse",
+  "raceDescription": "Beschreibung der Rasse",
+  "raceAttributeSelection": "Attribute der Rasse auswählen:",
+  "selectARace": "Rasse auswählen",
+  "searchForRace": "Nach Rasse suchen",
+  "loadRaceFailed": "Fehler beim Abrufen der gewünschten Rasse.",
+
+  "characterName": "Name",
+  "characterAge": "Alter",
+  "characterDescription": "Beschreibung",
+  "characterReligion": "Religion",
+  "characterRelationship": "Beziehungsstatus",
+  "characterProfession": "Beruf",
+  "characterInventory": "Inventar",
+  "characterNotes": "Notizen",
+  "characterRaceSelection": "Rasse auswählen:",
+  "fetchCharacter": "Charakterdetails werden abgerufen...",
+  "fetchCharacters": "Charaktere werden abgerufen",
+  "fetchCharactersFailed": "Beim Abrufen der Charaktere ist ein Fehler aufgetreten. Überprüfe deine Internetverbindung und versuche es später erneut.",
+  "searchForCharacter": "Nach Charakter suchen",
+  "selectACharacter": "Charakter auswählen",
+  "characterNoPortrait": "Kein Portrait ausgewählt.",
+  "characteristics": "Steckbrief",
+  "ownCharacters": "Eigene Charaktere",
+  "otherCharacters": "Weitere Charaktere",
+  "shareCharacter": "Charakter mit Gruppenmitgliedern teilen",
+  "shareCharacterSkilltrees": "Andere dürfen Skillbäume sehen",
+  "shareCharacterNotes": "Andere dürfen Notizen sehen",
+  "shareCharacterInventory": "Andere dürfen Inventar sehen",
+  "shareCharacterAbilities": "Andere dürfen Talente sehen",
+  "shareCharacterAttributes": "Andere dürfen Statistik sehen",
+
+  "manageGroup": "Gruppe verwalten",
+  "manageCharacteristics": "Eigenschaften verwalten",
+  "manageSkilltrees": "Skillbäume verwalten",
+
+  "member": "Mitglied",
+  "members": "Mitglieder",
+  "fetchMembers": "Mitglieder werden abgerufen...",
+  "fetchMembersFailed": "Beim Abrufen der Mitglieder ist ein Fehler aufgetreten. Überprüfe deine Internetverbindung und versuche es später erneut.",
+
+  "openProfile": "Profil ansehen",
+  "openProfileFailed": "Das Benutzerprofil konnte nicht geöffnet werden",
+
+  "listEmpty": "Ganz schön leer hier...",
+  "listLoading": "Daten werden abgerufen...",
+  "listLoadingFailed": "Fehler beim Abrufen der Daten.",
+
+  "privacyPolicy": "Datenschutzerklärung",
+  "imageSelectionDescription": "Wähle ein Bild zum hochladen aus.",
+  "imageDropHere": "Bild hier hinziehen",
+
+  "blueprintName": "Name der Vorlage",
+  "fetchBlueprints": "Vorlagen werden abgerufen",
+  "fetchBlueprintsFailed": "Fehler beim Abrufen der Vorlagen",
+
+  "attributeName": "Name des Attributes",
+  "attributeDescription": "Beschreibung des Attributes",
+  "attributeIcon": "Attributicon",
+  "attributeStepSize": "Schrittgröße",
+  "attributeMinValue": "Kleinster möglicher Wert",
+  "attributeMaxValue": "Größter möglicher Wert",
+  "selectAnAttribute": "Attribut auswählen",
+  "attributeSearch": "Attribut suchen",
+  "attributesMore": "Weitere Attribute",
+  "attributeCategory": "Kategorie",
+  "loadAttributeFailed": "Fehler beim Abrufen des gewünschten Attributs.",
+
+  "pickAnIcon": "Wähle ein Icon aus",
+  "pickAnImage": "Wähle ein Bild aus",
+  "searchIcon": "Suche nach Icon",
+  "noIconSearchResults": "Keine Ergebnisse gefunden für:",
+  "uploadImage": "Bild wird verarbeitet...",
+
+  "attributeHealth": "Lebenspunkte",
+  "attributeHealthDescription": "Stellt das maximale Leben des Charakters dar.",
+
+  "attributeParry": "Parade",
+  "attributeParryDescription": "Wird ein Charakter angegriffen kann er versuchen den Angriff zu parrieren. Ist dies erfolgreich, so blockiert er den Angriff.",
+  
+  "attributeDodge": "Ausweichen",
+  "attributeDodgeDescription": "Wird ein Charakter angegriffen, kann er versuchen dem Angriff auszuweichen. Ist er erfolgreich, so geht der Angriff daneben.",
+
+  "attributeMotionRange": "Bewegungsreichweite",
+  "attributeMotionRangeDescription": "Die Anzahl an Metern, die ein Charakter pro Zug zurücklegen kann.",
+
+  "attributeInitiative": "Initiative",
+  "attributeInitiativeDescription": "Je höher die Inititative, desto früher ist ein Charakter im Kampf am Zug.",
+
+  "errorNoInternetConnection": "Der Server ist nicht erreichbar, bitte überprüfe deine Internetverbindung und versuche es später erneut.",
+  
+  "errorUnauthorized": "Du bist nicht angemeldet.",
+  "errorForbidden": "Du bist nicht der Gamemaster dieser Gruppe!",
+  "errorNodeNotUnlockable": "Der Skill konnte nicht freigeschaltet werden, versuche es später noch einmal.",
+  "errorNotEnoughSkillpoints": "Du hast nicht genug Skillpunkte um diesen Skill freizuschalten.",
+  
+  "abilityNotApprovedException": "Das Talent wurde noch nicht freigeschaltet.",
+  "abilityNotFoundException": "Das Talent wurde nicht gefunden.",
+  "attributeNotApprovedException": "Das Attribut wurde noch nicht freigeschaltet.",
+  "attributeNotFoundException": "Das Attribut wurde nicht gefunden.",
+  "characterNotFoundException": "Der Charakter wurde nicht gefunden.",
+  "deviceIdAlreadyRegisteredException": "Dieses Gerät wurde bereits registriert.",
+  "forbiddenAccessException": "Du hast nicht die nötigen Rechte um diese Aktion auszuführen.",
+  "raceNotApprovedException": "Die Rasse wurde noch nicht freigeschaltet.",
+  "raceNotFoundException": "Die Rasse wurde nicht gefunden.",
+  "skillNotApprovedException": "Der Skill wurde noch nicht freigeschaltet.",
+  "skillNotFoundException": "Der Skill wurde nicht gefunden.",
+  "skilltreeEdgeAlreadyExistsException": "Die Verknüpfung existiert bereits.",
+  "skilltreeEdgeNotFoundException": "Die Verknüpfung wurde nicht gefunden.",
+  "skilltreeNodeAlreadyUnlockedException": "Der Knoten wurde bereits freigeschaltet.",
+  "skilltreeNodeNotFoundException": "Der Knoten wurde nicht gefunden.",
+  "skilltreeNodeNotResetableException": "Der Knoten kann nicht zurückgesetzt werden.",
+  "skilltreeNodeNotUnlockableException": "Der Knoten kann nicht freigeschaltet werden.",
+  "skilltreeNotEnoughPointsException": "Du hast nicht genug Skillpunkte um diesen Skill freizuschalten.",
+  "skilltreeNotFoundException": "Der Skillbaum wurde nicht gefunden.",
+  "storyBookNotFoundException": "Das Buch wurde nicht gefunden.",
+  "storyBookPageNotFoundException": "Die Seite wurde nicht gefunden.",
+  "storyBookPageNumberAlreadyExistsException": "Die Seitenzahl existiert bereits.",
+  "storyEventNotFoundException": "Das Ereignis wurde nicht gefunden.",
+  "storyImageNotFoundException": "Das Bild wurde nicht gefunden.",
+
+  "errorUnknown": "Es ist ein Fehler aufgetreten, bitte versuche es später erneut.",
+
+  "manageStoryline": "Storyeinträge verwalten",
+
+  "storyImage": "Bild",
+  "storyBook": "Buch",
+  "storyEntry": "Ereignis",
+  "entryTitle": "Ereignis",
+  "entryDescription": "Beschreibung",
+  "entryDate": "Zeitpunkt des Ereignisses",
+  "entryDateHelp": "Dient nur der Anzeige und ändert nichts an der Reihenfolge.",
+  "entryIsUnlocked": "Wurde der Eintrag bereits von der Gruppe freigeschaltet?",
+  "entryDelete": "Soll der Eintrag gelöscht werden?",
+  "bookTitle": "Buchtitel",
+  "bookReleaseDate": "Erstveröffentlichung",
+  "bookNotFound": "Du hast wohl das falsche Buch aufgeschlagen!",
+  "bookContentTable": "Inhaltsverzeichnis",
+  "allBooks": "Gefundene Bücher",
+  "bookLoading": "Buch wird geladen...",
+  "bookLoadingFailed": "Laden des Buchs fehlgeschlagen.",
+  "imageTitle": "Bildüberschrift",
+  "imageDate": "Veröffentlichungsdatum",
+  "storyLoading": "Geschichte wird geladen...",
+  "storyLoadingFailed": "Fehler beim laden der Geschichte!",
+  "storyEmpty": "Ganz schön leer hier :(",
+  "timeline": "Eine Zeitreise durch die Geschichte",
+
+  "welcomeMessage": "Hallo {user}, Herzlich Willkommen in Kalinar.",
+  "@welcomeMessage": {
+    "placeholders": {
+      "user": {
+        "type": "String"
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../../utilities/async_value_extension.dart';
+import '../../../../../utils/http/async_value_extension.dart';
 import '../../../application/controllers/character_controller.dart';
 import '../../../domain/character.dart';
 import 'auto_saving_text_field.dart';
@@ -32,7 +32,7 @@ class NotesTextField extends HookConsumerWidget {
       onSaving: (currentText) async {
         final state = await ref.read(characterControllerProvider).update(character.id, {"notes": currentText});
         if (!context.mounted) return;
-        state.showSnackbarOnError(context);
+        state.showNotification(context);
       },
     );
   }

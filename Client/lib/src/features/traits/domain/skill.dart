@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../group_management/domain/user.dart';
+import '../../user_management/domain/user.dart';
 import 'ability.dart';
 import 'attribute_value.dart';
 import 'suggestable.dart';

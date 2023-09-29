@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 
-import '../../../../utilities/async_value_extension.dart';
+import '../../../../utils/http/async_value_extension.dart';
 import '../../skilltrees/domain/skilltree_overview.dart';
 import '../application/characters_controller.dart';
 
@@ -20,7 +20,7 @@ class _SkillpointSelectorState extends ConsumerState<SkillpointSelector> {
     final points = value.round();
     final response = await ref.read(charactersProvider.notifier).update(widget.tree.id, points);
     if (!mounted) return;
-    response.showSnackbarOnError(context);
+    response.showNotification(context);
   }
 
   @override

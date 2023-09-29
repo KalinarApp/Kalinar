@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../utilities/global_attributes.dart';
-import '../../group_management/domain/user.dart';
+import '../../../utils/global_attributes.dart';
+import '../../user_management/domain/user.dart';
 import 'suggestable.dart';
 import 'suggestion_state.dart';
 

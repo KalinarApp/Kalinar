@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../utilities/constants.dart';
+import '../utils/constants.dart';
 
 class UserMenu extends ConsumerWidget {
   const UserMenu({Key? key}) : super(key: key);

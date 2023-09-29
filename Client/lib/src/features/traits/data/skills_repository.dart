@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../utilities/base_repository.dart';
+import '../../../utils/base_repository.dart';
 import '../domain/skill.dart';
 
 class SkillsRepository extends HeroBaseRepository {
