@@ -16,9 +16,9 @@ class HomeContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(getUserGroupsByIdProvider);
-    final user = ref.watch(getUserByIdProvider);
+    final user = ref.watch(getCurrentUserProvider);
 
-    ref.listen(getUserByIdProvider, (old, user) {
+    ref.listen(getCurrentUserProvider, (old, user) {
       if ((old?.hasError ?? false) && user.hasError) return;
       if (user.hasError && user.error is ErrorResponse && (user.error as ErrorResponse).type == userNotFoundException) {
         context.pushNamed(AppRoute.userProfileEdit.name);

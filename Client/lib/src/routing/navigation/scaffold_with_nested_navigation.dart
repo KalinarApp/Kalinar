@@ -24,7 +24,7 @@ class ScaffoldWithNestedNavigation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(getUserByIdProvider);
+    final user = ref.watch(getCurrentUserProvider);
 
     final tabs = [
       NavigationItem(route: AppRoute.home.route, icon: Icons.home, title: (AppLocalizations.of(context)!.home)),

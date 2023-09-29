@@ -6,12 +6,11 @@ part of 'ability_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$abilityRepositoryHash() => r'17a42f1b0a5caccb2ccefaa3990bc0ddc707e34b';
+String _$abilityRepositoryHash() => r'645269bbc1d03ad257af6f9bb1a047e704892f69';
 
 /// See also [abilityRepository].
 @ProviderFor(abilityRepository)
-final abilityRepositoryProvider =
-    AutoDisposeProvider<AbilityRepository>.internal(
+final abilityRepositoryProvider = Provider<AbilityRepository>.internal(
   abilityRepository,
   name: r'abilityRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,8 +20,8 @@ final abilityRepositoryProvider =
   allTransitiveDependencies: null,
 );
 
-typedef AbilityRepositoryRef = AutoDisposeProviderRef<AbilityRepository>;
-String _$listAbilitiesHash() => r'434acfbe7922a47c82f6092f1a90251cb72d2beb';
+typedef AbilityRepositoryRef = ProviderRef<AbilityRepository>;
+String _$getAbilityByIdHash() => r'6797bf5e0a240b078f7d071e60fa1a3afd6682fc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -45,6 +44,88 @@ class _SystemHash {
   }
 }
 
+typedef GetAbilityByIdRef = AutoDisposeFutureProviderRef<Ability>;
+
+/// See also [getAbilityById].
+@ProviderFor(getAbilityById)
+const getAbilityByIdProvider = GetAbilityByIdFamily();
+
+/// See also [getAbilityById].
+class GetAbilityByIdFamily extends Family<AsyncValue<Ability>> {
+  /// See also [getAbilityById].
+  const GetAbilityByIdFamily();
+
+  /// See also [getAbilityById].
+  GetAbilityByIdProvider call(
+    String abilityId,
+  ) {
+    return GetAbilityByIdProvider(
+      abilityId,
+    );
+  }
+
+  @override
+  GetAbilityByIdProvider getProviderOverride(
+    covariant GetAbilityByIdProvider provider,
+  ) {
+    return call(
+      provider.abilityId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getAbilityByIdProvider';
+}
+
+/// See also [getAbilityById].
+class GetAbilityByIdProvider extends AutoDisposeFutureProvider<Ability> {
+  /// See also [getAbilityById].
+  GetAbilityByIdProvider(
+    this.abilityId,
+  ) : super.internal(
+          (ref) => getAbilityById(
+            ref,
+            abilityId,
+          ),
+          from: getAbilityByIdProvider,
+          name: r'getAbilityByIdProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getAbilityByIdHash,
+          dependencies: GetAbilityByIdFamily._dependencies,
+          allTransitiveDependencies:
+              GetAbilityByIdFamily._allTransitiveDependencies,
+        );
+
+  final String abilityId;
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetAbilityByIdProvider && other.abilityId == abilityId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, abilityId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$listAbilitiesHash() => r'518593676ed5e947802a7a3a5a8845d705edb13d';
 typedef ListAbilitiesRef = AutoDisposeFutureProviderRef<List<Ability>>;
 
 /// See also [listAbilities].
@@ -127,7 +208,7 @@ class ListAbilitiesProvider extends AutoDisposeFutureProvider<List<Ability>> {
 }
 
 String _$listAbilityTagsByGroupIdHash() =>
-    r'9f603b8c70a6f5e48421ce6c80b51fc8f0b8fdb8';
+    r'c19b5a085c2c030627e05774dcec8c4badd8431d';
 typedef ListAbilityTagsByGroupIdRef
     = AutoDisposeFutureProviderRef<List<String>>;
 
@@ -213,7 +294,7 @@ class ListAbilityTagsByGroupIdProvider
 }
 
 String _$listAbilityTagsByAbilityIdHash() =>
-    r'e428391fd6ec0392122579731462916be58ac50c';
+    r'e73794d8d313971793d77e31f56aae669673f3d6';
 typedef ListAbilityTagsByAbilityIdRef
     = AutoDisposeFutureProviderRef<List<String>>;
 
@@ -288,88 +369,6 @@ class ListAbilityTagsByAbilityIdProvider
   bool operator ==(Object other) {
     return other is ListAbilityTagsByAbilityIdProvider &&
         other.abilityId == abilityId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, abilityId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-String _$getAbilityByIdHash() => r'162c82e0dcfaa9ce13338df3b6884c2850ad91c1';
-typedef GetAbilityByIdRef = AutoDisposeFutureProviderRef<Ability>;
-
-/// See also [getAbilityById].
-@ProviderFor(getAbilityById)
-const getAbilityByIdProvider = GetAbilityByIdFamily();
-
-/// See also [getAbilityById].
-class GetAbilityByIdFamily extends Family<AsyncValue<Ability>> {
-  /// See also [getAbilityById].
-  const GetAbilityByIdFamily();
-
-  /// See also [getAbilityById].
-  GetAbilityByIdProvider call(
-    String abilityId,
-  ) {
-    return GetAbilityByIdProvider(
-      abilityId,
-    );
-  }
-
-  @override
-  GetAbilityByIdProvider getProviderOverride(
-    covariant GetAbilityByIdProvider provider,
-  ) {
-    return call(
-      provider.abilityId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'getAbilityByIdProvider';
-}
-
-/// See also [getAbilityById].
-class GetAbilityByIdProvider extends AutoDisposeFutureProvider<Ability> {
-  /// See also [getAbilityById].
-  GetAbilityByIdProvider(
-    this.abilityId,
-  ) : super.internal(
-          (ref) => getAbilityById(
-            ref,
-            abilityId,
-          ),
-          from: getAbilityByIdProvider,
-          name: r'getAbilityByIdProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$getAbilityByIdHash,
-          dependencies: GetAbilityByIdFamily._dependencies,
-          allTransitiveDependencies:
-              GetAbilityByIdFamily._allTransitiveDependencies,
-        );
-
-  final String abilityId;
-
-  @override
-  bool operator ==(Object other) {
-    return other is GetAbilityByIdProvider && other.abilityId == abilityId;
   }
 
   @override

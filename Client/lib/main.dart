@@ -17,7 +17,7 @@ void _loadFlavors() {
   if (kDebugMode) {
     FlavorConfig(name: "DEV", variables: {"baseUrl": !kIsWeb && Platform.isAndroid ? "10.0.2.2" : "localhost"});
   } else {
-    FlavorConfig(variables: {"baseUrl": "api.kalinar.app"});
+    FlavorConfig(variables: {"baseUrl": "localhost"});
   }
 }
 

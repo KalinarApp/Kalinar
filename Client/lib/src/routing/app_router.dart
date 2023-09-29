@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kalinar/src/features/character_traits/presentation/character_traits_screen.dart';
+import 'package:kalinar/src/features/character_traits/presentation/components/abilities/abilities_tab.dart';
+import 'package:kalinar/src/features/character_traits/presentation/components/abilities/ability_detail_dialog.dart';
 import 'package:kalinar/src/features/user_management/presentation/edit_user_dialog.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -128,16 +130,28 @@ GoRouter goRouter(GoRouterRef ref) {
           StatefulShellBranch(
             navigatorKey: _traitsNavigatorKey,
             routes: [
-              StatefulShellRoute.indexedStack(
-                builder: (context, state, navigationShell) => CharacterTraitsScreen(navigationShell: navigationShell),
+              StatefulShellRoute(
+                navigatorContainerBuilder: (context, navigationShell, children) =>
+                    CharacterTraitsScreen(navigationShell: navigationShell, children: children),
+                builder: (context, state, navigationShell) => navigationShell,
                 branches: [
                   StatefulShellBranch(
                     navigatorKey: _traitAbilityNavigatorKey,
                     routes: [
                       GoRoute(
-                        path: '/traits/abilties',
-                        name: 'Abilities',
-                        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Text('Abilities')),
+                        path: AbilitiesTab.path,
+                        name: AbilitiesTab.name,
+                        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const AbilitiesTab()),
+                        routes: [
+                          GoRoute(
+                            path: AbilityDetailDialog.path,
+                            name: AbilityDetailDialog.name,
+                            pageBuilder: (context, state) => DialogPage(
+                              key: state.pageKey,
+                              builder: (_) => AbilityDetailDialog(state.pathParameters["id"]!),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -147,7 +161,7 @@ GoRouter goRouter(GoRouterRef ref) {
                       GoRoute(
                         path: '/traits/attributes',
                         name: 'Attributes',
-                        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Text('Attributes')),
+                        pageBuilder: (context, state) => NoTransitionPage(key: state.pageKey, child: const Text("Attributes")),
                       ),
                     ],
                   )

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:kalinar/src/utils/http/ref_extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../utils/http/kalinar_http_client.dart';
@@ -62,27 +65,34 @@ class AbilityRepository {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 AbilityRepository abilityRepository(AbilityRepositoryRef ref) {
   return AbilityRepository(ref.watch(httpClientProvider));
 }
 
 @riverpod
+FutureOr<Ability> getAbilityById(GetAbilityByIdRef ref, String abilityId) {
+  ref.cacheFor();
+  return ref.watch(abilityRepositoryProvider).getById(abilityId);
+}
+
+@riverpod
 FutureOr<List<Ability>> listAbilities(ListAbilitiesRef ref, String groupId) {
+  ref.cacheFor(duration: const Duration(seconds: 30));
+
   return ref.watch(abilityRepositoryProvider).list(groupId);
 }
 
 @riverpod
 FutureOr<List<String>> listAbilityTagsByGroupId(ListAbilityTagsByGroupIdRef ref, String groupId) {
+  ref.cacheFor();
+
   return ref.watch(abilityRepositoryProvider).listTagsByGroupId(groupId);
 }
 
 @riverpod
 FutureOr<List<String>> listAbilityTagsByAbilityId(ListAbilityTagsByAbilityIdRef ref, String abilityId) {
-  return ref.watch(abilityRepositoryProvider).listTagsByAbilityId(abilityId);
-}
+  ref.cacheFor();
 
-@riverpod
-FutureOr<Ability> getAbilityById(GetAbilityByIdRef ref, String abilityId) {
-  return ref.watch(abilityRepositoryProvider).getById(abilityId);
+  return ref.watch(abilityRepositoryProvider).listTagsByAbilityId(abilityId);
 }

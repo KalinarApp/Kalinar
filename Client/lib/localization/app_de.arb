@@ -28,10 +28,12 @@
   "groupInvitationCode": "Einladungscode",
   "groupJoinedMessage": "Du bist der Gruppe beigetreten.",
 
-  "skill": "Skill",
-  "skills": "Skills",
   "ability": "Talent",
   "abilities": "Talente",
+  "abilityPassiveToolTip": "Dieses Talent ist ein passives Talent, dass bedeutet, es muss nicht aktiviert werden, sondern ist immer aktiv.",
+
+  "skill": "Skill",
+  "skills": "Skills",
   "attribute": "Attribut",
   "attributes": "Attribute",
   "skilltree": "Skillbaum",

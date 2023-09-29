@@ -12,9 +12,7 @@ class DefaultUserAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundColor: context.colorScheme.onSurfaceVariant,
-      child: LayoutBuilder(
-        builder: (context, constraints) => Icon(Icons.person_4, size: constraints.maxHeight, color: context.theme.dialogBackgroundColor),
-      ),
+      child: Icon(Icons.person_4, size: (radius ?? 20) * 2, color: context.theme.dialogBackgroundColor),
     );
   }
 }

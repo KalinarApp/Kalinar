@@ -25,7 +25,7 @@ class UserProfileDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(getUserByIdProvider);
+    final user = ref.watch(getCurrentUserProvider);
     final state = ref.watch(editUserDialogControllerProvider);
     final groups = ref.watch(getUserGroupsByIdProvider);
     final selectedGroup = ref.watch(getSelectedGroupProvider);

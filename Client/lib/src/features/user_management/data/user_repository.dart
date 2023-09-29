@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../constants/storage_key.dart';
 import '../../../utils/http/kalinar_http_client.dart';
 import '../../../utils/local_storage/shared_preferences_helper.dart';
-import '../../../constants/storage_key.dart';
 import '../../authentication/data/firebase_auth_repository.dart';
 import '../../group_management/domain/group_member.dart';
 import '../../group_management/domain/role.dart';
@@ -30,8 +30,13 @@ UserRepository userRepository(UserRepositoryRef ref) {
 }
 
 @riverpod
-FutureOr<User> getUserById(GetUserByIdRef ref) {
+FutureOr<User> getCurrentUser(GetCurrentUserRef ref) {
   final userId = ref.watch(firebaseAuthProvider).currentUser!.uid;
+  return ref.watch(userRepositoryProvider).getById(userId);
+}
+
+@riverpod
+FutureOr<User> getUserById(GetUserByIdRef ref, String userId) {
   return ref.watch(userRepositoryProvider).getById(userId);
 }
 

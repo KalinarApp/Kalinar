@@ -25,7 +25,7 @@ class UserMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUser = ref.watch(getUserByIdProvider);
+    final currentUser = ref.watch(getCurrentUserProvider);
 
     final avatar = Center(child: UserAvatar(imageUrl: currentUser.hasValue ? currentUser.value!.imageUrl : null));
 

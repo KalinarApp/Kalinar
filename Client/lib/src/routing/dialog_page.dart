@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kalinar/src/constants/app_sizes.dart';
+
+import '../common_widgets/custom_image_button.dart';
 
 class DialogPage<T> extends Page<T> {
   final Offset? anchorPoint;
@@ -29,7 +32,19 @@ class DialogPage<T> extends Page<T> {
         context: context,
         settings: this,
         builder: (ctx) => Dialog(
-          child: builder(ctx),
+          child: Stack(
+            children: [
+              builder(ctx),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: CustomImageButton(
+                  icon: const Icon(Icons.close, size: Sizes.p20),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+            ],
+          ),
         ),
         anchorPoint: anchorPoint,
         barrierColor: barrierColor,

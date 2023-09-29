@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kalinar/src/features/character_traits/application/search_controller.dart';
 
-import '../../../common_widgets/content_tab.dart';
 import '../../../common_widgets/no_animation_tab_bar_view.dart';
+import '../../../utils/build_context_extensions.dart';
 
 class CharacterTraitsScreen extends ConsumerStatefulWidget {
   final StatefulNavigationShell navigationShell;
+  final List<Widget> children;
 
-  const CharacterTraitsScreen({super.key, required this.navigationShell});
+  const CharacterTraitsScreen({super.key, required this.navigationShell, required this.children});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _CharacterTraitsScreenState();
@@ -18,6 +20,11 @@ class CharacterTraitsScreen extends ConsumerStatefulWidget {
 
 class _CharacterTraitsScreenState extends ConsumerState<CharacterTraitsScreen> with SingleTickerProviderStateMixin {
   late final TabController _tabController = TabController(length: 2, vsync: this, initialIndex: widget.navigationShell.currentIndex);
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void didUpdateWidget(covariant CharacterTraitsScreen oldWidget) {
@@ -31,42 +38,21 @@ class _CharacterTraitsScreenState extends ConsumerState<CharacterTraitsScreen> w
 
   @override
   Widget build(BuildContext context) {
-    final tabs = [
-      ContentTab(
-        // icon: const FaIcon(Kalinar.star, size: 18),
-        text: AppLocalizations.of(context)!.abilities,
-        content: const Text("Abilties"),
-      ),
-      ContentTab(
-        // icon: const FaIcon(FontAwesomeIcons.tag, size: 18),
-        text: AppLocalizations.of(context)!.attributes,
-        content: const Text("Attributes"),
-      ),
-      // ContentTab(
-      //   icon: const FaIcon(Kalinar.skill),
-      //   text: AppLocalizations.of(context)!.skills,
-      //   content: const Text("Skills"),
-      // ),
-      // ContentTab(
-      //   icon: const FaIcon(FontAwesomeIcons.person),
-      //   text: AppLocalizations.of(context)!.races,
-      //   content: const Text("Races"),
-      // )
-    ];
-
     return LayoutBuilder(
       builder: (ctx, constraints) => Scaffold(
         appBar: AppBarWithSearchSwitch(
-          onChanged: (_) {},
+          onChanged: (value) => ref.watch(searchControllerProvider.notifier).search(value),
           fieldHintText: AppLocalizations.of(context)!.search,
-          
           appBarBuilder: (context) => AppBar(
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
             actions: const [AppBarSearchButton()],
             title: TabBar(
-              tabs: tabs,
+              tabs: [
+                Tab(text: context.localizations.abilities),
+                Tab(text: context.localizations.attributes),
+              ],
               isScrollable: false,
               padding: const EdgeInsets.symmetric(vertical: 10),
               controller: _tabController,
@@ -75,7 +61,7 @@ class _CharacterTraitsScreenState extends ConsumerState<CharacterTraitsScreen> w
             ),
           ),
         ),
-        body: NoAnimationTabBarView(controller: _tabController, children: tabs.map((e) => e.content).toList()),
+        body: NoAnimationTabBarView(controller: _tabController, children: widget.children),
       ),
     );
   }
