@@ -14,7 +14,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}-New
+  IMAGE_NAME: ${{ github.repository }}
+  TAG: v2
 
 jobs:
   build:
@@ -49,12 +50,6 @@ jobs:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ github.token }}
-        
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@v4.0.1
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     
     - name: Build and push Docker images
       uses: docker/build-push-action@v3
@@ -62,5 +57,4 @@ jobs:
         context: ./NewServer
         file: NewServer/Kalinar/Dockerfile
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: ${{ env.TAG }}
