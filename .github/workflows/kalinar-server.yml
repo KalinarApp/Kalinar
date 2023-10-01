@@ -14,7 +14,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: jocur/kalinar
+  IMAGE_NAME: kalinarapp/kalinar
 
 jobs:
   build:
