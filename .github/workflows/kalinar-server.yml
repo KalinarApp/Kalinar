@@ -14,7 +14,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: jocur/kalinar
 
 jobs:
   build:
@@ -56,4 +56,4 @@ jobs:
         context: ./NewServer
         file: NewServer/Kalinar/Dockerfile
         push: true
-        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest , ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v2
+        tags: ${{ env.IMAGE_NAME }}:latest , ${{ env.IMAGE_NAME }}:v2
