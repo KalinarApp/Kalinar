@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  kalinar:
+    image: ${DOCKER_REGISTRY-}kalinar
+    ports:
+      - 443:443
+      - 80:80
+    build:
+      context: .
+      dockerfile: Kalinar/Dockerfile
+    environment:
+      - ConnectionStrings__Database=${ConnectionStrings__Database}
+      - Services__S3__TenantId=${S3_TenantId}
+      - Services__S3__AccessKey=${S3_AccessKey}
+      - Services__S3__SecretKey=${S3_SecretKey}
+      - Services__S3__Bucket=kalinar
