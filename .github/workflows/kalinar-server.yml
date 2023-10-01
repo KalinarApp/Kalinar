@@ -15,7 +15,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  TAG: v2
+  TAGS: v2,latest
 
 jobs:
   build:
@@ -57,4 +57,4 @@ jobs:
         context: ./NewServer
         file: NewServer/Kalinar/Dockerfile
         push: true
-        tags: ${{ env.REGISTRY }}/${{ github.repository }}/:${{ env.TAG }}
+        tags: ${{ env.TAGS }}
