@@ -46,14 +46,7 @@ public class Program
 
         app.UseCors(options =>
         {
-            if (app.Environment.IsDevelopment())
-            {
-                options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-            }
-            else
-            {
-                options.WithOrigins("https://kalinar.app").AllowAnyHeader().AllowAnyMethod();
-            }
+            options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         });
 
         await app.UseDatabaseMigrations();
